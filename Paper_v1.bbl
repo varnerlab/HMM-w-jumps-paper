@@ -40,15 +40,53 @@ R.~F. Engle, ``Autoregressive {Conditional} {Heteroscedasticity} with
   {Estimates} of the {Variance} of {United} {Kingdom} {Inflation},''
   \emph{Econometrica}, vol.~50, no.~4, pp. 987--1007, 1982.
 
-\bibitem{schwert_why_1989}
-G.~W. Schwert, ``Why {Does} {Stock} {Market} {Volatility} {Change} {Over}
-  {Time}?'' \emph{The Journal of Finance}, vol.~44, no.~5, pp. 1115--1153,
-  1989.
+\bibitem{bollerslev_garch_1986}
+T.~Bollerslev, ``Generalized {Autoregressive} {Conditional}
+  {Heteroscedasticity},'' \emph{Journal of Econometrics}, vol.~31, no.~3, pp.
+  307--327, 1986.
 
-\bibitem{stein_stock_1991}
-E.~M. Stein and J.~C. Stein, ``Stock price distributions with stochastic
-  volatility: an analytic approach,'' \emph{The Review of Financial Studies},
-  vol.~4, no.~4, pp. 727--752, 1991.
+\bibitem{heston_stochastic_1993}
+S.~L. Heston, ``A {Closed}-{Form} {Solution} for {Options} with {Stochastic}
+  {Volatility} with {Applications} to {Bond} and {Currency} {Options},''
+  \emph{The Review of Financial Studies}, vol.~6, no.~2, pp. 327--343, 1993.
+
+\bibitem{merton_jump_1976}
+R.~C. Merton, ``Option {Pricing} {When} {Underlying} {Stock} {Returns} {Are}
+  {Discontinuous},'' \emph{Journal of Financial Economics}, vol.~3, no. 1-2,
+  pp. 125--144, 1976.
+
+\bibitem{elman_rnn_1990}
+J.~L. Elman, ``Finding {Structure} in {Time},'' \emph{Cognitive Science},
+  vol.~14, no.~2, pp. 179--211, 1990.
+
+\bibitem{hochreiter_lstm_1997}
+S.~Hochreiter and J.~Schmidhuber, ``Long {Short}-{Term} {Memory},''
+  \emph{Neural Computation}, vol.~9, no.~8, pp. 1735--1780, 1997.
+
+\bibitem{fischer_krauss_2018}
+T.~Fischer and C.~Krauss, ``Deep learning with long short-term memory networks
+  for financial market predictions,'' \emph{European Journal of Operational
+  Research}, vol. 270, no.~2, pp. 654--669, 2018.
+
+\bibitem{salinas_deepar_2020}
+D.~Salinas, V.~Flunkert, J.~Gasthaus, and T.~Januschowski, ``Deepar:
+  Probabilistic forecasting with autoregressive recurrent networks,''
+  \emph{International Journal of Forecasting}, vol.~36, no.~3, pp. 1181--1191,
+  2020.
+
+\bibitem{liu_rnn_volatility_2017}
+Y.~Liu, Z.~Qin, P.~Li, and T.~Wan, ``Stock volatility prediction using
+  recurrent neural networks with sentiment analysis,'' \emph{arXiv preprint
+  arXiv:1705.02447}, 2017.
+
+\bibitem{choi_arima_lstm_2018}
+H.~K. Choi, ``Stock price correlation coefficient prediction with arima-lstm
+  hybrid model,'' \emph{arXiv preprint arXiv:1808.01560}, 2018.
+
+\bibitem{alparslan_gamestop_2021}
+Y.~Alparslan and E.~Kim, ``Extreme volatility prediction in stock market: When
+  gamestop meets long short-term memory networks,'' \emph{arXiv preprint
+  arXiv:2103.01121}, 2021.
 
 \bibitem{rabiner_introduction_1986}
 L.~Rabiner and B.~Juang, ``An introduction to hidden {Markov} models,''
@@ -63,17 +101,6 @@ T.~Rydén, T.~Teräsvirta, and S.~Åsbrink, ``Stylized facts of daily return
 J.~Bulla and I.~Bulla, ``Stylized facts of financial time series and hidden
   semi-{Markov} models,'' \emph{Computational Statistics \& Data Analysis},
   vol.~51, no.~4, pp. 2192--2209, 2006.
-
-\bibitem{assefa_generating_2021}
-S.~A. Assefa, D.~Dervovic, M.~Mahfouz, R.~E. Tillman, P.~Reddy, and M.~Veloso,
-  ``Generating synthetic data in finance: opportunities, challenges and
-  pitfalls,'' in \emph{Proceedings of the {First} {ACM} {International}
-  {Conference} on {AI} in {Finance}}, 2021, pp. 1--8.
-
-\bibitem{kwon_can_2024}
-S.~Kwon and Y.~Lee, ``Can {GANs} {Learn} the {Stylized} {Facts} of {Financial}
-  {Time} {Series}?'' in \emph{Proceedings of the 5th {ACM} {International}
-  {Conference} on {AI} in {Finance}}, 2024, pp. 126--133.
 
 \bibitem{au_yeung_jump_2020}
 J.~F.~K. Au~Yeung, Z.-k. Wei, K.~Y. Chan, H.~Y.~K. Lau, and K.-F.~C. Yiu,
@@ -119,6 +146,17 @@ P.~Glasserman, \emph{Monte {Carlo} {Methods} in {Financial}
 \bibitem{rossi_volatility_2006}
 A.~Rossi and G.~M. Gallo, ``Volatility estimation via hidden {Markov} models,''
   \emph{Journal of Empirical Finance}, vol.~13, no.~2, pp. 203--230, 2006.
+
+\bibitem{assefa_generating_2021}
+S.~A. Assefa, D.~Dervovic, M.~Mahfouz, R.~E. Tillman, P.~Reddy, and M.~Veloso,
+  ``Generating synthetic data in finance: opportunities, challenges and
+  pitfalls,'' in \emph{Proceedings of the {First} {ACM} {International}
+  {Conference} on {AI} in {Finance}}, 2021, pp. 1--8.
+
+\bibitem{kwon_can_2024}
+S.~Kwon and Y.~Lee, ``Can {GANs} {Learn} the {Stylized} {Facts} of {Financial}
+  {Time} {Series}?'' in \emph{Proceedings of the 5th {ACM} {International}
+  {Conference} on {AI} in {Finance}}, 2024, pp. 126--133.
 
 \bibitem{ohara_market_1998}
 M.~O'Hara, \emph{Market {Microstructure} {Theory}}.\hskip 1em plus 0.5em minus
