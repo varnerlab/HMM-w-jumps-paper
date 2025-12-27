@@ -123,10 +123,6 @@ J.~A. Bilmes, ``A {Gentle} {Tutorial} of the {EM} {Algorithm} and its
   {Hidden} {Markov} {Models},'' \emph{International Computer Science
   Institute}, 1998.
 
-\bibitem{manganelli_2004}
-S.~Manganelli and R.~F. Engle, ``Value at risk models in finance,''
-  \emph{European Central Bank Working Paper Series}, 2004.
-
 \bibitem{kou_jump-diffusion_2002}
 S.~G. Kou, ``A {Jump}-{Diffusion} {Model} for {Option} {Pricing},''
   \emph{Management Science}, vol.~48, no.~8, pp. 1086--1101, 2002.
@@ -161,6 +157,10 @@ S.~Kwon and Y.~Lee, ``Can {GANs} {Learn} the {Stylized} {Facts} of {Financial}
 \bibitem{ohara_market_1998}
 M.~O'Hara, \emph{Market {Microstructure} {Theory}}.\hskip 1em plus 0.5em minus
   0.4em\relax Wiley, 1998.
+
+\bibitem{manganelli_2004}
+S.~Manganelli and R.~F. Engle, ``Value at risk models in finance,''
+  \emph{European Central Bank Working Paper Series}, 2004.
 
 \bibitem{dias_mixture_2010}
 J.~G. Dias, J.~K. Vermunt, and S.~Ramos, ``Mixture {Hidden} {Markov} {Models}
