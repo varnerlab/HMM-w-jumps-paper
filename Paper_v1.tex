@@ -10,6 +10,7 @@
 \usepackage[helvet]{sfmath}
 \DeclareMathAlphabet{\mathcal}{OMS}{cmsy}{m}{n}
 
+
 % --- PACKAGES ---
 \usepackage[margin=1in]{geometry}
 \usepackage{amsmath, amssymb, amsfonts}
@@ -27,9 +28,75 @@
 \graphicspath{{figs/}} 
 \usepackage[section]{placeins}
 
+\usepackage{url}  % Formatting web addresses
+\usepackage{ifthen}  % Conditional
+\usepackage{multicol}   %Columns
+\usepackage[utf8]{inputenc} %unicode support
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{epsfig}
+\usepackage{epstopdf}
+\usepackage{graphicx}
+\usepackage[margin=0.1pt,font=footnotesize,labelfont=bf]{caption}
+\usepackage{setspace}
+%\usepackage{longtable}
+\usepackage{colortbl}
+%\usepackage{palatino,lettrine}
+%\usepackage{times}
+%\usepackage[applemac]{inputenc} %applemac support if unicode package fails
+%\usepackage[latin1]{inputenc} %UNIX support if unicode package fails
+\usepackage[wide]{sidecap}
+%\usepackage[authoryear,round,comma,sort&compress]{natbib}
+\usepackage[square,sort,comma,numbers,sort&compress]{natbib}
+%\usepackage[authoryear,round]{natbib}
+\usepackage{simplemargins}
+\usepackage{fullpage}
+\usepackage{comment}
+\usepackage{textcomp}
+\usepackage{amsmath}
+%\usepackage[space]{cite}
+\urlstyle{rm}
+
+\usepackage{lineno}
+\usepackage{supertabular}
+\usepackage{multirow}
+\usepackage{booktabs}
+\usepackage{longtable}
+\usepackage{lscape}
+
 % --- CUSTOM OPERATORS ---
+\def\R{\mathbb{R}}
+\def\Eps{\mathcal{E}}
+\def\E{\mathbb{E}}
+\def\Z{\mathbb{Z}}
+\def\V{\mathbb{V}}
+\def\F{\mathcal{F}}
+\def\G{\mathcal{G}}
+\def\H{\mathcal{H}}
+\def\S{\mathcal{S}}
+\def\D{\mathcal{D}}
+\def\P{\mathbb{P}}
+\def\1{\mathbf{1}}
+\def\n{\nappa}
+\def\h{\mathbf{w}}
+\def\v{\mathbf{v}}
+\def\x{\mathbf{x}}
+\def\X{\mathcal{X}}
+\def\Y{\mathcal{Y}}
+\def\eps{\epsilon}
+\def\y{\mathbf{y}}
+\def\e{\mathbf{e}}
 \DeclareMathOperator*{\argmin}{arg\,min}
 \DeclareMathOperator*{\argmax}{arg\,max}
+\setlength\bibsep{0pt}
+\renewcommand{\rmdefault}{phv}\renewcommand{\sfdefault}{phv}
+\newcommand{\norm}[1]{\left\lVert#1\right\rVert}
+
+% Change the number format in the ref list -
+\renewcommand{\bibnumfmt}[1]{#1.}
+
+% Change Figure to Fig.
+\renewcommand{\figurename}{Fig.}
 
 % --- HEADING STYLES ---
 % \titleformat{\section}{\normalfont\Large\bfseries}{\thesection}{1em}{}
@@ -58,6 +125,8 @@
 	{-0.5\baselineskip}
 	{\normalfont\normalsize\itshape}}
 \makeatother
+
+\doublespace
 
 % --- METADATA ---
 \title{\textbf{Hybrid Hidden Markov Model for Modeling Equity Return Dynamics: A Discrete-State Approach with Jump-Diffusion}}
