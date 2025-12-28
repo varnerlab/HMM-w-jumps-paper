@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.26 (TeX Live 2024) (preloaded format=pdflatex 2024.4.15)  27 DEC 2025 20:29
+This is pdfTeX, Version 3.141592653-2.6-1.40.26 (TeX Live 2024) (preloaded format=pdflatex 2024.4.15)  27 DEC 2025 20:42
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -915,144 +915,148 @@ T1/phv/m/n/12 , [] , \OT1/phv/m/sl/12 O[]\OMS/cmsy/m/n/12 g$\T1/phv/m/n/12 .
 ] [8
 
 ]
-<figs/Fig-SPY-90-InSample-Density-Comparison-NJ.pdf, id=117, 602.25pt x 401.5pt
->
-File: figs/Fig-SPY-90-InSample-Density-Comparison-NJ.pdf Graphic file (type pdf
-)
-<use figs/Fig-SPY-90-InSample-Density-Comparison-NJ.pdf>
-Package pdftex.def Info: figs/Fig-SPY-90-InSample-Density-Comparison-NJ.pdf  us
-ed on input line 233.
-(pdftex.def)             Requested size: 225.4804pt x 150.3232pt.
-LaTeX Font Info:    Font shape `T1/phv/m/n' will be
-(Font)              scaled to size 9.49997pt on input line 234.
-LaTeX Font Info:    Font shape `T1/phv/b/n' will be
-(Font)              scaled to size 7.59998pt on input line 234.
-<figs/Fig-SPY-90-InSample-Return-Trajectories-NJ.pdf, id=118, 602.25pt x 401.5p
-t>
-File: figs/Fig-SPY-90-InSample-Return-Trajectories-NJ.pdf Graphic file (type pd
-f)
-<use figs/Fig-SPY-90-InSample-Return-Trajectories-NJ.pdf>
-Package pdftex.def Info: figs/Fig-SPY-90-InSample-Return-Trajectories-NJ.pdf  u
-sed on input line 239.
-(pdftex.def)             Requested size: 225.4804pt x 150.3232pt.
-<figs/Fig-SPY-90-ACF-Absolute-Growth-NJ.pdf, id=119, 602.25pt x 401.5pt>
-File: figs/Fig-SPY-90-ACF-Absolute-Growth-NJ.pdf Graphic file (type pdf)
-<use figs/Fig-SPY-90-ACF-Absolute-Growth-NJ.pdf>
-Package pdftex.def Info: figs/Fig-SPY-90-ACF-Absolute-Growth-NJ.pdf  used on in
-put line 245.
-(pdftex.def)             Requested size: 225.4804pt x 150.3232pt.
-<figs/Fig-SPY-90-ACF-Growth-NJ.pdf, id=120, 602.25pt x 401.5pt>
-File: figs/Fig-SPY-90-ACF-Growth-NJ.pdf Graphic file (type pdf)
-<use figs/Fig-SPY-90-ACF-Growth-NJ.pdf>
-Package pdftex.def Info: figs/Fig-SPY-90-ACF-Growth-NJ.pdf  used on input line 
-251.
-(pdftex.def)             Requested size: 225.4804pt x 150.3232pt.
-LaTeX Font Info:    Font shape `T1/phv/b/n' will be
-(Font)              scaled to size 9.49997pt on input line 254.
-LaTeX Font Info:    Font shape `OT1/phv/m/n' will be
-(Font)              scaled to size 4.74998pt on input line 254.
-LaTeX Font Info:    Font shape `OT1/phv/bx/n' in size <10> not available
-(Font)              Font shape `OT1/phv/b/n' tried instead on input line 254.
-LaTeX Font Info:    Font shape `OT1/phv/b/n' will be
-(Font)              scaled to size 9.49997pt on input line 254.
-LaTeX Font Info:    Font shape `OT1/phv/bx/n' in size <7> not available
-(Font)              Font shape `OT1/phv/b/n' tried instead on input line 254.
-LaTeX Font Info:    Font shape `OT1/phv/b/n' will be
-(Font)              scaled to size 6.64998pt on input line 254.
-LaTeX Font Info:    Font shape `OT1/phv/bx/n' in size <5> not available
-(Font)              Font shape `OT1/phv/b/n' tried instead on input line 254.
-LaTeX Font Info:    Font shape `OT1/phv/b/n' will be
-(Font)              scaled to size 4.74998pt on input line 254.
-LaTeX Font Info:    Font shape `OT1/phv/m/sl' will be
-(Font)              scaled to size 4.74998pt on input line 254.
-<figs/Fig-SPY-90-InSample-Density-Comparison-HMM-WJ.pdf, id=123, 602.25pt x 401
+<figs/Fig-SPY-90-InSample-Density-Comparison-HMM-WJ.pdf, id=119, 602.25pt x 401
 .5pt>
 File: figs/Fig-SPY-90-InSample-Density-Comparison-HMM-WJ.pdf Graphic file (type
  pdf)
 <use figs/Fig-SPY-90-InSample-Density-Comparison-HMM-WJ.pdf>
 Package pdftex.def Info: figs/Fig-SPY-90-InSample-Density-Comparison-HMM-WJ.pdf
-  used on input line 264.
+  used on input line 235.
 (pdftex.def)             Requested size: 225.4804pt x 150.3232pt.
-<figs/Fig-SPY-90-InSample-Return-Trajectories-WJ.pdf, id=124, 602.25pt x 401.5p
+LaTeX Font Info:    Font shape `T1/phv/m/n' will be
+(Font)              scaled to size 9.49997pt on input line 236.
+LaTeX Font Info:    Font shape `T1/phv/b/n' will be
+(Font)              scaled to size 7.59998pt on input line 236.
+<figs/Fig-SPY-90-InSample-Return-Trajectories-WJ.pdf, id=120, 602.25pt x 401.5p
 t>
 File: figs/Fig-SPY-90-InSample-Return-Trajectories-WJ.pdf Graphic file (type pd
 f)
 <use figs/Fig-SPY-90-InSample-Return-Trajectories-WJ.pdf>
 Package pdftex.def Info: figs/Fig-SPY-90-InSample-Return-Trajectories-WJ.pdf  u
-sed on input line 270.
+sed on input line 241.
 (pdftex.def)             Requested size: 225.4804pt x 150.3232pt.
-<figs/Fig-SPY-90-ACF-Absolute-Growth-WJ.pdf, id=125, 602.25pt x 401.5pt>
+<figs/Fig-SPY-90-ACF-Absolute-Growth-WJ.pdf, id=121, 602.25pt x 401.5pt>
 File: figs/Fig-SPY-90-ACF-Absolute-Growth-WJ.pdf Graphic file (type pdf)
 <use figs/Fig-SPY-90-ACF-Absolute-Growth-WJ.pdf>
 Package pdftex.def Info: figs/Fig-SPY-90-ACF-Absolute-Growth-WJ.pdf  used on in
-put line 276.
+put line 247.
 (pdftex.def)             Requested size: 225.4804pt x 150.3232pt.
-<figs/Fig-SPY-90-ACF-Growth-WJ.pdf, id=126, 602.25pt x 401.5pt>
+<figs/Fig-SPY-90-ACF-Growth-WJ.pdf, id=122, 602.25pt x 401.5pt>
 File: figs/Fig-SPY-90-ACF-Growth-WJ.pdf Graphic file (type pdf)
 <use figs/Fig-SPY-90-ACF-Growth-WJ.pdf>
 Package pdftex.def Info: figs/Fig-SPY-90-ACF-Growth-WJ.pdf  used on input line 
-282.
+253.
 (pdftex.def)             Requested size: 225.4804pt x 150.3232pt.
- [9 <./figs/Fig-SPY-90-InSample-Density-Comparison-NJ.pdf> <./figs/Fig-SPY-90-I
-nSample-Return-Trajectories-NJ.pdf> <./figs/Fig-SPY-90-ACF-Absolute-Growth-NJ.p
-df> <./figs/Fig-SPY-90-ACF-Growth-NJ.pdf>] [10 <./figs/Fig-SPY-90-InSample-Dens
-ity-Comparison-HMM-WJ.pdf> <./figs/Fig-SPY-90-InSample-Return-Trajectories-WJ.p
-df> <./figs/Fig-SPY-90-ACF-Absolute-Growth-WJ.pdf> <./figs/Fig-SPY-90-ACF-Growt
-h-WJ.pdf>]
-<figs/Fig-SPY-90-OOS-CorrelationDistance-WJ.pdf, id=153, 602.25pt x 401.5pt>
+LaTeX Font Info:    Font shape `T1/phv/b/n' will be
+(Font)              scaled to size 9.49997pt on input line 256.
+LaTeX Font Info:    Font shape `OT1/phv/m/n' will be
+(Font)              scaled to size 4.74998pt on input line 256.
+LaTeX Font Info:    Font shape `OT1/phv/bx/n' in size <10> not available
+(Font)              Font shape `OT1/phv/b/n' tried instead on input line 256.
+LaTeX Font Info:    Font shape `OT1/phv/b/n' will be
+(Font)              scaled to size 9.49997pt on input line 256.
+LaTeX Font Info:    Font shape `OT1/phv/bx/n' in size <7> not available
+(Font)              Font shape `OT1/phv/b/n' tried instead on input line 256.
+LaTeX Font Info:    Font shape `OT1/phv/b/n' will be
+(Font)              scaled to size 6.64998pt on input line 256.
+LaTeX Font Info:    Font shape `OT1/phv/bx/n' in size <5> not available
+(Font)              Font shape `OT1/phv/b/n' tried instead on input line 256.
+LaTeX Font Info:    Font shape `OT1/phv/b/n' will be
+(Font)              scaled to size 4.74998pt on input line 256.
+LaTeX Font Info:    Font shape `OT1/phv/m/sl' will be
+(Font)              scaled to size 4.74998pt on input line 256.
+ [9 <./figs/Fig-SPY-90-InSample-Density-Comparison-HMM-WJ.pdf> <./figs/Fig-SPY-
+90-InSample-Return-Trajectories-WJ.pdf> <./figs/Fig-SPY-90-ACF-Absolute-Growth-
+WJ.pdf> <./figs/Fig-SPY-90-ACF-Growth-WJ.pdf>] [10] [11]
+Overfull \hbox (23.2482pt too wide) in paragraph at lines 283--284
+\T1/phv/m/n/12 soft-ware li-cense from the GitHub repos-i-tory: [][]$https : / 
+/ github . com / varnerlab / HMM-[]Model-[]with-[]Jumps .
+ []
+
+[12] (./Paper_v1.bbl
+LaTeX Font Info:    Font shape `T1/phv/m/it' in size <12> not available
+(Font)              Font shape `T1/phv/m/sl' tried instead on input line 26.
+LaTeX Font Info:    Font shape `T1/phv/m/sl' will be
+(Font)              scaled to size 11.39996pt on input line 26.
+ [13] [14]) [15] [16
+
+]
+<figs/Fig-SPY-90-InSample-Density-Comparison-NJ.pdf, id=203, 602.25pt x 401.5pt
+>
+File: figs/Fig-SPY-90-InSample-Density-Comparison-NJ.pdf Graphic file (type pdf
+)
+<use figs/Fig-SPY-90-InSample-Density-Comparison-NJ.pdf>
+Package pdftex.def Info: figs/Fig-SPY-90-InSample-Density-Comparison-NJ.pdf  us
+ed on input line 315.
+(pdftex.def)             Requested size: 225.4804pt x 150.3232pt.
+<figs/Fig-SPY-90-InSample-Return-Trajectories-NJ.pdf, id=204, 602.25pt x 401.5p
+t>
+File: figs/Fig-SPY-90-InSample-Return-Trajectories-NJ.pdf Graphic file (type pd
+f)
+<use figs/Fig-SPY-90-InSample-Return-Trajectories-NJ.pdf>
+Package pdftex.def Info: figs/Fig-SPY-90-InSample-Return-Trajectories-NJ.pdf  u
+sed on input line 321.
+(pdftex.def)             Requested size: 225.4804pt x 150.3232pt.
+<figs/Fig-SPY-90-ACF-Absolute-Growth-NJ.pdf, id=205, 602.25pt x 401.5pt>
+File: figs/Fig-SPY-90-ACF-Absolute-Growth-NJ.pdf Graphic file (type pdf)
+<use figs/Fig-SPY-90-ACF-Absolute-Growth-NJ.pdf>
+Package pdftex.def Info: figs/Fig-SPY-90-ACF-Absolute-Growth-NJ.pdf  used on in
+put line 327.
+(pdftex.def)             Requested size: 225.4804pt x 150.3232pt.
+<figs/Fig-SPY-90-ACF-Growth-NJ.pdf, id=206, 602.25pt x 401.5pt>
+File: figs/Fig-SPY-90-ACF-Growth-NJ.pdf Graphic file (type pdf)
+<use figs/Fig-SPY-90-ACF-Growth-NJ.pdf>
+Package pdftex.def Info: figs/Fig-SPY-90-ACF-Growth-NJ.pdf  used on input line 
+333.
+(pdftex.def)             Requested size: 225.4804pt x 150.3232pt.
+ [17
+
+ <./figs/Fig-SPY-90-InSample-Density-Comparison-NJ.pdf> <./figs/Fig-SPY-90-InSa
+mple-Return-Trajectories-NJ.pdf> <./figs/Fig-SPY-90-ACF-Absolute-Growth-NJ.pdf>
+ <./figs/Fig-SPY-90-ACF-Growth-NJ.pdf>]
+<figs/Fig-SPY-90-OOS-CorrelationDistance-WJ.pdf, id=216, 602.25pt x 401.5pt>
 File: figs/Fig-SPY-90-OOS-CorrelationDistance-WJ.pdf Graphic file (type pdf)
 <use figs/Fig-SPY-90-OOS-CorrelationDistance-WJ.pdf>
 Package pdftex.def Info: figs/Fig-SPY-90-OOS-CorrelationDistance-WJ.pdf  used o
-n input line 300.
+n input line 345.
 (pdftex.def)             Requested size: 328.82707pt x 219.22668pt.
+ [18
+
+ <./figs/Fig-SPY-90-OOS-CorrelationDistance-WJ.pdf>]
 <figs/Fig-SPY-90-ExcessGrowthRate-Probability-Density-HMM-out-of-sample.pdf, id
-=154, 602.25pt x 401.5pt>
+=224, 602.25pt x 401.5pt>
 File: figs/Fig-SPY-90-ExcessGrowthRate-Probability-Density-HMM-out-of-sample.pd
 f Graphic file (type pdf)
 <use figs/Fig-SPY-90-ExcessGrowthRate-Probability-Density-HMM-out-of-sample.pdf
 >
 Package pdftex.def Info: figs/Fig-SPY-90-ExcessGrowthRate-Probability-Density-H
-MM-out-of-sample.pdf  used on input line 309.
+MM-out-of-sample.pdf  used on input line 356.
 (pdftex.def)             Requested size: 225.4804pt x 150.3232pt.
-<figs/Fig-SPY-90-OOS-Return-Trajectories-WJ.pdf, id=155, 602.25pt x 401.5pt>
+<figs/Fig-SPY-90-OOS-Return-Trajectories-WJ.pdf, id=225, 602.25pt x 401.5pt>
 File: figs/Fig-SPY-90-OOS-Return-Trajectories-WJ.pdf Graphic file (type pdf)
 <use figs/Fig-SPY-90-OOS-Return-Trajectories-WJ.pdf>
 Package pdftex.def Info: figs/Fig-SPY-90-OOS-Return-Trajectories-WJ.pdf  used o
-n input line 315.
+n input line 362.
 (pdftex.def)             Requested size: 225.4804pt x 150.3232pt.
-<figs/Fig-SPY-90-ACF-Absolute-Growth-WJ-OOS.pdf, id=156, 602.25pt x 401.5pt>
+<figs/Fig-SPY-90-ACF-Absolute-Growth-WJ-OOS.pdf, id=226, 602.25pt x 401.5pt>
 File: figs/Fig-SPY-90-ACF-Absolute-Growth-WJ-OOS.pdf Graphic file (type pdf)
 <use figs/Fig-SPY-90-ACF-Absolute-Growth-WJ-OOS.pdf>
 Package pdftex.def Info: figs/Fig-SPY-90-ACF-Absolute-Growth-WJ-OOS.pdf  used o
-n input line 321.
+n input line 368.
 (pdftex.def)             Requested size: 225.4804pt x 150.3232pt.
-<figs/Fig-SPY-90-ACF-Growth-WJ-OOS.pdf, id=157, 602.25pt x 401.5pt>
+<figs/Fig-SPY-90-ACF-Growth-WJ-OOS.pdf, id=227, 602.25pt x 401.5pt>
 File: figs/Fig-SPY-90-ACF-Growth-WJ-OOS.pdf Graphic file (type pdf)
 <use figs/Fig-SPY-90-ACF-Growth-WJ-OOS.pdf>
 Package pdftex.def Info: figs/Fig-SPY-90-ACF-Growth-WJ-OOS.pdf  used on input l
-ine 327.
+ine 374.
 (pdftex.def)             Requested size: 225.4804pt x 150.3232pt.
- [11] [12 <./figs/Fig-SPY-90-OOS-CorrelationDistance-WJ.pdf>]
-[13 <./figs/Fig-SPY-90-ExcessGrowthRate-Probability-Density-HMM-out-of-sample.p
-df> <./figs/Fig-SPY-90-OOS-Return-Trajectories-WJ.pdf> <./figs/Fig-SPY-90-ACF-A
-bsolute-Growth-WJ-OOS.pdf> <./figs/Fig-SPY-90-ACF-Growth-WJ-OOS.pdf>] [14
+ [19
 
-]
-Overfull \hbox (23.2482pt too wide) in paragraph at lines 348--349
-\T1/phv/m/n/12 soft-ware li-cense from the GitHub repos-i-tory: [][]$https : / 
-/ github . com / varnerlab / HMM-[]Model-[]with-[]Jumps .
- []
-
-[15] (./Paper_v1.bbl
-LaTeX Font Info:    Font shape `T1/phv/m/it' in size <12> not available
-(Font)              Font shape `T1/phv/m/sl' tried instead on input line 26.
-LaTeX Font Info:    Font shape `T1/phv/m/sl' will be
-(Font)              scaled to size 11.39996pt on input line 26.
- [16] [17]) [18] [19
-
-]
+ <./figs/Fig-SPY-90-ExcessGrowthRate-Probability-Density-HMM-out-of-sample.pdf>
+ <./figs/Fig-SPY-90-OOS-Return-Trajectories-WJ.pdf> <./figs/Fig-SPY-90-ACF-Abso
+lute-Growth-WJ-OOS.pdf> <./figs/Fig-SPY-90-ACF-Growth-WJ-OOS.pdf>]
 Package hyperref Info: bookmark level for unknown algorithm defaults to 0 on in
-put line 376.
+put line 386.
  [20
 
 ] [21
@@ -1060,69 +1064,69 @@ put line 376.
 ] [22
 
 ]
-<figs/Fig-SPY-30-InSample-Density-Comparison-NJ.pdf, id=305, 602.25pt x 401.5pt
+<figs/Fig-SPY-30-InSample-Density-Comparison-NJ.pdf, id=307, 602.25pt x 401.5pt
 >
 File: figs/Fig-SPY-30-InSample-Density-Comparison-NJ.pdf Graphic file (type pdf
 )
 <use figs/Fig-SPY-30-InSample-Density-Comparison-NJ.pdf>
 Package pdftex.def Info: figs/Fig-SPY-30-InSample-Density-Comparison-NJ.pdf  us
-ed on input line 478.
+ed on input line 488.
 (pdftex.def)             Requested size: 225.4804pt x 150.3232pt.
-<figs/Fig-SPY-30-InSample-Return-Trajectories-NJ.pdf, id=306, 602.25pt x 401.5p
+<figs/Fig-SPY-30-InSample-Return-Trajectories-NJ.pdf, id=308, 602.25pt x 401.5p
 t>
 File: figs/Fig-SPY-30-InSample-Return-Trajectories-NJ.pdf Graphic file (type pd
 f)
 <use figs/Fig-SPY-30-InSample-Return-Trajectories-NJ.pdf>
 Package pdftex.def Info: figs/Fig-SPY-30-InSample-Return-Trajectories-NJ.pdf  u
-sed on input line 484.
+sed on input line 494.
 (pdftex.def)             Requested size: 225.4804pt x 150.3232pt.
-<figs/Fig-SPY-30-InSample-Density-Comparison-HMM-WJ.pdf, id=307, 602.25pt x 401
+<figs/Fig-SPY-30-InSample-Density-Comparison-HMM-WJ.pdf, id=309, 602.25pt x 401
 .5pt>
 File: figs/Fig-SPY-30-InSample-Density-Comparison-HMM-WJ.pdf Graphic file (type
  pdf)
 <use figs/Fig-SPY-30-InSample-Density-Comparison-HMM-WJ.pdf>
 Package pdftex.def Info: figs/Fig-SPY-30-InSample-Density-Comparison-HMM-WJ.pdf
-  used on input line 495.
+  used on input line 505.
 (pdftex.def)             Requested size: 225.4804pt x 150.3232pt.
-<figs/Fig-SPY-30-InSample-Return-Trajectories-WJ.pdf, id=308, 602.25pt x 401.5p
+<figs/Fig-SPY-30-InSample-Return-Trajectories-WJ.pdf, id=310, 602.25pt x 401.5p
 t>
 File: figs/Fig-SPY-30-InSample-Return-Trajectories-WJ.pdf Graphic file (type pd
 f)
 <use figs/Fig-SPY-30-InSample-Return-Trajectories-WJ.pdf>
 Package pdftex.def Info: figs/Fig-SPY-30-InSample-Return-Trajectories-WJ.pdf  u
-sed on input line 501.
+sed on input line 511.
 (pdftex.def)             Requested size: 225.4804pt x 150.3232pt.
-<figs/Fig-SPY-60-InSample-Density-Comparison-NJ.pdf, id=309, 602.25pt x 401.5pt
+<figs/Fig-SPY-60-InSample-Density-Comparison-NJ.pdf, id=311, 602.25pt x 401.5pt
 >
 File: figs/Fig-SPY-60-InSample-Density-Comparison-NJ.pdf Graphic file (type pdf
 )
 <use figs/Fig-SPY-60-InSample-Density-Comparison-NJ.pdf>
 Package pdftex.def Info: figs/Fig-SPY-60-InSample-Density-Comparison-NJ.pdf  us
-ed on input line 512.
+ed on input line 522.
 (pdftex.def)             Requested size: 225.4804pt x 150.3232pt.
-<figs/Fig-SPY-60-InSample-Return-Trajectories-NJ.pdf, id=310, 602.25pt x 401.5p
+<figs/Fig-SPY-60-InSample-Return-Trajectories-NJ.pdf, id=312, 602.25pt x 401.5p
 t>
 File: figs/Fig-SPY-60-InSample-Return-Trajectories-NJ.pdf Graphic file (type pd
 f)
 <use figs/Fig-SPY-60-InSample-Return-Trajectories-NJ.pdf>
 Package pdftex.def Info: figs/Fig-SPY-60-InSample-Return-Trajectories-NJ.pdf  u
-sed on input line 518.
+sed on input line 528.
 (pdftex.def)             Requested size: 225.4804pt x 150.3232pt.
-<figs/Fig-SPY-60-InSample-Density-Comparison-HMM-WJ.pdf, id=311, 602.25pt x 401
+<figs/Fig-SPY-60-InSample-Density-Comparison-HMM-WJ.pdf, id=313, 602.25pt x 401
 .5pt>
 File: figs/Fig-SPY-60-InSample-Density-Comparison-HMM-WJ.pdf Graphic file (type
  pdf)
 <use figs/Fig-SPY-60-InSample-Density-Comparison-HMM-WJ.pdf>
 Package pdftex.def Info: figs/Fig-SPY-60-InSample-Density-Comparison-HMM-WJ.pdf
-  used on input line 529.
+  used on input line 539.
 (pdftex.def)             Requested size: 225.4804pt x 150.3232pt.
-<figs/Fig-SPY-60-InSample-Return-Trajectories-WJ.pdf, id=312, 602.25pt x 401.5p
+<figs/Fig-SPY-60-InSample-Return-Trajectories-WJ.pdf, id=314, 602.25pt x 401.5p
 t>
 File: figs/Fig-SPY-60-InSample-Return-Trajectories-WJ.pdf Graphic file (type pd
 f)
 <use figs/Fig-SPY-60-InSample-Return-Trajectories-WJ.pdf>
 Package pdftex.def Info: figs/Fig-SPY-60-InSample-Return-Trajectories-WJ.pdf  u
-sed on input line 535.
+sed on input line 545.
 (pdftex.def)             Requested size: 225.4804pt x 150.3232pt.
  [23
 
@@ -1145,10 +1149,10 @@ Package rerunfilecheck Info: File `Paper_v1.out' has not changed.
 ### semi simple group (level 1) entered at line 129 (\begingroup)
 ### bottom level 
 Here is how much of TeX's memory you used:
- 15047 strings out of 474116
- 245676 string characters out of 5743682
+ 15051 strings out of 474116
+ 245720 string characters out of 5743682
  1937187 words of memory out of 5000000
- 36995 multiletter control sequences out of 15000+600000
+ 36997 multiletter control sequences out of 15000+600000
  615026 words of font info for 120 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
  75i,10n,79p,1937b,2130s stack positions out of 10000i,1000n,20000p,200000b,200000s
@@ -1165,10 +1169,10 @@ bm10.pfb></usr/local/texlive/2024/texmf-dist/fonts/type1/public/cm-super/sftt12
 00.pfb></usr/local/texlive/2024/texmf-dist/fonts/type1/urw/helvetic/uhvb8a.pfb>
 </usr/local/texlive/2024/texmf-dist/fonts/type1/urw/helvetic/uhvr8a.pfb></usr/l
 ocal/texlive/2024/texmf-dist/fonts/type1/urw/helvetic/uhvro8a.pfb>
-Output written on Paper_v1.pdf (25 pages, 22043729 bytes).
+Output written on Paper_v1.pdf (25 pages, 22043732 bytes).
 PDF statistics:
- 424 PDF objects out of 1000 (max. 8388607)
- 346 compressed objects within 4 object streams
- 136 named destinations out of 1000 (max. 500000)
+ 426 PDF objects out of 1000 (max. 8388607)
+ 348 compressed objects within 4 object streams
+ 138 named destinations out of 1000 (max. 500000)
  114 words of extra memory for PDF output out of 10000 (max. 10000000)
 
