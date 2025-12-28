@@ -139,6 +139,21 @@ C.~M. Grinstead and J.~L. Snell, \emph{Introduction to {Probability}}.\hskip
 P.~Glasserman, \emph{Monte {Carlo} {Methods} in {Financial}
   {Engineering}}.\hskip 1em plus 0.5em minus 0.4em\relax Springer, 2003.
 
+\bibitem{kolmogorov_1933}
+A.~N. Kolmogorov, ``Sulla determinazione empirica di una legge di
+  distribuzione,'' \emph{Giornale dell'Istituto Italiano degli Attuari},
+  vol.~4, pp. 83--91, 1933.
+
+\bibitem{smirnov_1948}
+N.~Smirnov, ``Table for estimating the goodness of fit of empirical
+  distributions,'' \emph{The Annals of Mathematical Statistics}, vol.~19,
+  no.~2, pp. 279--281, 1948.
+
+\bibitem{anderson_darling_1952}
+T.~W. Anderson and D.~A. Darling, ``Asymptotic theory of certain ``goodness of
+  fit'' criteria based on stochastic processes,'' \emph{The Annals of
+  Mathematical Statistics}, vol.~23, no.~2, pp. 193--212, 1952.
+
 \bibitem{rossi_volatility_2006}
 A.~Rossi and G.~M. Gallo, ``Volatility estimation via hidden {Markov} models,''
   \emph{Journal of Empirical Finance}, vol.~13, no.~2, pp. 203--230, 2006.
