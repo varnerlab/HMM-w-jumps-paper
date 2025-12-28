@@ -142,7 +142,7 @@
 \begin{titlepage}
 {\par\centering\textbf{\Large {Hybrid Hidden Markov Model for Modeling Equity Excess Growth Rate Dynamics: A Discrete-State Approach with Jump-Diffusion}}}
 \vspace{0.05in}
-{\par \centering \large{Abdulrahman Alswaidan, Jeffrey Varner\,$^{*}$}}
+{\par \centering \large{Abdulrahman Alswaidan and Jeffrey D. Varner\,$^{*}$}}
 \vspace{0.10in}
 {\par \centering {Robert Frederick Smith School of Chemical and Biomolecular Engineering}}
 {\par \centering {College of Engineering, Cornell University, Ithaca, NY 14853}}
@@ -181,18 +181,18 @@ We address this challenge by developing a hybrid HMM framework that discretizes 
 \clearpage
 
 \section*{Materials and Methods}\label{sec:methods}
-\subsection*{Data.} The empirical foundation of this study was a dataset composed of 424 U.S.-listed equities and exchange-traded funds spanning 10 years (2014-2024). A pipeline was developed to support the automated construction of excess growth rate models for any ticker within this dataset, allowing for batch simulation and stress testing across market sectors. To validate the performance of this pipeline, we focused our analysis on the single-asset SPY, which tracked the S\&P 500 index. The data included daily open, high, low, and close prices along with volume-weighted average price metrics (VWAP). For training purposes, the first 2,766 observations constituted the in-sample dataset, spanning from January 3, 2014, to December 31, 2024. A subsequent 220 trading days, from January 3, to November 18, 2025, were reserved for out-of-sample testing to assess model generalizability. This daily resolution allowed the framework to identify the statistical regularities and stylized facts suggested by market microstructure theory.
+\subsection*{Data.} The empirical foundation of this study was a dataset composed of 424 U.S.-listed equities and exchange-traded funds spanning 10 years (2014-2024). A pipeline was developed to support the automated construction of excess growth rate models for any ticker within this dataset, allowing for batch simulation and stress testing across market sectors. To validate the performance of this pipeline, we focused our analysis on the single-asset SPY, which tracked the S\&P 500 index. The data included daily open, high, low, and close prices along with volume-weighted average price metrics (VWAP). For training purposes, the first 2,766 observations constituted the in-sample dataset, spanning from January 3, 2014, to December 31, 2024. A subsequent 220 trading days, from January 3, to November 18, 2025, were reserved for out-of-sample testing to assess model generalizability. 
 
 \subsection*{Excess growth rate calculation.}
-We computed the excess growth rate $G_{i,j}$ for a given equity price series $P_{i,j}$ using VWAP data. In this formulation, the index $i$ represented a specific equity within the dataset, while the index $j$ denoted the discrete time step. To isolate the stochastic premium earned over a risk-free asset, the excess growth rate for ticker $i$ during the period $j-1\rightarrow{j}$ was defined as:
+We computed the excess growth rate $G_{i,j}$ for ticker $i$ between time period $j-1\rightarrow{j}$ for a given equity price series $P_{i,j}$ (units: USD/share). To isolate the stochastic premium earned over a risk-free asset, we computed the excess growth rate for ticker $i$ during the period $j-1\rightarrow{j}$ as:
 \begin{equation}
     G_{i,j} \equiv \left( \frac{1}{\Delta t} \right) \cdot \ln \left( \frac{P_{i,j}}{P_{i,j-1}} \right) - r_f
     \label{eq:growth_rate}
 \end{equation}
-where $\Delta t$ represented the time step set to $1/252$ for daily data (units: years), and $r_f$ was the constant continuously compounded risk-free rate (units: year$^{-1}$) derived from STRIPS bond yields observed on September 10, 2025. Unlike simple price changes, the excess growth rate had units of inverse time (year$^{-1}$) and directly quantified the premium earned above a continuously compounded benchmark. Log growth rates were time-additive and consistent with a continuous compounding framework. While $r_f$ varied dynamically over the sample period, a constant proxy was employed here to isolate the endogenous volatility dynamics without introducing exogenous rate-curve noise.
+where $\Delta t$ represented the time step set to $1/252$ for daily data (units: years), and $r_f$ denotes the constant continuously compounded risk-free rate (units: year$^{-1}$) derived from STRIPS bond yields observed on September 10, 2025. Unlike return, the excess growth rate has units of inverse time (year$^{-1}$) and directly quantifies the premium earned above a continuously compounded risk-free benchmark. Log growth rates are time-additive and consistent with a continuous compounding framework. While $r_f$ varied dynamically over the sample period, a constant proxy was employed here to isolate the endogenous volatility dynamics without introducing exogenous rate-curve noise.
 
 \subsection*{Discrete hidden Markov model.}
-We defined the hidden Markov model using the tuple $\mathcal{M} = (\mathcal{S}, \mathcal{O}, \mathbf{T}, \mathbf{E}, \bar{\pi})$ \cite{rabiner_introduction_1986}. The hidden state $S_t \in \mathcal{S} = \{1,\dots,N\}$ represented market mood and was defined by quantile bins of the fitted Laplace cumulative distribution function (CDF) for the excess growth rate series. The observation space $\mathcal{O} \subset \mathbb{R}$ consisted of continuous excess growth rate values, the transition matrix $\mathbf{T}$ governed regime-to-regime dynamics, the emission model $\mathbf{E}$ was parameterized by state-conditional Normal distributions, and $\bar{\pi}$ denoted the stationary distribution. The observation model was
+We defined the hidden Markov model using the tuple $\mathcal{M} = (\mathcal{S}, \mathcal{O}, \mathbf{T}, \mathbf{E}, \bar{\pi})$ \cite{rabiner_introduction_1986}. The hidden state $S_t \in \mathcal{S} = \{1,\dots,N\}$ represented market mood regimes and was defined by quantile bins of a fitted cumulative distribution function (CDF) for the excess growth rate series. The observation space $\mathcal{O} \subset \mathbb{R}$ consisted of continuous excess growth rate values, the transition matrix $\mathbf{T}$ governed regime-to-regime dynamics, the emission model $\mathbf{E}$ was parameterized by state-conditional Normal distributions, and $\bar{\pi}$ denoted the stationary distribution. The observation model was
 \begin{equation}
     R_t \mid S_t = k \sim \mathcal{N}(\mu_k, \sigma_k).
 \end{equation}
@@ -224,21 +224,7 @@ We simulated 10 paths of 2766 trading days using VWAP price data for both the st
 
 Optimized jump parameters ($\epsilon \approx 5 \times 10^{-5}$ and $\lambda \approx 67$) reproduced the heavy-tailed kurtosis and ARCH effect observed in SPY (Figure \ref{fig:wj_90_combo}). Based on the statistical consistency results, the configuration with a hueristic of $90\leq{N}\leq{100}$ states was used in this study. Increasing the number of states $N$ increased the granularity of the market regimes, leading to a closer fit for in-sample results. While it became easy to add more states, there was a limit to this refinement; if $N$ was large, such as 350 states, the empirical estimation protocol failed because the historical dataset became too sparse relative to the state space. In such cases, certain states could remain unvisited, resulting in zero transition probabilities that broke the mathematical integrity of the Markov chain. Conversely, a very small number of states, such as $N=10$, resulted in a coarse model that missed the heavy tails observed in the empirical data. Therefore, the selection of $N=90$ provided a balance between distributional fidelity and statistical robustness. 
 
-In-sample KS and AD tests showed pass rates above 98\% for both model variants (Table \ref{tab:statistical_results}), indicating distributional alignment across 2,515 trading days. We performed Kolmogorov-Smirnov and Anderson-Darling tests for each case using a $p$-value cutoff of 0.05.
-
-\begin{table}[htpb]
-\centering
-\caption{Statistical consistency of simulated excess growth rates across hidden Markov model configurations.}
-\label{tab:statistical_results}
-\begin{tabular}{@{}lccc@{}}
-\toprule
-\textbf{model type} & \textbf{number of states ($N$)} & \textbf{KS test pass rate} & \textbf{AD test pass rate} \\ \midrule
-standard (no-jumps) & 90 & 99.4\% & 98.4\% \\
-hybrid (with jumps) & 90 & 99.5\% & 98.1\% \\ \bottomrule
-\end{tabular}
-\end{table}
-
-The standard no-jumps model matched the marginal distribution but failed to capture volatility clustering (Figure \ref{fig:nj_90_combo}). The autocorrelation of absolute growth in subplot (c) remained flat, showing that state resolution alone could not overcome the memoryless limitations of standard transition logic.
+In-sample KS and AD tests showed pass rates above 98\% for both model variants (Table \ref{tab:statistical_results}), indicating distributional alignment across 2,515 trading days. We performed Kolmogorov-Smirnov and Anderson-Darling tests for each case using a $p$-value cutoff of 0.05. The standard no-jumps model matched the marginal distribution but failed to capture volatility clustering (Figure \ref{fig:nj_90_combo}). The autocorrelation of absolute growth in subplot (c) remained flat, showing that state resolution alone could not overcome the memoryless limitations of standard transition logic.
 
 \begin{figure}[htpb]
     \centering
@@ -367,8 +353,24 @@ The Julia model code, simulation scripts, training and testing data are availabl
 
 \newpage
 \appendix
-\section{Algorithm implementation details}
-\label{app:algo}
+
+\clearpage
+
+\begin{table}[htpb]
+\centering
+\caption{Statistical consistency of simulated excess growth rates across hidden Markov model configurations.}
+\label{tab:statistical_results}
+\begin{tabular}{@{}lccc@{}}
+\toprule
+\textbf{model type} & \textbf{number of states ($N$)} & \textbf{KS test pass rate} & \textbf{AD test pass rate} \\ \midrule
+standard (no-jumps) & 90 & 99.4\% & 98.4\% \\
+hybrid (with jumps) & 90 & 99.5\% & 98.1\% \\ \bottomrule
+\end{tabular}
+\end{table}
+
+\clearpage
+
+\section*{Algorithms}\label{app:algo}
 
 \begin{algorithm}[htpb]
 \caption{Empirical hidden Markov model construction via Laplace partitioning}
@@ -392,6 +394,8 @@ The Julia model code, simulation scripts, training and testing data are availabl
 \RETURN $\mathbf{T}, \mathcal{Q}$
 \end{algorithmic}
 \end{algorithm}
+
+\clearpage
 
 \begin{algorithm}[htpb]
 \caption{Hybrid jump-diffusion simulation with persistent volatility}
@@ -424,6 +428,8 @@ The Julia model code, simulation scripts, training and testing data are availabl
 \end{algorithmic}
 \end{algorithm}
 
+\clearpage
+
 \begin{algorithm}[htpb]
 \caption{State decoding and continuous excess growth rate reconstruction}
 \label{alg:decode}
@@ -444,9 +450,9 @@ The Julia model code, simulation scripts, training and testing data are availabl
 \end{algorithmic}
 \end{algorithm}
 
-\section{Sensitivity analysis: low-resolution models}
-\label{app:sensitivity}
+\clearpage
 
+\section*{Sensitivity analysis: low-resolution models}\label{app:sensitivity}
 This section provides the results for lower state resolutions ($N=30$ and $N=60$) to demonstrate how state granularity impacts the model's ability to capture stylized facts. Table \ref{tab:sensitivity_results} summarizes the pass rates for the Kolmogorov-Smirnov and Anderson-Darling tests across these four cases. As the number of states decreases, the model maintained overall distribution fit, though tail-region precision decreased slightly compared to the 90-state configuration.
 
 \begin{table}[htpb]
