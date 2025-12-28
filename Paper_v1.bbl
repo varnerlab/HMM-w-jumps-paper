@@ -127,6 +127,10 @@ J.~A. Bilmes, ``A {Gentle} {Tutorial} of the {EM} {Algorithm} and its
 S.~G. Kou, ``A {Jump}-{Diffusion} {Model} for {Option} {Pricing},''
   \emph{Management Science}, vol.~48, no.~8, pp. 1086--1101, 2002.
 
+\bibitem{glasserman_monte_2003}
+P.~Glasserman, \emph{Monte {Carlo} {Methods} in {Financial}
+  {Engineering}}.\hskip 1em plus 0.5em minus 0.4em\relax Springer, 2003.
+
 \bibitem{hamilton_regime_2018}
 J.~D. Hamilton, ``Regime {Switching} {Models},'' \emph{The New Palgrave
   Dictionary of Economics}, pp. 11\,421--11\,426, 2018.
@@ -134,10 +138,6 @@ J.~D. Hamilton, ``Regime {Switching} {Models},'' \emph{The New Palgrave
 \bibitem{grinstead_introduction_1997}
 C.~M. Grinstead and J.~L. Snell, \emph{Introduction to {Probability}}.\hskip
   1em plus 0.5em minus 0.4em\relax American Mathematical Society, 1997.
-
-\bibitem{glasserman_monte_2003}
-P.~Glasserman, \emph{Monte {Carlo} {Methods} in {Financial}
-  {Engineering}}.\hskip 1em plus 0.5em minus 0.4em\relax Springer, 2003.
 
 \bibitem{kolmogorov_1933}
 A.~N. Kolmogorov, ``Sulla determinazione empirica di una legge di
