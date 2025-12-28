@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.26 (TeX Live 2024) (preloaded format=pdflatex 2024.4.15)  27 DEC 2025 20:42
+This is pdfTeX, Version 3.141592653-2.6-1.40.26 (TeX Live 2024) (preloaded format=pdflatex 2024.4.15)  27 DEC 2025 20:58
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -804,106 +804,106 @@ Package: ragged2e 2023/06/22 v3.6 ragged2e Package
 \JustifyingParindent=\skip92
 )
 LaTeX Font Info:    Font shape `T1/phv/b/n' will be
-(Font)              scaled to size 11.39996pt on input line 143.
+(Font)              scaled to size 11.39996pt on input line 141.
 LaTeX Font Info:    Font shape `T1/phv/b/n' will be
-(Font)              scaled to size 16.41594pt on input line 143.
+(Font)              scaled to size 16.41594pt on input line 141.
 
-Overfull \hbox (27.10211pt too wide) in paragraph at lines 143--145
+Overfull \hbox (27.10211pt too wide) in paragraph at lines 141--143
 []\T1/phv/b/n/17.28 Hybrid Hid-den Markov Model for Mod-el-ing Eq-uity Ex-cess 
 Growth
  []
 
 
-Overfull \hbox (22.56938pt too wide) in paragraph at lines 143--145
+Overfull \hbox (22.56938pt too wide) in paragraph at lines 141--143
 \T1/phv/b/n/17.28 Rate Dy-nam-ics: A Discrete-State Ap-proach with Jump-Diffusi
 on
  []
 
 LaTeX Font Info:    Font shape `T1/phv/m/n' will be
-(Font)              scaled to size 13.67995pt on input line 145.
+(Font)              scaled to size 13.67995pt on input line 143.
 LaTeX Font Info:    Trying to load font information for OT1+phv on input line 1
-45.
+43.
 (/usr/local/texlive/2024/texmf-dist/tex/latex/psnfss/ot1phv.fd
 File: ot1phv.fd 2020/03/25 scalable font definitions for OT1/phv.
 )
 LaTeX Font Info:    Font shape `OT1/phv/m/n' will be
-(Font)              scaled to size 13.67995pt on input line 145.
+(Font)              scaled to size 13.67995pt on input line 143.
 LaTeX Font Info:    Font shape `OT1/phv/m/n' will be
-(Font)              scaled to size 9.49997pt on input line 145.
+(Font)              scaled to size 9.49997pt on input line 143.
 LaTeX Font Info:    Font shape `OT1/phv/m/n' will be
-(Font)              scaled to size 6.64998pt on input line 145.
+(Font)              scaled to size 6.64998pt on input line 143.
 LaTeX Font Info:    Font shape `OT1/phv/m/sl' will be
-(Font)              scaled to size 13.67995pt on input line 145.
+(Font)              scaled to size 13.67995pt on input line 143.
 LaTeX Font Info:    Font shape `OT1/phv/m/sl' will be
-(Font)              scaled to size 9.49997pt on input line 145.
+(Font)              scaled to size 9.49997pt on input line 143.
 LaTeX Font Info:    Font shape `OT1/phv/m/sl' will be
-(Font)              scaled to size 6.64998pt on input line 145.
-LaTeX Font Info:    Trying to load font information for U+msa on input line 145
+(Font)              scaled to size 6.64998pt on input line 143.
+LaTeX Font Info:    Trying to load font information for U+msa on input line 143
 .
 
 (/usr/local/texlive/2024/texmf-dist/tex/latex/amsfonts/umsa.fd
 File: umsa.fd 2013/01/14 v3.01 AMS symbols A
 )
-LaTeX Font Info:    Trying to load font information for U+msb on input line 145
+LaTeX Font Info:    Trying to load font information for U+msb on input line 143
 .
 
 (/usr/local/texlive/2024/texmf-dist/tex/latex/amsfonts/umsb.fd
 File: umsb.fd 2013/01/14 v3.01 AMS symbols B
 )
 LaTeX Font Info:    Font shape `OT1/phv/m/n' will be
-(Font)              scaled to size 11.39996pt on input line 156.
+(Font)              scaled to size 11.39996pt on input line 154.
 LaTeX Font Info:    Font shape `OT1/phv/m/n' will be
-(Font)              scaled to size 7.59998pt on input line 156.
+(Font)              scaled to size 7.59998pt on input line 154.
 LaTeX Font Info:    Font shape `OT1/phv/m/n' will be
-(Font)              scaled to size 5.69998pt on input line 156.
+(Font)              scaled to size 5.69998pt on input line 154.
 LaTeX Font Info:    Font shape `OT1/phv/m/sl' will be
-(Font)              scaled to size 11.39996pt on input line 156.
+(Font)              scaled to size 11.39996pt on input line 154.
 LaTeX Font Info:    Font shape `OT1/phv/m/sl' will be
-(Font)              scaled to size 7.59998pt on input line 156.
+(Font)              scaled to size 7.59998pt on input line 154.
 LaTeX Font Info:    Font shape `OT1/phv/m/sl' will be
-(Font)              scaled to size 5.69998pt on input line 156.
+(Font)              scaled to size 5.69998pt on input line 154.
  [1
 
 {/usr/local/texlive/2024/texmf-var/fonts/map/pdftex/updmap/pdftex.map}{/usr/loc
 al/texlive/2024/texmf-dist/fonts/enc/dvips/base/8r.enc}]
 LaTeX Font Info:    Font shape `T1/phv/b/n' will be
-(Font)              scaled to size 13.67995pt on input line 168.
+(Font)              scaled to size 13.67995pt on input line 166.
 
 pdfTeX warning (ext4): destination with the same identifier (name{page.1}) has 
 been already used, duplicate ignored
 <to be read again> 
                    \relax 
-l.172 \clearpage
+l.170 \clearpage
                  [1] [2
 
 ] [3]
 LaTeX Font Info:    Font shape `OT1/phv/bx/n' in size <12> not available
-(Font)              Font shape `OT1/phv/b/n' tried instead on input line 195.
+(Font)              Font shape `OT1/phv/b/n' tried instead on input line 193.
 LaTeX Font Info:    Font shape `OT1/phv/b/n' will be
-(Font)              scaled to size 11.39996pt on input line 195.
+(Font)              scaled to size 11.39996pt on input line 193.
 LaTeX Font Info:    Font shape `OT1/phv/bx/n' in size <8> not available
-(Font)              Font shape `OT1/phv/b/n' tried instead on input line 195.
+(Font)              Font shape `OT1/phv/b/n' tried instead on input line 193.
 LaTeX Font Info:    Font shape `OT1/phv/b/n' will be
-(Font)              scaled to size 7.59998pt on input line 195.
+(Font)              scaled to size 7.59998pt on input line 193.
 LaTeX Font Info:    Font shape `OT1/phv/bx/n' in size <6> not available
-(Font)              Font shape `OT1/phv/b/n' tried instead on input line 195.
+(Font)              Font shape `OT1/phv/b/n' tried instead on input line 193.
 LaTeX Font Info:    Font shape `OT1/phv/b/n' will be
-(Font)              scaled to size 5.69998pt on input line 195.
+(Font)              scaled to size 5.69998pt on input line 193.
  [4
 
 ] [5]
 LaTeX Font Info:    Font shape `T1/phv/m/n' will be
-(Font)              scaled to size 7.59998pt on input line 205.
+(Font)              scaled to size 7.59998pt on input line 203.
 LaTeX Font Info:    Font shape `T1/phv/m/n' will be
-(Font)              scaled to size 5.69998pt on input line 205.
+(Font)              scaled to size 5.69998pt on input line 203.
  [6]
 LaTeX Font Info:    Trying to load font information for T1+cmtt on input line 2
-13.
+11.
 
 (/usr/local/texlive/2024/texmf-dist/tex/latex/base/t1cmtt.fd
 File: t1cmtt.fd 2023/04/13 v2.5m Standard LaTeX font definitions
 )
-Overfull \hbox (26.40631pt too wide) in paragraph at lines 217--218
+Overfull \hbox (26.40631pt too wide) in paragraph at lines 215--216
 []\T1/phv/m/n/12 Output: The se-quences of hid-den states $\OMS/cmsy/m/n/12 f\O
 T1/phv/m/sl/12 X[]\OT1/phv/m/n/12 , \OT1/phv/m/sl/12 X[]\OT1/phv/m/n/12 , [] , 
 \OT1/phv/m/sl/12 X[]\OMS/cmsy/m/n/12 g$ \T1/phv/m/n/12 and ob-serv-able states 
@@ -914,149 +914,152 @@ T1/phv/m/n/12 , [] , \OT1/phv/m/sl/12 O[]\OMS/cmsy/m/n/12 g$\T1/phv/m/n/12 .
 [7{/usr/local/texlive/2024/texmf-dist/fonts/enc/dvips/cm-super/cm-super-t1.enc}
 ] [8
 
-]
-<figs/Fig-SPY-90-InSample-Density-Comparison-HMM-WJ.pdf, id=119, 602.25pt x 401
-.5pt>
-File: figs/Fig-SPY-90-InSample-Density-Comparison-HMM-WJ.pdf Graphic file (type
- pdf)
-<use figs/Fig-SPY-90-InSample-Density-Comparison-HMM-WJ.pdf>
-Package pdftex.def Info: figs/Fig-SPY-90-InSample-Density-Comparison-HMM-WJ.pdf
-  used on input line 235.
-(pdftex.def)             Requested size: 225.4804pt x 150.3232pt.
-LaTeX Font Info:    Font shape `T1/phv/m/n' will be
-(Font)              scaled to size 9.49997pt on input line 236.
-LaTeX Font Info:    Font shape `T1/phv/b/n' will be
-(Font)              scaled to size 7.59998pt on input line 236.
-<figs/Fig-SPY-90-InSample-Return-Trajectories-WJ.pdf, id=120, 602.25pt x 401.5p
-t>
-File: figs/Fig-SPY-90-InSample-Return-Trajectories-WJ.pdf Graphic file (type pd
-f)
-<use figs/Fig-SPY-90-InSample-Return-Trajectories-WJ.pdf>
-Package pdftex.def Info: figs/Fig-SPY-90-InSample-Return-Trajectories-WJ.pdf  u
-sed on input line 241.
-(pdftex.def)             Requested size: 225.4804pt x 150.3232pt.
-<figs/Fig-SPY-90-ACF-Absolute-Growth-WJ.pdf, id=121, 602.25pt x 401.5pt>
-File: figs/Fig-SPY-90-ACF-Absolute-Growth-WJ.pdf Graphic file (type pdf)
-<use figs/Fig-SPY-90-ACF-Absolute-Growth-WJ.pdf>
-Package pdftex.def Info: figs/Fig-SPY-90-ACF-Absolute-Growth-WJ.pdf  used on in
-put line 247.
-(pdftex.def)             Requested size: 225.4804pt x 150.3232pt.
-<figs/Fig-SPY-90-ACF-Growth-WJ.pdf, id=122, 602.25pt x 401.5pt>
-File: figs/Fig-SPY-90-ACF-Growth-WJ.pdf Graphic file (type pdf)
-<use figs/Fig-SPY-90-ACF-Growth-WJ.pdf>
-Package pdftex.def Info: figs/Fig-SPY-90-ACF-Growth-WJ.pdf  used on input line 
-253.
-(pdftex.def)             Requested size: 225.4804pt x 150.3232pt.
-LaTeX Font Info:    Font shape `T1/phv/b/n' will be
-(Font)              scaled to size 9.49997pt on input line 256.
-LaTeX Font Info:    Font shape `OT1/phv/m/n' will be
-(Font)              scaled to size 4.74998pt on input line 256.
-LaTeX Font Info:    Font shape `OT1/phv/bx/n' in size <10> not available
-(Font)              Font shape `OT1/phv/b/n' tried instead on input line 256.
-LaTeX Font Info:    Font shape `OT1/phv/b/n' will be
-(Font)              scaled to size 9.49997pt on input line 256.
-LaTeX Font Info:    Font shape `OT1/phv/bx/n' in size <7> not available
-(Font)              Font shape `OT1/phv/b/n' tried instead on input line 256.
-LaTeX Font Info:    Font shape `OT1/phv/b/n' will be
-(Font)              scaled to size 6.64998pt on input line 256.
-LaTeX Font Info:    Font shape `OT1/phv/bx/n' in size <5> not available
-(Font)              Font shape `OT1/phv/b/n' tried instead on input line 256.
-LaTeX Font Info:    Font shape `OT1/phv/b/n' will be
-(Font)              scaled to size 4.74998pt on input line 256.
-LaTeX Font Info:    Font shape `OT1/phv/m/sl' will be
-(Font)              scaled to size 4.74998pt on input line 256.
- [9 <./figs/Fig-SPY-90-InSample-Density-Comparison-HMM-WJ.pdf> <./figs/Fig-SPY-
-90-InSample-Return-Trajectories-WJ.pdf> <./figs/Fig-SPY-90-ACF-Absolute-Growth-
-WJ.pdf> <./figs/Fig-SPY-90-ACF-Growth-WJ.pdf>] [10] [11]
-Overfull \hbox (23.2482pt too wide) in paragraph at lines 283--284
+] [9] [10]
+Overfull \hbox (23.2482pt too wide) in paragraph at lines 245--246
 \T1/phv/m/n/12 soft-ware li-cense from the GitHub repos-i-tory: [][]$https : / 
 / github . com / varnerlab / HMM-[]Model-[]with-[]Jumps .
  []
 
-[12] (./Paper_v1.bbl
+[11] (./Paper_v1.bbl
 LaTeX Font Info:    Font shape `T1/phv/m/it' in size <12> not available
 (Font)              Font shape `T1/phv/m/sl' tried instead on input line 26.
 LaTeX Font Info:    Font shape `T1/phv/m/sl' will be
 (Font)              scaled to size 11.39996pt on input line 26.
- [13] [14]) [15] [16
+ [12] [13]) [14]
+LaTeX Font Info:    Font shape `T1/phv/m/n' will be
+(Font)              scaled to size 9.49997pt on input line 259.
+LaTeX Font Info:    Font shape `T1/phv/b/n' will be
+(Font)              scaled to size 9.49997pt on input line 259.
+ [15
 
 ]
-<figs/Fig-SPY-90-InSample-Density-Comparison-NJ.pdf, id=203, 602.25pt x 401.5pt
+<figs/Fig-SPY-90-InSample-Density-Comparison-NJ.pdf, id=187, 602.25pt x 401.5pt
 >
 File: figs/Fig-SPY-90-InSample-Density-Comparison-NJ.pdf Graphic file (type pdf
 )
 <use figs/Fig-SPY-90-InSample-Density-Comparison-NJ.pdf>
 Package pdftex.def Info: figs/Fig-SPY-90-InSample-Density-Comparison-NJ.pdf  us
-ed on input line 315.
+ed on input line 277.
 (pdftex.def)             Requested size: 225.4804pt x 150.3232pt.
-<figs/Fig-SPY-90-InSample-Return-Trajectories-NJ.pdf, id=204, 602.25pt x 401.5p
+LaTeX Font Info:    Font shape `T1/phv/b/n' will be
+(Font)              scaled to size 7.59998pt on input line 278.
+<figs/Fig-SPY-90-InSample-Return-Trajectories-NJ.pdf, id=188, 602.25pt x 401.5p
 t>
 File: figs/Fig-SPY-90-InSample-Return-Trajectories-NJ.pdf Graphic file (type pd
 f)
 <use figs/Fig-SPY-90-InSample-Return-Trajectories-NJ.pdf>
 Package pdftex.def Info: figs/Fig-SPY-90-InSample-Return-Trajectories-NJ.pdf  u
-sed on input line 321.
+sed on input line 283.
 (pdftex.def)             Requested size: 225.4804pt x 150.3232pt.
-<figs/Fig-SPY-90-ACF-Absolute-Growth-NJ.pdf, id=205, 602.25pt x 401.5pt>
+<figs/Fig-SPY-90-ACF-Absolute-Growth-NJ.pdf, id=189, 602.25pt x 401.5pt>
 File: figs/Fig-SPY-90-ACF-Absolute-Growth-NJ.pdf Graphic file (type pdf)
 <use figs/Fig-SPY-90-ACF-Absolute-Growth-NJ.pdf>
 Package pdftex.def Info: figs/Fig-SPY-90-ACF-Absolute-Growth-NJ.pdf  used on in
-put line 327.
+put line 289.
 (pdftex.def)             Requested size: 225.4804pt x 150.3232pt.
-<figs/Fig-SPY-90-ACF-Growth-NJ.pdf, id=206, 602.25pt x 401.5pt>
+<figs/Fig-SPY-90-ACF-Growth-NJ.pdf, id=190, 602.25pt x 401.5pt>
 File: figs/Fig-SPY-90-ACF-Growth-NJ.pdf Graphic file (type pdf)
 <use figs/Fig-SPY-90-ACF-Growth-NJ.pdf>
 Package pdftex.def Info: figs/Fig-SPY-90-ACF-Growth-NJ.pdf  used on input line 
-333.
+295.
 (pdftex.def)             Requested size: 225.4804pt x 150.3232pt.
- [17
+LaTeX Font Info:    Font shape `OT1/phv/m/n' will be
+(Font)              scaled to size 4.74998pt on input line 298.
+LaTeX Font Info:    Font shape `OT1/phv/bx/n' in size <10> not available
+(Font)              Font shape `OT1/phv/b/n' tried instead on input line 298.
+LaTeX Font Info:    Font shape `OT1/phv/b/n' will be
+(Font)              scaled to size 9.49997pt on input line 298.
+LaTeX Font Info:    Font shape `OT1/phv/bx/n' in size <7> not available
+(Font)              Font shape `OT1/phv/b/n' tried instead on input line 298.
+LaTeX Font Info:    Font shape `OT1/phv/b/n' will be
+(Font)              scaled to size 6.64998pt on input line 298.
+LaTeX Font Info:    Font shape `OT1/phv/bx/n' in size <5> not available
+(Font)              Font shape `OT1/phv/b/n' tried instead on input line 298.
+LaTeX Font Info:    Font shape `OT1/phv/b/n' will be
+(Font)              scaled to size 4.74998pt on input line 298.
+LaTeX Font Info:    Font shape `OT1/phv/m/sl' will be
+(Font)              scaled to size 4.74998pt on input line 298.
+ [16
 
  <./figs/Fig-SPY-90-InSample-Density-Comparison-NJ.pdf> <./figs/Fig-SPY-90-InSa
 mple-Return-Trajectories-NJ.pdf> <./figs/Fig-SPY-90-ACF-Absolute-Growth-NJ.pdf>
  <./figs/Fig-SPY-90-ACF-Growth-NJ.pdf>]
-<figs/Fig-SPY-90-OOS-CorrelationDistance-WJ.pdf, id=216, 602.25pt x 401.5pt>
+<figs/Fig-SPY-90-OOS-CorrelationDistance-WJ.pdf, id=200, 602.25pt x 401.5pt>
 File: figs/Fig-SPY-90-OOS-CorrelationDistance-WJ.pdf Graphic file (type pdf)
 <use figs/Fig-SPY-90-OOS-CorrelationDistance-WJ.pdf>
 Package pdftex.def Info: figs/Fig-SPY-90-OOS-CorrelationDistance-WJ.pdf  used o
-n input line 345.
+n input line 307.
 (pdftex.def)             Requested size: 328.82707pt x 219.22668pt.
- [18
+ [17
 
  <./figs/Fig-SPY-90-OOS-CorrelationDistance-WJ.pdf>]
 <figs/Fig-SPY-90-ExcessGrowthRate-Probability-Density-HMM-out-of-sample.pdf, id
-=224, 602.25pt x 401.5pt>
+=207, 602.25pt x 401.5pt>
 File: figs/Fig-SPY-90-ExcessGrowthRate-Probability-Density-HMM-out-of-sample.pd
 f Graphic file (type pdf)
 <use figs/Fig-SPY-90-ExcessGrowthRate-Probability-Density-HMM-out-of-sample.pdf
 >
 Package pdftex.def Info: figs/Fig-SPY-90-ExcessGrowthRate-Probability-Density-H
-MM-out-of-sample.pdf  used on input line 356.
+MM-out-of-sample.pdf  used on input line 318.
 (pdftex.def)             Requested size: 225.4804pt x 150.3232pt.
-<figs/Fig-SPY-90-OOS-Return-Trajectories-WJ.pdf, id=225, 602.25pt x 401.5pt>
+<figs/Fig-SPY-90-OOS-Return-Trajectories-WJ.pdf, id=208, 602.25pt x 401.5pt>
 File: figs/Fig-SPY-90-OOS-Return-Trajectories-WJ.pdf Graphic file (type pdf)
 <use figs/Fig-SPY-90-OOS-Return-Trajectories-WJ.pdf>
 Package pdftex.def Info: figs/Fig-SPY-90-OOS-Return-Trajectories-WJ.pdf  used o
-n input line 362.
+n input line 324.
 (pdftex.def)             Requested size: 225.4804pt x 150.3232pt.
-<figs/Fig-SPY-90-ACF-Absolute-Growth-WJ-OOS.pdf, id=226, 602.25pt x 401.5pt>
+<figs/Fig-SPY-90-ACF-Absolute-Growth-WJ-OOS.pdf, id=209, 602.25pt x 401.5pt>
 File: figs/Fig-SPY-90-ACF-Absolute-Growth-WJ-OOS.pdf Graphic file (type pdf)
 <use figs/Fig-SPY-90-ACF-Absolute-Growth-WJ-OOS.pdf>
 Package pdftex.def Info: figs/Fig-SPY-90-ACF-Absolute-Growth-WJ-OOS.pdf  used o
-n input line 368.
+n input line 330.
 (pdftex.def)             Requested size: 225.4804pt x 150.3232pt.
-<figs/Fig-SPY-90-ACF-Growth-WJ-OOS.pdf, id=227, 602.25pt x 401.5pt>
+<figs/Fig-SPY-90-ACF-Growth-WJ-OOS.pdf, id=210, 602.25pt x 401.5pt>
 File: figs/Fig-SPY-90-ACF-Growth-WJ-OOS.pdf Graphic file (type pdf)
 <use figs/Fig-SPY-90-ACF-Growth-WJ-OOS.pdf>
 Package pdftex.def Info: figs/Fig-SPY-90-ACF-Growth-WJ-OOS.pdf  used on input l
-ine 374.
+ine 336.
 (pdftex.def)             Requested size: 225.4804pt x 150.3232pt.
- [19
+ [18
 
  <./figs/Fig-SPY-90-ExcessGrowthRate-Probability-Density-HMM-out-of-sample.pdf>
  <./figs/Fig-SPY-90-OOS-Return-Trajectories-WJ.pdf> <./figs/Fig-SPY-90-ACF-Abso
 lute-Growth-WJ-OOS.pdf> <./figs/Fig-SPY-90-ACF-Growth-WJ-OOS.pdf>]
+<figs/Fig-SPY-90-InSample-Density-Comparison-HMM-WJ.pdf, id=220, 602.25pt x 401
+.5pt>
+File: figs/Fig-SPY-90-InSample-Density-Comparison-HMM-WJ.pdf Graphic file (type
+ pdf)
+<use figs/Fig-SPY-90-InSample-Density-Comparison-HMM-WJ.pdf>
+Package pdftex.def Info: figs/Fig-SPY-90-InSample-Density-Comparison-HMM-WJ.pdf
+  used on input line 349.
+(pdftex.def)             Requested size: 225.4804pt x 150.3232pt.
+<figs/Fig-SPY-90-InSample-Return-Trajectories-WJ.pdf, id=221, 602.25pt x 401.5p
+t>
+File: figs/Fig-SPY-90-InSample-Return-Trajectories-WJ.pdf Graphic file (type pd
+f)
+<use figs/Fig-SPY-90-InSample-Return-Trajectories-WJ.pdf>
+Package pdftex.def Info: figs/Fig-SPY-90-InSample-Return-Trajectories-WJ.pdf  u
+sed on input line 355.
+(pdftex.def)             Requested size: 225.4804pt x 150.3232pt.
+<figs/Fig-SPY-90-ACF-Absolute-Growth-WJ.pdf, id=222, 602.25pt x 401.5pt>
+File: figs/Fig-SPY-90-ACF-Absolute-Growth-WJ.pdf Graphic file (type pdf)
+<use figs/Fig-SPY-90-ACF-Absolute-Growth-WJ.pdf>
+Package pdftex.def Info: figs/Fig-SPY-90-ACF-Absolute-Growth-WJ.pdf  used on in
+put line 361.
+(pdftex.def)             Requested size: 225.4804pt x 150.3232pt.
+<figs/Fig-SPY-90-ACF-Growth-WJ.pdf, id=223, 602.25pt x 401.5pt>
+File: figs/Fig-SPY-90-ACF-Growth-WJ.pdf Graphic file (type pdf)
+<use figs/Fig-SPY-90-ACF-Growth-WJ.pdf>
+Package pdftex.def Info: figs/Fig-SPY-90-ACF-Growth-WJ.pdf  used on input line 
+367.
+(pdftex.def)             Requested size: 225.4804pt x 150.3232pt.
+ [19
+
+ <./figs/Fig-SPY-90-InSample-Density-Comparison-HMM-WJ.pdf> <./figs/Fig-SPY-90-
+InSample-Return-Trajectories-WJ.pdf> <./figs/Fig-SPY-90-ACF-Absolute-Growth-WJ.
+pdf> <./figs/Fig-SPY-90-ACF-Growth-WJ.pdf>]
 Package hyperref Info: bookmark level for unknown algorithm defaults to 0 on in
-put line 386.
+put line 380.
  [20
 
 ] [21
@@ -1064,98 +1067,98 @@ put line 386.
 ] [22
 
 ]
-<figs/Fig-SPY-30-InSample-Density-Comparison-NJ.pdf, id=307, 602.25pt x 401.5pt
+<figs/Fig-SPY-30-InSample-Density-Comparison-NJ.pdf, id=303, 602.25pt x 401.5pt
 >
 File: figs/Fig-SPY-30-InSample-Density-Comparison-NJ.pdf Graphic file (type pdf
 )
 <use figs/Fig-SPY-30-InSample-Density-Comparison-NJ.pdf>
 Package pdftex.def Info: figs/Fig-SPY-30-InSample-Density-Comparison-NJ.pdf  us
-ed on input line 488.
+ed on input line 482.
 (pdftex.def)             Requested size: 225.4804pt x 150.3232pt.
-<figs/Fig-SPY-30-InSample-Return-Trajectories-NJ.pdf, id=308, 602.25pt x 401.5p
+<figs/Fig-SPY-30-InSample-Return-Trajectories-NJ.pdf, id=304, 602.25pt x 401.5p
 t>
 File: figs/Fig-SPY-30-InSample-Return-Trajectories-NJ.pdf Graphic file (type pd
 f)
 <use figs/Fig-SPY-30-InSample-Return-Trajectories-NJ.pdf>
 Package pdftex.def Info: figs/Fig-SPY-30-InSample-Return-Trajectories-NJ.pdf  u
-sed on input line 494.
+sed on input line 488.
 (pdftex.def)             Requested size: 225.4804pt x 150.3232pt.
-<figs/Fig-SPY-30-InSample-Density-Comparison-HMM-WJ.pdf, id=309, 602.25pt x 401
+<figs/Fig-SPY-30-InSample-Density-Comparison-HMM-WJ.pdf, id=305, 602.25pt x 401
 .5pt>
 File: figs/Fig-SPY-30-InSample-Density-Comparison-HMM-WJ.pdf Graphic file (type
  pdf)
 <use figs/Fig-SPY-30-InSample-Density-Comparison-HMM-WJ.pdf>
 Package pdftex.def Info: figs/Fig-SPY-30-InSample-Density-Comparison-HMM-WJ.pdf
-  used on input line 505.
+  used on input line 499.
 (pdftex.def)             Requested size: 225.4804pt x 150.3232pt.
-<figs/Fig-SPY-30-InSample-Return-Trajectories-WJ.pdf, id=310, 602.25pt x 401.5p
+<figs/Fig-SPY-30-InSample-Return-Trajectories-WJ.pdf, id=306, 602.25pt x 401.5p
 t>
 File: figs/Fig-SPY-30-InSample-Return-Trajectories-WJ.pdf Graphic file (type pd
 f)
 <use figs/Fig-SPY-30-InSample-Return-Trajectories-WJ.pdf>
 Package pdftex.def Info: figs/Fig-SPY-30-InSample-Return-Trajectories-WJ.pdf  u
-sed on input line 511.
+sed on input line 505.
 (pdftex.def)             Requested size: 225.4804pt x 150.3232pt.
-<figs/Fig-SPY-60-InSample-Density-Comparison-NJ.pdf, id=311, 602.25pt x 401.5pt
+<figs/Fig-SPY-60-InSample-Density-Comparison-NJ.pdf, id=307, 602.25pt x 401.5pt
 >
 File: figs/Fig-SPY-60-InSample-Density-Comparison-NJ.pdf Graphic file (type pdf
 )
 <use figs/Fig-SPY-60-InSample-Density-Comparison-NJ.pdf>
 Package pdftex.def Info: figs/Fig-SPY-60-InSample-Density-Comparison-NJ.pdf  us
-ed on input line 522.
+ed on input line 516.
 (pdftex.def)             Requested size: 225.4804pt x 150.3232pt.
-<figs/Fig-SPY-60-InSample-Return-Trajectories-NJ.pdf, id=312, 602.25pt x 401.5p
+<figs/Fig-SPY-60-InSample-Return-Trajectories-NJ.pdf, id=308, 602.25pt x 401.5p
 t>
 File: figs/Fig-SPY-60-InSample-Return-Trajectories-NJ.pdf Graphic file (type pd
 f)
 <use figs/Fig-SPY-60-InSample-Return-Trajectories-NJ.pdf>
 Package pdftex.def Info: figs/Fig-SPY-60-InSample-Return-Trajectories-NJ.pdf  u
-sed on input line 528.
+sed on input line 522.
 (pdftex.def)             Requested size: 225.4804pt x 150.3232pt.
-<figs/Fig-SPY-60-InSample-Density-Comparison-HMM-WJ.pdf, id=313, 602.25pt x 401
+<figs/Fig-SPY-60-InSample-Density-Comparison-HMM-WJ.pdf, id=309, 602.25pt x 401
 .5pt>
 File: figs/Fig-SPY-60-InSample-Density-Comparison-HMM-WJ.pdf Graphic file (type
  pdf)
 <use figs/Fig-SPY-60-InSample-Density-Comparison-HMM-WJ.pdf>
 Package pdftex.def Info: figs/Fig-SPY-60-InSample-Density-Comparison-HMM-WJ.pdf
-  used on input line 539.
+  used on input line 533.
 (pdftex.def)             Requested size: 225.4804pt x 150.3232pt.
-<figs/Fig-SPY-60-InSample-Return-Trajectories-WJ.pdf, id=314, 602.25pt x 401.5p
+<figs/Fig-SPY-60-InSample-Return-Trajectories-WJ.pdf, id=310, 602.25pt x 401.5p
 t>
 File: figs/Fig-SPY-60-InSample-Return-Trajectories-WJ.pdf Graphic file (type pd
 f)
 <use figs/Fig-SPY-60-InSample-Return-Trajectories-WJ.pdf>
 Package pdftex.def Info: figs/Fig-SPY-60-InSample-Return-Trajectories-WJ.pdf  u
-sed on input line 545.
+sed on input line 539.
 (pdftex.def)             Requested size: 225.4804pt x 150.3232pt.
  [23
 
  <./figs/Fig-SPY-30-InSample-Density-Comparison-NJ.pdf> <./figs/Fig-SPY-30-InSa
-mple-Return-Trajectories-NJ.pdf>] [24 <./figs/Fig-SPY-30-InSample-Density-Compa
-rison-HMM-WJ.pdf> <./figs/Fig-SPY-30-InSample-Return-Trajectories-WJ.pdf> <./fi
-gs/Fig-SPY-60-InSample-Density-Comparison-NJ.pdf> <./figs/Fig-SPY-60-InSample-R
-eturn-Trajectories-NJ.pdf> <./figs/Fig-SPY-60-InSample-Density-Comparison-HMM-W
-J.pdf> <./figs/Fig-SPY-60-InSample-Return-Trajectories-WJ.pdf>] (./Paper_v1.aux
-)
+mple-Return-Trajectories-NJ.pdf>]
+[24 <./figs/Fig-SPY-30-InSample-Density-Comparison-HMM-WJ.pdf> <./figs/Fig-SPY-
+30-InSample-Return-Trajectories-WJ.pdf> <./figs/Fig-SPY-60-InSample-Density-Com
+parison-NJ.pdf> <./figs/Fig-SPY-60-InSample-Return-Trajectories-NJ.pdf> <./figs
+/Fig-SPY-60-InSample-Density-Comparison-HMM-WJ.pdf> <./figs/Fig-SPY-60-InSample
+-Return-Trajectories-WJ.pdf>] (./Paper_v1.aux)
  ***********
 LaTeX2e <2023-11-01> patch level 1
 L3 programming layer <2024-02-20>
  ***********
 Package rerunfilecheck Info: File `Paper_v1.out' has not changed.
-(rerunfilecheck)             Checksum: 2EE804A6E8598FCA62757153FEE5E479;176.
+(rerunfilecheck)             Checksum: D41D8CD98F00B204E9800998ECF8427E;0.
  )
 (\end occurred inside a group at level 1)
 
 ### semi simple group (level 1) entered at line 129 (\begingroup)
 ### bottom level 
 Here is how much of TeX's memory you used:
- 15051 strings out of 474116
- 245720 string characters out of 5743682
+ 15046 strings out of 474116
+ 245676 string characters out of 5743682
  1937187 words of memory out of 5000000
- 36997 multiletter control sequences out of 15000+600000
+ 36993 multiletter control sequences out of 15000+600000
  615026 words of font info for 120 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
- 75i,10n,79p,1937b,2130s stack positions out of 10000i,1000n,20000p,200000b,200000s
+ 75i,10n,79p,1937b,2125s stack positions out of 10000i,1000n,20000p,200000b,200000s
 </usr/local/texlive/2024/texmf-dist/fonts/type1/public/amsfonts
 /cm/cmex10.pfb></usr/local/texlive/2024/texmf-dist/fonts/type1/public/amsfonts/
 cm/cmmi10.pfb></usr/local/texlive/2024/texmf-dist/fonts/type1/public/amsfonts/c
@@ -1169,10 +1172,10 @@ bm10.pfb></usr/local/texlive/2024/texmf-dist/fonts/type1/public/cm-super/sftt12
 00.pfb></usr/local/texlive/2024/texmf-dist/fonts/type1/urw/helvetic/uhvb8a.pfb>
 </usr/local/texlive/2024/texmf-dist/fonts/type1/urw/helvetic/uhvr8a.pfb></usr/l
 ocal/texlive/2024/texmf-dist/fonts/type1/urw/helvetic/uhvro8a.pfb>
-Output written on Paper_v1.pdf (25 pages, 22043732 bytes).
+Output written on Paper_v1.pdf (25 pages, 22042811 bytes).
 PDF statistics:
- 426 PDF objects out of 1000 (max. 8388607)
- 348 compressed objects within 4 object streams
- 138 named destinations out of 1000 (max. 500000)
- 114 words of extra memory for PDF output out of 10000 (max. 10000000)
+ 421 PDF objects out of 1000 (max. 8388607)
+ 343 compressed objects within 4 object streams
+ 137 named destinations out of 1000 (max. 500000)
+ 106 words of extra memory for PDF output out of 10000 (max. 10000000)
 
