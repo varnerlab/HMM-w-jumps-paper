@@ -19,7 +19,6 @@
 \usepackage{algorithmic}
 \usepackage{booktabs}
 \usepackage{url}
-\usepackage{cite} 
 \usepackage[colorlinks=true, linkcolor=blue, citecolor=blue, urlcolor=blue]{hyperref}
 \usepackage{titlesec}
 \usepackage{authblk}
@@ -54,7 +53,6 @@
 \usepackage{comment}
 \usepackage{textcomp}
 \usepackage{amsmath}
-%\usepackage[space]{cite}
 \urlstyle{rm}
 
 \usepackage{lineno}
@@ -77,7 +75,7 @@
 \def\D{\mathcal{D}}
 \def\P{\mathbb{P}}
 \def\1{\mathbf{1}}
-\def\n{\nappa}
+\def\n{\kappa}
 \def\h{\mathbf{w}}
 \def\v{\mathbf{v}}
 \def\x{\mathbf{x}}
@@ -126,7 +124,7 @@
 	{\normalfont\normalsize\itshape}}
 \makeatother
 
-\doublespace
+\doublespacing
 
 % --- METADATA ---
 % \title{\textbf{Hybrid Hidden Markov Model for Modeling Equity Excess Growth Rate Dynamics: A Discrete-State Approach with Jump-Diffusion}}
@@ -210,12 +208,26 @@ Let's outline a simple sampling algorithm for generating random sequences from a
 
 Given an HMM defined by the tuple $\mathcal{M} = (\mathcal{S},\mathcal{O},\mathbf{P},\mathbf{E}, \bar{\pi})$, the number of time steps $T$, and the stationary distribution $\bar{\pi}$. Draw an initial hidden state $X_0$ from the initial distribution: $X_0\sim \bar{\pi}$. For $n = 1$ to $T$, we sample the next hidden state $X_n$ from the $\texttt{categorical}$ distribution $\mathbb{P}_{H}(...)$ defined by the previous state $X_{n-1}$ and the transition matrix $\mathbf{T}$: $X_n \sim \mathbb{P}_{H}(X_n \mid X_{n-1})$. Next, we sample the observable state $O_n$ from the $\texttt{categorical}$ distribution $\mathbb{P}_{E}(...)$ defined by the current hidden state $X_n$ and the emission matrix $\mathbf{E}$: $O_n \sim \mathbb{P}_{E}(O_n \mid X_n)$. Finally, we store the sequences of hidden states and observable states. This procedure generates a sequences of hidden states $\{X_1, X_2, \ldots, X_T\}$ and observable states $\{O_1, O_2, \ldots, O_T\}$. The initial state $X_0$ is used to generate the sequence but is not included in the output.
 
+\subsection*{Hyperparameter optimization via grid search.}
+To rigorously identify the optimal jump probability ($\epsilon$) and mean jump duration ($\lambda$) \cite{merton_jump_1976, kou_jump-diffusion_2002}, we implemented a multi-objective grid search designed to minimize the discrepancy between the historical and simulated market signatures. The error function specifically targeted two stylized facts prevalent in financial time series \cite{cont_empirical_2001, ryden_stylized_1998}: volatility clustering and leptokurtosis. We measured volatility clustering using the sum of squared errors between the observed and simulated autocorrelation function (ACF) of absolute excess growth rates \cite{schwert_why_1989} up to a lag of $L=252$ trading days (approximately one trading year). To preserve the heavy-tailed nature of the distribution initially noted in foundational market studies \cite{mandelbrot_variation_1963}, we included a penalty term for the global kurtosis.
+
+The objective function $J(\epsilon, \lambda)$ was formalized as:
+\begin{equation}
+    J(\epsilon, \lambda) = \sum_{\tau=1}^{L} \left( \text{ACF}_{obs}(\tau) - \overline{\text{ACF}}_{sim}(\tau) \right)^2 + w_K \left( K_{obs} - \overline{K}_{sim} \right)^2
+    \label{eq:grid_search}
+\end{equation}
+where $\text{ACF}_{obs}(\tau)$ and $K_{obs}$ represented the empirical absolute growth autocorrelation at lag $\tau$ and the global kurtosis, respectively. The simulated equivalents, $\overline{\text{ACF}}_{sim}(\tau)$ and $\overline{K}_{sim}$, were averaged across 1,000 independent synthetic paths of 2,766 trading days to ensure statistical stability \cite{glasserman_monte_2003}. A penalty weight of $w_K = 0.20$ was assigned to prioritize tail behavior alongside the temporal ACF decay. The grid search systematically explored $\epsilon$ values from $0.00001$ to $0.0001$ and $\lambda$ values from $1.0$ to $100.0$. The full computational procedure is detailed in Algorithm \ref{alg:grid_search}.
+
+\subsection*{Statistical validation metrics}
+
+
+
 
 \clearpage
 
 \section*{Results}\label{sec:results}
-The jump hyperparameters $\epsilon$ and $\lambda$ were identified through a multi-objective grid search designed to minimize the combined error between simulated and observed market signatures. Specifically, the search targeted the autocorrelation function (ACF) of absolute growth rates to capture volatility clustering and the global kurtosis to ensure heavy-tailed fidelity. 
-We simulated 1,000 paths of 2766 trading days using VWAP price data for both the standard model with no-jumps and the hybrid model with jumps. The grid explored $\epsilon$ values from $0.00001$ to $0.0001$ and $\lambda$ values from $1.0$ to $100.0$. The error function utilized a kurtosis penalty weight of $0.20$ to prioritize tail behavior alongside the squared error of the ACF lags. Optimized jump parameters ($\epsilon \approx 5 \times 10^{-5}$ and $\lambda \approx 67$) reproduced the heavy-tailed kurtosis and ARCH effect observed in SPY (Figure \ref{fig:wj_90_combo}). Based on the statistical consistency results, the configuration with a hueristic of $90\leq{N}\leq{100}$ states was used in this study. Increasing the number of states $N$ increased the granularity of the market regimes, leading to a closer fit for in-sample results. However, there is a limit to this refinement; if $N$ was too large, such as 350 states, the empirical estimation protocol failed because the historical dataset became too sparse relative to the state space. In such cases, certain states could remain unvisited, resulting in zero transition probabilities that broke the mathematical integrity of the Markov chain. Conversely, a very small number of states, such as $N=10$, resulted in a coarse model that missed the heavy tails observed in the empirical data. Therefore, the selection of $N=90$ provided a balance between distributional fidelity and statistical robustness. 
+ 
+We simulated 1,000 paths of 2766 trading days using VWAP price data for both the standard model with no-jumps and the hybrid model with jumps. Applying the multi-objective grid search detailed in the Methods, the optimal jump hyperparameters were identified as ($\epsilon \approx 5 \times 10^{-5}$ and $\lambda \approx 67$). This configuration successfully reproduced the heavy-tailed kurtosis and ARCH effect observed in SPY (Figure \ref{fig:wj_90_combo}). Based on the statistical consistency results, the configuration with a hueristic of $90\leq{N}\leq{100}$ states was used in this study. Increasing the number of states $N$ increased the granularity of the market regimes, leading to a closer fit for in-sample results. However, there is a limit to this refinement; if $N$ was too large, such as 350 states, the empirical estimation protocol failed because the historical dataset became too sparse relative to the state space. In such cases, certain states could remain unvisited, resulting in zero transition probabilities that broke the mathematical integrity of the Markov chain. Conversely, a very small number of states, such as $N=10$, resulted in a coarse model that missed the heavy tails observed in the empirical data. Therefore, the selection of $N=90$ provided a balance between distributional fidelity and statistical robustness. 
 
 We performed Kolmogorov-Smirnov (KS) and Anderson-Darling (AD) tests to characterize the statistical consistency of the simulated excess growth rate distributions against the historical data. Both the KS and AD tests are non-parametric goodness-of-fit tests that compare the empirical cumulative distribution functions (CDFs) of two datasets \cite{kolmogorov_1933, smirnov_1948, anderson_darling_1952}. The KS test focused on the maximum distance between the two CDFs, while the AD test placed more weight on the tails of the distributions.
 
@@ -231,7 +243,7 @@ The correlation-distance distribution was centered at a mean distance of 1.0, in
 \section*{Discussion}
 This study introduced a hybrid hidden Markov modeling framework to replicate the statistical regularities of empirical equity excess growth rates. By integrating a quantile-discretized state space with a Poisson-driven jump-duration mechanism, we developed a generative framework that captured the leptokurtic distributions and volatility clustering observed in the SPY exchange-traded fund. Our results confirmed that while increasing the state resolution to $N=90$ provided the granularity to characterize the central mass of the excess growth rate distribution, standard Markovian transitions alone did not reproduce higher-order temporal dependencies. The inclusion of discontinuous shocks through a jump-diffusion extension was needed to drive the model into persistent high-volatility regimes, thereby replicating the ARCH effect identified in historical data.
 
-Statistical validation using Kolmogorov-Smirnov and Anderson-Darling tests demonstrated high in-sample consistency, with pass rates exceeding 98 percent. Although the out-of-sample performance showed an expected decrease in fidelity, the hybrid model maintained a baseline with pass rates of 83 percent and 79 percent, respectively. Furthermore, the correlation distance analysis confirmed that our framework produced independent realizations that remained uncorrelated with specific historical timing; this satisfied the requirements of the efficient markets hypothesis and distinguished our generative methodology from predictive forecasting tools \cite{fama_efficient_1970, assefa_generating_2021, kwon_can_2024}. The proposed framework offered an alternative to standard likelihood-based estimation methods by relying on empirical estimation. By bypassing the complexities of the expectation-maximization algorithm through direct frequentist counting, the model remained suited for large-scale stress testing and risk management applications \cite{ohara_market_1998, manganelli_2004, glasserman_monte_2003}. Future research could extend this discrete-state logic to multi-asset portfolios or incorporate foundation models for inference to further refine the detection of Markov jump processes in higher-frequency data \cite{dias_mixture_2010, berghaus_foundation_2025}. Ultimately, the hybrid hidden Markov model served as a foundation for simulating market dynamics and generating synthetic time series that remained statistically consistent with underlying market regimes \cite{nguyen_hidden_2018, hamilton_regime_2018}.
+Statistical validation using Kolmogorov-Smirnov and Anderson-Darling tests demonstrated high in-sample consistency, with pass rates exceeding 98 percent. Although the out-of-sample performance showed an expected decrease in fidelity, the hybrid model maintained a baseline with pass rates of 83 percent and 80 percent, respectively. Furthermore, the correlation distance analysis confirmed that our framework produced independent realizations that remained uncorrelated with specific historical timing; this satisfied the requirements of the efficient markets hypothesis and distinguished our generative methodology from predictive forecasting tools \cite{fama_efficient_1970, assefa_generating_2021, kwon_can_2024}. The proposed framework offered an alternative to standard likelihood-based estimation methods by relying on empirical estimation. By bypassing the complexities of the expectation-maximization algorithm through direct frequentist counting, the model remained suited for large-scale stress testing and risk management applications \cite{ohara_market_1998, manganelli_2004, glasserman_monte_2003}. Future research could extend this discrete-state logic to multi-asset portfolios or incorporate foundation models for inference to further refine the detection of Markov jump processes in higher-frequency data \cite{dias_mixture_2010, berghaus_foundation_2025}. Ultimately, the hybrid hidden Markov model served as a foundation for simulating market dynamics and generating synthetic time series that remained statistically consistent with underlying market regimes \cite{nguyen_hidden_2018, hamilton_regime_2018}.
 
 While the current framework was able to generate statitically consistent excess growth rate distributions, there were several limitations that could be addressed in future work. First, the model assumed stationarity in transition dynamics, which may not hold during periods of structural market change. Future extensions could incorporate time-varying transition matrices or regime-dependent jump parameters to capture evolving market conditions. Second, the use of a fixed quantile-based state space may limit the model's ability to adapt to changing volatility regimes; adaptive binning strategies or non-parametric state definitions could enhance flexibility. Third, while the Laplace distribution provided a good fit for excess growth rates, alternative distributions or mixture models could be explored to better capture tail behavior and skewness. Finally, the current implementation focused on univariate excess growth rates; extending the framework to multivariate settings could enable portfolio-level synthetic allocation studies, stress testing and risk assessment.
 
@@ -453,6 +465,40 @@ hybrid (with jumps) & 90 & 99.5\% & 98.1\% \\ \bottomrule
 \STATE Sample the continuous excess growth rate $\hat{R}_t$ from the normal distribution $\mathcal{N}(\mu_k, \sigma_k)$.
 \ENDFOR
 \RETURN $\hat{R}_{1:M}$
+\end{algorithmic}
+\end{algorithm}
+
+\clearpage
+
+\begin{algorithm}[htpb]
+\caption{Multi-objective grid search for jump hyperparameters}
+\label{alg:grid_search}
+\begin{algorithmic}[1]
+\REQUIRE Observed growth rates $\mathbf{R}_{obs}$, ACF max lag $L=252$, Number of paths $P=1000$, Time steps $M=2766$ 
+\REQUIRE Grid space for $\epsilon \in [10^{-5}, 10^{-4}]$ and $\lambda \in [1.0, 100.0]$ 
+\REQUIRE Kurtosis penalty weight $w_K = 0.20$ 
+\ENSURE Optimal jump hyperparameters $(\epsilon^*, \lambda^*)$
+\STATE Calculate observed absolute ACF: $A_{obs}(\tau) = \text{ACF}(|\mathbf{R}_{obs}|, \tau)$ for $\tau \in \{1, \dots, L\}$.
+\STATE Calculate observed global kurtosis: $K_{obs} = \text{Kurtosis}(\mathbf{R}_{obs})$.
+\STATE Initialize minimum error $E_{min} \leftarrow \infty$.
+\FOR{each $\epsilon$ in grid space}
+    \FOR{each $\lambda$ in grid space}
+        \STATE Initialize simulated ACF accumulator $\mathbf{A}_{sum} \leftarrow \mathbf{0}$ and kurtosis accumulator $K_{sum} \leftarrow 0$.
+        \FOR{$p = 1$ to $P$}
+            \STATE Simulate path using Algorithm \ref{alg:sim} to obtain state sequence $S_{1:M}$.
+            \STATE Decode sequence using Algorithm \ref{alg:decode} to obtain continuous rates $\mathbf{\hat{R}}^{(p)}$.
+            \STATE $\mathbf{A}_{sum}(\tau) \leftarrow \mathbf{A}_{sum}(\tau) + \text{ACF}(|\mathbf{\hat{R}}^{(p)}|, \tau)$ for all $\tau$.
+            \STATE $K_{sum} \leftarrow K_{sum} + \text{Kurtosis}(\mathbf{\hat{R}}^{(p)})$.
+        \ENDFOR
+        \STATE Compute ensemble averages: $\overline{A}_{sim}(\tau) = \mathbf{A}_{sum}(\tau) / P$ and $\overline{K}_{sim} = K_{sum} / P$.
+        \STATE Compute objective: $J = \sum_{\tau=1}^L \left(A_{obs}(\tau) - \overline{A}_{sim}(\tau)\right)^2 + w_K \left(K_{obs} - \overline{K}_{sim}\right)^2$.
+        \IF{$J < E_{min}$}
+            \STATE $E_{min} \leftarrow J$
+            \STATE $(\epsilon^*, \lambda^*) \leftarrow (\epsilon, \lambda)$
+        \ENDIF
+    \ENDFOR
+\ENDFOR
+\RETURN $\epsilon^*, \lambda^*$
 \end{algorithmic}
 \end{algorithm}
 
