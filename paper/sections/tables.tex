@@ -1,0 +1,25 @@
+\begin{table}[htpb]
+\centering
+\caption{Statistical consistency of simulated excess growth rates across hidden Markov model configurations.}
+\label{tab:statistical_results}
+\begin{tabular}{@{}lccc@{}}
+\toprule
+\textbf{model type} & \textbf{number of states ($N$)} & \textbf{KS test pass rate} & \textbf{AD test pass rate} \\ \midrule
+standard (no-jumps) & 90 & 99.4\% & 98.4\% \\
+hybrid (with jumps) & 90 & 99.5\% & 98.1\% \\ \bottomrule
+\end{tabular}
+\end{table}
+
+\begin{table}[htpb]
+\centering
+\caption{Statistical consistency of simulated growth rates for lower state resolutions ($N=30$ and $N=60$) using a $p$-value cutoff of 0.05.}
+\label{tab:sensitivity_results}
+\begin{tabular}{@{}lccc@{}}
+\toprule
+\textbf{model type} & \textbf{number of states ($N$)} & \textbf{KS test pass rate} & \textbf{AD test pass rate} \\ \midrule
+standard (no-jumps) & 60 & 99.4\% & 98.3\% \\
+standard (no-jumps) & 30 & 99.2\% & 98.2\% \\ \midrule
+hybrid (with jumps) & 60 & 99.3\% & 97.6\% \\
+hybrid (with jumps) & 30 & 98.7\% & 97.7\% \\ \bottomrule
+\end{tabular}
+\end{table}

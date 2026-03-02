@@ -1,0 +1,172 @@
+\begin{figure}[htpb]
+    \centering
+    \begin{subfigure}[b]{0.48\textwidth}
+        \centering
+        \includegraphics[width=\textwidth]{Fig-SPY-90-InSample-Density-Comparison-NJ.pdf}
+        \caption{Probability density comparison}
+    \end{subfigure}
+    \hfill
+    \begin{subfigure}[b]{0.48\textwidth}
+        \centering
+        \includegraphics[width=\textwidth]{Fig-SPY-90-InSample-Return-Trajectories-NJ.pdf}
+        \caption{Growth rate trajectories}
+    \end{subfigure}
+    \vspace{0.3cm}
+    \begin{subfigure}[b]{0.48\textwidth}
+        \centering
+        \includegraphics[width=\textwidth]{Fig-SPY-90-ACF-Absolute-Growth-NJ.pdf}
+        \caption{Absolute growth autocorrelation}
+    \end{subfigure}
+    \hfill
+    \begin{subfigure}[b]{0.48\textwidth}
+        \centering
+        \includegraphics[width=\textwidth]{Fig-SPY-90-ACF-Growth-NJ.pdf}
+        \caption{Growth autocorrelation function}
+    \end{subfigure}
+    \caption{Performance of the standard no-jumps model using $N=90$ states.}
+    \label{fig:nj_90_combo}
+\end{figure}
+
+\clearpage
+
+\begin{figure}[htpb]
+    \centering
+    \includegraphics[width=0.7\textwidth]{Fig-SPY-90-OOS-CorrelationDistance-WJ.pdf}
+    \caption{Distribution of correlation distances for 1,000 simulated paths. The mean distance of 1.0 for the correlation distance $(1-\rho)$ confirmed the generation of independent realizations consistent with the efficient markets hypothesis.}
+    \label{fig:oos_correlation_distance}
+\end{figure}
+
+\clearpage
+
+\begin{figure}[htpb]
+    \centering
+    \begin{subfigure}[b]{0.48\textwidth}
+        \centering
+        \includegraphics[width=\textwidth]{Fig-SPY-90-ExcessGrowthRate-Probability-Density-HMM-out-of-sample.pdf}
+        \caption{Probability density comparison}
+    \end{subfigure}
+    \hfill
+    \begin{subfigure}[b]{0.48\textwidth}
+        \centering
+        \includegraphics[width=\textwidth]{Fig-SPY-90-OOS-Return-Trajectories-WJ.pdf}
+        \caption{Growth rate trajectories}
+    \end{subfigure}
+    \vspace{0.3cm}
+    \begin{subfigure}[b]{0.48\textwidth}
+        \centering
+        \includegraphics[width=\textwidth]{Fig-SPY-90-ACF-Absolute-Growth-WJ-OOS.pdf}
+        \caption{Absolute growth autocorrelation}
+    \end{subfigure}
+    \hfill
+    \begin{subfigure}[b]{0.48\textwidth}
+        \centering
+        \includegraphics[width=\textwidth]{Fig-SPY-90-ACF-Growth-WJ-OOS.pdf}
+        \caption{Growth autocorrelation function}
+    \end{subfigure}
+    \caption{Out-of-sample performance of the hybrid jumps model using $N=90$ states.}
+    \label{fig:wj_90_oos_combo}
+\end{figure}
+
+\clearpage
+
+\begin{figure}[htpb]
+    \centering
+    \begin{subfigure}[b]{0.48\textwidth}
+        \centering
+        \includegraphics[width=\textwidth]{Fig-SPY-90-InSample-Density-Comparison-HMM-WJ.pdf}
+        \caption{Probability density comparison}
+    \end{subfigure}
+    \hfill
+    \begin{subfigure}[b]{0.48\textwidth}
+        \centering
+        \includegraphics[width=\textwidth]{Fig-SPY-90-InSample-Return-Trajectories-WJ.pdf}
+        \caption{Growth rate trajectories}
+    \end{subfigure}
+    \vspace{0.3cm}
+    \begin{subfigure}[b]{0.48\textwidth}
+        \centering
+        \includegraphics[width=\textwidth]{Fig-SPY-90-ACF-Absolute-Growth-WJ.pdf}
+        \caption{Absolute growth autocorrelation}
+    \end{subfigure}
+    \hfill
+    \begin{subfigure}[b]{0.48\textwidth}
+        \centering
+        \includegraphics[width=\textwidth]{Fig-SPY-90-ACF-Growth-WJ.pdf}
+        \caption{Growth autocorrelation function}
+    \end{subfigure}
+    \caption{Performance of the hybrid jumps model using $N=90$ states.}
+    \label{fig:wj_90_combo}
+\end{figure}
+\FloatBarrier
+
+\clearpage
+
+The following figures illustrate the performance of these low-resolution configurations. Figure \ref{fig:nj_30_appendix} and Figure \ref{fig:wj_30_appendix} show the results for 30 states, while Figure \ref{fig:nj_60_appendix} and Figure \ref{fig:wj_60_appendix} provide the comparison for 60 states.
+
+\begin{figure}[htpb]
+    \centering
+    \begin{subfigure}[b]{0.48\textwidth}
+        \centering
+        \includegraphics[width=\textwidth]{Fig-SPY-30-InSample-Density-Comparison-NJ.pdf}
+        \caption{Density (standard)}
+    \end{subfigure}
+    \hfill
+    \begin{subfigure}[b]{0.48\textwidth}
+        \centering
+        \includegraphics[width=\textwidth]{Fig-SPY-30-InSample-Return-Trajectories-NJ.pdf}
+        \caption{Trajectories (standard)}
+    \end{subfigure}
+    \caption{Performance of the standard no-jumps model using $N=30$ states.}
+    \label{fig:nj_30_appendix}
+\end{figure}
+
+\begin{figure}[htpb]
+    \centering
+    \begin{subfigure}[b]{0.48\textwidth}
+        \centering
+        \includegraphics[width=\textwidth]{Fig-SPY-30-InSample-Density-Comparison-HMM-WJ.pdf}
+        \caption{Density (hybrid)}
+    \end{subfigure}
+    \hfill
+    \begin{subfigure}[b]{0.48\textwidth}
+        \centering
+        \includegraphics[width=\textwidth]{Fig-SPY-30-InSample-Return-Trajectories-WJ.pdf}
+        \caption{Trajectories (hybrid)}
+    \end{subfigure}
+    \caption{Performance of the hybrid jumps model using $N=30$ states.}
+    \label{fig:wj_30_appendix}
+\end{figure}
+
+\begin{figure}[htpb]
+    \centering
+    \begin{subfigure}[b]{0.48\textwidth}
+        \centering
+        \includegraphics[width=\textwidth]{Fig-SPY-60-InSample-Density-Comparison-NJ.pdf}
+        \caption{Density (standard)}
+    \end{subfigure}
+    \hfill
+    \begin{subfigure}[b]{0.48\textwidth}
+        \centering
+        \includegraphics[width=\textwidth]{Fig-SPY-60-InSample-Return-Trajectories-NJ.pdf}
+        \caption{Trajectories (standard)}
+    \end{subfigure}
+    \caption{Performance of the standard no-jumps model using $N=60$ states.}
+    \label{fig:nj_60_appendix}
+\end{figure}
+
+\begin{figure}[htpb]
+    \centering
+    \begin{subfigure}[b]{0.48\textwidth}
+        \centering
+        \includegraphics[width=\textwidth]{Fig-SPY-60-InSample-Density-Comparison-HMM-WJ.pdf}
+        \caption{Density (hybrid)}
+    \end{subfigure}
+    \hfill
+    \begin{subfigure}[b]{0.48\textwidth}
+        \centering
+        \includegraphics[width=\textwidth]{Fig-SPY-60-InSample-Return-Trajectories-WJ.pdf}
+        \caption{Trajectories (hybrid)}
+    \end{subfigure}
+    \caption{Performance of the hybrid jumps model using $N=60$ states.}
+    \label{fig:wj_60_appendix}
+\end{figure}

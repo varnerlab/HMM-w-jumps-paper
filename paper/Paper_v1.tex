@@ -1,0 +1,228 @@
+\documentclass[preprint,12pt]{elsarticle}
+
+%% The graphicx package provides the includegraphics command.
+\usepackage{graphicx}
+%% The amssymb package provides various useful mathematical symbols
+\usepackage{amssymb}
+\usepackage{amsmath}
+%% The amsthm package provides extended theorem environments
+%% \usepackage{amsthm}
+
+%% The lineno packages adds line numbers. Start line numbering with
+%% \begin{linenumbers}, end it with \end{linenumbers}. Or switch it on
+%% for the whole article with \linenumbers after \end{frontmatter}.
+\usepackage{lineno}
+\usepackage{supertabular}
+\usepackage{multirow}
+\usepackage{booktabs}
+\usepackage{longtable}
+
+% \smartqed  % flush right qed marks, e.g. at end of proof
+%
+\usepackage{graphicx}
+%
+% \usepackage{mathptmx}      % use Times fonts if available on your TeX system
+%
+% insert here the call for the packages your document requires
+\usepackage{todonotes}
+\usepackage{amsbsy}
+\usepackage{booktabs}
+\usepackage{amsmath,amsfonts,amssymb} %removed amsthm
+\usepackage{algpseudocode}
+\usepackage{algorithm}
+\usepackage{tablefootnote}
+\usepackage{subfigure}
+\usepackage{url}
+\usepackage[title]{appendix}
+\usetikzlibrary{arrows,decorations.pathmorphing,backgrounds,positioning,fit,petri}
+\usetikzlibrary{decorations.pathreplacing}
+\usetikzlibrary{decorations.markings}
+\usetikzlibrary{decorations.shapes}
+\usetikzlibrary{arrows.meta}
+\usetikzlibrary{quotes,angles}
+\usetikzlibrary{positioning}
+\usetikzlibrary{patterns} 
+\usetikzlibrary{chains}
+\usetikzlibrary{hobby}
+\usepackage{pgfplots}
+\usepackage{mathtools}
+%\usepackage{caption}
+
+\newtheorem{assumption}{Assumption}
+\newtheorem{condition}{Condition}
+\newtheorem{theorem}{Theorem}
+\newtheorem{proposition}{Proposition}
+\newtheorem{corollary}{Corollary}
+
+\newcommand{\defeq}{\vcentcolon=}
+\newcommand{\eqdef}{=\vcentcolon}
+\newcommand{\inlinenorm}[1]{ \Vert #1 \Vert}
+\newcommand{\norm}[1]{\left\Vert #1 \right\Vert}
+\newcommand{\abs}[1]{\left\lvert #1 \right\rvert}
+\newcommand{\openint}[2]{\left( #1, #2 \right)}
+\newcommand{\leftclosed}[2]{\left[#1, #2 \right)}
+\newcommand{\rightclosed}[2]{\left( #1, #2 \right]}
+\newcommand{\closedint}[2]{\left[ #1, #2 \right]}
+\newcommand{\expbig}[1]{\exp\left( #1 \right)}
+\newcommand{\ceiling}[1]{\lceil #1 \rceil}
+\newcommand{\floor}[1]{\lfloor #1 \rfloor}
+\newcommand{\bigpar}[1]{\left( #1 \right)}
+\newcommand{\normal}[2]{\mathcal{N}\left(#1, #2\right)}
+\newcommand{\conv}[1]{\mathrm{Conv}( #1 )}
+\DeclareMathOperator{\obj}{obj}
+\DeclareMathOperator{\gra}{grad}
+\DeclareMathOperator{\low}{lower}
+\DeclareMathOperator{\upp}{upper}
+\DeclareMathOperator{\iter}{iter}
+\DeclareMathOperator{\exit}{exit}
+\DeclareMathOperator{\test}{test}
+\DeclareMathOperator{\false}{false}
+\DeclareMathOperator{\true}{true}
+\DeclareMathOperator{\dec}{decrease}
+\DeclareMathOperator{\des}{descent}
+\DeclareMathOperator{\cond}{condition}
+\DeclareMathOperator{\re}{recompute}
+\DeclareMathOperator{\Tr}{Tr}
+\DeclareMathOperator{\reference}{ref}
+\DeclareMathOperator{\offo}{OFFO}
+\usepackage{float}
+\usepackage{mdframed}
+\definecolor{lgray}{rgb}{0.92,0.92,0.92}
+\definecolor{lsalmon}{rgb}{0.9921568627450981,0.9411764705882353, 0.9254901960784314}
+\newcommand{\brows}[1]{%
+  \begin{bmatrix}
+  \begin{array}{@{\protect\rotvert\;}c@{\;\protect\rotvert}}
+  #1
+  \end{array}
+  \end{bmatrix}
+}
+\newcommand{\rotvert}{\rotatebox[origin=c]{90}{$\vert$}}
+\newcommand{\rowsvdots}{\multicolumn{1}{@{}c@{}}{\vdots}}
+\def\R{\mathbb{R}}
+\def\Eps{\mathcal{E}}
+\def\E{\mathbb{E}}
+\def\Z{\mathbb{Z}}
+\def\V{\mathbb{V}}
+\def\F{\mathcal{F}}
+\def\G{\mathcal{G}}
+\def\H{\mathcal{H}}
+\def\S{\mathcal{S}}
+\def\D{\mathcal{D}}
+\def\P{\mathbb{P}}
+\def\1{\mathbf{1}}
+\def\n{\nappa}
+\def\h{\mathbf{w}}
+\def\v{\mathbf{v}}
+\def\x{\mathbf{x}}
+\def\X{\mathcal{X}}
+\def\Y{\mathcal{Y}}
+\def\eps{\epsilon}
+\def\y{\mathbf{y}}
+\def\e{\mathbf{e}}
+\DeclareMathOperator*{\argmin}{arg\,min}
+\DeclareMathOperator*{\argmax}{arg\,max}
+
+%% For long captions that need to be continued on the next page
+\usepackage{capt-of}
+
+% \journal{Energy Policy}
+
+\begin{document}
+
+\begin{frontmatter}
+
+\title{Factor-Informed Cobb-Douglas Portfolio Allocation with Dynamic Risk Aversion}
+\author{Jeffrey D. Varner}
+\address{Robert Frederick Smith School of Chemical and Biomolecular Engineering, Cornell University, Ithaca, NY 14853}
+
+
+\begin{abstract}
+\begin{linenumbers}
+We propose a factor-informed Cobb-Douglas portfolio allocation framework in which asset preference coefficients are derived analytically from Single Index Model (SIM) parameters and updated dynamically through an exponential moving average (EMA) crossover signal.
+The preference score $\gamma_{i} = \tanh(\alpha_{i}/\beta_{i}^{\lambda} + \beta_{i}^{1-\lambda}\mathbb{E}[\bar{\mu}_{m}])$ encodes the risk-adjusted expected excess growth of each asset as a bounded quantity in $(-1,1)$, with the sign determining portfolio inclusion or exclusion automatically.
+We prove that the resulting Cobb-Douglas utility maximization subject to a budget constraint has a closed-form solution computable in $O(N)$ operations, eliminating any need for a quadratic programming solver.
+A daily EMA crossover rule $\lambda_{t} = -G(\bar{S}^{(\circ)}_{t}/\bar{S}^{(\ell)}_{t}-1)$ adjusts the risk-adjustment sensitivity in real time without re-estimating the factor model, translating standard technical momentum signals into a utility-theoretic preference shift.
+We evaluate the resulting TradeBot algorithm against passive SPY, SIM minimum variance, equal-weight ($1/N$), fixed-$\lambda$, and risk-free benchmarks over $K=100$ synthetic market paths generated by a 100-state Hidden Markov Model fitted to historical SPY daily returns.
+Results show that the dynamic EMA mechanism provides a consistent improvement in Sharpe ratio over the fixed-$\lambda$ ablation, and the closed-form allocation is competitive with or outperforms the QP-based SIM minimum variance strategy across simulated market regimes.
+\end{linenumbers}
+\end{abstract}
+
+\begin{keyword}
+Portfolio Optimization \sep Cobb-Douglas Utility Function \sep Single Index Model \sep Dynamic Risk Aversion \sep Exponential Moving Average \sep Hidden Markov Model
+\end{keyword}
+
+\end{frontmatter}
+
+\begin{linenumbers}
+
+\section*{Introduction}
+
+%\subsection*{Summary}
+
+\input{sections/introduction.tex}
+
+%\subsection*{Literature Review}
+
+\section*{Related Work}\label{sec:related-work}
+\input{sections/related.tex}
+
+\clearpage
+
+\section*{Methods}\label{sec:methods}
+\input{sections/methods.tex}
+
+\clearpage
+
+\section*{Empirical Study}\label{sec:empirical-study}
+\input{sections/results.tex}
+
+\clearpage
+
+\section*{Discussion}\label{sec:discussion}
+\input{sections/discussion.tex}
+
+\clearpage
+
+\section*{Conclusion}\label{sec:conclusion}
+\input{sections/conclusion.tex}
+
+\clearpage
+
+\input{sections/endmatter.tex}
+
+\clearpage
+
+\bibliographystyle{model1-num-names}
+\bibliography{References_v1.bib}
+
+\clearpage
+
+% Figures and captions go here ...
+
+\end{linenumbers}
+
+\input{sections/figures.tex}
+\input{sections/tables.tex}
+\input{sections/notation.tex}
+
+% Supplemental figures -
+% Set the S-
+\renewcommand\thefigure{S\arabic{figure}}
+\renewcommand\thetable{T\arabic{table}}
+\renewcommand\thepage{S-\arabic{page}}
+\renewcommand\theequation{S\arabic{equation}}
+
+% Reset the counters -
+\setcounter{equation}{0}
+\setcounter{table}{0}
+\setcounter{figure}{0}
+\setcounter{page}{1}
+
+\section*{Supplemental Information}
+
+% Supplemental figures go here ...
+% \input{sections/supplemental-figures.tex}
+
+\clearpage
+
+\end{document}
