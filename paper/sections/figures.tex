@@ -4,7 +4,7 @@
 % Figure inventory (7 figures matching plan.md):
 %   Fig 1 — Empirical Motivation          [PLACEHOLDER — generate from IS notebook]
 %   Fig 2 — Model Architecture (TikZ)    [DONE — inline TikZ diagram]
-%   Fig 3 — Fitted Model Internals        [PLACEHOLDER — generate from IS notebook]
+%   Fig 3 — Fitted Model Internals        [DONE — Fig3-Model-Internals.pdf]
 %   Fig 4 — Head-to-Head Model Comparison [GENERATED: Fig4-Model-Comparison.pdf]
 %   Fig 5 — Grid Search Landscape         [GENERATED: Fig5-Parameter-Sweep.pdf]
 %   Fig 6 — Statistical Validation        [PLACEHOLDER — generate from IS/OoS notebooks]
@@ -170,34 +170,21 @@
 % ── Figure 3: Fitted Model Internals ─────────────────────────────────────────
 \begin{figure}[htpb]
     \centering
-    \begin{subfigure}[b]{0.32\textwidth}
-        \centering
-        \missingfigure[figwidth=\textwidth]{Laplace CDF fit over SPY empirical CDF,\\
-            vertical lines at the $N=90$ quantile boundaries}
-        \caption{Laplace quantile partition}
-    \end{subfigure}
-    \hfill
-    \begin{subfigure}[b]{0.32\textwidth}
-        \centering
-        \missingfigure[figwidth=\textwidth]{Heatmap of $T$ (log-scale color, $90\times90$);\\
-            dominant near-diagonal banded structure}
-        \caption{Transition matrix $T$ (log scale)}
-    \end{subfigure}
-    \hfill
-    \begin{subfigure}[b]{0.32\textwidth}
-        \centering
-        \missingfigure[figwidth=\textwidth]{Self-transition probability $T_{kk}$ vs.\ state $k$;\\
-            tail states have markedly lower $T_{kk}$}
-        \caption{Self-transition probability $T_{kk}$}
-    \end{subfigure}
-    \caption{Fitted model internals for SPY with $N=90$ states.
-    Panel~(a) shows the Laplace CDF partition that defines the $N$ equal-probability quantile bins.
-    Panel~(b) displays the empirical transition matrix in log scale; the dominant near-diagonal band
-    reflects short-range regime persistence.
-    Panel~(c) plots the self-transition probability $T_{kk}$ against state index $k$.  The markedly
-    lower values for the bottommost and topmost states (the tail set) are the structural motivation
-    for the jump-duration mechanism: without forced tail excursions, the Markov chain escapes extreme
-    regimes too rapidly to reproduce empirical volatility clustering.}
+    \includegraphics[width=\textwidth]{Fig3-Model-Internals.pdf}
+    \caption{Fitted model internals for SPY with $N=100$ states.
+    Panel~(a) overlays the fitted Laplace CDF on the empirical CDF; the 99 vertical lines mark the
+    equal-probability quantile boundaries that define the $N$ hidden states.  The close agreement
+    confirms that the Laplace distribution is an accurate marginal model for the excess growth rate
+    data.
+    Panel~(b) displays the empirical transition matrix $\mathbf{T}$ in $\log_{10}$ colour scale;
+    the dominant near-diagonal band reflects short-range regime persistence.
+    Panel~(c) plots the expected natural residence time $1/(1-T_{kk})$ for each state on a
+    $\log_{10}$ scale, with the bottom tail set $\mathcal{S}_{-}$ (states 1--5, red shading) and
+    top tail set $\mathcal{S}_{+}$ (states 96--100, teal shading) highlighted.  Under pure Markovian
+    dynamics every state, including the tail states, exits within 1--2 steps on average, far too
+    quickly to reproduce empirical volatility clustering.  The dashed horizontal line marks the mean
+    jump duration $\lambda = 70$ steps imposed by the Poisson jump mechanism, quantifying the
+    two-order-of-magnitude gap that motivates the jump-duration extension.}
     \label{fig:model_internals}
 \end{figure}
 
@@ -207,14 +194,28 @@
 \begin{figure}[htpb]
     \centering
     \includegraphics[width=\textwidth]{Fig4-Model-Comparison.pdf}
-    \caption{Head-to-head in-sample model comparison for SPY ($N=90$, 1{,}000 simulated paths).
-    Panel~(a): marginal density of excess growth rates; all models reproduce the bulk of the
-    distribution, but GARCH(1,1) under-weights extreme tails relative to the data.
-    Panel~(b): autocorrelation function of absolute excess growth rates (ARCH effect) at lags
-    1--252; only HMM-WJ reproduces the empirically observed slow ACF decay, while GARCH(1,1) and
-    HMM-NJ decay too rapidly.
-    Panel~(c): tail Q-Q plot restricted to the 1st and 99th percentile region; HMM-WJ provides
-    the closest quantile match in the extreme tails.}
+    \caption{Head-to-head in-sample model comparison for SPY ($N=100$, 1{,}000 simulated paths).
+    Panel~(a): marginal density of excess growth rates with IS KS pass rates annotated.
+    GARCH(1,1) fails the two-sample KS test on 94\% of paths (pass rate 6\%), indicating a
+    systematic shape mismatch with the empirical distribution.  Both HMM variants pass at
+    $\geq\!98\%$, confirming that the Laplace-mixture emission adequately captures the observed
+    heavy tails.  HMM-WJ generalises robustly out-of-sample (OoS KS pass rate 94\%), while
+    GARCH recovers partially (OoS 78\%).
+    Panel~(b): autocorrelation function of absolute excess growth rates,
+    $\mathrm{ACF}(|G_t|)$, at lags 1--252 (shaded bands: 10th--90th percentile across paths).
+    HMM-NJ is structurally incapable of producing persistent volatility clustering:
+    without a jump mechanism the latent states are i.i.d.\ conditional on the Markov chain,
+    so $\mathrm{ACF}(|G_t|)\approx 0$ for all lags beyond one (dotted curve).
+    HMM-WJ generates a \emph{mixture} of two path families under the same model:
+    approximately 76\% of IS paths contain no Poisson jump and therefore behave
+    identically to HMM-NJ (dashed curve, near zero); the remaining $\sim$24\% of paths
+    contain at least one jump event and sustain substantial $\mathrm{ACF}(|G_t|)$ decay
+    across all lags (solid navy curve $\pm$ band).
+    The jump frequency---and hence the fraction of the ensemble exhibiting slow ACF decay---is
+    controlled by the hyperparameter $\lambda$, making the volatility-clustering strength
+    directly tunable.
+    Panel~(c): tail Q-Q plot at the 0.1st--99.9th percentile region; HMM-WJ provides the
+    closest mean quantile match in the extreme tails.}
     \label{fig:model_comparison}
 \end{figure}
 
@@ -224,7 +225,7 @@
 \begin{figure}[htpb]
     \centering
     \includegraphics[width=\textwidth]{Fig5-Parameter-Sweep.pdf}
-    \caption{Hyperparameter grid search over $(\epsilon,\lambda)$ for SPY ($N=90$, 200 paths per
+    \caption{Hyperparameter grid search over $(\epsilon,\lambda)$ for SPY ($N=100$, 200 paths per
     grid point).
     Panel~(a): heatmap of the objective function $J(\epsilon,\lambda)$ in $\log_{10}$ scale over
     the full search grid; the red star marks the optimal pair $(\epsilon^*,\lambda^*)$.  The
@@ -267,7 +268,7 @@
             observed (red) + model mean $\pm2$ std shaded band (navy)}
         \caption{Out-of-sample ACF of $|G_t|$}
     \end{subfigure}
-    \caption{Statistical validation of HMM-WJ ($N=90$, 1{,}000 simulated paths, $\alpha=0.05$).
+    \caption{Statistical validation of HMM-WJ ($N=100$, 1{,}000 simulated paths, $\alpha=0.05$).
     Panels~(a) and~(b) show the distribution of KS $p$-values in-sample and out-of-sample,
     respectively; a well-calibrated generative model produces $p$-values that are approximately
     uniform above the significance threshold.
