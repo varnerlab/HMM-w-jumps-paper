@@ -87,6 +87,8 @@
 \DeclareMathOperator{\offo}{OFFO}
 \usepackage{float}
 \usepackage{placeins}
+\biboptions{sort&compress}
+\usepackage[colorlinks=true, citecolor=blue, linkcolor=blue, urlcolor=blue]{hyperref}
 \usepackage{mdframed}
 \definecolor{lgray}{rgb}{0.92,0.92,0.92}
 \definecolor{lsalmon}{rgb}{0.9921568627450981,0.9411764705882353, 0.9254901960784314}
@@ -142,7 +144,7 @@
 
 \begin{abstract}
 \begin{linenumbers}
-Financial time series exhibit statistical regularities, commonly referred to as stylized facts, that are not captured by classical Gaussian diffusion models. In particular, empirical equity excess growth rates display heavy-tailed distributions, negligible linear autocorrelation, and volatility clustering. This work proposes a hybrid hidden Markov framework that discretizes continuous excess growth rates into quantile-defined market states and augments the regime-switching process with a Poisson-driven jump-duration mechanism. Model parameters are estimated empirically through transition counting, avoiding the computational cost of likelihood maximization and expectation-maximization procedures. A pipeline was developed to support the construction of excess growth rate models for any ticker; we validated the framework using SPY (Standard \& Poor's 500 index exchange-traded fund) as an example asset. Using 10 years of SPY trading data, we show that while standard regime-switching models reproduced marginal excess growth rate distributions, the jump-duration mechanism was necessary to generate persistent high-volatility regimes consistent with the ARCH effect. A state resolution of $N=90$ balanced distributional fidelity and statistical robustness, achieving Kolmogorov-Smirnov and Anderson-Darling pass rates exceeding 98\% in-sample and 80\% out-of-sample across 1,000 simulated paths. We further extend the framework to a 424-asset universe via a Single-Index Model factor structure, enabling correlated multi-asset synthetic path generation in a single generative pass. Taken together, this hybrid hidden Markov model offers an interpretable and computationally efficient generative framework for simulating market dynamics and producing synthetic time series for portfolio stress testing and risk assessment.
+Empirical equity excess growth rates exhibit heavy-tailed distributions, negligible linear autocorrelation, and persistent volatility clustering that classical Gaussian diffusion models cannot reproduce. We propose a hybrid hidden Markov framework that discretizes continuous excess growth rates into Laplace quantile-defined market states and augments the regime-switching process with a Poisson-driven jump-duration mechanism to enforce realistic tail-state dwell times. Parameters are estimated by direct transition counting, avoiding the Baum-Welch EM algorithm entirely. Applied to ten years of SPY data, the framework achieves Kolmogorov-Smirnov and Anderson-Darling pass rates of 98.5\% and 94.6\% in-sample and 94.0\% and 94.2\% out-of-sample (full calendar year 2025) across 1,000 simulated paths, reproducing the ARCH effect that standard regime-switching models miss. GARCH(1,1), by contrast, achieves only 6.0\% and 1.4\% in-sample pass rates despite its well-known volatility clustering properties. A Single-Index Model extension propagates the SPY factor path to a 424-asset universe, enabling correlated synthetic path generation for portfolio stress testing and scenario design.
 \end{linenumbers}
 \end{abstract}
 

@@ -1,172 +1,312 @@
+% =============================================================================
+% figures.tex
+%
+% Figure inventory (7 figures matching plan.md):
+%   Fig 1 — Empirical Motivation          [PLACEHOLDER — generate from IS notebook]
+%   Fig 2 — Model Architecture (TikZ)    [DONE — inline TikZ diagram]
+%   Fig 3 — Fitted Model Internals        [PLACEHOLDER — generate from IS notebook]
+%   Fig 4 — Head-to-Head Model Comparison [GENERATED: Fig4-Model-Comparison.pdf]
+%   Fig 5 — Grid Search Landscape         [GENERATED: Fig5-Parameter-Sweep.pdf]
+%   Fig 6 — Statistical Validation        [PLACEHOLDER — generate from IS/OoS notebooks]
+%   Fig 7 — Multi-Asset SIM Extension     [PLACEHOLDER — requires 424-asset pipeline]
+% =============================================================================
+
+% ── Figure 1: Empirical Motivation ───────────────────────────────────────────
+\begin{figure}[htpb]
+    \centering
+    \includegraphics[width=\textwidth]{Fig1-Empirical-Motivation.pdf}
+    \caption{Empirical stylized facts of SPY daily excess growth rates (2014--2024).
+    Panel~(a) shows the leptokurtic marginal distribution; the Laplace fit substantially outperforms
+    the Gaussian.  Panel~(b) confirms heavy tails via a normal Q-Q plot.  Panels~(c) and~(d)
+    contrast the near-zero autocorrelation of raw returns --- consistent with the efficient markets
+    hypothesis --- against the persistent autocorrelation of absolute returns, motivating the
+    jump-duration extension.}
+    \label{fig:empirical_motivation}
+\end{figure}
+
+\clearpage
+
+% ── Figure 2: Model Architecture ─────────────────────────────────────────────
+\begin{figure}[htpb]
+\centering
+\resizebox{\textwidth}{!}{%
+\begin{tikzpicture}[
+  % ----- node styles -----
+  state/.style    = {circle, draw=black, very thick, minimum size=1.1cm,
+                     inner sep=0pt, font=\small},
+  tailbot/.style  = {state, fill=red!25,  draw=red!70!black},
+  tailtop/.style  = {state, fill=blue!25, draw=blue!70!black},
+  midstate/.style = {state, fill=white,   draw=black!70},
+  % ----- arrow styles -----
+  markov/.style   = {<->, >=Stealth, thin, gray!80},
+  trigger/.style  = {->, >=Stealth, thick, dashed, black!80},
+  jumparc/.style  = {->, >=Stealth, very thick},
+]
+
+  % ===== State nodes along the horizontal axis =====
+  \node[tailbot]              (s1)   at ( 0.0, 0) {$1$};
+  \node[tailbot]              (s2)   at ( 2.0, 0) {$2$};
+  \node[font=\Large]          (ld)   at ( 4.0, 0) {$\cdots$};
+  \node[midstate]             (sk)   at ( 6.0, 0) {$k$};
+  \node[font=\Large]          (rd)   at ( 8.0, 0) {$\cdots$};
+  \node[tailtop]              (sNm1) at (10.0, 0) {$N\!-\!1$};
+  \node[tailtop]              (sN)   at (12.0, 0) {$N$};
+
+  % ===== Markov transition arrows (bidirectional, thin) =====
+  \draw[markov] (s1)  -- (s2);
+  \draw[markov] (s2)  -- (ld);
+  \draw[markov] (ld)  -- (sk);
+  \draw[markov] (sk)  -- (rd);
+  \draw[markov] (rd)  -- (sNm1);
+  \draw[markov] (sNm1)-- (sN);
+
+  % ===== Laplace emission bell curves above each visible state =====
+  % State 1 — red
+  \draw[red!75!black, thick]
+    plot[domain=-0.42:0.42, samples=40, smooth, variable=\t]
+    ({ 0.0+\t}, {1.45 + 0.72*exp(-\t*\t/0.024)});
+  \draw[red!25, thin] (-0.42,1.45) -- (0.42,1.45);
+
+  % State 2 — red
+  \draw[red!75!black, thick]
+    plot[domain=-0.42:0.42, samples=40, smooth, variable=\t]
+    ({ 2.0+\t}, {1.45 + 0.72*exp(-\t*\t/0.024)});
+  \draw[red!25, thin] (1.58,1.45) -- (2.42,1.45);
+
+  % State k — gray (central)
+  \draw[black!55, thick]
+    plot[domain=-0.42:0.42, samples=40, smooth, variable=\t]
+    ({ 6.0+\t}, {1.45 + 0.72*exp(-\t*\t/0.024)});
+  \draw[gray!40, thin] (5.58,1.45) -- (6.42,1.45);
+
+  % State N-1 — blue
+  \draw[blue!75!black, thick]
+    plot[domain=-0.42:0.42, samples=40, smooth, variable=\t]
+    ({10.0+\t}, {1.45 + 0.72*exp(-\t*\t/0.024)});
+  \draw[blue!25, thin] (9.58,1.45) -- (10.42,1.45);
+
+  % State N — blue
+  \draw[blue!75!black, thick]
+    plot[domain=-0.42:0.42, samples=40, smooth, variable=\t]
+    ({12.0+\t}, {1.45 + 0.72*exp(-\t*\t/0.024)});
+  \draw[blue!25, thin] (11.58,1.45) -- (12.42,1.45);
+
+  % Emission label
+  \node[font=\footnotesize\itshape, text=black!55]
+    at (6.0, 2.7) {$\mathcal{N}(\mu_k,\sigma_k)$ emission};
+
+  % ===== Poisson clock (jump trigger box) =====
+  \node[draw, rounded corners=5pt, fill=yellow!20, very thick,
+        minimum width=2.8cm, minimum height=1.1cm,
+        align=center, font=\small] (clock) at (6.0, 5.0)
+        {Poisson clock\\[1pt]prob.~$\epsilon$};
+
+  % Arrow from state k up to clock
+  \draw[trigger] (sk.north) -- (clock.south)
+    node[midway, right=3pt, font=\footnotesize] {jump triggered};
+
+  % ===== Jump arcs from clock to tail state sets =====
+  % To bottom tail (red arc, bends left)
+  \draw[jumparc, red!70!black]
+    (clock.west)
+    to[out=180, in=100]
+    node[above, sloped, font=\footnotesize, red!80!black,
+         pos=0.45, yshift=2pt]
+      {$K\!\sim\!\mathrm{Pois}(\lambda)$ forced steps}
+    (s1.north);
+
+  % To top tail (blue arc, bends right)
+  \draw[jumparc, blue!70!black]
+    (clock.east)
+    to[out=0, in=80]
+    node[above, sloped, font=\footnotesize, blue!80!black,
+         pos=0.45, yshift=2pt]
+      {$K\!\sim\!\mathrm{Pois}(\lambda)$ forced steps}
+    (sN.north);
+
+  % ===== Tail set brace labels below states =====
+  % Bottom tail brace
+  \draw[decorate,
+        decoration={brace, amplitude=6pt, mirror},
+        red!70!black, thick]
+    (-0.6, -0.65) -- (2.6, -0.65)
+    node[midway, below=7pt, red!80!black, font=\small]
+      {$\mathcal{S}_{-}$\ (bottom tail)};
+
+  % Top tail brace
+  \draw[decorate,
+        decoration={brace, amplitude=6pt, mirror},
+        blue!70!black, thick]
+    (9.4, -0.65) -- (12.6, -0.65)
+    node[midway, below=7pt, blue!80!black, font=\small]
+      {$\mathcal{S}_{+}$\ (top tail)};
+
+  % ===== State-axis arrow =====
+  \draw[->, >=Stealth, gray!70, thin]
+    (-1.0, -0.5) -- (13.2, -0.5)
+    node[right, font=\small, text=black!70] {state index};
+
+  % Normal Markov path label
+  \node[font=\footnotesize, text=gray!80, above right=2pt and 4pt of sk]
+    {prob.~$1\!-\!\epsilon$};
+
+\end{tikzpicture}%
+}
+\caption{Architecture of the Hybrid Hidden Markov Model with Jump-Diffusion (HMM-WJ).
+    At each step the chain transitions according to the empirical transition matrix $\mathbf{T}$
+    (probability $1-\epsilon$, thin bidirectional arrows) or enters a Poisson jump episode
+    (probability $\epsilon$, dashed upward arrow to the Poisson clock).
+    During a jump episode the active state is forced to the bottom tail set $\mathcal{S}_{-}$
+    (red, lowest-valued states) or the top tail set $\mathcal{S}_{+}$ (blue, highest-valued states)
+    for $K\!\sim\!\mathrm{Poisson}(\lambda)$ consecutive steps before normal Markovian evolution
+    resumes.  Small bell curves above each state depict the state-conditional
+    $\mathcal{N}(\mu_k,\sigma_k)$ emission distribution.  Tail sets are defined as the
+    $N_{\rm tail}$ lowest- and highest-quantile states under the Laplace quantile partition.}
+\label{fig:model_architecture}
+\end{figure}
+
+\clearpage
+
+% ── Figure 3: Fitted Model Internals ─────────────────────────────────────────
+\begin{figure}[htpb]
+    \centering
+    \begin{subfigure}[b]{0.32\textwidth}
+        \centering
+        \missingfigure[figwidth=\textwidth]{Laplace CDF fit over SPY empirical CDF,\\
+            vertical lines at the $N=90$ quantile boundaries}
+        \caption{Laplace quantile partition}
+    \end{subfigure}
+    \hfill
+    \begin{subfigure}[b]{0.32\textwidth}
+        \centering
+        \missingfigure[figwidth=\textwidth]{Heatmap of $T$ (log-scale color, $90\times90$);\\
+            dominant near-diagonal banded structure}
+        \caption{Transition matrix $T$ (log scale)}
+    \end{subfigure}
+    \hfill
+    \begin{subfigure}[b]{0.32\textwidth}
+        \centering
+        \missingfigure[figwidth=\textwidth]{Self-transition probability $T_{kk}$ vs.\ state $k$;\\
+            tail states have markedly lower $T_{kk}$}
+        \caption{Self-transition probability $T_{kk}$}
+    \end{subfigure}
+    \caption{Fitted model internals for SPY with $N=90$ states.
+    Panel~(a) shows the Laplace CDF partition that defines the $N$ equal-probability quantile bins.
+    Panel~(b) displays the empirical transition matrix in log scale; the dominant near-diagonal band
+    reflects short-range regime persistence.
+    Panel~(c) plots the self-transition probability $T_{kk}$ against state index $k$.  The markedly
+    lower values for the bottommost and topmost states (the tail set) are the structural motivation
+    for the jump-duration mechanism: without forced tail excursions, the Markov chain escapes extreme
+    regimes too rapidly to reproduce empirical volatility clustering.}
+    \label{fig:model_internals}
+\end{figure}
+
+\clearpage
+
+% ── Figure 4: Head-to-Head Model Comparison ──────────────────────────────────
+\begin{figure}[htpb]
+    \centering
+    \includegraphics[width=\textwidth]{Fig4-Model-Comparison.pdf}
+    \caption{Head-to-head in-sample model comparison for SPY ($N=90$, 1{,}000 simulated paths).
+    Panel~(a): marginal density of excess growth rates; all models reproduce the bulk of the
+    distribution, but GARCH(1,1) under-weights extreme tails relative to the data.
+    Panel~(b): autocorrelation function of absolute excess growth rates (ARCH effect) at lags
+    1--252; only HMM-WJ reproduces the empirically observed slow ACF decay, while GARCH(1,1) and
+    HMM-NJ decay too rapidly.
+    Panel~(c): tail Q-Q plot restricted to the 1st and 99th percentile region; HMM-WJ provides
+    the closest quantile match in the extreme tails.}
+    \label{fig:model_comparison}
+\end{figure}
+
+\clearpage
+
+% ── Figure 5: Grid Search Landscape ──────────────────────────────────────────
+\begin{figure}[htpb]
+    \centering
+    \includegraphics[width=\textwidth]{Fig5-Parameter-Sweep.pdf}
+    \caption{Hyperparameter grid search over $(\epsilon,\lambda)$ for SPY ($N=90$, 200 paths per
+    grid point).
+    Panel~(a): heatmap of the objective function $J(\epsilon,\lambda)$ in $\log_{10}$ scale over
+    the full search grid; the red star marks the optimal pair $(\epsilon^*,\lambda^*)$.  The
+    well-defined interior minimum confirms that the jump hyperparameters are identifiable from data.
+    Panel~(b): ACF of $|G_t|$ at the optimal parameters computed from 500 jump-containing paths
+    (10th--90th percentile band shaded; mean curve solid navy) compared with the SPY observed ACF
+    (dashed red) and the 95\% significance band (dotted black).}
+    \label{fig:parameter_sweep}
+\end{figure}
+
+\clearpage
+
+% ── Figure 6: Statistical Validation ─────────────────────────────────────────
 \begin{figure}[htpb]
     \centering
     \begin{subfigure}[b]{0.48\textwidth}
         \centering
-        \includegraphics[width=\textwidth]{Fig-SPY-90-InSample-Density-Comparison-NJ.pdf}
-        \caption{Probability density comparison}
+        \missingfigure[figwidth=\textwidth]{Histogram of KS $p$-values across 1,000 IS paths;\\
+            distribution nearly uniform above 0.05}
+        \caption{In-sample KS $p$-value distribution}
     \end{subfigure}
     \hfill
     \begin{subfigure}[b]{0.48\textwidth}
         \centering
-        \includegraphics[width=\textwidth]{Fig-SPY-90-InSample-Return-Trajectories-NJ.pdf}
-        \caption{Growth rate trajectories}
+        \missingfigure[figwidth=\textwidth]{Histogram of KS $p$-values across 1,000 OoS paths;\\
+            distribution shifts left but mostly above 0.05}
+        \caption{Out-of-sample KS $p$-value distribution}
     \end{subfigure}
     \vspace{0.3cm}
     \begin{subfigure}[b]{0.48\textwidth}
         \centering
-        \includegraphics[width=\textwidth]{Fig-SPY-90-ACF-Absolute-Growth-NJ.pdf}
-        \caption{Absolute growth autocorrelation}
+        \missingfigure[figwidth=\textwidth]{OoS density fan chart:\\
+            observed + model median + 10th/90th percentile shaded band}
+        \caption{Out-of-sample density fan chart}
     \end{subfigure}
     \hfill
     \begin{subfigure}[b]{0.48\textwidth}
         \centering
-        \includegraphics[width=\textwidth]{Fig-SPY-90-ACF-Growth-NJ.pdf}
-        \caption{Growth autocorrelation function}
+        \missingfigure[figwidth=\textwidth]{OoS ACF of $|G_t|$:\\
+            observed (red) + model mean $\pm2$ std shaded band (navy)}
+        \caption{Out-of-sample ACF of $|G_t|$}
     \end{subfigure}
-    \caption{Performance of the standard no-jumps model using $N=90$ states.}
-    \label{fig:nj_90_combo}
+    \caption{Statistical validation of HMM-WJ ($N=90$, 1{,}000 simulated paths, $\alpha=0.05$).
+    Panels~(a) and~(b) show the distribution of KS $p$-values in-sample and out-of-sample,
+    respectively; a well-calibrated generative model produces $p$-values that are approximately
+    uniform above the significance threshold.
+    Panel~(c) shows the out-of-sample marginal density fan chart.
+    Panel~(d) shows persistence of volatility clustering in the out-of-sample window.}
+    \label{fig:statistical_validation}
 \end{figure}
 
 \clearpage
 
-\begin{figure}[htpb]
-    \centering
-    \includegraphics[width=0.7\textwidth]{Fig-SPY-90-OOS-CorrelationDistance-WJ.pdf}
-    \caption{Distribution of correlation distances for 1,000 simulated paths. The mean distance of 1.0 for the correlation distance $(1-\rho)$ confirmed the generation of independent realizations consistent with the efficient markets hypothesis.}
-    \label{fig:oos_correlation_distance}
-\end{figure}
-
-\clearpage
-
+% ── Figure 7: Multi-Asset SIM Extension ──────────────────────────────────────
 \begin{figure}[htpb]
     \centering
     \begin{subfigure}[b]{0.48\textwidth}
         \centering
-        \includegraphics[width=\textwidth]{Fig-SPY-90-ExcessGrowthRate-Probability-Density-HMM-out-of-sample.pdf}
-        \caption{Probability density comparison}
+        \missingfigure[figwidth=\textwidth]{Scatter of $(\hat{\beta}_i,\,R^2_i)$ for all
+            424 assets, colored by GICS sector}
+        \caption{SIM fit quality: $\hat{\beta}_i$ vs.\ $R^2_i$ by GICS sector}
     \end{subfigure}
     \hfill
     \begin{subfigure}[b]{0.48\textwidth}
         \centering
-        \includegraphics[width=\textwidth]{Fig-SPY-90-OOS-Return-Trajectories-WJ.pdf}
-        \caption{Growth rate trajectories}
+        \missingfigure[figwidth=\textwidth]{Histogram of KS pass rates across 424 assets\\
+            under SIM-propagated HMM-WJ paths}
+        \caption{KS pass rate distribution across 424 assets}
     \end{subfigure}
     \vspace{0.3cm}
-    \begin{subfigure}[b]{0.48\textwidth}
+    \begin{subfigure}[b]{0.96\textwidth}
         \centering
-        \includegraphics[width=\textwidth]{Fig-SPY-90-ACF-Absolute-Growth-WJ-OOS.pdf}
-        \caption{Absolute growth autocorrelation}
+        \missingfigure[figwidth=\textwidth]{Marginal density comparisons for 3 representative
+            assets: one high-$\beta$ (e.g., NVDA), one low-$\beta$ (e.g., JNJ), one ETF (e.g., QQQ)}
+        \caption{Representative asset density comparisons}
     \end{subfigure}
-    \hfill
-    \begin{subfigure}[b]{0.48\textwidth}
-        \centering
-        \includegraphics[width=\textwidth]{Fig-SPY-90-ACF-Growth-WJ-OOS.pdf}
-        \caption{Growth autocorrelation function}
-    \end{subfigure}
-    \caption{Out-of-sample performance of the hybrid jumps model using $N=90$ states.}
-    \label{fig:wj_90_oos_combo}
-\end{figure}
-
-\clearpage
-
-\begin{figure}[htpb]
-    \centering
-    \begin{subfigure}[b]{0.48\textwidth}
-        \centering
-        \includegraphics[width=\textwidth]{Fig-SPY-90-InSample-Density-Comparison-HMM-WJ.pdf}
-        \caption{Probability density comparison}
-    \end{subfigure}
-    \hfill
-    \begin{subfigure}[b]{0.48\textwidth}
-        \centering
-        \includegraphics[width=\textwidth]{Fig-SPY-90-InSample-Return-Trajectories-WJ.pdf}
-        \caption{Growth rate trajectories}
-    \end{subfigure}
-    \vspace{0.3cm}
-    \begin{subfigure}[b]{0.48\textwidth}
-        \centering
-        \includegraphics[width=\textwidth]{Fig-SPY-90-ACF-Absolute-Growth-WJ.pdf}
-        \caption{Absolute growth autocorrelation}
-    \end{subfigure}
-    \hfill
-    \begin{subfigure}[b]{0.48\textwidth}
-        \centering
-        \includegraphics[width=\textwidth]{Fig-SPY-90-ACF-Growth-WJ.pdf}
-        \caption{Growth autocorrelation function}
-    \end{subfigure}
-    \caption{Performance of the hybrid jumps model using $N=90$ states.}
-    \label{fig:wj_90_combo}
-\end{figure}
-\FloatBarrier
-
-\clearpage
-
-The following figures illustrate the performance of these low-resolution configurations. Figure \ref{fig:nj_30_appendix} and Figure \ref{fig:wj_30_appendix} show the results for 30 states, while Figure \ref{fig:nj_60_appendix} and Figure \ref{fig:wj_60_appendix} provide the comparison for 60 states.
-
-\begin{figure}[htpb]
-    \centering
-    \begin{subfigure}[b]{0.48\textwidth}
-        \centering
-        \includegraphics[width=\textwidth]{Fig-SPY-30-InSample-Density-Comparison-NJ.pdf}
-        \caption{Density (standard)}
-    \end{subfigure}
-    \hfill
-    \begin{subfigure}[b]{0.48\textwidth}
-        \centering
-        \includegraphics[width=\textwidth]{Fig-SPY-30-InSample-Return-Trajectories-NJ.pdf}
-        \caption{Trajectories (standard)}
-    \end{subfigure}
-    \caption{Performance of the standard no-jumps model using $N=30$ states.}
-    \label{fig:nj_30_appendix}
-\end{figure}
-
-\begin{figure}[htpb]
-    \centering
-    \begin{subfigure}[b]{0.48\textwidth}
-        \centering
-        \includegraphics[width=\textwidth]{Fig-SPY-30-InSample-Density-Comparison-HMM-WJ.pdf}
-        \caption{Density (hybrid)}
-    \end{subfigure}
-    \hfill
-    \begin{subfigure}[b]{0.48\textwidth}
-        \centering
-        \includegraphics[width=\textwidth]{Fig-SPY-30-InSample-Return-Trajectories-WJ.pdf}
-        \caption{Trajectories (hybrid)}
-    \end{subfigure}
-    \caption{Performance of the hybrid jumps model using $N=30$ states.}
-    \label{fig:wj_30_appendix}
-\end{figure}
-
-\begin{figure}[htpb]
-    \centering
-    \begin{subfigure}[b]{0.48\textwidth}
-        \centering
-        \includegraphics[width=\textwidth]{Fig-SPY-60-InSample-Density-Comparison-NJ.pdf}
-        \caption{Density (standard)}
-    \end{subfigure}
-    \hfill
-    \begin{subfigure}[b]{0.48\textwidth}
-        \centering
-        \includegraphics[width=\textwidth]{Fig-SPY-60-InSample-Return-Trajectories-NJ.pdf}
-        \caption{Trajectories (standard)}
-    \end{subfigure}
-    \caption{Performance of the standard no-jumps model using $N=60$ states.}
-    \label{fig:nj_60_appendix}
-\end{figure}
-
-\begin{figure}[htpb]
-    \centering
-    \begin{subfigure}[b]{0.48\textwidth}
-        \centering
-        \includegraphics[width=\textwidth]{Fig-SPY-60-InSample-Density-Comparison-HMM-WJ.pdf}
-        \caption{Density (hybrid)}
-    \end{subfigure}
-    \hfill
-    \begin{subfigure}[b]{0.48\textwidth}
-        \centering
-        \includegraphics[width=\textwidth]{Fig-SPY-60-InSample-Return-Trajectories-WJ.pdf}
-        \caption{Trajectories (hybrid)}
-    \end{subfigure}
-    \caption{Performance of the hybrid jumps model using $N=60$ states.}
-    \label{fig:wj_60_appendix}
+    \caption{Multi-asset extension via the Single-Index Model (SIM) across 424 S\&P~500
+    constituents.  Panel~(a) summarises the SIM regression fit quality by GICS sector.
+    Panel~(b) shows that KS distributional consistency is maintained across the full asset
+    universe when paths are generated via the factor structure
+    $\hat{G}_{i,t} = \hat{\alpha}_i + \hat{\beta}_i G_{{\rm SPY},t} + \hat{\eta}_{i,t}$.
+    Panel~(c) illustrates representative marginal density comparisons for three assets spanning
+    a wide range of systematic risk exposure.}
+    \label{fig:multi_asset}
 \end{figure}

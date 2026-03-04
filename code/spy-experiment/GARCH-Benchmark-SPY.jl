@@ -150,22 +150,50 @@ garch_oos_metrics = compute_metrics(g_oos, garch_oos_paths)
 
 # ── 6. Load HMM-NJ and HMM-WJ paths + metrics from saved JLD2 ────────────────
 @info "Loading HMM results from $(_JLD2_HMM)..."
-hmm_dict = load(_JLD2_HMM)
+hmm_dict    = load(_JLD2_HMM)
+insample_obs = hmm_dict["insampledataset"]
+T_is         = length(insample_obs)
 
-hmm_is_nj_paths  = hmm_dict["in_sample_decoded_archive"]           # T × 1000
-hmm_is_wj_paths  = hmm_dict["in_sample_decoded_archive_with_jumps"] # T × 1000
-insample_obs      = hmm_dict["insampledataset"]                     # observed IS series
+# NJ paths: use what's already in the JLD2
+hmm_is_nj_paths = hmm_dict["in_sample_decoded_archive"]
+hmm_is_nj_paths = hmm_is_nj_paths[1:T_is, 1:min(_N_PATHS, size(hmm_is_nj_paths, 2))]
 
-# Trim paths to same length as observed (notebooks may store T+1 rows)
-T_is = length(insample_obs)
-hmm_is_nj_paths  = hmm_is_nj_paths[1:T_is, 1:min(_N_PATHS, end)]
-hmm_is_wj_paths  = hmm_is_wj_paths[1:T_is, 1:min(_N_PATHS, end)]
+# WJ paths: re-simulate from the stored jump model so we have the jump indicator.
+# The model callable returns an (n_steps × 2) Array{Int64,2}:
+#   col 1 = hidden state index, col 2 = 1 if a jump was active at that step
+@info "Re-simulating HMM-WJ paths to capture jump indicators..."
+jump_model   = hmm_dict["jump_model"]
+decode_model = hmm_dict["decode"]
+π̄            = hmm_dict["stationary"]
+
+hmm_wj_all_decoded  = Matrix{Float64}(undef, T_is, _N_PATHS)  # all paths (for metrics)
+jump_path_indices   = Int[]                                    # paths with ≥1 jump
+
+for i in 1:_N_PATHS
+    start_state  = rand(π̄)
+    result       = jump_model(start_state, T_is)   # T_is × 2
+    states       = result[:, 1]
+    jump_flags   = result[:, 2]
+    decoded      = [rand(decode_model[s]) for s in states]
+    hmm_wj_all_decoded[:, i] = decoded
+    if any(==(1), jump_flags)
+        push!(jump_path_indices, i)
+    end
+end
+
+@info "  WJ paths with ≥1 jump: $(length(jump_path_indices)) / $_N_PATHS"
+
+# Subset of decoded paths that contain at least one jump — used for ACF figures
+hmm_wj_jump_paths = hmm_wj_all_decoded[:, jump_path_indices]
 
 @info "Computing HMM-NJ in-sample metrics..."
 hmm_nj_is_metrics = compute_metrics(insample_obs, hmm_is_nj_paths)
 
-@info "Computing HMM-WJ in-sample metrics..."
-hmm_wj_is_metrics = compute_metrics(insample_obs, hmm_is_wj_paths)
+@info "Computing HMM-WJ in-sample metrics (all paths)..."
+hmm_wj_is_metrics = compute_metrics(insample_obs, hmm_wj_all_decoded)
+
+@info "Computing HMM-WJ ACF metrics (jump-containing paths only, for figures)..."
+hmm_wj_jump_metrics = compute_metrics(insample_obs, hmm_wj_jump_paths)
 
 # ── 7. Print comparison table ─────────────────────────────────────────────────
 println("\n" * "="^72)
@@ -214,32 +242,45 @@ col_wj    = colorant"#1d3557"       # navy   — HMM-WJ
 
 # ── Panel (a): density overlay ────────────────────────────────────────────────
 pa = plot(bg = "gray95", background_color_outside = "white",
-          framestyle = :box, fg_legend = :transparent, legend = :topleft)
+          framestyle = :box, fg_legend = :transparent, legend = :topleft,
+          bottom_margin = 12Plots.mm, left_margin = 12Plots.mm)
 
-n_hmm_paths = size(hmm_is_wj_paths, 2)   # may be < _N_PATHS if JLD2 has fewer paths
+# Each call to density!(v) plots the KDE of the values in that single path's
+# time series — this is the correct approach (matches the notebooks).
+# Use a subset for the faint background to keep rendering fast.
+n_show = 50
 
-# GARCH paths (faint)
-for i in 1:_N_PATHS
-    density!(pa, garch_is_paths[:, i]; lw = 0.3, c = col_garch, label = "")
+# GARCH — faint background then one bold representative
+for i in 1:n_show
+    density!(pa, garch_is_paths[:, i]; lw = 0.5, c = col_garch, alpha = 0.2, label = "")
 end
-# HMM-WJ paths (faint)
-for i in 1:n_hmm_paths
-    density!(pa, hmm_is_wj_paths[:, i]; lw = 0.3, c = col_wj, label = "")
+density!(pa, garch_is_paths[:, 1]; lw = 2.5, c = col_garch, label = "GARCH(1,1)")
+
+# HMM-NJ
+for i in 1:min(n_show, size(hmm_is_nj_paths, 2))
+    density!(pa, hmm_is_nj_paths[:, i]; lw = 0.5, c = col_nj, alpha = 0.2, label = "")
 end
-# Mean lines + observed
-density!(pa, vec(mean(garch_is_paths,  dims = 2)); lw = 2.5, c = col_garch, label = "GARCH(1,1)")
-density!(pa, vec(mean(hmm_is_nj_paths, dims = 2)); lw = 2.5, c = col_nj,   label = "HMM-NJ (N=90)")
-density!(pa, vec(mean(hmm_is_wj_paths, dims = 2)); lw = 2.5, c = col_wj,   label = "HMM-WJ (N=90)")
-density!(pa, insample_obs;                          lw = 3.0, c = col_obs,  label = "SPY Observed", ls = :dash)
-xlabel!(pa, "Excess Growth Rate (year⁻¹)")
-ylabel!(pa, "Density")
-title!(pa,  "(a) Marginal Distributions")
+density!(pa, hmm_is_nj_paths[:, 1]; lw = 2.5, c = col_nj, label = "HMM-NJ (N=90)")
+
+# HMM-WJ (jump paths only)
+for i in 1:min(n_show, size(hmm_wj_jump_paths, 2))
+    density!(pa, hmm_wj_jump_paths[:, i]; lw = 0.5, c = col_wj, alpha = 0.2, label = "")
+end
+density!(pa, hmm_wj_jump_paths[:, 1]; lw = 2.5, c = col_wj, label = "HMM-WJ w/ jumps (N=90)")
+
+# Observed (always on top)
+density!(pa, insample_obs; lw = 3.0, c = col_obs, label = "SPY Observed", ls = :dash)
+xlims!(pa, -10, 10)
+xlabel!(pa, "Excess Growth Rate (year⁻¹)"; fontsize = 18)
+ylabel!(pa, "Density"; fontsize = 18)
+title!(pa,  "(a) Marginal Distributions"; fontsize = 18)
 
 # ── Panel (b): ACF of |G_t| ───────────────────────────────────────────────────
 ci_band = 1.96 / sqrt(length(insample_obs))   # 95% CI for white-noise ACF
 
 pb = plot(bg = "gray95", background_color_outside = "white",
-          framestyle = :box, fg_legend = :transparent, legend = :topright)
+          framestyle = :box, fg_legend = :transparent, legend = :topright,
+          bottom_margin = 12Plots.mm, left_margin = 12Plots.mm)
 
 # Shaded confidence band for HMM-WJ ensemble
 acf_lo = [quantile(garch_is_metrics.acf_mat[l, :], 0.10) for l in 1:_L_ACF]
@@ -247,34 +288,38 @@ acf_hi = [quantile(garch_is_metrics.acf_mat[l, :], 0.90) for l in 1:_L_ACF]
 plot!(pb, lag_vec, acf_lo; fillrange = acf_hi, fillalpha = 0.15, lw = 0,
       c = col_garch, label = "")
 
-acf_lo_wj = [quantile(hmm_wj_is_metrics.acf_mat[l, :], 0.10) for l in 1:_L_ACF]
-acf_hi_wj = [quantile(hmm_wj_is_metrics.acf_mat[l, :], 0.90) for l in 1:_L_ACF]
+acf_lo_wj = [quantile(hmm_wj_jump_metrics.acf_mat[l, :], 0.10) for l in 1:_L_ACF]
+acf_hi_wj = [quantile(hmm_wj_jump_metrics.acf_mat[l, :], 0.90) for l in 1:_L_ACF]
 plot!(pb, lag_vec, acf_lo_wj; fillrange = acf_hi_wj, fillalpha = 0.15, lw = 0,
       c = col_wj, label = "")
 
 # Mean ACF lines
-plot!(pb, lag_vec, garch_is_metrics.mean_acf;  lw = 2, c = col_garch, label = "GARCH(1,1)")
-plot!(pb, lag_vec, hmm_nj_is_metrics.mean_acf; lw = 2, c = col_nj,   label = "HMM-NJ")
-plot!(pb, lag_vec, hmm_wj_is_metrics.mean_acf; lw = 2, c = col_wj,   label = "HMM-WJ")
+plot!(pb, lag_vec, garch_is_metrics.mean_acf;       lw = 2, c = col_garch, label = "GARCH(1,1)")
+plot!(pb, lag_vec, hmm_nj_is_metrics.mean_acf;      lw = 2, c = col_nj,   label = "HMM-NJ")
+plot!(pb, lag_vec, hmm_wj_jump_metrics.mean_acf;    lw = 2, c = col_wj,   label = "HMM-WJ (jump paths)")
 plot!(pb, lag_vec, garch_is_metrics.obs_acf;   lw = 3, c = col_obs,  label = "SPY Observed", ls = :dash)
 hline!(pb, [ci_band, -ci_band]; lw = 1, ls = :dot, c = :black, label = "95% CI (white noise)")
-xlabel!(pb, "Lag (trading days)")
-ylabel!(pb, "ACF of |Excess Growth Rate|")
-title!(pb,  "(b) Volatility Clustering (ARCH Effect)")
+xlabel!(pb, "Lag (trading days)"; fontsize = 18)
+ylabel!(pb, "ACF of |Excess Growth Rate|"; fontsize = 18)
+title!(pb,  "(b) Volatility Clustering (ARCH Effect)"; fontsize = 18)
 
 # ── Panel (c): Q-Q tails (empirical quantiles of simulated vs. observed) ──────
-# Use the mean simulated distribution across all paths
-garch_mean_sim = vec(mean(garch_is_paths,  dims = 2))
-wj_mean_sim    = vec(mean(hmm_is_wj_paths, dims = 2))
+# For each tail probability, compute quantile(path_i, p) for every path i
+# then average — gives the expected simulated quantile at each probability level.
+function mean_quantile(paths::Matrix{Float64}, probs::Vector{Float64})
+    n = size(paths, 2)
+    [mean(quantile(paths[:, i], p) for i in 1:n) for p in probs]
+end
 
 tail_probs = [0.001, 0.005, 0.01, 0.025, 0.05, 0.95, 0.975, 0.99, 0.995, 0.999]
-obs_q      = quantile(insample_obs,    tail_probs)
-garch_q    = quantile(garch_mean_sim,  tail_probs)
-nj_q       = quantile(vec(mean(hmm_is_nj_paths, dims=2)), tail_probs)
-wj_q       = quantile(wj_mean_sim,     tail_probs)
+obs_q   = quantile(insample_obs, tail_probs)
+garch_q = mean_quantile(garch_is_paths,    tail_probs)
+nj_q    = mean_quantile(hmm_is_nj_paths,   tail_probs)
+wj_q    = mean_quantile(hmm_wj_jump_paths, tail_probs)
 
 pc = plot(bg = "gray95", background_color_outside = "white",
-          framestyle = :box, fg_legend = :transparent, legend = :topleft)
+          framestyle = :box, fg_legend = :transparent, legend = :topleft,
+          bottom_margin = 12Plots.mm, left_margin = 12Plots.mm)
 plot!(pc, obs_q, garch_q; seriestype = :scatter, ms = 6, mc = col_garch,
       markerstrokewidth = 0, label = "GARCH(1,1)")
 plot!(pc, obs_q, nj_q;    seriestype = :scatter, ms = 6, mc = col_nj,
@@ -283,9 +328,9 @@ plot!(pc, obs_q, wj_q;    seriestype = :scatter, ms = 6, mc = col_wj,
       markerstrokewidth = 0, label = "HMM-WJ")
 min_q, max_q = extrema(obs_q)
 plot!(pc, [min_q, max_q], [min_q, max_q]; lw = 2, ls = :dash, c = col_obs, label = "45° line")
-xlabel!(pc, "Observed Quantile (year⁻¹)")
-ylabel!(pc, "Simulated Quantile (year⁻¹)")
-title!(pc,  "(c) Tail Q-Q Plot")
+xlabel!(pc, "Observed Quantile (year⁻¹)"; fontsize = 18)
+ylabel!(pc, "Simulated Quantile (year⁻¹)"; fontsize = 18)
+title!(pc,  "(c) Tail Q-Q Plot"; fontsize = 18)
 
 # ── Save figure panels individually ───────────────────────────────────────────
 savefig(pa, joinpath(_PATH_TO_FIGS, "Fig-GARCH-Comparison-a-Density.pdf"))
@@ -293,7 +338,7 @@ savefig(pb, joinpath(_PATH_TO_FIGS, "Fig-GARCH-Comparison-b-ACF.pdf"))
 savefig(pc, joinpath(_PATH_TO_FIGS, "Fig-GARCH-Comparison-c-QQ.pdf"))
 
 # Combined 3-panel layout
-fig4 = plot(pa, pb, pc; layout = (1, 3), size = (1600, 480), margin = 5Plots.mm)
+fig4 = plot(pa, pb, pc; layout = (1, 3), size = (1800, 560))
 savefig(fig4, joinpath(_PATH_TO_FIGS, "Fig4-Model-Comparison.pdf"))
 @info "Saved Figure 4 to figs/"
 

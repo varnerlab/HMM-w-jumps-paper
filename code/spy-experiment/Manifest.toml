@@ -1737,7 +1737,7 @@ version = "0.2.0"
 
 [[deps.VLQuantitativeFinancePackage]]
 deps = ["COSMO", "CSV", "DataFrames", "DataStructures", "Distributions", "FileIO", "JLD2", "JuMP", "LinearAlgebra", "LsqFit", "MadNLP", "Optim", "Statistics", "StatsBase", "TOML"]
-git-tree-sha1 = "8a97ae5781d0e1d493d97e87aebc3b2ddcdc79fd"
+git-tree-sha1 = "e3f89ac3bba659a02f1008d14a553e0764a023cd"
 repo-rev = "main"
 repo-url = "https://github.com/varnerlab/VLQuantitativeFinancePackage.jl.git"
 uuid = "4119e0bf-20d0-4785-913e-5ebdb0caa218"

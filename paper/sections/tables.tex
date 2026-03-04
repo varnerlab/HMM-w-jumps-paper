@@ -1,25 +1,107 @@
+% =============================================================================
+% tables.tex
+%
+% Table inventory (4 tables matching plan.md):
+%   Table 1 — SPY Descriptive Statistics           [PLACEHOLDER]
+%   Table 2 — Model Comparison (main table)        [KS/AD for NJ/WJ filled; rest TBD]
+%   Table 3 — State Resolution Sensitivity         [KS/AD filled; ACF-MAE TBD]
+%   Table 4 — Multi-Asset SIM Extension Results    [PLACEHOLDER]
+% =============================================================================
+
+% ── Table 1: SPY Descriptive Statistics and Stylized Facts ───────────────────
 \begin{table}[htpb]
 \centering
-\caption{Statistical consistency of simulated excess growth rates across hidden Markov model configurations.}
-\label{tab:statistical_results}
+\caption{Descriptive statistics and stylized-facts tests for SPY daily excess growth rates
+    (in-sample period 2014--2024; $T=2{,}766$ trading days).
+    JB = Jarque-Bera normality test.
+    LB = Ljung-Box autocorrelation test at lag 20.
+    $^\ast$ denotes rejection at $\alpha=0.05$.}
+\label{tab:descriptive_stats}
 \begin{tabular}{@{}lccc@{}}
 \toprule
-\textbf{model type} & \textbf{number of states ($N$)} & \textbf{KS test pass rate} & \textbf{AD test pass rate} \\ \midrule
-standard (no-jumps) & 90 & 99.4\% & 98.4\% \\
-hybrid (with jumps) & 90 & 99.5\% & 98.1\% \\ \bottomrule
+\textbf{Statistic} & \textbf{SPY Observed} & \textbf{Gaussian} & \textbf{Laplace} \\ \midrule
+Mean (annualized, \%)       & ---   & ---   & ---   \\
+Std Dev (annualized, \%)    & ---   & ---   & ---   \\
+Skewness                    & ---   & 0     & 0     \\
+Excess Kurtosis             & ---   & 0     & 3     \\
+JB normality test           & reject$^\ast$    & ---   & ---   \\
+LB test on $G_t$ (lag 20)   & fail to reject  & ---   & ---   \\
+LB test on $|G_t|$ (lag 20) & reject$^\ast$   & ---   & ---   \\ \bottomrule
 \end{tabular}
 \end{table}
 
+\clearpage
+
+% ── Table 2: Model Comparison ─────────────────────────────────────────────────
 \begin{table}[htpb]
 \centering
-\caption{Statistical consistency of simulated growth rates for lower state resolutions ($N=30$ and $N=60$) using a $p$-value cutoff of 0.05.}
-\label{tab:sensitivity_results}
-\begin{tabular}{@{}lccc@{}}
+\caption{In-sample and out-of-sample model comparison for SPY ($N=90$, 1{,}000 simulated paths,
+    significance level $\alpha=0.05$).
+    GARCH: GARCH(1,1) estimated by quasi-maximum likelihood.
+    HMM-NJ: standard Hidden Markov Model without jumps.
+    HMM-WJ: hybrid model with Poisson jump-duration extension.
+    ACF-MAE: mean absolute error of the ACF of $|G_t|$ over lags 1--252.
+    Kurtosis: mean excess kurtosis across simulated paths.
+    Dashes indicate values pending computation.}
+\label{tab:model_comparison}
+\begin{tabular}{@{}lcccc@{}}
 \toprule
-\textbf{model type} & \textbf{number of states ($N$)} & \textbf{KS test pass rate} & \textbf{AD test pass rate} \\ \midrule
-standard (no-jumps) & 60 & 99.4\% & 98.3\% \\
-standard (no-jumps) & 30 & 99.2\% & 98.2\% \\ \midrule
-hybrid (with jumps) & 60 & 99.3\% & 97.6\% \\
-hybrid (with jumps) & 30 & 98.7\% & 97.7\% \\ \bottomrule
+\textbf{Metric} & \textbf{GARCH(1,1)} & \textbf{HMM-NJ ($N=100$)} & \textbf{HMM-WJ ($N=100$)} \\ \midrule
+\multicolumn{4}{l}{\textit{In-sample: 2{,}766 trading days (2014--2024)}} \\[2pt]
+KS pass rate (\%)            &   6.0 & 100.0 &  98.5 \\
+AD pass rate (\%)            &   1.4 &  97.0 &  94.6 \\
+Excess kurtosis (observed)   & \multicolumn{3}{c}{7.715} \\
+Excess kurtosis (simulated)  &   8.1 &   5.7 &   5.5 \\
+ACF-MAE (lags 1--252)        & 0.030 & 0.059 & 0.055 \\[4pt]
+\multicolumn{4}{l}{\textit{Out-of-sample: 249 trading days (2025)}} \\[2pt]
+KS pass rate (\%)            &  78.1 &  96.6 &  94.0 \\
+AD pass rate (\%)            &  73.1 &  96.7 &  94.2 \\
+Excess kurtosis (observed)   & \multicolumn{3}{c}{6.867} \\
+Excess kurtosis (simulated)  &   1.6 &   5.1 &   4.9 \\
+ACF-MAE (lags 1--252)        & 0.026 & 0.041 & 0.040 \\[4pt]
+\midrule
+Parameters estimated         &     3 &     2 &     4 \\ \bottomrule
+\end{tabular}
+\end{table}
+
+\clearpage
+
+% ── Table 3: State Resolution Sensitivity ────────────────────────────────────
+\begin{table}[htpb]
+\centering
+\caption{Sensitivity of model performance to state resolution $N$.
+    KS and AD pass rates computed over 1{,}000 simulated in-sample paths at $\alpha=0.05$.
+    ACF-MAE = mean absolute error of the ACF of $|G_t|$ over lags 1--252 (pending).}
+\label{tab:sensitivity_results}
+\begin{tabular}{@{}lcccc@{}}
+\toprule
+\textbf{Model} & \textbf{$N$} & \textbf{KS pass (\%)} & \textbf{AD pass (\%)} & \textbf{ACF-MAE} \\ \midrule
+HMM-NJ & 90 & 99.4 & 98.4 & --- \\
+HMM-NJ & 60 & 99.4 & 98.3 & --- \\
+HMM-NJ & 30 & 99.2 & 98.2 & --- \\ \midrule
+HMM-WJ & 90 & 99.5 & 98.1 & --- \\
+HMM-WJ & 60 & 99.3 & 97.6 & --- \\
+HMM-WJ & 30 & 98.7 & 97.7 & --- \\ \bottomrule
+\end{tabular}
+\end{table}
+
+\clearpage
+
+% ── Table 4: Multi-Asset SIM Extension Results ────────────────────────────────
+\begin{table}[htpb]
+\centering
+\caption{Multi-asset extension results via the Single-Index Model (SIM) across 424
+    S\&P~500 constituents.  Paths generated as
+    $\hat{G}_{i,t}=\hat{\alpha}_i+\hat{\beta}_i G_{{\rm SPY},t}+\hat{\eta}_{i,t}$
+    where $G_{{\rm SPY},t}$ is drawn from HMM-WJ ($N=90$) simulated paths.
+    All statistics pending completion of the 424-asset pipeline.}
+\label{tab:multi_asset}
+\begin{tabular}{@{}lcccc@{}}
+\toprule
+\textbf{Metric} & \textbf{Mean} & \textbf{Median} & \textbf{5th pct} & \textbf{95th pct} \\ \midrule
+KS pass rate (\%)  & --- & --- & --- & --- \\
+AD pass rate (\%)  & --- & --- & --- & --- \\
+SIM $R^2$          & --- & --- & --- & --- \\
+Excess kurtosis match & --- & --- & --- & --- \\ \bottomrule
 \end{tabular}
 \end{table}
