@@ -39,6 +39,38 @@ The objective function $J(\epsilon, \lambda)$ was formalized as:
 where $\text{ACF}_{obs}(\tau)$ and $K_{obs}$ represented the empirical absolute growth autocorrelation at lag $\tau$ and the global kurtosis, respectively. The simulated equivalents, $\overline{\text{ACF}}_{sim}(\tau)$ and $\overline{K}_{sim}$, were averaged across 1,000 independent synthetic paths of 2,766 trading days to ensure statistical stability \cite{glasserman_monte_2003}. A penalty weight of $w_K = 0.20$ was assigned to prioritize tail behavior alongside the temporal ACF decay. The grid search systematically explored $\epsilon$ values from $0.00001$ to $0.0001$ and $\lambda$ values from $1.0$ to $100.0$. The full computational procedure is detailed in Algorithm \ref{alg:grid_search}.
 
 \subsection*{Statistical validation metrics}
+To assess whether synthetic paths are statistically consistent with empirical data, we applied two nonparametric goodness-of-fit tests to the marginal distributions of simulated excess growth rate sequences. For each of the 1,000 simulated paths, the empirical cumulative distribution function (CDF) of the simulated sequence was compared against the empirical CDF of the historical in-sample or out-of-sample observations.
+
+The Kolmogorov-Smirnov (KS) statistic is defined as:
+\begin{equation}
+    D_{KS} = \sup_{x} \left\lvert F_n(x) - F_m(x) \right\rvert
+    \label{eq:ks_stat}
+\end{equation}
+where $F_n$ and $F_m$ denote the empirical CDFs of the observed and simulated sequences of lengths $n$ and $m$, respectively \cite{kolmogorov_1933, smirnov_1948}. The null hypothesis of distributional equivalence is rejected at significance level $\alpha$ when $D_{KS}$ exceeds the critical value $c(\alpha)\sqrt{(n+m)/(nm)}$.
+
+The Anderson-Darling (AD) statistic places greater weight on the distributional tails than the KS test and is defined as:
+\begin{equation}
+    A^2 = -n - \sum_{i=1}^{n} \frac{2i-1}{n}\left[\ln F(X_{(i)}) + \ln\left(1 - F(X_{(n+1-i)})\right)\right]
+    \label{eq:ad_stat}
+\end{equation}
+where $X_{(1)} \le \cdots \le X_{(n)}$ are the order statistics of the pooled sample and $F$ is the empirical CDF of the reference distribution \cite{anderson_darling_1952}. The AD test is particularly suited for assessing tail-distributional fidelity, which is the primary concern for risk management applications.
+
+We report the \textit{pass rate} as the proportion of the 1,000 simulated paths for which the null hypothesis of distributional equivalence was not rejected at the $\alpha = 0.05$ significance level. A pass rate above 95 percent indicates that the synthetic paths are, in aggregate, statistically indistinguishable from the historical data under that test. Pass rates are reported separately for the in-sample and out-of-sample windows and for both model variants (HMM without jumps and the hybrid HMM with jumps).
+
+\subsection*{Single-Index Factor Model extension}
+The framework described above applies to any individual asset ticker within the 424-asset dataset. To generalize synthetic path generation to a correlated multi-asset setting without fitting a separate HMM for each asset, we exploit the linear factor structure of the Single-Index Model (SIM) \cite{sharpe_simplified_1963}. The SIM expresses the excess growth rate of asset $i$ at time $t$ as:
+\begin{equation}
+    G_{i,t} = \alpha_i + \beta_i \cdot G_{\text{SPY},t} + \eta_{i,t}, \qquad \eta_{i,t} \stackrel{\text{i.i.d.}}{\sim} \mathcal{N}(0, \sigma_{\eta,i}^2)
+    \label{eq:sim}
+\end{equation}
+where $G_{\text{SPY},t}$ denotes the SPY excess growth rate at time $t$, $\beta_i$ measures the systematic sensitivity of asset $i$ to the index, $\alpha_i$ is the idiosyncratic drift, and $\eta_{i,t}$ is a zero-mean idiosyncratic shock assumed independent across assets and time. The parameters $(\alpha_i, \beta_i, \sigma_{\eta,i}^2)$ are estimated via ordinary least squares on the in-sample time series for each asset $i$.
+
+Synthetic multi-asset paths are generated as follows. First, the hybrid HMM produces a single synthetic SPY excess growth rate path $\{\hat{G}_{\text{SPY},t}\}_{t=1}^T$ using the regime-switching and jump-duration mechanism described above. Second, for each asset $i$, an idiosyncratic shock sequence $\{\hat{\eta}_{i,t}\}$ is drawn independently from $\mathcal{N}(0, \hat{\sigma}_{\eta,i}^2)$. Third, the synthetic excess growth rate for asset $i$ is recovered via:
+\begin{equation}
+    \hat{G}_{i,t} = \hat{\alpha}_i + \hat{\beta}_i \cdot \hat{G}_{\text{SPY},t} + \hat{\eta}_{i,t}.
+    \label{eq:sim_gen}
+\end{equation}
+This construction preserves the cross-sectional correlation structure induced by the common factor while maintaining the regime-switching and jump-diffusion dynamics of the index. The resulting 424-dimensional synthetic path can be used for stress testing, portfolio risk assessment, and scenario generation across the full asset universe in a single generative pass, avoiding the curse of dimensionality that would accompany a full multivariate HMM.
 
 \subsection*{Sensitivity analysis: low-resolution models}\label{app:sensitivity}
 This section provides the results for lower state resolutions ($N=30$ and $N=60$) to demonstrate how state granularity impacts the model's ability to capture stylized facts. Table \ref{tab:sensitivity_results} summarizes the pass rates for the Kolmogorov-Smirnov and Anderson-Darling tests across these four cases. As the number of states decreases, the model maintained overall distribution fit, though tail-region precision decreased slightly compared to the 90-state configuration.

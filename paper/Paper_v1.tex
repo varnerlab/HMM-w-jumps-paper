@@ -28,10 +28,10 @@
 \usepackage{amsbsy}
 \usepackage{booktabs}
 \usepackage{amsmath,amsfonts,amssymb} %removed amsthm
-\usepackage{algpseudocode}
+\usepackage{algorithmic}
 \usepackage{algorithm}
 \usepackage{tablefootnote}
-\usepackage{subfigure}
+\usepackage{subcaption}
 \usepackage{url}
 \usepackage[title]{appendix}
 \usetikzlibrary{arrows,decorations.pathmorphing,backgrounds,positioning,fit,petri}
@@ -86,6 +86,7 @@
 \DeclareMathOperator{\reference}{ref}
 \DeclareMathOperator{\offo}{OFFO}
 \usepackage{float}
+\usepackage{placeins}
 \usepackage{mdframed}
 \definecolor{lgray}{rgb}{0.92,0.92,0.92}
 \definecolor{lsalmon}{rgb}{0.9921568627450981,0.9411764705882353, 0.9254901960784314}
@@ -125,6 +126,8 @@
 %% For long captions that need to be continued on the next page
 \usepackage{capt-of}
 
+\graphicspath{{sections/figs/}}
+
 % \journal{Energy Policy}
 
 \begin{document}
@@ -139,13 +142,12 @@
 
 \begin{abstract}
 \begin{linenumbers}
-Financial time series exhibit statistical regularities, commonly referred to as stylized facts, that are not captured by classical Gaussian diffusion models. In particular, empirical equity excess growth rates display heavy-tailed distributions, negligible linear autocorrelation, and volatility clustering. This work proposes a hybrid hidden Markov framework that discretizes continuous excess growth rates into quantile-defined market states and augments the regime-switching process with a Poisson-driven jump-diffusion mechanism. Model parameters are estimated empirically through transition counting, avoiding the computational cost of likelihood maximization and expectation-maximization procedures. A pipeline was developed to support the construction of excess growth rate models for any ticker; we validated the framework using SPY (Standard \& Poor's 500 index exchange-traded fund) as an example asset, though the framework is applicable to any ticker within our 424-asset dataset. Using 10-years of trading data, we show that while standard regime-switching models reproduced marginal excess growth rate distributions, the jump-duration mechanism was needed to generate persistent high-volatility regimes. The selection of the number of states provided a balance between distributional fidelity and statistical robustness, reproducing heavy-tailed behavior and volatility clustering in both in-sample and out-of-sample settings.
-Taken together, this hybrid hidden Markov model offers a generative framework for simulating market dynamics and producing synthetic time series that remain statistically consistent with underlying market regimes.
+Financial time series exhibit statistical regularities, commonly referred to as stylized facts, that are not captured by classical Gaussian diffusion models. In particular, empirical equity excess growth rates display heavy-tailed distributions, negligible linear autocorrelation, and volatility clustering. This work proposes a hybrid hidden Markov framework that discretizes continuous excess growth rates into quantile-defined market states and augments the regime-switching process with a Poisson-driven jump-duration mechanism. Model parameters are estimated empirically through transition counting, avoiding the computational cost of likelihood maximization and expectation-maximization procedures. A pipeline was developed to support the construction of excess growth rate models for any ticker; we validated the framework using SPY (Standard \& Poor's 500 index exchange-traded fund) as an example asset. Using 10 years of SPY trading data, we show that while standard regime-switching models reproduced marginal excess growth rate distributions, the jump-duration mechanism was necessary to generate persistent high-volatility regimes consistent with the ARCH effect. A state resolution of $N=90$ balanced distributional fidelity and statistical robustness, achieving Kolmogorov-Smirnov and Anderson-Darling pass rates exceeding 98\% in-sample and 80\% out-of-sample across 1,000 simulated paths. We further extend the framework to a 424-asset universe via a Single-Index Model factor structure, enabling correlated multi-asset synthetic path generation in a single generative pass. Taken together, this hybrid hidden Markov model offers an interpretable and computationally efficient generative framework for simulating market dynamics and producing synthetic time series for portfolio stress testing and risk assessment.
 \end{linenumbers}
 \end{abstract}
 
 \begin{keyword}
-Portfolio Optimization \sep Cobb-Douglas Utility Function \sep Single Index Model \sep Dynamic Risk Aversion \sep Exponential Moving Average \sep Hidden Markov Model
+Hidden Markov Model \sep Jump-Diffusion \sep Volatility Clustering \sep Regime-Switching \sep Stylized Facts \sep Excess Growth Rate \sep Synthetic Data Generation \sep Generative Model
 \end{keyword}
 
 \end{frontmatter}

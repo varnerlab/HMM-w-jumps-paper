@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.27 (TeX Live 2025) (preloaded format=pdflatex 2025.3.8)  2 MAR 2026 17:17
+This is pdfTeX, Version 3.141592653-2.6-1.40.27 (TeX Live 2025) (preloaded format=pdflatex 2025.3.8)  4 MAR 2026 11:37
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -608,39 +608,29 @@ LaTeX Info: Redefining \addtolength on input line 81.
 )
 \c@@todonotes@numberoftodonotes=\count335
 )
-(/usr/local/texlive/2025/texmf-dist/tex/latex/algorithmicx/algpseudocode.sty
-Package: algpseudocode 
-
-(/usr/local/texlive/2025/texmf-dist/tex/latex/algorithmicx/algorithmicx.sty
-Package: algorithmicx 2005/04/27 v1.2 Algorithmicx
-
-Document Style algorithmicx 1.2 - a greatly improved `algorithmic' style
-\c@ALG@line=\count336
-\c@ALG@rem=\count337
-\c@ALG@nested=\count338
-\ALG@tlm=\skip70
-\ALG@thistlm=\skip71
-\c@ALG@Lnr=\count339
-\c@ALG@blocknr=\count340
-\c@ALG@storecount=\count341
-\c@ALG@tmpcounter=\count342
-\ALG@tmplength=\skip72
+(/usr/local/texlive/2025/texmf-dist/tex/latex/algorithms/algorithmic.sty
+Package: algorithmic 2009/08/24 v0.1 Document Style `algorithmic'
+\c@ALC@unique=\count336
+\c@ALC@line=\count337
+\c@ALC@rem=\count338
+\c@ALC@depth=\count339
+\ALC@tlm=\skip70
+\algorithmicindent=\skip71
 )
-Document Style - pseudocode environments for use with the `algorithmicx' style
-) (/usr/local/texlive/2025/texmf-dist/tex/latex/algorithms/algorithm.sty
+(/usr/local/texlive/2025/texmf-dist/tex/latex/algorithms/algorithm.sty
 Package: algorithm 2009/08/24 v0.1 Document Style `algorithm' - floating enviro
 nment
 
 (/usr/local/texlive/2025/texmf-dist/tex/latex/float/float.sty
 Package: float 2001/11/08 v1.3d Float enhancements (AL)
-\c@float@type=\count343
+\c@float@type=\count340
 \float@exts=\toks42
 \float@box=\box79
 \@float@everytoks=\toks43
 \@floatcapt=\box80
 )
 \@float@every@algorithm=\toks44
-\c@algorithm=\count344
+\c@algorithm=\count341
 )
 (/usr/local/texlive/2025/texmf-dist/tex/latex/tablefootnote/tablefootnote.sty
 Package: tablefootnote 2014/01/26 v1.1c Table foot notes (HMM)
@@ -654,25 +644,42 @@ Package: xifthen 2015/11/05 v1.4.0 Extended ifthen features
 (/usr/local/texlive/2025/texmf-dist/tex/latex/ifmtarg/ifmtarg.sty
 Package: ifmtarg 2018/04/16 v1.2b check for an empty argument
 )))
-(/usr/local/texlive/2025/texmf-dist/tex/latex/subfigure/subfigure.sty
-Package: subfigure 2002/03/15 v2.1.5 subfigure package
-\subfigtopskip=\skip73
-\subfigcapskip=\skip74
-\subfigcaptopadj=\dimen296
-\subfigbottomskip=\skip75
-\subfigcapmargin=\dimen297
-\subfiglabelskip=\skip76
-\c@subfigure=\count345
-\c@lofdepth=\count346
-\c@subtable=\count347
-\c@lotdepth=\count348
+(/usr/local/texlive/2025/texmf-dist/tex/latex/caption/subcaption.sty
+Package: subcaption 2023/07/28 v1.6b Sub-captions (AR)
 
-****************************************
-* Local config file subfigure.cfg used *
-****************************************
-(/usr/local/texlive/2025/texmf-dist/tex/latex/subfigure/subfigure.cfg)
-\subfig@top=\skip77
-\subfig@bottom=\skip78
+(/usr/local/texlive/2025/texmf-dist/tex/latex/caption/caption.sty
+Package: caption 2023/08/05 v3.6o Customizing captions (AR)
+
+(/usr/local/texlive/2025/texmf-dist/tex/latex/caption/caption3.sty
+Package: caption3 2023/07/31 v2.4d caption3 kernel (AR)
+\caption@tempdima=\dimen296
+\captionmargin=\dimen297
+\caption@leftmargin=\dimen298
+\caption@rightmargin=\dimen299
+\caption@width=\dimen300
+\caption@indent=\dimen301
+\caption@parindent=\dimen302
+\caption@hangindent=\dimen303
+Package caption Info: elsarticle document class detected.
+
+(/usr/local/texlive/2025/texmf-dist/tex/latex/caption/caption-elsarticle.sto
+File: caption-elsarticle.sto 2020/08/22 v2.0 Adaption of the caption package to
+ the elsarticle document class (AR)
+))
+\c@caption@flags=\count342
+\c@continuedfloat=\count343
+Package caption Info: float package is loaded.
+Package caption Info: longtable package is loaded.
+
+(/usr/local/texlive/2025/texmf-dist/tex/latex/caption/ltcaption.sty
+Package: ltcaption 2021/01/08 v1.4c longtable captions (AR)
+)
+Package caption Info: supertabular package is loaded.
+)
+Package caption Info: New subtype `subfigure' on input line 238.
+\c@subfigure=\count344
+Package caption Info: New subtype `subtable' on input line 238.
+\c@subtable=\count345
 )
 (/usr/local/texlive/2025/texmf-dist/tex/latex/url/url.sty
 \Urlmuskip=\muskip18
@@ -680,9 +687,9 @@ Package: url 2013/09/16  ver 3.4  Verb mode for urls, etc.
 )
 (/usr/local/texlive/2025/texmf-dist/tex/latex/appendix/appendix.sty
 Package: appendix 2020/02/08 v1.2c extra appendix facilities
-\c@@pps=\count349
-\c@@ppsavesec=\count350
-\c@@ppsaveapp=\count351
+\c@@pps=\count346
+\c@@ppsavesec=\count347
+\c@@ppsaveapp=\count348
 )
 (/usr/local/texlive/2025/texmf-dist/tex/generic/pgf/frontendlayer/tikz/librarie
 s/tikzlibraryarrows.code.tex
@@ -691,7 +698,7 @@ File: tikzlibraryarrows.code.tex 2023-01-15 v3.1.10 (3.1.10)
 (/usr/local/texlive/2025/texmf-dist/tex/generic/pgf/libraries/pgflibraryarrows.
 code.tex
 File: pgflibraryarrows.code.tex 2023-01-15 v3.1.10 (3.1.10)
-\arrowsize=\dimen298
+\arrowsize=\dimen304
 ))
 (/usr/local/texlive/2025/texmf-dist/tex/generic/pgf/frontendlayer/tikz/librarie
 s/tikzlibrarydecorations.pathmorphing.code.tex
@@ -699,14 +706,14 @@ s/tikzlibrarydecorations.pathmorphing.code.tex
 s/tikzlibrarydecorations.code.tex
 (/usr/local/texlive/2025/texmf-dist/tex/generic/pgf/modules/pgfmoduledecoration
 s.code.tex
-\pgfdecoratedcompleteddistance=\dimen299
-\pgfdecoratedremainingdistance=\dimen300
-\pgfdecoratedinputsegmentcompleteddistance=\dimen301
-\pgfdecoratedinputsegmentremainingdistance=\dimen302
-\pgf@decorate@distancetomove=\dimen303
-\pgf@decorate@repeatstate=\count352
-\pgfdecorationsegmentamplitude=\dimen304
-\pgfdecorationsegmentlength=\dimen305
+\pgfdecoratedcompleteddistance=\dimen305
+\pgfdecoratedremainingdistance=\dimen306
+\pgfdecoratedinputsegmentcompleteddistance=\dimen307
+\pgfdecoratedinputsegmentremainingdistance=\dimen308
+\pgf@decorate@distancetomove=\dimen309
+\pgf@decorate@repeatstate=\count349
+\pgfdecorationsegmentamplitude=\dimen310
+\pgfdecorationsegmentlength=\dimen311
 )
 \tikz@lib@dec@box=\box81
 )
@@ -741,10 +748,10 @@ brarydecorations.shapes.code.tex))
 (/usr/local/texlive/2025/texmf-dist/tex/generic/pgf/libraries/pgflibraryarrows.
 meta.code.tex
 File: pgflibraryarrows.meta.code.tex 2023-01-15 v3.1.10 (3.1.10)
-\pgfarrowinset=\dimen306
-\pgfarrowlength=\dimen307
-\pgfarrowwidth=\dimen308
-\pgfarrowlinewidth=\dimen309
+\pgfarrowinset=\dimen312
+\pgfarrowlength=\dimen313
+\pgfarrowwidth=\dimen314
+\pgfarrowlinewidth=\dimen315
 )
 (/usr/local/texlive/2025/texmf-dist/tex/generic/pgf/frontendlayer/tikz/librarie
 s/tikzlibraryquotes.code.tex
@@ -770,14 +777,14 @@ File: tikzlibrarychains.code.tex 2023-01-15 v3.1.10 (3.1.10)
 (/usr/local/texlive/2025/texmf-dist/tex/latex/hobby/pgflibraryhobby.code.tex
 (/usr/local/texlive/2025/texmf-dist/tex/latex/hobby/hobby.code.tex
 (/usr/local/texlive/2025/texmf-dist/tex/latex/hobby/pml3array.sty
-\l_array_base_int=\count353
-\l_array_top_int=\count354
-\l_array_tmp_int=\count355
-\g_array_map_int=\count356
-\g_array_base_int=\count357
+\l_array_base_int=\count350
+\l_array_top_int=\count351
+\l_array_tmp_int=\count352
+\g_array_map_int=\count353
+\g_array_base_int=\count354
 )
-\g__hobby_npoints_int=\count358
-\g__hobby_draw_int=\count359
+\g__hobby_npoints_int=\count355
+\g__hobby_draw_int=\count356
 )))
 (/usr/local/texlive/2025/texmf-dist/tex/latex/pgfplots/pgfplots.sty
 (/usr/local/texlive/2025/texmf-dist/tex/generic/pgfplots/pgfplots.revision.tex)
@@ -787,9 +794,9 @@ Package: pgfplots 2021/05/15 v1.18.1 Data Visualization (1.18.1)
 \t@pgfplots@toka=\toks45
 \t@pgfplots@tokb=\toks46
 \t@pgfplots@tokc=\toks47
-\pgfplots@tmpa=\dimen310
-\c@pgfplots@coordindex=\count360
-\c@pgfplots@scanlineindex=\count361
+\pgfplots@tmpa=\dimen316
+\c@pgfplots@coordindex=\count357
+\c@pgfplots@scanlineindex=\count358
 
 (/usr/local/texlive/2025/texmf-dist/tex/generic/pgfplots/sys/pgfplotssysgeneric
 .code.tex))
@@ -814,13 +821,13 @@ liststructure.code.tex)
 liststructureext.code.tex)
 (/usr/local/texlive/2025/texmf-dist/tex/generic/pgfplots/liststructure/pgfplots
 array.code.tex
-\c@pgfplotsarray@tmp=\count362
+\c@pgfplotsarray@tmp=\count359
 )
 (/usr/local/texlive/2025/texmf-dist/tex/generic/pgfplots/liststructure/pgfplots
 matrix.code.tex)
 (/usr/local/texlive/2025/texmf-dist/tex/generic/pgfplots/numtable/pgfplotstable
 shared.code.tex
-\c@pgfplotstable@counta=\count363
+\c@pgfplotstable@counta=\count360
 \t@pgfplotstable@a=\toks51
 )
 (/usr/local/texlive/2025/texmf-dist/tex/generic/pgfplots/liststructure/pgfplots
@@ -833,7 +840,7 @@ ta.code.tex))
 .code.tex)
 (/usr/local/texlive/2025/texmf-dist/tex/generic/pgfplots/libs/pgflibrarypgfplot
 s.surfshading.code.tex
-\c@pgfplotslibrarysurf@no=\count364
+\c@pgfplotslibrarysurf@no=\count361
 
 (/usr/local/texlive/2025/texmf-dist/tex/generic/pgfplots/sys/pgflibrarypgfplots
 .surfshading.pgfsys-pdftex.def)))
@@ -863,13 +870,13 @@ tex)
 x)
 (/usr/local/texlive/2025/texmf-dist/tex/generic/pgfplots/libs/tikzlibrarypgfplo
 ts.contourlua.code.tex)
-\pgfplots@numplots=\count365
-\pgfplots@xmin@reg=\dimen311
-\pgfplots@xmax@reg=\dimen312
-\pgfplots@ymin@reg=\dimen313
-\pgfplots@ymax@reg=\dimen314
-\pgfplots@zmin@reg=\dimen315
-\pgfplots@zmax@reg=\dimen316
+\pgfplots@numplots=\count362
+\pgfplots@xmin@reg=\dimen317
+\pgfplots@xmax@reg=\dimen318
+\pgfplots@ymin@reg=\dimen319
+\pgfplots@ymax@reg=\dimen320
+\pgfplots@zmin@reg=\dimen321
+\pgfplots@zmax@reg=\dimen322
 )
 (/usr/local/texlive/2025/texmf-dist/tex/generic/pgf/frontendlayer/tikz/librarie
 s/tikzlibraryplotmarks.code.tex
@@ -885,24 +892,27 @@ Package: mathtools 2024/10/04 v1.31 mathematical typesetting tools
 (/usr/local/texlive/2025/texmf-dist/tex/latex/mathtools/mhsetup.sty
 Package: mhsetup 2021/03/18 v1.4 programming setup (MH)
 )
-\g_MT_multlinerow_int=\count366
-\l_MT_multwidth_dim=\dimen317
-\origjot=\skip79
-\l_MT_shortvdotswithinadjustabove_dim=\dimen318
-\l_MT_shortvdotswithinadjustbelow_dim=\dimen319
-\l_MT_above_intertext_sep=\dimen320
-\l_MT_below_intertext_sep=\dimen321
-\l_MT_above_shortintertext_sep=\dimen322
-\l_MT_below_shortintertext_sep=\dimen323
+\g_MT_multlinerow_int=\count363
+\l_MT_multwidth_dim=\dimen323
+\origjot=\skip72
+\l_MT_shortvdotswithinadjustabove_dim=\dimen324
+\l_MT_shortvdotswithinadjustbelow_dim=\dimen325
+\l_MT_above_intertext_sep=\dimen326
+\l_MT_below_intertext_sep=\dimen327
+\l_MT_above_shortintertext_sep=\dimen328
+\l_MT_below_shortintertext_sep=\dimen329
 \xmathstrut@box=\box84
-\xmathstrut@dim=\dimen324
+\xmathstrut@dim=\dimen330
 )
-\c@assumption=\count367
-\c@condition=\count368
-\c@theorem=\count369
-\c@proposition=\count370
-\c@corollary=\count371
+\c@assumption=\count364
+\c@condition=\count365
+\c@theorem=\count366
+\c@proposition=\count367
+\c@corollary=\count368
 
+(/usr/local/texlive/2025/texmf-dist/tex/latex/placeins/placeins.sty
+Package: placeins 2005/04/18  v 2.2
+)
 (/usr/local/texlive/2025/texmf-dist/tex/latex/mdframed/mdframed.sty
 Package: mdframed 2013/07/01 1.9b: mdframed
 
@@ -939,53 +949,53 @@ Package zref Info: New property list: main on input line 767.
 Package zref Info: New property: default on input line 768.
 Package zref Info: New property: page on input line 769.
 )
-\c@abspage=\count372
+\c@abspage=\count369
 Package zref Info: New property: abspage on input line 67.
 )
 (/usr/local/texlive/2025/texmf-dist/tex/latex/needspace/needspace.sty
 Package: needspace 2010/09/12 v1.3d reserve vertical space
 )
-\mdf@templength=\skip80
-\c@mdf@globalstyle@cnt=\count373
-\mdf@skipabove@length=\skip81
-\mdf@skipbelow@length=\skip82
-\mdf@leftmargin@length=\skip83
-\mdf@rightmargin@length=\skip84
-\mdf@innerleftmargin@length=\skip85
-\mdf@innerrightmargin@length=\skip86
-\mdf@innertopmargin@length=\skip87
-\mdf@innerbottommargin@length=\skip88
-\mdf@splittopskip@length=\skip89
-\mdf@splitbottomskip@length=\skip90
-\mdf@outermargin@length=\skip91
-\mdf@innermargin@length=\skip92
-\mdf@linewidth@length=\skip93
-\mdf@innerlinewidth@length=\skip94
-\mdf@middlelinewidth@length=\skip95
-\mdf@outerlinewidth@length=\skip96
-\mdf@roundcorner@length=\skip97
-\mdf@footenotedistance@length=\skip98
-\mdf@userdefinedwidth@length=\skip99
-\mdf@needspace@length=\skip100
-\mdf@frametitleaboveskip@length=\skip101
-\mdf@frametitlebelowskip@length=\skip102
-\mdf@frametitlerulewidth@length=\skip103
-\mdf@frametitleleftmargin@length=\skip104
-\mdf@frametitlerightmargin@length=\skip105
-\mdf@shadowsize@length=\skip106
-\mdf@extratopheight@length=\skip107
-\mdf@subtitleabovelinewidth@length=\skip108
-\mdf@subtitlebelowlinewidth@length=\skip109
-\mdf@subtitleaboveskip@length=\skip110
-\mdf@subtitlebelowskip@length=\skip111
-\mdf@subtitleinneraboveskip@length=\skip112
-\mdf@subtitleinnerbelowskip@length=\skip113
-\mdf@subsubtitleabovelinewidth@length=\skip114
-\mdf@subsubtitlebelowlinewidth@length=\skip115
-\mdf@subsubtitleaboveskip@length=\skip116
-\mdf@subsubtitlebelowskip@length=\skip117
-\mdf@subsubtitleinneraboveskip@length=\skip118
-\mdf@subsubtitleinnerbelowskip@length=\skip119
+\mdf@templength=\skip73
+\c@mdf@globalstyle@cnt=\count370
+\mdf@skipabove@length=\skip74
+\mdf@skipbelow@length=\skip75
+\mdf@leftmargin@length=\skip76
+\mdf@rightmargin@length=\skip77
+\mdf@innerleftmargin@length=\skip78
+\mdf@innerrightmargin@length=\skip79
+\mdf@innertopmargin@length=\skip80
+\mdf@innerbottommargin@length=\skip81
+\mdf@splittopskip@length=\skip82
+\mdf@splitbottomskip@length=\skip83
+\mdf@outermargin@length=\skip84
+\mdf@innermargin@length=\skip85
+\mdf@linewidth@length=\skip86
+\mdf@innerlinewidth@length=\skip87
+\mdf@middlelinewidth@length=\skip88
+\mdf@outerlinewidth@length=\skip89
+\mdf@roundcorner@length=\skip90
+\mdf@footenotedistance@length=\skip91
+\mdf@userdefinedwidth@length=\skip92
+\mdf@needspace@length=\skip93
+\mdf@frametitleaboveskip@length=\skip94
+\mdf@frametitlebelowskip@length=\skip95
+\mdf@frametitlerulewidth@length=\skip96
+\mdf@frametitleleftmargin@length=\skip97
+\mdf@frametitlerightmargin@length=\skip98
+\mdf@shadowsize@length=\skip99
+\mdf@extratopheight@length=\skip100
+\mdf@subtitleabovelinewidth@length=\skip101
+\mdf@subtitlebelowlinewidth@length=\skip102
+\mdf@subtitleaboveskip@length=\skip103
+\mdf@subtitlebelowskip@length=\skip104
+\mdf@subtitleinneraboveskip@length=\skip105
+\mdf@subtitleinnerbelowskip@length=\skip106
+\mdf@subsubtitleabovelinewidth@length=\skip107
+\mdf@subsubtitlebelowlinewidth@length=\skip108
+\mdf@subsubtitleaboveskip@length=\skip109
+\mdf@subsubtitlebelowskip@length=\skip110
+\mdf@subsubtitleinneraboveskip@length=\skip111
+\mdf@subsubtitleinnerbelowskip@length=\skip112
 
 (/usr/local/texlive/2025/texmf-dist/tex/latex/mdframed/md-frame-0.mdf
 File: md-frame-0.mdf 2013/07/01\ 1.9b: md-frame-0
@@ -995,43 +1005,43 @@ File: md-frame-0.mdf 2013/07/01\ 1.9b: md-frame-0
 \mdf@splitbox@one=\box87
 \mdf@splitbox@two=\box88
 \mdf@splitbox@save=\box89
-\mdfsplitboxwidth=\skip120
-\mdfsplitboxtotalwidth=\skip121
-\mdfsplitboxheight=\skip122
-\mdfsplitboxdepth=\skip123
-\mdfsplitboxtotalheight=\skip124
-\mdfframetitleboxwidth=\skip125
-\mdfframetitleboxtotalwidth=\skip126
-\mdfframetitleboxheight=\skip127
-\mdfframetitleboxdepth=\skip128
-\mdfframetitleboxtotalheight=\skip129
-\mdffootnoteboxwidth=\skip130
-\mdffootnoteboxtotalwidth=\skip131
-\mdffootnoteboxheight=\skip132
-\mdffootnoteboxdepth=\skip133
-\mdffootnoteboxtotalheight=\skip134
-\mdftotallinewidth=\skip135
-\mdfboundingboxwidth=\skip136
-\mdfboundingboxtotalwidth=\skip137
-\mdfboundingboxheight=\skip138
-\mdfboundingboxdepth=\skip139
-\mdfboundingboxtotalheight=\skip140
-\mdf@freevspace@length=\skip141
-\mdf@horizontalwidthofbox@length=\skip142
-\mdf@verticalmarginwhole@length=\skip143
-\mdf@horizontalspaceofbox=\skip144
-\mdfsubtitleheight=\skip145
-\mdfsubsubtitleheight=\skip146
-\c@mdfcountframes=\count374
+\mdfsplitboxwidth=\skip113
+\mdfsplitboxtotalwidth=\skip114
+\mdfsplitboxheight=\skip115
+\mdfsplitboxdepth=\skip116
+\mdfsplitboxtotalheight=\skip117
+\mdfframetitleboxwidth=\skip118
+\mdfframetitleboxtotalwidth=\skip119
+\mdfframetitleboxheight=\skip120
+\mdfframetitleboxdepth=\skip121
+\mdfframetitleboxtotalheight=\skip122
+\mdffootnoteboxwidth=\skip123
+\mdffootnoteboxtotalwidth=\skip124
+\mdffootnoteboxheight=\skip125
+\mdffootnoteboxdepth=\skip126
+\mdffootnoteboxtotalheight=\skip127
+\mdftotallinewidth=\skip128
+\mdfboundingboxwidth=\skip129
+\mdfboundingboxtotalwidth=\skip130
+\mdfboundingboxheight=\skip131
+\mdfboundingboxdepth=\skip132
+\mdfboundingboxtotalheight=\skip133
+\mdf@freevspace@length=\skip134
+\mdf@horizontalwidthofbox@length=\skip135
+\mdf@verticalmarginwhole@length=\skip136
+\mdf@horizontalspaceofbox=\skip137
+\mdfsubtitleheight=\skip138
+\mdfsubsubtitleheight=\skip139
+\c@mdfcountframes=\count371
 
 ****** mdframed patching \endmdf@trivlist
 
 ****** -- success******
 
-\mdf@envdepth=\count375
-\c@mdf@env@i=\count376
-\c@mdf@env@ii=\count377
-\c@mdf@zref@counter=\count378
+\mdf@envdepth=\count372
+\c@mdf@env@i=\count373
+\c@mdf@env@ii=\count374
+\c@mdf@zref@counter=\count375
 Package zref Info: New property: mdf@pagevalue on input line 895.
 )
 (/usr/local/texlive/2025/texmf-dist/tex/latex/capt-of/capt-of.sty
@@ -1040,33 +1050,33 @@ Package: capt-of 2009/12/29 v0.2 standard captions outside of floats
 (./Paper_v1.aux)
 \openout1 = `Paper_v1.aux'.
 
-LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 130.
-LaTeX Font Info:    ... okay on input line 130.
-LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 130.
-LaTeX Font Info:    ... okay on input line 130.
-LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 130.
-LaTeX Font Info:    ... okay on input line 130.
-LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 130.
-LaTeX Font Info:    ... okay on input line 130.
-LaTeX Font Info:    Checking defaults for TS1/cmr/m/n on input line 130.
-LaTeX Font Info:    ... okay on input line 130.
-LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 130.
-LaTeX Font Info:    ... okay on input line 130.
-LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 130.
-LaTeX Font Info:    ... okay on input line 130.
+LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 133.
+LaTeX Font Info:    ... okay on input line 133.
+LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 133.
+LaTeX Font Info:    ... okay on input line 133.
+LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 133.
+LaTeX Font Info:    ... okay on input line 133.
+LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 133.
+LaTeX Font Info:    ... okay on input line 133.
+LaTeX Font Info:    Checking defaults for TS1/cmr/m/n on input line 133.
+LaTeX Font Info:    ... okay on input line 133.
+LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 133.
+LaTeX Font Info:    ... okay on input line 133.
+LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 133.
+LaTeX Font Info:    ... okay on input line 133.
 
 (/usr/local/texlive/2025/texmf-dist/tex/context/base/mkii/supp-pdf.mkii
 [Loading MPS to PDF converter (version 2006.09.02).]
-\scratchcounter=\count379
-\scratchdimen=\dimen325
+\scratchcounter=\count376
+\scratchdimen=\dimen331
 \scratchbox=\box90
-\nofMPsegments=\count380
-\nofMParguments=\count381
+\nofMPsegments=\count377
+\nofMParguments=\count378
 \everyMPshowfont=\toks52
-\MPscratchCnt=\count382
-\MPscratchDim=\dimen326
-\MPnumerator=\count383
-\makeMPintoPDFobject=\count384
+\MPscratchCnt=\count379
+\MPscratchDim=\dimen332
+\MPnumerator=\count380
+\makeMPintoPDFobject=\count381
 \everyMPtoPDFconversion=\toks53
 ) (/usr/local/texlive/2025/texmf-dist/tex/latex/epstopdf-pkg/epstopdf-base.sty
 Package: epstopdf-base 2020-01-24 v2.11 Base part for package epstopdf
@@ -1081,20 +1091,22 @@ e
 Package todonotes Warning: The length marginparwidth is less than 2cm and will 
 most likely cause issues with the appearance of inserted todonotes. The issue c
 an be solved by adding a line like \setlength {\marginparwidth }{2cm} prior to 
-loading the todonotes package. on input line 130.
+loading the todonotes package. on input line 133.
 
+Package caption Info: Begin \AtBeginDocument code.
+Package caption Info: End \AtBeginDocument code.
 
 Package pgfplots Warning: running in backwards compatibility mode (unsuitable t
 ick labels; missing features). Consider writing \pgfplotsset{compat=1.18} into 
 your preamble.
- on input line 130.
+ on input line 133.
 
-LaTeX Font Info:    Trying to load font information for U+msa on input line 151
+LaTeX Font Info:    Trying to load font information for U+msa on input line 145
 .
 (/usr/local/texlive/2025/texmf-dist/tex/latex/amsfonts/umsa.fd
 File: umsa.fd 2013/01/14 v3.01 AMS symbols A
 )
-LaTeX Font Info:    Trying to load font information for U+msb on input line 151
+LaTeX Font Info:    Trying to load font information for U+msb on input line 145
 .
 
 (/usr/local/texlive/2025/texmf-dist/tex/latex/amsfonts/umsb.fd
@@ -1108,15 +1120,33 @@ File: umsb.fd 2013/01/14 v3.01 AMS symbols B
 al/texlive/2025/texmf-dist/fonts/enc/dvips/cm-super/cm-super-t1.enc}]
 (./sections/introduction.tex
 
-[2]) (./sections/related.tex)
+[2]
 
-[3] (./sections/methods.tex
+[3]) (./sections/related.tex
 
-[4
+[4]
+
+[5]
+Overfull \hbox (9.58983pt too wide) in paragraph at lines 17--18
+[]\T1/cmr/m/n/12 Hidden Markov mod-els pro-vide a prob-a-bilis-tic frame-work f
+or non-stationary
+ []
+
+
+
+[6]
+
+[7]
+
+[8])
+
+[9] (./sections/methods.tex
+
+[10
 
 ]
 
-[5]
+[11]
 Overfull \hbox (1.4058pt too wide) in paragraph at lines 27--28
 []\T1/cmr/m/n/12 Let's out-line a sim-ple sam-pling al-go-rithm for gen-er-at-i
 ng ran-dom se-quences
@@ -1124,971 +1154,261 @@ ng ran-dom se-quences
 
 
 
-[6])
+[12]
 
-[7]
+[13]
 
-[8] (./sections/results.tex
+[14])
 
-[9
+[15] (./sections/results.tex
+
+[16
 
 ])
 
-[10] (./sections/discussion.tex)
+[17] (./sections/discussion.tex)
 
-[11
+[18
 
 ]
 
-[12] (./sections/conclusion.tex)
+[19] (./sections/conclusion.tex
+Overfull \hbox (4.29535pt too wide) in paragraph at lines 1--2
+[]\T1/cmr/m/n/12 This study de-vel-oped and val-i-dated a hy-brid hid-den Marko
+v model (HMM)
+ []
 
-[13
 
-] (./sections/endmatter.tex)
-Overfull \hbox (21.14574pt too wide) in paragraph at lines 8--189
+Overfull \hbox (7.6404pt too wide) in paragraph at lines 3--5
+\T1/cmr/m/n/12 tral method-olog-i-cal con-tri-bu-tion is the aug-men-ta-tion of
+ a discrete-state regime-
+ []
+
+
+
+[20
+
+]
+
+[21])
+
+[22] (./sections/endmatter.tex)
+Overfull \hbox (21.14574pt too wide) in paragraph at lines 8--191
 \T1/cmr/m/n/12 GitHub repos-i-tory: $\T1/cmtt/m/n/12 https : / / github . com /
  varnerlab / HMM-[]Model-[]with-[]Jumps .
  []
 
 
 
-[14
+[23
 
 ] (./Paper_v1.bbl
 
-[15
+[24
 
 ]
-Underfull \hbox (badness 2035) in paragraph at lines 167--171
+
+[25]
+
+[26]
+Underfull \hbox (badness 2035) in paragraph at lines 281--285
 []\T1/cmr/m/n/12 P. Glasser-man, Monte Carlo Meth-ods in Fi-nan-cial En-gi-neer
 -ing,
  []
 
-
-
-[16]
-
-[17])
-
-[18] (./sections/figures.tex
-! Missing number, treated as zero.
-<to be read again> 
-                   }
-l.3     \begin{subfigure}[b]{0.48\textwidth}
-                                            
-? r
-OK, entering \nonstopmode...
-! Illegal unit of measure (pt inserted).
-<to be read again> 
-                   }
-l.3     \begin{subfigure}[b]{0.48\textwidth}
-                                            
-Dimensions can be in units of em, ex, in, pt, pc,
-cm, mm, dd, cc, nd, nc, bp, or sp; but yours is a new one!
-I'll assume that you meant to say pt, for printer's points.
-To recover gracefully from this error, it's best to
-delete the erroneous units; e.g., type `2' to delete
-two letters. (See Chapter 27 of The TeXbook.)
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 3--3
-[]\T1/cmr/m/n/10 (a)
- []
-
-
-LaTeX Warning: File `Fig-SPY-90-InSample-Density-Comparison-NJ.pdf' not found o
-n input line 5.
-
-
-! Package pdftex.def Error: File `Fig-SPY-90-InSample-Density-Comparison-NJ.pdf
-' not found: using draft setting.
-
-See the pdftex.def package documentation for explanation.
-Type  H <return>  for immediate help.
- ...                                              
-                                                  
-l.5 ...-SPY-90-InSample-Density-Comparison-NJ.pdf}
-                                                  
-Try typing  <return>  to proceed.
-If that doesn't work, type  X <return>  to quit.
-
-! Missing number, treated as zero.
-<to be read again> 
-                   }
-l.9     \begin{subfigure}[b]{0.48\textwidth}
-                                            
-A number should have been here; I inserted `0'.
-(If you can't figure out why I needed to see a number,
-look up `weird error' in the index to The TeXbook.)
-
-! Illegal unit of measure (pt inserted).
-<to be read again> 
-                   }
-l.9     \begin{subfigure}[b]{0.48\textwidth}
-                                            
-Dimensions can be in units of em, ex, in, pt, pc,
-cm, mm, dd, cc, nd, nc, bp, or sp; but yours is a new one!
-I'll assume that you meant to say pt, for printer's points.
-To recover gracefully from this error, it's best to
-delete the erroneous units; e.g., type `2' to delete
-two letters. (See Chapter 27 of The TeXbook.)
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 9--9
-[]\T1/cmr/m/n/10 (a)
- []
-
-
-LaTeX Warning: File `Fig-SPY-90-InSample-Return-Trajectories-NJ.pdf' not found 
-on input line 11.
-
-
-! Package pdftex.def Error: File `Fig-SPY-90-InSample-Return-Trajectories-NJ.pd
-f' not found: using draft setting.
-
-See the pdftex.def package documentation for explanation.
-Type  H <return>  for immediate help.
- ...                                              
-                                                  
-l.11 ...PY-90-InSample-Return-Trajectories-NJ.pdf}
-                                                  
-Try typing  <return>  to proceed.
-If that doesn't work, type  X <return>  to quit.
-
-! Missing number, treated as zero.
-<to be read again> 
-                   }
-l.15     \begin{subfigure}[b]{0.48\textwidth}
-                                             
-A number should have been here; I inserted `0'.
-(If you can't figure out why I needed to see a number,
-look up `weird error' in the index to The TeXbook.)
-
-! Illegal unit of measure (pt inserted).
-<to be read again> 
-                   }
-l.15     \begin{subfigure}[b]{0.48\textwidth}
-                                             
-Dimensions can be in units of em, ex, in, pt, pc,
-cm, mm, dd, cc, nd, nc, bp, or sp; but yours is a new one!
-I'll assume that you meant to say pt, for printer's points.
-To recover gracefully from this error, it's best to
-delete the erroneous units; e.g., type `2' to delete
-two letters. (See Chapter 27 of The TeXbook.)
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 15--15
-[]\T1/cmr/m/n/10 (a)
- []
-
-
-LaTeX Warning: File `Fig-SPY-90-ACF-Absolute-Growth-NJ.pdf' not found on input 
-line 17.
-
-
-! Package pdftex.def Error: File `Fig-SPY-90-ACF-Absolute-Growth-NJ.pdf' not fo
-und: using draft setting.
-
-See the pdftex.def package documentation for explanation.
-Type  H <return>  for immediate help.
- ...                                              
-                                                  
-l.17 ...th]{Fig-SPY-90-ACF-Absolute-Growth-NJ.pdf}
-                                                  
-Try typing  <return>  to proceed.
-If that doesn't work, type  X <return>  to quit.
-
-! Missing number, treated as zero.
-<to be read again> 
-                   }
-l.21     \begin{subfigure}[b]{0.48\textwidth}
-                                             
-A number should have been here; I inserted `0'.
-(If you can't figure out why I needed to see a number,
-look up `weird error' in the index to The TeXbook.)
-
-! Illegal unit of measure (pt inserted).
-<to be read again> 
-                   }
-l.21     \begin{subfigure}[b]{0.48\textwidth}
-                                             
-Dimensions can be in units of em, ex, in, pt, pc,
-cm, mm, dd, cc, nd, nc, bp, or sp; but yours is a new one!
-I'll assume that you meant to say pt, for printer's points.
-To recover gracefully from this error, it's best to
-delete the erroneous units; e.g., type `2' to delete
-two letters. (See Chapter 27 of The TeXbook.)
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 21--21
-[]\T1/cmr/m/n/10 (a)
- []
-
-
-LaTeX Warning: File `Fig-SPY-90-ACF-Growth-NJ.pdf' not found on input line 23.
-
-
-! Package pdftex.def Error: File `Fig-SPY-90-ACF-Growth-NJ.pdf' not found: usin
-g draft setting.
-
-See the pdftex.def package documentation for explanation.
-Type  H <return>  for immediate help.
- ...                                              
-                                                  
-l.23 ...=\textwidth]{Fig-SPY-90-ACF-Growth-NJ.pdf}
-                                                  
-Try typing  <return>  to proceed.
-If that doesn't work, type  X <return>  to quit.
-
-
-LaTeX Warning: Float too large for page by 1317.18666pt on input line 28.
-
-
-
-[19]
-
-LaTeX Warning: File `Fig-SPY-90-OOS-CorrelationDistance-WJ.pdf' not found on in
-put line 34.
-
-
-! Package pdftex.def Error: File `Fig-SPY-90-OOS-CorrelationDistance-WJ.pdf' no
-t found: using draft setting.
-
-See the pdftex.def package documentation for explanation.
-Type  H <return>  for immediate help.
- ...                                              
-                                                  
-l.34 ...Fig-SPY-90-OOS-CorrelationDistance-WJ.pdf}
-                                                  
-Try typing  <return>  to proceed.
-If that doesn't work, type  X <return>  to quit.
-
-
-
-[20
-
-
-]
-! Missing number, treated as zero.
-<to be read again> 
-                   }
-l.43     \begin{subfigure}[b]{0.48\textwidth}
-                                             
-A number should have been here; I inserted `0'.
-(If you can't figure out why I needed to see a number,
-look up `weird error' in the index to The TeXbook.)
-
-! Illegal unit of measure (pt inserted).
-<to be read again> 
-                   }
-l.43     \begin{subfigure}[b]{0.48\textwidth}
-                                             
-Dimensions can be in units of em, ex, in, pt, pc,
-cm, mm, dd, cc, nd, nc, bp, or sp; but yours is a new one!
-I'll assume that you meant to say pt, for printer's points.
-To recover gracefully from this error, it's best to
-delete the erroneous units; e.g., type `2' to delete
-two letters. (See Chapter 27 of The TeXbook.)
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 43--43
-[]\T1/cmr/m/n/10 (a)
- []
-
-
-LaTeX Warning: File `Fig-SPY-90-ExcessGrowthRate-Probability-Density-HMM-out-of
--sample.pdf' not found on input line 45.
-
-
-! Package pdftex.def Error: File `Fig-SPY-90-ExcessGrowthRate-Probability-Densi
-ty-HMM-out-of-sample.pdf' not found: using draft setting.
-
-See the pdftex.def package documentation for explanation.
-Type  H <return>  for immediate help.
- ...                                              
-                                                  
-l.45 ...Probability-Density-HMM-out-of-sample.pdf}
-                                                  
-Try typing  <return>  to proceed.
-If that doesn't work, type  X <return>  to quit.
-
-! Missing number, treated as zero.
-<to be read again> 
-                   }
-l.49     \begin{subfigure}[b]{0.48\textwidth}
-                                             
-A number should have been here; I inserted `0'.
-(If you can't figure out why I needed to see a number,
-look up `weird error' in the index to The TeXbook.)
-
-! Illegal unit of measure (pt inserted).
-<to be read again> 
-                   }
-l.49     \begin{subfigure}[b]{0.48\textwidth}
-                                             
-Dimensions can be in units of em, ex, in, pt, pc,
-cm, mm, dd, cc, nd, nc, bp, or sp; but yours is a new one!
-I'll assume that you meant to say pt, for printer's points.
-To recover gracefully from this error, it's best to
-delete the erroneous units; e.g., type `2' to delete
-two letters. (See Chapter 27 of The TeXbook.)
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 49--49
-[]\T1/cmr/m/n/10 (a)
- []
-
-
-LaTeX Warning: File `Fig-SPY-90-OOS-Return-Trajectories-WJ.pdf' not found on in
-put line 51.
-
-
-! Package pdftex.def Error: File `Fig-SPY-90-OOS-Return-Trajectories-WJ.pdf' no
-t found: using draft setting.
-
-See the pdftex.def package documentation for explanation.
-Type  H <return>  for immediate help.
- ...                                              
-                                                  
-l.51 ...Fig-SPY-90-OOS-Return-Trajectories-WJ.pdf}
-                                                  
-Try typing  <return>  to proceed.
-If that doesn't work, type  X <return>  to quit.
-
-! Missing number, treated as zero.
-<to be read again> 
-                   }
-l.55     \begin{subfigure}[b]{0.48\textwidth}
-                                             
-A number should have been here; I inserted `0'.
-(If you can't figure out why I needed to see a number,
-look up `weird error' in the index to The TeXbook.)
-
-! Illegal unit of measure (pt inserted).
-<to be read again> 
-                   }
-l.55     \begin{subfigure}[b]{0.48\textwidth}
-                                             
-Dimensions can be in units of em, ex, in, pt, pc,
-cm, mm, dd, cc, nd, nc, bp, or sp; but yours is a new one!
-I'll assume that you meant to say pt, for printer's points.
-To recover gracefully from this error, it's best to
-delete the erroneous units; e.g., type `2' to delete
-two letters. (See Chapter 27 of The TeXbook.)
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 55--55
-[]\T1/cmr/m/n/10 (a)
- []
-
-
-LaTeX Warning: File `Fig-SPY-90-ACF-Absolute-Growth-WJ-OOS.pdf' not found on in
-put line 57.
-
-
-! Package pdftex.def Error: File `Fig-SPY-90-ACF-Absolute-Growth-WJ-OOS.pdf' no
-t found: using draft setting.
-
-See the pdftex.def package documentation for explanation.
-Type  H <return>  for immediate help.
- ...                                              
-                                                  
-l.57 ...Fig-SPY-90-ACF-Absolute-Growth-WJ-OOS.pdf}
-                                                  
-Try typing  <return>  to proceed.
-If that doesn't work, type  X <return>  to quit.
-
-! Missing number, treated as zero.
-<to be read again> 
-                   }
-l.61     \begin{subfigure}[b]{0.48\textwidth}
-                                             
-A number should have been here; I inserted `0'.
-(If you can't figure out why I needed to see a number,
-look up `weird error' in the index to The TeXbook.)
-
-! Illegal unit of measure (pt inserted).
-<to be read again> 
-                   }
-l.61     \begin{subfigure}[b]{0.48\textwidth}
-                                             
-Dimensions can be in units of em, ex, in, pt, pc,
-cm, mm, dd, cc, nd, nc, bp, or sp; but yours is a new one!
-I'll assume that you meant to say pt, for printer's points.
-To recover gracefully from this error, it's best to
-delete the erroneous units; e.g., type `2' to delete
-two letters. (See Chapter 27 of The TeXbook.)
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 61--61
-[]\T1/cmr/m/n/10 (a)
- []
-
-
-LaTeX Warning: File `Fig-SPY-90-ACF-Growth-WJ-OOS.pdf' not found on input line 
-63.
-
-
-! Package pdftex.def Error: File `Fig-SPY-90-ACF-Growth-WJ-OOS.pdf' not found: 
-using draft setting.
-
-See the pdftex.def package documentation for explanation.
-Type  H <return>  for immediate help.
- ...                                              
-                                                  
-l.63 ...xtwidth]{Fig-SPY-90-ACF-Growth-WJ-OOS.pdf}
-                                                  
-Try typing  <return>  to proceed.
-If that doesn't work, type  X <return>  to quit.
-
-
-LaTeX Warning: Float too large for page by 1317.18666pt on input line 68.
-
-
-
-[21]
-! Missing number, treated as zero.
-<to be read again> 
-                   }
-l.74     \begin{subfigure}[b]{0.48\textwidth}
-                                             
-A number should have been here; I inserted `0'.
-(If you can't figure out why I needed to see a number,
-look up `weird error' in the index to The TeXbook.)
-
-! Illegal unit of measure (pt inserted).
-<to be read again> 
-                   }
-l.74     \begin{subfigure}[b]{0.48\textwidth}
-                                             
-Dimensions can be in units of em, ex, in, pt, pc,
-cm, mm, dd, cc, nd, nc, bp, or sp; but yours is a new one!
-I'll assume that you meant to say pt, for printer's points.
-To recover gracefully from this error, it's best to
-delete the erroneous units; e.g., type `2' to delete
-two letters. (See Chapter 27 of The TeXbook.)
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 74--74
-[]\T1/cmr/m/n/10 (a)
- []
-
-
-LaTeX Warning: File `Fig-SPY-90-InSample-Density-Comparison-HMM-WJ.pdf' not fou
-nd on input line 76.
-
-
-! Package pdftex.def Error: File `Fig-SPY-90-InSample-Density-Comparison-HMM-WJ
-.pdf' not found: using draft setting.
-
-See the pdftex.def package documentation for explanation.
-Type  H <return>  for immediate help.
- ...                                              
-                                                  
-l.76 ...90-InSample-Density-Comparison-HMM-WJ.pdf}
-                                                  
-Try typing  <return>  to proceed.
-If that doesn't work, type  X <return>  to quit.
-
-! Missing number, treated as zero.
-<to be read again> 
-                   }
-l.80     \begin{subfigure}[b]{0.48\textwidth}
-                                             
-A number should have been here; I inserted `0'.
-(If you can't figure out why I needed to see a number,
-look up `weird error' in the index to The TeXbook.)
-
-! Illegal unit of measure (pt inserted).
-<to be read again> 
-                   }
-l.80     \begin{subfigure}[b]{0.48\textwidth}
-                                             
-Dimensions can be in units of em, ex, in, pt, pc,
-cm, mm, dd, cc, nd, nc, bp, or sp; but yours is a new one!
-I'll assume that you meant to say pt, for printer's points.
-To recover gracefully from this error, it's best to
-delete the erroneous units; e.g., type `2' to delete
-two letters. (See Chapter 27 of The TeXbook.)
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 80--80
-[]\T1/cmr/m/n/10 (a)
- []
-
-
-LaTeX Warning: File `Fig-SPY-90-InSample-Return-Trajectories-WJ.pdf' not found 
-on input line 82.
-
-
-! Package pdftex.def Error: File `Fig-SPY-90-InSample-Return-Trajectories-WJ.pd
-f' not found: using draft setting.
-
-See the pdftex.def package documentation for explanation.
-Type  H <return>  for immediate help.
- ...                                              
-                                                  
-l.82 ...PY-90-InSample-Return-Trajectories-WJ.pdf}
-                                                  
-Try typing  <return>  to proceed.
-If that doesn't work, type  X <return>  to quit.
-
-! Missing number, treated as zero.
-<to be read again> 
-                   }
-l.86     \begin{subfigure}[b]{0.48\textwidth}
-                                             
-A number should have been here; I inserted `0'.
-(If you can't figure out why I needed to see a number,
-look up `weird error' in the index to The TeXbook.)
-
-! Illegal unit of measure (pt inserted).
-<to be read again> 
-                   }
-l.86     \begin{subfigure}[b]{0.48\textwidth}
-                                             
-Dimensions can be in units of em, ex, in, pt, pc,
-cm, mm, dd, cc, nd, nc, bp, or sp; but yours is a new one!
-I'll assume that you meant to say pt, for printer's points.
-To recover gracefully from this error, it's best to
-delete the erroneous units; e.g., type `2' to delete
-two letters. (See Chapter 27 of The TeXbook.)
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 86--86
-[]\T1/cmr/m/n/10 (a)
- []
-
-
-LaTeX Warning: File `Fig-SPY-90-ACF-Absolute-Growth-WJ.pdf' not found on input 
-line 88.
-
-
-! Package pdftex.def Error: File `Fig-SPY-90-ACF-Absolute-Growth-WJ.pdf' not fo
-und: using draft setting.
-
-See the pdftex.def package documentation for explanation.
-Type  H <return>  for immediate help.
- ...                                              
-                                                  
-l.88 ...th]{Fig-SPY-90-ACF-Absolute-Growth-WJ.pdf}
-                                                  
-Try typing  <return>  to proceed.
-If that doesn't work, type  X <return>  to quit.
-
-! Missing number, treated as zero.
-<to be read again> 
-                   }
-l.92     \begin{subfigure}[b]{0.48\textwidth}
-                                             
-A number should have been here; I inserted `0'.
-(If you can't figure out why I needed to see a number,
-look up `weird error' in the index to The TeXbook.)
-
-! Illegal unit of measure (pt inserted).
-<to be read again> 
-                   }
-l.92     \begin{subfigure}[b]{0.48\textwidth}
-                                             
-Dimensions can be in units of em, ex, in, pt, pc,
-cm, mm, dd, cc, nd, nc, bp, or sp; but yours is a new one!
-I'll assume that you meant to say pt, for printer's points.
-To recover gracefully from this error, it's best to
-delete the erroneous units; e.g., type `2' to delete
-two letters. (See Chapter 27 of The TeXbook.)
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 92--92
-[]\T1/cmr/m/n/10 (a)
- []
-
-
-LaTeX Warning: File `Fig-SPY-90-ACF-Growth-WJ.pdf' not found on input line 94.
-
-
-! Package pdftex.def Error: File `Fig-SPY-90-ACF-Growth-WJ.pdf' not found: usin
-g draft setting.
-
-See the pdftex.def package documentation for explanation.
-Type  H <return>  for immediate help.
- ...                                              
-                                                  
-l.94 ...=\textwidth]{Fig-SPY-90-ACF-Growth-WJ.pdf}
-                                                  
-Try typing  <return>  to proceed.
-If that doesn't work, type  X <return>  to quit.
-
-
-LaTeX Warning: Float too large for page by 1317.18666pt on input line 99.
-
-! Undefined control sequence.
-l.100 \FloatBarrier
-                   
-The control sequence at the end of the top line
-of your error message was never \def'ed. If you have
-misspelled it (e.g., `\hobx'), type `I' and the correct
-spelling (e.g., `I\hbox'). Otherwise just continue,
-and I'll forget about whatever was undefined.
-
-
-
-[22]
-! Missing number, treated as zero.
-<to be read again> 
-                   }
-l.108     \begin{subfigure}[b]{0.48\textwidth}
-                                              
-A number should have been here; I inserted `0'.
-(If you can't figure out why I needed to see a number,
-look up `weird error' in the index to The TeXbook.)
-
-! Illegal unit of measure (pt inserted).
-<to be read again> 
-                   }
-l.108     \begin{subfigure}[b]{0.48\textwidth}
-                                              
-Dimensions can be in units of em, ex, in, pt, pc,
-cm, mm, dd, cc, nd, nc, bp, or sp; but yours is a new one!
-I'll assume that you meant to say pt, for printer's points.
-To recover gracefully from this error, it's best to
-delete the erroneous units; e.g., type `2' to delete
-two letters. (See Chapter 27 of The TeXbook.)
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 108--108
-[]\T1/cmr/m/n/10 (a)
- []
-
-
-LaTeX Warning: File `Fig-SPY-30-InSample-Density-Comparison-NJ.pdf' not found o
-n input line 110.
-
-
-! Package pdftex.def Error: File `Fig-SPY-30-InSample-Density-Comparison-NJ.pdf
-' not found: using draft setting.
-
-See the pdftex.def package documentation for explanation.
-Type  H <return>  for immediate help.
- ...                                              
-                                                  
-l.110 ...PY-30-InSample-Density-Comparison-NJ.pdf}
-                                                  
-Try typing  <return>  to proceed.
-If that doesn't work, type  X <return>  to quit.
-
-! Missing number, treated as zero.
-<to be read again> 
-                   }
-l.114     \begin{subfigure}[b]{0.48\textwidth}
-                                              
-A number should have been here; I inserted `0'.
-(If you can't figure out why I needed to see a number,
-look up `weird error' in the index to The TeXbook.)
-
-! Illegal unit of measure (pt inserted).
-<to be read again> 
-                   }
-l.114     \begin{subfigure}[b]{0.48\textwidth}
-                                              
-Dimensions can be in units of em, ex, in, pt, pc,
-cm, mm, dd, cc, nd, nc, bp, or sp; but yours is a new one!
-I'll assume that you meant to say pt, for printer's points.
-To recover gracefully from this error, it's best to
-delete the erroneous units; e.g., type `2' to delete
-two letters. (See Chapter 27 of The TeXbook.)
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 114--114
-[]\T1/cmr/m/n/10 (a)
- []
-
-
-LaTeX Warning: File `Fig-SPY-30-InSample-Return-Trajectories-NJ.pdf' not found 
-on input line 116.
-
-
-! Package pdftex.def Error: File `Fig-SPY-30-InSample-Return-Trajectories-NJ.pd
-f' not found: using draft setting.
-
-See the pdftex.def package documentation for explanation.
-Type  H <return>  for immediate help.
- ...                                              
-                                                  
-l.116 ...Y-30-InSample-Return-Trajectories-NJ.pdf}
-                                                  
-Try typing  <return>  to proceed.
-If that doesn't work, type  X <return>  to quit.
-
-
-LaTeX Warning: Float too large for page by 388.6308pt on input line 121.
-
-! Missing number, treated as zero.
-<to be read again> 
-                   }
-l.125     \begin{subfigure}[b]{0.48\textwidth}
-                                              
-A number should have been here; I inserted `0'.
-(If you can't figure out why I needed to see a number,
-look up `weird error' in the index to The TeXbook.)
-
-! Illegal unit of measure (pt inserted).
-<to be read again> 
-                   }
-l.125     \begin{subfigure}[b]{0.48\textwidth}
-                                              
-Dimensions can be in units of em, ex, in, pt, pc,
-cm, mm, dd, cc, nd, nc, bp, or sp; but yours is a new one!
-I'll assume that you meant to say pt, for printer's points.
-To recover gracefully from this error, it's best to
-delete the erroneous units; e.g., type `2' to delete
-two letters. (See Chapter 27 of The TeXbook.)
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 125--125
-[]\T1/cmr/m/n/10 (a)
- []
-
-
-LaTeX Warning: File `Fig-SPY-30-InSample-Density-Comparison-HMM-WJ.pdf' not fou
-nd on input line 127.
-
-
-! Package pdftex.def Error: File `Fig-SPY-30-InSample-Density-Comparison-HMM-WJ
-.pdf' not found: using draft setting.
-
-See the pdftex.def package documentation for explanation.
-Type  H <return>  for immediate help.
- ...                                              
-                                                  
-l.127 ...0-InSample-Density-Comparison-HMM-WJ.pdf}
-                                                  
-Try typing  <return>  to proceed.
-If that doesn't work, type  X <return>  to quit.
-
-! Missing number, treated as zero.
-<to be read again> 
-                   }
-l.131     \begin{subfigure}[b]{0.48\textwidth}
-                                              
-A number should have been here; I inserted `0'.
-(If you can't figure out why I needed to see a number,
-look up `weird error' in the index to The TeXbook.)
-
-! Illegal unit of measure (pt inserted).
-<to be read again> 
-                   }
-l.131     \begin{subfigure}[b]{0.48\textwidth}
-                                              
-Dimensions can be in units of em, ex, in, pt, pc,
-cm, mm, dd, cc, nd, nc, bp, or sp; but yours is a new one!
-I'll assume that you meant to say pt, for printer's points.
-To recover gracefully from this error, it's best to
-delete the erroneous units; e.g., type `2' to delete
-two letters. (See Chapter 27 of The TeXbook.)
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 131--131
-[]\T1/cmr/m/n/10 (a)
- []
-
-
-LaTeX Warning: File `Fig-SPY-30-InSample-Return-Trajectories-WJ.pdf' not found 
-on input line 133.
-
-
-! Package pdftex.def Error: File `Fig-SPY-30-InSample-Return-Trajectories-WJ.pd
-f' not found: using draft setting.
-
-See the pdftex.def package documentation for explanation.
-Type  H <return>  for immediate help.
- ...                                              
-                                                  
-l.133 ...Y-30-InSample-Return-Trajectories-WJ.pdf}
-                                                  
-Try typing  <return>  to proceed.
-If that doesn't work, type  X <return>  to quit.
-
-
-LaTeX Warning: Float too large for page by 388.6308pt on input line 138.
-
-! Missing number, treated as zero.
-<to be read again> 
-                   }
-l.142     \begin{subfigure}[b]{0.48\textwidth}
-                                              
-A number should have been here; I inserted `0'.
-(If you can't figure out why I needed to see a number,
-look up `weird error' in the index to The TeXbook.)
-
-! Illegal unit of measure (pt inserted).
-<to be read again> 
-                   }
-l.142     \begin{subfigure}[b]{0.48\textwidth}
-                                              
-Dimensions can be in units of em, ex, in, pt, pc,
-cm, mm, dd, cc, nd, nc, bp, or sp; but yours is a new one!
-I'll assume that you meant to say pt, for printer's points.
-To recover gracefully from this error, it's best to
-delete the erroneous units; e.g., type `2' to delete
-two letters. (See Chapter 27 of The TeXbook.)
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 142--142
-[]\T1/cmr/m/n/10 (a)
- []
-
-
-LaTeX Warning: File `Fig-SPY-60-InSample-Density-Comparison-NJ.pdf' not found o
-n input line 144.
-
-
-! Package pdftex.def Error: File `Fig-SPY-60-InSample-Density-Comparison-NJ.pdf
-' not found: using draft setting.
-
-See the pdftex.def package documentation for explanation.
-Type  H <return>  for immediate help.
- ...                                              
-                                                  
-l.144 ...PY-60-InSample-Density-Comparison-NJ.pdf}
-                                                  
-Try typing  <return>  to proceed.
-If that doesn't work, type  X <return>  to quit.
-
-! Missing number, treated as zero.
-<to be read again> 
-                   }
-l.148     \begin{subfigure}[b]{0.48\textwidth}
-                                              
-A number should have been here; I inserted `0'.
-(If you can't figure out why I needed to see a number,
-look up `weird error' in the index to The TeXbook.)
-
-! Illegal unit of measure (pt inserted).
-<to be read again> 
-                   }
-l.148     \begin{subfigure}[b]{0.48\textwidth}
-                                              
-Dimensions can be in units of em, ex, in, pt, pc,
-cm, mm, dd, cc, nd, nc, bp, or sp; but yours is a new one!
-I'll assume that you meant to say pt, for printer's points.
-To recover gracefully from this error, it's best to
-delete the erroneous units; e.g., type `2' to delete
-two letters. (See Chapter 27 of The TeXbook.)
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 148--148
-[]\T1/cmr/m/n/10 (a)
- []
-
-
-LaTeX Warning: File `Fig-SPY-60-InSample-Return-Trajectories-NJ.pdf' not found 
-on input line 150.
-
-
-! Package pdftex.def Error: File `Fig-SPY-60-InSample-Return-Trajectories-NJ.pd
-f' not found: using draft setting.
-
-See the pdftex.def package documentation for explanation.
-Type  H <return>  for immediate help.
- ...                                              
-                                                  
-l.150 ...Y-60-InSample-Return-Trajectories-NJ.pdf}
-                                                  
-Try typing  <return>  to proceed.
-If that doesn't work, type  X <return>  to quit.
-
-
-LaTeX Warning: Float too large for page by 388.6308pt on input line 155.
-
-! Missing number, treated as zero.
-<to be read again> 
-                   }
-l.159     \begin{subfigure}[b]{0.48\textwidth}
-                                              
-A number should have been here; I inserted `0'.
-(If you can't figure out why I needed to see a number,
-look up `weird error' in the index to The TeXbook.)
-
-! Illegal unit of measure (pt inserted).
-<to be read again> 
-                   }
-l.159     \begin{subfigure}[b]{0.48\textwidth}
-                                              
-Dimensions can be in units of em, ex, in, pt, pc,
-cm, mm, dd, cc, nd, nc, bp, or sp; but yours is a new one!
-I'll assume that you meant to say pt, for printer's points.
-To recover gracefully from this error, it's best to
-delete the erroneous units; e.g., type `2' to delete
-two letters. (See Chapter 27 of The TeXbook.)
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 159--159
-[]\T1/cmr/m/n/10 (a)
- []
-
-
-LaTeX Warning: File `Fig-SPY-60-InSample-Density-Comparison-HMM-WJ.pdf' not fou
-nd on input line 161.
-
-
-! Package pdftex.def Error: File `Fig-SPY-60-InSample-Density-Comparison-HMM-WJ
-.pdf' not found: using draft setting.
-
-See the pdftex.def package documentation for explanation.
-Type  H <return>  for immediate help.
- ...                                              
-                                                  
-l.161 ...0-InSample-Density-Comparison-HMM-WJ.pdf}
-                                                  
-Try typing  <return>  to proceed.
-If that doesn't work, type  X <return>  to quit.
-
-! Missing number, treated as zero.
-<to be read again> 
-                   }
-l.165     \begin{subfigure}[b]{0.48\textwidth}
-                                              
-A number should have been here; I inserted `0'.
-(If you can't figure out why I needed to see a number,
-look up `weird error' in the index to The TeXbook.)
-
-! Illegal unit of measure (pt inserted).
-<to be read again> 
-                   }
-l.165     \begin{subfigure}[b]{0.48\textwidth}
-                                              
-Dimensions can be in units of em, ex, in, pt, pc,
-cm, mm, dd, cc, nd, nc, bp, or sp; but yours is a new one!
-I'll assume that you meant to say pt, for printer's points.
-To recover gracefully from this error, it's best to
-delete the erroneous units; e.g., type `2' to delete
-two letters. (See Chapter 27 of The TeXbook.)
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 165--165
-[]\T1/cmr/m/n/10 (a)
- []
-
-
-LaTeX Warning: File `Fig-SPY-60-InSample-Return-Trajectories-WJ.pdf' not found 
-on input line 167.
-
-
-! Package pdftex.def Error: File `Fig-SPY-60-InSample-Return-Trajectories-WJ.pd
-f' not found: using draft setting.
-
-See the pdftex.def package documentation for explanation.
-Type  H <return>  for immediate help.
- ...                                              
-                                                  
-l.167 ...Y-60-InSample-Return-Trajectories-WJ.pdf}
-                                                  
-Try typing  <return>  to proceed.
-If that doesn't work, type  X <return>  to quit.
-
-
-LaTeX Warning: Float too large for page by 388.6308pt on input line 172.
-
+)
+
+[27] (./sections/figures.tex
+<sections/figs/Fig-SPY-90-InSample-Density-Comparison-NJ.pdf, id=108, 602.25pt 
+x 401.5pt>
+File: sections/figs/Fig-SPY-90-InSample-Density-Comparison-NJ.pdf Graphic file 
+(type pdf)
+<use sections/figs/Fig-SPY-90-InSample-Density-Comparison-NJ.pdf>
+Package pdftex.def Info: sections/figs/Fig-SPY-90-InSample-Density-Comparison-N
+J.pdf  used on input line 5.
+(pdftex.def)             Requested size: 187.19833pt x 124.80066pt.
+<sections/figs/Fig-SPY-90-InSample-Return-Trajectories-NJ.pdf, id=109, 602.25pt
+ x 401.5pt>
+File: sections/figs/Fig-SPY-90-InSample-Return-Trajectories-NJ.pdf Graphic file
+ (type pdf)
+<use sections/figs/Fig-SPY-90-InSample-Return-Trajectories-NJ.pdf>
+Package pdftex.def Info: sections/figs/Fig-SPY-90-InSample-Return-Trajectories-
+NJ.pdf  used on input line 11.
+(pdftex.def)             Requested size: 187.19833pt x 124.80066pt.
+<sections/figs/Fig-SPY-90-ACF-Absolute-Growth-NJ.pdf, id=110, 602.25pt x 401.5p
+t>
+File: sections/figs/Fig-SPY-90-ACF-Absolute-Growth-NJ.pdf Graphic file (type pd
+f)
+<use sections/figs/Fig-SPY-90-ACF-Absolute-Growth-NJ.pdf>
+Package pdftex.def Info: sections/figs/Fig-SPY-90-ACF-Absolute-Growth-NJ.pdf  u
+sed on input line 17.
+(pdftex.def)             Requested size: 187.19833pt x 124.80066pt.
+<sections/figs/Fig-SPY-90-ACF-Growth-NJ.pdf, id=111, 602.25pt x 401.5pt>
+File: sections/figs/Fig-SPY-90-ACF-Growth-NJ.pdf Graphic file (type pdf)
+<use sections/figs/Fig-SPY-90-ACF-Growth-NJ.pdf>
+Package pdftex.def Info: sections/figs/Fig-SPY-90-ACF-Growth-NJ.pdf  used on in
+put line 23.
+(pdftex.def)             Requested size: 187.19833pt x 124.80066pt.
+
+
+[28
+
+ <./sections/figs/Fig-SPY-90-InSample-Density-Comparison-NJ.pdf> <./sections/fi
+gs/Fig-SPY-90-InSample-Return-Trajectories-NJ.pdf> <./sections/figs/Fig-SPY-90-
+ACF-Absolute-Growth-NJ.pdf> <./sections/figs/Fig-SPY-90-ACF-Growth-NJ.pdf>]
+<sections/figs/Fig-SPY-90-OOS-CorrelationDistance-WJ.pdf, id=122, 602.25pt x 40
+1.5pt>
+File: sections/figs/Fig-SPY-90-OOS-CorrelationDistance-WJ.pdf Graphic file (typ
+e pdf)
+<use sections/figs/Fig-SPY-90-OOS-CorrelationDistance-WJ.pdf>
+Package pdftex.def Info: sections/figs/Fig-SPY-90-OOS-CorrelationDistance-WJ.pd
+f  used on input line 34.
+(pdftex.def)             Requested size: 272.99881pt x 182.00275pt.
+
+
+[29
+
+ <./sections/figs/Fig-SPY-90-OOS-CorrelationDistance-WJ.pdf>]
+<sections/figs/Fig-SPY-90-ExcessGrowthRate-Probability-Density-HMM-out-of-sampl
+e.pdf, id=127, 602.25pt x 401.5pt>
+File: sections/figs/Fig-SPY-90-ExcessGrowthRate-Probability-Density-HMM-out-of-
+sample.pdf Graphic file (type pdf)
+<use sections/figs/Fig-SPY-90-ExcessGrowthRate-Probability-Density-HMM-out-of-s
+ample.pdf>
+Package pdftex.def Info: sections/figs/Fig-SPY-90-ExcessGrowthRate-Probability-
+Density-HMM-out-of-sample.pdf  used on input line 45.
+(pdftex.def)             Requested size: 187.19833pt x 124.80066pt.
+<sections/figs/Fig-SPY-90-OOS-Return-Trajectories-WJ.pdf, id=128, 602.25pt x 40
+1.5pt>
+File: sections/figs/Fig-SPY-90-OOS-Return-Trajectories-WJ.pdf Graphic file (typ
+e pdf)
+<use sections/figs/Fig-SPY-90-OOS-Return-Trajectories-WJ.pdf>
+Package pdftex.def Info: sections/figs/Fig-SPY-90-OOS-Return-Trajectories-WJ.pd
+f  used on input line 51.
+(pdftex.def)             Requested size: 187.19833pt x 124.80066pt.
+<sections/figs/Fig-SPY-90-ACF-Absolute-Growth-WJ-OOS.pdf, id=129, 602.25pt x 40
+1.5pt>
+File: sections/figs/Fig-SPY-90-ACF-Absolute-Growth-WJ-OOS.pdf Graphic file (typ
+e pdf)
+<use sections/figs/Fig-SPY-90-ACF-Absolute-Growth-WJ-OOS.pdf>
+Package pdftex.def Info: sections/figs/Fig-SPY-90-ACF-Absolute-Growth-WJ-OOS.pd
+f  used on input line 57.
+(pdftex.def)             Requested size: 187.19833pt x 124.80066pt.
+<sections/figs/Fig-SPY-90-ACF-Growth-WJ-OOS.pdf, id=130, 602.25pt x 401.5pt>
+File: sections/figs/Fig-SPY-90-ACF-Growth-WJ-OOS.pdf Graphic file (type pdf)
+<use sections/figs/Fig-SPY-90-ACF-Growth-WJ-OOS.pdf>
+Package pdftex.def Info: sections/figs/Fig-SPY-90-ACF-Growth-WJ-OOS.pdf  used o
+n input line 63.
+(pdftex.def)             Requested size: 187.19833pt x 124.80066pt.
+
+
+[30
+
+ <./sections/figs/Fig-SPY-90-ExcessGrowthRate-Probability-Density-HMM-out-of-sa
+mple.pdf> <./sections/figs/Fig-SPY-90-OOS-Return-Trajectories-WJ.pdf> <./sectio
+ns/figs/Fig-SPY-90-ACF-Absolute-Growth-WJ-OOS.pdf> <./sections/figs/Fig-SPY-90-
+ACF-Growth-WJ-OOS.pdf>]
+<sections/figs/Fig-SPY-90-InSample-Density-Comparison-HMM-WJ.pdf, id=138, 602.2
+5pt x 401.5pt>
+File: sections/figs/Fig-SPY-90-InSample-Density-Comparison-HMM-WJ.pdf Graphic f
+ile (type pdf)
+<use sections/figs/Fig-SPY-90-InSample-Density-Comparison-HMM-WJ.pdf>
+Package pdftex.def Info: sections/figs/Fig-SPY-90-InSample-Density-Comparison-H
+MM-WJ.pdf  used on input line 76.
+(pdftex.def)             Requested size: 187.19833pt x 124.80066pt.
+<sections/figs/Fig-SPY-90-InSample-Return-Trajectories-WJ.pdf, id=139, 602.25pt
+ x 401.5pt>
+File: sections/figs/Fig-SPY-90-InSample-Return-Trajectories-WJ.pdf Graphic file
+ (type pdf)
+<use sections/figs/Fig-SPY-90-InSample-Return-Trajectories-WJ.pdf>
+Package pdftex.def Info: sections/figs/Fig-SPY-90-InSample-Return-Trajectories-
+WJ.pdf  used on input line 82.
+(pdftex.def)             Requested size: 187.19833pt x 124.80066pt.
+<sections/figs/Fig-SPY-90-ACF-Absolute-Growth-WJ.pdf, id=140, 602.25pt x 401.5p
+t>
+File: sections/figs/Fig-SPY-90-ACF-Absolute-Growth-WJ.pdf Graphic file (type pd
+f)
+<use sections/figs/Fig-SPY-90-ACF-Absolute-Growth-WJ.pdf>
+Package pdftex.def Info: sections/figs/Fig-SPY-90-ACF-Absolute-Growth-WJ.pdf  u
+sed on input line 88.
+(pdftex.def)             Requested size: 187.19833pt x 124.80066pt.
+<sections/figs/Fig-SPY-90-ACF-Growth-WJ.pdf, id=141, 602.25pt x 401.5pt>
+File: sections/figs/Fig-SPY-90-ACF-Growth-WJ.pdf Graphic file (type pdf)
+<use sections/figs/Fig-SPY-90-ACF-Growth-WJ.pdf>
+Package pdftex.def Info: sections/figs/Fig-SPY-90-ACF-Growth-WJ.pdf  used on in
+put line 94.
+(pdftex.def)             Requested size: 187.19833pt x 124.80066pt.
+
+
+[31
+
+ <./sections/figs/Fig-SPY-90-InSample-Density-Comparison-HMM-WJ.pdf> <./section
+s/figs/Fig-SPY-90-InSample-Return-Trajectories-WJ.pdf> <./sections/figs/Fig-SPY
+-90-ACF-Absolute-Growth-WJ.pdf> <./sections/figs/Fig-SPY-90-ACF-Growth-WJ.pdf>]
+<sections/figs/Fig-SPY-30-InSample-Density-Comparison-NJ.pdf, id=150, 602.25pt 
+x 401.5pt>
+File: sections/figs/Fig-SPY-30-InSample-Density-Comparison-NJ.pdf Graphic file 
+(type pdf)
+<use sections/figs/Fig-SPY-30-InSample-Density-Comparison-NJ.pdf>
+Package pdftex.def Info: sections/figs/Fig-SPY-30-InSample-Density-Comparison-N
+J.pdf  used on input line 110.
+(pdftex.def)             Requested size: 187.19833pt x 124.80066pt.
+<sections/figs/Fig-SPY-30-InSample-Return-Trajectories-NJ.pdf, id=151, 602.25pt
+ x 401.5pt>
+File: sections/figs/Fig-SPY-30-InSample-Return-Trajectories-NJ.pdf Graphic file
+ (type pdf)
+<use sections/figs/Fig-SPY-30-InSample-Return-Trajectories-NJ.pdf>
+Package pdftex.def Info: sections/figs/Fig-SPY-30-InSample-Return-Trajectories-
+NJ.pdf  used on input line 116.
+(pdftex.def)             Requested size: 187.19833pt x 124.80066pt.
+<sections/figs/Fig-SPY-30-InSample-Density-Comparison-HMM-WJ.pdf, id=152, 602.2
+5pt x 401.5pt>
+File: sections/figs/Fig-SPY-30-InSample-Density-Comparison-HMM-WJ.pdf Graphic f
+ile (type pdf)
+<use sections/figs/Fig-SPY-30-InSample-Density-Comparison-HMM-WJ.pdf>
+Package pdftex.def Info: sections/figs/Fig-SPY-30-InSample-Density-Comparison-H
+MM-WJ.pdf  used on input line 127.
+(pdftex.def)             Requested size: 187.19833pt x 124.80066pt.
+<sections/figs/Fig-SPY-30-InSample-Return-Trajectories-WJ.pdf, id=153, 602.25pt
+ x 401.5pt>
+File: sections/figs/Fig-SPY-30-InSample-Return-Trajectories-WJ.pdf Graphic file
+ (type pdf)
+<use sections/figs/Fig-SPY-30-InSample-Return-Trajectories-WJ.pdf>
+Package pdftex.def Info: sections/figs/Fig-SPY-30-InSample-Return-Trajectories-
+WJ.pdf  used on input line 133.
+(pdftex.def)             Requested size: 187.19833pt x 124.80066pt.
+<sections/figs/Fig-SPY-60-InSample-Density-Comparison-NJ.pdf, id=154, 602.25pt 
+x 401.5pt>
+File: sections/figs/Fig-SPY-60-InSample-Density-Comparison-NJ.pdf Graphic file 
+(type pdf)
+<use sections/figs/Fig-SPY-60-InSample-Density-Comparison-NJ.pdf>
+Package pdftex.def Info: sections/figs/Fig-SPY-60-InSample-Density-Comparison-N
+J.pdf  used on input line 144.
+(pdftex.def)             Requested size: 187.19833pt x 124.80066pt.
+<sections/figs/Fig-SPY-60-InSample-Return-Trajectories-NJ.pdf, id=155, 602.25pt
+ x 401.5pt>
+File: sections/figs/Fig-SPY-60-InSample-Return-Trajectories-NJ.pdf Graphic file
+ (type pdf)
+<use sections/figs/Fig-SPY-60-InSample-Return-Trajectories-NJ.pdf>
+Package pdftex.def Info: sections/figs/Fig-SPY-60-InSample-Return-Trajectories-
+NJ.pdf  used on input line 150.
+(pdftex.def)             Requested size: 187.19833pt x 124.80066pt.
+<sections/figs/Fig-SPY-60-InSample-Density-Comparison-HMM-WJ.pdf, id=156, 602.2
+5pt x 401.5pt>
+File: sections/figs/Fig-SPY-60-InSample-Density-Comparison-HMM-WJ.pdf Graphic f
+ile (type pdf)
+<use sections/figs/Fig-SPY-60-InSample-Density-Comparison-HMM-WJ.pdf>
+Package pdftex.def Info: sections/figs/Fig-SPY-60-InSample-Density-Comparison-H
+MM-WJ.pdf  used on input line 161.
+(pdftex.def)             Requested size: 187.19833pt x 124.80066pt.
+<sections/figs/Fig-SPY-60-InSample-Return-Trajectories-WJ.pdf, id=157, 602.25pt
+ x 401.5pt>
+File: sections/figs/Fig-SPY-60-InSample-Return-Trajectories-WJ.pdf Graphic file
+ (type pdf)
+<use sections/figs/Fig-SPY-60-InSample-Return-Trajectories-WJ.pdf>
+Package pdftex.def Info: sections/figs/Fig-SPY-60-InSample-Return-Trajectories-
+WJ.pdf  used on input line 167.
+(pdftex.def)             Requested size: 187.19833pt x 124.80066pt.
 ) (./sections/tables.tex
 Overfull \hbox (81.88626pt too wide) in paragraph at lines 5--11
  [][] 
@@ -2100,819 +1420,61 @@ Overfull \hbox (81.88626pt too wide) in paragraph at lines 17--25
  []
 
 ) (./sections/notation.tex
-! Undefined control sequence.
-l.7 \REQUIRE
-             Price history $P_{1:T}$, Risk-free rate $r_f$, Number of states...
-The control sequence at the end of the top line
-of your error message was never \def'ed. If you have
-misspelled it (e.g., `\hobx'), type `I' and the correct
-spelling (e.g., `I\hbox'). Otherwise just continue,
-and I'll forget about whatever was undefined.
-
-! Undefined control sequence.
-l.8 \ENSURE
-            Transition matrix $\mathbf{T}$, Quantile boundaries $\mathcal{Q}$
-The control sequence at the end of the top line
-of your error message was never \def'ed. If you have
-misspelled it (e.g., `\hobx'), type `I' and the correct
-spelling (e.g., `I\hbox'). Otherwise just continue,
-and I'll forget about whatever was undefined.
-
-! Undefined control sequence.
-l.9 \STATE
-           Compute excess growth rates $R_t = \frac{1}{\Delta t} \ln(P_t / P...
-The control sequence at the end of the top line
-of your error message was never \def'ed. If you have
-misspelled it (e.g., `\hobx'), type `I' and the correct
-spelling (e.g., `I\hbox'). Otherwise just continue,
-and I'll forget about whatever was undefined.
-
-! Undefined control sequence.
-l.10 \STATE
-            Fit Laplace parameters $(\mu_L, b_L)$ to the series $\mathbf{R}$...
-The control sequence at the end of the top line
-of your error message was never \def'ed. If you have
-misspelled it (e.g., `\hobx'), type `I' and the correct
-spelling (e.g., `I\hbox'). Otherwise just continue,
-and I'll forget about whatever was undefined.
-
-! Undefined control sequence.
-l.11 \STATE
-            Define interior boundaries $Q_k = F_L^{-1}(k/N; \mu_L, b_L)$ for...
-The control sequence at the end of the top line
-of your error message was never \def'ed. If you have
-misspelled it (e.g., `\hobx'), type `I' and the correct
-spelling (e.g., `I\hbox'). Otherwise just continue,
-and I'll forget about whatever was undefined.
-
-! Undefined control sequence.
-l.12 \STATE
-            Set finite outer bounds $Q_0 = F_L^{-1}(0.001; \mu_L, b_L)$ and ...
-The control sequence at the end of the top line
-of your error message was never \def'ed. If you have
-misspelled it (e.g., `\hobx'), type `I' and the correct
-spelling (e.g., `I\hbox'). Otherwise just continue,
-and I'll forget about whatever was undefined.
-
-! Undefined control sequence.
-l.13 \STATE
-            Assign each excess growth rate $R_t$ to a discrete state $s_t \i...
-The control sequence at the end of the top line
-of your error message was never \def'ed. If you have
-misspelled it (e.g., `\hobx'), type `I' and the correct
-spelling (e.g., `I\hbox'). Otherwise just continue,
-and I'll forget about whatever was undefined.
-
-! Undefined control sequence.
-l.14 \STATE
-            Initialize count matrix $\mathbf{C} \in \mathbb{R}^{N \times N}$...
-The control sequence at the end of the top line
-of your error message was never \def'ed. If you have
-misspelled it (e.g., `\hobx'), type `I' and the correct
-spelling (e.g., `I\hbox'). Otherwise just continue,
-and I'll forget about whatever was undefined.
-
-! Undefined control sequence.
-l.15 \FOR
-         {$t = 1$ to $T-1$}
-The control sequence at the end of the top line
-of your error message was never \def'ed. If you have
-misspelled it (e.g., `\hobx'), type `I' and the correct
-spelling (e.g., `I\hbox'). Otherwise just continue,
-and I'll forget about whatever was undefined.
-
-! Undefined control sequence.
-l.16     \STATE
-                Identify transition $i = s_t$ to $j = s_{t+1}$.
-The control sequence at the end of the top line
-of your error message was never \def'ed. If you have
-misspelled it (e.g., `\hobx'), type `I' and the correct
-spelling (e.g., `I\hbox'). Otherwise just continue,
-and I'll forget about whatever was undefined.
-
-! Undefined control sequence.
-l.17 \STATE
-            $\mathbf{C}_{i,j} \leftarrow \mathbf{C}_{i,j} + 1$.
-The control sequence at the end of the top line
-of your error message was never \def'ed. If you have
-misspelled it (e.g., `\hobx'), type `I' and the correct
-spelling (e.g., `I\hbox'). Otherwise just continue,
-and I'll forget about whatever was undefined.
-
-! Undefined control sequence.
-l.18 \ENDFOR
-            
-The control sequence at the end of the top line
-of your error message was never \def'ed. If you have
-misspelled it (e.g., `\hobx'), type `I' and the correct
-spelling (e.g., `I\hbox'). Otherwise just continue,
-and I'll forget about whatever was undefined.
-
-! Undefined control sequence.
-l.19 \FOR
-         {$i = 1$ to $N$}
-The control sequence at the end of the top line
-of your error message was never \def'ed. If you have
-misspelled it (e.g., `\hobx'), type `I' and the correct
-spelling (e.g., `I\hbox'). Otherwise just continue,
-and I'll forget about whatever was undefined.
-
-! Undefined control sequence.
-l.20     \STATE
-                $\mathbf{T}_{i,:} \leftarrow \mathbf{C}_{i,:} / \sum_{j=1}^{...
-The control sequence at the end of the top line
-of your error message was never \def'ed. If you have
-misspelled it (e.g., `\hobx'), type `I' and the correct
-spelling (e.g., `I\hbox'). Otherwise just continue,
-and I'll forget about whatever was undefined.
-
-! Undefined control sequence.
-l.20 ... \sum_{j=1}^{N} \mathbf{C}_{i,j}$ \COMMENT
-                                                  {Row-wise normalization}
-The control sequence at the end of the top line
-of your error message was never \def'ed. If you have
-misspelled it (e.g., `\hobx'), type `I' and the correct
-spelling (e.g., `I\hbox'). Otherwise just continue,
-and I'll forget about whatever was undefined.
-
-! Undefined control sequence.
-l.21 \ENDFOR
-            
-The control sequence at the end of the top line
-of your error message was never \def'ed. If you have
-misspelled it (e.g., `\hobx'), type `I' and the correct
-spelling (e.g., `I\hbox'). Otherwise just continue,
-and I'll forget about whatever was undefined.
-
-! Undefined control sequence.
-l.22 \RETURN
-             $\mathbf{T}, \mathcal{Q}$
-The control sequence at the end of the top line
-of your error message was never \def'ed. If you have
-misspelled it (e.g., `\hobx'), type `I' and the correct
-spelling (e.g., `I\hbox'). Otherwise just continue,
-and I'll forget about whatever was undefined.
-
-
-! LaTeX Error: Something's wrong--perhaps a missing \item.
-
-See the LaTeX manual or LaTeX Companion for explanation.
-Type  H <return>  for immediate help.
- ...                                              
-                                                  
-l.23 \end{algorithmic}
-                      
-Try typing  <return>  to proceed.
-If that doesn't work, type  X <return>  to quit.
+Underfull \hbox (badness 3343) in paragraph at lines 12--13
+[] []\T1/cmr/m/n/12 Set fi-nite outer bounds $\OML/cmm/m/it/12 Q[] \OT1/cmr/m/n
+/12 = \OML/cmm/m/it/12 F[]\OT1/cmr/m/n/12 (0\OML/cmm/m/it/12 :\OT1/cmr/m/n/12 0
+01; \OML/cmm/m/it/12 ^^V[]; b[]\OT1/cmr/m/n/12 )$ \T1/cmr/m/n/12 and $\OML/cmm/
+m/it/12 Q[] \OT1/cmr/m/n/12 =
+ []
 
 
 
-[23
+[32
 
+ <./sections/figs/Fig-SPY-30-InSample-Density-Comparison-NJ.pdf> <./sections/fi
+gs/Fig-SPY-30-InSample-Return-Trajectories-NJ.pdf> <./sections/figs/Fig-SPY-30-
+InSample-Density-Comparison-HMM-WJ.pdf> <./sections/figs/Fig-SPY-30-InSample-Re
+turn-Trajectories-WJ.pdf>]
 
+[33 <./sections/figs/Fig-SPY-60-InSample-Density-Comparison-NJ.pdf> <./sections
+/figs/Fig-SPY-60-InSample-Return-Trajectories-NJ.pdf> <./sections/figs/Fig-SPY-
+60-InSample-Density-Comparison-HMM-WJ.pdf> <./sections/figs/Fig-SPY-60-InSample
+-Return-Trajectories-WJ.pdf>]
+
+[34]
+
+[35
 
 ]
 
-[24]
-
-[25]
-
-[26]
-
-[27]
-
-[28]
-! Undefined control sequence.
-l.32 \REQUIRE
-              Model parameters $\mathbf{T}, \bar{\pi}, \epsilon, \lambda, N_...
-The control sequence at the end of the top line
-of your error message was never \def'ed. If you have
-misspelled it (e.g., `\hobx'), type `I' and the correct
-spelling (e.g., `I\hbox'). Otherwise just continue,
-and I'll forget about whatever was undefined.
-
-! Undefined control sequence.
-l.33 \ENSURE
-             Simulated state sequence $S_{1:M}$
-The control sequence at the end of the top line
-of your error message was never \def'ed. If you have
-misspelled it (e.g., `\hobx'), type `I' and the correct
-spelling (e.g., `I\hbox'). Otherwise just continue,
-and I'll forget about whatever was undefined.
-
-! Undefined control sequence.
-l.34 \STATE
-            Define tail-states $\mathcal{S}_{bottom} = \{1, \dots, N_{tail}\...
-The control sequence at the end of the top line
-of your error message was never \def'ed. If you have
-misspelled it (e.g., `\hobx'), type `I' and the correct
-spelling (e.g., `I\hbox'). Otherwise just continue,
-and I'll forget about whatever was undefined.
-
-! Undefined control sequence.
-l.35 \STATE
-            Sample initial state $S_1 \sim \text{Categorical}(\bar{\pi})$.
-The control sequence at the end of the top line
-of your error message was never \def'ed. If you have
-misspelled it (e.g., `\hobx'), type `I' and the correct
-spelling (e.g., `I\hbox'). Otherwise just continue,
-and I'll forget about whatever was undefined.
-
-! Undefined control sequence.
-l.36 \STATE
-            Set $counter \leftarrow 2$.
-The control sequence at the end of the top line
-of your error message was never \def'ed. If you have
-misspelled it (e.g., `\hobx'), type `I' and the correct
-spelling (e.g., `I\hbox'). Otherwise just continue,
-and I'll forget about whatever was undefined.
-
-! Undefined control sequence.
-l.37 \WHILE
-           {$counter \le M$}
-The control sequence at the end of the top line
-of your error message was never \def'ed. If you have
-misspelled it (e.g., `\hobx'), type `I' and the correct
-spelling (e.g., `I\hbox'). Otherwise just continue,
-and I'll forget about whatever was undefined.
-
-! Undefined control sequence.
-l.38     \STATE
-                Sample $u \sim \text{Uniform}(0, 1)$.
-The control sequence at the end of the top line
-of your error message was never \def'ed. If you have
-misspelled it (e.g., `\hobx'), type `I' and the correct
-spelling (e.g., `I\hbox'). Otherwise just continue,
-and I'll forget about whatever was undefined.
-
-! Undefined control sequence.
-l.39     \IF
-            {$u < \epsilon$}
-The control sequence at the end of the top line
-of your error message was never \def'ed. If you have
-misspelled it (e.g., `\hobx'), type `I' and the correct
-spelling (e.g., `I\hbox'). Otherwise just continue,
-and I'll forget about whatever was undefined.
-
-! Undefined control sequence.
-l.40         \STATE
-                    Sample jump-duration $K \sim \text{Poisson}(\lambda)$.
-The control sequence at the end of the top line
-of your error message was never \def'ed. If you have
-misspelled it (e.g., `\hobx'), type `I' and the correct
-spelling (e.g., `I\hbox'). Otherwise just continue,
-and I'll forget about whatever was undefined.
-
-! Undefined control sequence.
-l.41         \FOR
-                 {$j = 1$ to $K$ while $counter \le M$}
-The control sequence at the end of the top line
-of your error message was never \def'ed. If you have
-misspelled it (e.g., `\hobx'), type `I' and the correct
-spelling (e.g., `I\hbox'). Otherwise just continue,
-and I'll forget about whatever was undefined.
-
-! Undefined control sequence.
-l.42             \STATE
-                        Sample $w \sim \text{Uniform}(0, 1)$.
-The control sequence at the end of the top line
-of your error message was never \def'ed. If you have
-misspelled it (e.g., `\hobx'), type `I' and the correct
-spelling (e.g., `I\hbox'). Otherwise just continue,
-and I'll forget about whatever was undefined.
-
-! Undefined control sequence.
-l.43             \IF
-                    {$w < p_{neg}$}
-The control sequence at the end of the top line
-of your error message was never \def'ed. If you have
-misspelled it (e.g., `\hobx'), type `I' and the correct
-spelling (e.g., `I\hbox'). Otherwise just continue,
-and I'll forget about whatever was undefined.
-
-! Undefined control sequence.
-l.44                 \STATE
-                            $S_{counter} \sim \text{Uniform}(\mathcal{S}_{bo...
-The control sequence at the end of the top line
-of your error message was never \def'ed. If you have
-misspelled it (e.g., `\hobx'), type `I' and the correct
-spelling (e.g., `I\hbox'). Otherwise just continue,
-and I'll forget about whatever was undefined.
-
-! Undefined control sequence.
-l.44 ...t{Uniform}(\mathcal{S}_{bottom})$ \COMMENT
-                                                  {Bias toward negative-tail...
-The control sequence at the end of the top line
-of your error message was never \def'ed. If you have
-misspelled it (e.g., `\hobx'), type `I' and the correct
-spelling (e.g., `I\hbox'). Otherwise just continue,
-and I'll forget about whatever was undefined.
-
-! Undefined control sequence.
-l.45             \ELSE
-                      
-The control sequence at the end of the top line
-of your error message was never \def'ed. If you have
-misspelled it (e.g., `\hobx'), type `I' and the correct
-spelling (e.g., `I\hbox'). Otherwise just continue,
-and I'll forget about whatever was undefined.
-
-! Undefined control sequence.
-l.46                 \STATE
-                            $S_{counter} \sim \text{Uniform}(\mathcal{S}_{to...
-The control sequence at the end of the top line
-of your error message was never \def'ed. If you have
-misspelled it (e.g., `\hobx'), type `I' and the correct
-spelling (e.g., `I\hbox'). Otherwise just continue,
-and I'll forget about whatever was undefined.
-
-! Undefined control sequence.
-l.47             \ENDIF
-                       
-The control sequence at the end of the top line
-of your error message was never \def'ed. If you have
-misspelled it (e.g., `\hobx'), type `I' and the correct
-spelling (e.g., `I\hbox'). Otherwise just continue,
-and I'll forget about whatever was undefined.
-
-! Undefined control sequence.
-l.48             \STATE
-                        $counter \leftarrow counter + 1$.
-The control sequence at the end of the top line
-of your error message was never \def'ed. If you have
-misspelled it (e.g., `\hobx'), type `I' and the correct
-spelling (e.g., `I\hbox'). Otherwise just continue,
-and I'll forget about whatever was undefined.
-
-! Undefined control sequence.
-l.49         \ENDFOR
-                    
-The control sequence at the end of the top line
-of your error message was never \def'ed. If you have
-misspelled it (e.g., `\hobx'), type `I' and the correct
-spelling (e.g., `I\hbox'). Otherwise just continue,
-and I'll forget about whatever was undefined.
-
-! Undefined control sequence.
-l.50     \ELSE
-              
-The control sequence at the end of the top line
-of your error message was never \def'ed. If you have
-misspelled it (e.g., `\hobx'), type `I' and the correct
-spelling (e.g., `I\hbox'). Otherwise just continue,
-and I'll forget about whatever was undefined.
-
-! Undefined control sequence.
-l.51         \STATE
-                    Sample $S_{counter} \sim \text{Categorical}(\mathbf{T}_{...
-The control sequence at the end of the top line
-of your error message was never \def'ed. If you have
-misspelled it (e.g., `\hobx'), type `I' and the correct
-spelling (e.g., `I\hbox'). Otherwise just continue,
-and I'll forget about whatever was undefined.
-
-! Undefined control sequence.
-l.52         \STATE
-                    $counter \leftarrow counter + 1$.
-The control sequence at the end of the top line
-of your error message was never \def'ed. If you have
-misspelled it (e.g., `\hobx'), type `I' and the correct
-spelling (e.g., `I\hbox'). Otherwise just continue,
-and I'll forget about whatever was undefined.
-
-! Undefined control sequence.
-l.53     \ENDIF
-               
-The control sequence at the end of the top line
-of your error message was never \def'ed. If you have
-misspelled it (e.g., `\hobx'), type `I' and the correct
-spelling (e.g., `I\hbox'). Otherwise just continue,
-and I'll forget about whatever was undefined.
-
-! Undefined control sequence.
-l.54 \ENDWHILE
-              
-The control sequence at the end of the top line
-of your error message was never \def'ed. If you have
-misspelled it (e.g., `\hobx'), type `I' and the correct
-spelling (e.g., `I\hbox'). Otherwise just continue,
-and I'll forget about whatever was undefined.
-
-! Undefined control sequence.
-l.55 \RETURN
-             $S_{1:M}$
-The control sequence at the end of the top line
-of your error message was never \def'ed. If you have
-misspelled it (e.g., `\hobx'), type `I' and the correct
-spelling (e.g., `I\hbox'). Otherwise just continue,
-and I'll forget about whatever was undefined.
-
-
-! LaTeX Error: Something's wrong--perhaps a missing \item.
-
-See the LaTeX manual or LaTeX Companion for explanation.
-Type  H <return>  for immediate help.
- ...                                              
-                                                  
-l.56 \end{algorithmic}
-                      
-Try typing  <return>  to proceed.
-If that doesn't work, type  X <return>  to quit.
-
-
-
-[29
+[36
 
 ]
-! Undefined control sequence.
-l.65 \REQUIRE
-              Simulated state sequence $S_{1:M}$, Quantile boundaries $\math...
-The control sequence at the end of the top line
-of your error message was never \def'ed. If you have
-misspelled it (e.g., `\hobx'), type `I' and the correct
-spelling (e.g., `I\hbox'). Otherwise just continue,
-and I'll forget about whatever was undefined.
-
-! Undefined control sequence.
-l.66 \ENSURE
-             Reconstructed continuous excess growth rates $\hat{R}_{1:M}$
-The control sequence at the end of the top line
-of your error message was never \def'ed. If you have
-misspelled it (e.g., `\hobx'), type `I' and the correct
-spelling (e.g., `I\hbox'). Otherwise just continue,
-and I'll forget about whatever was undefined.
-
-! Undefined control sequence.
-l.67 \STATE
-            Define $z_{0.999} = 3.09$.
-The control sequence at the end of the top line
-of your error message was never \def'ed. If you have
-misspelled it (e.g., `\hobx'), type `I' and the correct
-spelling (e.g., `I\hbox'). Otherwise just continue,
-and I'll forget about whatever was undefined.
-
-! Undefined control sequence.
-l.68 \FOR
-         {$k = 1$ to $N$}
-The control sequence at the end of the top line
-of your error message was never \def'ed. If you have
-misspelled it (e.g., `\hobx'), type `I' and the correct
-spelling (e.g., `I\hbox'). Otherwise just continue,
-and I'll forget about whatever was undefined.
-
-! Undefined control sequence.
-l.69     \STATE
-                Set $\mu_k = (Q_{k-1} + Q_k)/2$.
-The control sequence at the end of the top line
-of your error message was never \def'ed. If you have
-misspelled it (e.g., `\hobx'), type `I' and the correct
-spelling (e.g., `I\hbox'). Otherwise just continue,
-and I'll forget about whatever was undefined.
-
-! Undefined control sequence.
-l.70     \STATE
-                Set $\sigma_k = (Q_k - Q_{k-1})/(2 z_{0.999})$.
-The control sequence at the end of the top line
-of your error message was never \def'ed. If you have
-misspelled it (e.g., `\hobx'), type `I' and the correct
-spelling (e.g., `I\hbox'). Otherwise just continue,
-and I'll forget about whatever was undefined.
-
-! Undefined control sequence.
-l.71 \ENDFOR
-            
-The control sequence at the end of the top line
-of your error message was never \def'ed. If you have
-misspelled it (e.g., `\hobx'), type `I' and the correct
-spelling (e.g., `I\hbox'). Otherwise just continue,
-and I'll forget about whatever was undefined.
-
-! Undefined control sequence.
-l.72 \STATE
-            Initialize the reconstructed excess growth rate vector $\mathbf{...
-The control sequence at the end of the top line
-of your error message was never \def'ed. If you have
-misspelled it (e.g., `\hobx'), type `I' and the correct
-spelling (e.g., `I\hbox'). Otherwise just continue,
-and I'll forget about whatever was undefined.
-
-! Undefined control sequence.
-l.73 \FOR
-         {$t = 1$ to $M$}
-The control sequence at the end of the top line
-of your error message was never \def'ed. If you have
-misspelled it (e.g., `\hobx'), type `I' and the correct
-spelling (e.g., `I\hbox'). Otherwise just continue,
-and I'll forget about whatever was undefined.
-
-! Undefined control sequence.
-l.74     \STATE
-                Retrieve the simulated state $k = S_t$.
-The control sequence at the end of the top line
-of your error message was never \def'ed. If you have
-misspelled it (e.g., `\hobx'), type `I' and the correct
-spelling (e.g., `I\hbox'). Otherwise just continue,
-and I'll forget about whatever was undefined.
-
-! Undefined control sequence.
-l.75 \STATE
-            Sample the continuous excess growth rate $\hat{R}_t$ from the no...
-The control sequence at the end of the top line
-of your error message was never \def'ed. If you have
-misspelled it (e.g., `\hobx'), type `I' and the correct
-spelling (e.g., `I\hbox'). Otherwise just continue,
-and I'll forget about whatever was undefined.
-
-! Undefined control sequence.
-l.76 \ENDFOR
-            
-The control sequence at the end of the top line
-of your error message was never \def'ed. If you have
-misspelled it (e.g., `\hobx'), type `I' and the correct
-spelling (e.g., `I\hbox'). Otherwise just continue,
-and I'll forget about whatever was undefined.
-
-! Undefined control sequence.
-l.77 \RETURN
-             $\hat{R}_{1:M}$
-The control sequence at the end of the top line
-of your error message was never \def'ed. If you have
-misspelled it (e.g., `\hobx'), type `I' and the correct
-spelling (e.g., `I\hbox'). Otherwise just continue,
-and I'll forget about whatever was undefined.
-
-
-! LaTeX Error: Something's wrong--perhaps a missing \item.
-
-See the LaTeX manual or LaTeX Companion for explanation.
-Type  H <return>  for immediate help.
- ...                                              
-                                                  
-l.78 \end{algorithmic}
-                      
-Try typing  <return>  to proceed.
-If that doesn't work, type  X <return>  to quit.
-
-
-
-[30
-
-]
-! Undefined control sequence.
-l.87 \REQUIRE
-              Observed growth rates $\mathbf{R}_{obs}$, ACF max lag $L=252$,...
-The control sequence at the end of the top line
-of your error message was never \def'ed. If you have
-misspelled it (e.g., `\hobx'), type `I' and the correct
-spelling (e.g., `I\hbox'). Otherwise just continue,
-and I'll forget about whatever was undefined.
-
-! Undefined control sequence.
-l.88 \REQUIRE
-              Grid space for $\epsilon \in [10^{-5}, 10^{-4}]$ and $\lambda ...
-The control sequence at the end of the top line
-of your error message was never \def'ed. If you have
-misspelled it (e.g., `\hobx'), type `I' and the correct
-spelling (e.g., `I\hbox'). Otherwise just continue,
-and I'll forget about whatever was undefined.
-
-! Undefined control sequence.
-l.89 \REQUIRE
-              Kurtosis penalty weight $w_K = 0.20$
-The control sequence at the end of the top line
-of your error message was never \def'ed. If you have
-misspelled it (e.g., `\hobx'), type `I' and the correct
-spelling (e.g., `I\hbox'). Otherwise just continue,
-and I'll forget about whatever was undefined.
-
-! Undefined control sequence.
-l.90 \ENSURE
-             Optimal jump hyperparameters $(\epsilon^*, \lambda^*)$
-The control sequence at the end of the top line
-of your error message was never \def'ed. If you have
-misspelled it (e.g., `\hobx'), type `I' and the correct
-spelling (e.g., `I\hbox'). Otherwise just continue,
-and I'll forget about whatever was undefined.
-
-! Undefined control sequence.
-l.91 \STATE
-            Calculate observed absolute ACF: $A_{obs}(\tau) = \text{ACF}(|\m...
-The control sequence at the end of the top line
-of your error message was never \def'ed. If you have
-misspelled it (e.g., `\hobx'), type `I' and the correct
-spelling (e.g., `I\hbox'). Otherwise just continue,
-and I'll forget about whatever was undefined.
-
-! Undefined control sequence.
-l.92 \STATE
-            Calculate observed global kurtosis: $K_{obs} = \text{Kurtosis}(\...
-The control sequence at the end of the top line
-of your error message was never \def'ed. If you have
-misspelled it (e.g., `\hobx'), type `I' and the correct
-spelling (e.g., `I\hbox'). Otherwise just continue,
-and I'll forget about whatever was undefined.
-
-! Undefined control sequence.
-l.93 \STATE
-            Initialize minimum error $E_{min} \leftarrow \infty$.
-The control sequence at the end of the top line
-of your error message was never \def'ed. If you have
-misspelled it (e.g., `\hobx'), type `I' and the correct
-spelling (e.g., `I\hbox'). Otherwise just continue,
-and I'll forget about whatever was undefined.
-
-! Undefined control sequence.
-l.94 \FOR
-         {each $\epsilon$ in grid space}
-The control sequence at the end of the top line
-of your error message was never \def'ed. If you have
-misspelled it (e.g., `\hobx'), type `I' and the correct
-spelling (e.g., `I\hbox'). Otherwise just continue,
-and I'll forget about whatever was undefined.
-
-! Undefined control sequence.
-l.95     \FOR
-             {each $\lambda$ in grid space}
-The control sequence at the end of the top line
-of your error message was never \def'ed. If you have
-misspelled it (e.g., `\hobx'), type `I' and the correct
-spelling (e.g., `I\hbox'). Otherwise just continue,
-and I'll forget about whatever was undefined.
-
-! Undefined control sequence.
-l.96         \STATE
-                    Initialize simulated ACF accumulator $\mathbf{A}_{sum} \...
-The control sequence at the end of the top line
-of your error message was never \def'ed. If you have
-misspelled it (e.g., `\hobx'), type `I' and the correct
-spelling (e.g., `I\hbox'). Otherwise just continue,
-and I'll forget about whatever was undefined.
-
-! Undefined control sequence.
-l.97         \FOR
-                 {$p = 1$ to $P$}
-The control sequence at the end of the top line
-of your error message was never \def'ed. If you have
-misspelled it (e.g., `\hobx'), type `I' and the correct
-spelling (e.g., `I\hbox'). Otherwise just continue,
-and I'll forget about whatever was undefined.
-
-! Undefined control sequence.
-l.98             \STATE
-                        Simulate path using Algorithm \ref{alg:sim} to obtai...
-The control sequence at the end of the top line
-of your error message was never \def'ed. If you have
-misspelled it (e.g., `\hobx'), type `I' and the correct
-spelling (e.g., `I\hbox'). Otherwise just continue,
-and I'll forget about whatever was undefined.
-
-! Undefined control sequence.
-l.99             \STATE
-                        Decode sequence using Algorithm \ref{alg:decode} to ...
-The control sequence at the end of the top line
-of your error message was never \def'ed. If you have
-misspelled it (e.g., `\hobx'), type `I' and the correct
-spelling (e.g., `I\hbox'). Otherwise just continue,
-and I'll forget about whatever was undefined.
-
-! Undefined control sequence.
-l.100             \STATE
-                         $\mathbf{A}_{sum}(\tau) \leftarrow \mathbf{A}_{sum}...
-The control sequence at the end of the top line
-of your error message was never \def'ed. If you have
-misspelled it (e.g., `\hobx'), type `I' and the correct
-spelling (e.g., `I\hbox'). Otherwise just continue,
-and I'll forget about whatever was undefined.
-
-! Undefined control sequence.
-l.101             \STATE
-                         $K_{sum} \leftarrow K_{sum} + \text{Kurtosis}(\math...
-The control sequence at the end of the top line
-of your error message was never \def'ed. If you have
-misspelled it (e.g., `\hobx'), type `I' and the correct
-spelling (e.g., `I\hbox'). Otherwise just continue,
-and I'll forget about whatever was undefined.
-
-! Undefined control sequence.
-l.102         \ENDFOR
-                     
-The control sequence at the end of the top line
-of your error message was never \def'ed. If you have
-misspelled it (e.g., `\hobx'), type `I' and the correct
-spelling (e.g., `I\hbox'). Otherwise just continue,
-and I'll forget about whatever was undefined.
-
-! Undefined control sequence.
-l.103         \STATE
-                     Compute ensemble averages: $\overline{A}_{sim}(\tau) = ...
-The control sequence at the end of the top line
-of your error message was never \def'ed. If you have
-misspelled it (e.g., `\hobx'), type `I' and the correct
-spelling (e.g., `I\hbox'). Otherwise just continue,
-and I'll forget about whatever was undefined.
-
-! Undefined control sequence.
-l.104         \STATE
-                     Compute objective: $J = \sum_{\tau=1}^L \left(A_{obs}(\...
-The control sequence at the end of the top line
-of your error message was never \def'ed. If you have
-misspelled it (e.g., `\hobx'), type `I' and the correct
-spelling (e.g., `I\hbox'). Otherwise just continue,
-and I'll forget about whatever was undefined.
-
-! Undefined control sequence.
-l.105         \IF
-                 {$J < E_{min}$}
-The control sequence at the end of the top line
-of your error message was never \def'ed. If you have
-misspelled it (e.g., `\hobx'), type `I' and the correct
-spelling (e.g., `I\hbox'). Otherwise just continue,
-and I'll forget about whatever was undefined.
-
-! Undefined control sequence.
-l.106             \STATE
-                         $E_{min} \leftarrow J$
-The control sequence at the end of the top line
-of your error message was never \def'ed. If you have
-misspelled it (e.g., `\hobx'), type `I' and the correct
-spelling (e.g., `I\hbox'). Otherwise just continue,
-and I'll forget about whatever was undefined.
-
-! Undefined control sequence.
-l.107             \STATE
-                         $(\epsilon^*, \lambda^*) \leftarrow (\epsilon, \lam...
-The control sequence at the end of the top line
-of your error message was never \def'ed. If you have
-misspelled it (e.g., `\hobx'), type `I' and the correct
-spelling (e.g., `I\hbox'). Otherwise just continue,
-and I'll forget about whatever was undefined.
-
-! Undefined control sequence.
-l.108         \ENDIF
-                    
-The control sequence at the end of the top line
-of your error message was never \def'ed. If you have
-misspelled it (e.g., `\hobx'), type `I' and the correct
-spelling (e.g., `I\hbox'). Otherwise just continue,
-and I'll forget about whatever was undefined.
-
-! Undefined control sequence.
-l.109     \ENDFOR
-                 
-The control sequence at the end of the top line
-of your error message was never \def'ed. If you have
-misspelled it (e.g., `\hobx'), type `I' and the correct
-spelling (e.g., `I\hbox'). Otherwise just continue,
-and I'll forget about whatever was undefined.
-
-! Undefined control sequence.
-l.110 \ENDFOR
-             
-The control sequence at the end of the top line
-of your error message was never \def'ed. If you have
-misspelled it (e.g., `\hobx'), type `I' and the correct
-spelling (e.g., `I\hbox'). Otherwise just continue,
-and I'll forget about whatever was undefined.
-
-! Undefined control sequence.
-l.111 \RETURN
-              $\epsilon^*, \lambda^*$
-The control sequence at the end of the top line
-of your error message was never \def'ed. If you have
-misspelled it (e.g., `\hobx'), type `I' and the correct
-spelling (e.g., `I\hbox'). Otherwise just continue,
-and I'll forget about whatever was undefined.
-
-
-! LaTeX Error: Something's wrong--perhaps a missing \item.
-
-See the LaTeX manual or LaTeX Companion for explanation.
-Type  H <return>  for immediate help.
- ...                                              
-                                                  
-l.112 \end{algorithmic}
-                       
-Try typing  <return>  to proceed.
-If that doesn't work, type  X <return>  to quit.
+Underfull \hbox (badness 10000) in paragraph at lines 104--105
+[] []\T1/cmr/m/n/12 Compute ob-jec-tive: $\OML/cmm/m/it/12 J \OT1/cmr/m/n/12 = 
+[][] [][] +
+ []
 
 )
 
 [1
 
-] (./Paper_v1.aux)
+]
+
+[2] (./Paper_v1.aux)
  ***********
 LaTeX2e <2024-11-01> patch level 2
 L3 programming layer <2025-01-18>
  ***********
  ) 
 Here is how much of TeX's memory you used:
- 31614 strings out of 473190
- 796368 string characters out of 5715801
- 1257071 words of memory out of 5000000
- 54234 multiletter control sequences out of 15000+600000
+ 32239 strings out of 473190
+ 797371 string characters out of 5715801
+ 1274815 words of memory out of 5000000
+ 54849 multiletter control sequences out of 15000+600000
  574705 words of font info for 80 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
- 99i,9n,104p,2106b,609s stack positions out of 10000i,1000n,20000p,200000b,200000s
+ 99i,9n,131p,2106b,831s stack positions out of 10000i,1000n,20000p,200000b,200000s
 </usr/local/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx12.pfb
 ></usr/local/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/cm/cmex10.pfb>
 </usr/local/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi10.pfb><
@@ -2928,17 +1490,18 @@ ve/2025/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy6.pfb></usr/local/texlive
 /2025/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy8.pfb></usr/local/texlive/2
 025/texmf-dist/fonts/type1/public/amsfonts/symbols/msbm10.pfb></usr/local/texli
 ve/2025/texmf-dist/fonts/type1/public/cm-super/sfbx1200.pfb></usr/local/texlive
-/2025/texmf-dist/fonts/type1/public/cm-super/sfrm1000.pfb></usr/local/texlive/2
-025/texmf-dist/fonts/type1/public/cm-super/sfrm1200.pfb></usr/local/texlive/202
-5/texmf-dist/fonts/type1/public/cm-super/sfrm1728.pfb></usr/local/texlive/2025/
-texmf-dist/fonts/type1/public/cm-super/sfss0800.pfb></usr/local/texlive/2025/te
-xmf-dist/fonts/type1/public/cm-super/sfti1000.pfb></usr/local/texlive/2025/texm
-f-dist/fonts/type1/public/cm-super/sfti1200.pfb></usr/local/texlive/2025/texmf-
-dist/fonts/type1/public/cm-super/sftt1200.pfb>
-Output written on Paper_v1.pdf (31 pages, 373802 bytes).
+/2025/texmf-dist/fonts/type1/public/cm-super/sfrm0800.pfb></usr/local/texlive/2
+025/texmf-dist/fonts/type1/public/cm-super/sfrm1000.pfb></usr/local/texlive/202
+5/texmf-dist/fonts/type1/public/cm-super/sfrm1200.pfb></usr/local/texlive/2025/
+texmf-dist/fonts/type1/public/cm-super/sfrm1728.pfb></usr/local/texlive/2025/te
+xmf-dist/fonts/type1/public/cm-super/sfss0800.pfb></usr/local/texlive/2025/texm
+f-dist/fonts/type1/public/cm-super/sfti1000.pfb></usr/local/texlive/2025/texmf-
+dist/fonts/type1/public/cm-super/sfti1200.pfb></usr/local/texlive/2025/texmf-di
+st/fonts/type1/public/cm-super/sftt1200.pfb>
+Output written on Paper_v1.pdf (38 pages, 22297983 bytes).
 PDF statistics:
- 219 PDF objects out of 1000 (max. 8388607)
- 140 compressed objects within 2 object streams
+ 290 PDF objects out of 1000 (max. 8388607)
+ 181 compressed objects within 2 object streams
  0 named destinations out of 1000 (max. 500000)
- 13 words of extra memory for PDF output out of 10000 (max. 10000000)
+ 118 words of extra memory for PDF output out of 10000 (max. 10000000)
 
