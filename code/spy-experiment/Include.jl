@@ -25,3 +25,9 @@ using JLD2
 using HypothesisTests
 using StatsPlots
 using LinearAlgebra
+using ARCHModels
+using Random
+using Printf
+
+# set the random seed for reproducibility -
+Random.seed!(1234);
