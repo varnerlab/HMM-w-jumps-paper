@@ -1,7 +1,8 @@
 # setup paths -
-const _ROOT = pwd();
+const _ROOT = @__DIR__;
 const _PATH_TO_SRC = joinpath(_ROOT, "src");
 const _PATH_TO_DATA = joinpath(_ROOT, "data");
+const _PATH_TO_FIGS = joinpath(_ROOT, "figs");
 
 # make sure all is up to date -
 using Pkg
@@ -30,6 +31,12 @@ using PrettyTables
 using StatsBase
 using KernelFunctions
 using HypothesisTests
+using Random
+using Printf
+using KernelDensity
+
+# set the random seed for reproducibility -
+Random.seed!(1234);
 
 # # load my codes -
 # include(joinpath(_PATH_TO_SRC, "Files.jl"));
