@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.27 (TeX Live 2025) (preloaded format=pdflatex 2025.3.8)  5 MAR 2026 13:33
+This is pdfTeX, Version 3.141592653-2.6-1.40.27 (TeX Live 2025) (preloaded format=pdflatex 2025.3.8)  5 MAR 2026 18:08
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -1300,21 +1300,27 @@ ng ran-dom se-quences
 
 [16
 
-])
-Overfull \hbox (4.18147pt too wide) in paragraph at lines 10--179
+]
+
+[17])
+Overfull \hbox (4.18147pt too wide) in paragraph at lines 12--179
 []\T1/cmr/m/n/12 The correlation-distance dis-tri-bu-tion for the out-of-sample
  sim-u-lated paths
  []
 
 
 
-[17] (./sections/discussion.tex)
+[18] (./sections/discussion.tex
 
-[18
+LaTeX Warning: Reference `sec:results' on page 19 undefined on input line 5.
+
+)
+
+[19
 
 ]
 
-[19] (./sections/conclusion.tex
+[20] (./sections/conclusion.tex
 Overfull \hbox (4.29535pt too wide) in paragraph at lines 1--2
 []\T1/cmr/m/n/12 This study de-vel-oped and val-i-dated a hy-brid hid-den Marko
 v model (HMM)
@@ -1328,13 +1334,13 @@ Overfull \hbox (7.6404pt too wide) in paragraph at lines 3--5
 
 
 
-[20
+[21
 
 ]
 
-[21])
+[22])
 
-[22] (./sections/endmatter.tex)
+[23] (./sections/endmatter.tex)
 Overfull \hbox (21.14574pt too wide) in paragraph at lines 8--193
 \T1/cmr/m/n/12 GitHub repos-i-tory: [][]$\T1/cmtt/m/n/12 https : / / github . c
 om / varnerlab / HMM-[]Model-[]with-[]Jumps .
@@ -1342,17 +1348,17 @@ om / varnerlab / HMM-[]Model-[]with-[]Jumps .
 
 
 
-[23
+[24
 
 ] (./Paper_v1.bbl
 
-[24
+[25
 
 ]
 
-[25]
-
 [26]
+
+[27]
 Underfull \hbox (badness 2035) in paragraph at lines 281--285
 []\T1/cmr/m/n/12 P. Glasser-man, Monte Carlo Meth-ods in Fi-nan-cial En-gi-neer
 -ing,
@@ -1360,8 +1366,8 @@ Underfull \hbox (badness 2035) in paragraph at lines 281--285
 
 )
 
-[27] (./sections/figures.tex
-<sections/figs/Fig1-Empirical-Motivation.pdf, id=323, 1204.5pt x 903.375pt>
+[28] (./sections/figures.tex
+<sections/figs/Fig1-Empirical-Motivation.pdf, id=335, 1204.5pt x 903.375pt>
 File: sections/figs/Fig1-Empirical-Motivation.pdf Graphic file (type pdf)
 <use sections/figs/Fig1-Empirical-Motivation.pdf>
 Package pdftex.def Info: sections/figs/Fig1-Empirical-Motivation.pdf  used on i
@@ -1369,14 +1375,14 @@ nput line 17.
 (pdftex.def)             Requested size: 390.0pt x 292.50443pt.
 
 
-[28
+[29
 
  <./sections/figs/Fig1-Empirical-Motivation.pdf>]
 
-[29
+[30
 
 ]
-<sections/figs/Fig3-Model-Internals.pdf, id=343, 1606.0pt x 521.95pt>
+<sections/figs/Fig3-Model-Internals.pdf, id=355, 1606.0pt x 521.95pt>
 File: sections/figs/Fig3-Model-Internals.pdf Graphic file (type pdf)
 <use sections/figs/Fig3-Model-Internals.pdf>
 Package pdftex.def Info: sections/figs/Fig3-Model-Internals.pdf  used on input 
@@ -1384,10 +1390,10 @@ line 173.
 (pdftex.def)             Requested size: 390.0pt x 126.7519pt.
 
 
-[30
+[31
 
  <./sections/figs/Fig3-Model-Internals.pdf>]
-<sections/figs/Fig4-Model-Comparison.pdf, id=352, 1806.75pt x 562.1pt>
+<sections/figs/Fig4-Model-Comparison.pdf, id=365, 1806.75pt x 562.1pt>
 File: sections/figs/Fig4-Model-Comparison.pdf Graphic file (type pdf)
 <use sections/figs/Fig4-Model-Comparison.pdf>
 Package pdftex.def Info: sections/figs/Fig4-Model-Comparison.pdf  used on input
@@ -1395,10 +1401,10 @@ Package pdftex.def Info: sections/figs/Fig4-Model-Comparison.pdf  used on input
 (pdftex.def)             Requested size: 390.0pt x 121.32945pt.
 
 
-[31
+[32
 
  <./sections/figs/Fig4-Model-Comparison.pdf>]
-<sections/figs/Fig5-Parameter-Sweep.pdf, id=359, 1405.25pt x 562.1pt>
+<sections/figs/Fig5-Parameter-Sweep.pdf, id=371, 1405.25pt x 562.1pt>
 File: sections/figs/Fig5-Parameter-Sweep.pdf Graphic file (type pdf)
 <use sections/figs/Fig5-Parameter-Sweep.pdf>
 Package pdftex.def Info: sections/figs/Fig5-Parameter-Sweep.pdf  used on input 
@@ -1406,10 +1412,10 @@ line 227.
 (pdftex.def)             Requested size: 390.0pt x 155.99745pt.
 
 
-[32
+[33
 
  <./sections/figs/Fig5-Parameter-Sweep.pdf>]
-<sections/figs/Fig6-Statistical-Validation.pdf, id=368, 1204.5pt x 903.375pt>
+<sections/figs/Fig6-Statistical-Validation.pdf, id=380, 1204.5pt x 903.375pt>
 File: sections/figs/Fig6-Statistical-Validation.pdf Graphic file (type pdf)
 <use sections/figs/Fig6-Statistical-Validation.pdf>
 Package pdftex.def Info: sections/figs/Fig6-Statistical-Validation.pdf  used on
@@ -1424,28 +1430,37 @@ Package hyperref Warning: Suppressing empty link on input line 259.
 
 
 
-[33 <./sections/figs/Fig6-Statistical-Validation.pdf>]
-Package hyperref Info: bookmark level for unknown todo defaults to 0 on input l
-ine 271.
+[34 <./sections/figs/Fig6-Statistical-Validation.pdf>]
+<sections/figs/Fig7-Multi-Asset-SIM.pdf, id=387, 1505.625pt x 903.375pt>
+File: sections/figs/Fig7-Multi-Asset-SIM.pdf Graphic file (type pdf)
+<use sections/figs/Fig7-Multi-Asset-SIM.pdf>
+Package pdftex.def Info: sections/figs/Fig7-Multi-Asset-SIM.pdf  used on input 
+line 268.
+(pdftex.def)             Requested size: 390.0pt x 234.00354pt.
 ) (./sections/tables.tex
-
-[34
-
-
-]
-
-[35]
-Overfull \hbox (108.93663pt too wide) in paragraph at lines 47--65
+Overfull \hbox (71.5158pt too wide) in paragraph at lines 21--32
  [][] 
  []
 
 
 
-[36
+[35
+
+
+ <./sections/figs/Fig7-Multi-Asset-SIM.pdf>]
+
+[36]
+Overfull \hbox (102.93663pt too wide) in paragraph at lines 49--67
+ [][] 
+ []
+
+
+
+[37
 
 ]
 
-[37
+[38
 
 ]) (./sections/notation.tex
 Package hyperref Info: bookmark level for unknown algorithm defaults to 0 on in
@@ -1460,17 +1475,17 @@ m/it/12 Q[] \OT1/cmr/m/n/12 =
 
 
 
-[38
+[39
 
 ]
 
-[39]
-
-[40
-
-]
+[40]
 
 [41
+
+]
+
+[42
 
 ]
 Underfull \hbox (badness 10000) in paragraph at lines 104--105
@@ -1489,17 +1504,21 @@ Underfull \hbox (badness 10000) in paragraph at lines 104--105
 LaTeX2e <2024-11-01> patch level 2
 L3 programming layer <2025-01-18>
  ***********
+
+
+LaTeX Warning: There were undefined references.
+
 Package rerunfilecheck Info: File `Paper_v1.out' has not changed.
 (rerunfilecheck)             Checksum: D41D8CD98F00B204E9800998ECF8427E;0.
  ) 
 Here is how much of TeX's memory you used:
- 38797 strings out of 473190
- 893118 string characters out of 5715801
- 1361653 words of memory out of 5000000
- 61131 multiletter control sequences out of 15000+600000
- 579183 words of font info for 95 fonts, out of 8000000 for 9000
+ 38779 strings out of 473190
+ 892853 string characters out of 5715801
+ 1363006 words of memory out of 5000000
+ 61110 multiletter control sequences out of 15000+600000
+ 580717 words of font info for 97 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
- 99i,12n,131p,2169b,1034s stack positions out of 10000i,1000n,20000p,200000b,200000s
+ 99i,11n,131p,2983b,1034s stack positions out of 10000i,1000n,20000p,200000b,200000s
 </usr/local/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx10.pfb
 ></usr/local/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx12.pfb>
 </usr/local/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/cm/cmex10.pfb><
@@ -1528,10 +1547,10 @@ onts/type1/public/cm-super/sfss0800.pfb></usr/local/texlive/2025/texmf-dist/fon
 ts/type1/public/cm-super/sfti1000.pfb></usr/local/texlive/2025/texmf-dist/fonts
 /type1/public/cm-super/sfti1200.pfb></usr/local/texlive/2025/texmf-dist/fonts/t
 ype1/public/cm-super/sftt1200.pfb>
-Output written on Paper_v1.pdf (43 pages, 1226259 bytes).
+Output written on Paper_v1.pdf (44 pages, 1455040 bytes).
 PDF statistics:
- 661 PDF objects out of 1000 (max. 8388607)
- 545 compressed objects within 6 object streams
- 208 named destinations out of 1000 (max. 500000)
- 38 words of extra memory for PDF output out of 10000 (max. 10000000)
+ 674 PDF objects out of 1000 (max. 8388607)
+ 556 compressed objects within 6 object streams
+ 209 named destinations out of 1000 (max. 500000)
+ 43 words of extra memory for PDF output out of 10000 (max. 10000000)
 

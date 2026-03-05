@@ -11,22 +11,23 @@
 % ── Table 1: SPY Descriptive Statistics and Stylized Facts ───────────────────
 \begin{table}[htpb]
 \centering
-\caption{Descriptive statistics and stylized-facts tests for SPY daily excess growth rates
-    (in-sample period 2014--2024; $T=2{,}766$ trading days).
+\caption{Descriptive statistics and stylized-facts tests for SPY daily excess growth rates.
+    In-sample: 2014--2024 ($T=2{,}766$); out-of-sample: 2025 ($T=249$).
+    Gaussian and Laplace columns show MLE fits to the in-sample data.
     JB = Jarque-Bera normality test.
     LB = Ljung-Box autocorrelation test at lag 20.
     $^\ast$ denotes rejection at $\alpha=0.05$.}
 \label{tab:descriptive_stats}
-\begin{tabular}{@{}lccc@{}}
+\begin{tabular}{@{}lcccc@{}}
 \toprule
-\textbf{Statistic} & \textbf{SPY Observed} & \textbf{Gaussian} & \textbf{Laplace} \\ \midrule
-Mean (annualized, \%)       & ---   & ---   & ---   \\
-Std Dev (annualized, \%)    & ---   & ---   & ---   \\
-Skewness                    & ---   & 0     & 0     \\
-Excess Kurtosis             & ---   & 0     & 3     \\
-JB normality test           & reject$^\ast$    & ---   & ---   \\
-LB test on $G_t$ (lag 20)   & fail to reject  & ---   & ---   \\
-LB test on $|G_t|$ (lag 20) & reject$^\ast$   & ---   & ---   \\ \bottomrule
+\textbf{Statistic} & \textbf{IS Observed} & \textbf{OoS Observed} & \textbf{Gaussian} & \textbf{Laplace} \\ \midrule
+Mean (annualized, \%)       & 6.31   & 11.60  & 6.31   & 14.19  \\
+Std Dev (annualized, \%)    & 214.50 & 220.62 & 214.46 & 205.93 \\
+Skewness                    & $-0.753$ & $-1.093$ & 0    & 0      \\
+Excess Kurtosis             & 7.715  & 6.867  & 0      & 3      \\
+JB normality test           & reject$^\ast$ ($p<0.001$) & reject$^\ast$ ($p<0.001$) & ---   & ---   \\
+LB test on $G_t$ (lag 20)   & reject$^\ast$ ($p<0.001$) & reject$^\ast$ ($p=0.019$) & ---   & ---   \\
+LB test on $|G_t|$ (lag 20) & reject$^\ast$ ($p<0.001$) & reject$^\ast$ ($p<0.001$) & ---   & ---   \\ \bottomrule
 \end{tabular}
 \end{table}
 
@@ -42,22 +43,23 @@ LB test on $|G_t|$ (lag 20) & reject$^\ast$   & ---   & ---   \\ \bottomrule
     HMM-WJ: hybrid model with Poisson jump-duration extension.
     ACF-MAE: mean absolute error of the ACF of $|G_t|$ over lags 1--252.
     Kurtosis: mean excess kurtosis across simulated paths.
-    Dashes indicate values pending computation.}
+    Standard errors in parentheses: binomial SE for pass rates,
+    $\text{std}/\!\sqrt{n}$ for kurtosis, bootstrap SE ($B=500$) for ACF-MAE.}
 \label{tab:model_comparison}
-\begin{tabular}{@{}lcccc@{}}
+\begin{tabular}{@{}lccc@{}}
 \toprule
 \textbf{Metric} & \textbf{GARCH(1,1)} & \textbf{HMM-NJ ($N=100$)} & \textbf{HMM-WJ ($N=100$)} \\ \midrule
 \multicolumn{4}{l}{\textit{In-sample: 2{,}766 trading days (2014--2024)}} \\[2pt]
-KS pass rate (\%)            &   6.0 & 100.0 &  96.4 \\
-AD pass rate (\%)            &   1.4 &  97.0 &  89.8 \\
+KS pass rate (\%)            &   4.6 (0.7) &  99.4 (0.2) &  97.1 (0.5) \\
+AD pass rate (\%)            &   1.1 (0.3) &  98.5 (0.4) &  90.4 (0.9) \\
 Excess kurtosis (observed)   & \multicolumn{3}{c}{7.715} \\
-Excess kurtosis (simulated)  &   8.1 &   5.7 &   5.5 \\
-ACF-MAE (lags 1--252)        & 0.030 & 0.059 & 0.052 \\[4pt]
+Excess kurtosis (simulated)  &   7.5 (0.32) &   5.7 (0.02) &   5.5 (0.03) \\
+ACF-MAE (lags 1--252)        & 0.031 & 0.059 & 0.052 \\[4pt]
 \multicolumn{4}{l}{\textit{Out-of-sample: 249 trading days (2025)}} \\[2pt]
-KS pass rate (\%)            &  78.1 &  96.6 &  94.6 \\
-AD pass rate (\%)            &  73.1 &  96.7 &  95.2 \\
+KS pass rate (\%)            &  79.0 (1.3) &  96.7 (0.6) &  95.0 (0.7) \\
+AD pass rate (\%)            &  71.2 (1.4) &  96.3 (0.6) &  95.4 (0.7) \\
 Excess kurtosis (observed)   & \multicolumn{3}{c}{6.867} \\
-Excess kurtosis (simulated)  &   1.6 &   5.1 &   4.9 \\
+Excess kurtosis (simulated)  &   1.7 (0.07) &   5.1 (0.07) &   5.0 (0.08) \\
 ACF-MAE (lags 1--252)        & 0.026 & 0.041 & 0.039 \\[4pt]
 \midrule
 Parameters estimated         &     3 &     2 &     4 \\ \bottomrule
@@ -70,18 +72,26 @@ Parameters estimated         &     3 &     2 &     4 \\ \bottomrule
 \begin{table}[htpb]
 \centering
 \caption{Sensitivity of model performance to state resolution $N$.
-    KS and AD pass rates computed over 1{,}000 simulated in-sample paths at $\alpha=0.05$.
-    ACF-MAE = mean absolute error of the ACF of $|G_t|$ over lags 1--252 (pending).}
+    All metrics computed over 1{,}000 simulated in-sample paths at $\alpha=0.05$.
+    ACF-MAE = mean absolute error of the ACF of $|G_t|$ over lags 1--252.
+    Standard errors in parentheses: binomial SE for pass rates,
+    bootstrap SE ($B=500$) for ACF-MAE.}
 \label{tab:sensitivity_results}
 \begin{tabular}{@{}lcccc@{}}
 \toprule
 \textbf{Model} & \textbf{$N$} & \textbf{KS pass (\%)} & \textbf{AD pass (\%)} & \textbf{ACF-MAE} \\ \midrule
-HMM-NJ & 90 & 99.4 & 98.4 & --- \\
-HMM-NJ & 60 & 99.4 & 98.3 & --- \\
-HMM-NJ & 30 & 99.2 & 98.2 & --- \\ \midrule
-HMM-WJ & 90 & 99.5 & 98.1 & --- \\
-HMM-WJ & 60 & 99.3 & 97.6 & --- \\
-HMM-WJ & 30 & 98.7 & 97.7 & --- \\ \bottomrule
+HMM-NJ & 200 & 99.6 (0.2) & 98.5 (0.4) & 0.059 \\
+HMM-NJ & 150 & 99.6 (0.2) & 98.4 (0.4) & 0.059 \\
+HMM-NJ & 100 & 99.0 (0.3) & 98.8 (0.3) & 0.059 \\
+HMM-NJ &  90 & 99.4 (0.2) & 98.1 (0.4) & 0.059 \\
+HMM-NJ &  60 & 99.4 (0.2) & 98.1 (0.4) & 0.059 \\
+HMM-NJ &  30 & 98.9 (0.3) & 97.9 (0.5) & 0.059 \\ \midrule
+HMM-WJ & 200 & 96.0 (0.6) & 88.6 (1.0) & 0.049 \\
+HMM-WJ & 150 & 96.9 (0.5) & 88.8 (1.0) & 0.050 \\
+HMM-WJ & 100 & 96.8 (0.6) & 91.7 (0.9) & 0.053 \\
+HMM-WJ &  90 & 97.4 (0.5) & 91.0 (0.9) & 0.052 \\
+HMM-WJ &  60 & 96.8 (0.6) & 92.4 (0.8) & 0.054 \\
+HMM-WJ &  30 & 98.0 (0.4) & 96.8 (0.6) & 0.057 \\ \bottomrule
 \end{tabular}
 \end{table}
 
@@ -90,18 +100,25 @@ HMM-WJ & 30 & 98.7 & 97.7 & --- \\ \bottomrule
 % ── Table 4: Multi-Asset SIM Extension Results ────────────────────────────────
 \begin{table}[htpb]
 \centering
-\caption{Multi-asset extension results via the Single-Index Model (SIM) across 424
-    S\&P~500 constituents.  Paths generated as
+\caption{Cross-sectional summary statistics for the Single-Index Model (SIM) extension
+    across S\&P~500 constituents.  Individual asset paths are generated as
     $\hat{G}_{i,t}=\hat{\alpha}_i+\hat{\beta}_i G_{{\rm SPY},t}+\hat{\eta}_{i,t}$
-    where $G_{{\rm SPY},t}$ is drawn from HMM-WJ ($N=100$) simulated paths.
-    All statistics pending completion of the 424-asset pipeline.}
+    where $G_{{\rm SPY},t}$ is drawn from HMM-WJ ($N=100$) simulated paths
+    and $\hat{\eta}_{i,t}$ is resampled from empirical residuals.
+    KS pass rates computed over 1{,}000 paths at $\alpha=0.05$.}
 \label{tab:multi_asset}
 \begin{tabular}{@{}lcccc@{}}
 \toprule
-\textbf{Metric} & \textbf{Mean} & \textbf{Median} & \textbf{5th pct} & \textbf{95th pct} \\ \midrule
-KS pass rate (\%)  & --- & --- & --- & --- \\
-AD pass rate (\%)  & --- & --- & --- & --- \\
-SIM $R^2$          & --- & --- & --- & --- \\
-Excess kurtosis match & --- & --- & --- & --- \\ \bottomrule
+\textbf{Statistic} & \textbf{Mean} & \textbf{Median} & \textbf{5th pct} & \textbf{95th pct} \\ \midrule
+\multicolumn{5}{l}{\textit{In-sample (424 assets, 2{,}766 trading days, 2014--2024)}} \\[2pt]
+KS pass rate (\%)                    & 58.4   & 66.7   &  2.5   & 96.0   \\
+SIM $R^2$                            &  0.298 &  0.295 &  0.107 &  0.507 \\
+$\hat{\beta}$ (factor loading)       &  1.066 &  1.086 &  0.480 &  1.657 \\
+$\hat{\alpha}$ (intercept)           & $-0.0328$ & $-0.0196$ & $-0.2037$ & 0.0964 \\[4pt]
+\multicolumn{5}{l}{\textit{Out-of-sample (417 assets, 249 trading days, 2025)}} \\[2pt]
+KS pass rate (\%)                    & 82.1   & 91.8   & 23.8   & 99.0   \\
+SIM $R^2$                            &  0.142 &  0.142 & $-0.169$ &  0.479 \\
+$\hat{\beta}$ (factor loading)       &  1.064 &  1.084 &  0.482 &  1.660 \\
+$\hat{\alpha}$ (intercept)           & $-0.0320$ & $-0.0186$ & $-0.2035$ & 0.0965 \\ \bottomrule
 \end{tabular}
 \end{table}
