@@ -121,8 +121,9 @@ function objective(ε::Float64, λ::Float64;
 end
 
 # ── 4. Define search grid ────────────────────────────────────────────────────
-# Centre around current estimates (ε≈5e-5, λ≈67) and explore wider
-ε_grid = [1e-5, 2.5e-5, 5e-5, 7.5e-5, 1e-4, 2e-4, 4e-4, 8e-4]
+# Shifted ε upward so jumps fire often enough to affect ACF(|g|).
+# At T=2766: ε=1e-4 → ~24% paths jump, ε=1e-3 → ~94%, ε=1e-2 → ~100%.
+ε_grid = [1e-4, 2.5e-4, 5e-4, 1e-3, 2.5e-3, 5e-3, 1e-2, 2.5e-2]
 λ_grid = [10.0, 25.0, 40.0, 55.0, 70.0, 85.0, 100.0, 130.0, 160.0]
 
 n_ε = length(ε_grid)
@@ -164,21 +165,22 @@ println("="^60)
 # ── 6. Figure 5a: contour plot of J(ε, λ) ────────────────────────────────────
 @info "Generating Figure 5 (grid search landscape)..."
 
-# log-scale ε axis labels
-ε_labels = [@sprintf("%.0e", e) for e in ε_grid]
+# log-scale ε axis — plot against log10(ε) so grid points are evenly spaced
+log_ε_grid  = log10.(ε_grid)
+ε_labels    = [@sprintf("%.0e", e) for e in ε_grid]
 
-pJ = heatmap(λ_grid, ε_grid, log10.(J_surface);
+pJ = heatmap(λ_grid, log_ε_grid, log10.(J_surface);
              xlabel = "λ (mean jump duration)",
              ylabel = "ε (jump probability)",
              title  = "(a) Objective J(ε, λ)  [log₁₀ scale]",
              color  = :viridis,
-             yticks = (ε_grid, ε_labels),
+             yticks = (log_ε_grid, ε_labels),
              bottom_margin = 12Plots.mm, left_margin = 12Plots.mm,
              colorbar_title = "log₁₀ J",
              framestyle = :box)
 
 # Mark the optimum
-scatter!(pJ, [λ_star], [ε_star];
+scatter!(pJ, [λ_star], [log10(ε_star)];
          mc = :red, ms = 10, markershape = :star5,
          markerstrokewidth = 0, label = "Optimum (ε*,λ*)")
 
@@ -224,7 +226,8 @@ savefig(pACF, joinpath(_PATH_TO_FIGS, "Fig5-Best-Fit-ACF.pdf"))
 
 fig5 = plot(pJ, pACF; layout = (1, 2), size = (1400, 560))
 savefig(fig5, joinpath(_PATH_TO_FIGS, "Fig5-Parameter-Sweep.pdf"))
-@info "Saved Figure 5 to figs/"
+savefig(fig5, joinpath(_ROOT, "..", "..", "paper", "sections", "figs", "Fig5-Parameter-Sweep.pdf"))
+@info "Saved Figure 5 to figs/ and paper/sections/figs/"
 
 # ── 9. Save results ───────────────────────────────────────────────────────────
 save(_JLD2_OUT,
