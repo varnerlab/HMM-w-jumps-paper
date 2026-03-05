@@ -1,43 +1,37 @@
-# JDIQ Submission Plan — Quality of Synthetic Financial Time Series
+# JDIQ Submission Plan -- Quality of Synthetic Financial Time Series
 
 **Target:** ACM Journal of Data and Information Quality (JDIQ)
 **Special Issue:** "Quality of Synthetic Data" (guest editors: Maurino, Panse, Missier)
-**Status:** Deadline was March 1, 2026 — contact editors re: late acceptance
+**Status:** Deadline was March 1, 2026; contact editors re: late acceptance
 
 ---
 
 ## Completed
 
-- [x] **Numerical reconciliation** — All pass rates consistent across abstract, intro, discussion, conclusion (using Table 2 SE-run values)
-- [x] **Standard errors** — Tables 2 and 3 now report binomial SEs for pass rates, std/sqrt(n) for kurtosis, bootstrap SE (B=500) for ACF-MAE
-- [x] **Table 3 expanded** — N ∈ {30, 60, 90, 100, 150, 200} with full KS/AD/ACF-MAE + SEs
-- [x] **State occupancy diagnostics** — Confirmed all N ≤ 200 are statistically healthy (min 7 obs/state)
-- [x] **OoS window updated** — 220 days → 249 days (full calendar year 2025) everywhere
-- [x] **New bib entries** — CTGAN, TimeGAN, TableGAN, JDIQ TS synthesis survey, differential privacy, synthetic data survey refs added
-- [x] **GARCH benchmark** — Table 2 + Figure 4 fully populated with GARCH(1,1) comparison
+- [x] **Numerical reconciliation** -- All pass rates consistent across abstract, intro, discussion, conclusion (using Table 2 SE-run values)
+- [x] **Standard errors** -- Tables 2 and 3 now report binomial SEs for pass rates, std/sqrt(n) for kurtosis, bootstrap SE (B=500) for ACF-MAE
+- [x] **Table 3 expanded** -- N in {30, 60, 90, 100, 150, 200} with full KS/AD/ACF-MAE + SEs
+- [x] **State occupancy diagnostics** -- Confirmed all N <= 200 are statistically healthy (min 7 obs/state)
+- [x] **OoS window updated** -- 220 days to 249 days (full calendar year 2025) everywhere
+- [x] **New bib entries** -- CTGAN, TimeGAN, TableGAN, JDIQ TS synthesis survey, differential privacy, synthetic data survey refs added
+- [x] **GARCH benchmark** -- Table 2 + Figure 4 fully populated with GARCH(1,1) comparison
+- [x] **Abstract rewrite** -- Leads with synthetic data quality problem; KS/AD/ACF-MAE positioned as quality metrics; JDIQ framing throughout
+- [x] **Introduction reframe** -- Opens with synthetic data generation challenge; 4 contributions reframed as data quality contributions
+- [x] **Conclusion reframe** -- Contributions restated in data quality language; broader implications paragraph for synthetic data community added
+- [x] **Results rewrite** -- Every sentence follows "we did X, we saw Y, which suggests Z (Fig/Table ref)" format
+- [x] **Keywords updated** -- Synthetic Data Quality, Time Series Generation, HMM, Jump-Diffusion, Volatility Clustering, Regime-Switching, Stylized Facts, Distributional Fidelity
+- [x] **Em dashes eliminated** -- All `---` and unicode em dashes removed from every section; replaced with commas, parentheses, or semicolons
+- [x] **Methods grid search corrected** -- epsilon/lambda ranges and paths-per-point now match actual code (HMM-Parameter-Sweep.jl)
+- [x] **Tables 1 and 2 resized** -- Wrapped in `\resizebox{\textwidth}{!}{}` to fit page width
 
 ---
 
 ## Phase 1: Reframing (text changes, no new computation)
 
-### 1.1 Abstract rewrite
-- [ ] Lead with synthetic data quality problem, not EMH
-- [ ] Position KS/AD/ACF-MAE as "quality metrics for synthetic time series"
-- [ ] Mention JDIQ-relevant framing: fidelity, temporal structure preservation, scalability
-
-### 1.2 Introduction reframe
-- [ ] Paragraph 1: open with synthetic data generation challenge in finance (stress testing, risk model validation, privacy-preserving data sharing)
-- [ ] Keep finance context but as the *domain*, not the *contribution*
-- [ ] Reframe 4 contributions as data quality contributions:
-  1. Jump-duration mechanism → "structural inductive bias that preserves temporal quality (volatility clustering)"
-  2. Non-iterative estimation → "scalable pipeline for high-fidelity synthetic data across 424 assets"
-  3. Validation → "rigorous quality assessment using distributional (KS, AD) and temporal (ACF-MAE) metrics with standard errors"
-  4. SIM extension → "multi-asset synthetic data generation preserving cross-sectional correlation structure"
-
 ### 1.3 Related work expansion
 - [ ] Add new subsection: "Synthetic data quality assessment" (~1 page)
   - JDIQ TS synthesis survey (Bauer et al 2024)
-  - CTGAN, TimeGAN, TableGAN — tabular/time-series generation
+  - CTGAN, TimeGAN, TableGAN -- tabular/time-series generation
   - Differential privacy approaches
   - Contrast: GAN-based methods lack explicit quality guarantees; our framework has built-in quality metrics
 - [ ] Reframe existing "Synthetic data generation" subsection to connect to JDIQ literature
@@ -49,22 +43,18 @@
   - Quality thresholds: what KS/AD pass rate is "good enough"?
 - [ ] Reframe limitations around data quality degradation conditions
 
-### 1.5 Conclusion reframe
-- [ ] Restate contributions in data quality language
-- [ ] Add paragraph: implications for synthetic data community (JDIQ audience)
-
 ---
 
 ## Phase 2: Template switch (formatting, no content changes)
 
-### 2.1 elsarticle → ACM acmsmall
+### 2.1 elsarticle to ACM acmsmall
 - [ ] Install ACM LaTeX template (acmart class, acmsmall format)
-- [ ] Convert frontmatter (title, authors, abstract, keywords → ACM CCS concepts)
+- [ ] Convert frontmatter (title, authors, abstract, keywords to ACM CCS concepts)
 - [ ] Convert bibliography style to ACM format (biblatex or natbib with ACM style)
 - [ ] Add ACM copyright/DOI placeholder boilerplate
-- [ ] Convert `\section*{}` → `\section{}` (ACM requires numbered sections)
+- [ ] Convert `\section*{}` to `\section{}` (ACM requires numbered sections)
 - [ ] Move figures/tables inline (ACM doesn't use end-of-document floats)
-- [ ] Verify page count ≤ 23 (excl. references)
+- [ ] Verify page count <= 23 (excl. references)
 
 ### 2.2 Double-anonymous preparation
 - [ ] Remove author names and affiliations from submitted PDF
@@ -78,8 +68,8 @@
 
 ### 3.1 Baseline comparison
 - [ ] Add naive bootstrap baseline: resample g_is with replacement, compute KS/AD/ACF-MAE
-- [ ] Add parametric Gaussian baseline: simulate from N(μ, σ²) fitted to g_is
-- [ ] Add parametric Laplace baseline: simulate from Laplace(μ, b) fitted to g_is
+- [ ] Add parametric Gaussian baseline: simulate from N(mu, sigma^2) fitted to g_is
+- [ ] Add parametric Laplace baseline: simulate from Laplace(mu, b) fitted to g_is
 - [ ] These baselines show that the quality improvement is non-trivial
 - [ ] Add results to Table 2 (or new Table 2b)
 
@@ -91,7 +81,7 @@
 ### 3.3 Reproducibility artifact
 - [ ] Create a self-contained reproducibility package
 - [ ] Include: data, scripts, environment files, README with instructions
-- [ ] JDIQ values reproducibility highly — this strengthens the submission
+- [ ] JDIQ values reproducibility highly; this strengthens the submission
 
 ---
 
@@ -103,7 +93,7 @@
 - [ ] Verify all figures present in `paper/sections/figs/`
 - [ ] Run `Build.sh` and check for LaTeX errors
 - [ ] Proofread for grammar/typos
-- [ ] Verify page count ≤ 23
+- [ ] Verify page count <= 23
 - [ ] Prepare cover letter highlighting fit with JDIQ scope
 
 ---
@@ -112,15 +102,15 @@
 
 | File | Status | Notes |
 |------|--------|-------|
-| `paper/Paper_v1.tex` | Needs template switch | Currently elsarticle |
-| `paper/sections/introduction.tex` | Needs reframe | Phase 1.2 |
-| `paper/sections/related.tex` | Needs expansion | Phase 1.3 — add synthetic data quality subsection |
-| `paper/sections/methods.tex` | Minor updates | OoS days fixed; mostly fine for JDIQ |
-| `paper/sections/results.tex` | OK | Content is good; framing is already empirical |
-| `paper/sections/discussion.tex` | Needs reframe | Phase 1.4 |
-| `paper/sections/conclusion.tex` | Needs reframe | Phase 1.5 |
-| `paper/sections/tables.tex` | Done | Tables 1-4 complete with SEs |
-| `paper/sections/figures.tex` | OK | 7 figures all present |
+| `paper/Paper_v1.tex` | Needs template switch | Abstract/keywords done; currently elsarticle |
+| `paper/sections/introduction.tex` | Done | Reframed for JDIQ |
+| `paper/sections/related.tex` | Needs expansion | Phase 1.3: add synthetic data quality subsection |
+| `paper/sections/methods.tex` | Done | Grid search corrected; OoS days fixed |
+| `paper/sections/results.tex` | Done | Rewritten in "we did, we saw, which suggests" format |
+| `paper/sections/discussion.tex` | Needs reframe | Phase 1.4: add practitioner guidance |
+| `paper/sections/conclusion.tex` | Done | Reframed for JDIQ |
+| `paper/sections/tables.tex` | Done | Tables 1-4 complete with SEs; resized to fit |
+| `paper/sections/figures.tex` | Done | 7 figures, captions cleaned |
 | `paper/References_v1.bib` | Done | ~45 entries including synthetic data refs |
 | `code/spy-experiment/Table2-SEs.jl` | Done | Computes Table 2 with SEs |
 | `code/spy-experiment/Table3-Sensitivity-ACF-MAE.jl` | Done | Computes Table 3 with SEs |

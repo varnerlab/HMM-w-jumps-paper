@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.27 (TeX Live 2025) (preloaded format=pdflatex 2025.3.8)  5 MAR 2026 18:41
+This is pdfTeX, Version 3.141592653-2.6-1.40.27 (TeX Live 2025) (preloaded format=pdflatex 2025.3.8)  5 MAR 2026 18:55
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -1303,14 +1303,8 @@ ng ran-dom se-quences
 [14])
 
 [15] (./sections/results.tex
-Overfull \hbox (5.09108pt too wide) in paragraph at lines 8--9
-[]\T1/cmr/m/n/12 We sim-u-lated 1,000 paths of 2,766 trad-ing days from each of
- three models---
- []
-
-
-Overfull \hbox (11.55188pt too wide) in paragraph at lines 8--9
-\T1/cmr/m/n/12 GARCH(1,1), HMM-NJ, and HMM-WJ---and ap-plied two-sample Kolmogo
+Overfull \hbox (11.5506pt too wide) in paragraph at lines 8--9
+\T1/cmr/m/n/12 (GARCH(1,1), HMM-NJ, and HMM-WJ) and ap-plied two-sample Kolmogo
 rov-
  []
 
@@ -1450,11 +1444,6 @@ Package pdftex.def Info: sections/figs/Fig7-Multi-Asset-SIM.pdf  used on input
 line 268.
 (pdftex.def)             Requested size: 390.0pt x 234.00354pt.
 ) (./sections/tables.tex
-Overfull \hbox (71.5158pt too wide) in paragraph at lines 21--32
- [][] 
- []
-
-
 
 [35
 
@@ -1462,11 +1451,6 @@ Overfull \hbox (71.5158pt too wide) in paragraph at lines 21--32
  <./sections/figs/Fig7-Multi-Asset-SIM.pdf>]
 
 [36]
-Overfull \hbox (102.93663pt too wide) in paragraph at lines 49--67
- [][] 
- []
-
-
 
 [37
 
@@ -1526,11 +1510,11 @@ Package rerunfilecheck Info: File `Paper_v1.out' has not changed.
 Here is how much of TeX's memory you used:
  38771 strings out of 473190
  892663 string characters out of 5715801
- 1363041 words of memory out of 5000000
+ 1363033 words of memory out of 5000000
  61104 multiletter control sequences out of 15000+600000
  580717 words of font info for 97 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
- 99i,11n,131p,2983b,1034s stack positions out of 10000i,1000n,20000p,200000b,200000s
+ 99i,11n,131p,2979b,1034s stack positions out of 10000i,1000n,20000p,200000b,200000s
 </usr/local/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx10.pfb
 ></usr/local/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx12.pfb>
 </usr/local/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/cm/cmex10.pfb><
@@ -1559,7 +1543,7 @@ onts/type1/public/cm-super/sfss0800.pfb></usr/local/texlive/2025/texmf-dist/fon
 ts/type1/public/cm-super/sfti1000.pfb></usr/local/texlive/2025/texmf-dist/fonts
 /type1/public/cm-super/sfti1200.pfb></usr/local/texlive/2025/texmf-dist/fonts/t
 ype1/public/cm-super/sftt1200.pfb>
-Output written on Paper_v1.pdf (44 pages, 1457811 bytes).
+Output written on Paper_v1.pdf (44 pages, 1457895 bytes).
 PDF statistics:
  680 PDF objects out of 1000 (max. 8388607)
  562 compressed objects within 6 object streams

@@ -18,6 +18,7 @@
     LB = Ljung-Box autocorrelation test at lag 20.
     $^\ast$ denotes rejection at $\alpha=0.05$.}
 \label{tab:descriptive_stats}
+\resizebox{\textwidth}{!}{%
 \begin{tabular}{@{}lcccc@{}}
 \toprule
 \textbf{Statistic} & \textbf{IS Observed} & \textbf{OoS Observed} & \textbf{Gaussian} & \textbf{Laplace} \\ \midrule
@@ -28,7 +29,7 @@ Excess Kurtosis             & 7.715  & 6.867  & 0      & 3      \\
 JB normality test           & reject$^\ast$ ($p<0.001$) & reject$^\ast$ ($p<0.001$) & n/a   & n/a   \\
 LB test on $G_t$ (lag 20)   & reject$^\ast$ ($p<0.001$) & reject$^\ast$ ($p=0.019$) & n/a   & n/a   \\
 LB test on $|G_t|$ (lag 20) & reject$^\ast$ ($p<0.001$) & reject$^\ast$ ($p<0.001$) & n/a   & n/a   \\ \bottomrule
-\end{tabular}
+\end{tabular}}
 \end{table}
 
 \clearpage
@@ -46,6 +47,7 @@ LB test on $|G_t|$ (lag 20) & reject$^\ast$ ($p<0.001$) & reject$^\ast$ ($p<0.00
     Standard errors in parentheses: binomial SE for pass rates,
     $\text{std}/\!\sqrt{n}$ for kurtosis, bootstrap SE ($B=500$) for ACF-MAE.}
 \label{tab:model_comparison}
+\resizebox{\textwidth}{!}{%
 \begin{tabular}{@{}lccc@{}}
 \toprule
 \textbf{Metric} & \textbf{GARCH(1,1)} & \textbf{HMM-NJ ($N=100$)} & \textbf{HMM-WJ ($N=100$)} \\ \midrule
@@ -63,7 +65,7 @@ Excess kurtosis (simulated)  &   1.7 (0.07) &   5.1 (0.07) &   5.0 (0.08) \\
 ACF-MAE (lags 1--252)        & 0.026 & 0.041 & 0.039 \\[4pt]
 \midrule
 Parameters estimated         &     3 &     2 &     4 \\ \bottomrule
-\end{tabular}
+\end{tabular}}
 \end{table}
 
 \clearpage
