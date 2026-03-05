@@ -2,13 +2,13 @@
 % figures.tex
 %
 % Figure inventory (7 figures matching plan.md):
-%   Fig 1 — Empirical Motivation          [PLACEHOLDER — generate from IS notebook]
-%   Fig 2 — Model Architecture (TikZ)    [DONE — inline TikZ diagram]
-%   Fig 3 — Fitted Model Internals        [DONE — Fig3-Model-Internals.pdf]
-%   Fig 4 — Head-to-Head Model Comparison [GENERATED: Fig4-Model-Comparison.pdf]
-%   Fig 5 — Grid Search Landscape         [GENERATED: Fig5-Parameter-Sweep.pdf]
-%   Fig 6 — Statistical Validation        [PLACEHOLDER — generate from IS/OoS notebooks]
-%   Fig 7 — Multi-Asset SIM Extension     [PLACEHOLDER — requires 424-asset pipeline]
+%   Fig 1 - Empirical Motivation          [PLACEHOLDER - generate from IS notebook]
+%   Fig 2 - Model Architecture (TikZ)    [DONE - inline TikZ diagram]
+%   Fig 3 - Fitted Model Internals        [DONE - Fig3-Model-Internals.pdf]
+%   Fig 4 - Head-to-Head Model Comparison [GENERATED: Fig4-Model-Comparison.pdf]
+%   Fig 5 - Grid Search Landscape         [GENERATED: Fig5-Parameter-Sweep.pdf]
+%   Fig 6 - Statistical Validation        [PLACEHOLDER - generate from IS/OoS notebooks]
+%   Fig 7 - Multi-Asset SIM Extension     [PLACEHOLDER - requires 424-asset pipeline]
 % =============================================================================
 
 % ── Figure 1: Empirical Motivation ───────────────────────────────────────────
@@ -18,8 +18,8 @@
     \caption{Empirical stylized facts of SPY daily excess growth rates (2014--2024).
     Panel~(a) shows the leptokurtic marginal distribution; the Laplace fit substantially outperforms
     the Gaussian.  Panel~(b) confirms heavy tails via a normal Q-Q plot.  Panels~(c) and~(d)
-    contrast the near-zero autocorrelation of raw returns --- consistent with the efficient markets
-    hypothesis --- against the persistent autocorrelation of absolute returns, motivating the
+    contrast the near-zero autocorrelation of raw returns (consistent with the efficient markets
+    hypothesis) against the persistent autocorrelation of absolute returns, motivating the
     jump-duration extension.}
     \label{fig:empirical_motivation}
 \end{figure}
@@ -61,31 +61,31 @@
   \draw[markov] (sNm1)-- (sN);
 
   % ===== Laplace emission bell curves above each visible state =====
-  % State 1 — red
+  % State 1 - red
   \draw[red!75!black, thick]
     plot[domain=-0.42:0.42, samples=40, smooth, variable=\t]
     ({ 0.0+\t}, {1.45 + 0.72*exp(-\t*\t/0.024)});
   \draw[red!25, thin] (-0.42,1.45) -- (0.42,1.45);
 
-  % State 2 — red
+  % State 2 - red
   \draw[red!75!black, thick]
     plot[domain=-0.42:0.42, samples=40, smooth, variable=\t]
     ({ 2.0+\t}, {1.45 + 0.72*exp(-\t*\t/0.024)});
   \draw[red!25, thin] (1.58,1.45) -- (2.42,1.45);
 
-  % State k — gray (central)
+  % State k - gray (central)
   \draw[black!55, thick]
     plot[domain=-0.42:0.42, samples=40, smooth, variable=\t]
     ({ 6.0+\t}, {1.45 + 0.72*exp(-\t*\t/0.024)});
   \draw[gray!40, thin] (5.58,1.45) -- (6.42,1.45);
 
-  % State N-1 — blue
+  % State N-1 - blue
   \draw[blue!75!black, thick]
     plot[domain=-0.42:0.42, samples=40, smooth, variable=\t]
     ({10.0+\t}, {1.45 + 0.72*exp(-\t*\t/0.024)});
   \draw[blue!25, thin] (9.58,1.45) -- (10.42,1.45);
 
-  % State N — blue
+  % State N - blue
   \draw[blue!75!black, thick]
     plot[domain=-0.42:0.42, samples=40, smooth, variable=\t]
     ({12.0+\t}, {1.45 + 0.72*exp(-\t*\t/0.024)});
@@ -211,7 +211,7 @@
     identically to HMM-NJ (dashed curve, near zero); the remaining $\sim$24\% of paths
     contain at least one jump event and sustain substantial $\mathrm{ACF}(|G_t|)$ decay
     across all lags (solid navy curve $\pm$ band).
-    The jump frequency---and hence the fraction of the ensemble exhibiting slow ACF decay---is
+    The jump frequency, and hence the fraction of the ensemble exhibiting slow ACF decay, is
     controlled by the hyperparameter $\lambda$, making the volatility-clustering strength
     directly tunable.
     Panel~(c): tail Q-Q plot at the 0.1st--99.9th percentile region; HMM-WJ provides the

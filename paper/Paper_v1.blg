@@ -3,44 +3,46 @@ Capacity: max_strings=200000, hash_size=200000, hash_prime=170003
 The top-level auxiliary file: Paper_v1.aux
 The style file: model1-num-names.bst
 Database file #1: References_v1.bib
-You've used 45 entries,
+Warning--empty pages in yoon_timegan_2019
+You've used 43 entries,
             2616 wiz_defined-function locations,
-            836 strings with 11615 characters,
-and the built_in function-call counts, 24500 in all, are:
-= -- 2026
-> -- 810
-< -- 40
-+ -- 324
-- -- 261
-* -- 2807
-:= -- 3771
-add.period$ -- 45
-call.type$ -- 45
-change.case$ -- 308
-chr.to.int$ -- 45
-cite$ -- 45
-duplicate$ -- 1569
-empty$ -- 1690
-format.name$ -- 384
-if$ -- 4488
+            825 strings with 11398 characters,
+and the built_in function-call counts, 23717 in all, are:
+= -- 1941
+> -- 814
+< -- 38
++ -- 325
+- -- 264
+* -- 2731
+:= -- 3643
+add.period$ -- 43
+call.type$ -- 43
+change.case$ -- 299
+chr.to.int$ -- 43
+cite$ -- 44
+duplicate$ -- 1518
+empty$ -- 1627
+format.name$ -- 383
+if$ -- 4340
 int.to.chr$ -- 1
 int.to.str$ -- 1
-missing$ -- 338
-newline$ -- 223
-num.names$ -- 180
-pop$ -- 287
+missing$ -- 329
+newline$ -- 213
+num.names$ -- 172
+pop$ -- 292
 preamble$ -- 1
-purify$ -- 312
+purify$ -- 303
 quote$ -- 0
-skip$ -- 513
+skip$ -- 495
 stack$ -- 0
-substring$ -- 1470
-swap$ -- 1328
-text.length$ -- 4
+substring$ -- 1390
+swap$ -- 1288
+text.length$ -- 5
 text.prefix$ -- 0
 top$ -- 0
-type$ -- 393
-warning$ -- 0
-while$ -- 207
+type$ -- 375
+warning$ -- 1
+while$ -- 197
 width$ -- 0
-write$ -- 584
+write$ -- 558
+(There was 1 warning)
