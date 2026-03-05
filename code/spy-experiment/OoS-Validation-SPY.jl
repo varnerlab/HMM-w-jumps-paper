@@ -103,6 +103,8 @@ function compute_metrics(obs::Vector{Float64},
     return (
         ks_pass_rate   = mean(ks_pvals  .> alpha),
         ad_pass_rate   = mean(ad_pvals  .> alpha),
+        ks_pvals       = ks_pvals,
+        ad_pvals       = ad_pvals,
         kurt_obs       = obs_kurt,
         kurt_mean      = mean(kurt_vals),
         kurt_std       = std(kurt_vals),
@@ -113,6 +115,7 @@ function compute_metrics(obs::Vector{Float64},
         acf_mae_lag252 = L >= 252 ? acf_mae_vec[252] : NaN,
         mean_acf       = mean_acf,
         obs_acf        = obs_acf,
+        acf_mat        = acf_mat,
     )
 end
 

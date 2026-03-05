@@ -28,6 +28,7 @@ using LinearAlgebra
 using ARCHModels
 using Random
 using Printf
+using KernelDensity
 
 # set the random seed for reproducibility -
 Random.seed!(1234);
