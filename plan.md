@@ -23,41 +23,36 @@
 - [x] **Em dashes eliminated** -- All `---` and unicode em dashes removed from every section; replaced with commas, parentheses, or semicolons
 - [x] **Methods grid search corrected** -- epsilon/lambda ranges and paths-per-point now match actual code (HMM-Parameter-Sweep.jl)
 - [x] **Tables 1 and 2 resized** -- Wrapped in `\resizebox{\textwidth}{!}{}` to fit page width
+- [x] **Template switch: elsarticle to ACM acmsmall** -- `\documentclass[acmsmall,nonacm]{acmart}` with `acmart.cls`, `ACM-Reference-Format.bst`, and all supporting files installed in `paper/`
+- [x] **ACM frontmatter conversion** -- `\affiliation{}`, `\keywords{}`, `\maketitle` after `\begin{document}`; removed elsarticle `\begin{frontmatter}`, `\sep`, `\biboptions`
+- [x] **Numbered sections** -- All `\section*{}` converted to `\section{}` per ACM style
+- [x] **Bibliography style** -- Switched from `model1-num-names` to `ACM-Reference-Format`
+- [x] **Redundant packages removed** -- `amssymb`, `amsmath`, `amsfonts`, `lineno`, `hyperref`, `url` removed (provided by acmart); manual `\newtheorem` defs removed (acmart provides its own)
+- [x] **Figures/tables moved inline** -- All 7 figures, 4 tables, and 4 algorithms moved from end-of-document to their first-reference locations in `introduction.tex`, `methods.tex`, and `results.tex`; old `figures.tex`, `tables.tex`, `notation.tex` replaced with stubs
+- [x] **Float separation enforced** -- `\FloatBarrier` added between every pair of consecutive floats to prevent two figures, two tables, or a figure+table on the same page
+- [x] **Algorithm text reduced** -- All 4 algorithm environments now use `\small` font
+- [x] **Results narrative improved** -- Merged choppy single-finding paragraphs into 5 thematic subsections with varied sentence structure
+- [x] **Discussion restructured** -- Absorbed "Broader implications" and "Limitations" from old conclusion; added subsections for jump mechanism interpretation, practical implications, and limitations
+- [x] **Conclusion trimmed** -- Reduced from ~1.5 pages with subsections to 2 concise paragraphs (summary + future work)
+- [x] **Introduction consolidated** -- Reduced from 5 paragraphs to 3: big picture, existing approaches, what we do
+- [x] **Introduction cleaned** -- Removed undefined math symbols ($\epsilon$, $\lambda$, $N=100$); spelled out abbreviations (CDF, EM, ACF, KS, AD) on first use
+- [x] **Related work restructured** -- Reduced from 15 paragraphs / 6 subsections to 7 paragraphs / 4 subsections with clear narrative arc: stylized facts + parametric models, HMMs + regime-switching, synthetic data + deep generative models, factor models + multi-asset
 
 ---
 
-## Phase 1: Reframing (text changes, no new computation)
+## Phase 1: Remaining text changes (no new computation)
 
-### 1.3 Related work expansion
-- [ ] Add new subsection: "Synthetic data quality assessment" (~1 page)
-  - JDIQ TS synthesis survey (Bauer et al 2024)
-  - CTGAN, TimeGAN, TableGAN -- tabular/time-series generation
-  - Differential privacy approaches
-  - Contrast: GAN-based methods lack explicit quality guarantees; our framework has built-in quality metrics
-- [ ] Reframe existing "Synthetic data generation" subsection to connect to JDIQ literature
-
-### 1.4 Discussion reframe
+### 1.1 Discussion practitioner guidance
 - [ ] Add subsection: "Practical guidance for synthetic data practitioners"
   - When to use N=100 vs lower/higher
   - When SIM extension is sufficient vs multivariate HMM needed
   - Quality thresholds: what KS/AD pass rate is "good enough"?
-- [ ] Reframe limitations around data quality degradation conditions
 
 ---
 
-## Phase 2: Template switch (formatting, no content changes)
+## Phase 2: Double-anonymous preparation
 
-### 2.1 elsarticle to ACM acmsmall
-- [ ] Install ACM LaTeX template (acmart class, acmsmall format)
-- [ ] Convert frontmatter (title, authors, abstract, keywords to ACM CCS concepts)
-- [ ] Convert bibliography style to ACM format (biblatex or natbib with ACM style)
-- [ ] Add ACM copyright/DOI placeholder boilerplate
-- [ ] Convert `\section*{}` to `\section{}` (ACM requires numbered sections)
-- [ ] Move figures/tables inline (ACM doesn't use end-of-document floats)
-- [ ] Verify page count <= 23 (excl. references)
-
-### 2.2 Double-anonymous preparation
-- [ ] Remove author names and affiliations from submitted PDF
+- [ ] Remove author names and affiliations from submitted PDF (switch `nonacm` to `anonymous`)
 - [ ] Remove GitHub URL from data availability statement (or anonymize)
 - [ ] Check for self-citations that reveal identity
 - [ ] Ensure no "our previous work" or similar revealing language
@@ -102,15 +97,19 @@
 
 | File | Status | Notes |
 |------|--------|-------|
-| `paper/Paper_v1.tex` | Needs template switch | Abstract/keywords done; currently elsarticle |
-| `paper/sections/introduction.tex` | Done | Reframed for JDIQ |
-| `paper/sections/related.tex` | Needs expansion | Phase 1.3: add synthetic data quality subsection |
-| `paper/sections/methods.tex` | Done | Grid search corrected; OoS days fixed |
-| `paper/sections/results.tex` | Done | Rewritten in "we did, we saw, which suggests" format |
-| `paper/sections/discussion.tex` | Needs reframe | Phase 1.4: add practitioner guidance |
-| `paper/sections/conclusion.tex` | Done | Reframed for JDIQ |
-| `paper/sections/tables.tex` | Done | Tables 1-4 complete with SEs; resized to fit |
-| `paper/sections/figures.tex` | Done | 7 figures, captions cleaned |
+| `paper/Paper_v1.tex` | Done | ACM acmsmall template; compiles cleanly (27 pages) |
+| `paper/acmart.cls` | Installed | ACM document class from CTAN |
+| `paper/ACM-Reference-Format.bst` | Installed | ACM bibliography style |
+| `paper/sections/introduction.tex` | Done | 3 paragraphs: big picture, existing approaches, our work |
+| `paper/sections/related.tex` | Done | 4 subsections with clear narrative arc |
+| `paper/sections/methods.tex` | Done | Figs 2-3 + Algorithms 1-4 inline |
+| `paper/sections/results.tex` | Done | Tables 1-4 + Figs 4-7 inline with FloatBarrier separation |
+| `paper/sections/discussion.tex` | Done | 3 subsections: jump mechanism, practical implications, limitations |
+| `paper/sections/conclusion.tex` | Done | 2 paragraphs: summary + future work |
+| `paper/sections/endmatter.tex` | Done | Conflict, contributions, data availability |
+| `paper/sections/figures.tex` | Stub | Content moved inline |
+| `paper/sections/tables.tex` | Stub | Content moved inline |
+| `paper/sections/notation.tex` | Stub | Algorithms moved to methods.tex |
 | `paper/References_v1.bib` | Done | ~45 entries including synthetic data refs |
 | `code/spy-experiment/Table2-SEs.jl` | Done | Computes Table 2 with SEs |
 | `code/spy-experiment/Table3-Sensitivity-ACF-MAE.jl` | Done | Computes Table 3 with SEs |
@@ -128,5 +127,5 @@
 | Related work emphasis | GARCH, stochastic vol, HMMs | + GANs, synthetic data surveys, quality frameworks |
 | Key selling point | ARCH effect reproduction | Domain-specific quality evaluation methodology |
 | Audience assumption | Knows CAPM, Black-Scholes | Knows data quality dimensions, synthetic data |
-| Template | elsarticle | ACM acmsmall |
+| Template | ~~elsarticle~~ acmsmall | ACM acmsmall |
 | Review | Single-blind | Double-anonymous |
