@@ -1,317 +1,560 @@
+%%% -*-BibTeX-*-
+%%% Do NOT edit. File created by BibTeX with style
+%%% ACM-Reference-Format-Journals [18-Jan-2012].
+
 \begin{thebibliography}{43}
-\expandafter\ifx\csname natexlab\endcsname\relax\def\natexlab#1{#1}\fi
-\providecommand{\bibinfo}[2]{#2}
-\ifx\xfnm\relax \def\xfnm[#1]{\unskip,\space#1}\fi
-%Type = Inproceedings
-\bibitem[{Assefa et~al.(2021)Assefa, Dervovic, Mahfouz, Tillman, Reddy, and
-  Veloso}]{assefa_generating_2021}
-\bibinfo{author}{S.~A. Assefa}, \bibinfo{author}{D.~Dervovic},
-  \bibinfo{author}{M.~Mahfouz}, \bibinfo{author}{R.~E. Tillman},
-  \bibinfo{author}{P.~Reddy}, \bibinfo{author}{M.~Veloso},
-\newblock \bibinfo{title}{Generating synthetic data in finance: opportunities,
-  challenges and pitfalls},
-\newblock in: \bibinfo{booktitle}{Proceedings of the {First} {ACM}
-  {International} {Conference} on {AI} in {Finance}}, pp.
-  \bibinfo{pages}{1--8}.
-%Type = Article
-\bibitem[{Jordon et~al.(2022)Jordon, Szpruch, Houssiau, Sheridan~Rains,
-  Sheridan, Sheridan, and Sheridan}]{jordon_synthetic_2022}
-\bibinfo{author}{J.~Jordon}, \bibinfo{author}{L.~Szpruch},
-  \bibinfo{author}{F.~Houssiau}, \bibinfo{author}{L.~Sheridan~Rains},
-  \bibinfo{author}{J.~Sheridan}, \bibinfo{author}{M.~Sheridan},
-  \bibinfo{author}{D.~Sheridan},
-\newblock \bibinfo{title}{Synthetic data -- what, why and how?},
-\newblock \bibinfo{journal}{arXiv preprint arXiv:2205.03257}
-  (\bibinfo{year}{2022}).
-%Type = Article
-\bibitem[{Mandelbrot(1963)}]{mandelbrot_variation_1963}
-\bibinfo{author}{B.~Mandelbrot},
-\newblock \bibinfo{title}{The {Variation} of {Certain} {Speculative} {Prices}},
-\newblock \bibinfo{journal}{The Journal of Business} \bibinfo{volume}{36}
-  (\bibinfo{year}{1963}) \bibinfo{pages}{394--419}.
-%Type = Article
-\bibitem[{Cont(2001)}]{cont_empirical_2001}
-\bibinfo{author}{R.~Cont},
-\newblock \bibinfo{title}{Empirical properties of asset returns: stylized facts
-  and statistical issues},
-\newblock \bibinfo{journal}{Quantitative Finance} \bibinfo{volume}{1}
-  (\bibinfo{year}{2001}) \bibinfo{pages}{223--236}.
-%Type = Article
-\bibitem[{Bauer et~al.(2024)Bauer, Joussen, and
-  Lukas}]{bauer_jdiq_ts_synthesis_2024}
-\bibinfo{author}{K.~Bauer}, \bibinfo{author}{S.~Joussen},
-  \bibinfo{author}{J.~Lukas},
-\newblock \bibinfo{title}{Thinking in categories: A survey on assessing the
-  quality for time series synthesis},
-\newblock \bibinfo{journal}{Journal of Data and Information Quality}
+
+%%% ====================================================================
+%%% NOTE TO THE USER: you can override these defaults by providing
+%%% customized versions of any of these macros before the \bibliography
+%%% command.  Each of them MUST provide its own final punctuation,
+%%% except for \shownote{} and \showURL{}.  The latter two
+%%% do not use final punctuation, in order to avoid confusing it with
+%%% the Web address.
+%%%
+%%% To suppress output of a particular field, define its macro to expand
+%%% to an empty string, or better, \unskip, like this:
+%%%
+%%% \newcommand{\showURL}[1]{\unskip}   % LaTeX syntax
+%%%
+%%% \def \showURL #1{\unskip}           % plain TeX syntax
+%%%
+%%% ====================================================================
+
+\ifx \showCODEN    \undefined \def \showCODEN     #1{\unskip}     \fi
+\ifx \showISBNx    \undefined \def \showISBNx     #1{\unskip}     \fi
+\ifx \showISBNxiii \undefined \def \showISBNxiii  #1{\unskip}     \fi
+\ifx \showISSN     \undefined \def \showISSN      #1{\unskip}     \fi
+\ifx \showLCCN     \undefined \def \showLCCN      #1{\unskip}     \fi
+\ifx \shownote     \undefined \def \shownote      #1{#1}          \fi
+\ifx \showarticletitle \undefined \def \showarticletitle #1{#1}   \fi
+\ifx \showURL      \undefined \def \showURL       {\relax}        \fi
+% The following commands are used for tagged output and should be
+% invisible to TeX
+\providecommand\bibfield[2]{#2}
+\providecommand\bibinfo[2]{#2}
+\providecommand\natexlab[1]{#1}
+\providecommand\showeprint[2][]{arXiv:#2}
+
+\bibitem[Anderson and Darling(1952)]%
+        {anderson_darling_1952}
+\bibfield{author}{\bibinfo{person}{Theodore~W. Anderson} {and}
+  \bibinfo{person}{Donald~A. Darling}.} \bibinfo{year}{1952}\natexlab{}.
+\newblock \showarticletitle{Asymptotic theory of certain ``goodness of fit''
+  criteria based on stochastic processes}.
+\newblock \bibinfo{journal}{\emph{The Annals of Mathematical Statistics}}
+  \bibinfo{volume}{23}, \bibinfo{number}{2} (\bibinfo{year}{1952}),
+  \bibinfo{pages}{193--212}.
+\newblock
+
+
+\bibitem[Assefa et~al\mbox{.}(2021)]%
+        {assefa_generating_2021}
+\bibfield{author}{\bibinfo{person}{Samuel~A. Assefa}, \bibinfo{person}{Danial
+  Dervovic}, \bibinfo{person}{Mahmoud Mahfouz}, \bibinfo{person}{Robert~E.
+  Tillman}, \bibinfo{person}{Prashant Reddy}, {and} \bibinfo{person}{Manuela
+  Veloso}.} \bibinfo{year}{2021}\natexlab{}.
+\newblock \showarticletitle{Generating synthetic data in finance:
+  opportunities, challenges and pitfalls}. In
+  \bibinfo{booktitle}{\emph{Proceedings of the {First} {ACM} {International}
+  {Conference} on {AI} in {Finance}}}. \bibinfo{pages}{1--8}.
+\newblock
+\href{https://doi.org/10.1145/3383455.3422554}{doi:\nolinkurl{10.1145/3383455.3422554}}
+
+
+\bibitem[Au~Yeung et~al\mbox{.}(2020)]%
+        {au_yeung_jump_2020}
+\bibfield{author}{\bibinfo{person}{Jay F.~K. Au~Yeung}, \bibinfo{person}{Zi-kai
+  Wei}, \bibinfo{person}{Kit~Yan Chan}, \bibinfo{person}{Henry Y.~K. Lau},
+  {and} \bibinfo{person}{Ka-Fai~Cedric Yiu}.} \bibinfo{year}{2020}\natexlab{}.
+\newblock \showarticletitle{Jump detection in financial time series using
+  machine learning algorithms}.
+\newblock \bibinfo{journal}{\emph{Soft Computing}} \bibinfo{volume}{24},
+  \bibinfo{number}{3} (\bibinfo{year}{2020}), \bibinfo{pages}{1789--1801}.
+\newblock
+\href{https://doi.org/10.1007/s00500-019-04006-2}{doi:\nolinkurl{10.1007/s00500-019-04006-2}}
+
+
+\bibitem[Bauer et~al\mbox{.}(2024)]%
+        {bauer_jdiq_ts_synthesis_2024}
+\bibfield{author}{\bibinfo{person}{Kevin Bauer}, \bibinfo{person}{Simon
+  Joussen}, {and} \bibinfo{person}{Jan Lukas}.}
+  \bibinfo{year}{2024}\natexlab{}.
+\newblock \showarticletitle{Thinking in Categories: A Survey on Assessing the
+  Quality for Time Series Synthesis}.
+\newblock \bibinfo{journal}{\emph{Journal of Data and Information Quality}}
   (\bibinfo{year}{2024}).
-%Type = Article
-\bibitem[{Engle(1982)}]{engle_1982}
-\bibinfo{author}{R.~F. Engle},
-\newblock \bibinfo{title}{Autoregressive {Conditional} {Heteroscedasticity}
-  with {Estimates} of the {Variance} of {United} {Kingdom} {Inflation}},
-\newblock \bibinfo{journal}{Econometrica} \bibinfo{volume}{50}
-  (\bibinfo{year}{1982}) \bibinfo{pages}{987--1007}.
-%Type = Article
-\bibitem[{Bollerslev(1986)}]{bollerslev_garch_1986}
-\bibinfo{author}{T.~Bollerslev},
-\newblock \bibinfo{title}{Generalized {Autoregressive} {Conditional}
-  {Heteroscedasticity}},
-\newblock \bibinfo{journal}{Journal of Econometrics} \bibinfo{volume}{31}
-  (\bibinfo{year}{1986}) \bibinfo{pages}{307--327}.
-%Type = Article
-\bibitem[{Heston(1993)}]{heston_stochastic_1993}
-\bibinfo{author}{S.~L. Heston},
-\newblock \bibinfo{title}{A {Closed}-{Form} {Solution} for {Options} with
-  {Stochastic} {Volatility} with {Applications} to {Bond} and {Currency}
-  {Options}},
-\newblock \bibinfo{journal}{The Review of Financial Studies}
-  \bibinfo{volume}{6} (\bibinfo{year}{1993}) \bibinfo{pages}{327--343}.
-%Type = Article
-\bibitem[{Merton(1976)}]{merton_jump_1976}
-\bibinfo{author}{R.~C. Merton},
-\newblock \bibinfo{title}{Option {Pricing} {When} {Underlying} {Stock}
-  {Returns} {Are} {Discontinuous}},
-\newblock \bibinfo{journal}{Journal of Financial Economics} \bibinfo{volume}{3}
-  (\bibinfo{year}{1976}) \bibinfo{pages}{125--144}.
-%Type = Article
-\bibitem[{Hochreiter and Schmidhuber(1997)}]{hochreiter_lstm_1997}
-\bibinfo{author}{S.~Hochreiter}, \bibinfo{author}{J.~Schmidhuber},
-\newblock \bibinfo{title}{Long {Short}-{Term} {Memory}},
-\newblock \bibinfo{journal}{Neural Computation} \bibinfo{volume}{9}
-  (\bibinfo{year}{1997}) \bibinfo{pages}{1735--1780}.
-%Type = Article
-\bibitem[{Fischer and Krauss(2018)}]{fischer_krauss_2018}
-\bibinfo{author}{T.~Fischer}, \bibinfo{author}{C.~Krauss},
-\newblock \bibinfo{title}{Deep learning with long short-term memory networks
-  for financial market predictions},
-\newblock \bibinfo{journal}{European Journal of Operational Research}
-  \bibinfo{volume}{270} (\bibinfo{year}{2018}) \bibinfo{pages}{654--669}.
-%Type = Article
-\bibitem[{Takahashi et~al.(2019)Takahashi, Chen, and
-  Tanaka-Ishii}]{takahashi_2019}
-\bibinfo{author}{S.~Takahashi}, \bibinfo{author}{Y.~Chen},
-  \bibinfo{author}{K.~Tanaka-Ishii},
-\newblock \bibinfo{title}{Modeling financial time-series with generative
-  adversarial networks},
-\newblock \bibinfo{journal}{Physica A: Statistical Mechanics and its
-  Applications} \bibinfo{volume}{527} (\bibinfo{year}{2019})
-  \bibinfo{pages}{121261}.
-%Type = Inproceedings
-\bibitem[{Kwon and Lee(2024)}]{kwon_can_2024}
-\bibinfo{author}{S.~Kwon}, \bibinfo{author}{Y.~Lee},
-\newblock \bibinfo{title}{Can {GANs} {Learn} the {Stylized} {Facts} of
-  {Financial} {Time} {Series}?},
-\newblock in: \bibinfo{booktitle}{Proceedings of the 5th {ACM} {International}
-  {Conference} on {AI} in {Finance}}, pp. \bibinfo{pages}{126--133}.
-%Type = Inproceedings
-\bibitem[{Yoon et~al.(2019)Yoon, Jarrett, and van~der
-  Schaar}]{yoon_timegan_2019}
-\bibinfo{author}{J.~Yoon}, \bibinfo{author}{D.~Jarrett},
-  \bibinfo{author}{M.~van~der Schaar},
-\newblock \bibinfo{title}{Time-series generative adversarial networks},
-\newblock in: \bibinfo{booktitle}{Advances in {Neural} {Information}
-  {Processing} {Systems}}, volume~\bibinfo{volume}{32}.
-%Type = Article
-\bibitem[{Rabiner and Juang(1986)}]{rabiner_introduction_1986}
-\bibinfo{author}{L.~Rabiner}, \bibinfo{author}{B.~Juang},
-\newblock \bibinfo{title}{An introduction to hidden {Markov} models},
-\newblock \bibinfo{journal}{IEEE ASSP Magazine} \bibinfo{volume}{3}
-  (\bibinfo{year}{1986}) \bibinfo{pages}{4--16}.
-%Type = Article
-\bibitem[{Rydén et~al.(1998)Rydén, Teräsvirta, and
-  Åsbrink}]{ryden_stylized_1998}
-\bibinfo{author}{T.~Rydén}, \bibinfo{author}{T.~Teräsvirta},
-  \bibinfo{author}{S.~Åsbrink},
-\newblock \bibinfo{title}{Stylized facts of daily return series and the hidden
-  {Markov} model},
-\newblock \bibinfo{journal}{Journal of Applied Econometrics}
-  \bibinfo{volume}{13} (\bibinfo{year}{1998}) \bibinfo{pages}{217--244}.
-%Type = Article
-\bibitem[{Bulla and Bulla(2006)}]{bulla_stylized_2006}
-\bibinfo{author}{J.~Bulla}, \bibinfo{author}{I.~Bulla},
-\newblock \bibinfo{title}{Stylized facts of financial time series and hidden
-  semi-{Markov} models},
-\newblock \bibinfo{journal}{Computational Statistics \& Data Analysis}
-  \bibinfo{volume}{51} (\bibinfo{year}{2006}) \bibinfo{pages}{2192--2209}.
-%Type = Article
-\bibitem[{Au~Yeung et~al.(2020)Au~Yeung, Wei, Chan, Lau, and
-  Yiu}]{au_yeung_jump_2020}
-\bibinfo{author}{J.~F.~K. Au~Yeung}, \bibinfo{author}{Z.-k. Wei},
-  \bibinfo{author}{K.~Y. Chan}, \bibinfo{author}{H.~Y.~K. Lau},
-  \bibinfo{author}{K.-F.~C. Yiu},
-\newblock \bibinfo{title}{Jump detection in financial time series using machine
-  learning algorithms},
-\newblock \bibinfo{journal}{Soft Computing} \bibinfo{volume}{24}
-  (\bibinfo{year}{2020}) \bibinfo{pages}{1789--1801}.
-%Type = Article
-\bibitem[{Sharpe(1963)}]{sharpe_simplified_1963}
-\bibinfo{author}{W.~F. Sharpe},
-\newblock \bibinfo{title}{A simplified model for portfolio analysis},
-\newblock \bibinfo{journal}{Management Science} \bibinfo{volume}{9}
-  (\bibinfo{year}{1963}) \bibinfo{pages}{277--293}.
-%Type = Article
-\bibitem[{Black and Scholes(1973)}]{black_scholes_1973}
-\bibinfo{author}{F.~Black}, \bibinfo{author}{M.~Scholes},
-\newblock \bibinfo{title}{The pricing of options and corporate liabilities},
-\newblock \bibinfo{journal}{Journal of Political Economy} \bibinfo{volume}{81}
-  (\bibinfo{year}{1973}) \bibinfo{pages}{637--654}.
-%Type = Article
-\bibitem[{Fama(1970)}]{fama_efficient_1970}
-\bibinfo{author}{E.~F. Fama},
-\newblock \bibinfo{title}{Efficient {Capital} {Markets}: {A} {Review} of
-  {Theory} and {Empirical} {Work}},
-\newblock \bibinfo{journal}{The Journal of Finance} \bibinfo{volume}{25}
-  (\bibinfo{year}{1970}) \bibinfo{pages}{383--417}.
-%Type = Article
-\bibitem[{Schwert(1989)}]{schwert_why_1989}
-\bibinfo{author}{G.~W. Schwert},
-\newblock \bibinfo{title}{Why {Does} {Stock} {Market} {Volatility} {Change}
-  {Over} {Time}?},
-\newblock \bibinfo{journal}{The Journal of Finance} \bibinfo{volume}{44}
-  (\bibinfo{year}{1989}) \bibinfo{pages}{1115--1153}.
-%Type = Article
-\bibitem[{Diebold and Inoue(2001)}]{diebold_inoue_2001}
-\bibinfo{author}{F.~X. Diebold}, \bibinfo{author}{A.~Inoue},
-\newblock \bibinfo{title}{Long memory and regime switching},
-\newblock \bibinfo{journal}{Journal of Econometrics} \bibinfo{volume}{105}
-  (\bibinfo{year}{2001}) \bibinfo{pages}{131--159}.
-%Type = Article
-\bibitem[{Stein and Stein(1991)}]{stein_stock_1991}
-\bibinfo{author}{E.~M. Stein}, \bibinfo{author}{J.~C. Stein},
-\newblock \bibinfo{title}{Stock price distributions with stochastic volatility:
-  an analytic approach},
-\newblock \bibinfo{journal}{The Review of Financial Studies}
-  \bibinfo{volume}{4} (\bibinfo{year}{1991}) \bibinfo{pages}{727--752}.
-%Type = Article
-\bibitem[{Kou(2002)}]{kou_jump-diffusion_2002}
-\bibinfo{author}{S.~G. Kou},
-\newblock \bibinfo{title}{A {Jump}-{Diffusion} {Model} for {Option} {Pricing}},
-\newblock \bibinfo{journal}{Management Science} \bibinfo{volume}{48}
-  (\bibinfo{year}{2002}) \bibinfo{pages}{1086--1101}.
-%Type = Article
-\bibitem[{Hamilton(1989)}]{hamilton_1989}
-\bibinfo{author}{J.~D. Hamilton},
-\newblock \bibinfo{title}{A new approach to the economic analysis of
-  nonstationary time series and the business cycle},
-\newblock \bibinfo{journal}{Econometrica} \bibinfo{volume}{57}
-  (\bibinfo{year}{1989}) \bibinfo{pages}{357--384}.
-%Type = Article
-\bibitem[{Rossi and Gallo(2006)}]{rossi_volatility_2006}
-\bibinfo{author}{A.~Rossi}, \bibinfo{author}{G.~M. Gallo},
-\newblock \bibinfo{title}{Volatility estimation via hidden {Markov} models},
-\newblock \bibinfo{journal}{Journal of Empirical Finance} \bibinfo{volume}{13}
-  (\bibinfo{year}{2006}) \bibinfo{pages}{203--230}.
-%Type = Article
-\bibitem[{Nguyen(2018)}]{nguyen_hidden_2018}
-\bibinfo{author}{N.~Nguyen},
-\newblock \bibinfo{title}{Hidden {Markov} {Model} for {Stock} {Trading}},
-\newblock \bibinfo{journal}{International Journal of Financial Studies}
-  \bibinfo{volume}{6} (\bibinfo{year}{2018}) \bibinfo{pages}{36}.
-%Type = Inproceedings
-\bibitem[{Berghaus et~al.(2025)Berghaus, Cvejoski, Seifner, Ojeda, and
-  Sanchez}]{berghaus_foundation_2025}
-\bibinfo{author}{D.~Berghaus}, \bibinfo{author}{K.~Cvejoski},
-  \bibinfo{author}{P.~Seifner}, \bibinfo{author}{C.~Ojeda},
-  \bibinfo{author}{R.~J. Sanchez},
-\newblock \bibinfo{title}{Foundation inference models for {Markov} jump
-  processes},
-\newblock in: \bibinfo{booktitle}{Proceedings of the 38th {International}
-  {Conference} on {Neural} {Information} {Processing} {Systems}}, pp.
-  \bibinfo{pages}{129407--129442}.
-%Type = Article
-\bibitem[{Fama and French(1993)}]{fama_french_1993}
-\bibinfo{author}{E.~F. Fama}, \bibinfo{author}{K.~R. French},
-\newblock \bibinfo{title}{Common risk factors in the returns on stocks and
-  bonds},
-\newblock \bibinfo{journal}{Journal of Financial Economics}
-  \bibinfo{volume}{33} (\bibinfo{year}{1993}) \bibinfo{pages}{3--56}.
-%Type = Article
-\bibitem[{Kim and Nelson(1999)}]{kim_nelson_1999}
-\bibinfo{author}{C.-J. Kim}, \bibinfo{author}{C.~R. Nelson},
-\newblock \bibinfo{title}{Has the {U.S.} economy become more stable? {A}
-  {Bayesian} approach based on a {Markov}-switching model of the business
-  cycle},
-\newblock \bibinfo{journal}{The Review of Economics and Statistics}
-  \bibinfo{volume}{81} (\bibinfo{year}{1999}) \bibinfo{pages}{608--616}.
-%Type = Inproceedings
-\bibitem[{Dias et~al.(2010)Dias, Vermunt, and Ramos}]{dias_mixture_2010}
-\bibinfo{author}{J.~G. Dias}, \bibinfo{author}{J.~K. Vermunt},
-  \bibinfo{author}{S.~Ramos},
-\newblock \bibinfo{title}{Mixture {Hidden} {Markov} {Models} in {Finance}
-  {Research}},
-\newblock in: \bibinfo{booktitle}{Advances in {Data} {Analysis}, {Data}
-  {Handling} and {Business} {Intelligence}}, \bibinfo{publisher}{Springer},
-  \bibinfo{year}{2010}, pp. \bibinfo{pages}{451--459}.
-%Type = Book
-\bibitem[{Kotz et~al.(2001)Kotz, Kozubowski, and
-  Podgórski}]{kotz_laplace_2001}
-\bibinfo{author}{S.~Kotz}, \bibinfo{author}{T.~J. Kozubowski},
-  \bibinfo{author}{K.~Podgórski}, \bibinfo{title}{The {Laplace} {Distribution}
-  and {Generalizations}: {A} {Revisit} with {Applications} to {Communications},
-  {Economics}, {Engineering}, and {Finance}}, \bibinfo{publisher}{Birkhauser},
-  \bibinfo{year}{2001}.
-%Type = Article
-\bibitem[{Harwood(2019)}]{harwood_against_2019}
-\bibinfo{author}{V.~Harwood},
-\newblock \bibinfo{title}{Against the {Norm}: {Modeling} {Daily} {Stock}
-  {Returns} with the {Laplace} {Distribution}},
-\newblock \bibinfo{journal}{arXiv preprint arXiv:1906.10325}
-  (\bibinfo{year}{2019}).
-%Type = Article
-\bibitem[{Bilmes(1998)}]{bilmes_gentle_nodate}
-\bibinfo{author}{J.~A. Bilmes},
-\newblock \bibinfo{title}{A {Gentle} {Tutorial} of the {EM} {Algorithm} and its
-  {Application} to {Parameter} {Estimation} for {Gaussian} {Mixture} and
-  {Hidden} {Markov} {Models}},
-\newblock \bibinfo{journal}{International Computer Science Institute}
+\newblock
+\href{https://doi.org/10.1145/3666006}{doi:\nolinkurl{10.1145/3666006}}
+
+
+\bibitem[Berghaus et~al\mbox{.}(2025)]%
+        {berghaus_foundation_2025}
+\bibfield{author}{\bibinfo{person}{David Berghaus}, \bibinfo{person}{Kostadin
+  Cvejoski}, \bibinfo{person}{Patrick Seifner}, \bibinfo{person}{César Ojeda},
+  {and} \bibinfo{person}{Ramsés~J. Sanchez}.} \bibinfo{year}{2025}\natexlab{}.
+\newblock \showarticletitle{Foundation inference models for {Markov} jump
+  processes}. In \bibinfo{booktitle}{\emph{Proceedings of the 38th
+  {International} {Conference} on {Neural} {Information} {Processing}
+  {Systems}}}. \bibinfo{pages}{129407--129442}.
+\newblock
+
+
+\bibitem[Bilmes(1998)]%
+        {bilmes_gentle_nodate}
+\bibfield{author}{\bibinfo{person}{Jeff~A. Bilmes}.}
+  \bibinfo{year}{1998}\natexlab{}.
+\newblock \showarticletitle{A {Gentle} {Tutorial} of the {EM} {Algorithm} and
+  its {Application} to {Parameter} {Estimation} for {Gaussian} {Mixture} and
+  {Hidden} {Markov} {Models}}.
+\newblock \bibinfo{journal}{\emph{International Computer Science Institute}}
   (\bibinfo{year}{1998}).
-%Type = Book
-\bibitem[{Glasserman(2003)}]{glasserman_monte_2003}
-\bibinfo{author}{P.~Glasserman}, \bibinfo{title}{Monte {Carlo} {Methods} in
-  {Financial} {Engineering}}, \bibinfo{publisher}{Springer},
-  \bibinfo{year}{2003}.
-%Type = Article
-\bibitem[{Hamilton(2018)}]{hamilton_regime_2018}
-\bibinfo{author}{J.~D. Hamilton},
-\newblock \bibinfo{title}{Regime {Switching} {Models}},
-\newblock \bibinfo{journal}{The New Palgrave Dictionary of Economics}
-  (\bibinfo{year}{2018}) \bibinfo{pages}{11421--11426}.
-%Type = Book
-\bibitem[{Grinstead and Snell(1997)}]{grinstead_introduction_1997}
-\bibinfo{author}{C.~M. Grinstead}, \bibinfo{author}{J.~L. Snell},
-  \bibinfo{title}{Introduction to {Probability}}, \bibinfo{publisher}{American
-  Mathematical Society}, \bibinfo{year}{1997}.
-%Type = Article
-\bibitem[{Kolmogorov(1933)}]{kolmogorov_1933}
-\bibinfo{author}{A.~N. Kolmogorov},
-\newblock \bibinfo{title}{Sulla determinazione empirica di una legge di
-  distribuzione},
-\newblock \bibinfo{journal}{Giornale dell'Istituto Italiano degli Attuari}
-  \bibinfo{volume}{4} (\bibinfo{year}{1933}) \bibinfo{pages}{83--91}.
-%Type = Article
-\bibitem[{Smirnov(1948)}]{smirnov_1948}
-\bibinfo{author}{N.~Smirnov},
-\newblock \bibinfo{title}{Table for estimating the goodness of fit of empirical
-  distributions},
-\newblock \bibinfo{journal}{The Annals of Mathematical Statistics}
-  \bibinfo{volume}{19} (\bibinfo{year}{1948}) \bibinfo{pages}{279--281}.
-%Type = Article
-\bibitem[{Anderson and Darling(1952)}]{anderson_darling_1952}
-\bibinfo{author}{T.~W. Anderson}, \bibinfo{author}{D.~A. Darling},
-\newblock \bibinfo{title}{Asymptotic theory of certain ``goodness of fit''
-  criteria based on stochastic processes},
-\newblock \bibinfo{journal}{The Annals of Mathematical Statistics}
-  \bibinfo{volume}{23} (\bibinfo{year}{1952}) \bibinfo{pages}{193--212}.
-%Type = Book
-\bibitem[{O'Hara(1998)}]{ohara_market_1998}
-\bibinfo{author}{M.~O'Hara}, \bibinfo{title}{Market {Microstructure} {Theory}},
-  \bibinfo{publisher}{Wiley}, \bibinfo{year}{1998}.
-%Type = Article
-\bibitem[{Manganelli and Engle(2004)}]{manganelli_2004}
-\bibinfo{author}{S.~Manganelli}, \bibinfo{author}{R.~F. Engle},
-\newblock \bibinfo{title}{Value at risk models in finance},
-\newblock \bibinfo{journal}{European Central Bank Working Paper Series}
+\newblock
+
+
+\bibitem[Black and Scholes(1973)]%
+        {black_scholes_1973}
+\bibfield{author}{\bibinfo{person}{Fischer Black} {and} \bibinfo{person}{Myron
+  Scholes}.} \bibinfo{year}{1973}\natexlab{}.
+\newblock \showarticletitle{The Pricing of Options and Corporate Liabilities}.
+\newblock \bibinfo{journal}{\emph{Journal of Political Economy}}
+  \bibinfo{volume}{81}, \bibinfo{number}{3} (\bibinfo{year}{1973}),
+  \bibinfo{pages}{637--654}.
+\newblock
+\href{https://doi.org/10.1086/260062}{doi:\nolinkurl{10.1086/260062}}
+
+
+\bibitem[Bollerslev(1986)]%
+        {bollerslev_garch_1986}
+\bibfield{author}{\bibinfo{person}{Tim Bollerslev}.}
+  \bibinfo{year}{1986}\natexlab{}.
+\newblock \showarticletitle{Generalized {Autoregressive} {Conditional}
+  {Heteroscedasticity}}.
+\newblock \bibinfo{journal}{\emph{Journal of Econometrics}}
+  \bibinfo{volume}{31}, \bibinfo{number}{3} (\bibinfo{year}{1986}),
+  \bibinfo{pages}{307--327}.
+\newblock
+\href{https://doi.org/10.1016/0304-4076(86)90063-1}{doi:\nolinkurl{10.1016/0304-4076(86)90063-1}}
+
+
+\bibitem[Bulla and Bulla(2006)]%
+        {bulla_stylized_2006}
+\bibfield{author}{\bibinfo{person}{Jan Bulla} {and} \bibinfo{person}{Ingo
+  Bulla}.} \bibinfo{year}{2006}\natexlab{}.
+\newblock \showarticletitle{Stylized facts of financial time series and hidden
+  semi-{Markov} models}.
+\newblock \bibinfo{journal}{\emph{Computational Statistics \& Data Analysis}}
+  \bibinfo{volume}{51}, \bibinfo{number}{4} (\bibinfo{year}{2006}),
+  \bibinfo{pages}{2192--2209}.
+\newblock
+\href{https://doi.org/10.1016/j.csda.2006.07.021}{doi:\nolinkurl{10.1016/j.csda.2006.07.021}}
+
+
+\bibitem[Cont(2001)]%
+        {cont_empirical_2001}
+\bibfield{author}{\bibinfo{person}{R. Cont}.} \bibinfo{year}{2001}\natexlab{}.
+\newblock \showarticletitle{Empirical properties of asset returns: stylized
+  facts and statistical issues}.
+\newblock \bibinfo{journal}{\emph{Quantitative Finance}} \bibinfo{volume}{1},
+  \bibinfo{number}{2} (\bibinfo{year}{2001}), \bibinfo{pages}{223--236}.
+\newblock
+\href{https://doi.org/10.1080/713665670}{doi:\nolinkurl{10.1080/713665670}}
+
+
+\bibitem[Dias et~al\mbox{.}(2010)]%
+        {dias_mixture_2010}
+\bibfield{author}{\bibinfo{person}{José~G. Dias}, \bibinfo{person}{Jeroen~K.
+  Vermunt}, {and} \bibinfo{person}{Sofia Ramos}.}
+  \bibinfo{year}{2010}\natexlab{}.
+\newblock \showarticletitle{Mixture {Hidden} {Markov} {Models} in {Finance}
+  {Research}}. In \bibinfo{booktitle}{\emph{Advances in {Data} {Analysis},
+  {Data} {Handling} and {Business} {Intelligence}}}.
+  \bibinfo{publisher}{Springer}, \bibinfo{pages}{451--459}.
+\newblock
+\href{https://doi.org/10.1007/978-3-642-01044-6_41}{doi:\nolinkurl{10.1007/978-3-642-01044-6_41}}
+
+
+\bibitem[Diebold and Inoue(2001)]%
+        {diebold_inoue_2001}
+\bibfield{author}{\bibinfo{person}{Francis~X. Diebold} {and}
+  \bibinfo{person}{Atsushi Inoue}.} \bibinfo{year}{2001}\natexlab{}.
+\newblock \showarticletitle{Long memory and regime switching}.
+\newblock \bibinfo{journal}{\emph{Journal of Econometrics}}
+  \bibinfo{volume}{105}, \bibinfo{number}{1--2} (\bibinfo{year}{2001}),
+  \bibinfo{pages}{131--159}.
+\newblock
+\href{https://doi.org/10.1016/S0304-4076(01)00073-2}{doi:\nolinkurl{10.1016/S0304-4076(01)00073-2}}
+
+
+\bibitem[Engle(1982)]%
+        {engle_1982}
+\bibfield{author}{\bibinfo{person}{Robert~F. Engle}.}
+  \bibinfo{year}{1982}\natexlab{}.
+\newblock \showarticletitle{Autoregressive {Conditional} {Heteroscedasticity}
+  with {Estimates} of the {Variance} of {United} {Kingdom} {Inflation}}.
+\newblock \bibinfo{journal}{\emph{Econometrica}} \bibinfo{volume}{50},
+  \bibinfo{number}{4} (\bibinfo{year}{1982}), \bibinfo{pages}{987--1007}.
+\newblock
+
+
+\bibitem[Fama(1970)]%
+        {fama_efficient_1970}
+\bibfield{author}{\bibinfo{person}{Eugene~F. Fama}.}
+  \bibinfo{year}{1970}\natexlab{}.
+\newblock \showarticletitle{Efficient {Capital} {Markets}: {A} {Review} of
+  {Theory} and {Empirical} {Work}}.
+\newblock \bibinfo{journal}{\emph{The Journal of Finance}}
+  \bibinfo{volume}{25}, \bibinfo{number}{2} (\bibinfo{year}{1970}),
+  \bibinfo{pages}{383--417}.
+\newblock
+\href{https://doi.org/10.2307/2325486}{doi:\nolinkurl{10.2307/2325486}}
+
+
+\bibitem[Fama and French(1993)]%
+        {fama_french_1993}
+\bibfield{author}{\bibinfo{person}{Eugene~F. Fama} {and}
+  \bibinfo{person}{Kenneth~R. French}.} \bibinfo{year}{1993}\natexlab{}.
+\newblock \showarticletitle{Common risk factors in the returns on stocks and
+  bonds}.
+\newblock \bibinfo{journal}{\emph{Journal of Financial Economics}}
+  \bibinfo{volume}{33}, \bibinfo{number}{1} (\bibinfo{year}{1993}),
+  \bibinfo{pages}{3--56}.
+\newblock
+\href{https://doi.org/10.1016/0304-405X(93)90023-5}{doi:\nolinkurl{10.1016/0304-405X(93)90023-5}}
+
+
+\bibitem[Fischer and Krauss(2018)]%
+        {fischer_krauss_2018}
+\bibfield{author}{\bibinfo{person}{Thomas Fischer} {and}
+  \bibinfo{person}{Christopher Krauss}.} \bibinfo{year}{2018}\natexlab{}.
+\newblock \showarticletitle{Deep learning with long short-term memory networks
+  for financial market predictions}.
+\newblock \bibinfo{journal}{\emph{European Journal of Operational Research}}
+  \bibinfo{volume}{270}, \bibinfo{number}{2} (\bibinfo{year}{2018}),
+  \bibinfo{pages}{654--669}.
+\newblock
+\href{https://doi.org/10.1016/j.ejor.2017.11.054}{doi:\nolinkurl{10.1016/j.ejor.2017.11.054}}
+
+
+\bibitem[Glasserman(2003)]%
+        {glasserman_monte_2003}
+\bibfield{author}{\bibinfo{person}{Paul Glasserman}.}
+  \bibinfo{year}{2003}\natexlab{}.
+\newblock \bibinfo{booktitle}{\emph{Monte {Carlo} {Methods} in {Financial}
+  {Engineering}}}.
+\newblock \bibinfo{publisher}{Springer}.
+\newblock
+\href{https://doi.org/10.1007/978-0-387-21617-1}{doi:\nolinkurl{10.1007/978-0-387-21617-1}}
+
+
+\bibitem[Grinstead and Snell(1997)]%
+        {grinstead_introduction_1997}
+\bibfield{author}{\bibinfo{person}{Charles~M. Grinstead} {and}
+  \bibinfo{person}{J.~Laurie Snell}.} \bibinfo{year}{1997}\natexlab{}.
+\newblock \bibinfo{booktitle}{\emph{Introduction to {Probability}}}.
+\newblock \bibinfo{publisher}{American Mathematical Society}.
+\newblock
+
+
+\bibitem[Hamilton(1989)]%
+        {hamilton_1989}
+\bibfield{author}{\bibinfo{person}{James~D. Hamilton}.}
+  \bibinfo{year}{1989}\natexlab{}.
+\newblock \showarticletitle{A New Approach to the Economic Analysis of
+  Nonstationary Time Series and the Business Cycle}.
+\newblock \bibinfo{journal}{\emph{Econometrica}} \bibinfo{volume}{57},
+  \bibinfo{number}{2} (\bibinfo{year}{1989}), \bibinfo{pages}{357--384}.
+\newblock
+\href{https://doi.org/10.2307/1912559}{doi:\nolinkurl{10.2307/1912559}}
+
+
+\bibitem[Hamilton(2018)]%
+        {hamilton_regime_2018}
+\bibfield{author}{\bibinfo{person}{James~D. Hamilton}.}
+  \bibinfo{year}{2018}\natexlab{}.
+\newblock \showarticletitle{Regime {Switching} {Models}}.
+\newblock \bibinfo{journal}{\emph{The New Palgrave Dictionary of Economics}}
+  (\bibinfo{year}{2018}), \bibinfo{pages}{11421--11426}.
+\newblock
+\href{https://doi.org/10.1057/978-1-349-95189-5_2459}{doi:\nolinkurl{10.1057/978-1-349-95189-5_2459}}
+
+
+\bibitem[Harwood(2019)]%
+        {harwood_against_2019}
+\bibfield{author}{\bibinfo{person}{V. Harwood}.}
+  \bibinfo{year}{2019}\natexlab{}.
+\newblock \showarticletitle{Against the {Norm}: {Modeling} {Daily} {Stock}
+  {Returns} with the {Laplace} {Distribution}}.
+\newblock \bibinfo{journal}{\emph{arXiv preprint arXiv:1906.10325}}
+  (\bibinfo{year}{2019}).
+\newblock
+
+
+\bibitem[Heston(1993)]%
+        {heston_stochastic_1993}
+\bibfield{author}{\bibinfo{person}{Steven~L. Heston}.}
+  \bibinfo{year}{1993}\natexlab{}.
+\newblock \showarticletitle{A {Closed}-{Form} {Solution} for {Options} with
+  {Stochastic} {Volatility} with {Applications} to {Bond} and {Currency}
+  {Options}}.
+\newblock \bibinfo{journal}{\emph{The Review of Financial Studies}}
+  \bibinfo{volume}{6}, \bibinfo{number}{2} (\bibinfo{year}{1993}),
+  \bibinfo{pages}{327--343}.
+\newblock
+\href{https://doi.org/10.1093/rfs/6.2.327}{doi:\nolinkurl{10.1093/rfs/6.2.327}}
+
+
+\bibitem[Hochreiter and Schmidhuber(1997)]%
+        {hochreiter_lstm_1997}
+\bibfield{author}{\bibinfo{person}{Sepp Hochreiter} {and}
+  \bibinfo{person}{J\"{u}rgen Schmidhuber}.} \bibinfo{year}{1997}\natexlab{}.
+\newblock \showarticletitle{Long {Short}-{Term} {Memory}}.
+\newblock \bibinfo{journal}{\emph{Neural Computation}} \bibinfo{volume}{9},
+  \bibinfo{number}{8} (\bibinfo{year}{1997}), \bibinfo{pages}{1735--1780}.
+\newblock
+\href{https://doi.org/10.1162/neco.1997.9.8.1735}{doi:\nolinkurl{10.1162/neco.1997.9.8.1735}}
+
+
+\bibitem[Jordon et~al\mbox{.}(2022)]%
+        {jordon_synthetic_2022}
+\bibfield{author}{\bibinfo{person}{James Jordon}, \bibinfo{person}{Lukasz
+  Szpruch}, \bibinfo{person}{Florimond Houssiau}, \bibinfo{person}{Luke
+  Sheridan~Rains}, \bibinfo{person}{James Sheridan}, \bibinfo{person}{Michael
+  Sheridan}, {and} \bibinfo{person}{David Sheridan}.}
+  \bibinfo{year}{2022}\natexlab{}.
+\newblock \showarticletitle{Synthetic Data -- what, why and how?}
+\newblock \bibinfo{journal}{\emph{arXiv preprint arXiv:2205.03257}}
+  (\bibinfo{year}{2022}).
+\newblock
+
+
+\bibitem[Kim and Nelson(1999)]%
+        {kim_nelson_1999}
+\bibfield{author}{\bibinfo{person}{Chang-Jin Kim} {and}
+  \bibinfo{person}{Charles~R. Nelson}.} \bibinfo{year}{1999}\natexlab{}.
+\newblock \showarticletitle{Has the {U.S.} Economy Become More Stable? {A}
+  {Bayesian} Approach Based on a {Markov}-Switching Model of the Business
+  Cycle}.
+\newblock \bibinfo{journal}{\emph{The Review of Economics and Statistics}}
+  \bibinfo{volume}{81}, \bibinfo{number}{4} (\bibinfo{year}{1999}),
+  \bibinfo{pages}{608--616}.
+\newblock
+\href{https://doi.org/10.1162/003465399558472}{doi:\nolinkurl{10.1162/003465399558472}}
+
+
+\bibitem[Kolmogorov(1933)]%
+        {kolmogorov_1933}
+\bibfield{author}{\bibinfo{person}{A.~N. Kolmogorov}.}
+  \bibinfo{year}{1933}\natexlab{}.
+\newblock \showarticletitle{Sulla determinazione empirica di una legge di
+  distribuzione}.
+\newblock \bibinfo{journal}{\emph{Giornale dell'Istituto Italiano degli
+  Attuari}}  \bibinfo{volume}{4} (\bibinfo{year}{1933}),
+  \bibinfo{pages}{83--91}.
+\newblock
+
+
+\bibitem[Kotz et~al\mbox{.}(2001)]%
+        {kotz_laplace_2001}
+\bibfield{author}{\bibinfo{person}{Samuel Kotz}, \bibinfo{person}{Tomasz~J.
+  Kozubowski}, {and} \bibinfo{person}{Krzysztof Podgórski}.}
+  \bibinfo{year}{2001}\natexlab{}.
+\newblock \bibinfo{booktitle}{\emph{The {Laplace} {Distribution} and
+  {Generalizations}: {A} {Revisit} with {Applications} to {Communications},
+  {Economics}, {Engineering}, and {Finance}}}.
+\newblock \bibinfo{publisher}{Birkhauser}.
+\newblock
+\showISBNx{9780817641665}
+
+
+\bibitem[Kou(2002)]%
+        {kou_jump-diffusion_2002}
+\bibfield{author}{\bibinfo{person}{S.~G. Kou}.}
+  \bibinfo{year}{2002}\natexlab{}.
+\newblock \showarticletitle{A {Jump}-{Diffusion} {Model} for {Option}
+  {Pricing}}.
+\newblock \bibinfo{journal}{\emph{Management Science}} \bibinfo{volume}{48},
+  \bibinfo{number}{8} (\bibinfo{year}{2002}), \bibinfo{pages}{1086--1101}.
+\newblock
+\href{https://doi.org/10.1287/mnsc.48.8.1086.166}{doi:\nolinkurl{10.1287/mnsc.48.8.1086.166}}
+
+
+\bibitem[Kwon and Lee(2024)]%
+        {kwon_can_2024}
+\bibfield{author}{\bibinfo{person}{Sohyeon Kwon} {and} \bibinfo{person}{Yongjae
+  Lee}.} \bibinfo{year}{2024}\natexlab{}.
+\newblock \showarticletitle{Can {GANs} {Learn} the {Stylized} {Facts} of
+  {Financial} {Time} {Series}?}. In \bibinfo{booktitle}{\emph{Proceedings of
+  the 5th {ACM} {International} {Conference} on {AI} in {Finance}}}.
+  \bibinfo{pages}{126--133}.
+\newblock
+\href{https://doi.org/10.1145/3677052.3698661}{doi:\nolinkurl{10.1145/3677052.3698661}}
+
+
+\bibitem[Mandelbrot(1963)]%
+        {mandelbrot_variation_1963}
+\bibfield{author}{\bibinfo{person}{Benoit Mandelbrot}.}
+  \bibinfo{year}{1963}\natexlab{}.
+\newblock \showarticletitle{The {Variation} of {Certain} {Speculative}
+  {Prices}}.
+\newblock \bibinfo{journal}{\emph{The Journal of Business}}
+  \bibinfo{volume}{36}, \bibinfo{number}{4} (\bibinfo{year}{1963}),
+  \bibinfo{pages}{394--419}.
+\newblock
+
+
+\bibitem[Manganelli and Engle(2004)]%
+        {manganelli_2004}
+\bibfield{author}{\bibinfo{person}{Simone Manganelli} {and}
+  \bibinfo{person}{Robert~F. Engle}.} \bibinfo{year}{2004}\natexlab{}.
+\newblock \showarticletitle{Value at risk models in finance}.
+\newblock \bibinfo{journal}{\emph{European Central Bank Working Paper Series}}
   (\bibinfo{year}{2004}).
+\newblock
+
+
+\bibitem[Merton(1976)]%
+        {merton_jump_1976}
+\bibfield{author}{\bibinfo{person}{Robert~C. Merton}.}
+  \bibinfo{year}{1976}\natexlab{}.
+\newblock \showarticletitle{Option {Pricing} {When} {Underlying} {Stock}
+  {Returns} {Are} {Discontinuous}}.
+\newblock \bibinfo{journal}{\emph{Journal of Financial Economics}}
+  \bibinfo{volume}{3}, \bibinfo{number}{1-2} (\bibinfo{year}{1976}),
+  \bibinfo{pages}{125--144}.
+\newblock
+\href{https://doi.org/10.1016/0304-405X(76)90022-2}{doi:\nolinkurl{10.1016/0304-405X(76)90022-2}}
+
+
+\bibitem[Nguyen(2018)]%
+        {nguyen_hidden_2018}
+\bibfield{author}{\bibinfo{person}{Nguyet Nguyen}.}
+  \bibinfo{year}{2018}\natexlab{}.
+\newblock \showarticletitle{Hidden {Markov} {Model} for {Stock} {Trading}}.
+\newblock \bibinfo{journal}{\emph{International Journal of Financial Studies}}
+  \bibinfo{volume}{6}, \bibinfo{number}{2} (\bibinfo{year}{2018}),
+  \bibinfo{pages}{36}.
+\newblock
+\href{https://doi.org/10.3390/ijfs6020036}{doi:\nolinkurl{10.3390/ijfs6020036}}
+
+
+\bibitem[O'Hara(1998)]%
+        {ohara_market_1998}
+\bibfield{author}{\bibinfo{person}{Maureen O'Hara}.}
+  \bibinfo{year}{1998}\natexlab{}.
+\newblock \bibinfo{booktitle}{\emph{Market {Microstructure} {Theory}}}.
+\newblock \bibinfo{publisher}{Wiley}.
+\newblock
+
+
+\bibitem[Rabiner and Juang(1986)]%
+        {rabiner_introduction_1986}
+\bibfield{author}{\bibinfo{person}{L. Rabiner} {and} \bibinfo{person}{B.
+  Juang}.} \bibinfo{year}{1986}\natexlab{}.
+\newblock \showarticletitle{An introduction to hidden {Markov} models}.
+\newblock \bibinfo{journal}{\emph{IEEE ASSP Magazine}} \bibinfo{volume}{3},
+  \bibinfo{number}{1} (\bibinfo{year}{1986}), \bibinfo{pages}{4--16}.
+\newblock
+\href{https://doi.org/10.1109/MASSP.1986.1165342}{doi:\nolinkurl{10.1109/MASSP.1986.1165342}}
+
+
+\bibitem[Rossi and Gallo(2006)]%
+        {rossi_volatility_2006}
+\bibfield{author}{\bibinfo{person}{Alessandro Rossi} {and}
+  \bibinfo{person}{Giampiero~M. Gallo}.} \bibinfo{year}{2006}\natexlab{}.
+\newblock \showarticletitle{Volatility estimation via hidden {Markov} models}.
+\newblock \bibinfo{journal}{\emph{Journal of Empirical Finance}}
+  \bibinfo{volume}{13}, \bibinfo{number}{2} (\bibinfo{year}{2006}),
+  \bibinfo{pages}{203--230}.
+\newblock
+\href{https://doi.org/10.1016/j.jempfin.2005.09.003}{doi:\nolinkurl{10.1016/j.jempfin.2005.09.003}}
+
+
+\bibitem[Rydén et~al\mbox{.}(1998)]%
+        {ryden_stylized_1998}
+\bibfield{author}{\bibinfo{person}{Tobias Rydén}, \bibinfo{person}{Timo
+  Teräsvirta}, {and} \bibinfo{person}{Stefan Åsbrink}.}
+  \bibinfo{year}{1998}\natexlab{}.
+\newblock \showarticletitle{Stylized facts of daily return series and the
+  hidden {Markov} model}.
+\newblock \bibinfo{journal}{\emph{Journal of Applied Econometrics}}
+  \bibinfo{volume}{13}, \bibinfo{number}{3} (\bibinfo{year}{1998}),
+  \bibinfo{pages}{217--244}.
+\newblock
+\href{https://doi.org/10.1002/(SICI)1099-1255(199805/06)13:3<217::AID-JAE476>3.0.CO;2-V}{doi:\nolinkurl{10.1002/(SICI)1099-1255(199805/06)13:3<217::AID-JAE476>3.0.CO;2-V}}
+
+
+\bibitem[Schwert(1989)]%
+        {schwert_why_1989}
+\bibfield{author}{\bibinfo{person}{G.~William Schwert}.}
+  \bibinfo{year}{1989}\natexlab{}.
+\newblock \showarticletitle{Why {Does} {Stock} {Market} {Volatility} {Change}
+  {Over} {Time}?}
+\newblock \bibinfo{journal}{\emph{The Journal of Finance}}
+  \bibinfo{volume}{44}, \bibinfo{number}{5} (\bibinfo{year}{1989}),
+  \bibinfo{pages}{1115--1153}.
+\newblock
+\href{https://doi.org/10.1111/j.1540-6261.1989.tb02647.x}{doi:\nolinkurl{10.1111/j.1540-6261.1989.tb02647.x}}
+
+
+\bibitem[Sharpe(1963)]%
+        {sharpe_simplified_1963}
+\bibfield{author}{\bibinfo{person}{William~F. Sharpe}.}
+  \bibinfo{year}{1963}\natexlab{}.
+\newblock \showarticletitle{A Simplified Model for Portfolio Analysis}.
+\newblock \bibinfo{journal}{\emph{Management Science}} \bibinfo{volume}{9},
+  \bibinfo{number}{2} (\bibinfo{year}{1963}), \bibinfo{pages}{277--293}.
+\newblock
+\href{https://doi.org/10.1287/mnsc.9.2.277}{doi:\nolinkurl{10.1287/mnsc.9.2.277}}
+
+
+\bibitem[Smirnov(1948)]%
+        {smirnov_1948}
+\bibfield{author}{\bibinfo{person}{N. Smirnov}.}
+  \bibinfo{year}{1948}\natexlab{}.
+\newblock \showarticletitle{Table for estimating the goodness of fit of
+  empirical distributions}.
+\newblock \bibinfo{journal}{\emph{The Annals of Mathematical Statistics}}
+  \bibinfo{volume}{19}, \bibinfo{number}{2} (\bibinfo{year}{1948}),
+  \bibinfo{pages}{279--281}.
+\newblock
+
+
+\bibitem[Stein and Stein(1991)]%
+        {stein_stock_1991}
+\bibfield{author}{\bibinfo{person}{Elias~M. Stein} {and}
+  \bibinfo{person}{Jeremy~C. Stein}.} \bibinfo{year}{1991}\natexlab{}.
+\newblock \showarticletitle{Stock price distributions with stochastic
+  volatility: an analytic approach}.
+\newblock \bibinfo{journal}{\emph{The Review of Financial Studies}}
+  \bibinfo{volume}{4}, \bibinfo{number}{4} (\bibinfo{year}{1991}),
+  \bibinfo{pages}{727--752}.
+\newblock
+
+
+\bibitem[Takahashi et~al\mbox{.}(2019)]%
+        {takahashi_2019}
+\bibfield{author}{\bibinfo{person}{Shuntaro Takahashi}, \bibinfo{person}{Yu
+  Chen}, {and} \bibinfo{person}{Kumiko Tanaka-Ishii}.}
+  \bibinfo{year}{2019}\natexlab{}.
+\newblock \showarticletitle{Modeling financial time-series with generative
+  adversarial networks}.
+\newblock \bibinfo{journal}{\emph{Physica A: Statistical Mechanics and its
+  Applications}}  \bibinfo{volume}{527} (\bibinfo{year}{2019}),
+  \bibinfo{pages}{121261}.
+\newblock
+\href{https://doi.org/10.1016/j.physa.2019.121261}{doi:\nolinkurl{10.1016/j.physa.2019.121261}}
+
+
+\bibitem[Yoon et~al\mbox{.}(2019)]%
+        {yoon_timegan_2019}
+\bibfield{author}{\bibinfo{person}{Jinsung Yoon}, \bibinfo{person}{Daniel
+  Jarrett}, {and} \bibinfo{person}{Mihaela van~der Schaar}.}
+  \bibinfo{year}{2019}\natexlab{}.
+\newblock \showarticletitle{Time-series Generative Adversarial Networks}. In
+  \bibinfo{booktitle}{\emph{Advances in {Neural} {Information} {Processing}
+  {Systems}}}, Vol.~\bibinfo{volume}{32}.
+\newblock
+
 
 \end{thebibliography}

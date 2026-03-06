@@ -7,7 +7,9 @@
       "Bash(grep:*)",
       "WebSearch",
       "WebFetch(domain:dl.acm.org)",
-      "WebFetch(domain:www.linkedin.com)"
+      "WebFetch(domain:www.linkedin.com)",
+      "Bash(pdflatex:*)",
+      "Bash(bibtex Paper_v1:*)"
     ]
   }
 }

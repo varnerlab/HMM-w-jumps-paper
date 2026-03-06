@@ -1,39 +1,25 @@
-\documentclass[preprint,12pt]{elsarticle}
+\documentclass[acmsmall,nonacm]{acmart}
 
-%% The graphicx package provides the includegraphics command.
-\usepackage{graphicx}
-%% The amssymb package provides various useful mathematical symbols
-\usepackage{amssymb}
-\usepackage{amsmath}
-%% The amsthm package provides extended theorem environments
-%% \usepackage{amsthm}
-
-%% The lineno packages adds line numbers. Start line numbering with
-%% \begin{linenumbers}, end it with \end{linenumbers}. Or switch it on
-%% for the whole article with \linenumbers after \end{frontmatter}.
-\usepackage{lineno}
+%% Packages (amsmath, amssymb, amsfonts loaded by acmart)
+\usepackage{amsbsy}
 \usepackage{supertabular}
 \usepackage{multirow}
 \usepackage{booktabs}
 \usepackage{longtable}
-
-% \smartqed  % flush right qed marks, e.g. at end of proof
-%
-\usepackage{graphicx}
-%
-% \usepackage{mathptmx}      % use Times fonts if available on your TeX system
-%
-% insert here the call for the packages your document requires
-\usepackage{todonotes}
-\usepackage{amsbsy}
-\usepackage{booktabs}
-\usepackage{amsmath,amsfonts,amssymb} %removed amsthm
 \usepackage{algorithmic}
 \usepackage{algorithm}
 \usepackage{tablefootnote}
 \usepackage{subcaption}
-\usepackage{url}
+\usepackage{float}
+\usepackage{placeins}
+\usepackage{mdframed}
+\usepackage{mathtools}
+\usepackage{todonotes}
+\usepackage{capt-of}
+\usepackage{pgfplots}
 \usepackage[title]{appendix}
+
+%% TikZ libraries
 \usetikzlibrary{arrows,decorations.pathmorphing,backgrounds,positioning,fit,petri}
 \usetikzlibrary{decorations.pathreplacing}
 \usetikzlibrary{decorations.markings}
@@ -41,19 +27,15 @@
 \usetikzlibrary{arrows.meta}
 \usetikzlibrary{quotes,angles}
 \usetikzlibrary{positioning}
-\usetikzlibrary{patterns} 
+\usetikzlibrary{patterns}
 \usetikzlibrary{chains}
 \usetikzlibrary{hobby}
-\usepackage{pgfplots}
-\usepackage{mathtools}
-%\usepackage{caption}
 
-\newtheorem{assumption}{Assumption}
-\newtheorem{condition}{Condition}
-\newtheorem{theorem}{Theorem}
-\newtheorem{proposition}{Proposition}
-\newtheorem{corollary}{Corollary}
+%% Colors
+\definecolor{lgray}{rgb}{0.92,0.92,0.92}
+\definecolor{lsalmon}{rgb}{0.9921568627450981,0.9411764705882353, 0.9254901960784314}
 
+%% Custom commands
 \newcommand{\defeq}{\vcentcolon=}
 \newcommand{\eqdef}{=\vcentcolon}
 \newcommand{\inlinenorm}[1]{ \Vert #1 \Vert}
@@ -85,13 +67,8 @@
 \DeclareMathOperator{\Tr}{Tr}
 \DeclareMathOperator{\reference}{ref}
 \DeclareMathOperator{\offo}{OFFO}
-\usepackage{float}
-\usepackage{placeins}
-\biboptions{sort&compress}
-\usepackage[colorlinks=true, citecolor=blue, linkcolor=blue, urlcolor=blue]{hyperref}
-\usepackage{mdframed}
-\definecolor{lgray}{rgb}{0.92,0.92,0.92}
-\definecolor{lsalmon}{rgb}{0.9921568627450981,0.9411764705882353, 0.9254901960784314}
+\DeclareMathOperator*{\argmin}{arg\,min}
+\DeclareMathOperator*{\argmax}{arg\,max}
 \newcommand{\brows}[1]{%
   \begin{bmatrix}
   \begin{array}{@{\protect\rotvert\;}c@{\;\protect\rotvert}}
@@ -122,69 +99,70 @@
 \def\eps{\epsilon}
 \def\y{\mathbf{y}}
 \def\e{\mathbf{e}}
-\DeclareMathOperator*{\argmin}{arg\,min}
-\DeclareMathOperator*{\argmax}{arg\,max}
-
-%% For long captions that need to be continued on the next page
-\usepackage{capt-of}
 
 \graphicspath{{sections/figs/}}
 
-% \journal{Energy Policy}
+%% ACM metadata
+\setcopyright{none}
+
+\title{Hybrid Hidden Markov Model for Modeling Equity Excess Growth Rate Dynamics: A Discrete-State Approach with Jump-Diffusion}
+
+\author{Abdulrahman Alswaidan}
+\affiliation{%
+  \institution{Cornell University}
+  \department{Robert Frederick Smith School of Chemical and Biomolecular Engineering}
+  \city{Ithaca}
+  \state{NY}
+  \postcode{14853}
+  \country{USA}
+}
+
+\author{Jeffrey Varner}
+\affiliation{%
+  \institution{Cornell University}
+  \department{Robert Frederick Smith School of Chemical and Biomolecular Engineering}
+  \city{Ithaca}
+  \state{NY}
+  \postcode{14853}
+  \country{USA}
+}
+\email{jdv27@cornell.edu}
+
+\begin{abstract}
+Generating synthetic financial time series that preserve the statistical properties of real market data is essential for stress testing, risk model validation, and scenario design, yet existing approaches, from parametric models to deep generative networks, struggle to simultaneously reproduce the heavy-tailed distributions, negligible linear autocorrelation, and persistent volatility clustering that characterize empirical equity data. We propose a hybrid hidden Markov framework that discretizes continuous excess growth rates into Laplace quantile-defined market states and augments the regime-switching process with a Poisson-driven jump-duration mechanism to enforce realistic tail-state dwell times. Parameters are estimated by direct transition counting, avoiding the Baum-Welch EM algorithm entirely. We evaluate synthetic data quality using three complementary metrics: Kolmogorov-Smirnov and Anderson-Darling goodness-of-fit pass rates for distributional fidelity, and ACF mean absolute error for temporal structure preservation. Applied to ten years of SPY data across 1,000 simulated paths, the framework achieves KS and AD pass rates exceeding 97\% and 90\% in-sample and 95\% out-of-sample (full calendar year 2025), reproducing the ARCH effect that standard regime-switching models miss. GARCH(1,1), by contrast, achieves only 4.6\% and 1.1\% in-sample pass rates despite its well-known volatility clustering properties. A Single-Index Model extension propagates the SPY factor path to a 424-asset universe, enabling scalable correlated synthetic path generation while preserving cross-sectional correlation structure.
+\end{abstract}
+
+\keywords{Synthetic Data Quality, Time Series Generation, Hidden Markov Model, Jump-Diffusion, Volatility Clustering, Regime-Switching, Stylized Facts, Distributional Fidelity}
 
 \begin{document}
 
-\begin{frontmatter}
+\maketitle
 
-\title{Hybrid Hidden Markov Model for Modeling Equity Excess Growth Rate Dynamics: A Discrete-State Approach with Jump-Diffusion}
-\author{Abdulrahman Alswaidan}
-\author{Jeffrey Varner\,$^{*}$}
-\address{Robert Frederick Smith School of Chemical and Biomolecular Engineering, Cornell University, Ithaca, NY 14853}
-
-
-\begin{abstract}
-\begin{linenumbers}
-Generating synthetic financial time series that preserve the statistical properties of real market data is essential for stress testing, risk model validation, and scenario design, yet existing approaches, from parametric models to deep generative networks, struggle to simultaneously reproduce the heavy-tailed distributions, negligible linear autocorrelation, and persistent volatility clustering that characterize empirical equity data. We propose a hybrid hidden Markov framework that discretizes continuous excess growth rates into Laplace quantile-defined market states and augments the regime-switching process with a Poisson-driven jump-duration mechanism to enforce realistic tail-state dwell times. Parameters are estimated by direct transition counting, avoiding the Baum-Welch EM algorithm entirely. We evaluate synthetic data quality using three complementary metrics: Kolmogorov-Smirnov and Anderson-Darling goodness-of-fit pass rates for distributional fidelity, and ACF mean absolute error for temporal structure preservation. Applied to ten years of SPY data across 1,000 simulated paths, the framework achieves KS and AD pass rates exceeding 97\% and 90\% in-sample and 95\% out-of-sample (full calendar year 2025), reproducing the ARCH effect that standard regime-switching models miss. GARCH(1,1), by contrast, achieves only 4.6\% and 1.1\% in-sample pass rates despite its well-known volatility clustering properties. A Single-Index Model extension propagates the SPY factor path to a 424-asset universe, enabling scalable correlated synthetic path generation while preserving cross-sectional correlation structure.
-\end{linenumbers}
-\end{abstract}
-
-\begin{keyword}
-Synthetic Data Quality \sep Time Series Generation \sep Hidden Markov Model \sep Jump-Diffusion \sep Volatility Clustering \sep Regime-Switching \sep Stylized Facts \sep Distributional Fidelity
-\end{keyword}
-
-\end{frontmatter}
-
-\begin{linenumbers}
-
-\section*{Introduction}
-
-%\subsection*{Summary}
+\section{Introduction}\label{sec:introduction}
 
 \input{sections/introduction.tex}
 
-%\subsection*{Literature Review}
-
-\section*{Related Work}\label{sec:related-work}
+\section{Related Work}\label{sec:related-work}
 \input{sections/related.tex}
 
 \clearpage
 
-\section*{Methods}\label{sec:methods}
+\section{Methods}\label{sec:methods}
 \input{sections/methods.tex}
 
 \clearpage
 
-\section*{Empirical Study}\label{sec:empirical-study}
+\section{Empirical Study}\label{sec:empirical-study}
 \input{sections/results.tex}
 
 \clearpage
 
-\section*{Discussion}\label{sec:discussion}
+\section{Discussion}\label{sec:discussion}
 \input{sections/discussion.tex}
 
 \clearpage
 
-\section*{Conclusion}\label{sec:conclusion}
+\section{Conclusion}\label{sec:conclusion}
 \input{sections/conclusion.tex}
 
 \clearpage
@@ -193,14 +171,12 @@ Synthetic Data Quality \sep Time Series Generation \sep Hidden Markov Model \sep
 
 \clearpage
 
-\bibliographystyle{model1-num-names}
+\bibliographystyle{ACM-Reference-Format}
 \bibliography{References_v1.bib}
 
 \clearpage
 
 % Figures and captions go here ...
-
-\end{linenumbers}
 
 \input{sections/figures.tex}
 \input{sections/tables.tex}
