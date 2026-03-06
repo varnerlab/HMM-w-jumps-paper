@@ -1,5 +1,20 @@
 The empirical results establish that the hybrid HMM framework generates synthetic equity paths whose distributional and temporal properties closely match those of historical data, both in-sample and out-of-sample. In this section we interpret the key findings, discuss their practical implications, and identify the limitations that inform the scope of these conclusions.
 
+% ── Figure 7: Multi-Asset SIM Extension ──────────────────────────────────────
+\begin{figure}[tp]
+    \centering
+    \includegraphics[width=\textwidth]{Fig7-Multi-Asset-SIM.pdf}
+    \caption{Multi-asset extension via the Single-Index Model (SIM) across 424 S\&P~500
+    constituents.  Panel~(a) summarises the SIM regression fit quality by GICS sector.
+    Panel~(b) shows that KS distributional consistency is maintained across the full asset
+    universe when paths are generated via the factor structure
+    $\hat{G}_{i,t} = \hat{\alpha}_i + \hat{\beta}_i G_{{\rm SPY},t} + \hat{\eta}_{i,t}$.
+    Panel~(c) illustrates representative marginal density comparisons for three assets spanning
+    a wide range of systematic risk exposure.}
+    \label{fig:multi_asset}
+\end{figure}
+
+
 \subsection{The role of the jump-duration mechanism}
 The comparison between HMM-NJ and HMM-WJ isolates the contribution of the Poisson jump-duration mechanism. Without jumps, the Markov chain transitions out of tail states within one to two steps on average, producing an ACF of $|G_t|$ that decays too quickly and failing to reproduce the volatility clustering observed in the data. Introducing jumps forces the model to dwell in high-volatility regimes for empirically realistic durations, and approximately 24\% of simulated paths contain at least one such episode, sufficient to shift the ensemble-level ACF into close agreement with the empirical profile. This result is consistent with the broader literature on regime-switching models, where standard HMM specifications have repeatedly been found to undergenerate volatility persistence \cite{ryden_stylized_1998, bulla_stylized_2006}, and it demonstrates that a minimal two-parameter extension ($\epsilon$, $\lambda$) can resolve the issue without the computational overhead of hierarchical or semi-Markov alternatives.
 

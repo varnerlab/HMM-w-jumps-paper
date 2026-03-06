@@ -9,7 +9,14 @@
       "WebFetch(domain:dl.acm.org)",
       "WebFetch(domain:www.linkedin.com)",
       "Bash(pdflatex:*)",
-      "Bash(bibtex Paper_v1:*)"
+      "Bash(bibtex Paper_v1:*)",
+      "WebFetch(domain:www.acm.org)",
+      "WebFetch(domain:jdiq.acm.org)",
+      "Bash(for f in sections/methods.tex sections/introduction.tex sections/results.tex)",
+      "Bash(do)",
+      "Bash(echo \"=== $f ===\")",
+      "Read(//Users/jdv27/Desktop/julia_work/HMM-w-jumps-paper/paper/**)",
+      "Bash(done)"
     ]
   }
 }

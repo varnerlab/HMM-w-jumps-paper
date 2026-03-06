@@ -1,0 +1,162 @@
+% ── Online Appendix ──────────────────────────────────────────────────────────
+% Content moved from the main text to reduce page count.
+% The main paper is self-contained; this appendix provides additional
+% algorithmic detail, diagnostic figures, and robustness analyses.
+
+\subsection*{S1. Fitted model internals}
+
+\begin{figure}[tp]
+    \centering
+    \includegraphics[width=\textwidth]{Fig3-Model-Internals.pdf}
+    \caption{Fitted model internals for SPY with $N=100$ states.
+    Panel~(a) overlays the fitted Laplace CDF on the empirical CDF; the 99 vertical lines mark the
+    equal-probability quantile boundaries that define the $N$ hidden states.  The close agreement
+    confirms that the Laplace distribution is an accurate marginal model for the excess growth rate
+    data.
+    Panel~(b) displays the empirical transition matrix $\mathbf{T}$ in $\log_{10}$ colour scale;
+    the dominant near-diagonal band reflects short-range regime persistence.
+    Panel~(c) plots the expected natural residence time $1/(1-T_{kk})$ for each state on a
+    $\log_{10}$ scale, with the bottom tail set $\mathcal{S}_{-}$ (states 1--5, red shading) and
+    top tail set $\mathcal{S}_{+}$ (states 96--100, teal shading) highlighted.  Under pure Markovian
+    dynamics every state, including the tail states, exits within 1--2 steps on average, far too
+    quickly to reproduce empirical volatility clustering.  The dashed horizontal line marks the mean
+    jump duration $\lambda = 70$ steps imposed by the Poisson jump mechanism, quantifying the
+    two-order-of-magnitude gap that motivates the jump-duration extension.}
+    \label{fig:model_internals}
+\end{figure}
+
+\clearpage
+
+\subsection*{S2. Hyperparameter grid search landscape}
+
+\begin{figure}[tp]
+    \centering
+    \includegraphics[width=\textwidth]{Fig5-Parameter-Sweep.pdf}
+    \caption{Hyperparameter grid search over $(\epsilon,\lambda)$ for SPY ($N=100$, 200 paths per
+    grid point).
+    Panel~(a): heatmap of the objective function $J(\epsilon,\lambda)$ in $\log_{10}$ scale over
+    the full search grid; the red star marks the optimal pair $(\epsilon^*,\lambda^*)$.  The
+    well-defined interior minimum confirms that the jump hyperparameters are identifiable from data.
+    Panel~(b): ACF of $|G_t|$ at the optimal parameters computed from 500 jump-containing paths
+    (10th--90th percentile band shaded; mean curve solid navy) compared with the SPY observed ACF
+    (dashed red) and the 95\% significance band (dotted black).}
+    \label{fig:parameter_sweep}
+\end{figure}
+
+\clearpage
+
+\subsection*{S3. State resolution sensitivity}
+
+\begin{table}[tp]
+\centering
+\caption{Sensitivity of model performance to state resolution $N$.
+    All metrics computed over 1{,}000 simulated in-sample paths at $\alpha=0.05$.
+    ACF-MAE = mean absolute error of the ACF of $|G_t|$ over lags 1--252.
+    Standard errors in parentheses: binomial SE for pass rates,
+    bootstrap SE ($B=500$) for ACF-MAE.}
+\label{tab:sensitivity_results}
+\begin{tabular}{@{}lcccc@{}}
+\toprule
+\textbf{Model} & \textbf{$N$} & \textbf{KS pass (\%)} & \textbf{AD pass (\%)} & \textbf{ACF-MAE} \\ \midrule
+HMM-NJ & 200 & 99.6 (0.2) & 98.5 (0.4) & 0.059 \\
+HMM-NJ & 150 & 99.6 (0.2) & 98.4 (0.4) & 0.059 \\
+HMM-NJ & 100 & 99.0 (0.3) & 98.8 (0.3) & 0.059 \\
+HMM-NJ &  90 & 99.4 (0.2) & 98.1 (0.4) & 0.059 \\
+HMM-NJ &  60 & 99.4 (0.2) & 98.1 (0.4) & 0.059 \\
+HMM-NJ &  30 & 98.9 (0.3) & 97.9 (0.5) & 0.059 \\ \midrule
+HMM-WJ & 200 & 96.0 (0.6) & 88.6 (1.0) & 0.049 \\
+HMM-WJ & 150 & 96.9 (0.5) & 88.8 (1.0) & 0.050 \\
+HMM-WJ & 100 & 96.8 (0.6) & 91.7 (0.9) & 0.053 \\
+HMM-WJ &  90 & 97.4 (0.5) & 91.0 (0.9) & 0.052 \\
+HMM-WJ &  60 & 96.8 (0.6) & 92.4 (0.8) & 0.054 \\
+HMM-WJ &  30 & 98.0 (0.4) & 96.8 (0.6) & 0.057 \\ \bottomrule
+\end{tabular}
+\end{table}
+
+\clearpage
+
+\subsection*{S4. Additional algorithms}
+
+The three algorithms below complement Algorithm~\ref{alg:sim} (main text) by detailing the remaining stages of the computational pipeline: model construction (Algorithm~\ref{alg:build}), state decoding and continuous rate reconstruction (Algorithm~\ref{alg:decode}), and hyperparameter grid search (Algorithm~\ref{alg:grid_search}).
+
+\begin{algorithm}[tp]
+\caption{Empirical hidden Markov model construction via Laplace partitioning}
+\label{alg:build}
+\small
+\begin{algorithmic}[1]
+\REQUIRE Price history $P_{1:T}$, Risk-free rate $r_f$, Number of states $N$
+\ENSURE Transition matrix $\mathbf{T}$, Quantile boundaries $\mathcal{Q}$
+\STATE Compute excess growth rates $R_t = \frac{1}{\Delta t} \ln(P_t / P_{t-1}) - r_f$ for all $t$.
+\STATE Fit Laplace parameters $(\mu_L, b_L)$ to the series $\mathbf{R}$ using maximum-likelihood estimation.
+\STATE Define interior boundaries $Q_k = F_L^{-1}(k/N; \mu_L, b_L)$ for $k \in \{1, \dots, N-1\}$, where $F_L^{-1}$ is the inverse CDF of the Laplace distribution.
+\STATE Set finite outer bounds $Q_0 = F_L^{-1}(0.001; \mu_L, b_L)$ and $Q_N = F_L^{-1}(0.999; \mu_L, b_L)$.
+\STATE Assign each excess growth rate $R_t$ to a discrete state $s_t \in \{1, \dots, N\}$ based on the boundaries in $\mathcal{Q} = \{Q_k\}$.
+\STATE Initialize count matrix $\mathbf{C} \in \mathbb{R}^{N \times N}$ and transition matrix $\mathbf{T} \in \mathbb{R}^{N \times N}$ with zeros.
+\FOR{$t = 1$ to $T-1$}
+    \STATE Identify transition $i = s_t$ to $j = s_{t+1}$.
+\STATE $\mathbf{C}_{i,j} \leftarrow \mathbf{C}_{i,j} + 1$.
+\ENDFOR
+\FOR{$i = 1$ to $N$}
+    \STATE $\mathbf{T}_{i,:} \leftarrow \mathbf{C}_{i,:} / \sum_{j=1}^{N} \mathbf{C}_{i,j}$ \COMMENT{Row-wise normalization}
+\ENDFOR
+\RETURN $\mathbf{T}, \mathcal{Q}$
+\end{algorithmic}
+\end{algorithm}
+
+\clearpage
+
+\begin{algorithm}[tp]
+\caption{State decoding and continuous excess growth rate reconstruction}
+\label{alg:decode}
+\small
+\begin{algorithmic}[1]
+\REQUIRE Simulated state sequence $S_{1:M}$, Quantile boundaries $\mathcal{Q}$
+\ENSURE Reconstructed continuous excess growth rates $\hat{R}_{1:M}$
+\STATE Define $z_{0.999} = 3.09$.
+\FOR{$k = 1$ to $N$}
+    \STATE Set $\mu_k = (Q_{k-1} + Q_k)/2$.
+    \STATE Set $\sigma_k = (Q_k - Q_{k-1})/(2 z_{0.999})$.
+\ENDFOR
+\STATE Initialize the reconstructed excess growth rate vector $\mathbf{\hat{R}}$ of length $M$.
+\FOR{$t = 1$ to $M$}
+    \STATE Retrieve the simulated state $k = S_t$.
+\STATE Sample the continuous excess growth rate $\hat{R}_t$ from the normal distribution $\mathcal{N}(\mu_k, \sigma_k)$.
+\ENDFOR
+\RETURN $\hat{R}_{1:M}$
+\end{algorithmic}
+\end{algorithm}
+
+\clearpage
+
+\begin{algorithm}[tp]
+\caption{Multi-objective grid search for jump hyperparameters}
+\label{alg:grid_search}
+\small
+\begin{algorithmic}[1]
+\REQUIRE Observed growth rates $\mathbf{R}_{obs}$, ACF max lag $L=252$, Number of paths $P=1000$, Time steps $M=2766$
+\REQUIRE Grid space for $\epsilon \in [10^{-5}, 10^{-4}]$ and $\lambda \in [1.0, 100.0]$
+\REQUIRE Kurtosis penalty weight $w_K = 0.20$
+\ENSURE Optimal jump hyperparameters $(\epsilon^*, \lambda^*)$
+\STATE Calculate observed absolute ACF: $A_{obs}(\tau) = \text{ACF}(|\mathbf{R}_{obs}|, \tau)$ for $\tau \in \{1, \dots, L\}$.
+\STATE Calculate observed global kurtosis: $K_{obs} = \text{Kurtosis}(\mathbf{R}_{obs})$.
+\STATE Initialize minimum error $E_{min} \leftarrow \infty$.
+\FOR{each $\epsilon$ in grid space}
+    \FOR{each $\lambda$ in grid space}
+        \STATE Initialize simulated ACF accumulator $\mathbf{A}_{sum} \leftarrow \mathbf{0}$ and kurtosis accumulator $K_{sum} \leftarrow 0$.
+        \FOR{$p = 1$ to $P$}
+            \STATE Simulate path using Algorithm \ref{alg:sim} to obtain state sequence $S_{1:M}$.
+            \STATE Decode sequence using Algorithm \ref{alg:decode} to obtain continuous rates $\mathbf{\hat{R}}^{(p)}$.
+            \STATE $\mathbf{A}_{sum}(\tau) \leftarrow \mathbf{A}_{sum}(\tau) + \text{ACF}(|\mathbf{\hat{R}}^{(p)}|, \tau)$ for all $\tau$.
+            \STATE $K_{sum} \leftarrow K_{sum} + \text{Kurtosis}(\mathbf{\hat{R}}^{(p)})$.
+        \ENDFOR
+        \STATE Compute ensemble averages: $\overline{A}_{sim}(\tau) = \mathbf{A}_{sum}(\tau) / P$ and $\overline{K}_{sim} = K_{sum} / P$.
+        \STATE Compute objective: $J = \sum_{\tau=1}^L \left(A_{obs}(\tau) - \overline{A}_{sim}(\tau)\right)^2 + w_K \left(K_{obs} - \overline{K}_{sim}\right)^2$.
+        \IF{$J < E_{min}$}
+            \STATE $E_{min} \leftarrow J$
+            \STATE $(\epsilon^*, \lambda^*) \leftarrow (\epsilon, \lambda)$
+        \ENDIF
+    \ENDFOR
+\ENDFOR
+\RETURN $\epsilon^*, \lambda^*$
+\end{algorithmic}
+\end{algorithm}

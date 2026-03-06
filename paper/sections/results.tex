@@ -3,7 +3,7 @@
 Descriptive statistics for the SPY daily excess growth rate series confirm that the three canonical stylized facts are present in both the in-sample (2014--2024, $T=2{,}766$) and out-of-sample (2025, $T=249$) windows (Table~\ref{tab:descriptive_stats}). Excess kurtosis reaches 7.7 (IS) and 6.9 (OoS), the Jarque-Bera normality test is rejected ($p<0.001$) in both windows, and the Ljung-Box test on $|G_t|$ is likewise rejected ($p<0.001$), confirming leptokurtosis, negligible raw-return autocorrelation, and persistent volatility clustering. Any faithful generative model must reproduce all three properties simultaneously.
 
 % ── Table 1: SPY Descriptive Statistics ──────────────────────────────────────
-\begin{table}[htpb]
+\begin{table}[tp]
 \centering
 \caption{Descriptive statistics and stylized-facts tests for SPY daily excess growth rates.
     In-sample: 2014--2024 ($T=2{,}766$); out-of-sample: 2025 ($T=249$).
@@ -12,7 +12,7 @@ Descriptive statistics for the SPY daily excess growth rate series confirm that 
     LB = Ljung-Box autocorrelation test at lag 20.
     $^\ast$ denotes rejection at $\alpha=0.05$.}
 \label{tab:descriptive_stats}
-\resizebox{\textwidth}{!}{%
+\small
 \begin{tabular}{@{}lcccc@{}}
 \toprule
 \textbf{Statistic} & \textbf{IS Observed} & \textbf{OoS Observed} & \textbf{Gaussian} & \textbf{Laplace} \\ \midrule
@@ -23,66 +23,23 @@ Excess Kurtosis             & 7.715  & 6.867  & 0      & 3      \\
 JB normality test           & reject$^\ast$ ($p<0.001$) & reject$^\ast$ ($p<0.001$) & n/a   & n/a   \\
 LB test on $G_t$ (lag 20)   & reject$^\ast$ ($p<0.001$) & reject$^\ast$ ($p=0.019$) & n/a   & n/a   \\
 LB test on $|G_t|$ (lag 20) & reject$^\ast$ ($p<0.001$) & reject$^\ast$ ($p<0.001$) & n/a   & n/a   \\ \bottomrule
-\end{tabular}}
-\end{table}
-
-\FloatBarrier
-\subsection{Jump hyperparameter optimization and state resolution}
-A multi-objective grid search over $\epsilon\in[10^{-4},\,2.5\times10^{-2}]$ and $\lambda\in[10,\,160]$, with 200 simulated paths per grid point, identified a well-defined interior minimum at $\epsilon^{*}=10^{-4}$ and $\lambda^{*}=100$, indicating that the jump hyperparameters are identifiable and that the objective landscape is not degenerate (Figure~\ref{fig:parameter_sweep}, panel~a). At these optimal values, the ACF of $|G_t|$ closely tracks the observed SPY ACF across lags 1--252, confirming that the jump mechanism reproduces the empirical ARCH effect (Figure~\ref{fig:parameter_sweep}, panel~b).
-
-% ── Figure 5: Grid Search Landscape ──────────────────────────────────────────
-\begin{figure}[htpb]
-    \centering
-    \includegraphics[width=\textwidth]{Fig5-Parameter-Sweep.pdf}
-    \caption{Hyperparameter grid search over $(\epsilon,\lambda)$ for SPY ($N=100$, 200 paths per
-    grid point).
-    Panel~(a): heatmap of the objective function $J(\epsilon,\lambda)$ in $\log_{10}$ scale over
-    the full search grid; the red star marks the optimal pair $(\epsilon^*,\lambda^*)$.  The
-    well-defined interior minimum confirms that the jump hyperparameters are identifiable from data.
-    Panel~(b): ACF of $|G_t|$ at the optimal parameters computed from 500 jump-containing paths
-    (10th--90th percentile band shaded; mean curve solid navy) compared with the SPY observed ACF
-    (dashed red) and the 95\% significance band (dotted black).}
-    \label{fig:parameter_sweep}
-\end{figure}
-
-\FloatBarrier
-The primary analysis uses $N=100$ states, but a sensitivity study over $N\in\{30,60,90,100,150,200\}$ shows that the framework is robust to the choice of state resolution across a wide range (Table~\ref{tab:sensitivity_results}). KS and AD pass rates remain stable for both HMM-NJ ($\geq$98.9\% KS, $\geq$97.9\% AD) and HMM-WJ ($\geq$96.0\% KS, $\geq$88.6\% AD), while ACF-MAE for HMM-WJ improves slightly from 0.057 at $N=30$ to 0.049 at $N=200$. State-occupancy diagnostics confirm that every state at $N\leq200$ contains at least 7 observations, ensuring adequate statistical support per state under the Laplace equal-probability partition. At $N=350$, however, certain states are never visited in the historical record, leaving zero transition probabilities that break the ergodic structure and establishing a practical upper bound on state resolution.
-
-% ── Table 3: State Resolution Sensitivity ────────────────────────────────────
-\begin{table}[htpb]
-\centering
-\caption{Sensitivity of model performance to state resolution $N$.
-    All metrics computed over 1{,}000 simulated in-sample paths at $\alpha=0.05$.
-    ACF-MAE = mean absolute error of the ACF of $|G_t|$ over lags 1--252.
-    Standard errors in parentheses: binomial SE for pass rates,
-    bootstrap SE ($B=500$) for ACF-MAE.}
-\label{tab:sensitivity_results}
-\begin{tabular}{@{}lcccc@{}}
-\toprule
-\textbf{Model} & \textbf{$N$} & \textbf{KS pass (\%)} & \textbf{AD pass (\%)} & \textbf{ACF-MAE} \\ \midrule
-HMM-NJ & 200 & 99.6 (0.2) & 98.5 (0.4) & 0.059 \\
-HMM-NJ & 150 & 99.6 (0.2) & 98.4 (0.4) & 0.059 \\
-HMM-NJ & 100 & 99.0 (0.3) & 98.8 (0.3) & 0.059 \\
-HMM-NJ &  90 & 99.4 (0.2) & 98.1 (0.4) & 0.059 \\
-HMM-NJ &  60 & 99.4 (0.2) & 98.1 (0.4) & 0.059 \\
-HMM-NJ &  30 & 98.9 (0.3) & 97.9 (0.5) & 0.059 \\ \midrule
-HMM-WJ & 200 & 96.0 (0.6) & 88.6 (1.0) & 0.049 \\
-HMM-WJ & 150 & 96.9 (0.5) & 88.8 (1.0) & 0.050 \\
-HMM-WJ & 100 & 96.8 (0.6) & 91.7 (0.9) & 0.053 \\
-HMM-WJ &  90 & 97.4 (0.5) & 91.0 (0.9) & 0.052 \\
-HMM-WJ &  60 & 96.8 (0.6) & 92.4 (0.8) & 0.054 \\
-HMM-WJ &  30 & 98.0 (0.4) & 96.8 (0.6) & 0.057 \\ \bottomrule
 \end{tabular}
 \end{table}
 
-\FloatBarrier
+
+\subsection{Jump hyperparameter optimization and state resolution}
+A multi-objective grid search over $\epsilon\in[10^{-4},\,2.5\times10^{-2}]$ and $\lambda\in[10,\,160]$, with 200 simulated paths per grid point, identified a well-defined interior minimum at $\epsilon^{*}=10^{-4}$ and $\lambda^{*}=100$, indicating that the jump hyperparameters are identifiable and that the objective landscape is not degenerate (Figure~\ref{fig:parameter_sweep}, Online Appendix~S2). At these optimal values, the ACF of $|G_t|$ closely tracks the observed SPY ACF across lags 1--252, confirming that the jump mechanism reproduces the empirical ARCH effect.
+
+The primary analysis uses $N=100$ states, but a sensitivity study over $N\in\{30,60,90,100,150,200\}$ shows that the framework is robust to the choice of state resolution across a wide range (Table~\ref{tab:sensitivity_results}, Online Appendix~S3). KS and AD pass rates remain stable for both HMM-NJ ($\geq$98.9\% KS, $\geq$97.9\% AD) and HMM-WJ ($\geq$96.0\% KS, $\geq$88.6\% AD), while ACF-MAE for HMM-WJ improves slightly from 0.057 at $N=30$ to 0.049 at $N=200$. State-occupancy diagnostics confirm that every state at $N\leq200$ contains at least 7 observations, ensuring adequate statistical support per state under the Laplace equal-probability partition. At $N=350$, however, certain states are never visited in the historical record, leaving zero transition probabilities that break the ergodic structure and establishing a practical upper bound on state resolution.
+
+
 \subsection{In-sample distributional and temporal quality}
 Table~\ref{tab:model_comparison} compares 1,000 simulated paths of 2,766 trading days from GARCH(1,1), HMM-NJ, and HMM-WJ using two-sample KS and AD tests at $\alpha=0.05$. GARCH(1,1) achieves IS KS and AD pass rates of only 4.6\% (SE~0.7) and 1.1\% (SE~0.3), indicating that the GARCH marginal distribution is systematically inconsistent with the observed data despite its well-known volatility clustering properties. HMM-NJ achieves 99.4\% (SE~0.2) and 98.5\% (SE~0.4), and HMM-WJ achieves 97.1\% (SE~0.5) and 90.4\% (SE~0.9), confirming that the Laplace-mixture emission structure adequately captures the observed heavy-tailed distribution.
 
 The temporal quality of the three models diverges sharply. GARCH achieves the lowest IS ACF-MAE (0.031) because its variance equation is explicitly designed to match autocorrelation structure, yet this advantage comes at the cost of distributional fidelity, a tradeoff that the quality metrics expose directly. HMM-NJ produces an ACF of $|G_t|$ that decays rapidly toward zero rather than exhibiting the slow empirical decay, confirming that the standard transition matrix alone is structurally incapable of generating persistent volatility clustering (Figure~\ref{fig:model_comparison}, panel~b). HMM-WJ, with an IS ACF-MAE of 0.052, generates a mixture of two path families: approximately 76\% contain no Poisson jump and behave identically to HMM-NJ, while the remaining 24\% contain at least one jump event and sustain substantial $\text{ACF}(|G_t|)$ decay across all lags. The jump-duration mechanism is therefore the structural feature responsible for reproducing the ARCH effect.
 
 % ── Table 2: Model Comparison ───────────────────────────────────────────────
-\begin{table}[htpb]
+\begin{table}[tp]
 \centering
 \caption{In-sample and out-of-sample model comparison for SPY ($N=100$, 1{,}000 simulated paths,
     significance level $\alpha=0.05$).
@@ -94,7 +51,7 @@ The temporal quality of the three models diverges sharply. GARCH achieves the lo
     Standard errors in parentheses: binomial SE for pass rates,
     $\text{std}/\!\sqrt{n}$ for kurtosis, bootstrap SE ($B=500$) for ACF-MAE.}
 \label{tab:model_comparison}
-\resizebox{\textwidth}{!}{%
+\small
 \begin{tabular}{@{}lccc@{}}
 \toprule
 \textbf{Metric} & \textbf{GARCH(1,1)} & \textbf{HMM-NJ ($N=100$)} & \textbf{HMM-WJ ($N=100$)} \\ \midrule
@@ -112,12 +69,12 @@ Excess kurtosis (simulated)  &   1.7 (0.07) &   5.1 (0.07) &   5.0 (0.08) \\
 ACF-MAE (lags 1--252)        & 0.026 & 0.041 & 0.039 \\[4pt]
 \midrule
 Parameters estimated         &     3 &     2 &     4 \\ \bottomrule
-\end{tabular}}
+\end{tabular}
 \end{table}
 
-\FloatBarrier
+
 % ── Figure 4: Head-to-Head Model Comparison ──────────────────────────────────
-\begin{figure}[htpb]
+\begin{figure}[tp]
     \centering
     \includegraphics[width=\textwidth]{Fig4-Model-Comparison.pdf}
     \caption{Head-to-head in-sample model comparison for SPY ($N=100$, 1{,}000 simulated paths).
@@ -151,7 +108,7 @@ Out-of-sample testing over 249 trading days (January~2 through December~31, 2025
 Nonetheless, the out-of-sample period exposes the stationarity assumption embedded in the IS-calibrated jump parameters. The distribution of KS $p$-values shifts leftward from IS to OoS, reflecting the expected distributional degradation when stationary parameters are applied to a period with elevated macro uncertainty (Figure~\ref{fig:statistical_validation}, panels~a--b). The observed ACF of $|G_t|$ in the 2025 window exceeds the HMM-WJ simulation band at medium-to-long lags, indicating that $(\epsilon^{*},\lambda^{*})$ underestimate the frequency and persistence of volatility episodes in this period and that the jump parameters are regime-dependent (Figure~\ref{fig:statistical_validation}, panel~d). Despite this ACF gap, the observed marginal density remains within the simulation envelope, confirming adequate distributional coverage even under regime shift (Figure~\ref{fig:statistical_validation}, panel~c).
 
 % ── Figure 6: Statistical Validation ─────────────────────────────────────────
-\begin{figure}[htpb]
+\begin{figure}[tp]
     \centering
     \includegraphics[width=\textwidth]{Fig6-Statistical-Validation.pdf}
     \caption{Statistical validation of HMM-WJ ($N=100$, 1{,}000 simulated paths, $\alpha=0.05$).
@@ -172,14 +129,14 @@ Nonetheless, the out-of-sample period exposes the stationarity assumption embedd
     \label{fig:statistical_validation}
 \end{figure}
 
-\FloatBarrier
+
 \subsection{Multi-asset extension}
 Propagating HMM-WJ SPY paths through a Single-Index Model for 424 S\&P~500 constituents, with $\hat{G}_{i,t}=\hat{\alpha}_i+\hat{\beta}_i G_{{\rm SPY},t}+\hat{\eta}_{i,t}$ estimated by OLS on the training window and idiosyncratic shocks drawn by resampling empirical residuals, yields a median IS KS pass rate of 66.7\% and a mean of 58.4\% across the universe (Figure~\ref{fig:multi_asset}, panel~b; Table~\ref{tab:multi_asset}). These rates are lower than the 97.1\% achieved for SPY alone and reflect the well-known limitation that a single-factor linear decomposition with symmetric residuals cannot fully capture asset-specific tail behaviour, skewness, or sector-level dynamics. The SIM $R^2_i$ varies widely across GICS sectors, from near-zero for defensive and low-correlation names to above 0.8 for broad-market ETFs (Figure~\ref{fig:multi_asset}, panel~a), and the degradation in KS pass rate concentrates among assets with low $R^2_i$. High-$\beta$ assets closely tracking SPY retain pass rates above 80\%, suggesting that the HMM-WJ generative engine is not the bottleneck; the limiting factor is the expressiveness of the factor model (Figure~\ref{fig:multi_asset}, panel~c).
 
 Out-of-sample KS pass rates across 417 surviving assets reach a mean of 82.1\% and a median of 91.8\%, confirming that the SIM extension generalises to the test window (Table~\ref{tab:multi_asset}). The correlation-distance distribution between simulated and historical paths yields a mean distance of $1-\rho\approx1.0$, confirming that the framework produces temporally independent realisations rather than tracking specific historical events, consistent with its role as a scenario generation tool rather than a forecasting instrument (Figure~\ref{fig:statistical_validation}).
 
 % ── Table 4: Multi-Asset SIM Extension Results ──────────────────────────────
-\begin{table}[htpb]
+\begin{table}[tp]
 \centering
 \caption{Cross-sectional summary statistics for the Single-Index Model (SIM) extension
     across S\&P~500 constituents.  Individual asset paths are generated as
@@ -188,6 +145,7 @@ Out-of-sample KS pass rates across 417 surviving assets reach a mean of 82.1\% a
     and $\hat{\eta}_{i,t}$ is resampled from empirical residuals.
     KS pass rates computed over 1{,}000 paths at $\alpha=0.05$.}
 \label{tab:multi_asset}
+\small
 \begin{tabular}{@{}lcccc@{}}
 \toprule
 \textbf{Statistic} & \textbf{Mean} & \textbf{Median} & \textbf{5th pct} & \textbf{95th pct} \\ \midrule
@@ -203,18 +161,3 @@ $\hat{\beta}$ (factor loading)       &  1.064 &  1.084 &  0.482 &  1.660 \\
 $\hat{\alpha}$ (intercept)           & $-0.0320$ & $-0.0186$ & $-0.2035$ & 0.0965 \\ \bottomrule
 \end{tabular}
 \end{table}
-
-\FloatBarrier
-% ── Figure 7: Multi-Asset SIM Extension ──────────────────────────────────────
-\begin{figure}[htpb]
-    \centering
-    \includegraphics[width=\textwidth]{Fig7-Multi-Asset-SIM.pdf}
-    \caption{Multi-asset extension via the Single-Index Model (SIM) across 424 S\&P~500
-    constituents.  Panel~(a) summarises the SIM regression fit quality by GICS sector.
-    Panel~(b) shows that KS distributional consistency is maintained across the full asset
-    universe when paths are generated via the factor structure
-    $\hat{G}_{i,t} = \hat{\alpha}_i + \hat{\beta}_i G_{{\rm SPY},t} + \hat{\eta}_{i,t}$.
-    Panel~(c) illustrates representative marginal density comparisons for three assets spanning
-    a wide range of systematic risk exposure.}
-    \label{fig:multi_asset}
-\end{figure}
