@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.27 (TeX Live 2025) (preloaded format=pdflatex 2025.3.8)  5 MAR 2026 19:16
+This is pdfTeX, Version 3.141592653-2.6-1.40.27 (TeX Live 2025) (preloaded format=pdflatex 2025.3.8)  5 MAR 2026 19:33
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -1789,8 +1789,17 @@ LaTeX Font Info:    Font shape `U/ntxexa/m/n' will be
 (Font)              scaled to size 10.0pt on input line 7.
 LaTeX Font Info:    Font shape `U/ntxexa/m/n' will be
 (Font)              scaled to size 7.3pt on input line 7.
-)
-(./sections/related.tex
+<sections/figs/Fig1-Empirical-Motivation.pdf, id=119, 1204.5pt x 903.375pt>
+File: sections/figs/Fig1-Empirical-Motivation.pdf Graphic file (type pdf)
+<use sections/figs/Fig1-Empirical-Motivation.pdf>
+Package pdftex.def Info: sections/figs/Fig1-Empirical-Motivation.pdf  used on i
+nput line 14.
+(pdftex.def)             Requested size: 395.8225pt x 296.86029pt.
+
+
+Class acmart Warning: A possible image without description on input line 22.
+
+) (./sections/related.tex
 Underfull \vbox (badness 10000) has occurred while \output is active []
 
 
@@ -1807,7 +1816,7 @@ Package fancyhdr Warning: \headheight is too small (13.0pt):
 (fancyhdr)                You might also make \topmargin smaller:
 (fancyhdr)                \addtolength{\topmargin}{-5.48402pt}.
 
-[3.3]
+[3.3 <./sections/figs/Fig1-Empirical-Motivation.pdf>]
 
 [4.4]
 
@@ -1843,24 +1852,115 @@ LaTeX Font Info:    Font shape `T1/LinuxLibertineT-TLF/m/n' will be
 (Font)              scaled to size 7.3pt on input line 22.
 LaTeX Font Info:    Font shape `T1/LinuxLibertineT-TLF/m/n' will be
 (Font)              scaled to size 5.5pt on input line 22.
-LaTeX Font Info:    Trying to load font information for T1+zi4 on input line 29
-.
- (/usr/local/texlive/2025/texmf-dist/tex/latex/inconsolata/t1zi4.fd
+LaTeX Font Info:    Font shape `OT1/LinuxLibertineT-TLF/m/n' will be
+(Font)              scaled to size 9.0pt on input line 137.
+LaTeX Font Info:    Font shape `OT1/LinuxLibertineT-TLF/m/n' will be
+(Font)              scaled to size 6.6pt on input line 137.
+LaTeX Font Info:    Font shape `OML/nxlmi/m/it' will be
+(Font)              scaled to size 9.0pt on input line 137.
+LaTeX Font Info:    Font shape `OML/nxlmi/m/it' will be
+(Font)              scaled to size 6.6pt on input line 137.
+LaTeX Font Info:    Font shape `LMS/ntxsy/m/n' will be
+(Font)              scaled to size 9.0pt on input line 137.
+LaTeX Font Info:    Font shape `LMS/ntxsy/m/n' will be
+(Font)              scaled to size 6.6pt on input line 137.
+LaTeX Font Info:    Font shape `LMX/ntxexx/m/n' will be
+(Font)              scaled to size 9.0pt on input line 137.
+LaTeX Font Info:    Font shape `LMX/ntxexx/m/n' will be
+(Font)              scaled to size 6.6pt on input line 137.
+LaTeX Font Info:    Font shape `OT1/LinuxLibertineT-TLF/sb/n' will be
+(Font)              scaled to size 9.0pt on input line 137.
+LaTeX Font Info:    Font shape `OT1/LinuxLibertineT-TLF/sb/n' will be
+(Font)              scaled to size 6.6pt on input line 137.
+LaTeX Font Info:    Font shape `U/ntxmia/m/it' will be
+(Font)              scaled to size 9.0pt on input line 137.
+LaTeX Font Info:    Font shape `U/ntxmia/m/it' will be
+(Font)              scaled to size 6.6pt on input line 137.
+LaTeX Font Info:    Font shape `U/ntxsym/m/n' will be
+(Font)              scaled to size 9.0pt on input line 137.
+LaTeX Font Info:    Font shape `U/ntxsym/m/n' will be
+(Font)              scaled to size 6.6pt on input line 137.
+LaTeX Font Info:    Font shape `U/ntxsyc/m/n' will be
+(Font)              scaled to size 9.0pt on input line 137.
+LaTeX Font Info:    Font shape `U/ntxsyc/m/n' will be
+(Font)              scaled to size 6.6pt on input line 137.
+LaTeX Font Info:    Font shape `U/ntxexa/m/n' will be
+(Font)              scaled to size 9.0pt on input line 137.
+LaTeX Font Info:    Font shape `U/ntxexa/m/n' will be
+(Font)              scaled to size 6.6pt on input line 137.
+LaTeX Font Info:    Font shape `T1/LinuxLibertineT-TLF/m/n' will be
+(Font)              scaled to size 12.0pt on input line 137.
+LaTeX Font Info:    Font shape `OT1/LinuxLibertineT-TLF/m/n' will be
+(Font)              scaled to size 12.0pt on input line 137.
+LaTeX Font Info:    Font shape `OT1/LinuxLibertineT-TLF/m/n' will be
+(Font)              scaled to size 8.8pt on input line 137.
+LaTeX Font Info:    Font shape `OML/nxlmi/m/it' will be
+(Font)              scaled to size 12.0pt on input line 137.
+LaTeX Font Info:    Font shape `OML/nxlmi/m/it' will be
+(Font)              scaled to size 8.8pt on input line 137.
+LaTeX Font Info:    Font shape `LMS/ntxsy/m/n' will be
+(Font)              scaled to size 12.0pt on input line 137.
+LaTeX Font Info:    Font shape `LMS/ntxsy/m/n' will be
+(Font)              scaled to size 8.8pt on input line 137.
+LaTeX Font Info:    Font shape `LMX/ntxexx/m/n' will be
+(Font)              scaled to size 12.0pt on input line 137.
+LaTeX Font Info:    Font shape `LMX/ntxexx/m/n' will be
+(Font)              scaled to size 8.8pt on input line 137.
+LaTeX Font Info:    Font shape `OT1/LinuxLibertineT-TLF/sb/n' will be
+(Font)              scaled to size 12.0pt on input line 137.
+LaTeX Font Info:    Font shape `OT1/LinuxLibertineT-TLF/sb/n' will be
+(Font)              scaled to size 8.8pt on input line 137.
+LaTeX Font Info:    Font shape `U/ntxmia/m/it' will be
+(Font)              scaled to size 12.0pt on input line 137.
+LaTeX Font Info:    Font shape `U/ntxmia/m/it' will be
+(Font)              scaled to size 8.8pt on input line 137.
+LaTeX Font Info:    Font shape `U/ntxsym/m/n' will be
+(Font)              scaled to size 12.0pt on input line 137.
+LaTeX Font Info:    Font shape `U/ntxsym/m/n' will be
+(Font)              scaled to size 8.8pt on input line 137.
+LaTeX Font Info:    Font shape `U/ntxsyc/m/n' will be
+(Font)              scaled to size 12.0pt on input line 137.
+LaTeX Font Info:    Font shape `U/ntxsyc/m/n' will be
+(Font)              scaled to size 8.8pt on input line 137.
+LaTeX Font Info:    Font shape `U/ntxexa/m/n' will be
+(Font)              scaled to size 12.0pt on input line 137.
+LaTeX Font Info:    Font shape `U/ntxexa/m/n' will be
+(Font)              scaled to size 8.8pt on input line 137.
+LaTeX Font Info:    Font shape `T1/LinuxLibertineT-TLF/m/it' will be
+(Font)              scaled to size 8.0pt on input line 137.
+LaTeX Font Info:    Font shape `OT1/LinuxLibertineT-TLF/sb/n' will be
+(Font)              scaled to size 8.0pt on input line 137.
+LaTeX Font Info:    Font shape `OT1/LinuxLibertineT-TLF/sb/n' will be
+(Font)              scaled to size 6.0pt on input line 137.
+
+
+Class acmart Warning: A possible image without description on input line 149.
+
+
+
+[8.8]
+<sections/figs/Fig3-Model-Internals.pdf, id=238, 1606.0pt x 521.95pt>
+File: sections/figs/Fig3-Model-Internals.pdf Graphic file (type pdf)
+<use sections/figs/Fig3-Model-Internals.pdf>
+Package pdftex.def Info: sections/figs/Fig3-Model-Internals.pdf  used on input 
+line 157.
+(pdftex.def)             Requested size: 395.8225pt x 128.63945pt.
+
+
+Class acmart Warning: A possible image without description on input line 173.
+
+LaTeX Font Info:    Trying to load font information for T1+zi4 on input line 17
+9.
+(/usr/local/texlive/2025/texmf-dist/tex/latex/inconsolata/t1zi4.fd
 File: t1zi4.fd 2018/01/14 T1/zi4 (Inconsolata)
 )
 LaTeX Font Info:    Font shape `T1/zi4/m/n' will be
-(Font)              scaled to size 10.0pt on input line 29.
+(Font)              scaled to size 10.0pt on input line 179.
 Package microtype Info: Loading generic protrusion settings for font family
 (microtype)             `zi4' (encoding: T1).
 (microtype)             For optimal results, create family-specific settings.
 (microtype)             See the microtype manual for details.
 
-Underfull \vbox (badness 10000) has occurred while \output is active []
-
-
-
-[8.8{/usr/local/texlive/2025/texmf-dist/fonts/enc/dvips/inconsolata/i4-t1-4.enc
-}]
 
 
 Package fancyhdr Warning: \headheight is too small (13.0pt): 
@@ -1869,189 +1969,18 @@ Package fancyhdr Warning: \headheight is too small (13.0pt):
 (fancyhdr)                You might also make \topmargin smaller:
 (fancyhdr)                \addtolength{\topmargin}{-5.48402pt}.
 
-[9.9])
+[9.9{/usr/local/texlive/2025/texmf-dist/fonts/enc/dvips/inconsolata/i4-t1-4.enc
+} <./sections/figs/Fig3-Model-Internals.pdf>]
 
-[10.10] (./sections/results.tex
-Underfull \vbox (badness 10000) has occurred while \output is active []
-
-
-
-
-Package fancyhdr Warning: \headheight is too small (13.0pt): 
-(fancyhdr)                Make it at least 18.48402pt, for example:
-(fancyhdr)                \setlength{\headheight}{18.48402pt}.
-(fancyhdr)                You might also make \topmargin smaller:
-(fancyhdr)                \addtolength{\topmargin}{-5.48402pt}.
-
-[11.11
-
-])
-
-[12.12] (./sections/discussion.tex
+[10.10]
+Package hyperref Info: bookmark level for unknown algorithm defaults to 0 on in
+put line 229.
 LaTeX Font Info:    Font shape `T1/LinuxLibertineT-TLF/b/n' will be
-(Font)              scaled to size 10.0pt on input line 5.
-
-
-LaTeX Warning: Reference `sec:results' on page 13 undefined on input line 5.
-
-)
-Underfull \vbox (badness 10000) has occurred while \output is active []
-
-
-
-
-Package fancyhdr Warning: \headheight is too small (13.0pt): 
-(fancyhdr)                Make it at least 18.48402pt, for example:
-(fancyhdr)                \setlength{\headheight}{18.48402pt}.
-(fancyhdr)                You might also make \topmargin smaller:
-(fancyhdr)                \addtolength{\topmargin}{-5.48402pt}.
-
-[13.13
-
-{/usr/local/texlive/2025/texmf-dist/fonts/enc/dvips/libertine/lbtn_nh77jq.enc}]
-
-
-[14.14] (./sections/conclusion.tex
-Underfull \vbox (badness 2698) has occurred while \output is active []
-
-
-
-
-Package fancyhdr Warning: \headheight is too small (13.0pt): 
-(fancyhdr)                Make it at least 18.48402pt, for example:
-(fancyhdr)                \setlength{\headheight}{18.48402pt}.
-(fancyhdr)                You might also make \topmargin smaller:
-(fancyhdr)                \addtolength{\topmargin}{-5.48402pt}.
-
-[15.15
-
-])
-
-[16.16] (./sections/endmatter.tex)
-
-
-Package fancyhdr Warning: \headheight is too small (13.0pt): 
-(fancyhdr)                Make it at least 18.48402pt, for example:
-(fancyhdr)                \setlength{\headheight}{18.48402pt}.
-(fancyhdr)                You might also make \topmargin smaller:
-(fancyhdr)                \addtolength{\topmargin}{-5.48402pt}.
-
-[17.17
-
-] (./Paper_v1.bbl
-LaTeX Font Info:    Font shape `T1/LinuxLibertineT-TLF/m/it' will be
-(Font)              scaled to size 8.0pt on input line 45.
-LaTeX Font Info:    Font shape `OT1/LinuxLibertineT-TLF/sb/n' will be
-(Font)              scaled to size 8.0pt on input line 62.
-LaTeX Font Info:    Font shape `OT1/LinuxLibertineT-TLF/sb/n' will be
-(Font)              scaled to size 6.0pt on input line 62.
-
-
-[18.18
-
-])
-
-
-Package fancyhdr Warning: \headheight is too small (13.0pt): 
-(fancyhdr)                Make it at least 18.48402pt, for example:
-(fancyhdr)                \setlength{\headheight}{18.48402pt}.
-(fancyhdr)                You might also make \topmargin smaller:
-(fancyhdr)                \addtolength{\topmargin}{-5.48402pt}.
-
-[19.19] (./sections/figures.tex
-<sections/figs/Fig1-Empirical-Motivation.pdf, id=369, 1204.5pt x 903.375pt>
-File: sections/figs/Fig1-Empirical-Motivation.pdf Graphic file (type pdf)
-<use sections/figs/Fig1-Empirical-Motivation.pdf>
-Package pdftex.def Info: sections/figs/Fig1-Empirical-Motivation.pdf  used on i
-nput line 17.
-(pdftex.def)             Requested size: 395.8225pt x 296.86029pt.
-
-
-Class acmart Warning: A possible image without description on input line 25.
-
-
-
-[20.20
-
- <./sections/figs/Fig1-Empirical-Motivation.pdf>]
-LaTeX Font Info:    Font shape `OT1/LinuxLibertineT-TLF/m/n' will be
-(Font)              scaled to size 9.0pt on input line 154.
-LaTeX Font Info:    Font shape `OT1/LinuxLibertineT-TLF/m/n' will be
-(Font)              scaled to size 6.6pt on input line 154.
-LaTeX Font Info:    Font shape `OML/nxlmi/m/it' will be
-(Font)              scaled to size 9.0pt on input line 154.
-LaTeX Font Info:    Font shape `OML/nxlmi/m/it' will be
-(Font)              scaled to size 6.6pt on input line 154.
-LaTeX Font Info:    Font shape `LMS/ntxsy/m/n' will be
-(Font)              scaled to size 9.0pt on input line 154.
-LaTeX Font Info:    Font shape `LMS/ntxsy/m/n' will be
-(Font)              scaled to size 6.6pt on input line 154.
-LaTeX Font Info:    Font shape `LMX/ntxexx/m/n' will be
-(Font)              scaled to size 9.0pt on input line 154.
-LaTeX Font Info:    Font shape `LMX/ntxexx/m/n' will be
-(Font)              scaled to size 6.6pt on input line 154.
-LaTeX Font Info:    Font shape `OT1/LinuxLibertineT-TLF/sb/n' will be
-(Font)              scaled to size 9.0pt on input line 154.
-LaTeX Font Info:    Font shape `OT1/LinuxLibertineT-TLF/sb/n' will be
-(Font)              scaled to size 6.6pt on input line 154.
-LaTeX Font Info:    Font shape `U/ntxmia/m/it' will be
-(Font)              scaled to size 9.0pt on input line 154.
-LaTeX Font Info:    Font shape `U/ntxmia/m/it' will be
-(Font)              scaled to size 6.6pt on input line 154.
-LaTeX Font Info:    Font shape `U/ntxsym/m/n' will be
-(Font)              scaled to size 9.0pt on input line 154.
-LaTeX Font Info:    Font shape `U/ntxsym/m/n' will be
-(Font)              scaled to size 6.6pt on input line 154.
-LaTeX Font Info:    Font shape `U/ntxsyc/m/n' will be
-(Font)              scaled to size 9.0pt on input line 154.
-LaTeX Font Info:    Font shape `U/ntxsyc/m/n' will be
-(Font)              scaled to size 6.6pt on input line 154.
-LaTeX Font Info:    Font shape `U/ntxexa/m/n' will be
-(Font)              scaled to size 9.0pt on input line 154.
-LaTeX Font Info:    Font shape `U/ntxexa/m/n' will be
-(Font)              scaled to size 6.6pt on input line 154.
+(Font)              scaled to size 10.0pt on input line 229.
+LaTeX Font Info:    Font shape `T1/LinuxLibertineT-TLF/b/n' will be
+(Font)              scaled to size 9.0pt on input line 233.
 LaTeX Font Info:    Font shape `T1/LinuxLibertineT-TLF/m/n' will be
-(Font)              scaled to size 12.0pt on input line 154.
-LaTeX Font Info:    Font shape `OT1/LinuxLibertineT-TLF/m/n' will be
-(Font)              scaled to size 12.0pt on input line 154.
-LaTeX Font Info:    Font shape `OT1/LinuxLibertineT-TLF/m/n' will be
-(Font)              scaled to size 8.8pt on input line 154.
-LaTeX Font Info:    Font shape `OML/nxlmi/m/it' will be
-(Font)              scaled to size 12.0pt on input line 154.
-LaTeX Font Info:    Font shape `OML/nxlmi/m/it' will be
-(Font)              scaled to size 8.8pt on input line 154.
-LaTeX Font Info:    Font shape `LMS/ntxsy/m/n' will be
-(Font)              scaled to size 12.0pt on input line 154.
-LaTeX Font Info:    Font shape `LMS/ntxsy/m/n' will be
-(Font)              scaled to size 8.8pt on input line 154.
-LaTeX Font Info:    Font shape `LMX/ntxexx/m/n' will be
-(Font)              scaled to size 12.0pt on input line 154.
-LaTeX Font Info:    Font shape `LMX/ntxexx/m/n' will be
-(Font)              scaled to size 8.8pt on input line 154.
-LaTeX Font Info:    Font shape `OT1/LinuxLibertineT-TLF/sb/n' will be
-(Font)              scaled to size 12.0pt on input line 154.
-LaTeX Font Info:    Font shape `OT1/LinuxLibertineT-TLF/sb/n' will be
-(Font)              scaled to size 8.8pt on input line 154.
-LaTeX Font Info:    Font shape `U/ntxmia/m/it' will be
-(Font)              scaled to size 12.0pt on input line 154.
-LaTeX Font Info:    Font shape `U/ntxmia/m/it' will be
-(Font)              scaled to size 8.8pt on input line 154.
-LaTeX Font Info:    Font shape `U/ntxsym/m/n' will be
-(Font)              scaled to size 12.0pt on input line 154.
-LaTeX Font Info:    Font shape `U/ntxsym/m/n' will be
-(Font)              scaled to size 8.8pt on input line 154.
-LaTeX Font Info:    Font shape `U/ntxsyc/m/n' will be
-(Font)              scaled to size 12.0pt on input line 154.
-LaTeX Font Info:    Font shape `U/ntxsyc/m/n' will be
-(Font)              scaled to size 8.8pt on input line 154.
-LaTeX Font Info:    Font shape `U/ntxexa/m/n' will be
-(Font)              scaled to size 12.0pt on input line 154.
-LaTeX Font Info:    Font shape `U/ntxexa/m/n' will be
-(Font)              scaled to size 8.8pt on input line 154.
-
-
-Class acmart Warning: A possible image without description on input line 166.
-
+(Font)              scaled to size 6.6pt on input line 262.
 
 
 
@@ -2061,37 +1990,10 @@ Package fancyhdr Warning: \headheight is too small (13.0pt):
 (fancyhdr)                You might also make \topmargin smaller:
 (fancyhdr)                \addtolength{\topmargin}{-5.48402pt}.
 
-[21.21
+[11.11{/usr/local/texlive/2025/texmf-dist/fonts/enc/dvips/libertine/lbtn_nh77jq
+.enc}])
 
-]
-<sections/figs/Fig3-Model-Internals.pdf, id=382, 1606.0pt x 521.95pt>
-File: sections/figs/Fig3-Model-Internals.pdf Graphic file (type pdf)
-<use sections/figs/Fig3-Model-Internals.pdf>
-Package pdftex.def Info: sections/figs/Fig3-Model-Internals.pdf  used on input 
-line 173.
-(pdftex.def)             Requested size: 395.8225pt x 128.63945pt.
-
-
-Class acmart Warning: A possible image without description on input line 189.
-
-
-
-[22.22
-
- <./sections/figs/Fig3-Model-Internals.pdf>]
-<sections/figs/Fig4-Model-Comparison.pdf, id=391, 1806.75pt x 562.1pt>
-File: sections/figs/Fig4-Model-Comparison.pdf Graphic file (type pdf)
-<use sections/figs/Fig4-Model-Comparison.pdf>
-Package pdftex.def Info: sections/figs/Fig4-Model-Comparison.pdf  used on input
- line 196.
-(pdftex.def)             Requested size: 395.8225pt x 123.13919pt.
-LaTeX Font Info:    Font shape `T1/LinuxBiolinumT-TLF/m/it' will be
-(Font)              scaled to size 9.0pt on input line 218.
-
-
-Class acmart Warning: A possible image without description on input line 220.
-
-
+[12.12]
 
 
 Package fancyhdr Warning: \headheight is too small (13.0pt): 
@@ -2100,35 +2002,134 @@ Package fancyhdr Warning: \headheight is too small (13.0pt):
 (fancyhdr)                You might also make \topmargin smaller:
 (fancyhdr)                \addtolength{\topmargin}{-5.48402pt}.
 
-[23.23
-
- <./sections/figs/Fig4-Model-Comparison.pdf>]
-<sections/figs/Fig5-Parameter-Sweep.pdf, id=398, 1405.25pt x 562.1pt>
+[13.13] (./sections/results.tex
+<sections/figs/Fig5-Parameter-Sweep.pdf, id=377, 1405.25pt x 562.1pt>
 File: sections/figs/Fig5-Parameter-Sweep.pdf Graphic file (type pdf)
 <use sections/figs/Fig5-Parameter-Sweep.pdf>
 Package pdftex.def Info: sections/figs/Fig5-Parameter-Sweep.pdf  used on input 
-line 227.
+line 36.
 (pdftex.def)             Requested size: 395.8225pt x 158.33038pt.
 
 
-Class acmart Warning: A possible image without description on input line 237.
+Class acmart Warning: A possible image without description on input line 46.
 
 
 
-[24.24
+[14.14
 
- <./sections/figs/Fig5-Parameter-Sweep.pdf>]
+]
+Overfull \hbox (2.18279pt too wide) in paragraph at lines 49--50
+[]\T1/LinuxLibertineT-TLF/m/n/10 (-20) The pri-mary anal-y-sis uses $\OML/nxlmi
+/m/it/10 N \U/ntxmia/m/it/10 = \OT1/LinuxLibertineT-TLF/m/n/10 (-20) 100$ \T1/L
+inuxLibertineT-TLF/m/n/10 (-20) states, but a sen-si-tiv-ity study over $\OML/n
+xlmi/m/it/10 N \LMS/ntxsy/m/n/10 2 f\OT1/LinuxLibertineT-TLF/m/n/10 (-20) 30\OM
+L/nxlmi/m/it/10 ; \OT1/LinuxLibertineT-TLF/m/n/10 (-20) 60\OML/nxlmi/m/it/10 ; 
+\OT1/LinuxLibertineT-TLF/m/n/10 (-20) 90\OML/nxlmi/m/it/10 ; \OT1/LinuxLibertin
+eT-TLF/m/n/10 (-20) 100\OML/nxlmi/m/it/10 ; \OT1/LinuxLibertineT-TLF/m/n/10 (-2
+0) 150\OML/nxlmi/m/it/10 ; \OT1/LinuxLibertineT-TLF/m/n/10 (-20) 200\LMS/ntxsy/
+m/n/10 g$
+ []
+
+
+
+
+Package fancyhdr Warning: \headheight is too small (13.0pt): 
+(fancyhdr)                Make it at least 18.48402pt, for example:
+(fancyhdr)                \setlength{\headheight}{18.48402pt}.
+(fancyhdr)                You might also make \topmargin smaller:
+(fancyhdr)                \addtolength{\topmargin}{-5.48402pt}.
+
+[15.15 <./sections/figs/Fig5-Parameter-Sweep.pdf>]
+LaTeX Font Info:    Font shape `T1/LinuxBiolinumT-TLF/m/n' will be
+(Font)              scaled to size 6.6pt on input line 95.
+LaTeX Font Info:    Font shape `T1/LinuxBiolinumT-TLF/m/n' will be
+(Font)              scaled to size 5.5pt on input line 95.
+
+
+[16.16]
+<sections/figs/Fig4-Model-Comparison.pdf, id=401, 1806.75pt x 562.1pt>
+File: sections/figs/Fig4-Model-Comparison.pdf Graphic file (type pdf)
+<use sections/figs/Fig4-Model-Comparison.pdf>
+Package pdftex.def Info: sections/figs/Fig4-Model-Comparison.pdf  used on input
+ line 122.
+(pdftex.def)             Requested size: 395.8225pt x 123.13919pt.
+LaTeX Font Info:    Font shape `T1/LinuxBiolinumT-TLF/m/it' will be
+(Font)              scaled to size 9.0pt on input line 144.
+
+
+Class acmart Warning: A possible image without description on input line 146.
+
 <sections/figs/Fig6-Statistical-Validation.pdf, id=406, 1204.5pt x 903.375pt>
 File: sections/figs/Fig6-Statistical-Validation.pdf Graphic file (type pdf)
 <use sections/figs/Fig6-Statistical-Validation.pdf>
 Package pdftex.def Info: sections/figs/Fig6-Statistical-Validation.pdf  used on
- input line 244.
+ input line 156.
 (pdftex.def)             Requested size: 395.8225pt x 296.86029pt.
 
+Class acmart Warning: A possible image without description on input line 173.
 
-Class acmart Warning: A possible image without description on input line 261.
 
 
+
+Package fancyhdr Warning: \headheight is too small (13.0pt): 
+(fancyhdr)                Make it at least 18.48402pt, for example:
+(fancyhdr)                \setlength{\headheight}{18.48402pt}.
+(fancyhdr)                You might also make \topmargin smaller:
+(fancyhdr)                \addtolength{\topmargin}{-5.48402pt}.
+
+[17.17]
+
+[18.18 <./sections/figs/Fig4-Model-Comparison.pdf>]
+
+
+Package fancyhdr Warning: \headheight is too small (13.0pt): 
+(fancyhdr)                Make it at least 18.48402pt, for example:
+(fancyhdr)                \setlength{\headheight}{18.48402pt}.
+(fancyhdr)                You might also make \topmargin smaller:
+(fancyhdr)                \addtolength{\topmargin}{-5.48402pt}.
+
+[19.19 <./sections/figs/Fig6-Statistical-Validation.pdf>]
+<sections/figs/Fig7-Multi-Asset-SIM.pdf, id=433, 1505.625pt x 903.375pt>
+File: sections/figs/Fig7-Multi-Asset-SIM.pdf Graphic file (type pdf)
+<use sections/figs/Fig7-Multi-Asset-SIM.pdf>
+Package pdftex.def Info: sections/figs/Fig7-Multi-Asset-SIM.pdf  used on input 
+line 211.
+(pdftex.def)             Requested size: 395.8225pt x 237.491pt.
+
+
+Class acmart Warning: A possible image without description on input line 220.
+
+)
+
+[20.20
+
+]
+
+
+Package fancyhdr Warning: \headheight is too small (13.0pt): 
+(fancyhdr)                Make it at least 18.48402pt, for example:
+(fancyhdr)                \setlength{\headheight}{18.48402pt}.
+(fancyhdr)                You might also make \topmargin smaller:
+(fancyhdr)                \addtolength{\topmargin}{-5.48402pt}.
+
+[21.21 <./sections/figs/Fig7-Multi-Asset-SIM.pdf>] (./sections/discussion.tex
+
+[22.22
+
+])
+
+
+Package fancyhdr Warning: \headheight is too small (13.0pt): 
+(fancyhdr)                Make it at least 18.48402pt, for example:
+(fancyhdr)                \setlength{\headheight}{18.48402pt}.
+(fancyhdr)                You might also make \topmargin smaller:
+(fancyhdr)                \addtolength{\topmargin}{-5.48402pt}.
+
+[23.23] (./sections/conclusion.tex)
+
+[24.24
+
+] (./sections/endmatter.tex)
 
 
 Package fancyhdr Warning: \headheight is too small (13.0pt): 
@@ -2139,71 +2140,20 @@ Package fancyhdr Warning: \headheight is too small (13.0pt):
 
 [25.25
 
- <./sections/figs/Fig6-Statistical-Validation.pdf>]
-<sections/figs/Fig7-Multi-Asset-SIM.pdf, id=415, 1505.625pt x 903.375pt>
-File: sections/figs/Fig7-Multi-Asset-SIM.pdf Graphic file (type pdf)
-<use sections/figs/Fig7-Multi-Asset-SIM.pdf>
-Package pdftex.def Info: sections/figs/Fig7-Multi-Asset-SIM.pdf  used on input 
-line 268.
-(pdftex.def)             Requested size: 395.8225pt x 237.491pt.
-
-
-Class acmart Warning: A possible image without description on input line 277.
-
-) (./sections/tables.tex
+] (./Paper_v1.bbl
 
 [26.26
 
- <./sections/figs/Fig7-Multi-Asset-SIM.pdf>]
-LaTeX Font Info:    Font shape `T1/LinuxBiolinumT-TLF/m/n' will be
-(Font)              scaled to size 6.6pt on input line 48.
-LaTeX Font Info:    Font shape `T1/LinuxBiolinumT-TLF/m/n' will be
-(Font)              scaled to size 5.5pt on input line 48.
-
-
-
-Package fancyhdr Warning: \headheight is too small (13.0pt): 
-(fancyhdr)                Make it at least 18.48402pt, for example:
-(fancyhdr)                \setlength{\headheight}{18.48402pt}.
-(fancyhdr)                You might also make \topmargin smaller:
-(fancyhdr)                \addtolength{\topmargin}{-5.48402pt}.
-
-[27.27
-
-]
-
-[28.28
-
-]) (./sections/notation.tex
-Package hyperref Info: bookmark level for unknown algorithm defaults to 0 on in
-put line 4.
-
-
-
-Package fancyhdr Warning: \headheight is too small (13.0pt): 
-(fancyhdr)                Make it at least 18.48402pt, for example:
-(fancyhdr)                \setlength{\headheight}{18.48402pt}.
-(fancyhdr)                You might also make \topmargin smaller:
-(fancyhdr)                \addtolength{\topmargin}{-5.48402pt}.
-
-[29.29
-
-]
-
-[30.30
-
-]
-
-
-Package fancyhdr Warning: \headheight is too small (13.0pt): 
-(fancyhdr)                Make it at least 18.48402pt, for example:
-(fancyhdr)                \setlength{\headheight}{18.48402pt}.
-(fancyhdr)                You might also make \topmargin smaller:
-(fancyhdr)                \addtolength{\topmargin}{-5.48402pt}.
-
-[31.31
-
 ])
+
+
+Package fancyhdr Warning: \headheight is too small (13.0pt): 
+(fancyhdr)                Make it at least 18.48402pt, for example:
+(fancyhdr)                \setlength{\headheight}{18.48402pt}.
+(fancyhdr)                You might also make \topmargin smaller:
+(fancyhdr)                \addtolength{\topmargin}{-5.48402pt}.
+
+[27.27]
 
 
 Package fancyhdr Warning: \headheight is too small (13.0pt): 
@@ -2217,7 +2167,7 @@ File: se-pdfdoc.def 2019/11/29 v1.12 stringenc: PDFDocEncoding
 )
 (/usr/local/texlive/2025/texmf-dist/tex/generic/stringenc/se-utf8.def
 File: se-utf8.def 2019/11/29 v1.12 stringenc: UTF-8
-) [1.32
+) [1.28
 
 ]
 
@@ -2240,21 +2190,17 @@ ence can ingest your work..
 LaTeX2e <2024-11-01> patch level 2
 L3 programming layer <2025-01-18>
  ***********
-
-
-LaTeX Warning: There were undefined references.
-
 Package rerunfilecheck Info: File `Paper_v1.out' has not changed.
-(rerunfilecheck)             Checksum: B1FB59911D2015FDE4B9A9DBC5CEF50F;851.
+(rerunfilecheck)             Checksum: B289C1839D2D60EBECD8CFCE48A44C4D;2841.
  ) 
 Here is how much of TeX's memory you used:
- 47082 strings out of 473190
- 1039414 string characters out of 5715801
- 1564569 words of memory out of 5000000
+ 47071 strings out of 473190
+ 1039143 string characters out of 5715801
+ 1565815 words of memory out of 5000000
  68367 multiletter control sequences out of 15000+600000
- 804514 words of font info for 624 fonts, out of 8000000 for 9000
+ 814723 words of font info for 623 fonts, out of 8000000 for 9000
  1302 hyphenation exceptions out of 8191
- 99i,13n,131p,2996b,1013s stack positions out of 10000i,1000n,20000p,200000b,200000s
+ 99i,13n,131p,1947b,1013s stack positions out of 10000i,1000n,20000p,200000b,200000s
 </usr/local/texlive/2025/texmf-dist/fonts/type1/public/inconsolata/Inconsolat
 a-zi4r.pfb></usr/local/texlive/2025/texmf-dist/fonts/type1/public/newtx/Liberti
 neMathMI.pfb></usr/local/texlive/2025/texmf-dist/fonts/type1/public/newtx/Liber
@@ -2273,10 +2219,10 @@ t/fonts/type1/public/newtx/txexs.pfb></usr/local/texlive/2025/texmf-dist/fonts/
 type1/public/newtx/txmiaX.pfb></usr/local/texlive/2025/texmf-dist/fonts/type1/p
 ublic/newtx/txsym.pfb></usr/local/texlive/2025/texmf-dist/fonts/type1/public/ne
 wtx/txsys.pfb>
-Output written on Paper_v1.pdf (32 pages, 1644371 bytes).
+Output written on Paper_v1.pdf (28 pages, 1637465 bytes).
 PDF statistics:
- 645 PDF objects out of 1000 (max. 8388607)
- 556 compressed objects within 6 object streams
+ 649 PDF objects out of 1000 (max. 8388607)
+ 564 compressed objects within 6 object streams
  197 named destinations out of 1000 (max. 500000)
- 124539 words of extra memory for PDF output out of 128383 (max. 10000000)
+ 130747 words of extra memory for PDF output out of 154059 (max. 10000000)
 

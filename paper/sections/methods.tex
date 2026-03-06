@@ -21,8 +21,158 @@ We estimated the transition matrix $\mathbf{T}$ through direct frequentist count
 
 Empirical transition matrices often had low probabilities for exiting central states into tail states, which caused models to lose the effect of volatility clustering too quickly \cite{bulla_stylized_2006}. We corrected this by adding jump parameters $\epsilon$, representing the probability of a jump event, and $\lambda$, representing the mean duration, along with a tail-state selection rule. Tail-states were defined as $\mathcal{S}_{bottom} = \{1, \dots, N_{tail}\}$ and $\mathcal{S}_{top} = \{N-N_{tail}+1, \dots, N\}$, where $N_{tail}$ was user-configurable. If a jump was triggered, the jump-duration $K$ was sampled from a Poisson distribution such that $K \sim \text{Poisson}(\lambda)$, which was standard for modeling independent events in fixed intervals \cite{glasserman_monte_2003}. During these $K$ steps, the standard Markovian transitions were overridden to target tail-states, with a user-configurable bias $p_{neg}$ (default 0.52) that favored negative-tail states to reproduce gain/loss asymmetry.
 
+% ── Figure 2: Model Architecture ─────────────────────────────────────────────
+\begin{figure}[htpb]
+\centering
+\resizebox{\textwidth}{!}{%
+\begin{tikzpicture}[
+  % ----- node styles -----
+  state/.style    = {circle, draw=black, very thick, minimum size=1.1cm,
+                     inner sep=0pt, font=\small},
+  tailbot/.style  = {state, fill=red!25,  draw=red!70!black},
+  tailtop/.style  = {state, fill=blue!25, draw=blue!70!black},
+  midstate/.style = {state, fill=white,   draw=black!70},
+  % ----- arrow styles -----
+  markov/.style   = {<->, >=Stealth, thin, gray!80},
+  trigger/.style  = {->, >=Stealth, thick, dashed, black!80},
+  jumparc/.style  = {->, >=Stealth, very thick},
+]
+
+  % ===== State nodes along the horizontal axis =====
+  \node[tailbot]              (s1)   at ( 0.0, 0) {$1$};
+  \node[tailbot]              (s2)   at ( 2.0, 0) {$2$};
+  \node[font=\Large]          (ld)   at ( 4.0, 0) {$\cdots$};
+  \node[midstate]             (sk)   at ( 6.0, 0) {$k$};
+  \node[font=\Large]          (rd)   at ( 8.0, 0) {$\cdots$};
+  \node[tailtop]              (sNm1) at (10.0, 0) {$N\!-\!1$};
+  \node[tailtop]              (sN)   at (12.0, 0) {$N$};
+
+  % ===== Markov transition arrows (bidirectional, thin) =====
+  \draw[markov] (s1)  -- (s2);
+  \draw[markov] (s2)  -- (ld);
+  \draw[markov] (ld)  -- (sk);
+  \draw[markov] (sk)  -- (rd);
+  \draw[markov] (rd)  -- (sNm1);
+  \draw[markov] (sNm1)-- (sN);
+
+  % ===== Laplace emission bell curves above each visible state =====
+  \draw[red!75!black, thick]
+    plot[domain=-0.42:0.42, samples=40, smooth, variable=\t]
+    ({ 0.0+\t}, {1.45 + 0.72*exp(-\t*\t/0.024)});
+  \draw[red!25, thin] (-0.42,1.45) -- (0.42,1.45);
+
+  \draw[red!75!black, thick]
+    plot[domain=-0.42:0.42, samples=40, smooth, variable=\t]
+    ({ 2.0+\t}, {1.45 + 0.72*exp(-\t*\t/0.024)});
+  \draw[red!25, thin] (1.58,1.45) -- (2.42,1.45);
+
+  \draw[black!55, thick]
+    plot[domain=-0.42:0.42, samples=40, smooth, variable=\t]
+    ({ 6.0+\t}, {1.45 + 0.72*exp(-\t*\t/0.024)});
+  \draw[gray!40, thin] (5.58,1.45) -- (6.42,1.45);
+
+  \draw[blue!75!black, thick]
+    plot[domain=-0.42:0.42, samples=40, smooth, variable=\t]
+    ({10.0+\t}, {1.45 + 0.72*exp(-\t*\t/0.024)});
+  \draw[blue!25, thin] (9.58,1.45) -- (10.42,1.45);
+
+  \draw[blue!75!black, thick]
+    plot[domain=-0.42:0.42, samples=40, smooth, variable=\t]
+    ({12.0+\t}, {1.45 + 0.72*exp(-\t*\t/0.024)});
+  \draw[blue!25, thin] (11.58,1.45) -- (12.42,1.45);
+
+  \node[font=\footnotesize\itshape, text=black!55]
+    at (6.0, 2.7) {$\mathcal{N}(\mu_k,\sigma_k)$ emission};
+
+  % ===== Poisson clock (jump trigger box) =====
+  \node[draw, rounded corners=5pt, fill=yellow!20, very thick,
+        minimum width=2.8cm, minimum height=1.1cm,
+        align=center, font=\small] (clock) at (6.0, 5.0)
+        {Poisson clock\\[1pt]prob.~$\epsilon$};
+
+  \draw[trigger] (sk.north) -- (clock.south)
+    node[midway, right=3pt, font=\footnotesize] {jump triggered};
+
+  % ===== Jump arcs from clock to tail state sets =====
+  \draw[jumparc, red!70!black]
+    (clock.west)
+    to[out=180, in=100]
+    node[above, sloped, font=\footnotesize, red!80!black,
+         pos=0.45, yshift=2pt]
+      {$K\!\sim\!\mathrm{Pois}(\lambda)$ forced steps}
+    (s1.north);
+
+  \draw[jumparc, blue!70!black]
+    (clock.east)
+    to[out=0, in=80]
+    node[above, sloped, font=\footnotesize, blue!80!black,
+         pos=0.45, yshift=2pt]
+      {$K\!\sim\!\mathrm{Pois}(\lambda)$ forced steps}
+    (sN.north);
+
+  % ===== Tail set brace labels below states =====
+  \draw[decorate,
+        decoration={brace, amplitude=6pt, mirror},
+        red!70!black, thick]
+    (-0.6, -0.65) -- (2.6, -0.65)
+    node[midway, below=7pt, red!80!black, font=\small]
+      {$\mathcal{S}_{-}$\ (bottom tail)};
+
+  \draw[decorate,
+        decoration={brace, amplitude=6pt, mirror},
+        blue!70!black, thick]
+    (9.4, -0.65) -- (12.6, -0.65)
+    node[midway, below=7pt, blue!80!black, font=\small]
+      {$\mathcal{S}_{+}$\ (top tail)};
+
+  % ===== State-axis arrow =====
+  \draw[->, >=Stealth, gray!70, thin]
+    (-1.0, -0.5) -- (13.2, -0.5)
+    node[right, font=\small, text=black!70] {state index};
+
+  \node[font=\footnotesize, text=gray!80, above right=2pt and 4pt of sk]
+    {prob.~$1\!-\!\epsilon$};
+
+\end{tikzpicture}%
+}
+\caption{Architecture of the Hybrid Hidden Markov Model with Jump-Diffusion (HMM-WJ).
+    At each step the chain transitions according to the empirical transition matrix $\mathbf{T}$
+    (probability $1-\epsilon$, thin bidirectional arrows) or enters a Poisson jump episode
+    (probability $\epsilon$, dashed upward arrow to the Poisson clock).
+    During a jump episode the active state is forced to the bottom tail set $\mathcal{S}_{-}$
+    (red, lowest-valued states) or the top tail set $\mathcal{S}_{+}$ (blue, highest-valued states)
+    for $K\!\sim\!\mathrm{Poisson}(\lambda)$ consecutive steps before normal Markovian evolution
+    resumes.  Small bell curves above each state depict the state-conditional
+    $\mathcal{N}(\mu_k,\sigma_k)$ emission distribution.  Tail sets are defined as the
+    $N_{\rm tail}$ lowest- and highest-quantile states under the Laplace quantile partition.}
+\label{fig:model_architecture}
+\end{figure}
+
+\FloatBarrier
 To characterize the excess growth rates within each regime, we parameterized the emission model with Normal distributions $\mathcal{N}(\mu_k, \sigma_k)$ whose bounds coincided with the 0.1 and 99.9 percentiles of the state-conditional distribution. Specifically, we set $\mu_k = (Q_{k-1} + Q_k)/2$ and $\sigma_k = (Q_k - Q_{k-1})/(2 z_{0.999})$, where $z_{0.999} \approx 3.09$ was the standard normal 99.9th percentile. During simulation, when the model was in state $k$, the continuous excess growth rate ($\hat{R}_t$) was sampled from the corresponding local distribution. This hybrid approach ensured that the model preserved the discontinuous components of the price process important for asset modeling while maintaining a smooth representation of intra-state variance \cite{kou_jump-diffusion_2002}.
 
+% ── Figure 3: Fitted Model Internals ─────────────────────────────────────────
+\begin{figure}[htpb]
+    \centering
+    \includegraphics[width=\textwidth]{Fig3-Model-Internals.pdf}
+    \caption{Fitted model internals for SPY with $N=100$ states.
+    Panel~(a) overlays the fitted Laplace CDF on the empirical CDF; the 99 vertical lines mark the
+    equal-probability quantile boundaries that define the $N$ hidden states.  The close agreement
+    confirms that the Laplace distribution is an accurate marginal model for the excess growth rate
+    data.
+    Panel~(b) displays the empirical transition matrix $\mathbf{T}$ in $\log_{10}$ colour scale;
+    the dominant near-diagonal band reflects short-range regime persistence.
+    Panel~(c) plots the expected natural residence time $1/(1-T_{kk})$ for each state on a
+    $\log_{10}$ scale, with the bottom tail set $\mathcal{S}_{-}$ (states 1--5, red shading) and
+    top tail set $\mathcal{S}_{+}$ (states 96--100, teal shading) highlighted.  Under pure Markovian
+    dynamics every state, including the tail states, exits within 1--2 steps on average, far too
+    quickly to reproduce empirical volatility clustering.  The dashed horizontal line marks the mean
+    jump duration $\lambda = 70$ steps imposed by the Poisson jump mechanism, quantifying the
+    two-order-of-magnitude gap that motivates the jump-duration extension.}
+    \label{fig:model_internals}
+\end{figure}
+
+\FloatBarrier
 \subsection*{Growth rate generation.}
 Let's outline a simple sampling algorithm for generating random sequences from an HMM (without jumps). We initialize the generation process by drawing an initial hidden state $X_0$ from the stationary distribution $\bar{\pi}$. The stationary distribution $\bar{\pi}$ represented the long-run probability of the market occupying various regimes or moods \cite{hamilton_regime_2018}. While $\bar{\pi}$ mathematically satisfies the balance equation $\bar{\pi} = \bar{\pi}\mathbf{T}$, we estimated this distribution numerically by raising the transition matrix $\mathbf{T}^n$ to a sufficiently large power $n = 50$, ensuring the vector reflected the equilibrium of market dynamics \cite{grinstead_introduction_1997}.
 
@@ -72,5 +222,121 @@ Synthetic multi-asset paths are generated as follows. First, the hybrid HMM prod
 \end{equation}
 This construction preserves the cross-sectional correlation structure induced by the common factor while maintaining the regime-switching and jump-diffusion dynamics of the index. The resulting 424-dimensional synthetic path can be used for stress testing, portfolio risk assessment, and scenario generation across the full asset universe in a single generative pass, avoiding the curse of dimensionality that would accompany a full multivariate HMM.
 
-\subsection*{Sensitivity analysis: low-resolution models}\label{app:sensitivity}
-This section provides the results for lower state resolutions ($N=30$ and $N=60$) to demonstrate how state granularity impacts the model's ability to capture stylized facts. Table \ref{tab:sensitivity_results} summarizes the pass rates for the Kolmogorov-Smirnov and Anderson-Darling tests across these four cases. As the number of states decreases, the model maintained overall distribution fit, though tail-region precision decreased slightly compared to the 90-state configuration.
+\subsection*{Algorithms}
+The four algorithms below detail the complete computational pipeline: model construction (Algorithm~\ref{alg:build}), jump-diffusion simulation (Algorithm~\ref{alg:sim}), state decoding and continuous rate reconstruction (Algorithm~\ref{alg:decode}), and hyperparameter grid search (Algorithm~\ref{alg:grid_search}).
+
+\begin{algorithm}[htpb]
+\caption{Empirical hidden Markov model construction via Laplace partitioning}
+\label{alg:build}
+\small
+\begin{algorithmic}[1]
+\REQUIRE Price history $P_{1:T}$, Risk-free rate $r_f$, Number of states $N$
+\ENSURE Transition matrix $\mathbf{T}$, Quantile boundaries $\mathcal{Q}$
+\STATE Compute excess growth rates $R_t = \frac{1}{\Delta t} \ln(P_t / P_{t-1}) - r_f$ for all $t$.
+\STATE Fit Laplace parameters $(\mu_L, b_L)$ to the series $\mathbf{R}$ using maximum-likelihood estimation.
+\STATE Define interior boundaries $Q_k = F_L^{-1}(k/N; \mu_L, b_L)$ for $k \in \{1, \dots, N-1\}$, where $F_L^{-1}$ is the inverse CDF of the Laplace distribution.
+\STATE Set finite outer bounds $Q_0 = F_L^{-1}(0.001; \mu_L, b_L)$ and $Q_N = F_L^{-1}(0.999; \mu_L, b_L)$.
+\STATE Assign each excess growth rate $R_t$ to a discrete state $s_t \in \{1, \dots, N\}$ based on the boundaries in $\mathcal{Q} = \{Q_k\}$.
+\STATE Initialize count matrix $\mathbf{C} \in \mathbb{R}^{N \times N}$ and transition matrix $\mathbf{T} \in \mathbb{R}^{N \times N}$ with zeros.
+\FOR{$t = 1$ to $T-1$}
+    \STATE Identify transition $i = s_t$ to $j = s_{t+1}$.
+\STATE $\mathbf{C}_{i,j} \leftarrow \mathbf{C}_{i,j} + 1$.
+\ENDFOR
+\FOR{$i = 1$ to $N$}
+    \STATE $\mathbf{T}_{i,:} \leftarrow \mathbf{C}_{i,:} / \sum_{j=1}^{N} \mathbf{C}_{i,j}$ \COMMENT{Row-wise normalization}
+\ENDFOR
+\RETURN $\mathbf{T}, \mathcal{Q}$
+\end{algorithmic}
+\end{algorithm}
+
+\FloatBarrier
+
+\begin{algorithm}[htpb]
+\caption{Hybrid jump-diffusion simulation with persistent volatility}
+\label{alg:sim}
+\small
+\begin{algorithmic}[1]
+\REQUIRE Model parameters $\mathbf{T}, \bar{\pi}, \epsilon, \lambda, N_{tail}, p_{neg}$, Total Steps $M$
+\ENSURE Simulated state sequence $S_{1:M}$
+\STATE Define tail-states $\mathcal{S}_{bottom} = \{1, \dots, N_{tail}\}$ and $\mathcal{S}_{top} = \{N-N_{tail}+1, \dots, N\}$.
+\STATE Sample initial state $S_1 \sim \text{Categorical}(\bar{\pi})$.
+\STATE Set $counter \leftarrow 2$.
+\WHILE{$counter \le M$}
+    \STATE Sample $u \sim \text{Uniform}(0, 1)$.
+    \IF{$u < \epsilon$}
+        \STATE Sample jump-duration $K \sim \text{Poisson}(\lambda)$.
+        \FOR{$j = 1$ to $K$ while $counter \le M$}
+            \STATE Sample $w \sim \text{Uniform}(0, 1)$.
+            \IF{$w < p_{neg}$}
+                \STATE $S_{counter} \sim \text{Uniform}(\mathcal{S}_{bottom})$ \COMMENT{Bias toward negative-tail events}
+            \ELSE
+                \STATE $S_{counter} \sim \text{Uniform}(\mathcal{S}_{top})$
+            \ENDIF
+            \STATE $counter \leftarrow counter + 1$.
+        \ENDFOR
+    \ELSE
+        \STATE Sample $S_{counter} \sim \text{Categorical}(\mathbf{T}_{S_{counter-1}, :})$.
+        \STATE $counter \leftarrow counter + 1$.
+    \ENDIF
+\ENDWHILE
+\RETURN $S_{1:M}$
+\end{algorithmic}
+\end{algorithm}
+
+\FloatBarrier
+
+\begin{algorithm}[htpb]
+\caption{State decoding and continuous excess growth rate reconstruction}
+\label{alg:decode}
+\small
+\begin{algorithmic}[1]
+\REQUIRE Simulated state sequence $S_{1:M}$, Quantile boundaries $\mathcal{Q}$
+\ENSURE Reconstructed continuous excess growth rates $\hat{R}_{1:M}$
+\STATE Define $z_{0.999} = 3.09$.
+\FOR{$k = 1$ to $N$}
+    \STATE Set $\mu_k = (Q_{k-1} + Q_k)/2$.
+    \STATE Set $\sigma_k = (Q_k - Q_{k-1})/(2 z_{0.999})$.
+\ENDFOR
+\STATE Initialize the reconstructed excess growth rate vector $\mathbf{\hat{R}}$ of length $M$.
+\FOR{$t = 1$ to $M$}
+    \STATE Retrieve the simulated state $k = S_t$.
+\STATE Sample the continuous excess growth rate $\hat{R}_t$ from the normal distribution $\mathcal{N}(\mu_k, \sigma_k)$.
+\ENDFOR
+\RETURN $\hat{R}_{1:M}$
+\end{algorithmic}
+\end{algorithm}
+
+\FloatBarrier
+
+\begin{algorithm}[htpb]
+\caption{Multi-objective grid search for jump hyperparameters}
+\label{alg:grid_search}
+\small
+\begin{algorithmic}[1]
+\REQUIRE Observed growth rates $\mathbf{R}_{obs}$, ACF max lag $L=252$, Number of paths $P=1000$, Time steps $M=2766$
+\REQUIRE Grid space for $\epsilon \in [10^{-5}, 10^{-4}]$ and $\lambda \in [1.0, 100.0]$
+\REQUIRE Kurtosis penalty weight $w_K = 0.20$
+\ENSURE Optimal jump hyperparameters $(\epsilon^*, \lambda^*)$
+\STATE Calculate observed absolute ACF: $A_{obs}(\tau) = \text{ACF}(|\mathbf{R}_{obs}|, \tau)$ for $\tau \in \{1, \dots, L\}$.
+\STATE Calculate observed global kurtosis: $K_{obs} = \text{Kurtosis}(\mathbf{R}_{obs})$.
+\STATE Initialize minimum error $E_{min} \leftarrow \infty$.
+\FOR{each $\epsilon$ in grid space}
+    \FOR{each $\lambda$ in grid space}
+        \STATE Initialize simulated ACF accumulator $\mathbf{A}_{sum} \leftarrow \mathbf{0}$ and kurtosis accumulator $K_{sum} \leftarrow 0$.
+        \FOR{$p = 1$ to $P$}
+            \STATE Simulate path using Algorithm \ref{alg:sim} to obtain state sequence $S_{1:M}$.
+            \STATE Decode sequence using Algorithm \ref{alg:decode} to obtain continuous rates $\mathbf{\hat{R}}^{(p)}$.
+            \STATE $\mathbf{A}_{sum}(\tau) \leftarrow \mathbf{A}_{sum}(\tau) + \text{ACF}(|\mathbf{\hat{R}}^{(p)}|, \tau)$ for all $\tau$.
+            \STATE $K_{sum} \leftarrow K_{sum} + \text{Kurtosis}(\mathbf{\hat{R}}^{(p)})$.
+        \ENDFOR
+        \STATE Compute ensemble averages: $\overline{A}_{sim}(\tau) = \mathbf{A}_{sum}(\tau) / P$ and $\overline{K}_{sim} = K_{sum} / P$.
+        \STATE Compute objective: $J = \sum_{\tau=1}^L \left(A_{obs}(\tau) - \overline{A}_{sim}(\tau)\right)^2 + w_K \left(K_{obs} - \overline{K}_{sim}\right)^2$.
+        \IF{$J < E_{min}$}
+            \STATE $E_{min} \leftarrow J$
+            \STATE $(\epsilon^*, \lambda^*) \leftarrow (\epsilon, \lambda)$
+        \ENDIF
+    \ENDFOR
+\ENDFOR
+\RETURN $\epsilon^*, \lambda^*$
+\end{algorithmic}
+\end{algorithm}
