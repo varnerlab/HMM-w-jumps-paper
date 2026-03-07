@@ -43,33 +43,46 @@ The temporal quality of the three models diverges sharply. GARCH achieves the lo
 \centering
 \caption{In-sample and out-of-sample model comparison for SPY ($N=100$, 1{,}000 simulated paths,
     significance level $\alpha=0.05$).
+    Bootstrap: i.i.d.\ resample of training data.
+    Gaussian/Laplace: i.i.d.\ draws from MLE-fitted distributions.
     GARCH: GARCH(1,1) estimated by quasi-maximum likelihood.
     HMM-NJ: standard Hidden Markov Model without jumps.
     HMM-WJ: hybrid model with Poisson jump-duration extension.
     ACF-MAE: mean absolute error of the ACF of $|G_t|$ over lags 1--252.
-    Kurtosis: mean excess kurtosis across simulated paths.
+    Novelty: mean correlation distance $1-|\rho|$ between each synthetic path and the observed series.
+    Diversity: mean pairwise correlation distance among synthetic paths.
+    Coverage: fraction of 99 empirical quantiles (1st--99th) falling within the
+    [5th, 95th] percentile envelope of the corresponding synthetic quantiles.
     Standard errors in parentheses: binomial SE for pass rates,
-    $\text{std}/\!\sqrt{n}$ for kurtosis, bootstrap SE ($B=500$) for ACF-MAE.}
+    $\text{std}/\!\sqrt{n}$ for kurtosis and novelty,
+    bootstrap SE ($B=500$) for ACF-MAE, diversity, and coverage.}
 \label{tab:model_comparison}
-\small
-\begin{tabular}{@{}lccc@{}}
+\resizebox{\columnwidth}{!}{%
+\footnotesize
+\begin{tabular}{@{}lcccccc@{}}
 \toprule
-\textbf{Metric} & \textbf{GARCH(1,1)} & \textbf{HMM-NJ ($N=100$)} & \textbf{HMM-WJ ($N=100$)} \\ \midrule
-\multicolumn{4}{l}{\textit{In-sample: 2{,}766 trading days (2014--2024)}} \\[2pt]
-KS pass rate (\%)            &   4.6 (0.7) &  99.4 (0.2) &  97.1 (0.5) \\
-AD pass rate (\%)            &   1.1 (0.3) &  98.5 (0.4) &  90.4 (0.9) \\
-Excess kurtosis (observed)   & \multicolumn{3}{c}{7.715} \\
-Excess kurtosis (simulated)  &   7.5 (0.32) &   5.7 (0.02) &   5.5 (0.03) \\
-ACF-MAE (lags 1--252)        & 0.031 & 0.059 & 0.052 \\[4pt]
-\multicolumn{4}{l}{\textit{Out-of-sample: 249 trading days (2025)}} \\[2pt]
-KS pass rate (\%)            &  79.0 (1.3) &  96.7 (0.6) &  95.0 (0.7) \\
-AD pass rate (\%)            &  71.2 (1.4) &  96.3 (0.6) &  95.4 (0.7) \\
-Excess kurtosis (observed)   & \multicolumn{3}{c}{6.867} \\
-Excess kurtosis (simulated)  &   1.7 (0.07) &   5.1 (0.07) &   5.0 (0.08) \\
-ACF-MAE (lags 1--252)        & 0.026 & 0.041 & 0.039 \\[4pt]
+\textbf{Metric} & \textbf{Bootstrap} & \textbf{Gaussian} & \textbf{Laplace} & \textbf{GARCH(1,1)} & \textbf{HMM-NJ} & \textbf{HMM-WJ} \\ \midrule
+\multicolumn{7}{l}{\textit{In-sample: 2{,}766 trading days (2014--2024)}} \\[2pt]
+KS pass rate (\%)            & 100.0 ({$<$}0.1) &   0.0 ({$<$}0.1) &  44.0 (1.6) &   5.5 (0.7) &  99.4 (0.2) &  97.0 (0.5) \\
+AD pass rate (\%)            &  99.7 (0.2)      &   0.0 ({$<$}0.1) &  43.3 (1.6) &   1.9 (0.4) &  98.6 (0.4) &  90.5 (0.9) \\
+Excess kurtosis (observed)   & \multicolumn{6}{c}{7.715} \\
+Excess kurtosis (simulated)  &   7.6 (0.08) & $-$0.0 ({$<$}0.01) &   3.0 (0.02) &   8.2 (0.37) &   5.7 (0.02) &   5.5 (0.03) \\
+ACF-MAE                      & 0.060 ({$<$}0.001) & 0.060 ({$<$}0.001) & 0.060 ({$<$}0.001) & 0.031 (0.001) & 0.059 ({$<$}0.001) & 0.052 ({$<$}0.001) \\
+Novelty                      & 0.985 ({$<$}0.001) & 0.984 ({$<$}0.001) & 0.985 ({$<$}0.001) & 0.985 ({$<$}0.001) & 0.984 ({$<$}0.001) & 0.984 ({$<$}0.001) \\
+Diversity                    & 0.985 ({$<$}0.001) & 0.985 ({$<$}0.001) & 0.985 ({$<$}0.001) & 0.985 ({$<$}0.001) & 0.984 ({$<$}0.001) & 0.984 ({$<$}0.001) \\
+Coverage (\%)                & 100.0 ({$<$}0.1)   &  13.1 (0.1)       &  37.4 (1.5) &  29.3 (1.5) & 100.0 ({$<$}0.1)   & 100.0 ({$<$}0.1) \\[4pt]
+\multicolumn{7}{l}{\textit{Out-of-sample: 249 trading days (2025)}} \\[2pt]
+KS pass rate (\%)            &  97.4 (0.5) &  62.2 (1.5) &  88.0 (1.0) &  80.3 (1.3) &  96.5 (0.6) &  95.0 (0.7) \\
+AD pass rate (\%)            &  98.5 (0.4) &  46.3 (1.6) &  92.9 (0.8) &  72.0 (1.4) &  96.8 (0.6) &  95.9 (0.6) \\
+Excess kurtosis (observed)   & \multicolumn{6}{c}{6.867} \\
+Excess kurtosis (simulated)  &   6.0 (0.18) & $-$0.0 ({$<$}0.01) &   2.7 (0.05) &   1.6 (0.07) &   5.0 (0.08) &   4.9 (0.08) \\
+ACF-MAE                      & 0.043 ({$<$}0.001) & 0.043 ({$<$}0.001) & 0.043 ({$<$}0.001) & 0.026 ({$<$}0.001) & 0.041 ({$<$}0.001) & 0.040 ({$<$}0.001) \\
+Novelty                      & 0.949 (0.001) & 0.950 (0.001) & 0.952 (0.001) & 0.951 (0.001) & 0.948 (0.001) & 0.949 (0.001) \\
+Diversity                    & 0.950 ({$<$}0.001) & 0.949 ({$<$}0.001) & 0.949 ({$<$}0.001) & 0.950 ({$<$}0.001) & 0.948 ({$<$}0.001) & 0.948 ({$<$}0.001) \\
+Coverage (\%)                & 100.0 ({$<$}0.1) &  36.4 (1.9) &  74.7 (1.1) &  96.0 (1.3) & 100.0 ({$<$}0.1) & 100.0 ({$<$}0.1) \\[4pt]
 \midrule
-Parameters estimated         &     3 &     2 &     4 \\ \bottomrule
-\end{tabular}
+Parameters estimated         &     0 &     2 &     2 &     3 &     2 &     4 \\ \bottomrule
+\end{tabular}}
 \end{table}
 
 

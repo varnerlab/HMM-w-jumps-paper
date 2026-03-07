@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.27 (TeX Live 2025) (preloaded format=pdflatex 2025.3.8)  6 MAR 2026 17:14
+This is pdfTeX, Version 3.141592653-2.6-1.40.27 (TeX Live 2025) (preloaded format=pdflatex 2025.3.8)  6 MAR 2026 19:49
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -1998,22 +1998,22 @@ Package fancyhdr Warning: \headheight is too small (13.0pt):
 
 ]
 LaTeX Font Info:    Font shape `T1/LinuxBiolinumT-TLF/m/n' will be
-(Font)              scaled to size 6.6pt on input line 52.
+(Font)              scaled to size 6.6pt on input line 58.
 LaTeX Font Info:    Font shape `T1/LinuxBiolinumT-TLF/m/n' will be
-(Font)              scaled to size 5.5pt on input line 52.
-LaTeX Font Info:    Font shape `T1/LinuxLibertineT-TLF/m/it' will be
-(Font)              scaled to size 9.0pt on input line 58.
+(Font)              scaled to size 5.5pt on input line 58.
+LaTeX Font Info:    Font shape `T1/LinuxLibertineT-TLF/b/n' will be
+(Font)              scaled to size 8.0pt on input line 85.
 <sections/figs/Fig4-Model-Comparison.pdf, id=326, 1806.75pt x 562.1pt>
 File: sections/figs/Fig4-Model-Comparison.pdf Graphic file (type pdf)
 <use sections/figs/Fig4-Model-Comparison.pdf>
 Package pdftex.def Info: sections/figs/Fig4-Model-Comparison.pdf  used on input
- line 79.
+ line 92.
 (pdftex.def)             Requested size: 395.8225pt x 123.13919pt.
 LaTeX Font Info:    Font shape `T1/LinuxBiolinumT-TLF/m/it' will be
-(Font)              scaled to size 9.0pt on input line 101.
+(Font)              scaled to size 9.0pt on input line 114.
 
 
-Class acmart Warning: A possible image without description on input line 103.
+Class acmart Warning: A possible image without description on input line 116.
 
 
 
@@ -2022,11 +2022,11 @@ Class acmart Warning: A possible image without description on input line 103.
 File: sections/figs/Fig6-Statistical-Validation.pdf Graphic file (type pdf)
 <use sections/figs/Fig6-Statistical-Validation.pdf>
 Package pdftex.def Info: sections/figs/Fig6-Statistical-Validation.pdf  used on
- input line 113.
+ input line 126.
 (pdftex.def)             Requested size: 395.8225pt x 296.86029pt.
 
 
-Class acmart Warning: A possible image without description on input line 130.
+Class acmart Warning: A possible image without description on input line 143.
 
 
 
@@ -2037,7 +2037,10 @@ Package fancyhdr Warning: \headheight is too small (13.0pt):
 (fancyhdr)                You might also make \topmargin smaller:
 (fancyhdr)                \addtolength{\topmargin}{-5.48402pt}.
 
-[13.13 <./sections/figs/Fig4-Model-Comparison.pdf>])
+[13.13 <./sections/figs/Fig4-Model-Comparison.pdf>]
+LaTeX Font Info:    Font shape `T1/LinuxLibertineT-TLF/m/it' will be
+(Font)              scaled to size 9.0pt on input line 165.
+)
 
 [14.14 <./sections/figs/Fig6-Statistical-Validation.pdf>]
 
@@ -2049,7 +2052,7 @@ Package fancyhdr Warning: \headheight is too small (13.0pt):
 (fancyhdr)                \addtolength{\topmargin}{-5.48402pt}.
 
 [15.15] (./sections/discussion.tex
-<sections/figs/Fig7-Multi-Asset-SIM.pdf, id=364, 1505.625pt x 903.375pt>
+<sections/figs/Fig7-Multi-Asset-SIM.pdf, id=365, 1505.625pt x 903.375pt>
 File: sections/figs/Fig7-Multi-Asset-SIM.pdf Graphic file (type pdf)
 <use sections/figs/Fig7-Multi-Asset-SIM.pdf>
 Package pdftex.def Info: sections/figs/Fig7-Multi-Asset-SIM.pdf  used on input 
@@ -2101,7 +2104,7 @@ Package fancyhdr Warning: \headheight is too small (13.0pt):
 (fancyhdr)                \addtolength{\topmargin}{-5.48402pt}.
 
 [21.21] (./sections/supplemental.tex
-<sections/figs/Fig3-Model-Internals.pdf, id=442, 1606.0pt x 521.95pt>
+<sections/figs/Fig3-Model-Internals.pdf, id=443, 1606.0pt x 521.95pt>
 File: sections/figs/Fig3-Model-Internals.pdf Graphic file (type pdf)
 <use sections/figs/Fig3-Model-Internals.pdf>
 Package pdftex.def Info: sections/figs/Fig3-Model-Internals.pdf  used on input 
@@ -2123,7 +2126,7 @@ Package fancyhdr Warning: \headheight is too small (13.0pt):
 [1.22
 
  <./sections/figs/Fig3-Model-Internals.pdf>]
-<sections/figs/Fig5-Parameter-Sweep.pdf, id=452, 1405.25pt x 562.1pt>
+<sections/figs/Fig5-Parameter-Sweep.pdf, id=453, 1405.25pt x 562.1pt>
 File: sections/figs/Fig5-Parameter-Sweep.pdf Graphic file (type pdf)
 <use sections/figs/Fig5-Parameter-Sweep.pdf>
 Package pdftex.def Info: sections/figs/Fig5-Parameter-Sweep.pdf  used on input 
@@ -2193,11 +2196,11 @@ Package rerunfilecheck Info: File `Paper_v1.out' has not changed.
 (rerunfilecheck)             Checksum: C1CBB9B2736AB13CB29861696B2478D1;4168.
  ) 
 Here is how much of TeX's memory you used:
- 47091 strings out of 473190
- 1039648 string characters out of 5715801
- 1564594 words of memory out of 5000000
- 68376 multiletter control sequences out of 15000+600000
- 820511 words of font info for 627 fonts, out of 8000000 for 9000
+ 47106 strings out of 473190
+ 1040047 string characters out of 5715801
+ 1565018 words of memory out of 5000000
+ 68378 multiletter control sequences out of 15000+600000
+ 826569 words of font info for 635 fonts, out of 8000000 for 9000
  1302 hyphenation exceptions out of 8191
  99i,13n,131p,2375b,1013s stack positions out of 10000i,1000n,20000p,200000b,200000s
 </usr/local/texlive/2025/texmf-dist/fonts/type1/public/inconsolata/Inconsolat
@@ -2214,14 +2217,15 @@ ype1/public/libertine/LinLibertineTB.pfb></usr/local/texlive/2025/texmf-dist/fo
 nts/type1/public/libertine/LinLibertineTI.pfb></usr/local/texlive/2025/texmf-di
 st/fonts/type1/public/libertine/LinLibertineTZ.pfb></usr/local/texlive/2025/tex
 mf-dist/fonts/type1/public/newtx/NewTXMI.pfb></usr/local/texlive/2025/texmf-dis
-t/fonts/type1/public/newtx/txexs.pfb></usr/local/texlive/2025/texmf-dist/fonts/
-type1/public/newtx/txmiaX.pfb></usr/local/texlive/2025/texmf-dist/fonts/type1/p
-ublic/newtx/txsym.pfb></usr/local/texlive/2025/texmf-dist/fonts/type1/public/ne
-wtx/txsys.pfb>
-Output written on Paper_v1.pdf (27 pages, 1635192 bytes).
+t/fonts/type1/public/newtx/NewTXMI7.pfb></usr/local/texlive/2025/texmf-dist/fon
+ts/type1/public/newtx/txexs.pfb></usr/local/texlive/2025/texmf-dist/fonts/type1
+/public/newtx/txmiaX.pfb></usr/local/texlive/2025/texmf-dist/fonts/type1/public
+/newtx/txsym.pfb></usr/local/texlive/2025/texmf-dist/fonts/type1/public/newtx/t
+xsys.pfb>
+Output written on Paper_v1.pdf (27 pages, 1639167 bytes).
 PDF statistics:
- 658 PDF objects out of 1000 (max. 8388607)
- 574 compressed objects within 6 object streams
+ 663 PDF objects out of 1000 (max. 8388607)
+ 577 compressed objects within 6 object streams
  198 named destinations out of 1000 (max. 500000)
- 134875 words of extra memory for PDF output out of 154059 (max. 10000000)
+ 138971 words of extra memory for PDF output out of 154059 (max. 10000000)
 
