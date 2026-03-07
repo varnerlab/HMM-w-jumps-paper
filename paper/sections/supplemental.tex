@@ -117,12 +117,12 @@ The three algorithms below complement Algorithm~\ref{alg:sim} (main text) by det
     \STATE Set $\mu_k = (Q_{k-1} + Q_k)/2$.
     \STATE Set $\sigma_k = (Q_k - Q_{k-1})/(2 z_{0.999})$.
 \ENDFOR
-\STATE Initialize the reconstructed excess growth rate vector $\mathbf{\hat{R}}$ of length $M$.
+\STATE Initialize the reconstructed excess growth rate vector $\mathbf{\hat{G}}$ of length $M$.
 \FOR{$t = 1$ to $M$}
     \STATE Retrieve the simulated state $k = S_t$.
-\STATE Sample the continuous excess growth rate $\hat{R}_t$ from the normal distribution $\mathcal{N}(\mu_k, \sigma_k)$.
+\STATE Sample the continuous excess growth rate $\hat{G}_t$ from the normal distribution $\mathcal{N}(\mu_k, \sigma_k)$.
 \ENDFOR
-\RETURN $\hat{R}_{1:M}$
+\RETURN $\hat{G}_{1:M}$
 \end{algorithmic}
 \end{algorithm}
 
