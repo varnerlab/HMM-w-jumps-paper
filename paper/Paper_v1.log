@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.27 (TeX Live 2025) (preloaded format=pdflatex 2025.3.8)  7 MAR 2026 16:29
+This is pdfTeX, Version 3.141592653-2.6-1.40.27 (TeX Live 2025) (preloaded format=pdflatex 2025.3.8)  7 MAR 2026 16:35
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -2065,10 +2065,7 @@ Class acmart Warning: A possible image without description on input line 15.
 
 [18.18
 
- <./sections/figs/Fig7-Multi-Asset-SIM.pdf>]
-Underfull \vbox (badness 10000) has occurred while \output is active []
-
-
+ <./sections/figs/Fig7-Multi-Asset-SIM.pdf>])
 
 
 Package fancyhdr Warning: \headheight is too small (13.0pt): 
@@ -2077,7 +2074,7 @@ Package fancyhdr Warning: \headheight is too small (13.0pt):
 (fancyhdr)                You might also make \topmargin smaller:
 (fancyhdr)                \addtolength{\topmargin}{-5.48402pt}.
 
-[19.19])
+[19.19]
 
 [20.20] (./sections/conclusion.tex)
 
@@ -2236,7 +2233,7 @@ public/newtx/txexs.pfb></usr/local/texlive/2025/texmf-dist/fonts/type1/public/n
 ewtx/txmiaX.pfb></usr/local/texlive/2025/texmf-dist/fonts/type1/public/newtx/tx
 sym.pfb></usr/local/texlive/2025/texmf-dist/fonts/type1/public/newtx/txsys.pfb>
 
-Output written on Paper_v1.pdf (32 pages, 1651250 bytes).
+Output written on Paper_v1.pdf (32 pages, 1650965 bytes).
 PDF statistics:
  703 PDF objects out of 1000 (max. 8388607)
  612 compressed objects within 7 object streams
