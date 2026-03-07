@@ -2,7 +2,7 @@
 
 **Target:** ACM Journal of Data and Information Quality (JDIQ)
 **Special Issue:** "Quality of Synthetic Data" (guest editors: Maurino, Panse, Missier)
-**Status:** Deadline extended to **April 7, 2026**
+**Status:** Deadline extended to **April 7, 2026** (~1 month remaining)
 
 ---
 
@@ -27,83 +27,75 @@
 - [x] **Numbered sections** -- All `\section*{}` converted to `\section{}` per ACM style
 - [x] **Bibliography style** -- Switched from `model1-num-names` to `ACM-Reference-Format`
 - [x] **Redundant packages removed** -- `amssymb`, `amsmath`, `amsfonts`, `lineno`, `hyperref`, `url` removed (provided by acmart); manual `\newtheorem` defs removed (acmart provides its own)
-- [x] **Figures/tables moved inline** -- All 7 figures, 4 tables, and 4 algorithms moved from end-of-document to their first-reference locations in `introduction.tex`, `methods.tex`, and `results.tex`; old `figures.tex`, `tables.tex`, `notation.tex` replaced with stubs
+- [x] **Figures/tables moved inline** -- All 7 figures, 4 tables, and 4 algorithms moved from end-of-document to their first-reference locations
 - [x] **Algorithm text reduced** -- All 4 algorithm environments now use `\small` font
 - [x] **Results narrative improved** -- Merged choppy single-finding paragraphs into 5 thematic subsections with varied sentence structure
 - [x] **Discussion restructured** -- Absorbed "Broader implications" and "Limitations" from old conclusion; added subsections for jump mechanism interpretation, practical implications, and limitations
 - [x] **Conclusion trimmed** -- Reduced from ~1.5 pages with subsections to 2 concise paragraphs (summary + future work)
 - [x] **Introduction consolidated** -- Reduced from 5 paragraphs to 3: big picture, existing approaches, what we do
-- [x] **Introduction cleaned** -- Removed undefined math symbols ($\epsilon$, $\lambda$, $N=100$); spelled out abbreviations (CDF, EM, ACF, KS, AD) on first use
-- [x] **Related work restructured** -- Reduced from 15 paragraphs / 6 subsections to 7 paragraphs / 4 subsections with clear narrative arc: stylized facts + parametric models, HMMs + regime-switching, synthetic data + deep generative models, factor models + multi-asset
-- [x] **Online Appendix created** -- Moved Algorithms 1, 3, 4, Table 3 (sensitivity), Fig 3 (model internals), Fig 5 (grid search) to `sections/supplemental.tex`; main text has inline references to Online Appendix S1--S4
-- [x] **Main body streamlined** -- Only Algorithm 2 (core jump-diffusion simulation) remains in methods; prose summaries replace moved figures
-- [x] **Table font sizes normalized** -- Replaced `\resizebox{\textwidth}{!}{}` with `\small` in Tables 1, 2, 4 for consistent text proportions
-- [x] **Float placement** -- All main-body floats use `[tp]` (top or page); supplemental uses `[tp]` with `\clearpage` between sections
+- [x] **Introduction cleaned** -- Removed undefined math symbols; spelled out abbreviations on first use
+- [x] **Related work restructured** -- 4 subsections with clear narrative arc
+- [x] **Online Appendix created** -- Moved Algorithms 1, 3, 4, Table 3, Fig 3, Fig 5 to `sections/supplemental.tex`
+- [x] **Main body streamlined** -- Only Algorithm 2 (core simulation) remains in methods
+- [x] **Float placement** -- All main-body floats use `[tp]`; supplemental uses `[tp]` with `\clearpage`
+- [x] **Baseline comparison (Phase 3.1)** -- Code in `code/baseline-comparison/`, run complete, Table 2 updated with 6 models × 8 metrics (KS, AD, kurtosis, ACF-MAE, novelty, diversity, coverage) all with SEs. Bootstrap, Gaussian, Laplace baselines added.
 
 ---
 
-## Phase 1: Remaining text changes (no new computation)
+## Remaining Work: arXiv Preprint + JDIQ Submission
 
-### 1.1 Discussion practitioner guidance
+### Step 1: Text updates for new Table 2 results (1-2 hours)
+
+- [ ] **Update abstract** -- Add baseline comparison language; mention novelty/diversity/coverage metrics
+- [ ] **Update results prose** -- Add 1-2 paragraphs interpreting the 3 baselines and the 3 new metrics in Section 4.3 ("In-sample distributional and temporal quality")
+- [ ] **Update introduction contributions** -- Add "comprehensive quality evaluation against naive baselines" as a contribution
+- [ ] **Update discussion** -- Reference baseline results in the "role of jump-duration mechanism" subsection
+- [ ] **Reconcile numbers** -- The new Table 2 run produced slightly different numbers for GARCH/HMM (different random seed). Check that abstract/intro/discussion/conclusion cite Table 2 values, not hardcoded old numbers. Key changes: GARCH IS KS 4.6->5.5, AD 1.1->1.9, HMM-WJ IS KS 97.1->97.0
+
+### Step 2: Float layout polish (30 min)
+
+- [ ] Resolve two-floats-on-same-page issue in Online Appendix (manual `\clearpage` placement)
+- [ ] Rule: no page should have two floats (float + text is fine)
+
+### Step 3: Discussion practitioner guidance (1 hour)
+
 - [ ] Add subsection: "Practical guidance for synthetic data practitioners"
   - When to use N=100 vs lower/higher
   - When SIM extension is sufficient vs multivariate HMM needed
   - Quality thresholds: what KS/AD pass rate is "good enough"?
 
-### 1.2 Float layout polish
-- [ ] Resolve two-floats-on-same-page issue (Table 3 + Fig 5 in Online Appendix cohabiting page 15)
-- [ ] Rule: no page should have two floats (float + text is fine)
+### Step 4: arXiv preprint (1 hour)
 
----
+- [ ] **Page count check** -- Currently 27 pages (main + appendix). arXiv has no page limit, so this is fine
+- [ ] **Remove `nonacm` option** -- Switch to `\documentclass[acmsmall]{acmart}` for proper ACM formatting, or keep `nonacm` for arXiv preprint (no ACM copyright notice)
+- [ ] **Add arXiv identifier placeholder** -- Optional: add a footnote with "Preprint. Under review."
+- [ ] **Verify all refs resolve** -- Run `pdflatex` + `bibtex` + `pdflatex` × 2
+- [ ] **Verify all figures render** -- Check all 7 PDFs present in `paper/sections/figs/`
+- [ ] **Upload to arXiv** -- Submit `Paper_v1.tex`, all `sections/*.tex`, `References_v1.bib`, `acmart.cls`, `ACM-Reference-Format.bst`, and all figure PDFs. arXiv accepts `.tar.gz` bundles
+- [ ] **Choose arXiv categories** -- Primary: `q-fin.ST` (Statistical Finance) or `stat.ML`; Cross-list: `cs.LG`, `q-fin.RM`
 
-## Phase 2: Double-anonymous preparation
+### Step 5: Double-anonymous preparation for JDIQ (1 hour)
 
-- [ ] Remove author names and affiliations from submitted PDF (switch `nonacm` to `anonymous`)
-- [ ] Remove GitHub URL from data availability statement (or anonymize)
-- [ ] Check for self-citations that reveal identity
-- [ ] Ensure no "our previous work" or similar revealing language
+- [ ] **Anonymize authors** -- Switch `nonacm` to `anonymous` in documentclass options (acmart handles the rest)
+- [ ] **Anonymize data availability** -- Remove or replace GitHub URL in `endmatter.tex` with "Available upon acceptance"
+- [ ] **Check self-citations** -- Ensure no "our previous work" or citations that reveal identity
+- [ ] **Anonymize code references** -- If the paper mentions the GitHub repo or package names (VLQuantitativeFinancePackage), anonymize
+- [ ] **Remove arXiv link** -- If arXiv preprint is posted before JDIQ submission, do NOT reference it in the JDIQ version (breaks anonymity)
 
----
+### Step 6: JDIQ submission (1 hour)
 
-## Phase 3: Strengthening (new computation)
+- [ ] **Submit via ScholarOne** -- http://mc.manuscriptcentral.com/jdiq
+- [ ] **Manuscript type** -- "Technical Paper" (up to 23 pages main body)
+- [ ] **Page count compliance** -- Main body must be ≤ 23 pages; Online Appendix is separate. Current main body needs measurement (currently ~20 pages before appendix)
+- [ ] **Upload supplemental** -- Online Appendix as separate PDF or bundled in same PDF
+- [ ] **Cover letter** -- Highlight fit with special issue scope: synthetic data quality, domain-specific evaluation methodology, quality guarantees by design
+- [ ] **Suggest reviewers** -- Optional but helpful; suggest researchers in synthetic data quality or financial time series modeling
+- [ ] **Deadline** -- April 7, 2026
 
-### 3.1 Baseline comparison
-- [x] Code implemented in `code/baseline-comparison/` (self-contained with own Include.jl, Project.toml)
-- [ ] Run `Baseline-Comparison.jl` to generate numbers
-- [ ] Add 3 baseline columns to Table 2: Bootstrap, Gaussian, Laplace
-- [ ] Add 3 new metric rows to Table 2: Novelty, Diversity, Coverage (%)
-- [ ] Add 1-2 sentences in Results interpreting the baselines
+### Step 7: Optional strengthening (if time permits)
 
-**Baselines:**
-- Bootstrap: resample g_is with replacement (same marginal, no temporal structure)
-- Gaussian: i.i.d. N(μ, σ²) fitted to g_is (wrong tails, no temporal structure)
-- Laplace: i.i.d. Laplace(μ, b) fitted to g_is (better tails, no temporal structure)
-
-**New metrics (all with SEs):**
-- Novelty: mean(1 - |cor(sim_path, obs_path)|); confirms non-memorization
-- Diversity: mean pairwise correlation distance among synthetic paths; confirms no mode collapse
-- Coverage: fraction of 99 empirical quantiles within [5th, 95th] synthetic envelope
-
-### 3.2 Quality metric completeness
-- [ ] Consider adding: Wasserstein distance, maximum mean discrepancy (MMD)
-- [ ] Consider adding: coverage metric (what fraction of observed quantiles are within simulated envelope?)
-- [ ] These are standard in the synthetic data quality literature (cited in JDIQ survey)
-
-### 3.3 Reproducibility artifact
-- [ ] Create a self-contained reproducibility package
-- [ ] Include: data, scripts, environment files, README with instructions
-- [ ] JDIQ values reproducibility highly; this strengthens the submission
-
----
-
-## Phase 4: Pre-submission checklist
-
-- [ ] Verify all `\ref{}` targets resolve
-- [ ] Verify all figures present in `paper/sections/figs/`
-- [ ] Run `Build.sh` and check for LaTeX errors
-- [ ] Proofread for grammar/typos
-- [ ] Verify page count <= 23 (main body) + Online Appendix
-- [ ] Prepare cover letter highlighting fit with JDIQ scope
+- [ ] **Reproducibility artifact** -- Self-contained package (data, scripts, environment files, README) for ACM artifact badge
+- [ ] **Additional quality metrics** -- Wasserstein distance, MMD (standard in synthetic data literature)
 
 ---
 
@@ -111,24 +103,20 @@
 
 | File | Status | Notes |
 |------|--------|-------|
-| `paper/Paper_v1.tex` | Done | ACM acmsmall template; compiles cleanly (28 pages incl. appendix) |
-| `paper/acmart.cls` | Installed | ACM document class from CTAN |
+| `paper/Paper_v1.tex` | Done | ACM acmsmall template; 27 pages incl. appendix |
+| `paper/acmart.cls` | Installed | ACM document class |
 | `paper/ACM-Reference-Format.bst` | Installed | ACM bibliography style |
-| `paper/sections/introduction.tex` | Done | 3 paragraphs + Fig 1 inline |
-| `paper/sections/related.tex` | Done | 4 subsections with clear narrative arc |
-| `paper/sections/methods.tex` | Done | Fig 2 + Algorithm 2 inline; Algorithms 1,3,4 and Fig 3 moved to supplement |
-| `paper/sections/results.tex` | Done | Tables 1,2,4 + Figs 4,6,7 inline; Table 3 and Fig 5 moved to supplement |
-| `paper/sections/discussion.tex` | Done | 3 subsections: jump mechanism, practical implications, limitations |
-| `paper/sections/conclusion.tex` | Done | 2 paragraphs: summary + future work |
-| `paper/sections/endmatter.tex` | Done | Conflict, contributions, data availability |
-| `paper/sections/supplemental.tex` | Done | Online Appendix S1--S4: Fig 3, Fig 5, Table 3, Algorithms 1/3/4 |
-| `paper/sections/figures.tex` | Stub | Content moved inline |
-| `paper/sections/tables.tex` | Stub | Content moved inline |
-| `paper/sections/notation.tex` | Stub | Algorithms moved to methods.tex |
-| `paper/References_v1.bib` | Done | ~45 entries including synthetic data refs |
-| `code/spy-experiment/Table2-SEs.jl` | Done | Computes Table 2 with SEs |
-| `code/spy-experiment/Table3-Sensitivity-ACF-MAE.jl` | Done | Computes Table 3 with SEs |
-| `code/spy-experiment/Table3-Diagnostics.jl` | Done | State occupancy health check |
+| `paper/sections/introduction.tex` | Needs update | Reconcile numbers with new Table 2 |
+| `paper/sections/related.tex` | Done | 4 subsections |
+| `paper/sections/methods.tex` | Done | Fig 2 + Algorithm 2 inline |
+| `paper/sections/results.tex` | Needs update | Table 2 updated; prose needs baseline interpretation |
+| `paper/sections/discussion.tex` | Needs update | Reference baseline results |
+| `paper/sections/conclusion.tex` | Needs update | Reconcile numbers |
+| `paper/sections/endmatter.tex` | Needs anonymization | GitHub URL must be removed for JDIQ |
+| `paper/sections/supplemental.tex` | Done | Online Appendix S1--S4 |
+| `paper/References_v1.bib` | Done | ~45 entries |
+| `code/spy-experiment/` | Done | All main experiment scripts |
+| `code/baseline-comparison/` | Done | Baseline-Comparison.jl + Include.jl + Project.toml |
 
 ---
 
