@@ -1,4 +1,4 @@
-\documentclass[acmsmall,nonacm]{acmart}
+\documentclass[acmsmall,nonacm,screen]{acmart}
 
 %% Packages (amsmath, amssymb, amsfonts loaded by acmart)
 \usepackage{amsbsy}
@@ -18,6 +18,12 @@
 \usepackage{capt-of}
 \usepackage{pgfplots}
 \usepackage[title]{appendix}
+
+%% Override acmart's ACMPurple link colors with blue for arXiv
+\AtEndPreamble{%
+  \hypersetup{linkcolor=blue, citecolor=blue, urlcolor=blue}%
+}
+
 
 %% TikZ libraries
 \usetikzlibrary{arrows,decorations.pathmorphing,backgrounds,positioning,fit,petri}

@@ -22,7 +22,7 @@
 - [x] **Keywords updated** -- Synthetic Data Quality, Time Series Generation, HMM, Jump-Diffusion, Volatility Clustering, Regime-Switching, Stylized Facts, Distributional Fidelity
 - [x] **Em dashes eliminated** -- All `---` and unicode em dashes removed from every section; replaced with commas, parentheses, or semicolons
 - [x] **Methods grid search corrected** -- epsilon/lambda ranges and paths-per-point now match actual code (HMM-Parameter-Sweep.jl)
-- [x] **Template switch: elsarticle to ACM acmsmall** -- `\documentclass[acmsmall,nonacm]{acmart}` with `acmart.cls`, `ACM-Reference-Format.bst`, and all supporting files installed in `paper/`
+- [x] **Template switch: elsarticle to ACM acmsmall** -- `\documentclass[acmsmall,nonacm,screen]{acmart}` with `acmart.cls`, `ACM-Reference-Format.bst`, and all supporting files installed in `paper/`
 - [x] **ACM frontmatter conversion** -- `\affiliation{}`, `\keywords{}`, `\maketitle` after `\begin{document}`; removed elsarticle `\begin{frontmatter}`, `\sep`, `\biboptions`
 - [x] **Numbered sections** -- All `\section*{}` converted to `\section{}` per ACM style
 - [x] **Bibliography style** -- Switched from `model1-num-names` to `ACM-Reference-Format`
@@ -38,64 +38,134 @@
 - [x] **Online Appendix created** -- Moved Algorithms 1, 3, 4, Table 3, Fig 3, Fig 5 to `sections/supplemental.tex`
 - [x] **Main body streamlined** -- Only Algorithm 2 (core simulation) remains in methods
 - [x] **Float placement** -- All main-body floats use `[tp]`; supplemental uses `[tp]` with `\clearpage`
-- [x] **Baseline comparison (Phase 3.1)** -- Code in `code/baseline-comparison/`, run complete, Table 2 updated with 6 models × 8 metrics (KS, AD, kurtosis, ACF-MAE, novelty, diversity, coverage) all with SEs. Bootstrap, Gaussian, Laplace baselines added.
+- [x] **Baseline comparison (Phase 3.1)** -- Code in `code/baseline-comparison/`, run complete, Table 2 updated with 6 models x 8 metrics (KS, AD, kurtosis, ACF-MAE, novelty, diversity, coverage) all with SEs. Bootstrap, Gaussian, Laplace baselines added.
+- [x] **Blue hyperlinks** -- `screen` class option + `\AtEndPreamble` override for blue link/cite/url colors
+- [x] **Fit-and-finish pass** -- All results/methods/discussion/conclusion converted to past tense; incomplete equation introductions fixed; short paragraphs merged; awkward phrasing cleaned up
+- [x] **README.md** -- Public repo README with structure, scripts, installation, reproduction instructions, CHEME 5660 attribution
+- [x] **Paper .gitignore** -- Excludes LaTeX auxiliary files
 
 ---
 
-## Remaining Work: arXiv Preprint + JDIQ Submission
+## Hard Reviewer Assessment (2026-03-07)
 
-### Step 1: Text updates for new Table 2 results (1-2 hours)
+### arXiv: Ready to submit
 
-- [ ] **Update abstract** -- Add baseline comparison language; mention novelty/diversity/coverage metrics
-- [ ] **Update results prose** -- Add 1-2 paragraphs interpreting the 3 baselines and the 3 new metrics in Section 4.3 ("In-sample distributional and temporal quality")
-- [ ] **Update introduction contributions** -- Add "comprehensive quality evaluation against naive baselines" as a contribution
-- [ ] **Update discussion** -- Reference baseline results in the "role of jump-duration mechanism" subsection
-- [ ] **Reconcile numbers** -- The new Table 2 run produced slightly different numbers for GARCH/HMM (different random seed). Check that abstract/intro/discussion/conclusion cite Table 2 values, not hardcoded old numbers. Key changes: GARCH IS KS 4.6->5.5, AD 1.1->1.9, HMM-WJ IS KS 97.1->97.0
+The paper is technically sound, well-structured, and self-contained. Two minor polish items:
 
-### Step 2: Float layout polish (30 min)
+- [ ] **Consistent spelling** -- Paper mixes British ("behaviour", "generalise", "parameterised") and American ("modeling", "optimization"). Pick one and apply globally.
+- [ ] **KS/AD i.i.d. caveat** -- One sentence in methods or limitations noting that KS/AD tests assume i.i.d. samples, but the generated paths have temporal dependence by design.
 
-- [ ] Resolve two-floats-on-same-page issue in Online Appendix (manual `\clearpage` placement)
-- [ ] Rule: no page should have two floats (float + text is fine)
+### JDIQ: Likely "Major Revision" Items
 
-### Step 3: Discussion practitioner guidance (1 hour)
+These are issues a hard JDIQ reviewer would likely require before acceptance, ordered by impact:
 
-- [ ] Add subsection: "Practical guidance for synthetic data practitioners"
-  - When to use N=100 vs lower/higher
-  - When SIM extension is sufficient vs multivariate HMM needed
-  - Quality thresholds: what KS/AD pass rate is "good enough"?
+#### NEED (likely required for acceptance)
 
-### Step 4: arXiv preprint (1 hour)
+- [ ] **N1. No semi-Markov comparison.** Bulla & Bulla (2006) is cited as the key prior work that solved the same volatility-clustering gap using semi-Markov dwell times, but is never benchmarked against. A reviewer will ask: "Why should I believe your Poisson mechanism is better than the approach you cite?" This is the single biggest methodological gap. *Fix: implement a basic semi-Markov HMM baseline, or provide a clear argument (with evidence) for why direct comparison is infeasible or unnecessary.*
 
-- [ ] **Page count check** -- Currently 27 pages (main + appendix). arXiv has no page limit, so this is fine
-- [ ] **Remove `nonacm` option** -- Switch to `\documentclass[acmsmall]{acmart}` for proper ACM formatting, or keep `nonacm` for arXiv preprint (no ACM copyright notice)
-- [ ] **Add arXiv identifier placeholder** -- Optional: add a footnote with "Preprint. Under review."
-- [ ] **Verify all refs resolve** -- Run `pdflatex` + `bibtex` + `pdflatex` × 2
+- [ ] **N2. No neural baseline.** TimeGAN and CTGAN are discussed in related work but absent from Table 2. The paper positions itself against deep generative models but only compares against simple baselines. For a 2026 submission, at least one neural baseline is needed, even if it performs poorly. *Fix: run TimeGAN or a simple LSTM generator through the same 7-metric evaluation.*
+
+- [x] **N3. Single-asset primary evaluation.** RESOLVED. Added standalone HMM-NJ/HMM-WJ evaluation for NVDA (high-beta tech), JNJ (low-beta health care), and JPM (moderate-beta financials). All three achieve IS KS >91%. Results in Online Appendix S5 (Table S5) with forward reference in main text section 4.4. Code in `code/other-ticker-experiment/`.
+
+- [ ] **N4. KS/AD test validity under temporal dependence.** The two-sample KS and AD tests assume i.i.d. observations, but HMM-WJ paths are explicitly non-i.i.d. This means reported pass rates may be biased in unpredictable ways. Needs at least a paragraph of discussion; ideally a block-bootstrap or permutation-based robustness check.
+
+- [x] **N5. ACF-MAE improvement framing.** RESOLVED. Added text in results (temporal fidelity paragraph) and discussion explaining that epsilon is continuously tunable: increasing it produces more jump-containing paths and lower ACF-MAE, at the cost of distributional fidelity. The grid search selected epsilon=0.0001 as the jointly optimal operating point for SPY; the 24% jump rate reflects the best achievable balance, not a structural ceiling.
+
+- [ ] **N6. Kurtosis underestimation is unexplored.** Observed 7.7, simulated 5.5 (29% gap). The paper explains the cause (Laplace partition smoothing) but doesn't explore fixes. A reviewer will ask: "Have you tried non-equal-probability bins, or a heavier-tailed emission distribution?" Even a negative result ("we tried X, it didn't help because Y") would satisfy this.
+
+#### NICE (would strengthen, probably not block acceptance)
+
+- [ ] **C1. Single OoS window.** 249 days of 2025 is one draw. A rolling-window evaluation (train on 2014-2019, test 2020; train 2014-2020, test 2021; etc.) would be more convincing. Paper already acknowledges this limitation.
+
+- [ ] **C2. No ablation on N_tail.** Tail set size is "user-configurable" but sensitivity is never studied. Only N, epsilon, lambda are varied in Table 3.
+
+- [ ] **C3. SIM extension results are weak.** 58.4% mean KS pass rate across 424 assets. The paper honestly attributes this to single-factor limitations, but a reviewer might question whether this warrants a full section if the conclusion is "SIM isn't expressive enough."
+
+- [ ] **C4. Missing copula discussion in related work.** Copula-based approaches for multi-asset dependence are standard in quantitative finance and absent from the related work.
+
+- [ ] **C5. Privacy angle.** For a JDIQ synthetic data special issue, privacy is often a core concern. The novelty/diversity metrics show data isn't memorized, but there's no discussion of privacy guarantees, membership inference risk, or relationship to differential privacy. Even one paragraph would help position the paper for the special issue audience.
+
+- [ ] **C6. Unconventional primary metric.** Most synthetic data papers report divergence measures (MMD, Wasserstein, FID-like scores). Binary pass/fail from hypothesis tests discards effect-size information. Not wrong, but a reviewer may question the choice. Adding a continuous metric (Wasserstein or MMD) alongside pass rates would preempt this.
+
+- [ ] **C7. Reproducibility artifact.** Self-contained package (data, scripts, environment files, README) for ACM artifact badge.
+
+---
+
+## Remaining Work: arXiv Preprint
+
+### Step 1: Final polish (1-2 hours)
+
+- [x] **Consistent spelling** -- American spelling applied globally (14 British→American fixes across 5 files)
+- [ ] **KS/AD i.i.d. caveat** -- One sentence in limitations
+- [ ] **Verify all refs resolve** -- Run `pdflatex` + `bibtex` + `pdflatex` x 2
 - [ ] **Verify all figures render** -- Check all 7 PDFs present in `paper/sections/figs/`
-- [ ] **Upload to arXiv** -- Submit `Paper_v1.tex`, all `sections/*.tex`, `References_v1.bib`, `acmart.cls`, `ACM-Reference-Format.bst`, and all figure PDFs. arXiv accepts `.tar.gz` bundles
-- [ ] **Choose arXiv categories** -- Primary: `q-fin.ST` (Statistical Finance) or `stat.ML`; Cross-list: `cs.LG`, `q-fin.RM`
 
-### Step 5: Double-anonymous preparation for JDIQ (1 hour)
+### Step 2: arXiv upload (30 min)
 
-- [ ] **Anonymize authors** -- Switch `nonacm` to `anonymous` in documentclass options (acmart handles the rest)
-- [ ] **Anonymize data availability** -- Remove or replace GitHub URL in `endmatter.tex` with "Available upon acceptance"
-- [ ] **Check self-citations** -- Ensure no "our previous work" or citations that reveal identity
-- [ ] **Anonymize code references** -- If the paper mentions the GitHub repo or package names (VLQuantitativeFinancePackage), anonymize
-- [ ] **Remove arXiv link** -- If arXiv preprint is posted before JDIQ submission, do NOT reference it in the JDIQ version (breaks anonymity)
+- [ ] **Upload to arXiv** -- Submit `Paper_v1.tex`, all `sections/*.tex`, `References_v1.bib`, `acmart.cls`, `ACM-Reference-Format.bst`, and all figure PDFs as `.tar.gz`
+- [ ] **Choose arXiv categories** -- Primary: `q-fin.ST` (Statistical Finance); Cross-list: `cs.LG`, `q-fin.RM`
+- [ ] **Keep `nonacm` option** -- No ACM copyright notice for preprint
 
-### Step 6: JDIQ submission (1 hour)
+---
+
+## Remaining Work: JDIQ Submission
+
+### Phase 1: Address NEED items (2-3 weeks)
+
+#### N1. Semi-Markov baseline
+- [ ] Implement basic hidden semi-Markov model (geometric or negative-binomial dwell times)
+- [ ] Run through same 7-metric evaluation pipeline
+- [ ] Add to Table 2 as 7th model
+- [ ] Add comparison discussion in results and discussion sections
+
+#### N2. Neural baseline
+- [ ] Implement TimeGAN or LSTM baseline (Python, then pipe through Julia evaluation)
+- [ ] Run through same 7-metric evaluation pipeline
+- [ ] Add to Table 2 as 8th model
+- [ ] Add brief discussion of results
+
+#### N3. Multi-asset evaluation ✅
+- [x] Run full pipeline on NVDA, JNJ, JPM (high/low/moderate beta)
+- [x] Report Table S5 with KS/AD/kurtosis/ACF-MAE + SEs (IS and OoS)
+- [x] Add Online Appendix S5 + forward reference in section 4.4
+
+#### N4. KS/AD test validity discussion
+- [ ] Add paragraph in methods/limitations discussing i.i.d. assumption violation
+- [ ] Optionally: run block-bootstrap KS test as robustness check
+
+#### N5. Temper volatility-clustering claims
+- [ ] Review abstract, intro, conclusion for overstatement
+- [ ] Reframe: "partially reproduces" or "improves upon HMM-NJ" rather than "reproduces the ARCH effect"
+
+#### N6. Kurtosis exploration
+- [ ] Try non-equal-probability bins (e.g., finer tail bins)
+- [ ] Try Student-t or mixture emission instead of Normal
+- [ ] Report results (even negative) in a paragraph or supplemental table
+
+### Phase 2: Double-anonymous preparation (1 hour)
+
+- [ ] **Anonymize authors** -- Switch `nonacm` to `anonymous` in documentclass options
+- [ ] **Anonymize data availability** -- Remove GitHub URL; replace with "Available upon acceptance"
+- [ ] **Check self-citations** -- No "our previous work" or identity-revealing citations
+- [ ] **Anonymize code references** -- Remove VLQuantitativeFinancePackage name
+- [ ] **Remove arXiv link** -- Do NOT reference preprint in JDIQ version
+
+### Phase 3: JDIQ submission (1 hour)
 
 - [ ] **Submit via ScholarOne** -- http://mc.manuscriptcentral.com/jdiq
 - [ ] **Manuscript type** -- "Technical Paper" (up to 23 pages main body)
-- [ ] **Page count compliance** -- Main body must be ≤ 23 pages; Online Appendix is separate. Current main body needs measurement (currently ~20 pages before appendix)
-- [ ] **Upload supplemental** -- Online Appendix as separate PDF or bundled in same PDF
-- [ ] **Cover letter** -- Highlight fit with special issue scope: synthetic data quality, domain-specific evaluation methodology, quality guarantees by design
-- [ ] **Suggest reviewers** -- Optional but helpful; suggest researchers in synthetic data quality or financial time series modeling
+- [ ] **Page count compliance** -- Main body must be <= 23 pages
+- [ ] **Cover letter** -- Highlight fit with special issue scope
 - [ ] **Deadline** -- April 7, 2026
 
-### Step 7: Optional strengthening (if time permits)
+### Phase 4: Nice-to-have (if time permits)
 
-- [ ] **Reproducibility artifact** -- Self-contained package (data, scripts, environment files, README) for ACM artifact badge
-- [ ] **Additional quality metrics** -- Wasserstein distance, MMD (standard in synthetic data literature)
+- [ ] **C1.** Rolling OoS evaluation
+- [ ] **C2.** N_tail sensitivity ablation
+- [ ] **C4.** Copula discussion in related work
+- [ ] **C5.** Privacy paragraph
+- [ ] **C6.** Add Wasserstein/MMD metric to Table 2
+- [ ] **C7.** ACM reproducibility artifact
 
 ---
 
@@ -103,20 +173,22 @@
 
 | File | Status | Notes |
 |------|--------|-------|
-| `paper/Paper_v1.tex` | Done | ACM acmsmall template; 27 pages incl. appendix |
+| `paper/Paper_v1.tex` | Ready | ACM acmsmall template; 28 pages incl. appendix |
 | `paper/acmart.cls` | Installed | ACM document class |
 | `paper/ACM-Reference-Format.bst` | Installed | ACM bibliography style |
-| `paper/sections/introduction.tex` | Needs update | Reconcile numbers with new Table 2 |
+| `paper/sections/introduction.tex` | Done | 3 paragraphs, JDIQ framing |
 | `paper/sections/related.tex` | Done | 4 subsections |
 | `paper/sections/methods.tex` | Done | Fig 2 + Algorithm 2 inline |
-| `paper/sections/results.tex` | Needs update | Table 2 updated; prose needs baseline interpretation |
-| `paper/sections/discussion.tex` | Needs update | Reference baseline results |
-| `paper/sections/conclusion.tex` | Needs update | Reconcile numbers |
-| `paper/sections/endmatter.tex` | Needs anonymization | GitHub URL must be removed for JDIQ |
+| `paper/sections/results.tex` | Done | Table 2 (6 models x 7 metrics), past tense, structured |
+| `paper/sections/discussion.tex` | Done | 3 subsections: mechanism, implications, limitations |
+| `paper/sections/conclusion.tex` | Done | 2 paragraphs |
+| `paper/sections/endmatter.tex` | Needs anonymization for JDIQ | GitHub URL present |
 | `paper/sections/supplemental.tex` | Done | Online Appendix S1--S4 |
 | `paper/References_v1.bib` | Done | ~45 entries |
 | `code/spy-experiment/` | Done | All main experiment scripts |
-| `code/baseline-comparison/` | Done | Baseline-Comparison.jl + Include.jl + Project.toml |
+| `code/baseline-comparison/` | Done | Full 6-model benchmark |
+| `code/sim-experiment/` | Done | Multi-asset SIM extension |
+| `README.md` | Done | Public repo README |
 
 ---
 
@@ -130,5 +202,5 @@
 | Related work emphasis | GARCH, stochastic vol, HMMs | + GANs, synthetic data surveys, quality frameworks |
 | Key selling point | ARCH effect reproduction | Domain-specific quality evaluation methodology |
 | Audience assumption | Knows CAPM, Black-Scholes | Knows data quality dimensions, synthetic data |
-| Template | ~~elsarticle~~ acmsmall | ACM acmsmall |
+| Template | acmsmall | ACM acmsmall |
 | Review | Single-blind | Double-anonymous |
