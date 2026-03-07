@@ -1,6 +1,6 @@
 
 \subsection{Descriptive statistics and stylized facts}
-Descriptive statistics for the SPY daily excess growth rate series confirm that the three canonical stylized facts are present in both the in-sample (2014--2024, $T=2{,}766$) and out-of-sample (2025, $T=249$) windows (Table~\ref{tab:descriptive_stats}). Excess kurtosis reaches 7.7 (IS) and 6.9 (OoS), the Jarque-Bera normality test is rejected ($p<0.001$) in both windows, and the Ljung-Box test on $|G_t|$ is likewise rejected ($p<0.001$), confirming leptokurtosis, negligible raw-return autocorrelation, and persistent volatility clustering. Any faithful generative model must reproduce all three properties simultaneously.
+Descriptive statistics for the SPY daily excess growth rate series confirm that the three canonical stylized facts are present in both the in-sample (2014--2024, $T=2{,}766$) and out-of-sample (2025, $T=249$) windows (Table~\ref{tab:descriptive_stats}). Excess kurtosis (kurtosis minus~3, so that a Gaussian distribution has a value of zero) reaches 7.7 (IS) and 6.9 (OoS), the Jarque-Bera normality test is rejected ($p<0.001$) in both windows, and the Ljung-Box test on $|G_t|$ is likewise rejected ($p<0.001$), confirming leptokurtosis, negligible raw-return autocorrelation, and persistent volatility clustering. Any faithful generative model must reproduce all three properties simultaneously.
 
 % ── Table 1: SPY Descriptive Statistics ──────────────────────────────────────
 \begin{table}[tp]
@@ -34,9 +34,19 @@ The primary analysis uses $N=100$ states, but a sensitivity study over $N\in\{30
 
 
 \subsection{In-sample distributional and temporal quality}
-Table~\ref{tab:model_comparison} compares 1,000 simulated paths of 2,766 trading days from GARCH(1,1), HMM-NJ, and HMM-WJ using two-sample KS and AD tests at $\alpha=0.05$. GARCH(1,1) achieves IS KS and AD pass rates of only 4.6\% (SE~0.7) and 1.1\% (SE~0.3), indicating that the GARCH marginal distribution is systematically inconsistent with the observed data despite its well-known volatility clustering properties. HMM-NJ achieves 99.4\% (SE~0.2) and 98.5\% (SE~0.4), and HMM-WJ achieves 97.1\% (SE~0.5) and 90.4\% (SE~0.9), confirming that the Laplace-mixture emission structure adequately captures the observed heavy-tailed distribution.
+We generated 1,000 synthetic paths of 2,766 trading days from each of six generators and evaluated them against the observed SPY series using two-sample KS and AD tests at $\alpha=0.05$, along with kurtosis matching, ACF fidelity, novelty, diversity, and quantile coverage (Table~\ref{tab:model_comparison}).
 
-The temporal quality of the three models diverges sharply. GARCH achieves the lowest IS ACF-MAE (0.031) because its variance equation is explicitly designed to match autocorrelation structure, yet this advantage comes at the cost of distributional fidelity, a tradeoff that the quality metrics expose directly. HMM-NJ produces an ACF of $|G_t|$ that decays rapidly toward zero rather than exhibiting the slow empirical decay, confirming that the standard transition matrix alone is structurally incapable of generating persistent volatility clustering (Figure~\ref{fig:model_comparison}, panel~b). HMM-WJ, with an IS ACF-MAE of 0.052, generates a mixture of two path families: approximately 76\% contain no Poisson jump and behave identically to HMM-NJ, while the remaining 24\% contain at least one jump event and sustain substantial $\text{ACF}(|G_t|)$ decay across all lags. The jump-duration mechanism is therefore the structural feature responsible for reproducing the ARCH effect.
+\paragraph{Baseline anchors.}
+We included three non-structured baselines to bracket the quality landscape. Bootstrap resampling of the training data serves as a non-parametric upper bound: we observed 100.0\% KS and 99.7\% AD pass rates with 100\% quantile coverage, but this generator simply recycles observed values and cannot produce genuinely new distributional structure (0 estimated parameters). The Gaussian i.i.d.\ baseline (MLE fit) achieved 0.0\% KS and 0.0\% AD pass rates, which confirms that a symmetric thin-tailed model is categorically inadequate for heavy-tailed equity returns. The Laplace i.i.d.\ baseline fared better at 44.0\% (SE~1.6) KS and 43.3\% (SE~1.6) AD, which shows that matching the tail decay rate alone recovers roughly half the distributional quality; the remaining gap reflects the mixture structure and state-dependent heterogeneity that a single Laplace distribution cannot express.
+
+\paragraph{Distributional fidelity.}
+We evaluated KS/AD pass rates and kurtosis matching for the three structured models (Table~\ref{tab:model_comparison}). GARCH(1,1) achieved IS KS and AD pass rates of only 5.5\% (SE~0.7) and 1.9\% (SE~0.4), which indicates that the GARCH marginal distribution is systematically inconsistent with the observed data despite its well-known volatility clustering properties. HMM-NJ achieved 99.4\% (SE~0.2) and 98.6\% (SE~0.4), and HMM-WJ achieved 97.0\% (SE~0.5) and 90.5\% (SE~0.9), which confirms that the Laplace-mixture emission structure adequately captures the observed heavy-tailed distribution. Simulated excess kurtosis tells a complementary story: the observed value is 7.7, GARCH overshoots at 8.2 (SE~0.37) with high variance across paths, while HMM-NJ and HMM-WJ produce 5.7 (SE~0.02) and 5.5 (SE~0.03) respectively. The HMM variants underestimate kurtosis because the equal-probability Laplace partition smooths the most extreme tail quantiles, but they do so with negligible path-to-path variation, which suggests a stable generative mechanism. Quantile coverage reinforces these findings: Bootstrap, HMM-NJ, and HMM-WJ all achieve 100\% coverage of the 1st--99th empirical percentiles, while Gaussian covers only 13.1\%, Laplace 37.4\%, and GARCH 29.3\%, which indicates systematic tail misspecification in all three non-HMM parametric generators (Figure~\ref{fig:model_comparison}, panel~c).
+
+\paragraph{Temporal fidelity.}
+We measured temporal quality using the mean absolute error of $\text{ACF}(|G_t|)$ over lags 1--252. Bootstrap, Gaussian, and Laplace all produce ACF-MAE of 0.060, which is expected because i.i.d.\ draws destroy all temporal dependence by construction. GARCH achieved the lowest ACF-MAE (0.031, SE~0.001) because its variance equation is explicitly designed to match autocorrelation structure; however, this advantage comes at the cost of distributional fidelity, a tradeoff that the quality metrics expose directly. HMM-NJ scored 0.059 (SE${}<$0.001), essentially indistinguishable from the i.i.d.\ floor, which confirms that the standard transition matrix alone is structurally incapable of generating persistent volatility clustering (Figure~\ref{fig:model_comparison}, panel~b). HMM-WJ scored 0.052 (SE${}<$0.001), the only non-GARCH model to reduce ACF-MAE below the i.i.d.\ baseline. The improvement arises because approximately 24\% of HMM-WJ paths contain at least one Poisson jump event that sustains $\text{ACF}(|G_t|)$ decay across all lags, while the remaining 76\% behave identically to HMM-NJ. The jump-duration mechanism is therefore the structural feature responsible for reproducing the ARCH effect.
+
+\paragraph{Novelty, diversity, and parsimony.}
+We computed novelty (mean correlation distance to the observed series) and diversity (mean pairwise correlation distance among synthetic paths) to verify that the generators produce genuinely new, non-redundant scenarios. All six models scored between 0.984 and 0.985 on both metrics, which confirms that no generator memorizes the training data and that synthetic paths are mutually independent. This uniformity is expected: all generators produce stochastic paths that are uncorrelated with any specific historical realization. Finally, HMM-WJ achieves the best joint distributional and temporal quality among all parametric models while requiring only four estimated parameters ($N$, $\epsilon$, $\lambda$, and the transition matrix $\mathbf{P}$, where $N$ is set by design), compared with three for GARCH and two each for the Gaussian and Laplace baselines.
 
 % ── Table 2: Model Comparison ───────────────────────────────────────────────
 \begin{table}[tp]
@@ -55,7 +65,9 @@ The temporal quality of the three models diverges sharply. GARCH achieves the lo
     [5th, 95th] percentile envelope of the corresponding synthetic quantiles.
     Standard errors in parentheses: binomial SE for pass rates,
     $\text{std}/\!\sqrt{n}$ for kurtosis and novelty,
-    bootstrap SE ($B=500$) for ACF-MAE, diversity, and coverage.}
+    bootstrap SE ($B=500$) for ACF-MAE, diversity, and coverage.
+    Arrows indicate preferred direction: $\uparrow$~higher is better,
+    $\downarrow$~lower is better, $\approx$~closer to observed is better.}
 \label{tab:model_comparison}
 \resizebox{\columnwidth}{!}{%
 \footnotesize
@@ -63,23 +75,23 @@ The temporal quality of the three models diverges sharply. GARCH achieves the lo
 \toprule
 \textbf{Metric} & \textbf{Bootstrap} & \textbf{Gaussian} & \textbf{Laplace} & \textbf{GARCH(1,1)} & \textbf{HMM-NJ} & \textbf{HMM-WJ} \\ \midrule
 \multicolumn{7}{l}{\textit{In-sample: 2{,}766 trading days (2014--2024)}} \\[2pt]
-KS pass rate (\%)            & 100.0 ({$<$}0.1) &   0.0 ({$<$}0.1) &  44.0 (1.6) &   5.5 (0.7) &  99.4 (0.2) &  97.0 (0.5) \\
-AD pass rate (\%)            &  99.7 (0.2)      &   0.0 ({$<$}0.1) &  43.3 (1.6) &   1.9 (0.4) &  98.6 (0.4) &  90.5 (0.9) \\
+KS pass rate (\%) $\uparrow$            & 100.0 ({$<$}0.1) &   0.0 ({$<$}0.1) &  44.0 (1.6) &   5.5 (0.7) &  99.4 (0.2) &  97.0 (0.5) \\
+AD pass rate (\%) $\uparrow$            &  99.7 (0.2)      &   0.0 ({$<$}0.1) &  43.3 (1.6) &   1.9 (0.4) &  98.6 (0.4) &  90.5 (0.9) \\
 Excess kurtosis (observed)   & \multicolumn{6}{c}{7.715} \\
-Excess kurtosis (simulated)  &   7.6 (0.08) & $-$0.0 ({$<$}0.01) &   3.0 (0.02) &   8.2 (0.37) &   5.7 (0.02) &   5.5 (0.03) \\
-ACF-MAE                      & 0.060 ({$<$}0.001) & 0.060 ({$<$}0.001) & 0.060 ({$<$}0.001) & 0.031 (0.001) & 0.059 ({$<$}0.001) & 0.052 ({$<$}0.001) \\
-Novelty                      & 0.985 ({$<$}0.001) & 0.984 ({$<$}0.001) & 0.985 ({$<$}0.001) & 0.985 ({$<$}0.001) & 0.984 ({$<$}0.001) & 0.984 ({$<$}0.001) \\
-Diversity                    & 0.985 ({$<$}0.001) & 0.985 ({$<$}0.001) & 0.985 ({$<$}0.001) & 0.985 ({$<$}0.001) & 0.984 ({$<$}0.001) & 0.984 ({$<$}0.001) \\
-Coverage (\%)                & 100.0 ({$<$}0.1)   &  13.1 (0.1)       &  37.4 (1.5) &  29.3 (1.5) & 100.0 ({$<$}0.1)   & 100.0 ({$<$}0.1) \\[4pt]
+Excess kurtosis (simulated) $\approx$  &   7.6 (0.08) & $-$0.0 ({$<$}0.01) &   3.0 (0.02) &   8.2 (0.37) &   5.7 (0.02) &   5.5 (0.03) \\
+ACF-MAE $\downarrow$                      & 0.060 ({$<$}0.001) & 0.060 ({$<$}0.001) & 0.060 ({$<$}0.001) & 0.031 (0.001) & 0.059 ({$<$}0.001) & 0.052 ({$<$}0.001) \\
+Novelty $\uparrow$                      & 0.985 ({$<$}0.001) & 0.984 ({$<$}0.001) & 0.985 ({$<$}0.001) & 0.985 ({$<$}0.001) & 0.984 ({$<$}0.001) & 0.984 ({$<$}0.001) \\
+Diversity $\uparrow$                    & 0.985 ({$<$}0.001) & 0.985 ({$<$}0.001) & 0.985 ({$<$}0.001) & 0.985 ({$<$}0.001) & 0.984 ({$<$}0.001) & 0.984 ({$<$}0.001) \\
+Coverage (\%) $\uparrow$                & 100.0 ({$<$}0.1)   &  13.1 (0.1)       &  37.4 (1.5) &  29.3 (1.5) & 100.0 ({$<$}0.1)   & 100.0 ({$<$}0.1) \\[4pt]
 \multicolumn{7}{l}{\textit{Out-of-sample: 249 trading days (2025)}} \\[2pt]
-KS pass rate (\%)            &  97.4 (0.5) &  62.2 (1.5) &  88.0 (1.0) &  80.3 (1.3) &  96.5 (0.6) &  95.0 (0.7) \\
-AD pass rate (\%)            &  98.5 (0.4) &  46.3 (1.6) &  92.9 (0.8) &  72.0 (1.4) &  96.8 (0.6) &  95.9 (0.6) \\
+KS pass rate (\%) $\uparrow$            &  97.4 (0.5) &  62.2 (1.5) &  88.0 (1.0) &  80.3 (1.3) &  96.5 (0.6) &  95.0 (0.7) \\
+AD pass rate (\%) $\uparrow$            &  98.5 (0.4) &  46.3 (1.6) &  92.9 (0.8) &  72.0 (1.4) &  96.8 (0.6) &  95.9 (0.6) \\
 Excess kurtosis (observed)   & \multicolumn{6}{c}{6.867} \\
-Excess kurtosis (simulated)  &   6.0 (0.18) & $-$0.0 ({$<$}0.01) &   2.7 (0.05) &   1.6 (0.07) &   5.0 (0.08) &   4.9 (0.08) \\
-ACF-MAE                      & 0.043 ({$<$}0.001) & 0.043 ({$<$}0.001) & 0.043 ({$<$}0.001) & 0.026 ({$<$}0.001) & 0.041 ({$<$}0.001) & 0.040 ({$<$}0.001) \\
-Novelty                      & 0.949 (0.001) & 0.950 (0.001) & 0.952 (0.001) & 0.951 (0.001) & 0.948 (0.001) & 0.949 (0.001) \\
-Diversity                    & 0.950 ({$<$}0.001) & 0.949 ({$<$}0.001) & 0.949 ({$<$}0.001) & 0.950 ({$<$}0.001) & 0.948 ({$<$}0.001) & 0.948 ({$<$}0.001) \\
-Coverage (\%)                & 100.0 ({$<$}0.1) &  36.4 (1.9) &  74.7 (1.1) &  96.0 (1.3) & 100.0 ({$<$}0.1) & 100.0 ({$<$}0.1) \\[4pt]
+Excess kurtosis (simulated) $\approx$  &   6.0 (0.18) & $-$0.0 ({$<$}0.01) &   2.7 (0.05) &   1.6 (0.07) &   5.0 (0.08) &   4.9 (0.08) \\
+ACF-MAE $\downarrow$                      & 0.043 ({$<$}0.001) & 0.043 ({$<$}0.001) & 0.043 ({$<$}0.001) & 0.026 ({$<$}0.001) & 0.041 ({$<$}0.001) & 0.040 ({$<$}0.001) \\
+Novelty $\uparrow$                      & 0.949 (0.001) & 0.950 (0.001) & 0.952 (0.001) & 0.951 (0.001) & 0.948 (0.001) & 0.949 (0.001) \\
+Diversity $\uparrow$                    & 0.950 ({$<$}0.001) & 0.949 ({$<$}0.001) & 0.949 ({$<$}0.001) & 0.950 ({$<$}0.001) & 0.948 ({$<$}0.001) & 0.948 ({$<$}0.001) \\
+Coverage (\%) $\uparrow$                & 100.0 ({$<$}0.1) &  36.4 (1.9) &  74.7 (1.1) &  96.0 (1.3) & 100.0 ({$<$}0.1) & 100.0 ({$<$}0.1) \\[4pt]
 \midrule
 Parameters estimated         &     0 &     2 &     2 &     3 &     2 &     4 \\ \bottomrule
 \end{tabular}}

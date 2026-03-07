@@ -187,6 +187,14 @@ where $X_{(1)} \le \cdots \le X_{(n)}$ are the order statistics of the pooled sa
 
 We report the \textit{pass rate} as the proportion of the 1,000 simulated paths for which the null hypothesis of distributional equivalence was not rejected at the $\alpha = 0.05$ significance level. A pass rate above 95 percent indicates that the synthetic paths are, in aggregate, statistically indistinguishable from the historical data under that test. Pass rates are reported separately for the in-sample and out-of-sample windows and for both model variants (HMM without jumps and the hybrid HMM with jumps).
 
+\subsection*{Temporal fidelity metric}
+While KS and AD tests assess marginal distributional quality, they are insensitive to temporal dependence. To measure how well a generator reproduces volatility clustering, we define the autocorrelation mean absolute error (ACF-MAE) as:
+\begin{equation}
+    \text{ACF-MAE} = \frac{1}{L}\sum_{\tau=1}^{L} \left\lvert \widehat{\rho}_{|G|}^{\,\text{obs}}(\tau) - \widehat{\rho}_{|G|}^{\,\text{sim}}(\tau) \right\rvert
+    \label{eq:acf_mae}
+\end{equation}
+where $\widehat{\rho}_{|G|}^{\,\text{obs}}(\tau)$ and $\widehat{\rho}_{|G|}^{\,\text{sim}}(\tau)$ are the sample autocorrelations of the absolute excess growth rate series $|G_t|$ at lag $\tau$ for the observed and simulated paths, respectively, and $L=252$ (one trading year). An i.i.d.\ generator produces $\widehat{\rho}_{|G|}^{\,\text{sim}}(\tau)\approx 0$ for all $\tau>0$, so its ACF-MAE equals the mean level of the observed autocorrelation function; lower values indicate better reproduction of empirical volatility persistence.
+
 \subsection*{Single-Index Factor Model extension}
 The framework described above applies to any individual asset ticker within the 424-asset dataset. To generalize synthetic path generation to a correlated multi-asset setting without fitting a separate HMM for each asset, we exploit the linear factor structure of the Single-Index Model (SIM) \cite{sharpe_simplified_1963}. The SIM expresses the excess growth rate of asset $i$ at time $t$ as:
 \begin{equation}
