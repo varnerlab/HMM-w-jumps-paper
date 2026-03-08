@@ -65,11 +65,16 @@ function simulate_jump_path(T_dict::Dict, π̄, decode::Dict,
     t = 2
     while t <= n_steps
         if rand() < ε
-            has_jump = true
             K = rand(Poisson(λ))
-            for _ in 1:K
-                t > n_steps && break
-                states[t] = rand() < p_neg ? rand(bottom) : rand(top)
+            if K > 0
+                has_jump = true
+                for _ in 1:K
+                    t > n_steps && break
+                    states[t] = rand() < p_neg ? rand(bottom) : rand(top)
+                    t += 1
+                end
+            else
+                states[t] = rand(T_dict[states[t-1]])
                 t += 1
             end
         else

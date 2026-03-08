@@ -23,6 +23,7 @@ const _L_ACF   = 252
 const _ALPHA   = 0.05
 const _N_BOOT  = 500
 const _COV_QUANTILES = collect(0.01:0.01:0.99)  # 99 quantile levels
+const _N_BINS  = 50                              # histogram bins for Hellinger
 
 const _JLD2_HMM = joinpath(_PATH_TO_SPY_DATA, "HMM-WJ-SPY-N-100-daily-aggregate.jld2")
 
@@ -103,6 +104,29 @@ function mean_upper_tri(M::AbstractMatrix)
 end
 
 """
+Wasserstein-1 distance between two equal-length empirical distributions.
+W1 = mean|x_(i) - y_(i)| where (i) denotes the i-th order statistic.
+Units are the same as the data.
+"""
+function wasserstein1(x::Vector{Float64}, y::Vector{Float64})
+    return mean(abs.(sort(x) .- sort(y)))
+end
+
+"""
+Hellinger distance between two empirical distributions via histogram.
+Uses _N_BINS equal-width bins on the common support of x and y.
+Returns H in [0, 1]: H=0 identical distributions, H=1 disjoint support.
+"""
+function hellinger(x::Vector{Float64}, y::Vector{Float64}; n_bins::Int = _N_BINS)
+    lo = min(minimum(x), minimum(y))
+    hi = max(maximum(x), maximum(y))
+    edges = range(lo, hi, length = n_bins + 1)
+    px = fit(Histogram, x, edges).weights ./ length(x)
+    py = fit(Histogram, y, edges).weights ./ length(y)
+    return sqrt(0.5 * sum((sqrt.(px) .- sqrt.(py)).^2))
+end
+
+"""
 Compute all quality metrics for a set of synthetic paths against observed data.
 
 Returns a NamedTuple with point estimates and SEs for:
@@ -122,16 +146,20 @@ function compute_all_metrics(obs::Vector{Float64}, paths::Matrix{Float64};
     kurt_vals = Vector{Float64}(undef, n_paths)
     acf_mat   = Matrix{Float64}(undef, L, n_paths)
     nov_vals  = Vector{Float64}(undef, n_paths)  # novelty per path
+    w1_vals   = Vector{Float64}(undef, n_paths)  # Wasserstein-1 per path
+    hd_vals   = Vector{Float64}(undef, n_paths)  # Hellinger distance per path
 
     obs_trunc = obs[1:min(T, length(obs))]  # match lengths for correlation
 
     Threads.@threads for i in 1:n_paths
         sim = paths[:, i]
-        ks_pvals[i]  = pvalue(ApproximateTwoSampleKSTest(obs, sim))
-        ad_pvals[i]  = pvalue(KSampleADTest(obs, sim))
-        kurt_vals[i] = kurtosis(sim)
+        ks_pvals[i]   = pvalue(ApproximateTwoSampleKSTest(obs, sim))
+        ad_pvals[i]   = pvalue(KSampleADTest(obs, sim))
+        kurt_vals[i]  = kurtosis(sim)
         acf_mat[:, i] = autocor(abs.(sim), lags)
-        nov_vals[i]  = 1.0 - abs(cor(obs_trunc, sim[1:length(obs_trunc)]))
+        nov_vals[i]   = 1.0 - abs(cor(obs_trunc, sim[1:length(obs_trunc)]))
+        w1_vals[i]    = wasserstein1(obs, sim)
+        hd_vals[i]    = hellinger(obs, sim)
     end
 
     # ── fidelity ─────────────────────────────────────────────────────────────
@@ -202,6 +230,14 @@ function compute_all_metrics(obs::Vector{Float64}, paths::Matrix{Float64};
     end
     coverage_se = std(boot_cov)
 
+    # ── Wasserstein-1 ────────────────────────────────────────────────────────
+    w1_m  = mean(w1_vals)
+    w1_se = std(w1_vals) / sqrt(n_paths)
+
+    # ── Hellinger distance ───────────────────────────────────────────────────
+    hd_m  = mean(hd_vals)
+    hd_se = std(hd_vals) / sqrt(n_paths)
+
     return (
         ks_pass  = 100.0 * ks_pass,  ks_se  = 100.0 * ks_se,
         ad_pass  = 100.0 * ad_pass,  ad_se  = 100.0 * ad_se,
@@ -210,6 +246,8 @@ function compute_all_metrics(obs::Vector{Float64}, paths::Matrix{Float64};
         novelty  = novelty_m,       novelty_se = novelty_se,
         diversity = diversity_m,    diversity_se = diversity_se,
         coverage  = 100.0 * coverage_m, coverage_se = 100.0 * coverage_se,
+        w1       = w1_m,            w1_se  = w1_se,
+        hellinger = hd_m,           hellinger_se = hd_se,
     )
 end
 
@@ -397,6 +435,16 @@ function print_table(obs::Vector{Float64}, res::Dict, window::String)
     # Coverage
     row = @sprintf("  %-24s", "Coverage (%)")
     for m in model_order; row *= @sprintf("  %16s", fmt_pct(res[m].coverage, res[m].coverage_se)); end
+    println(row)
+
+    # Wasserstein-1
+    row = @sprintf("  %-24s", "Wasserstein-1")
+    for m in model_order; row *= @sprintf("  %16s", fmt_dec(res[m].w1, res[m].w1_se)); end
+    println(row)
+
+    # Hellinger distance
+    row = @sprintf("  %-24s", "Hellinger dist")
+    for m in model_order; row *= @sprintf("  %16s", fmt_dec(res[m].hellinger, res[m].hellinger_se)); end
     println(row)
 end
 

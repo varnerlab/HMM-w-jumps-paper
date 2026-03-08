@@ -22,6 +22,7 @@ This material was inspired by [CHEME 5660: Quantitative Finance for Scientists a
 └── code/
     ├── spy-experiment/             # Core SPY single-asset experiments
     ├── baseline-comparison/        # Six-generator benchmark (Table 2)
+    ├── other-ticker-experiment/    # Cross-asset evaluation (NVDA, JNJ, JPM) — Online Appendix S5
     ├── sim-experiment/             # Multi-asset Single-Index Model extension
     └── gbm-experiment/             # Geometric Brownian Motion baseline
 ```
@@ -49,12 +50,21 @@ The primary experiment directory. All scripts begin with `include("Include.jl")`
 
 ### `code/baseline-comparison/` — Full six-model benchmark
 
-Computes all seven metrics (KS pass rate, AD pass rate, excess kurtosis, ACF-MAE, novelty, diversity, coverage) for six generators: Bootstrap, Gaussian, Laplace, GARCH(1,1), HMM-NJ, and HMM-WJ. Produces the complete Table 2 (in-sample and out-of-sample panels).
+Computes all metrics (KS pass rate, AD pass rate, excess kurtosis, ACF-MAE, Wasserstein-1, Hellinger distance, novelty, diversity, coverage) for six generators: Bootstrap, Gaussian, Laplace, GARCH(1,1), HMM-NJ, and HMM-WJ. Produces the complete Table 2 (in-sample and out-of-sample panels).
 
 | Script | Description |
 |--------|-------------|
 | `Include.jl` | Environment setup (references `spy-experiment/data/` for shared data) |
-| `Baseline-Comparison.jl` | Full Table 2 computation across all 6 models and 7 metrics |
+| `Baseline-Comparison.jl` | Full Table 2 computation across all 6 models and all metrics |
+
+### `code/other-ticker-experiment/` — Cross-asset evaluation (Online Appendix S5)
+
+Fits standalone HMM-NJ and HMM-WJ models to individual equities with distinct risk profiles and evaluates distributional and temporal fidelity.
+
+| Script | Description |
+|--------|-------------|
+| `Include.jl` | Environment setup |
+| `Multi-Ticker-Evaluation.jl` | Grid search + full evaluation for NVDA, JNJ, JPM (Table S5) |
 
 ### `code/sim-experiment/` — Multi-asset Single-Index Model extension
 
@@ -83,17 +93,22 @@ Propagates the SPY factor path to a 424-asset universe using the Single-Index Mo
    cd HMM-w-jumps-paper
    ```
 
-2. Navigate to any experiment directory and run its `Include.jl` file in the Julia REPL. On first run, this will automatically install all dependencies (including `VLQuantitativeFinancePackage` from GitHub):
+2. Each experiment directory has its own `Project.toml` and `Manifest.toml`. Scripts must be run with the project activated using `--project=.`. The recommended approach is to run scripts directly from the repo root, specifying the project path:
+   ```bash
+   julia --project=code/spy-experiment code/spy-experiment/Table1-Descriptive-Stats.jl
+   ```
+   Or `cd` into the experiment directory first:
    ```bash
    cd code/spy-experiment
-   julia
+   julia --project=. Table1-Descriptive-Stats.jl
    ```
-   ```julia
-   julia> include("Include.jl")
-   ```
-   This activates the local project environment, resolves dependencies, and sets the random seed to `1234` for reproducibility.
+   On first run, `Include.jl` will automatically install all dependencies (including `VLQuantitativeFinancePackage` from GitHub) if no `Manifest.toml` is present.
 
-3. Run any script after loading the environment:
+3. Alternatively, run scripts interactively in the Julia REPL with the project activated:
+   ```bash
+   cd code/spy-experiment
+   julia --project=.
+   ```
    ```julia
    julia> include("Table1-Descriptive-Stats.jl")
    ```
@@ -106,11 +121,24 @@ Other notable packages: [`ARCHModels.jl`](https://github.com/s-broda/ARCHModels.
 
 ## Reproducing Results
 
-Each experiment directory is self-contained with its own `Project.toml` and `Manifest.toml`. The recommended order:
+Each experiment directory is self-contained with its own `Project.toml` and `Manifest.toml`. Always use `--project=<dir>` or run from inside the directory with `--project=.`. The recommended order:
 
-1. **SPY core analysis** (`code/spy-experiment/`): Run `Include.jl`, then individual figure/table scripts. Precomputed results are stored in `data/*.jld2`.
-2. **Baseline comparison** (`code/baseline-comparison/`): Run `Include.jl`, then `Baseline-Comparison.jl`. This directory references data from `spy-experiment/data/`.
-3. **Multi-asset extension** (`code/sim-experiment/`): Run `Include.jl`, then individual scripts.
+1. **SPY core analysis** — precomputed results are already stored in `data/*.jld2`; re-run individual scripts to regenerate figures or tables:
+   ```bash
+   julia --project=code/spy-experiment code/spy-experiment/Table1-Descriptive-Stats.jl
+   ```
+2. **Baseline comparison** — references data from `spy-experiment/data/`:
+   ```bash
+   julia --project=code/baseline-comparison code/baseline-comparison/Baseline-Comparison.jl
+   ```
+3. **Cross-asset evaluation** (NVDA, JNJ, JPM):
+   ```bash
+   julia --project=code/other-ticker-experiment code/other-ticker-experiment/Multi-Ticker-Evaluation.jl
+   ```
+4. **Multi-asset SIM extension**:
+   ```bash
+   julia --project=code/sim-experiment code/sim-experiment/SIM-Multi-Asset-KS.jl
+   ```
 
 ### Data Files
 

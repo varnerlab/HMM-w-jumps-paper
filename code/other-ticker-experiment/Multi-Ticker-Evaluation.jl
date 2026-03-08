@@ -145,9 +145,15 @@ function simulate_jump_path(T_dict::Matrix{Float64}, pi_bar, decode::Dict,
     while t <= n_steps
         if rand() < eps
             K = rand(Poisson(lam))
-            for _ in 1:K
-                t > n_steps && break
-                states_seq[t] = rand() < p_neg ? rand(bottom) : rand(top)
+            if K > 0
+                for _ in 1:K
+                    t > n_steps && break
+                    states_seq[t] = rand() < p_neg ? rand(bottom) : rand(top)
+                    t += 1
+                end
+            else
+                row = states_seq[t-1]
+                states_seq[t] = rand(Categorical(T_dict[row, :]))
                 t += 1
             end
         else

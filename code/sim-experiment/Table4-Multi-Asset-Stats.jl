@@ -22,6 +22,7 @@ using Printf
 # ── Helper: compute summary stats, filtering NaN ─────────────────────────────
 function summary_stats(x::Vector{Float64})
     v = filter(!isnan, x)
+    isempty(v) && return (mean=NaN, median=NaN, p5=NaN, p95=NaN, n=0)
     return (
         mean   = mean(v),
         median = median(v),
