@@ -2,7 +2,7 @@
 %%% Do NOT edit. File created by BibTeX with style
 %%% ACM-Reference-Format-Journals [18-Jan-2012].
 
-\begin{thebibliography}{43}
+\begin{thebibliography}{51}
 
 %%% ====================================================================
 %%% NOTE TO THE USER: you can override these defaults by providing
@@ -46,6 +46,17 @@
   \bibinfo{volume}{23}, \bibinfo{number}{2} (\bibinfo{year}{1952}),
   \bibinfo{pages}{193--212}.
 \newblock
+
+
+\bibitem[Arthur(2021)]%
+        {arthur_complexity_2021}
+\bibfield{author}{\bibinfo{person}{W.~Brian Arthur}.}
+  \bibinfo{year}{2021}\natexlab{}.
+\newblock \showarticletitle{Foundations of complexity economics}.
+\newblock \bibinfo{journal}{\emph{Nature Reviews Physics}}  \bibinfo{volume}{3}
+  (\bibinfo{year}{2021}), \bibinfo{pages}{136--145}.
+\newblock
+\href{https://doi.org/10.1038/s42254-020-00273-3}{doi:\nolinkurl{10.1038/s42254-020-00273-3}}
 
 
 \bibitem[Assefa et~al\mbox{.}(2021)]%
@@ -150,6 +161,31 @@
 \href{https://doi.org/10.1016/j.csda.2006.07.021}{doi:\nolinkurl{10.1016/j.csda.2006.07.021}}
 
 
+\bibitem[Challet and Zhang(1997)]%
+        {challet_zhang_1997}
+\bibfield{author}{\bibinfo{person}{D. Challet} {and} \bibinfo{person}{Y.-C.
+  Zhang}.} \bibinfo{year}{1997}\natexlab{}.
+\newblock \showarticletitle{Emergence of cooperation and organization in an
+  evolutionary game}.
+\newblock \bibinfo{journal}{\emph{Physica A: Statistical Mechanics and its
+  Applications}} \bibinfo{volume}{246}, \bibinfo{number}{3--4}
+  (\bibinfo{year}{1997}), \bibinfo{pages}{407--418}.
+\newblock
+\href{https://doi.org/10.1016/S0378-4371(97)00419-6}{doi:\nolinkurl{10.1016/S0378-4371(97)00419-6}}
+
+
+\bibitem[Chen et~al\mbox{.}(2015)]%
+        {chen_herding_2015}
+\bibfield{author}{\bibinfo{person}{J.~J. Chen}, \bibinfo{person}{L. Tan}, {and}
+  \bibinfo{person}{B. Zheng}.} \bibinfo{year}{2015}\natexlab{}.
+\newblock \showarticletitle{Agent-based model with multi-level herding for
+  complex financial systems}.
+\newblock \bibinfo{journal}{\emph{Scientific Reports}}  \bibinfo{volume}{5}
+  (\bibinfo{year}{2015}), \bibinfo{pages}{8399}.
+\newblock
+\href{https://doi.org/10.1038/srep08399}{doi:\nolinkurl{10.1038/srep08399}}
+
+
 \bibitem[Cont(2001)]%
         {cont_empirical_2001}
 \bibfield{author}{\bibinfo{person}{R. Cont}.} \bibinfo{year}{2001}\natexlab{}.
@@ -159,6 +195,18 @@
   \bibinfo{number}{2} (\bibinfo{year}{2001}), \bibinfo{pages}{223--236}.
 \newblock
 \href{https://doi.org/10.1080/713665670}{doi:\nolinkurl{10.1080/713665670}}
+
+
+\bibitem[Cont and Bouchaud(2000)]%
+        {cont_bouchaud_2000}
+\bibfield{author}{\bibinfo{person}{Rama Cont} {and}
+  \bibinfo{person}{Jean-Philippe Bouchaud}.} \bibinfo{year}{2000}\natexlab{}.
+\newblock \showarticletitle{Herd Behavior and Aggregate Fluctuations in
+  Financial Markets}.
+\newblock \bibinfo{journal}{\emph{Macroeconomic Dynamics}} \bibinfo{volume}{4},
+  \bibinfo{number}{2} (\bibinfo{year}{2000}), \bibinfo{pages}{170--196}.
+\newblock
+\href{https://doi.org/10.1017/S1365100500015029}{doi:\nolinkurl{10.1017/S1365100500015029}}
 
 
 \bibitem[Dias et~al\mbox{.}(2010)]%
@@ -221,6 +269,31 @@
   \bibinfo{pages}{3--56}.
 \newblock
 \href{https://doi.org/10.1016/0304-405X(93)90023-5}{doi:\nolinkurl{10.1016/0304-405X(93)90023-5}}
+
+
+\bibitem[Farmer(2025)]%
+        {farmer_quantitative_2025}
+\bibfield{author}{\bibinfo{person}{J.~Doyne Farmer}.}
+  \bibinfo{year}{2025}\natexlab{}.
+\newblock \showarticletitle{Quantitative agent-based models: a promising
+  alternative for macroeconomics}.
+\newblock \bibinfo{journal}{\emph{Oxford Review of Economic Policy}}
+  \bibinfo{volume}{41}, \bibinfo{number}{2} (\bibinfo{year}{2025}),
+  \bibinfo{pages}{571--590}.
+\newblock
+\href{https://doi.org/10.1093/oxrep/graf027}{doi:\nolinkurl{10.1093/oxrep/graf027}}
+
+
+\bibitem[Farmer and Joshi(2002)]%
+        {farmer_joshi_2002}
+\bibfield{author}{\bibinfo{person}{J.~Doyne Farmer} {and}
+  \bibinfo{person}{Shareen Joshi}.} \bibinfo{year}{2002}\natexlab{}.
+\newblock \showarticletitle{The price dynamics of common trading strategies}.
+\newblock \bibinfo{journal}{\emph{Journal of Economic Behavior \&
+  Organization}} \bibinfo{volume}{49}, \bibinfo{number}{2}
+  (\bibinfo{year}{2002}), \bibinfo{pages}{149--171}.
+\newblock
+\href{https://doi.org/10.1016/S0167-2681(02)00065-3}{doi:\nolinkurl{10.1016/S0167-2681(02)00065-3}}
 
 
 \bibitem[Fischer and Krauss(2018)]%
@@ -389,6 +462,31 @@
   \bibinfo{pages}{126--133}.
 \newblock
 \href{https://doi.org/10.1145/3677052.3698661}{doi:\nolinkurl{10.1145/3677052.3698661}}
+
+
+\bibitem[LeBaron(2006)]%
+        {lebaron_agent_2006}
+\bibfield{author}{\bibinfo{person}{Blake LeBaron}.}
+  \bibinfo{year}{2006}\natexlab{}.
+\newblock \showarticletitle{Agent-based Computational Finance}.
+\newblock In \bibinfo{booktitle}{\emph{Handbook of Computational Economics}},
+  \bibfield{editor}{\bibinfo{person}{Leigh Tesfatsion} {and}
+  \bibinfo{person}{Kenneth~L. Judd}} (Eds.). Vol.~\bibinfo{volume}{2}.
+  \bibinfo{publisher}{Elsevier}, \bibinfo{pages}{1187--1233}.
+\newblock
+\href{https://doi.org/10.1016/S1574-0021(05)02024-1}{doi:\nolinkurl{10.1016/S1574-0021(05)02024-1}}
+
+
+\bibitem[Lux and Marchesi(1999)]%
+        {lux_marchesi_1999}
+\bibfield{author}{\bibinfo{person}{Thomas Lux} {and} \bibinfo{person}{Michele
+  Marchesi}.} \bibinfo{year}{1999}\natexlab{}.
+\newblock \showarticletitle{Scaling and criticality in a stochastic multi-agent
+  model of a financial market}.
+\newblock \bibinfo{journal}{\emph{Nature}}  \bibinfo{volume}{397}
+  (\bibinfo{year}{1999}), \bibinfo{pages}{498--500}.
+\newblock
+\href{https://doi.org/10.1038/17290}{doi:\nolinkurl{10.1038/17290}}
 
 
 \bibitem[Mandelbrot(1963)]%

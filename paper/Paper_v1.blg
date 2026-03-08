@@ -31,51 +31,52 @@ Warning--page numbers missing in both pages and numpages fields in jordon_synthe
 Warning--empty address in kotz_laplace_2001
 Warning--empty publisher in kwon_can_2024
 Warning--empty address in kwon_can_2024
+Warning--empty address in lebaron_agent_2006
 Warning--no number and no volume in manganelli_2004
 Warning--page numbers missing in both pages and numpages fields in manganelli_2004
 Warning--empty address in ohara_market_1998
 Warning--empty publisher in yoon_timegan_2019
 Warning--empty address in yoon_timegan_2019
 Warning--page numbers missing in both pages and numpages fields in yoon_timegan_2019
-You've used 43 entries,
+You've used 51 entries,
             6273 wiz_defined-function locations,
-            1789 strings with 25853 characters,
-and the built_in function-call counts, 49366 in all, are:
-= -- 7639
-> -- 1155
+            1845 strings with 27186 characters,
+and the built_in function-call counts, 59032 in all, are:
+= -- 9211
+> -- 1369
 < -- 0
-+ -- 381
-- -- 452
-* -- 3097
-:= -- 4389
-add.period$ -- 218
-call.type$ -- 43
-change.case$ -- 260
-chr.to.int$ -- 43
-cite$ -- 68
-duplicate$ -- 4278
-empty$ -- 3017
-format.name$ -- 548
-if$ -- 12853
++ -- 451
+- -- 540
+* -- 3705
+:= -- 5239
+add.period$ -- 260
+call.type$ -- 51
+change.case$ -- 306
+chr.to.int$ -- 51
+cite$ -- 77
+duplicate$ -- 5095
+empty$ -- 3588
+format.name$ -- 656
+if$ -- 15387
 int.to.chr$ -- 2
 int.to.str$ -- 1
-missing$ -- 169
-newline$ -- 407
-num.names$ -- 301
-pop$ -- 1492
+missing$ -- 198
+newline$ -- 479
+num.names$ -- 359
+pop$ -- 1737
 preamble$ -- 1
-purify$ -- 604
+purify$ -- 714
 quote$ -- 0
-skip$ -- 1498
+skip$ -- 1797
 stack$ -- 0
-substring$ -- 3984
-swap$ -- 456
+substring$ -- 4812
+swap$ -- 556
 text.length$ -- 0
 text.prefix$ -- 0
 top$ -- 0
-type$ -- 754
-warning$ -- 25
-while$ -- 356
+type$ -- 896
+warning$ -- 26
+while$ -- 431
 width$ -- 0
-write$ -- 875
-(There were 25 warnings)
+write$ -- 1037
+(There were 26 warnings)

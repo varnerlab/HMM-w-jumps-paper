@@ -17,7 +17,10 @@
       "Bash(echo \"=== $f ===\")",
       "Read(//Users/jdv27/Desktop/julia_work/HMM-w-jumps-paper/paper/**)",
       "Bash(done)",
-      "Bash(kpsewhich:*)"
+      "Bash(kpsewhich:*)",
+      "WebFetch(domain:www.nature.com)",
+      "WebFetch(domain:academic.oup.com)",
+      "WebFetch(domain:doi.org)"
     ]
   }
 }

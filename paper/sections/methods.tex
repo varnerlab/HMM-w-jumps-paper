@@ -182,21 +182,21 @@ where $X_{(1)} \le \cdots \le X_{(n)}$ are the order statistics of the pooled sa
 We reported the \textit{pass rate} as the proportion of the 1,000 simulated paths for which the null hypothesis of distributional equivalence was not rejected at the $\alpha = 0.05$ significance level. A pass rate above 95 percent indicated that the synthetic paths were, in aggregate, statistically indistinguishable from the historical data under that test. Pass rates were reported separately for the in-sample and out-of-sample windows and for both model variants (HMM without jumps and the hybrid HMM with jumps). Both KS and AD tests assume i.i.d.\ observations; because volatility clustering induces positive autocorrelation in the tail-indicator process $\mathbf{1}(G_t \le x)$, the effective sample size is smaller than $T$ and reported p-values may be slightly miscalibrated. The continuous distance metrics below are unaffected by this assumption.
 
 \subsection*{Continuous distributional distance metrics}
-Binary pass rates summarize distributional fidelity but discard information about the magnitude of any discrepancy. Two continuous metrics were computed alongside KS and AD to provide effect-size information that is independent of sample size.
+Binary pass rates summarize distributional fidelity but discard information about the magnitude of any discrepancy. The Wasserstein-1 distance ($W_1$) and the Hellinger distance ($H$) were computed alongside KS and AD to provide continuous, effect-size measures that do not depend on sample size.
 
 The Wasserstein-1 distance measures the minimum work required to transform one distribution into the other, where work is distance times probability mass moved. For two equal-length empirical samples with order statistics $x_{(1)} \le \cdots \le x_{(T)}$ and $y_{(1)} \le \cdots \le y_{(T)}$, the one-dimensional Wasserstein-1 distance is:
 \begin{equation}
     W_1 = \frac{1}{T}\sum_{i=1}^{T} \left\lvert x_{(i)} - y_{(i)} \right\rvert
     \label{eq:wasserstein}
 \end{equation}
-$W_1$ is expressed in the same units as the data (daily excess growth rates), equals zero only when the empirical distributions are identical, and is computed by sorting both samples -- the temporal ordering of observations is irrelevant. Smaller values indicate closer distributional agreement.
+$W_1$ is expressed in the same units as the data (daily excess growth rates) and equals zero only when the empirical distributions are identical. Because it is computed from sorted order statistics, the temporal ordering of observations is irrelevant; smaller values indicate closer distributional agreement across the full quantile range.
 
-The Hellinger distance measures the overlap between two probability distributions and is bounded in $[0, 1]$, with $H = 0$ indicating identical distributions and $H = 1$ indicating distributions with completely disjoint support. Given normalized histogram estimates $\{p_k\}_{k=1}^{K}$ and $\{q_k\}_{k=1}^{K}$ of the observed and simulated marginal densities over a common $K$-bin grid:
+The Hellinger distance measures distributional overlap and is bounded in $[0, 1]$, with $H = 0$ indicating identical distributions and $H = 1$ indicating completely disjoint support. Given normalized histogram estimates $\{p_k\}_{k=1}^{K}$ and $\{q_k\}_{k=1}^{K}$ of the observed and simulated marginal densities over a common $K$-bin grid:
 \begin{equation}
     H(P, Q) = \frac{1}{\sqrt{2}}\sqrt{\sum_{k=1}^{K}\left(\sqrt{p_k} - \sqrt{q_k}\right)^2}
     \label{eq:hellinger}
 \end{equation}
-The $[0,1]$ scale makes $H$ directly interpretable across models and windows without knowledge of the data's physical units. Histograms were constructed on the common support of observed and simulated samples using $K = 50$ equal-width bins. Both $W_1$ and $H$ were computed path-by-path and averaged across the 1,000 paths; standard errors were estimated as $\mathrm{std}/\sqrt{n_{\mathrm{paths}}}$.
+The bounded scale makes $H$ directly comparable across models and evaluation windows without rescaling. Histograms were constructed on the common support of observed and simulated samples using $K = 50$ equal-width bins. Both $W_1$ and $H$ were computed path-by-path and averaged across the 1,000 paths; standard errors were estimated as $\mathrm{std}/\sqrt{n_{\mathrm{paths}}}$.
 
 \subsection*{Temporal fidelity metric}
 While KS and AD tests assess marginal distributional quality, they are insensitive to temporal dependence. To measure how well a generator reproduced volatility clustering, we defined the autocorrelation mean absolute error (ACF-MAE) as:
