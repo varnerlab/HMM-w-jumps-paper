@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.26 (TeX Live 2024) (preloaded format=pdflatex 2024.4.15)  8 MAR 2026 08:47
+This is pdfTeX, Version 3.141592653-2.6-1.40.26 (TeX Live 2024) (preloaded format=pdflatex 2024.4.15)  8 MAR 2026 09:16
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -1706,7 +1706,7 @@ Class acmart Warning: A possible image without description on input line 18.
 
 ) (./sections/related.tex
 LaTeX Font Info:    Font shape `T1/LinuxBiolinumT-TLF/m/n' will be
-(Font)              scaled to size 8.0pt on input line 3.
+(Font)              scaled to size 8.0pt on input line 2.
  [2.2]
 
 Package fancyhdr Warning: \headheight is too small (13.0pt): 
@@ -1832,6 +1832,10 @@ m/n/10 g$
  []
 
 
+Underfull \vbox (badness 1622) has occurred while \output is active []
+
+
+
 Package fancyhdr Warning: \headheight is too small (13.0pt): 
 (fancyhdr)                Make it at least 18.48402pt, for example:
 (fancyhdr)                \setlength{\headheight}{18.48402pt}.
@@ -1848,7 +1852,7 @@ LaTeX Font Info:    Font shape `T1/LinuxBiolinumT-TLF/m/n' will be
 (Font)              scaled to size 5.5pt on input line 75.
 LaTeX Font Info:    Font shape `T1/LinuxLibertineT-TLF/b/n' will be
 (Font)              scaled to size 8.0pt on input line 106.
-<sections/figs/Fig4-Model-Comparison.pdf, id=374, 1806.75pt x 562.1pt>
+<sections/figs/Fig4-Model-Comparison.pdf, id=377, 1806.75pt x 562.1pt>
 File: sections/figs/Fig4-Model-Comparison.pdf Graphic file (type pdf)
 <use sections/figs/Fig4-Model-Comparison.pdf>
 Package pdftex.def Info: sections/figs/Fig4-Model-Comparison.pdf  used on input
@@ -1869,7 +1873,7 @@ Package fancyhdr Warning: \headheight is too small (13.0pt):
 (fancyhdr)                \addtolength{\topmargin}{-5.48402pt}.
 
 [15.15] [16.16]
-<sections/figs/Fig6-Statistical-Validation.pdf, id=392, 1204.5pt x 903.375pt>
+<sections/figs/Fig6-Statistical-Validation.pdf, id=396, 1204.5pt x 903.375pt>
 File: sections/figs/Fig6-Statistical-Validation.pdf Graphic file (type pdf)
 <use sections/figs/Fig6-Statistical-Validation.pdf>
 Package pdftex.def Info: sections/figs/Fig6-Statistical-Validation.pdf  used on
@@ -1880,6 +1884,10 @@ Package pdftex.def Info: sections/figs/Fig6-Statistical-Validation.pdf  used on
 Class acmart Warning: A possible image without description on input line 172.
 
 
+Underfull \vbox (badness 1242) has occurred while \output is active []
+
+
+
 Package fancyhdr Warning: \headheight is too small (13.0pt): 
 (fancyhdr)                Make it at least 18.48402pt, for example:
 (fancyhdr)                \setlength{\headheight}{18.48402pt}.
@@ -1887,10 +1895,11 @@ Package fancyhdr Warning: \headheight is too small (13.0pt):
 
 (fancyhdr)                \addtolength{\topmargin}{-5.48402pt}.
 
-[17.17 <./sections/figs/Fig4-Model-Comparison.pdf>]
+[17.17 <./sections/figs/Fig4-Model-Comparison.pdf>] [18.18 <./sections/figs/Fig
+6-Statistical-Validation.pdf>]
 LaTeX Font Info:    Font shape `T1/LinuxLibertineT-TLF/m/it' will be
 (Font)              scaled to size 9.0pt on input line 194.
-) [18.18 <./sections/figs/Fig6-Statistical-Validation.pdf>]
+)
 
 Package fancyhdr Warning: \headheight is too small (13.0pt): 
 (fancyhdr)                Make it at least 18.48402pt, for example:
@@ -1900,7 +1909,7 @@ Package fancyhdr Warning: \headheight is too small (13.0pt):
 (fancyhdr)                \addtolength{\topmargin}{-5.48402pt}.
 
 [19.19] (./sections/discussion.tex
-<sections/figs/Fig7-Multi-Asset-SIM.pdf, id=421, 1505.625pt x 903.375pt>
+<sections/figs/Fig7-Multi-Asset-SIM.pdf, id=425, 1505.625pt x 903.375pt>
 File: sections/figs/Fig7-Multi-Asset-SIM.pdf Graphic file (type pdf)
 <use sections/figs/Fig7-Multi-Asset-SIM.pdf>
 Package pdftex.def Info: sections/figs/Fig7-Multi-Asset-SIM.pdf  used on input 
@@ -1938,9 +1947,6 @@ Package fancyhdr Warning: \headheight is too small (13.0pt):
 ] (./sections/endmatter.tex) [24.24
 
 ] (./Paper_v1.bbl
-Underfull \vbox (badness 10000) has occurred while \output is active []
-
-
 
 Package fancyhdr Warning: \headheight is too small (13.0pt): 
 (fancyhdr)                Make it at least 18.48402pt, for example:
@@ -1952,7 +1958,7 @@ Package fancyhdr Warning: \headheight is too small (13.0pt):
 [25.25
 
 ]) [26.26] (./sections/supplemental.tex
-<sections/figs/Fig3-Model-Internals.pdf, id=516, 1606.0pt x 521.95pt>
+<sections/figs/Fig3-Model-Internals.pdf, id=521, 1606.0pt x 521.95pt>
 File: sections/figs/Fig3-Model-Internals.pdf Graphic file (type pdf)
 <use sections/figs/Fig3-Model-Internals.pdf>
 Package pdftex.def Info: sections/figs/Fig3-Model-Internals.pdf  used on input 
@@ -1973,7 +1979,7 @@ Package fancyhdr Warning: \headheight is too small (13.0pt):
 [1.27
 
  <./sections/figs/Fig3-Model-Internals.pdf>]
-<sections/figs/Fig5-Parameter-Sweep.pdf, id=529, 1405.25pt x 562.1pt>
+<sections/figs/Fig5-Parameter-Sweep.pdf, id=534, 1405.25pt x 562.1pt>
 File: sections/figs/Fig5-Parameter-Sweep.pdf Graphic file (type pdf)
 <use sections/figs/Fig5-Parameter-Sweep.pdf>
 Package pdftex.def Info: sections/figs/Fig5-Parameter-Sweep.pdf  used on input 
@@ -1981,7 +1987,7 @@ line 50.
 (pdftex.def)             Requested size: 395.8225pt x 158.33038pt.
 
 
-Class acmart Warning: A possible image without description on input line 60.
+Class acmart Warning: A possible image without description on input line 63.
 
 [2.28
 
@@ -2046,13 +2052,13 @@ Package rerunfilecheck Info: File `Paper_v1.out' has not changed.
 (rerunfilecheck)             Checksum: C97CA1ACC5FC7EF1A2C0B5D213BFC977;4168.
  ) 
 Here is how much of TeX's memory you used:
- 46985 strings out of 474116
- 1037579 string characters out of 5743682
+ 46994 strings out of 474116
+ 1037770 string characters out of 5743682
  1955187 words of memory out of 5000000
- 67295 multiletter control sequences out of 15000+600000
- 822956 words of font info for 662 fonts, out of 8000000 for 9000
+ 67298 multiletter control sequences out of 15000+600000
+ 823337 words of font info for 665 fonts, out of 8000000 for 9000
  1302 hyphenation exceptions out of 8191
- 99i,13n,131p,2428b,1013s stack positions out of 10000i,1000n,20000p,200000b,200000s
+ 99i,13n,131p,2458b,1013s stack positions out of 10000i,1000n,20000p,200000b,200000s
 </usr/local/texlive/2024/texmf-dist/fonts/type1/public/newtx/LibertineMathMI.
 pfb></usr/local/texlive/2024/texmf-dist/fonts/type1/public/newtx/LibertineMathM
 I5.pfb></usr/local/texlive/2024/texmf-dist/fonts/type1/public/newtx/LibertineMa
@@ -2071,10 +2077,10 @@ public/newtx/txexs.pfb></usr/local/texlive/2024/texmf-dist/fonts/type1/public/n
 ewtx/txmiaX.pfb></usr/local/texlive/2024/texmf-dist/fonts/type1/public/newtx/tx
 sym.pfb></usr/local/texlive/2024/texmf-dist/fonts/type1/public/newtx/txsys.pfb>
 
-Output written on Paper_v1.pdf (34 pages, 1667681 bytes).
+Output written on Paper_v1.pdf (34 pages, 1670815 bytes).
 PDF statistics:
- 753 PDF objects out of 1000 (max. 8388607)
- 658 compressed objects within 7 object streams
- 227 named destinations out of 1000 (max. 500000)
+ 758 PDF objects out of 1000 (max. 8388607)
+ 663 compressed objects within 7 object streams
+ 228 named destinations out of 1000 (max. 500000)
  133339 words of extra memory for PDF output out of 154059 (max. 10000000)
 

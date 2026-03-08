@@ -28,8 +28,8 @@ This is far too short to reproduce the persistent volatility clustering observed
     top tail set $\mathcal{S}_{+}$ (states 96--100, teal shading) highlighted.  Under pure Markovian
     dynamics every state, including the tail states, exits within 1--2 steps on average, far too
     quickly to reproduce empirical volatility clustering.  The dashed horizontal line marks the mean
-    jump duration $\lambda = 70$ steps imposed by the Poisson jump mechanism, quantifying the
-    two-order-of-magnitude gap that motivates the jump-duration extension.}
+    mean jump duration $\lambda^* = 100$ steps at the grid-search optimum, quantifying the
+    two-order-of-magnitude gap between natural residence times and the jump-duration mechanism.}
     \label{fig:model_internals}
 \end{figure}
 
@@ -38,11 +38,11 @@ This is far too short to reproduce the persistent volatility clustering observed
 \subsection*{S2. Hyperparameter grid search landscape}
 
 The jump mechanism introduces two hyperparameters: the tail-entry probability $\epsilon$ and the mean jump duration $\lambda$.
-We selected these via the multi-objective grid search described in Algorithm~\ref{alg:grid_search}, sweeping $\epsilon \in [10^{-5}, 10^{-4}]$ and $\lambda \in [1.0, 100.0]$ with 200 simulated paths per grid point.
+We selected these via the multi-objective grid search described in Algorithm~\ref{alg:grid_search}, sweeping $\epsilon \in [10^{-4}, 2.5 \times 10^{-2}]$ (eight points) and $\lambda \in [10, 160]$ (nine points) with 200 simulated paths per grid point.
 The objective $J(\epsilon, \lambda)$ balances two terms: the squared error between observed and simulated absolute-return ACFs (lags 1--252) and a kurtosis penalty weighted by $w_K = 0.20$.
 Figure~\ref{fig:parameter_sweep} presents the results.
-Panel~(a) shows that $J$ has a well-defined interior minimum, confirming that the two hyperparameters are jointly identifiable from data rather than degenerate or weakly constrained.
-The optimal values $(\epsilon^* = 10^{-4}, \lambda^* = 100.0)$ sit at the boundary of the grid, indicating that the data favor rare but long-lived tail excursions.
+Panel~(a) shows that $J$ is well-behaved over the grid, with a clear minimum confirming that the two hyperparameters are jointly identifiable from data.
+The optimal values $(\epsilon^* = 10^{-4}, \lambda^* = 100)$ indicate that the data favor rare but long-lived tail excursions; $\epsilon^*$ falls at the lower boundary of the $\epsilon$ grid, while $\lambda^*$ is an interior optimum.
 Panel~(b) validates that the ACF of $|G_t|$ at these optimal parameters closely tracks the observed SPY autocorrelation structure, with the simulated 10th--90th percentile envelope (computed from 500 paths) enveloping the empirical curve over the full 252-lag horizon.
 
 \begin{figure}[tp]
@@ -51,8 +51,11 @@ Panel~(b) validates that the ACF of $|G_t|$ at these optimal parameters closely 
     \caption{Hyperparameter grid search over $(\epsilon,\lambda)$ for SPY ($N=100$, 200 paths per
     grid point).
     Panel~(a): heatmap of the objective function $J(\epsilon,\lambda)$ in $\log_{10}$ scale over
-    the full search grid; the red star marks the optimal pair $(\epsilon^*,\lambda^*)$.  The
-    well-defined interior minimum confirms that the jump hyperparameters are identifiable from data.
+    the full search grid ($\epsilon \in [10^{-4}, 2.5\times10^{-2}]$, $\lambda \in [10, 160]$);
+    the red star marks the optimal pair $(\epsilon^*=10^{-4},\lambda^*=100)$.
+    The clear minimum confirms that the jump hyperparameters are jointly identifiable from data;
+    $\epsilon^*$ sits at the lower boundary of the search grid, indicating that smaller tail-entry
+    probabilities are consistently preferred.
     Panel~(b): ACF of $|G_t|$ at the optimal parameters computed from 500 jump-containing paths
     (10th--90th percentile band shaded; mean curve solid navy) compared with the SPY observed ACF
     (dashed red) and the 95\% significance band (dotted black).}
@@ -115,7 +118,7 @@ Algorithm~\ref{alg:grid_search} performs the multi-objective grid search over th
 
 To assess whether the framework generalized beyond the SPY market factor, we fitted standalone HMM-NJ and HMM-WJ models to three individual equities spanning distinct risk profiles: NVDA (high-beta technology), JNJ (low-beta health care), and JPM (moderate-beta financials). Each ticker was fitted independently using the same $N=100$ Laplace quantile partition and the same grid search procedure described in Section~3.3 of the main text, with 1{,}000 simulated paths evaluated against the observed series.
 
-Table~\ref{tab:cross_asset} reports the results. In-sample KS pass rates exceeded 91\% for all three tickers under both HMM-NJ and HMM-WJ, confirming that the Laplace-mixture emission structure captured the marginal distribution of individual equities with diverse tail characteristics. The grid search selected $\epsilon^{*}=10^{-4}$ for all three assets, with $\lambda^{*}=160$ for NVDA and JPM (long-lived volatility episodes) and $\lambda^{*}=30$ for JNJ (shorter episodes consistent with its lower volatility). HMM-WJ reduced ACF-MAE relative to HMM-NJ for NVDA (0.043$\to$0.028) and JPM (0.045$\to$0.032), while JNJ showed minimal improvement (0.027$\to$0.026), consistent with its lower baseline volatility clustering.
+Table~\ref{tab:cross_asset} reports the results. In-sample KS pass rates exceeded 91\% for all three tickers under both HMM-NJ and HMM-WJ, confirming that the Laplace-mixture emission structure captured the marginal distribution of individual equities with diverse tail characteristics. The grid search selected $\epsilon^{*}=10^{-4}$ for all three assets, with $\lambda^{*}=160$ for NVDA and JPM (long-lived volatility episodes) and $\lambda^{*}=30$ for JNJ (shorter episodes consistent with its weaker volatility clustering). HMM-WJ reduced ACF-MAE relative to HMM-NJ for NVDA (0.043$\to$0.028) and JPM (0.045$\to$0.032), while JNJ showed minimal improvement (0.027$\to$0.026), consistent with its lower baseline autocorrelation in absolute returns.
 
 Out-of-sample performance varied across tickers. NVDA maintained strong distributional fidelity (KS 97.1\%, AD 95.6\%), while JNJ and JPM showed more pronounced OoS degradation (KS 70--77\%), reflecting asset-specific regime shifts in 2025 that the stationary IS-calibrated parameters could not fully capture. These results confirmed that the HMM-WJ framework was not specific to ETFs or broad market indices; it generalized to individual equities, with the grid search automatically adapting the jump parameters to each asset's volatility dynamics.
 
@@ -207,8 +210,8 @@ JPM  & HMM-WJ & 76.9 (1.3) & 76.4 (1.3) & 5.8 (0.09) & 0.031 ({$<$}0.001) \\
 \label{alg:grid_search}
 \small
 \begin{algorithmic}[1]
-\REQUIRE Observed growth rates $\mathbf{R}_{obs}$, ACF max lag $L=252$, Number of paths $P=1000$, Time steps $M=2766$
-\REQUIRE Grid space for $\epsilon \in [10^{-5}, 10^{-4}]$ and $\lambda \in [1.0, 100.0]$
+\REQUIRE Observed growth rates $\mathbf{R}_{obs}$, ACF max lag $L=252$, Number of paths $P=200$, Time steps $M=2766$
+\REQUIRE Grid: $\epsilon \in \{10^{-4}, 2.5\times10^{-4}, 5\times10^{-4}, 10^{-3}, 2.5\times10^{-3}, 5\times10^{-3}, 10^{-2}, 2.5\times10^{-2}\}$, $\lambda \in \{10, 25, 40, 55, 70, 85, 100, 130, 160\}$
 \REQUIRE Kurtosis penalty weight $w_K = 0.20$
 \ENSURE Optimal jump hyperparameters $(\epsilon^*, \lambda^*)$
 \STATE Calculate observed absolute ACF: $A_{obs}(\tau) = \text{ACF}(|\mathbf{R}_{obs}|, \tau)$ for $\tau \in \{1, \dots, L\}$.

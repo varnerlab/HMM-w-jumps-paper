@@ -2,7 +2,7 @@
 %%% Do NOT edit. File created by BibTeX with style
 %%% ACM-Reference-Format-Journals [18-Jan-2012].
 
-\begin{thebibliography}{51}
+\begin{thebibliography}{52}
 
 %%% ====================================================================
 %%% NOTE TO THE USER: you can override these defaults by providing
@@ -97,6 +97,20 @@
   (\bibinfo{year}{2024}).
 \newblock
 \href{https://doi.org/10.1145/3666006}{doi:\nolinkurl{10.1145/3666006}}
+
+
+\bibitem[Baum et~al\mbox{.}(1970)]%
+        {baum_1970}
+\bibfield{author}{\bibinfo{person}{Leonard~E. Baum}, \bibinfo{person}{Ted
+  Petrie}, \bibinfo{person}{George Soules}, {and} \bibinfo{person}{Norman
+  Weiss}.} \bibinfo{year}{1970}\natexlab{}.
+\newblock \showarticletitle{A maximization technique occurring in the
+  statistical analysis of probabilistic functions of {Markov} chains}.
+\newblock \bibinfo{journal}{\emph{The Annals of Mathematical Statistics}}
+  \bibinfo{volume}{41}, \bibinfo{number}{1} (\bibinfo{year}{1970}),
+  \bibinfo{pages}{164--171}.
+\newblock
+\href{https://doi.org/10.1214/aoms/1177697196}{doi:\nolinkurl{10.1214/aoms/1177697196}}
 
 
 \bibitem[Berghaus et~al\mbox{.}(2025)]%

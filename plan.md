@@ -43,6 +43,10 @@
 - [x] **Fit-and-finish pass** -- All results/methods/discussion/conclusion converted to past tense; incomplete equation introductions fixed; short paragraphs merged; awkward phrasing cleaned up
 - [x] **README.md** -- Public repo README with structure, scripts, installation, reproduction instructions, CHEME 5660 attribution
 - [x] **Paper .gitignore** -- Excludes LaTeX auxiliary files
+- [x] **Code fix: jump loop non-terminating** -- `K==0` case now advances `t` in both `HMM-Parameter-Sweep.jl` and `Multi-Ticker-Evaluation.jl`
+- [x] **Code fix: Table4 empty-filter crash** -- `summary_stats` now has `isempty` guard returning `NaN` placeholders
+- [x] **Wasserstein-1 + Hellinger added** -- Methods equations (Eq. wasserstein, Eq. hellinger), results paragraph + Table 2 rows (IS+OoS), discussion analysis of GARCH OoS collapse
+- [x] **N4 KS/AD i.i.d. caveat** -- In methods pass-rate paragraph and Limitations subsection; W1/Hellinger cited as assumption-free corroboration
 
 ---
 
@@ -53,7 +57,7 @@
 The paper is technically sound, well-structured, and self-contained. Two minor polish items:
 
 - [ ] **Consistent spelling** -- Paper mixes British ("behaviour", "generalise", "parameterised") and American ("modeling", "optimization"). Pick one and apply globally.
-- [ ] **KS/AD i.i.d. caveat** -- One sentence in methods or limitations noting that KS/AD tests assume i.i.d. samples, but the generated paths have temporal dependence by design.
+- [x] **KS/AD i.i.d. caveat** -- Added in methods (pass rate paragraph) and discussion (end of Limitations subsection); Wasserstein-1 and Hellinger cited as assumption-free corroborating metrics.
 
 ### JDIQ: Likely "Major Revision" Items
 
@@ -67,7 +71,7 @@ These are issues a hard JDIQ reviewer would likely require before acceptance, or
 
 - [x] **N3. Single-asset primary evaluation.** RESOLVED. Added standalone HMM-NJ/HMM-WJ evaluation for NVDA (high-beta tech), JNJ (low-beta health care), and JPM (moderate-beta financials). All three achieve IS KS >91%. Results in Online Appendix S5 (Table S5) with forward reference in main text section 4.4. Code in `code/other-ticker-experiment/`.
 
-- [ ] **N4. KS/AD test validity under temporal dependence.** The two-sample KS and AD tests assume i.i.d. observations, but HMM-WJ paths are explicitly non-i.i.d. This means reported pass rates may be biased in unpredictable ways. Needs at least a paragraph of discussion; ideally a block-bootstrap or permutation-based robustness check.
+- [x] **N4. KS/AD test validity under temporal dependence.** Added caveat in methods and Limitations; Wasserstein-1 and Hellinger distances added as assumption-free alternatives that produce consistent model ordering.
 
 - [x] **N5. ACF-MAE improvement framing.** RESOLVED. Added text in results (temporal fidelity paragraph) and discussion explaining that epsilon is continuously tunable: increasing it produces more jump-containing paths and lower ACF-MAE, at the cost of distributional fidelity. The grid search selected epsilon=0.0001 as the jointly optimal operating point for SPY; the 24% jump rate reflects the best achievable balance, not a structural ceiling.
 
@@ -85,7 +89,7 @@ These are issues a hard JDIQ reviewer would likely require before acceptance, or
 
 - [ ] **C5. Privacy angle.** For a JDIQ synthetic data special issue, privacy is often a core concern. The novelty/diversity metrics show data isn't memorized, but there's no discussion of privacy guarantees, membership inference risk, or relationship to differential privacy. Even one paragraph would help position the paper for the special issue audience.
 
-- [ ] **C6. Unconventional primary metric.** Most synthetic data papers report divergence measures (MMD, Wasserstein, FID-like scores). Binary pass/fail from hypothesis tests discards effect-size information. Not wrong, but a reviewer may question the choice. Adding a continuous metric (Wasserstein or MMD) alongside pass rates would preempt this.
+- [x] **C6. Continuous distance metrics.** Wasserstein-1 and Hellinger distance added to methods (with equations), results (new paragraph + Table 2 rows for IS and OoS), and discussion (GARCH OoS deterioration analysis). Both metrics corroborate KS/AD ordering and expose GARCH's OoS tail collapse that binary pass rates obscured.
 
 - [ ] **C7. Reproducibility artifact.** Self-contained package (data, scripts, environment files, README) for ACM artifact badge.
 
@@ -96,7 +100,7 @@ These are issues a hard JDIQ reviewer would likely require before acceptance, or
 ### Step 1: Final polish (1-2 hours)
 
 - [x] **Consistent spelling** -- American spelling applied globally (14 British→American fixes across 5 files)
-- [ ] **KS/AD i.i.d. caveat** -- One sentence in limitations
+- [x] **KS/AD i.i.d. caveat** -- Added in methods + limitations; W1/Hellinger cited as corroborating assumption-free metrics
 - [ ] **Verify all refs resolve** -- Run `pdflatex` + `bibtex` + `pdflatex` x 2
 - [ ] **Verify all figures render** -- Check all 7 PDFs present in `paper/sections/figs/`
 
@@ -129,9 +133,9 @@ These are issues a hard JDIQ reviewer would likely require before acceptance, or
 - [x] Report Table S5 with KS/AD/kurtosis/ACF-MAE + SEs (IS and OoS)
 - [x] Add Online Appendix S5 + forward reference in section 4.4
 
-#### N4. KS/AD test validity discussion
-- [ ] Add paragraph in methods/limitations discussing i.i.d. assumption violation
-- [ ] Optionally: run block-bootstrap KS test as robustness check
+#### N4. KS/AD test validity discussion ✅
+- [x] Added caveat in methods (pass rate paragraph) and Limitations subsection
+- [x] W1 and Hellinger added as assumption-free corroborating metrics (block-bootstrap not needed given continuous metrics are now present)
 
 #### N5. Temper volatility-clustering claims
 - [ ] Review abstract, intro, conclusion for overstatement
@@ -164,7 +168,7 @@ These are issues a hard JDIQ reviewer would likely require before acceptance, or
 - [ ] **C2.** N_tail sensitivity ablation
 - [ ] **C4.** Copula discussion in related work
 - [ ] **C5.** Privacy paragraph
-- [ ] **C6.** Add Wasserstein/MMD metric to Table 2
+- [x] **C6.** Wasserstein-1 and Hellinger added to Table 2 (IS + OoS rows), methods, results, discussion
 - [ ] **C7.** ACM reproducibility artifact
 
 ---

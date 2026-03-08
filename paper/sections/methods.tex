@@ -172,12 +172,12 @@ The Kolmogorov-Smirnov (KS) statistic is defined as:
 \end{equation}
 where $F_n$ and $F_m$ denote the empirical CDFs of the observed and simulated sequences of lengths $n$ and $m$, respectively \cite{kolmogorov_1933, smirnov_1948}. The null hypothesis of distributional equivalence is rejected at significance level $\alpha$ when $D_{KS}$ exceeds the critical value $c(\alpha)\sqrt{(n+m)/(nm)}$.
 
-The Anderson-Darling (AD) statistic places greater weight on the distributional tails than the KS test and is defined as:
+The Anderson-Darling (AD) statistic places greater weight on the distributional tails than the KS test. The original one-sample form \cite{anderson_darling_1952} measures deviation from a fully specified reference CDF $F_0$:
 \begin{equation}
-    A^2 = -n - \sum_{i=1}^{n} \frac{2i-1}{n}\left[\ln F(X_{(i)}) + \ln\left(1 - F(X_{(n+1-i)})\right)\right]
+    A^2 = -n - \sum_{i=1}^{n} \frac{2i-1}{n}\left[\ln F_0(X_{(i)}) + \ln\left(1 - F_0(X_{(n+1-i)})\right)\right]
     \label{eq:ad_stat}
 \end{equation}
-where $X_{(1)} \le \cdots \le X_{(n)}$ are the order statistics of the pooled sample and $F$ is the empirical CDF of the reference distribution \cite{anderson_darling_1952}. The AD test is particularly suited for assessing tail-distributional fidelity, which is the primary concern for risk management applications.
+where $X_{(1)} \le \cdots \le X_{(n)}$ are the order statistics of the sample. In this study, we applied the two-sample Anderson-Darling test, which replaces $F_0$ with the empirical CDF of the observed SPY series; critical values are obtained from the $k$-sample variant of \citeauthor{anderson_darling_1952} as implemented in the HypothesisTests.jl library. The AD test is particularly suited for assessing tail-distributional fidelity, which is the primary concern for risk management applications.
 
 We reported the \textit{pass rate} as the proportion of the 1,000 simulated paths for which the null hypothesis of distributional equivalence was not rejected at the $\alpha = 0.05$ significance level. A pass rate above 95 percent indicated that the synthetic paths were, in aggregate, statistically indistinguishable from the historical data under that test. Pass rates were reported separately for the in-sample and out-of-sample windows and for both model variants (HMM without jumps and the hybrid HMM with jumps). Both KS and AD tests assume i.i.d.\ observations; because volatility clustering induces positive autocorrelation in the tail-indicator process $\mathbf{1}(G_t \le x)$, the effective sample size is smaller than $T$ and reported p-values may be slightly miscalibrated. The continuous distance metrics below are unaffected by this assumption.
 
