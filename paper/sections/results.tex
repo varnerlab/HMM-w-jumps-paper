@@ -111,6 +111,7 @@ Parameters estimated         &     0 &     2 &     2 &     3 &     2 &     4 \\ 
 \begin{figure}[tp]
     \centering
     \includegraphics[width=\textwidth]{Fig4-Model-Comparison.pdf}
+    \Description{Three-panel figure comparing six generative models for SPY. Panel (a) shows marginal density histograms of excess growth rates with KS pass rates annotated; HMM variants closely match the empirical heavy-tailed distribution while GARCH and Gaussian fail. Panel (b) shows autocorrelation functions of absolute returns at lags 1 to 252; HMM-WJ reproduces slow ACF decay while HMM-NJ and i.i.d. baselines collapse near zero. Panel (c) shows tail Q-Q plots at the 0.1st through 99.9th percentile region; HMM-WJ provides the closest quantile match in the extremes.}
     \caption{Head-to-head in-sample model comparison for SPY ($N=100$, 1{,}000 simulated paths).
     Panel~(a): marginal density of excess growth rates with IS KS pass rates annotated.
     GARCH(1,1) fails the two-sample KS test on 95\% of paths (pass rate 5.5\%), indicating a
@@ -153,6 +154,7 @@ Nonetheless, the out-of-sample period exposed the stationarity assumption embedd
 \begin{figure}[tp]
     \centering
     \includegraphics[width=\textwidth]{Fig6-Statistical-Validation.pdf}
+    \Description{Four-panel statistical validation figure for HMM-WJ. Panel (a) shows in-sample KS p-value histograms across 1000 simulated paths, uniformly distributed indicating good fit. Panel (b) shows out-of-sample KS p-value histograms, still broadly uniform. Panel (c) compares the in-sample and out-of-sample marginal density of simulated paths against the observed SPY distribution with the simulation envelope shown. Panel (d) shows the ACF of absolute returns for in-sample and out-of-sample windows, with HMM-WJ simulation band compared to the observed SPY ACF.}
     \caption{Statistical validation of HMM-WJ ($N=100$, 1{,}000 simulated paths, $\alpha=0.05$).
     Panels~(a) and~(b) show the distribution of two-sample KS $p$-values in-sample and
     out-of-sample, respectively; a well-calibrated generative model produces $p$-values that are

@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.26 (TeX Live 2024) (preloaded format=pdflatex 2024.4.15)  8 MAR 2026 09:22
+This is pdfTeX, Version 3.141592653-2.6-1.40.26 (TeX Live 2024) (preloaded format=pdflatex 2024.4.15)  8 MAR 2026 09:43
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -1700,10 +1700,6 @@ File: sections/figs/Fig1-Empirical-Motivation.pdf Graphic file (type pdf)
 Package pdftex.def Info: sections/figs/Fig1-Empirical-Motivation.pdf  used on i
 nput line 10.
 (pdftex.def)             Requested size: 395.8225pt x 296.86029pt.
-
-
-Class acmart Warning: A possible image without description on input line 18.
-
 ) (./sections/related.tex
 LaTeX Font Info:    Font shape `T1/LinuxBiolinumT-TLF/m/n' will be
 (Font)              scaled to size 8.0pt on input line 2.
@@ -1788,11 +1784,7 @@ LaTeX Font Info:    Font shape `OT1/LinuxLibertineT-TLF/sb/n' will be
 (Font)              scaled to size 8.0pt on input line 135.
 LaTeX Font Info:    Font shape `OT1/LinuxLibertineT-TLF/sb/n' will be
 (Font)              scaled to size 6.2pt on input line 135.
-
-
-Class acmart Warning: A possible image without description on input line 147.
-
-[8.8]
+ [8.8]
 
 Package fancyhdr Warning: \headheight is too small (13.0pt): 
 (fancyhdr)                Make it at least 18.48402pt, for example:
@@ -1803,11 +1795,11 @@ Package fancyhdr Warning: \headheight is too small (13.0pt):
 
 [9.9] [10.10]
 Package hyperref Info: bookmark level for unknown algorithm defaults to 0 on in
-put line 228.
+put line 229.
 LaTeX Font Info:    Font shape `T1/LinuxLibertineT-TLF/b/n' will be
-(Font)              scaled to size 10.0pt on input line 228.
+(Font)              scaled to size 10.0pt on input line 229.
 LaTeX Font Info:    Font shape `T1/LinuxLibertineT-TLF/b/n' will be
-(Font)              scaled to size 9.0pt on input line 232.
+(Font)              scaled to size 9.0pt on input line 233.
 )
 
 Package fancyhdr Warning: \headheight is too small (13.0pt): 
@@ -1859,10 +1851,7 @@ Package pdftex.def Info: sections/figs/Fig4-Model-Comparison.pdf  used on input
  line 113.
 (pdftex.def)             Requested size: 395.8225pt x 123.13919pt.
 LaTeX Font Info:    Font shape `T1/LinuxBiolinumT-TLF/m/it' will be
-(Font)              scaled to size 9.0pt on input line 135.
-
-
-Class acmart Warning: A possible image without description on input line 137.
+(Font)              scaled to size 9.0pt on input line 136.
 
 
 Package fancyhdr Warning: \headheight is too small (13.0pt): 
@@ -1877,12 +1866,8 @@ Package fancyhdr Warning: \headheight is too small (13.0pt):
 File: sections/figs/Fig6-Statistical-Validation.pdf Graphic file (type pdf)
 <use sections/figs/Fig6-Statistical-Validation.pdf>
 Package pdftex.def Info: sections/figs/Fig6-Statistical-Validation.pdf  used on
- input line 155.
+ input line 156.
 (pdftex.def)             Requested size: 395.8225pt x 296.86029pt.
-
-
-Class acmart Warning: A possible image without description on input line 172.
-
 
 Underfull \vbox (badness 1242) has occurred while \output is active []
 
@@ -1898,7 +1883,7 @@ Package fancyhdr Warning: \headheight is too small (13.0pt):
 [17.17 <./sections/figs/Fig4-Model-Comparison.pdf>] [18.18 <./sections/figs/Fig
 6-Statistical-Validation.pdf>]
 LaTeX Font Info:    Font shape `T1/LinuxLibertineT-TLF/m/it' will be
-(Font)              scaled to size 9.0pt on input line 194.
+(Font)              scaled to size 9.0pt on input line 196.
 )
 
 Package fancyhdr Warning: \headheight is too small (13.0pt): 
@@ -1915,11 +1900,7 @@ File: sections/figs/Fig7-Multi-Asset-SIM.pdf Graphic file (type pdf)
 Package pdftex.def Info: sections/figs/Fig7-Multi-Asset-SIM.pdf  used on input 
 line 6.
 (pdftex.def)             Requested size: 395.8225pt x 237.491pt.
-
-
-Class acmart Warning: A possible image without description on input line 15.
-
-[20.20
+ [20.20
 
  <./sections/figs/Fig7-Multi-Asset-SIM.pdf>]
 Underfull \vbox (badness 6396) has occurred while \output is active []
@@ -1966,9 +1947,6 @@ line 18.
 (pdftex.def)             Requested size: 395.8225pt x 128.63945pt.
 
 
-Class acmart Warning: A possible image without description on input line 34.
-
-
 Package fancyhdr Warning: \headheight is too small (13.0pt): 
 (fancyhdr)                Make it at least 18.48402pt, for example:
 (fancyhdr)                \setlength{\headheight}{18.48402pt}.
@@ -1983,13 +1961,9 @@ Package fancyhdr Warning: \headheight is too small (13.0pt):
 File: sections/figs/Fig5-Parameter-Sweep.pdf Graphic file (type pdf)
 <use sections/figs/Fig5-Parameter-Sweep.pdf>
 Package pdftex.def Info: sections/figs/Fig5-Parameter-Sweep.pdf  used on input 
-line 50.
+line 51.
 (pdftex.def)             Requested size: 395.8225pt x 158.33038pt.
-
-
-Class acmart Warning: A possible image without description on input line 63.
-
-[2.28
+ [2.28
 
  <./sections/figs/Fig5-Parameter-Sweep.pdf>]
 
@@ -2027,23 +2001,7 @@ File: se-pdfdoc.def 2019/11/29 v1.12 stringenc: PDFDocEncoding
 ) (/usr/local/texlive/2024/texmf-dist/tex/generic/stringenc/se-utf8.def
 File: se-utf8.def 2019/11/29 v1.12 stringenc: UTF-8
 )
-[8.34]
-
-Class acmart Warning: Some images may lack descriptions.
-(acmart)              ACM is committed to complying with the upcoming US ADA ht
-tps://accessiblyapp.com/accessibility-compliance/ada/ and European Accessibilit
-y Act (EAA) https://accessiblyapp.com/accessibility-compliance/eaa/ regulations
- by actively working to ensure our publications and application services are ac
-cessible to individuals with disabilities, adhering to the WCAG guidelines to p
-rovide a seamless experience for all users, and regularly reviewing our accessi
-bility practices to maintain compliance with evolving standards. 
-(acmart)              To this end, we strongly encourage our authors to provide
- alternative text and captions for images and multimedia content. It is also im
-portant to optimize color contrast for the visually impaired. Taking these impo
-rtant steps when creating your papers will ensure that the widest possible audi
-ence can ingest your work..
-
-(./Paper_v1.aux)
+[8.34] (./Paper_v1.aux)
  ***********
 LaTeX2e <2023-11-01> patch level 1
 L3 programming layer <2024-02-20>

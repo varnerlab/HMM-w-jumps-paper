@@ -20,7 +20,9 @@
       "Bash(kpsewhich:*)",
       "WebFetch(domain:www.nature.com)",
       "WebFetch(domain:academic.oup.com)",
-      "WebFetch(domain:doi.org)"
+      "WebFetch(domain:doi.org)",
+      "Bash(bash:*)",
+      "Bash(tar:*)"
     ]
   }
 }

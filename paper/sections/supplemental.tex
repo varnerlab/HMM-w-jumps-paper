@@ -16,6 +16,7 @@ This is far too short to reproduce the persistent volatility clustering observed
 \begin{figure}[tp]
     \centering
     \includegraphics[width=\textwidth]{Fig3-Model-Internals.pdf}
+    \Description{Three-panel figure showing fitted HMM internals for SPY with N=100 states. Panel (a) overlays the fitted Laplace CDF on the empirical CDF with 99 vertical lines marking quantile boundaries. Panel (b) displays the 100-by-100 empirical transition matrix as a heatmap in log base 10 color scale, revealing a dominant near-diagonal band. Panel (c) plots expected natural residence time per state on a log scale, with bottom-tail states (1 to 5) shaded red and top-tail states (96 to 100) shaded teal; a dashed horizontal line marks the optimal mean jump duration of 100 steps.}
     \caption{Fitted model internals for SPY with $N=100$ states.
     Panel~(a) overlays the fitted Laplace CDF on the empirical CDF; the 99 vertical lines mark the
     equal-probability quantile boundaries that define the $N$ hidden states.  The close agreement
@@ -48,6 +49,7 @@ Panel~(b) validates that the ACF of $|G_t|$ at these optimal parameters closely 
 \begin{figure}[tp]
     \centering
     \includegraphics[width=\textwidth]{Fig5-Parameter-Sweep.pdf}
+    \Description{Two-panel figure showing the hyperparameter grid search results. Panel (a) is a heatmap of the objective function J in log base 10 scale over the epsilon-lambda grid, with a red star marking the optimal pair at epsilon-star equals 1e-4 and lambda-star equals 100; the minimum sits at the lower boundary of the epsilon grid and at an interior point of the lambda grid. Panel (b) shows the ACF of absolute returns computed from 500 jump-containing paths at the optimal parameters, with the 10th to 90th percentile band shaded and the mean curve compared against the observed SPY ACF and 95 percent significance band.}
     \caption{Hyperparameter grid search over $(\epsilon,\lambda)$ for SPY ($N=100$, 200 paths per
     grid point).
     Panel~(a): heatmap of the objective function $J(\epsilon,\lambda)$ in $\log_{10}$ scale over

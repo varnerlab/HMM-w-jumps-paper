@@ -133,6 +133,7 @@ We estimated the transition matrix $\mathbf{T}$ through direct frequentist count
 
 \end{tikzpicture}%
 }
+\Description{Diagram of the HMM-WJ architecture showing a linear chain of hidden states from state 1 (red, bottom tail) through middle states to state N (blue, top tail). Thin bidirectional arrows represent normal Markov transitions. A dashed arrow from a middle state points upward to a Poisson clock node labeled epsilon, which then directs flow into either the bottom-tail (red) or top-tail (blue) state sets for K steps before returning to normal Markov transitions. Small Gaussian bell curves above each state represent the state-conditional emission distribution.}
 \caption{Architecture of the Hybrid Hidden Markov Model with Jump-Diffusion (HMM-WJ).
     At each step the chain transitions according to the empirical transition matrix $\mathbf{T}$
     (probability $1-\epsilon$, thin bidirectional arrows) or enters a Poisson jump episode
