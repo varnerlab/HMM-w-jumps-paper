@@ -22,7 +22,9 @@
       "WebFetch(domain:academic.oup.com)",
       "WebFetch(domain:doi.org)",
       "Bash(bash:*)",
-      "Bash(tar:*)"
+      "Bash(tar:*)",
+      "Bash(/tmp/hmm_analysis_summary.txt:*)",
+      "Read(//tmp/**)"
     ]
   }
 }
