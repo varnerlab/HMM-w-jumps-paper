@@ -78,7 +78,7 @@ These are issues a hard JDIQ reviewer would likely require before acceptance, or
 
 - [x] **N5. ACF-MAE improvement framing.** RESOLVED. Added text in results (temporal fidelity paragraph) and discussion explaining that epsilon is continuously tunable: increasing it produces more jump-containing paths and lower ACF-MAE, at the cost of distributional fidelity. The grid search selected epsilon=0.0001 as the jointly optimal operating point for SPY; the 24% jump rate reflects the best achievable balance, not a structural ceiling.
 
-- [ ] **N6. Kurtosis underestimation is unexplored.** Observed 7.7, simulated 5.5 (29% gap). The paper explains the cause (Laplace partition smoothing) but doesn't explore fixes. A reviewer will ask: "Have you tried non-equal-probability bins, or a heavier-tailed emission distribution?" Even a negative result ("we tried X, it didn't help because Y") would satisfy this.
+- [x] **N6. Kurtosis underestimation is unexplored.** RESOLVED. Switched emission distribution from Normal to Student-t(df=5). IS kurtosis gap closed from 29% (Normal) to 2% (Student-t). Sensitivity analysis over df in {3,...,30,Inf} confirmed df=5 optimal. All paper sections updated (methods, Table 2, results prose, abstract, intro, conclusion, discussion, TikZ diagram, supplemental algorithms). Code in `code/spy-experiment/N6-Kurtosis-Exploration.jl`, `N6-df-Sensitivity.jl`, `Table2-StudentT-Emissions.jl`.
 
 #### NICE (would strengthen, probably not block acceptance)
 
@@ -144,10 +144,12 @@ These are issues a hard JDIQ reviewer would likely require before acceptance, or
 - [x] Review abstract, intro, conclusion for overstatement
 - [x] Reframe: "partially reproduces" throughout abstract, intro, results, discussion, conclusion
 
-#### N6. Kurtosis exploration
-- [ ] Try non-equal-probability bins (e.g., finer tail bins)
-- [ ] Try Student-t or mixture emission instead of Normal
-- [ ] Report results (even negative) in a paragraph or supplemental table
+#### N6. Kurtosis exploration ✅
+- [x] Tested non-equal-probability bins (3x finer tail resolution) -- modest improvement
+- [x] Tested Student-t emissions (df=3,4,5,6,7,8,10,15,30,Inf) -- df=5 optimal
+- [x] Switched entire model emission from Normal to Student-t(df=5) permanently
+- [x] Regenerated Table 2 with Student-t emissions (Table2-StudentT-Emissions.jl)
+- [x] Updated all paper sections: methods, results, abstract, intro, conclusion, discussion, TikZ, supplemental
 
 ### Phase 2: Double-anonymous preparation (1 hour)
 

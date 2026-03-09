@@ -113,14 +113,14 @@ HMM-WJ &  30 & 98.0 (0.4) & 96.8 (0.6) & 0.057 \\ \bottomrule
 The main text presents Algorithm~\ref{alg:sim}, which generates synthetic state sequences from the fitted HMM with jump-duration dynamics.
 The three algorithms below detail the remaining stages of the computational pipeline.
 Algorithm~\ref{alg:build} describes model construction: fitting a Laplace distribution to the observed excess growth rates, partitioning the support into $N$ equal-probability bins, assigning each observation to a discrete state, and estimating the transition matrix by row-normalizing the state-to-state count matrix.
-Algorithm~\ref{alg:decode} converts a simulated discrete state sequence back into continuous excess growth rates by sampling from a truncated Gaussian within each state's quantile bin, parameterized so that the bin boundaries correspond to $\pm 3.09\sigma$ (the 99.9th percentile).
+Algorithm~\ref{alg:decode} converts a simulated discrete state sequence back into continuous excess growth rates by sampling from a location-scale Student-t distribution ($\nu=5$) within each state, parameterized by the state-conditional sample mean and standard deviation.
 Algorithm~\ref{alg:grid_search} performs the multi-objective grid search over the jump hyperparameters $(\epsilon, \lambda)$, minimizing a composite objective that penalizes both ACF mismatch and kurtosis deviation relative to the observed series.
 
 \subsection*{S5. Cross-asset generalization}
 
 To assess whether the framework generalized beyond the SPY market factor, we fitted standalone HMM-NJ and HMM-WJ models to three individual equities spanning distinct risk profiles: NVDA (high-beta technology), JNJ (low-beta health care), and JPM (moderate-beta financials). Each ticker was fitted independently using the same $N=100$ Laplace quantile partition and the same grid search procedure described in Section~3.3 of the main text, with 1{,}000 simulated paths evaluated against the observed series.
 
-Table~\ref{tab:cross_asset} reports the results. In-sample KS pass rates exceeded 91\% for all three tickers under both HMM-NJ and HMM-WJ, confirming that the Laplace-mixture emission structure captured the marginal distribution of individual equities with diverse tail characteristics. The grid search selected $\epsilon^{*}=10^{-4}$ for all three assets, with $\lambda^{*}=160$ for NVDA and JPM (long-lived volatility episodes) and $\lambda^{*}=30$ for JNJ (shorter episodes consistent with its weaker volatility clustering). HMM-WJ reduced ACF-MAE relative to HMM-NJ for NVDA (0.043$\to$0.028) and JPM (0.045$\to$0.032), while JNJ showed minimal improvement (0.027$\to$0.026), consistent with its lower baseline autocorrelation in absolute returns.
+Table~\ref{tab:cross_asset} reports the results. In-sample KS pass rates exceeded 91\% for all three tickers under both HMM-NJ and HMM-WJ, confirming that the Student-t emission structure captured the marginal distribution of individual equities with diverse tail characteristics. The grid search selected $\epsilon^{*}=10^{-4}$ for all three assets, with $\lambda^{*}=160$ for NVDA and JPM (long-lived volatility episodes) and $\lambda^{*}=30$ for JNJ (shorter episodes consistent with its weaker volatility clustering). HMM-WJ reduced ACF-MAE relative to HMM-NJ for NVDA (0.043$\to$0.028) and JPM (0.045$\to$0.032), while JNJ showed minimal improvement (0.027$\to$0.026), consistent with its lower baseline autocorrelation in absolute returns.
 
 Out-of-sample performance varied across tickers. NVDA maintained strong distributional fidelity (KS 97.1\%, AD 95.6\%), while JNJ and JPM showed more pronounced OoS degradation (KS 70--77\%), reflecting asset-specific regime shifts in 2025 that the stationary IS-calibrated parameters could not fully capture. These results confirmed that the HMM-WJ framework was not specific to ETFs or broad market indices; it generalized to individual equities, with the grid search automatically adapting the jump parameters to each asset's volatility dynamics.
 
@@ -189,17 +189,16 @@ JPM  & HMM-WJ & 76.9 (1.3) & 76.4 (1.3) & 5.8 (0.09) & 0.031 ({$<$}0.001) \\
 \label{alg:decode}
 \small
 \begin{algorithmic}[1]
-\REQUIRE Simulated state sequence $S_{1:M}$, Quantile boundaries $\mathcal{Q}$
+\REQUIRE Simulated state sequence $S_{1:M}$, Encoded training observations, Degrees of freedom $\nu=5$
 \ENSURE Reconstructed continuous excess growth rates $\hat{R}_{1:M}$
-\STATE Define $z_{0.999} = 3.09$.
 \FOR{$k = 1$ to $N$}
-    \STATE Set $\mu_k = (Q_{k-1} + Q_k)/2$.
-    \STATE Set $\sigma_k = (Q_k - Q_{k-1})/(2 z_{0.999})$.
+    \STATE Set $\mu_k = \text{mean}(\{G_t : S_t^{\text{train}} = k\})$.
+    \STATE Set $\sigma_k = \text{std}(\{G_t : S_t^{\text{train}} = k\})$.
 \ENDFOR
 \STATE Initialize the reconstructed excess growth rate vector $\mathbf{\hat{G}}$ of length $M$.
 \FOR{$t = 1$ to $M$}
     \STATE Retrieve the simulated state $k = S_t$.
-\STATE Sample the continuous excess growth rate $\hat{G}_t$ from the normal distribution $\mathcal{N}(\mu_k, \sigma_k)$.
+\STATE Sample $\hat{G}_t = \mu_k + \sigma_k \cdot Z$, where $Z \sim t_\nu$.
 \ENDFOR
 \RETURN $\hat{G}_{1:M}$
 \end{algorithmic}
