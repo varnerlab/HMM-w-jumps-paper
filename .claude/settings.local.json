@@ -26,7 +26,9 @@
       "Bash(/tmp/hmm_analysis_summary.txt:*)",
       "Read(//tmp/**)",
       "WebFetch(domain:docs.synthetic.ydata.ai)",
-      "WebFetch(domain:github.com)"
+      "WebFetch(domain:github.com)",
+      "WebFetch(domain:arxiv.org)",
+      "Bash(pip3 install:*)"
     ]
   }
 }
