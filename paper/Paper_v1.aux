@@ -4,12 +4,12 @@
 \providecommand\HyField@AuxAddToFields[1]{}
 \providecommand\HyField@AuxAddToCoFields[2]{}
 \citation{assefa_generating_2021,jordon_synthetic_2022}
-\citation{mandelbrot_variation_1963,cont_empirical_2001,bauer_jdiq_ts_synthesis_2024}
+\citation{mandelbrot_variation_1963,cont_empirical_2001,stenger_jdiq_ts_synthesis_2024}
 \citation{engle_1982,bollerslev_garch_1986}
 \citation{heston_stochastic_1993,merton_jump_1976}
 \citation{hochreiter_lstm_1997,fischer_krauss_2018}
 \citation{takahashi_2019,kwon_can_2024,yoon_timegan_2019}
-\citation{bauer_jdiq_ts_synthesis_2024}
+\citation{stenger_jdiq_ts_synthesis_2024}
 \citation{rabiner_introduction_1986}
 \citation{ryden_stylized_1998,bulla_stylized_2006}
 \@writefile{toc}{\contentsline {section}{Abstract}{1}{section*.1}\protected@file@percent }
@@ -61,16 +61,17 @@
 \citation{rossi_volatility_2006}
 \citation{hamilton_1989,kim_nelson_1999}
 \citation{dias_mixture_2010}
+\citation{embrechts_copulas_2002,cherubini_copula_2004}
 \@writefile{toc}{\contentsline {subsection}{\numberline {2.3}Synthetic data generation and deep generative models}{5}{subsection.2.3}\protected@file@percent }
 \@writefile{toc}{\contentsline {subsection}{\numberline {2.4}Factor models and multi-asset extensions}{5}{subsection.2.4}\protected@file@percent }
 \citation{rabiner_introduction_1986}
 \citation{cont_empirical_2001,kotz_laplace_2001}
-\citation{mandelbrot_variation_1963,harwood_against_2019}
+\citation{mandelbrot_variation_1963,toth_against_2019}
 \citation{bilmes_gentle_nodate}
 \citation{kou_jump-diffusion_2002}
 \@writefile{toc}{\contentsline {section}{\numberline {3}Methods}{7}{section.3}\protected@file@percent }
 \newlabel{sec:methods}{{3}{7}{Methods}{section.3}{}}
-\newlabel{eq:growth_rate}{{1}{7}{Excess growth rate calculation}{equation.3.1}{}}
+\newlabel{eq:growth_rate}{{1}{7}{Excess growth rate calculation}{equation.1}{}}
 \citation{bilmes_gentle_nodate}
 \citation{bulla_stylized_2006}
 \citation{glasserman_monte_2003}
@@ -84,17 +85,17 @@
 \citation{mandelbrot_variation_1963}
 \citation{glasserman_monte_2003}
 \citation{kolmogorov_1933,smirnov_1948}
-\newlabel{eq:grid_search}{{3}{9}{Hyperparameter optimization via grid search}{equation.3.3}{}}
-\newlabel{eq:ks_stat}{{4}{9}{Statistical validation metrics}{equation.3.4}{}}
+\newlabel{eq:grid_search}{{3}{9}{Hyperparameter optimization via grid search}{equation.3}{}}
+\newlabel{eq:ks_stat}{{4}{9}{Statistical validation metrics}{equation.4}{}}
 \citation{anderson_darling_1952}
 \citation{anderson_darling_1952}
-\newlabel{eq:ad_stat}{{5}{10}{Statistical validation metrics}{equation.3.5}{}}
-\newlabel{eq:wasserstein}{{6}{10}{Continuous distributional distance metrics}{equation.3.6}{}}
-\newlabel{eq:hellinger}{{7}{10}{Continuous distributional distance metrics}{equation.3.7}{}}
+\newlabel{eq:ad_stat}{{5}{10}{Statistical validation metrics}{equation.5}{}}
+\newlabel{eq:wasserstein}{{6}{10}{Continuous distributional distance metrics}{equation.6}{}}
+\newlabel{eq:hellinger}{{7}{10}{Continuous distributional distance metrics}{equation.7}{}}
 \citation{sharpe_simplified_1963}
-\newlabel{eq:acf_mae}{{8}{11}{Temporal fidelity metric}{equation.3.8}{}}
-\newlabel{eq:sim}{{9}{11}{Single-Index Factor Model extension}{equation.3.9}{}}
-\newlabel{eq:sim_gen}{{10}{11}{Single-Index Factor Model extension}{equation.3.10}{}}
+\newlabel{eq:acf_mae}{{8}{11}{Temporal fidelity metric}{equation.8}{}}
+\newlabel{eq:sim}{{9}{11}{Single-Index Factor Model extension}{equation.9}{}}
+\newlabel{eq:sim_gen}{{10}{11}{Single-Index Factor Model extension}{equation.10}{}}
 \@writefile{loa}{\contentsline {algorithm}{\numberline {1}{\ignorespaces Hybrid jump-diffusion simulation with persistent volatility}}{12}{algorithm.1}\protected@file@percent }
 \newlabel{alg:sim}{{1}{12}{Hybrid jump-diffusion simulation with persistent volatility}{algorithm.1}{}}
 \citation{fama_efficient_1970}
@@ -129,9 +130,10 @@
 \newlabel{sec:discussion}{{5}{20}{Discussion}{section.5}{}}
 \@writefile{toc}{\contentsline {subsection}{\numberline {5.1}The role of the jump-duration mechanism}{20}{subsection.5.1}\protected@file@percent }
 \citation{glasserman_monte_2003}
-\citation{ohara_market_1998,manganelli_2004}
-\citation{bauer_jdiq_ts_synthesis_2024}
+\citation{dwork_differential_2006}
+\citation{stadler_synthetic_2022}
 \@writefile{toc}{\contentsline {subsection}{\numberline {5.2}Practical implications}{21}{subsection.5.2}\protected@file@percent }
+\citation{stenger_jdiq_ts_synthesis_2024}
 \citation{sharpe_simplified_1963,fama_french_1993}
 \@writefile{toc}{\contentsline {subsection}{\numberline {5.3}Limitations}{22}{subsection.5.3}\protected@file@percent }
 \citation{fama_french_1993}
@@ -141,57 +143,59 @@
 \bibdata{References_v1.bib}
 \bibcite{anderson_darling_1952}{{1}{1952}{{Anderson and Darling}}{{}}}
 \bibcite{arthur_complexity_2021}{{2}{2021}{{Arthur}}{{}}}
-\bibcite{assefa_generating_2021}{{3}{2021}{{Assefa et~al\mbox  {.}}}{{}}}
+\bibcite{assefa_generating_2021}{{3}{2020}{{Assefa et~al\mbox  {.}}}{{}}}
 \bibcite{au_yeung_jump_2020}{{4}{2020}{{Au~Yeung et~al\mbox  {.}}}{{}}}
-\bibcite{bauer_jdiq_ts_synthesis_2024}{{5}{2024}{{Bauer et~al\mbox  {.}}}{{}}}
-\bibcite{baum_1970}{{6}{1970}{{Baum et~al\mbox  {.}}}{{}}}
-\bibcite{berghaus_foundation_2025}{{7}{2025}{{Berghaus et~al\mbox  {.}}}{{}}}
-\bibcite{bilmes_gentle_nodate}{{8}{1998}{{Bilmes}}{{}}}
-\bibcite{black_scholes_1973}{{9}{1973}{{Black and Scholes}}{{}}}
-\bibcite{bollerslev_garch_1986}{{10}{1986}{{Bollerslev}}{{}}}
-\bibcite{bulla_stylized_2006}{{11}{2006}{{Bulla and Bulla}}{{}}}
-\bibcite{challet_zhang_1997}{{12}{1997}{{Challet and Zhang}}{{}}}
-\bibcite{chen_herding_2015}{{13}{2015}{{Chen et~al\mbox  {.}}}{{}}}
+\bibcite{baum_1970}{{5}{1970}{{Baum et~al\mbox  {.}}}{{}}}
+\bibcite{berghaus_foundation_2025}{{6}{2024}{{Berghaus et~al\mbox  {.}}}{{}}}
+\bibcite{bilmes_gentle_nodate}{{7}{1998}{{Bilmes}}{{}}}
+\bibcite{black_scholes_1973}{{8}{1973}{{Black and Scholes}}{{}}}
+\bibcite{bollerslev_garch_1986}{{9}{1986}{{Bollerslev}}{{}}}
+\bibcite{bulla_stylized_2006}{{10}{2006}{{Bulla and Bulla}}{{}}}
+\bibcite{challet_zhang_1997}{{11}{1997}{{Challet and Zhang}}{{}}}
+\bibcite{chen_herding_2015}{{12}{2015}{{Chen et~al\mbox  {.}}}{{}}}
+\bibcite{cherubini_copula_2004}{{13}{2004}{{Cherubini et~al\mbox  {.}}}{{}}}
 \bibcite{cont_empirical_2001}{{14}{2001}{{Cont}}{{}}}
 \bibcite{cont_bouchaud_2000}{{15}{2000}{{Cont and Bouchaud}}{{}}}
 \bibcite{dias_mixture_2010}{{16}{2010}{{Dias et~al\mbox  {.}}}{{}}}
 \bibcite{diebold_inoue_2001}{{17}{2001}{{Diebold and Inoue}}{{}}}
-\bibcite{engle_1982}{{18}{1982}{{Engle}}{{}}}
-\bibcite{fama_efficient_1970}{{19}{1970}{{Fama}}{{}}}
-\bibcite{fama_french_1993}{{20}{1993}{{Fama and French}}{{}}}
-\bibcite{farmer_quantitative_2025}{{21}{2025}{{Farmer}}{{}}}
-\bibcite{farmer_joshi_2002}{{22}{2002}{{Farmer and Joshi}}{{}}}
-\bibcite{fischer_krauss_2018}{{23}{2018}{{Fischer and Krauss}}{{}}}
-\bibcite{glasserman_monte_2003}{{24}{2003}{{Glasserman}}{{}}}
-\bibcite{grinstead_introduction_1997}{{25}{1997}{{Grinstead and Snell}}{{}}}
-\bibcite{hamilton_1989}{{26}{1989}{{Hamilton}}{{}}}
-\bibcite{hamilton_regime_2018}{{27}{2018}{{Hamilton}}{{}}}
-\bibcite{harwood_against_2019}{{28}{2019}{{Harwood}}{{}}}
+\bibcite{dwork_differential_2006}{{18}{2006}{{Dwork}}{{}}}
+\bibcite{embrechts_copulas_2002}{{19}{2002}{{Embrechts et~al\mbox  {.}}}{{}}}
+\bibcite{engle_1982}{{20}{1982}{{Engle}}{{}}}
+\bibcite{fama_efficient_1970}{{21}{1970}{{Fama}}{{}}}
+\bibcite{fama_french_1993}{{22}{1993}{{Fama and French}}{{}}}
+\bibcite{farmer_quantitative_2025}{{23}{2025}{{Farmer}}{{}}}
+\bibcite{farmer_joshi_2002}{{24}{2002}{{Farmer and Joshi}}{{}}}
+\bibcite{fischer_krauss_2018}{{25}{2018}{{Fischer and Krauss}}{{}}}
+\bibcite{glasserman_monte_2003}{{26}{2003}{{Glasserman}}{{}}}
+\bibcite{grinstead_introduction_1997}{{27}{1997}{{Grinstead and Snell}}{{}}}
+\bibcite{hamilton_1989}{{28}{1989}{{Hamilton}}{{}}}
 \@writefile{toc}{\contentsline {section}{References}{25}{section*.31}\protected@file@percent }
-\bibcite{heston_stochastic_1993}{{29}{1993}{{Heston}}{{}}}
-\bibcite{hochreiter_lstm_1997}{{30}{1997}{{Hochreiter and Schmidhuber}}{{}}}
-\bibcite{jordon_synthetic_2022}{{31}{2022}{{Jordon et~al\mbox  {.}}}{{}}}
-\bibcite{kim_nelson_1999}{{32}{1999}{{Kim and Nelson}}{{}}}
-\bibcite{kolmogorov_1933}{{33}{1933}{{Kolmogorov}}{{}}}
-\bibcite{kotz_laplace_2001}{{34}{2001}{{Kotz et~al\mbox  {.}}}{{}}}
-\bibcite{kou_jump-diffusion_2002}{{35}{2002}{{Kou}}{{}}}
-\bibcite{kwon_can_2024}{{36}{2024}{{Kwon and Lee}}{{}}}
-\bibcite{lebaron_agent_2006}{{37}{2006}{{LeBaron}}{{}}}
-\bibcite{lux_marchesi_1999}{{38}{1999}{{Lux and Marchesi}}{{}}}
-\bibcite{mandelbrot_variation_1963}{{39}{1963}{{Mandelbrot}}{{}}}
-\bibcite{manganelli_2004}{{40}{2004}{{Manganelli and Engle}}{{}}}
+\bibcite{hamilton_regime_2018}{{29}{2018}{{Hamilton}}{{}}}
+\bibcite{heston_stochastic_1993}{{30}{1993}{{Heston}}{{}}}
+\bibcite{hochreiter_lstm_1997}{{31}{1997}{{Hochreiter and Schmidhuber}}{{}}}
+\bibcite{jordon_synthetic_2022}{{32}{2022}{{Jordon et~al\mbox  {.}}}{{}}}
+\bibcite{kim_nelson_1999}{{33}{1999}{{Kim and Nelson}}{{}}}
+\bibcite{kolmogorov_1933}{{34}{1933}{{Kolmogorov}}{{}}}
+\bibcite{kotz_laplace_2001}{{35}{2001}{{Kotz et~al\mbox  {.}}}{{}}}
+\bibcite{kou_jump-diffusion_2002}{{36}{2002}{{Kou}}{{}}}
+\bibcite{kwon_can_2024}{{37}{2024}{{Kwon and Lee}}{{}}}
+\bibcite{lebaron_agent_2006}{{38}{2006}{{LeBaron}}{{}}}
+\bibcite{lux_marchesi_1999}{{39}{1999}{{Lux and Marchesi}}{{}}}
+\bibcite{mandelbrot_variation_1963}{{40}{1963}{{Mandelbrot}}{{}}}
 \bibcite{merton_jump_1976}{{41}{1976}{{Merton}}{{}}}
 \bibcite{nguyen_hidden_2018}{{42}{2018}{{Nguyen}}{{}}}
-\bibcite{ohara_market_1998}{{43}{1998}{{O'Hara}}{{}}}
-\bibcite{rabiner_introduction_1986}{{44}{1986}{{Rabiner and Juang}}{{}}}
-\bibcite{rossi_volatility_2006}{{45}{2006}{{Rossi and Gallo}}{{}}}
-\bibcite{ryden_stylized_1998}{{46}{1998}{{Rydén et~al\mbox  {.}}}{{}}}
-\bibcite{schwert_why_1989}{{47}{1989}{{Schwert}}{{}}}
-\bibcite{sharpe_simplified_1963}{{48}{1963}{{Sharpe}}{{}}}
-\bibcite{smirnov_1948}{{49}{1948}{{Smirnov}}{{}}}
+\bibcite{rabiner_introduction_1986}{{43}{1986}{{Rabiner and Juang}}{{}}}
+\bibcite{rossi_volatility_2006}{{44}{2006}{{Rossi and Gallo}}{{}}}
+\bibcite{ryden_stylized_1998}{{45}{1998}{{Rydén et~al\mbox  {.}}}{{}}}
+\bibcite{schwert_why_1989}{{46}{1989}{{Schwert}}{{}}}
+\bibcite{sharpe_simplified_1963}{{47}{1963}{{Sharpe}}{{}}}
+\bibcite{smirnov_1948}{{48}{1948}{{Smirnov}}{{}}}
+\bibcite{stadler_synthetic_2022}{{49}{2022}{{Stadler et~al\mbox  {.}}}{{}}}
 \bibcite{stein_stock_1991}{{50}{1991}{{Stein and Stein}}{{}}}
-\bibcite{takahashi_2019}{{51}{2019}{{Takahashi et~al\mbox  {.}}}{{}}}
-\bibcite{yoon_timegan_2019}{{52}{2019}{{Yoon et~al\mbox  {.}}}{{}}}
+\bibcite{stenger_jdiq_ts_synthesis_2024}{{51}{2024}{{Stenger et~al\mbox  {.}}}{{}}}
+\bibcite{takahashi_2019}{{52}{2019}{{Takahashi et~al\mbox  {.}}}{{}}}
+\bibcite{toth_against_2019}{{53}{2019}{{Toth and Jones}}{{}}}
+\bibcite{yoon_timegan_2019}{{54}{2019}{{Yoon et~al\mbox  {.}}}{{}}}
 \@writefile{lof}{\contentsline {figure}{\numberline {S1}{\ignorespaces Fitted model internals for SPY with $N=100$ states. Panel\nonbreakingspace (a) overlays the fitted Laplace CDF on the empirical CDF; the 99 vertical lines mark the equal-probability quantile boundaries that define the $N$ hidden states. The close agreement confirms that the Laplace distribution is an accurate marginal model for the excess growth rate data. Panel\nonbreakingspace (b) displays the empirical transition matrix $\mathbf  {T}$ in $\log _{10}$ color scale; the dominant near-diagonal band reflects short-range regime persistence. Panel\nonbreakingspace (c) plots the expected natural residence time $1/(1-T_{kk})$ for each state on a $\log _{10}$ scale, with the bottom tail set $\mathcal  {S}_{-}$ (states 1--5, red shading) and top tail set $\mathcal  {S}_{+}$ (states 96--100, teal shading) highlighted. Under pure Markovian dynamics every state, including the tail states, exits within 1--2 steps on average, far too quickly to reproduce empirical volatility clustering. The dashed horizontal line marks the mean mean jump duration $\lambda ^* = 100$ steps at the grid-search optimum, quantifying the two-order-of-magnitude gap between natural residence times and the jump-duration mechanism.}}{S-1}{figure.caption.34}\protected@file@percent }
 \newlabel{fig:model_internals}{{S1}{S-1}{Fitted model internals for SPY with $N=100$ states. Panel~(a) overlays the fitted Laplace CDF on the empirical CDF; the 99 vertical lines mark the equal-probability quantile boundaries that define the $N$ hidden states. The close agreement confirms that the Laplace distribution is an accurate marginal model for the excess growth rate data. Panel~(b) displays the empirical transition matrix $\mathbf {T}$ in $\log _{10}$ color scale; the dominant near-diagonal band reflects short-range regime persistence. Panel~(c) plots the expected natural residence time $1/(1-T_{kk})$ for each state on a $\log _{10}$ scale, with the bottom tail set $\mathcal {S}_{-}$ (states 1--5, red shading) and top tail set $\mathcal {S}_{+}$ (states 96--100, teal shading) highlighted. Under pure Markovian dynamics every state, including the tail states, exits within 1--2 steps on average, far too quickly to reproduce empirical volatility clustering. The dashed horizontal line marks the mean mean jump duration $\lambda ^* = 100$ steps at the grid-search optimum, quantifying the two-order-of-magnitude gap between natural residence times and the jump-duration mechanism}{figure.caption.34}{}}
 \@writefile{lof}{\contentsline {figure}{\numberline {S2}{\ignorespaces Hyperparameter grid search over $(\epsilon ,\lambda )$ for SPY ($N=100$, 200 paths per grid point). Panel\nonbreakingspace (a): heatmap of the objective function $J(\epsilon ,\lambda )$ in $\log _{10}$ scale over the full search grid ($\epsilon \in [10^{-4}, 2.5\times 10^{-2}]$, $\lambda \in [10, 160]$); the red star marks the optimal pair $(\epsilon ^*=10^{-4},\lambda ^*=100)$. The clear minimum confirms that the jump hyperparameters are jointly identifiable from data; $\epsilon ^*$ sits at the lower boundary of the search grid, indicating that smaller tail-entry probabilities are consistently preferred. Panel\nonbreakingspace (b): ACF of $|G_t|$ at the optimal parameters computed from 500 jump-containing paths (10th--90th percentile band shaded; mean curve solid navy) compared with the SPY observed ACF (dashed red) and the 95\% significance band (dotted black).}}{S-2}{figure.caption.36}\protected@file@percent }

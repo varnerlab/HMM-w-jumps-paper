@@ -47,6 +47,9 @@
 - [x] **Code fix: Table4 empty-filter crash** -- `summary_stats` now has `isempty` guard returning `NaN` placeholders
 - [x] **Wasserstein-1 + Hellinger added** -- Methods equations (Eq. wasserstein, Eq. hellinger), results paragraph + Table 2 rows (IS+OoS), discussion analysis of GARCH OoS collapse
 - [x] **N4 KS/AD i.i.d. caveat** -- In methods pass-rate paragraph and Limitations subsection; W1/Hellinger cited as assumption-free corroboration
+- [x] **Citation audit** -- All \cite{} verified against published sources; 9 bib entries corrected (wrong authors: harwood, bauer/joussen/lukas, jordon; wrong years: assefa, manganelli, berghaus; wrong metadata: hernandez, stadler, dwork); 2 irrelevant citations removed from discussion (ohara, manganelli); nguyen claim corrected
+- [x] **Table 2 best-model boxes** -- \fbox{} around best parametric model value in each metric row (Bootstrap excluded from competition)
+- [x] **Parameter count footnote** -- Table 2 footnote clarifying that the N x N transition matrix is a sufficient statistic computed by counting, not a fitted parameter
 
 ---
 
@@ -56,7 +59,7 @@
 
 The paper is technically sound, well-structured, and self-contained. Two minor polish items:
 
-- [ ] **Consistent spelling** -- Paper mixes British ("behaviour", "generalise", "parameterised") and American ("modeling", "optimization"). Pick one and apply globally.
+- [x] **Consistent spelling** -- American spelling applied globally.
 - [x] **KS/AD i.i.d. caveat** -- Added in methods (pass rate paragraph) and discussion (end of Limitations subsection); Wasserstein-1 and Hellinger cited as assumption-free corroborating metrics.
 
 ### JDIQ: Likely "Major Revision" Items
@@ -85,9 +88,9 @@ These are issues a hard JDIQ reviewer would likely require before acceptance, or
 
 - [ ] **C3. SIM extension results are weak.** 58.4% mean KS pass rate across 424 assets. The paper honestly attributes this to single-factor limitations, but a reviewer might question whether this warrants a full section if the conclusion is "SIM isn't expressive enough."
 
-- [ ] **C4. Missing copula discussion in related work.** Copula-based approaches for multi-asset dependence are standard in quantitative finance and absent from the related work.
+- [x] **C4. Missing copula discussion in related work.** Added to factor models subsection; cites Embrechts et al. (2002) and Cherubini et al. (2004).
 
-- [ ] **C5. Privacy angle.** For a JDIQ synthetic data special issue, privacy is often a core concern. The novelty/diversity metrics show data isn't memorized, but there's no discussion of privacy guarantees, membership inference risk, or relationship to differential privacy. Even one paragraph would help position the paper for the special issue audience.
+- [x] **C5. Privacy angle.** Added paragraph in discussion (practical implications); novelty/diversity as memorization guard; cites Dwork (2006) and Stadler et al. (2022); honestly notes no formal DP guarantees.
 
 - [x] **C6. Continuous distance metrics.** Wasserstein-1 and Hellinger distance added to methods (with equations), results (new paragraph + Table 2 rows for IS and OoS), and discussion (GARCH OoS deterioration analysis). Both metrics corroborate KS/AD ordering and expose GARCH's OoS tail collapse that binary pass rates obscured.
 
@@ -101,8 +104,8 @@ These are issues a hard JDIQ reviewer would likely require before acceptance, or
 
 - [x] **Consistent spelling** -- American spelling applied globally (14 British→American fixes across 5 files)
 - [x] **KS/AD i.i.d. caveat** -- Added in methods + limitations; W1/Hellinger cited as corroborating assumption-free metrics
-- [ ] **Verify all refs resolve** -- Run `pdflatex` + `bibtex` + `pdflatex` x 2
-- [ ] **Verify all figures render** -- Check all 7 PDFs present in `paper/sections/figs/`
+- [x] **Verify all refs resolve** -- Run `pdflatex` + `bibtex` + `pdflatex` x 2 (all clean, no undefined refs)
+- [x] **Verify all figures render** -- All 7 PDFs present in `paper/sections/figs/`; Fig2 is inline TikZ
 
 ### Step 2: arXiv upload (30 min)
 
@@ -137,9 +140,9 @@ These are issues a hard JDIQ reviewer would likely require before acceptance, or
 - [x] Added caveat in methods (pass rate paragraph) and Limitations subsection
 - [x] W1 and Hellinger added as assumption-free corroborating metrics (block-bootstrap not needed given continuous metrics are now present)
 
-#### N5. Temper volatility-clustering claims
-- [ ] Review abstract, intro, conclusion for overstatement
-- [ ] Reframe: "partially reproduces" or "improves upon HMM-NJ" rather than "reproduces the ARCH effect"
+#### N5. Temper volatility-clustering claims ✅
+- [x] Review abstract, intro, conclusion for overstatement
+- [x] Reframe: "partially reproduces" throughout abstract, intro, results, discussion, conclusion
 
 #### N6. Kurtosis exploration
 - [ ] Try non-equal-probability bins (e.g., finer tail bins)
@@ -166,8 +169,8 @@ These are issues a hard JDIQ reviewer would likely require before acceptance, or
 
 - [ ] **C1.** Rolling OoS evaluation
 - [ ] **C2.** N_tail sensitivity ablation
-- [ ] **C4.** Copula discussion in related work
-- [ ] **C5.** Privacy paragraph
+- [x] **C4.** Copula discussion in related work (factor models subsection; Embrechts et al. 2002, Cherubini et al. 2004)
+- [x] **C5.** Privacy paragraph in discussion (practical implications; novelty/diversity as memorization guard; cites Dwork 2006, Stadler et al. 2022)
 - [x] **C6.** Wasserstein-1 and Hellinger added to Table 2 (IS + OoS rows), methods, results, discussion
 - [ ] **C7.** ACM reproducibility artifact
 

@@ -2,7 +2,7 @@
 %%% Do NOT edit. File created by BibTeX with style
 %%% ACM-Reference-Format-Journals [18-Jan-2012].
 
-\begin{thebibliography}{52}
+\begin{thebibliography}{54}
 
 %%% ====================================================================
 %%% NOTE TO THE USER: you can override these defaults by providing
@@ -59,12 +59,12 @@
 \href{https://doi.org/10.1038/s42254-020-00273-3}{doi:\nolinkurl{10.1038/s42254-020-00273-3}}
 
 
-\bibitem[Assefa et~al\mbox{.}(2021)]%
+\bibitem[Assefa et~al\mbox{.}(2020)]%
         {assefa_generating_2021}
 \bibfield{author}{\bibinfo{person}{Samuel~A. Assefa}, \bibinfo{person}{Danial
   Dervovic}, \bibinfo{person}{Mahmoud Mahfouz}, \bibinfo{person}{Robert~E.
   Tillman}, \bibinfo{person}{Prashant Reddy}, {and} \bibinfo{person}{Manuela
-  Veloso}.} \bibinfo{year}{2021}\natexlab{}.
+  Veloso}.} \bibinfo{year}{2020}\natexlab{}.
 \newblock \showarticletitle{Generating synthetic data in finance:
   opportunities, challenges and pitfalls}. In
   \bibinfo{booktitle}{\emph{Proceedings of the {First} {ACM} {International}
@@ -86,19 +86,6 @@
 \href{https://doi.org/10.1007/s00500-019-04006-2}{doi:\nolinkurl{10.1007/s00500-019-04006-2}}
 
 
-\bibitem[Bauer et~al\mbox{.}(2024)]%
-        {bauer_jdiq_ts_synthesis_2024}
-\bibfield{author}{\bibinfo{person}{Kevin Bauer}, \bibinfo{person}{Simon
-  Joussen}, {and} \bibinfo{person}{Jan Lukas}.}
-  \bibinfo{year}{2024}\natexlab{}.
-\newblock \showarticletitle{Thinking in Categories: A Survey on Assessing the
-  Quality for Time Series Synthesis}.
-\newblock \bibinfo{journal}{\emph{Journal of Data and Information Quality}}
-  (\bibinfo{year}{2024}).
-\newblock
-\href{https://doi.org/10.1145/3666006}{doi:\nolinkurl{10.1145/3666006}}
-
-
 \bibitem[Baum et~al\mbox{.}(1970)]%
         {baum_1970}
 \bibfield{author}{\bibinfo{person}{Leonard~E. Baum}, \bibinfo{person}{Ted
@@ -113,11 +100,12 @@
 \href{https://doi.org/10.1214/aoms/1177697196}{doi:\nolinkurl{10.1214/aoms/1177697196}}
 
 
-\bibitem[Berghaus et~al\mbox{.}(2025)]%
+\bibitem[Berghaus et~al\mbox{.}(2024)]%
         {berghaus_foundation_2025}
 \bibfield{author}{\bibinfo{person}{David Berghaus}, \bibinfo{person}{Kostadin
-  Cvejoski}, \bibinfo{person}{Patrick Seifner}, \bibinfo{person}{César Ojeda},
-  {and} \bibinfo{person}{Ramsés~J. Sanchez}.} \bibinfo{year}{2025}\natexlab{}.
+  Cvejoski}, \bibinfo{person}{Patrick Seifner}, \bibinfo{person}{C\'{e}sar
+  Ojeda}, {and} \bibinfo{person}{Rams\'{e}s~J. Sanchez}.}
+  \bibinfo{year}{2024}\natexlab{}.
 \newblock \showarticletitle{Foundation inference models for {Markov} jump
   processes}. In \bibinfo{booktitle}{\emph{Proceedings of the 38th
   {International} {Conference} on {Neural} {Information} {Processing}
@@ -200,6 +188,17 @@
 \href{https://doi.org/10.1038/srep08399}{doi:\nolinkurl{10.1038/srep08399}}
 
 
+\bibitem[Cherubini et~al\mbox{.}(2004)]%
+        {cherubini_copula_2004}
+\bibfield{author}{\bibinfo{person}{Umberto Cherubini}, \bibinfo{person}{Elisa
+  Luciano}, {and} \bibinfo{person}{Walter Vecchiato}.}
+  \bibinfo{year}{2004}\natexlab{}.
+\newblock \bibinfo{booktitle}{\emph{Copula Methods in Finance}}.
+\newblock \bibinfo{publisher}{John Wiley \& Sons}.
+\newblock
+\showISBNx{9780470863459}
+
+
 \bibitem[Cont(2001)]%
         {cont_empirical_2001}
 \bibfield{author}{\bibinfo{person}{R. Cont}.} \bibinfo{year}{2001}\natexlab{}.
@@ -246,6 +245,33 @@
   \bibinfo{pages}{131--159}.
 \newblock
 \href{https://doi.org/10.1016/S0304-4076(01)00073-2}{doi:\nolinkurl{10.1016/S0304-4076(01)00073-2}}
+
+
+\bibitem[Dwork(2006)]%
+        {dwork_differential_2006}
+\bibfield{author}{\bibinfo{person}{Cynthia Dwork}.}
+  \bibinfo{year}{2006}\natexlab{}.
+\newblock \showarticletitle{Differential Privacy}. In
+  \bibinfo{booktitle}{\emph{Automata, Languages and Programming ({ICALP})}}
+  \emph{(\bibinfo{series}{Lecture Notes in Computer Science},
+  Vol.~\bibinfo{volume}{4052})}. \bibinfo{publisher}{Springer},
+  \bibinfo{pages}{1--12}.
+\newblock
+\href{https://doi.org/10.1007/11787006_1}{doi:\nolinkurl{10.1007/11787006_1}}
+
+
+\bibitem[Embrechts et~al\mbox{.}(2002)]%
+        {embrechts_copulas_2002}
+\bibfield{author}{\bibinfo{person}{Paul Embrechts},
+  \bibinfo{person}{Alexander~J. McNeil}, {and} \bibinfo{person}{Daniel
+  Straumann}.} \bibinfo{year}{2002}\natexlab{}.
+\newblock \showarticletitle{Correlation and Dependence in Risk Management:
+  Properties and Pitfalls}.
+\newblock In \bibinfo{booktitle}{\emph{Risk Management: Value at Risk and
+  Beyond}}. \bibinfo{publisher}{Cambridge University Press},
+  \bibinfo{pages}{176--223}.
+\newblock
+\href{https://doi.org/10.1017/CBO9780511615337.008}{doi:\nolinkurl{10.1017/CBO9780511615337.008}}
 
 
 \bibitem[Engle(1982)]%
@@ -366,17 +392,6 @@
 \href{https://doi.org/10.1057/978-1-349-95189-5_2459}{doi:\nolinkurl{10.1057/978-1-349-95189-5_2459}}
 
 
-\bibitem[Harwood(2019)]%
-        {harwood_against_2019}
-\bibfield{author}{\bibinfo{person}{V. Harwood}.}
-  \bibinfo{year}{2019}\natexlab{}.
-\newblock \showarticletitle{Against the {Norm}: {Modeling} {Daily} {Stock}
-  {Returns} with the {Laplace} {Distribution}}.
-\newblock \bibinfo{journal}{\emph{arXiv preprint arXiv:1906.10325}}
-  (\bibinfo{year}{2019}).
-\newblock
-
-
 \bibitem[Heston(1993)]%
         {heston_stochastic_1993}
 \bibfield{author}{\bibinfo{person}{Steven~L. Heston}.}
@@ -405,10 +420,10 @@
 \bibitem[Jordon et~al\mbox{.}(2022)]%
         {jordon_synthetic_2022}
 \bibfield{author}{\bibinfo{person}{James Jordon}, \bibinfo{person}{Lukasz
-  Szpruch}, \bibinfo{person}{Florimond Houssiau}, \bibinfo{person}{Luke
-  Sheridan~Rains}, \bibinfo{person}{James Sheridan}, \bibinfo{person}{Michael
-  Sheridan}, {and} \bibinfo{person}{David Sheridan}.}
-  \bibinfo{year}{2022}\natexlab{}.
+  Szpruch}, \bibinfo{person}{Florimond Houssiau}, \bibinfo{person}{Mirko
+  Bottarelli}, \bibinfo{person}{Giovanni Cherubin}, \bibinfo{person}{Carsten
+  Maple}, \bibinfo{person}{Samuel~N. Cohen}, {and} \bibinfo{person}{Adrian
+  Weller}.} \bibinfo{year}{2022}\natexlab{}.
 \newblock \showarticletitle{Synthetic Data -- what, why and how?}
 \newblock \bibinfo{journal}{\emph{arXiv preprint arXiv:2205.03257}}
   (\bibinfo{year}{2022}).
@@ -515,16 +530,6 @@
 \newblock
 
 
-\bibitem[Manganelli and Engle(2004)]%
-        {manganelli_2004}
-\bibfield{author}{\bibinfo{person}{Simone Manganelli} {and}
-  \bibinfo{person}{Robert~F. Engle}.} \bibinfo{year}{2004}\natexlab{}.
-\newblock \showarticletitle{Value at risk models in finance}.
-\newblock \bibinfo{journal}{\emph{European Central Bank Working Paper Series}}
-  (\bibinfo{year}{2004}).
-\newblock
-
-
 \bibitem[Merton(1976)]%
         {merton_jump_1976}
 \bibfield{author}{\bibinfo{person}{Robert~C. Merton}.}
@@ -548,15 +553,6 @@
   \bibinfo{pages}{36}.
 \newblock
 \href{https://doi.org/10.3390/ijfs6020036}{doi:\nolinkurl{10.3390/ijfs6020036}}
-
-
-\bibitem[O'Hara(1998)]%
-        {ohara_market_1998}
-\bibfield{author}{\bibinfo{person}{Maureen O'Hara}.}
-  \bibinfo{year}{1998}\natexlab{}.
-\newblock \bibinfo{booktitle}{\emph{Market {Microstructure} {Theory}}}.
-\newblock \bibinfo{publisher}{Wiley}.
-\newblock
 
 
 \bibitem[Rabiner and Juang(1986)]%
@@ -632,6 +628,17 @@
 \newblock
 
 
+\bibitem[Stadler et~al\mbox{.}(2022)]%
+        {stadler_synthetic_2022}
+\bibfield{author}{\bibinfo{person}{Theresa Stadler}, \bibinfo{person}{Bristena
+  Oprisanu}, {and} \bibinfo{person}{Carmela Troncoso}.}
+  \bibinfo{year}{2022}\natexlab{}.
+\newblock \showarticletitle{Synthetic Data -- Anonymisation Groundhog Day}. In
+  \bibinfo{booktitle}{\emph{31st {USENIX} Security Symposium ({USENIX} Security
+  22)}}. \bibinfo{pages}{1451--1468}.
+\newblock
+
+
 \bibitem[Stein and Stein(1991)]%
         {stein_stock_1991}
 \bibfield{author}{\bibinfo{person}{Elias~M. Stein} {and}
@@ -642,6 +649,22 @@
   \bibinfo{volume}{4}, \bibinfo{number}{4} (\bibinfo{year}{1991}),
   \bibinfo{pages}{727--752}.
 \newblock
+
+
+\bibitem[Stenger et~al\mbox{.}(2024)]%
+        {stenger_jdiq_ts_synthesis_2024}
+\bibfield{author}{\bibinfo{person}{Michael Stenger}, \bibinfo{person}{Andr\'{e}
+  Bauer}, \bibinfo{person}{Thomas Prantl}, \bibinfo{person}{Robert Leppich},
+  \bibinfo{person}{Nathaniel Hudson}, \bibinfo{person}{Kyle Chard},
+  \bibinfo{person}{Ian Foster}, {and} \bibinfo{person}{Samuel Kounev}.}
+  \bibinfo{year}{2024}\natexlab{}.
+\newblock \showarticletitle{Thinking in Categories: {A} Survey on Assessing the
+  Quality for Time Series Synthesis}.
+\newblock \bibinfo{journal}{\emph{Journal of Data and Information Quality}}
+  \bibinfo{volume}{16}, \bibinfo{number}{2} (\bibinfo{year}{2024}),
+  \bibinfo{pages}{1--32}.
+\newblock
+\href{https://doi.org/10.1145/3666006}{doi:\nolinkurl{10.1145/3666006}}
 
 
 \bibitem[Takahashi et~al\mbox{.}(2019)]%
@@ -656,6 +679,17 @@
   \bibinfo{pages}{121261}.
 \newblock
 \href{https://doi.org/10.1016/j.physa.2019.121261}{doi:\nolinkurl{10.1016/j.physa.2019.121261}}
+
+
+\bibitem[Toth and Jones(2019)]%
+        {toth_against_2019}
+\bibfield{author}{\bibinfo{person}{David Toth} {and} \bibinfo{person}{Bruce
+  Jones}.} \bibinfo{year}{2019}\natexlab{}.
+\newblock \showarticletitle{Against the {Norm}: {Modeling} {Daily} {Stock}
+  {Returns} with the {Laplace} {Distribution}}.
+\newblock \bibinfo{journal}{\emph{arXiv preprint arXiv:1906.10325}}
+  (\bibinfo{year}{2019}).
+\newblock
 
 
 \bibitem[Yoon et~al\mbox{.}(2019)]%

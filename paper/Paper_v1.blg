@@ -1,4 +1,4 @@
-This is BibTeX, Version 0.99d (TeX Live 2024)
+This is BibTeX, Version 0.99d (TeX Live 2025)
 Capacity: max_strings=200000, hash_size=200000, hash_prime=170003
 The top-level auxiliary file: Paper_v1.aux
 The style file: ACM-Reference-Format.bst
@@ -14,69 +14,69 @@ Reallocated glb_str_end (elt_size=4) to 20 items from 10.
 Reallocated singl_function (elt_size=4) to 100 items from 50.
 Warning--empty publisher in assefa_generating_2021
 Warning--empty address in assefa_generating_2021
-Warning--no number and no volume in bauer_jdiq_ts_synthesis_2024
-Warning--page numbers missing in both pages and numpages fields in bauer_jdiq_ts_synthesis_2024
 Warning--empty publisher in berghaus_foundation_2025
 Warning--empty address in berghaus_foundation_2025
 Warning--no number and no volume in bilmes_gentle_nodate
 Warning--page numbers missing in both pages and numpages fields in bilmes_gentle_nodate
+Warning--empty address in cherubini_copula_2004
 Warning--empty address in dias_mixture_2010
+Warning--empty address in dwork_differential_2006
+Warning--empty address in embrechts_copulas_2002
 Warning--empty address in glasserman_monte_2003
 Warning--empty address in grinstead_introduction_1997
 Warning--no number and no volume in hamilton_regime_2018
-Warning--no number and no volume in harwood_against_2019
-Warning--page numbers missing in both pages and numpages fields in harwood_against_2019
 Warning--no number and no volume in jordon_synthetic_2022
 Warning--page numbers missing in both pages and numpages fields in jordon_synthetic_2022
 Warning--empty address in kotz_laplace_2001
 Warning--empty publisher in kwon_can_2024
 Warning--empty address in kwon_can_2024
 Warning--empty address in lebaron_agent_2006
-Warning--no number and no volume in manganelli_2004
-Warning--page numbers missing in both pages and numpages fields in manganelli_2004
-Warning--empty address in ohara_market_1998
+Warning--empty publisher in stadler_synthetic_2022
+Warning--empty address in stadler_synthetic_2022
+Warning--no number and no volume in toth_against_2019
+Warning--page numbers missing in both pages and numpages fields in toth_against_2019
 Warning--empty publisher in yoon_timegan_2019
 Warning--empty address in yoon_timegan_2019
 Warning--page numbers missing in both pages and numpages fields in yoon_timegan_2019
-You've used 52 entries,
+You've used 54 entries,
             6273 wiz_defined-function locations,
-            1850 strings with 27403 characters,
-and the built_in function-call counts, 60329 in all, are:
-= -- 9420
-> -- 1408
+            1869 strings with 28106 characters,
+and the built_in function-call counts, 63387 in all, are:
+= -- 9715
+> -- 1532
 < -- 0
-+ -- 466
-- -- 552
-* -- 3800
-:= -- 5353
-add.period$ -- 265
-call.type$ -- 52
-change.case$ -- 314
-chr.to.int$ -- 52
-cite$ -- 78
-duplicate$ -- 5197
-empty$ -- 3660
-format.name$ -- 672
-if$ -- 15728
++ -- 510
+- -- 590
+* -- 4065
+:= -- 5664
+add.period$ -- 276
+call.type$ -- 54
+change.case$ -- 336
+chr.to.int$ -- 54
+cite$ -- 80
+duplicate$ -- 5478
+empty$ -- 3850
+format.name$ -- 722
+if$ -- 16404
 int.to.chr$ -- 2
 int.to.str$ -- 1
-missing$ -- 202
-newline$ -- 488
-num.names$ -- 366
-pop$ -- 1770
+missing$ -- 209
+newline$ -- 505
+num.names$ -- 380
+pop$ -- 1869
 preamble$ -- 1
-purify$ -- 730
+purify$ -- 768
 quote$ -- 0
-skip$ -- 1832
+skip$ -- 1951
 stack$ -- 0
-substring$ -- 4920
-swap$ -- 568
+substring$ -- 5200
+swap$ -- 607
 text.length$ -- 0
 text.prefix$ -- 0
 top$ -- 0
-type$ -- 912
+type$ -- 986
 warning$ -- 26
-while$ -- 437
+while$ -- 451
 width$ -- 0
-write$ -- 1057
+write$ -- 1101
 (There were 26 warnings)
