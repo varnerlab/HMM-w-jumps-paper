@@ -68,7 +68,7 @@ These are issues a hard JDIQ reviewer would likely require before acceptance, or
 
 #### NEED (likely required for acceptance)
 
-- [ ] **N1. No semi-Markov comparison.** Bulla & Bulla (2006) is cited as the key prior work that solved the same volatility-clustering gap using semi-Markov dwell times, but is never benchmarked against. A reviewer will ask: "Why should I believe your Poisson mechanism is better than the approach you cite?" This is the single biggest methodological gap. *Fix: implement a basic semi-Markov HMM baseline, or provide a clear argument (with evidence) for why direct comparison is infeasible or unnecessary.*
+- [x] **N1. No semi-Markov comparison.** RESOLVED. Implemented HSMM baseline with K=8 Laplace quantile states, NegBin dwell times, Student-t(5) emissions. Swept K in {3,4,5,6,8}. Result: 82.0% IS KS (vs 97.6% HMM-WJ), ACF-MAE 0.059 (i.i.d. floor). Semi-Markov dwell times provide zero volatility clustering improvement because empirical dwell times are only 1.1-1.8 steps. Added to Table 2 as 7th model with full discussion. Code in `code/baseline-comparison/Semi-Markov-Baseline.jl`.
 
 - [ ] **N2. No neural baseline.** TimeGAN and CTGAN are discussed in related work but absent from Table 2. The paper positions itself against deep generative models but only compares against simple baselines. For a 2026 submission, at least one neural baseline is needed, even if it performs poorly. *Fix: run TimeGAN or a simple LSTM generator through the same 7-metric evaluation.*
 
@@ -119,11 +119,11 @@ These are issues a hard JDIQ reviewer would likely require before acceptance, or
 
 ### Phase 1: Address NEED items (2-3 weeks)
 
-#### N1. Semi-Markov baseline
-- [ ] Implement basic hidden semi-Markov model (geometric or negative-binomial dwell times)
-- [ ] Run through same 7-metric evaluation pipeline
-- [ ] Add to Table 2 as 7th model
-- [ ] Add comparison discussion in results and discussion sections
+#### N1. Semi-Markov baseline ✅
+- [x] Implemented HSMM with K={3,4,5,6,8} states, NegBin dwell times, Student-t(5) emissions
+- [x] K=8 selected as best; all metrics computed with SEs
+- [x] Added to Table 2 as 7th model (now 7 models x 10 metrics)
+- [x] Added HSMM paragraph in results (baseline anchors) and discussion (jump mechanism subsection)
 
 #### N2. Neural baseline
 - [ ] Implement TimeGAN or LSTM baseline (Python, then pipe through Julia evaluation)

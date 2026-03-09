@@ -24,7 +24,9 @@
       "Bash(bash:*)",
       "Bash(tar:*)",
       "Bash(/tmp/hmm_analysis_summary.txt:*)",
-      "Read(//tmp/**)"
+      "Read(//tmp/**)",
+      "WebFetch(domain:docs.synthetic.ydata.ai)",
+      "WebFetch(domain:github.com)"
     ]
   }
 }
