@@ -2,7 +2,7 @@
 %%% Do NOT edit. File created by BibTeX with style
 %%% ACM-Reference-Format-Journals [18-Jan-2012].
 
-\begin{thebibliography}{54}
+\begin{thebibliography}{55}
 
 %%% ====================================================================
 %%% NOTE TO THE USER: you can override these defaults by providing
@@ -197,6 +197,20 @@
 \newblock \bibinfo{publisher}{John Wiley \& Sons}.
 \newblock
 \showISBNx{9780470863459}
+
+
+\bibitem[Cho et~al\mbox{.}(2014)]%
+        {cho_gru_2014}
+\bibfield{author}{\bibinfo{person}{Kyunghyun Cho}, \bibinfo{person}{Bart van
+  Merrienboer}, \bibinfo{person}{Caglar Gulcehre}, \bibinfo{person}{Dzmitry
+  Bahdanau}, \bibinfo{person}{Fethi Bougares}, \bibinfo{person}{Holger
+  Schwenk}, {and} \bibinfo{person}{Yoshua Bengio}.}
+  \bibinfo{year}{2014}\natexlab{}.
+\newblock \showarticletitle{Learning Phrase Representations using {RNN}
+  Encoder-Decoder for Statistical Machine Translation}.
+\newblock \bibinfo{journal}{\emph{arXiv preprint arXiv:1406.1078}}
+  (\bibinfo{year}{2014}).
+\newblock
 
 
 \bibitem[Cont(2001)]%

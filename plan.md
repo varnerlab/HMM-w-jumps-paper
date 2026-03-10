@@ -70,7 +70,7 @@ These are issues a hard JDIQ reviewer would likely require before acceptance, or
 
 - [x] **N1. No semi-Markov comparison.** RESOLVED. Implemented HSMM baseline with K=8 Laplace quantile states, NegBin dwell times, Student-t(5) emissions. Swept K in {3,4,5,6,8}. Result: 82.0% IS KS (vs 97.6% HMM-WJ), ACF-MAE 0.059 (i.i.d. floor). Semi-Markov dwell times provide zero volatility clustering improvement because empirical dwell times are only 1.1-1.8 steps. Added to Table 2 as 7th model with full discussion. Code in `code/baseline-comparison/Semi-Markov-Baseline.jl`.
 
-- [ ] **N2. No neural baseline.** TimeGAN and CTGAN are discussed in related work but absent from Table 2. The paper positions itself against deep generative models but only compares against simple baselines. For a 2026 submission, at least one neural baseline is needed, even if it performs poorly. *Fix: run TimeGAN or a simple LSTM generator through the same 7-metric evaluation.*
+- [x] **N2. No neural baseline.** RESOLVED. Implemented 2-layer GRU autoregressive baseline (37,954 trainable parameters, Gaussian output head, window=50). Result: IS KS 0.6% (catastrophic distributional failure), ACF-MAE 0.036 (second-best, behind only GARCH). Variance collapse: simulated std 30% below observed. Added to Table 2 as 8th model. Code in `code/baseline-comparison/neural-baseline/` (Python + Julia evaluation).
 
 - [x] **N3. Single-asset primary evaluation.** RESOLVED. Added standalone HMM-NJ/HMM-WJ evaluation for NVDA (high-beta tech), JNJ (low-beta health care), and JPM (moderate-beta financials). All three achieve IS KS >91%. Results in Online Appendix S5 (Table S5) with forward reference in main text section 4.4. Code in `code/other-ticker-experiment/`.
 
@@ -125,11 +125,11 @@ These are issues a hard JDIQ reviewer would likely require before acceptance, or
 - [x] Added to Table 2 as 7th model (now 7 models x 10 metrics)
 - [x] Added HSMM paragraph in results (baseline anchors) and discussion (jump mechanism subsection)
 
-#### N2. Neural baseline
-- [ ] Implement TimeGAN or LSTM baseline (Python, then pipe through Julia evaluation)
-- [ ] Run through same 7-metric evaluation pipeline
-- [ ] Add to Table 2 as 8th model
-- [ ] Add brief discussion of results
+#### N2. Neural baseline ✅
+- [x] Implemented 2-layer GRU autoregressive baseline in PyTorch
+- [x] Run through same 10-metric evaluation pipeline (IS + OoS)
+- [x] Added to Table 2 as 8th model (between GARCH and HSMM)
+- [x] Added GRU paragraphs in results (baselines, temporal fidelity, OoS, tradeoffs) and discussion
 
 #### N3. Multi-asset evaluation ✅
 - [x] Run full pipeline on NVDA, JNJ, JPM (high/low/moderate beta)

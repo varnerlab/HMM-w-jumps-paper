@@ -238,10 +238,10 @@ end
 println("\n" * "="^70)
 println("  GRU Neural Baseline — Quality Metrics")
 println("  $_N_PATHS simulated paths, α = $_ALPHA")
-println("=" * 70)
+println("="^70)
 
 print_results("In-sample: $(length(g_is)) trading days (2014-2024)", g_is, gru_is)
 print_results("Out-of-sample: $(length(g_oos)) trading days (2025)", g_oos, gru_oos)
 
-println("\n" * "=" * 70)
+println("\n" * "="^70)
 @info "Done."

@@ -28,7 +28,8 @@
       "WebFetch(domain:docs.synthetic.ydata.ai)",
       "WebFetch(domain:github.com)",
       "WebFetch(domain:arxiv.org)",
-      "Bash(pip3 install:*)"
+      "Bash(pip3 install:*)",
+      "Bash(source:*)"
     ]
   }
 }
