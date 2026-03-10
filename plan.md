@@ -109,9 +109,9 @@ These are issues a hard JDIQ reviewer would likely require before acceptance, or
 
 ### Step 2: arXiv upload (30 min)
 
-- [ ] **Upload to arXiv** -- Submit `Paper_v1.tex`, all `sections/*.tex`, `References_v1.bib`, `acmart.cls`, `ACM-Reference-Format.bst`, and all figure PDFs as `.tar.gz`
-- [ ] **Choose arXiv categories** -- Primary: `q-fin.ST` (Statistical Finance); Cross-list: `cs.LG`, `q-fin.RM`
-- [ ] **Keep `nonacm` option** -- No ACM copyright notice for preprint
+- [x] **Upload to arXiv** -- Submitted 2026-03-10. Primary: `q-fin.ST`; Cross-list: `cs.LG`, `q-fin.RM`
+- [x] **Choose arXiv categories** -- Primary: `q-fin.ST` (Statistical Finance); Cross-list: `cs.LG`, `q-fin.RM`
+- [x] **Keep `nonacm` option** -- No ACM copyright notice for preprint
 
 ---
 
