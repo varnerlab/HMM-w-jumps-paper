@@ -29,7 +29,9 @@
       "WebFetch(domain:github.com)",
       "WebFetch(domain:arxiv.org)",
       "Bash(pip3 install:*)",
-      "Bash(source:*)"
+      "Bash(source:*)",
+      "Bash(wc -l /Users/jdv27/Desktop/julia_work/HMM-w-jumps-paper/paper/*.tex /Users/jdv27/Desktop/julia_work/HMM-w-jumps-paper/paper/sections/*.tex | tail -15)",
+      "Bash(cd /Users/jdv27/Desktop/julia_work/HMM-w-jumps-paper && rm arxiv_submission.tar.gz && tar -czvf arxiv_submission.tar.gz \\\\\n  paper/Paper_v1.tex \\\\\n  paper/References_v1.bib \\\\\n  paper/acmart.cls \\\\\n  paper/ACM-Reference-Format.bst \\\\\n  paper/acmauthoryear.bbx \\\\\n  paper/acmauthoryear.cbx \\\\\n  paper/acmnumeric.bbx \\\\\n  paper/acmnumeric.cbx \\\\\n  paper/acmdatamodel.dbx \\\\\n  paper/acm-jdslogo.png \\\\\n  paper/sections/introduction.tex \\\\\n  paper/sections/related.tex \\\\\n  paper/sections/methods.tex \\\\\n  paper/sections/results.tex \\\\\n  paper/sections/discussion.tex \\\\\n  paper/sections/conclusion.tex \\\\\n  paper/sections/endmatter.tex \\\\\n  paper/sections/supplemental.tex \\\\\n  paper/sections/notation.tex \\\\\n  paper/sections/figures.tex \\\\\n  paper/sections/tables.tex \\\\\n  paper/sections/figs/Fig1-Empirical-Motivation.pdf \\\\\n  paper/sections/figs/Fig3-Model-Internals.pdf \\\\\n  paper/sections/figs/Fig4-Model-Comparison.pdf \\\\\n  paper/sections/figs/Fig5-Parameter-Sweep.pdf \\\\\n  paper/sections/figs/Fig6-Statistical-Validation.pdf \\\\\n  paper/sections/figs/Fig7-Multi-Asset-SIM.pdf \\\\\n  paper/sections/figs/Fig7S-Multi-Asset-SIM-OoS.pdf \\\\\n  paper/Paper_v1.bbl)"
     ]
   }
 }
