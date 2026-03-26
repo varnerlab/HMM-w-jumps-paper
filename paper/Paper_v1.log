@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.27 (TeX Live 2025) (preloaded format=pdflatex 2025.3.8)  26 MAR 2026 15:44
+This is pdfTeX, Version 3.141592653-2.6-1.40.27 (TeX Live 2025) (preloaded format=pdflatex 2025.3.8)  26 MAR 2026 15:56
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -2381,6 +2381,20 @@ has been already used, duplicate ignored
                    \relax 
 l.291 \end{align}
                  
+
+
+Package fancyhdr Warning: \headheight is too small (13.0pt): 
+(fancyhdr)                Make it at least 18.48402pt, for example:
+(fancyhdr)                \setlength{\headheight}{18.48402pt}.
+(fancyhdr)                You might also make \topmargin smaller:
+(fancyhdr)                \addtolength{\topmargin}{-5.48402pt}.
+
+[9.40
+
+
+
+
+]
 Overfull \hbox (16.09479pt too wide) in paragraph at lines 291--293
 \T1/LinuxLibertineT-TLF/m/n/10 (-20) freedom $\OML/nxlmi/m/it/10 ^^W$ \T1/Linux
 LibertineT-TLF/m/n/10 (-20) is se-lected by pro-file max-i-mum like-li-hood ove
@@ -2397,20 +2411,6 @@ ntxsy/m/n/10 g$\T1/LinuxLibertineT-TLF/m/n/10 (-20) .
  []
 
 
-
-
-Package fancyhdr Warning: \headheight is too small (13.0pt): 
-(fancyhdr)                Make it at least 18.48402pt, for example:
-(fancyhdr)                \setlength{\headheight}{18.48402pt}.
-(fancyhdr)                You might also make \topmargin smaller:
-(fancyhdr)                \addtolength{\topmargin}{-5.48402pt}.
-
-[9.40
-
-
-
-
-]
 pdfTeX warning (ext4): destination with the same identifier (name{equation.9}) 
 has been already used, duplicate ignored
 <to be read again> 
@@ -2538,7 +2538,7 @@ public/newtx/txexs.pfb></usr/local/texlive/2025/texmf-dist/fonts/type1/public/n
 ewtx/txmiaX.pfb></usr/local/texlive/2025/texmf-dist/fonts/type1/public/newtx/tx
 sym.pfb></usr/local/texlive/2025/texmf-dist/fonts/type1/public/newtx/txsys.pfb>
 
-Output written on Paper_v1.pdf (43 pages, 1709979 bytes).
+Output written on Paper_v1.pdf (43 pages, 1710399 bytes).
 PDF statistics:
  866 PDF objects out of 1000 (max. 8388607)
  759 compressed objects within 8 object streams

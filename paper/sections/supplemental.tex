@@ -272,7 +272,7 @@ where $\Phi$ is the standard normal CDF and $\Phi_d(\cdot; \mathbf{\Sigma})$ is 
     c_{\text{Ga}}(u, v; \rho) = \frac{1}{\sqrt{1 - \rho^2}} \exp\!\left(-\frac{\rho^2(x^2 + y^2) - 2\rho xy}{2(1 - \rho^2)}\right),
     \label{eq:gauss_density}
 \end{equation}
-where $x = \Phi^{-1}(u)$ and $y = \Phi^{-1}(v)$. The parameter $\rho$ is estimated from Kendall's $\tau$ via $\rho = \sin(\pi\tau/2)$. The Gaussian copula has \emph{zero} upper and lower tail dependence coefficients, $\lambda_U = \lambda_L = 0$, regardless of $\rho$ \cite{embrechts_copulas_2002}; in other words, the probability of jointly extreme observations vanishes faster than linearly in the tail.
+where $x = \Phi^{-1}(u)$ and $y = \Phi^{-1}(v)$. The parameter $\rho$ is estimated from Kendall's $\tau$ via $\rho = \sin(\pi\tau/2)$, which is the exact inversion of the relationship $\tau = (2/\pi)\arcsin(\rho)$ for the Gaussian copula. This rank-based estimator is robust to outliers and does not depend on the marginal distributions; it generally differs from both the Pearson correlation of the raw growth rates and the Pearson correlation of the PIT-transformed uniforms. The Gaussian copula has \emph{zero} upper and lower tail dependence coefficients, $\lambda_U = \lambda_L = 0$, regardless of $\rho$ \cite{embrechts_copulas_2002}; in other words, the probability of jointly extreme observations vanishes faster than linearly in the tail.
 
 \paragraph{Student-t copula.}
 The Student-t copula with correlation matrix $\mathbf{\Sigma}$ and $\nu$ degrees of freedom has CDF
