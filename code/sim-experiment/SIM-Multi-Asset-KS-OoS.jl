@@ -25,14 +25,12 @@ const _DT      = 1.0 / 252.0
 sim_data = load(joinpath(_PATH_TO_DATA,
     "SIMs-SP500-01-03-14-to-12-31-24.jld2"))["data"]
 
-# ── 2. Load HMM-WJ model ────────────────────────────────────────────────────
-@info "Loading HMM-WJ model..."
+# ── 2. Load JumpHMM model ──────────────────────────────────────────────────
+@info "Loading JumpHMM model..."
 hmm_d = load(joinpath(@__DIR__, "..", "spy-experiment", "data",
     "HMM-WJ-SPY-N-100-daily-aggregate.jld2"))
 
-jump_model   = hmm_d["jump_model"]
-decode_model = hmm_d["decode"]
-pi_bar       = hmm_d["stationary"]
+model_wj = hmm_d["model_wj"]              # JumpHiddenMarkovModel (tuned)
 
 # ── 3. Load training data (for computing empirical residuals) ────────────────
 @info "Loading training data..."
@@ -64,16 +62,10 @@ common_tickers = intersect(tickers_train, tickers_test) |>
 n_assets = length(common_tickers)
 @info "  Common tickers: $n_assets"
 
-# ── 5. Simulate HMM-WJ SPY OoS paths ────────────────────────────────────────
+# ── 5. Simulate HMM-WJ SPY OoS paths via JumpHMM ─────────────────────────
 @info "Simulating $_N_PATHS HMM-WJ SPY OoS paths (T=$T_oos)..."
-spy_sim_oos = Matrix{Float64}(undef, T_oos, _N_PATHS)
-for j in 1:_N_PATHS
-    start_state = rand(pi_bar)
-    result = jump_model(start_state, T_oos)
-    states = Int.(result[:, 1])
-    spy_sim_oos[:, j] = [rand(decode_model[s]) for s in states]
-    j % 200 == 0 && @info "  $j / $_N_PATHS SPY paths simulated..."
-end
+wj_oos_result = simulate(model_wj, T_oos; n_paths = _N_PATHS, seed = 1234)
+spy_sim_oos = hcat([p.observations for p in wj_oos_result.paths]...)
 
 # ── 6. For each asset, compute OoS KS pass rate ─────────────────────────────
 @info "Computing OoS KS pass rates for $n_assets assets..."

@@ -8,11 +8,15 @@ using Pkg
 Pkg.activate(_ROOT)
 if !isfile(joinpath(_ROOT, "Manifest.toml"))
     Pkg.add(path="https://github.com/varnerlab/VLQuantitativeFinancePackage.jl.git")
+    Pkg.add(url="https://github.com/varnerlab/JumpHMM.jl.git")
     Pkg.resolve(); Pkg.instantiate(); Pkg.update();
 end
 
 # load external packages
 using VLQuantitativeFinancePackage
+import JumpHMM
+using JumpHMM: JumpHiddenMarkovModel, JumpParameters, SimulationResult, SimulationPath,
+               ValidationReport, simulate, tune, validate
 using DataFrames
 using Statistics
 using StatsBase

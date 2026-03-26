@@ -2,12 +2,11 @@
 # OoS-Validation-SPY.jl
 #
 # Computes out-of-sample validation statistics for GARCH(1,1), HMM-NJ, and
-# HMM-WJ on the full 2025 SPY test set, then prints the complete Table 2
-# numbers (IS + OoS for all three models).
+# HMM-WJ on the full 2025 SPY test set using JumpHMM.jl models.
 #
 # Prerequisites:
-#   GARCH-Benchmark-SPY.jld2 must exist (run GARCH-Benchmark-SPY.jl first —
-#   it provides IS metrics and the fitted GARCH model).
+#   GARCH-Benchmark-SPY.jld2 must exist (run GARCH-Benchmark-SPY.jl first)
+#   HMM-WJ-SPY-N-100-daily-aggregate.jld2 (run Table2-StudentT-Emissions.jl first)
 #
 # Outputs
 #   data/OoS-Validation-SPY.jld2  — all OoS metrics
@@ -17,8 +16,8 @@
 include("Include.jl")
 
 # ── constants ────────────────────────────────────────────────────────────────
-const _RF_IS     = 0.043          # IS risk-free rate (matches IS notebook)
-const _RF_OOS    = 0.0421         # OoS risk-free rate (adjust if needed for 2025)
+const _RF_IS     = 0.043
+const _RF_OOS    = 0.0421
 const _DT        = 1.0 / 252.0
 const _N_PATHS   = 1_000
 const _L_ACF     = 252
@@ -54,16 +53,13 @@ T_oos       = length(g_oos)
 @info "  IS  kurtosis     : $(round(kurtosis(g_is),  digits=3))"
 @info "  OoS kurtosis     : $(round(kurtosis(g_oos), digits=3))"
 
-# ── 2. Load HMM model ────────────────────────────────────────────────────────
-@info "Loading HMM from $(_JLD2_HMM)..."
+# ── 2. Load JumpHMM models ──────────────────────────────────────────────────
+@info "Loading JumpHMM models from $(_JLD2_HMM)..."
 hmm_dict     = load(_JLD2_HMM)
 insample_obs = hmm_dict["insampledataset"]
 T_is         = length(insample_obs)
-π̄            = hmm_dict["stationary"]
-decode_model = hmm_dict["decode"]
-hmm_model    = hmm_dict["model"]
-T_dict       = hmm_model.transition      # Dict{Int, Categorical}
-jump_model   = hmm_dict["jump_model"]
+model_nj     = hmm_dict["model_nj"]   # JumpHiddenMarkovModel (ε=0)
+model_wj     = hmm_dict["model_wj"]   # JumpHiddenMarkovModel (tuned jumps)
 
 # ── 3. Load IS metrics (already computed by GARCH-Benchmark-SPY.jl) ──────────
 @info "Loading IS metrics from $(_JLD2_GARCH)..."
@@ -119,31 +115,16 @@ function compute_metrics(obs::Vector{Float64},
     )
 end
 
-# ── 5. Simulate HMM-NJ OoS paths ─────────────────────────────────────────────
+# ── 5. Simulate HMM-NJ OoS paths via JumpHMM ───────────────────────────────
 @info "Simulating HMM-NJ OoS paths (T=$T_oos, N=$(_N_PATHS))..."
-hmm_nj_oos_paths = Matrix{Float64}(undef, T_oos, _N_PATHS)
-for i in 1:_N_PATHS
-    states    = Vector{Int}(undef, T_oos)
-    states[1] = rand(π̄)
-    for t in 2:T_oos
-        states[t] = rand(T_dict[states[t-1]])
-    end
-    hmm_nj_oos_paths[:, i] = [rand(decode_model[s]) for s in states]
-end
+nj_result = simulate(model_nj, T_oos; n_paths = _N_PATHS, seed = 1234)
+hmm_nj_oos_paths = hcat([p.observations for p in nj_result.paths]...)
 
-# ── 6. Simulate HMM-WJ OoS paths ─────────────────────────────────────────────
+# ── 6. Simulate HMM-WJ OoS paths via JumpHMM ───────────────────────────────
 @info "Simulating HMM-WJ OoS paths (T=$T_oos, N=$(_N_PATHS))..."
-hmm_wj_oos_all   = Matrix{Float64}(undef, T_oos, _N_PATHS)
-jump_oos_indices = Int[]
-
-for i in 1:_N_PATHS
-    start_state  = rand(π̄)
-    result       = jump_model(start_state, T_oos)
-    states       = result[:, 1]
-    jump_flags   = result[:, 2]
-    hmm_wj_oos_all[:, i] = [rand(decode_model[s]) for s in states]
-    any(==(1), jump_flags) && push!(jump_oos_indices, i)
-end
+wj_result = simulate(model_wj, T_oos; n_paths = _N_PATHS, seed = 1234)
+hmm_wj_oos_all = hcat([p.observations for p in wj_result.paths]...)
+jump_oos_indices = findall(p -> any(p.jumps), wj_result.paths)
 @info "  WJ OoS paths with ≥1 jump: $(length(jump_oos_indices)) / $(_N_PATHS)"
 
 # ── 7. Compute OoS metrics ────────────────────────────────────────────────────

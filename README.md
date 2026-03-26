@@ -102,7 +102,7 @@ Propagates the SPY factor path to a 424-asset universe using the Single-Index Mo
    cd code/spy-experiment
    julia --project=. Table1-Descriptive-Stats.jl
    ```
-   On first run, `Include.jl` will automatically install all dependencies (including `VLQuantitativeFinancePackage` from GitHub) if no `Manifest.toml` is present.
+   On first run, `Include.jl` will automatically install all dependencies (including `JumpHMM.jl` and `VLQuantitativeFinancePackage` from GitHub) if no `Manifest.toml` is present.
 
 3. Alternatively, run scripts interactively in the Julia REPL with the project activated:
    ```bash
@@ -115,7 +115,7 @@ Propagates the SPY factor path to a 424-asset universe using the Single-Index Mo
 
 ### Key Dependencies
 
-All experiments depend on [`VLQuantitativeFinancePackage.jl`](https://github.com/varnerlab/VLQuantitativeFinancePackage.jl), which provides the HMM construction, simulation, and decoding routines. It is installed automatically by `Include.jl`.
+All experiments depend on [`JumpHMM.jl`](https://github.com/varnerlab/JumpHMM.jl), which provides HMM construction (`fit`), jump parameter tuning (`tune`), simulation (`simulate`), decoding (`decode`, `forward_filter`), and validation (`validate`). Market data is loaded via [`VLQuantitativeFinancePackage.jl`](https://github.com/varnerlab/VLQuantitativeFinancePackage.jl). Both are installed automatically by `Include.jl`.
 
 Other notable packages: [`ARCHModels.jl`](https://github.com/s-broda/ARCHModels.jl) (GARCH benchmark), [`HypothesisTests.jl`](https://github.com/JuliaStats/HypothesisTests.jl) (KS/AD tests), [`Distributions.jl`](https://github.com/JuliaStats/Distributions.jl) (Laplace fitting), [`JLD2.jl`](https://github.com/JuliaIO/JLD2.jl) (data serialization), [`Plots.jl`](https://github.com/JuliaPlots/Plots.jl) / [`StatsPlots.jl`](https://github.com/JuliaPlots/StatsPlots.jl) (figures).
 

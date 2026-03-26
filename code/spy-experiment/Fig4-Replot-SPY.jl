@@ -1,7 +1,7 @@
 # =============================================================================
 # Fig4-Replot-SPY.jl
 #
-# Regenerates Figure 4 using already-fitted models (no GARCH refitting).
+# Regenerates Figure 4 using JumpHMM.jl models (no GARCH refitting).
 # Scientific improvements over GARCH-Benchmark-SPY.jl:
 #
 #   (a) Density — annotates KS pass rates; GARCH IS failure is explicit.
@@ -10,10 +10,6 @@
 #         · HMM-WJ all-paths mean (diluted by ~76% no-jump paths)
 #         · HMM-WJ jump-containing paths (~24%): sustained ACF decay family
 #   (c) Tail Q-Q — distributional tail fidelity comparison.
-#
-# Pre-computed ACF matrices are reused from GARCH-Benchmark-SPY.jld2
-# (garch_is_metrics.acf_mat and hmm_nj_is_metrics.acf_mat) to avoid
-# expensive metric recomputation for those two models.
 #
 # Outputs:  figs/Fig4-Model-Comparison.pdf
 #           paper/sections/figs/Fig4-Model-Comparison.pdf
@@ -31,55 +27,39 @@ const _JLD2_GARCH = joinpath(_PATH_TO_DATA, "GARCH-Benchmark-SPY.jld2")
 garch_d = load(_JLD2_GARCH)
 hmm_d   = load(_JLD2_HMM)
 
-# Observed IS growth rates (from HMM dataset)
-g_is = hmm_d["insampledataset"]         # Vector{Float64} length 2766
+g_is = hmm_d["insampledataset"]
 T_is = length(g_is)
 
-# Simulated IS paths
-garch_paths   = garch_d["garch_is_paths"]           # 2766 × 1000
-
-# NJ paths saved from training (100 paths; sufficient for density/QQ)
-hmm_nj_100    = hmm_d["in_sample_decoded_archive"]  # 2767 × 100
-hmm_nj_paths  = hmm_nj_100[1:T_is, :]              # trim to 2766 × 100
-
-# Pre-computed ACF matrices (avoids rerunning autocor on 1000 paths)
-garch_acf_mat = garch_d["garch_is_metrics"].acf_mat   # 252 × 1000
-nj_acf_mat    = garch_d["hmm_nj_is_metrics"].acf_mat  # 252 × 100
-
-# Pre-computed KS pass rates (avoid recomputing 2000 hypothesis tests)
-garch_ks_rate = garch_d["garch_is_metrics"].ks_pass_rate   # ≈ 0.06
-nj_ks_rate    = garch_d["hmm_nj_is_metrics"].ks_pass_rate  # ≈ 1.00
-wj_ks_rate    = garch_d["hmm_wj_is_metrics"].ks_pass_rate  # ≈ 0.985
+# GARCH paths and metrics (precomputed)
+garch_paths   = garch_d["garch_is_paths"]
+garch_acf_mat = garch_d["garch_is_metrics"].acf_mat
+garch_ks_rate = garch_d["garch_is_metrics"].ks_pass_rate
+nj_ks_rate    = garch_d["hmm_nj_is_metrics"].ks_pass_rate
+wj_ks_rate    = garch_d["hmm_wj_is_metrics"].ks_pass_rate
+nj_acf_mat    = garch_d["hmm_nj_is_metrics"].acf_mat
 
 @info @sprintf("  Pass rates: GARCH=%.1f%%  NJ=%.1f%%  WJ=%.1f%%",
                100garch_ks_rate, 100nj_ks_rate, 100wj_ks_rate)
 
-# ── 2. Re-simulate HMM-WJ IS paths, tracking jump flags ──────────────────────
-@info "Re-simulating $_N_PATHS HMM-WJ IS paths (T=$T_is)..."
-jump_model   = hmm_d["jump_model"]
-decode_model = hmm_d["decode"]
-pi_bar       = hmm_d["stationary"]
+# ── 2. Simulate HMM paths via JumpHMM ──────────────────────────────────────
+model_nj = hmm_d["model_nj"]
+model_wj = hmm_d["model_wj"]
 
-wj_all     = Matrix{Float64}(undef, T_is, _N_PATHS)
-jump_flags = falses(_N_PATHS)
+@info "Simulating $_N_PATHS HMM-NJ IS paths..."
+nj_result = simulate(model_nj, T_is; n_paths = _N_PATHS, seed = 1234)
+hmm_nj_paths = hcat([p.observations for p in nj_result.paths]...)
 
-for i in 1:_N_PATHS
-    start_state = rand(pi_bar)
-    result      = jump_model(start_state, T_is)   # T_is × 2 (state, jump_flag)
-    states      = Int.(result[:, 1])
-    flags       = Int.(result[:, 2])
-    wj_all[:, i] = [rand(decode_model[s]) for s in states]
-    jump_flags[i] = any(==(1), flags)
-    i % 200 == 0 && @info "  $i / $_N_PATHS paths simulated..."
-end
+@info "Simulating $_N_PATHS HMM-WJ IS paths..."
+wj_result = simulate(model_wj, T_is; n_paths = _N_PATHS, seed = 1234)
+wj_all = hcat([p.observations for p in wj_result.paths]...)
 
-jump_idx   = findall(jump_flags)
-nojump_idx = findall(.!jump_flags)
+jump_idx   = findall(p -> any(p.jumps), wj_result.paths)
+nojump_idx = findall(p -> !any(p.jumps), wj_result.paths)
 n_jump     = length(jump_idx)
 n_nojump   = length(nojump_idx)
 @info @sprintf("  Jump paths: %d / %d  (%.1f%%)", n_jump, _N_PATHS, 100n_jump/_N_PATHS)
 
-wj_jump = wj_all[:, jump_idx]     # paths with ≥1 Poisson event
+wj_jump = wj_all[:, jump_idx]
 
 # ── 3. ACF computations ───────────────────────────────────────────────────────
 @info "Computing ACF statistics..."
@@ -87,9 +67,7 @@ lag_vec  = collect(1:_L_ACF)
 obs_acf  = autocor(abs.(g_is), lag_vec)
 ci_band  = 1.96 / sqrt(T_is)
 
-# Compute percentile bands from an ACF matrix (lags × paths)
 function acf_band(acf_mat)
-    n    = size(acf_mat, 2)
     nlags = size(acf_mat, 1)
     mn   = [mean(acf_mat[l, :]) for l in 1:nlags]
     lo   = [quantile(acf_mat[l, :], 0.10) for l in 1:nlags]
@@ -97,7 +75,6 @@ function acf_band(acf_mat)
     return mn, lo, hi
 end
 
-# Build ACF mat for a paths matrix (T × N)
 function build_acf_mat(paths, lags)
     mat = Matrix{Float64}(undef, length(lags), size(paths, 2))
     for i in 1:size(paths, 2)
@@ -116,10 +93,10 @@ wj_all_mn,  _,          _           = acf_band(wj_all_acf_mat)
 wj_jump_mn, wj_jump_lo, wj_jump_hi  = acf_band(wj_jump_acf_mat)
 
 # ── 4. Colours and base style ─────────────────────────────────────────────────
-col_obs   = colorant"#e63946"   # crimson — observed
-col_garch = colorant"#f4a261"   # orange  — GARCH
-col_nj    = colorant"#457b9d"   # steel   — HMM-NJ
-col_wj    = colorant"#1d3557"   # navy    — HMM-WJ
+col_obs   = colorant"#e63946"
+col_garch = colorant"#f4a261"
+col_nj    = colorant"#457b9d"
+col_wj    = colorant"#1d3557"
 
 basestyle = (bg                       = "grey97",
              background_color_outside = "white",
@@ -133,7 +110,7 @@ basestyle = (bg                       = "grey97",
 
 # ── 5. Panel (a): Marginal density ───────────────────────────────────────────
 @info "Building panel (a)..."
-n_fan = 40    # number of faint fan paths
+n_fan = 40
 
 pa = plot(; legend = :topleft, legendfontsize = 8, basestyle...)
 
@@ -167,32 +144,26 @@ title!(pa, "(a) Marginal Distributions (IS)")
 
 pb = plot(; legend = :topright, legendfontsize = 8, basestyle...)
 
-# GARCH band + mean
 plot!(pb, lag_vec, garch_lo; fillrange = garch_hi,
       fillalpha = 0.18, lw = 0, c = col_garch, label = "")
 plot!(pb, lag_vec, garch_acf_mn; lw = 2.0, c = col_garch, label = "GARCH(1,1)")
 
-# HMM-NJ: dotted; structural impossibility of persistent ACF without jumps
 plot!(pb, lag_vec, nj_acf_mn;
       lw = 1.5, c = col_nj, ls = :dot,
       label = "HMM-NJ (ACF → 0 without jumps)")
 
-# HMM-WJ all-paths mean: diluted by no-jump majority
 plot!(pb, lag_vec, wj_all_mn;
       lw = 1.5, c = col_wj, ls = :dash,
       label = @sprintf("HMM-WJ all paths (~%.0f%% no jump)", 100n_nojump/_N_PATHS))
 
-# HMM-WJ jump paths: the persistent ACF family — solid + shaded band
 plot!(pb, lag_vec, wj_jump_lo; fillrange = wj_jump_hi,
       fillalpha = 0.22, lw = 0, c = col_wj, label = "")
 plot!(pb, lag_vec, wj_jump_mn;
       lw = 2.5, c = col_wj,
       label = @sprintf("HMM-WJ jump paths (~%.0f%% of ensemble)", 100n_jump/_N_PATHS))
 
-# Observed
 plot!(pb, lag_vec, obs_acf; lw = 3.0, c = col_obs, ls = :dash, label = "SPY Observed")
 
-# Bartlett 95% CI reference
 hline!(pb, [ci_band]; lw = 1, ls = :dot, c = :black, label = "95% CI")
 hline!(pb, [-ci_band]; lw = 1, ls = :dot, c = :black, label = "")
 

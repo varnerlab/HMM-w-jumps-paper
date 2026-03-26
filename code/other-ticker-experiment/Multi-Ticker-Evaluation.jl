@@ -1,14 +1,9 @@
 # =============================================================================
 # Multi-Ticker-Evaluation.jl
 #
-# Builds a standalone HMM-NJ and HMM-WJ for each ticker in TICKERS, runs
-# a grid search over (epsilon, lambda) to find the optimal jump parameters,
-# then evaluates 1,000 simulated paths against the observed series using
+# Uses JumpHMM.jl to build HMM-NJ and HMM-WJ for each ticker in TICKERS,
+# tunes jump parameters, then evaluates 1,000 simulated paths using
 # KS, AD, excess kurtosis, and ACF-MAE (with SEs).
-#
-# This script addresses the "single-asset evaluation" concern by showing
-# that the framework generalises to individual equities with different
-# risk profiles (low-beta defensive, high-beta growth, financials).
 #
 # Tickers:
 #   NVDA — high-beta tech (Information Technology)
@@ -17,31 +12,23 @@
 #
 # Outputs:
 #   data/Multi-Ticker-Results.jld2
-#
-# Usage:
-#   cd code/other-ticker-experiment && julia Multi-Ticker-Evaluation.jl
 # =============================================================================
 
 include("Include.jl")
 
 # ── Configuration ─────────────────────────────────────────────────────────────
 const TICKERS  = ["NVDA", "JNJ", "JPM"]
-const _N       = 100           # number of HMM states
-const _N_PATHS = 1_000         # simulated paths per model
-const _L_ACF   = 252           # max ACF lag
-const _ALPHA   = 0.05          # significance level
-const _N_BOOT  = 500           # bootstrap resamples for ACF-MAE SE
-const _N_TAIL  = 5             # tail states on each side
-const _P_NEG   = 0.52          # negative-tail bias
-const _W_KURT  = 0.20          # kurtosis penalty weight in grid search
-const _RF_IS   = 0.043         # risk-free rate (IS)
-const _RF_OOS  = 0.0421        # risk-free rate (OoS)
-const _DT      = 1.0 / 252.0   # daily time step
-
-# Grid search ranges (same as SPY experiment)
-const _EPS_GRID = [1e-4, 5e-4, 1e-3, 2.5e-3, 5e-3, 1e-2, 2.5e-2]
-const _LAM_GRID = [10.0, 20.0, 30.0, 50.0, 70.0, 100.0, 130.0, 160.0]
-const _N_GRID_PATHS = 200      # paths per grid point (fast sweep)
+const _N       = 100
+const _N_PATHS = 1_000
+const _L_ACF   = 252
+const _ALPHA   = 0.05
+const _N_BOOT  = 500
+const _N_TAIL  = 5
+const _P_NEG   = 0.52
+const _DF      = 5.0
+const _RF_IS   = 0.043
+const _RF_OOS  = 0.0421
+const _DT      = 1.0 / 252.0
 
 # ── 1. Load data ──────────────────────────────────────────────────────────────
 @info "Loading training data..."
@@ -70,148 +57,7 @@ tickers_test = keys(test_dataset) |> collect |> sort
 all_growth_test = log_growth_matrix(test_dataset, tickers_test;
                       Δt = _DT, risk_free_rate = _RF_OOS)
 
-# ── 2. Helper: build HMM from growth rates ───────────────────────────────────
-function build_hmm(g::Vector{Float64}, N::Int)
-    states = collect(1:N)
-    T_is = length(g)
-
-    # Laplace fit + quantile bins
-    d = fit_mle(Laplace, g)
-    pct = range(0.0, 1.0, length = N + 1) |> collect
-    bounds = Matrix{Float64}(undef, N, 2)
-    for s in states
-        bounds[s, 1] = quantile(d, pct[s])
-        bounds[s, 2] = quantile(d, pct[s + 1])
-    end
-
-    # Encode observations to state sequence
-    encoded = Vector{Int}(undef, T_is)
-    for i in eachindex(g)
-        v = g[i]
-        encoded[i] = 1
-        for s in states
-            if bounds[s, 1] <= v < bounds[s, 2]
-                encoded[i] = s
-                break
-            end
-        end
-    end
-
-    # Count transitions and normalize
-    P = zeros(N, N)
-    for i in 2:T_is
-        P[encoded[i-1], encoded[i]] += 1.0
-    end
-
-    P_hat = zeros(N, N)
-    for row in states
-        Z = sum(P[row, :])
-        if Z > 0
-            P_hat[row, :] = P[row, :] ./ Z
-        else
-            P_hat[row, :] .= 1.0 / N
-        end
-    end
-
-    # Stationary distribution
-    pi_bar = Categorical((P_hat^50)[1, :])
-
-    # Decode distributions (fit Normal per state from actual observations)
-    decode = Dict{Int,Normal}()
-    for s in states
-        idxs = findall(x -> x == s, encoded)
-        if length(idxs) >= 2
-            decode[s] = fit_mle(Normal, g[idxs])
-        else
-            decode[s] = Normal(mean(g), std(g))
-        end
-    end
-
-    return (P = P_hat, pi_bar = pi_bar, decode = decode, states = states,
-            encoded = encoded, bounds = bounds, laplace = d)
-end
-
-# ── 3. Helper: simulate jump path (inline, for grid search) ──────────────────
-function simulate_jump_path(T_dict::Matrix{Float64}, pi_bar, decode::Dict,
-                            eps::Float64, lam::Float64, n_steps::Int,
-                            N::Int; n_tail::Int = _N_TAIL, p_neg::Float64 = _P_NEG)
-    bottom = collect(1:n_tail)
-    top = collect((N - n_tail + 1):N)
-    states_seq = Vector{Int}(undef, n_steps)
-    decoded = Vector{Float64}(undef, n_steps)
-
-    states_seq[1] = rand(pi_bar)
-    t = 2
-    while t <= n_steps
-        if rand() < eps
-            K = rand(Poisson(lam))
-            if K > 0
-                for _ in 1:K
-                    t > n_steps && break
-                    states_seq[t] = rand() < p_neg ? rand(bottom) : rand(top)
-                    t += 1
-                end
-            else
-                row = states_seq[t-1]
-                states_seq[t] = rand(Categorical(T_dict[row, :]))
-                t += 1
-            end
-        else
-            row = states_seq[t-1]
-            states_seq[t] = rand(Categorical(T_dict[row, :]))
-            t += 1
-        end
-    end
-
-    for i in 1:n_steps
-        decoded[i] = rand(decode[states_seq[i]])
-    end
-
-    return decoded
-end
-
-# ── 4. Helper: grid search for optimal (epsilon, lambda) ──────────────────────
-function grid_search(g_is::Vector{Float64}, hmm; N::Int = _N)
-    T_is = length(g_is)
-    lags = collect(1:_L_ACF)
-    obs_acf = autocor(abs.(g_is), lags)
-    obs_kurt = kurtosis(g_is)
-
-    best_eps = _EPS_GRID[1]
-    best_lam = _LAM_GRID[1]
-    best_J = Inf
-    J_surface = Matrix{Float64}(undef, length(_EPS_GRID), length(_LAM_GRID))
-
-    for (ie, eps) in enumerate(_EPS_GRID)
-        for (il, lam) in enumerate(_LAM_GRID)
-            acf_sum = zeros(_L_ACF)
-            kurt_sum = 0.0
-
-            for _ in 1:_N_GRID_PATHS
-                path = simulate_jump_path(hmm.P, hmm.pi_bar, hmm.decode,
-                                          eps, lam, T_is, N)
-                acf_sum .+= autocor(abs.(path), lags)
-                kurt_sum += kurtosis(path)
-            end
-
-            mean_acf = acf_sum ./ _N_GRID_PATHS
-            mean_kurt = kurt_sum / _N_GRID_PATHS
-
-            J = sum((obs_acf .- mean_acf).^2) + _W_KURT * (obs_kurt - mean_kurt)^2
-            J_surface[ie, il] = J
-
-            if J < best_J
-                best_J = J
-                best_eps = eps
-                best_lam = lam
-            end
-        end
-    end
-
-    return (eps = best_eps, lam = best_lam, J = best_J, surface = J_surface)
-end
-
-# ── 5. Helper: bootstrap SE for ACF-MAE ──────────────────────────────────────
+# ── 2. Helper: bootstrap SE for ACF-MAE ──────────────────────────────────────
 function bootstrap_acf_mae_se(acf_mat::Matrix{Float64}, obs_acf::Vector{Float64};
                                n_boot::Int = _N_BOOT)
     n_paths = size(acf_mat, 2)
@@ -224,7 +70,7 @@ function bootstrap_acf_mae_se(acf_mat::Matrix{Float64}, obs_acf::Vector{Float64}
     return std(boot_mae)
 end
 
-# ── 6. Helper: compute all metrics with SEs from simulated paths ──────────────
+# ── 3. Helper: compute all metrics with SEs ───────────────────────────────────
 function compute_metrics(obs::Vector{Float64}, paths::Matrix{Float64})
     n_paths = size(paths, 2)
     L = min(_L_ACF, length(obs) - 1)
@@ -263,7 +109,7 @@ function compute_metrics(obs::Vector{Float64}, paths::Matrix{Float64})
     )
 end
 
-# ── 7. Main loop over tickers ────────────────────────────────────────────────
+# ── 4. Main loop over tickers ────────────────────────────────────────────────
 results = Dict{String, Any}()
 
 for ticker in TICKERS
@@ -278,6 +124,10 @@ for ticker in TICKERS
         continue
     end
     g_is = all_growth_train[1:(max_days_train - 1), idx_train]
+    T_is = length(g_is)
+
+    # Extract prices for JumpHMM fit
+    prices_is = train_dataset[ticker][!, :volume_weighted_average_price]
 
     # --- Find ticker in testing data ---
     idx_test = findfirst(==(ticker), tickers_test)
@@ -291,52 +141,34 @@ for ticker in TICKERS
     # --- Descriptive stats ---
     obs_kurt_is = kurtosis(g_is)
     obs_kurt_oos = g_oos !== nothing ? kurtosis(g_oos) : NaN
-    @info @sprintf("  IS observations: %d, excess kurtosis: %.3f", length(g_is), obs_kurt_is)
+    @info @sprintf("  IS observations: %d, excess kurtosis: %.3f", T_is, obs_kurt_is)
     if g_oos !== nothing
         @info @sprintf("  OoS observations: %d, excess kurtosis: %.3f", length(g_oos), obs_kurt_oos)
     end
 
-    # --- Build HMM ---
-    @info "  Building HMM with N=$_N states..."
-    hmm = build_hmm(g_is, _N)
+    # --- Fit HMM via JumpHMM.jl ---
+    @info "  Fitting JumpHiddenMarkovModel (N=$_N, ν=$_DF)..."
+    model_nj = JumpHMM.fit(JumpHiddenMarkovModel, prices_is;
+                   rf = _RF_IS, N = _N, ν = _DF, dt = _DT)
 
-    # --- Grid search for optimal (epsilon, lambda) ---
-    @info "  Running grid search over (epsilon, lambda)..."
-    gs = grid_search(g_is, hmm; N = _N)
-    @info @sprintf("  Optimal: eps=%.1e, lambda=%.1f, J=%.6f", gs.eps, gs.lam, gs.J)
-
-    # --- Build HMM-NJ model (using VLQuantitativeFinancePackage) ---
-    E = diagm(ones(_N))
-    hmm_nj = build(MyHiddenMarkovModel, (
-        states = hmm.states, T = hmm.P, E = E,
-    ))
-    hmm_wj = build(MyHiddenMarkovModelWithJumps, (
-        states = hmm.states, T = hmm.P, E = E,
-        ϵ = gs.eps, λ = gs.lam,
-    ))
+    # --- Tune jump parameters ---
+    @info "  Tuning jump parameters..."
+    model_wj = tune(model_nj, prices_is;
+                    ϵ_range = range(1e-4, 2.5e-2, length = 20),
+                    λ_range = range(10.0, 160.0, length = 16),
+                    n_paths = 200, w_κ = 0.20,
+                    p_neg = _P_NEG, N_tail = _N_TAIL,
+                    seed = 1234)
+    @info @sprintf("  Optimal: ε=%.1e, λ=%.1f", model_wj.jump.ϵ, model_wj.jump.λ)
 
     # --- Simulate IS paths ---
-    T_is = length(g_is)
-
     @info "  Simulating $_N_PATHS HMM-NJ IS paths..."
-    nj_is_paths = Matrix{Float64}(undef, T_is, _N_PATHS)
-    for i in 1:_N_PATHS
-        start = rand(hmm.pi_bar)
-        result = hmm_nj(start, T_is)
-        for j in 1:T_is
-            nj_is_paths[j, i] = rand(hmm.decode[result[j, 1]])
-        end
-    end
+    nj_is_result = simulate(model_nj, T_is; n_paths = _N_PATHS, seed = 1234)
+    nj_is_paths = hcat([p.observations for p in nj_is_result.paths]...)
 
     @info "  Simulating $_N_PATHS HMM-WJ IS paths..."
-    wj_is_paths = Matrix{Float64}(undef, T_is, _N_PATHS)
-    for i in 1:_N_PATHS
-        start = rand(hmm.pi_bar)
-        result = hmm_wj(start, T_is)
-        for j in 1:T_is
-            wj_is_paths[j, i] = rand(hmm.decode[result[j, 1]])
-        end
-    end
+    wj_is_result = simulate(model_wj, T_is; n_paths = _N_PATHS, seed = 1234)
+    wj_is_paths = hcat([p.observations for p in wj_is_result.paths]...)
 
     # --- Compute IS metrics ---
     @info "  Computing IS metrics..."
@@ -350,24 +182,12 @@ for ticker in TICKERS
         T_oos = length(g_oos)
 
         @info "  Simulating $_N_PATHS HMM-NJ OoS paths (T=$T_oos)..."
-        nj_oos_paths = Matrix{Float64}(undef, T_oos, _N_PATHS)
-        for i in 1:_N_PATHS
-            start = rand(hmm.pi_bar)
-            result = hmm_nj(start, T_oos)
-            for j in 1:T_oos
-                nj_oos_paths[j, i] = rand(hmm.decode[result[j, 1]])
-            end
-        end
+        nj_oos_result = simulate(model_nj, T_oos; n_paths = _N_PATHS, seed = 1234)
+        nj_oos_paths = hcat([p.observations for p in nj_oos_result.paths]...)
 
         @info "  Simulating $_N_PATHS HMM-WJ OoS paths (T=$T_oos)..."
-        wj_oos_paths = Matrix{Float64}(undef, T_oos, _N_PATHS)
-        for i in 1:_N_PATHS
-            start = rand(hmm.pi_bar)
-            result = hmm_wj(start, T_oos)
-            for j in 1:T_oos
-                wj_oos_paths[j, i] = rand(hmm.decode[result[j, 1]])
-            end
-        end
+        wj_oos_result = simulate(model_wj, T_oos; n_paths = _N_PATHS, seed = 1234)
+        wj_oos_paths = hcat([p.observations for p in wj_oos_result.paths]...)
 
         @info "  Computing OoS metrics..."
         nj_oos_metrics = compute_metrics(g_oos, nj_oos_paths)
@@ -376,9 +196,8 @@ for ticker in TICKERS
 
     # --- Store results ---
     results[ticker] = (
-        eps_star = gs.eps,
-        lam_star = gs.lam,
-        J_star = gs.J,
+        eps_star = model_wj.jump.ϵ,
+        lam_star = model_wj.jump.λ,
         obs_kurt_is = obs_kurt_is,
         obs_kurt_oos = obs_kurt_oos,
         n_is = T_is,
@@ -391,7 +210,7 @@ for ticker in TICKERS
 
     # --- Print summary ---
     println("\n  --- $ticker Results ---")
-    @printf("  Optimal hyperparameters: eps=%.1e, lambda=%.1f\n", gs.eps, gs.lam)
+    @printf("  Optimal hyperparameters: eps=%.1e, lambda=%.1f\n", model_wj.jump.ϵ, model_wj.jump.λ)
     @printf("  Observed excess kurtosis (IS): %.3f\n", obs_kurt_is)
 
     @printf("\n  %-20s  %16s  %16s\n", "IS Metric", "HMM-NJ", "HMM-WJ")
@@ -428,14 +247,14 @@ for ticker in TICKERS
     end
 end
 
-# ── 8. Save all results ──────────────────────────────────────────────────────
+# ── 5. Save all results ──────────────────────────────────────────────────────
 results_path = joinpath(_PATH_TO_DATA, "Multi-Ticker-Results.jld2")
 save(results_path, Dict("results" => results, "tickers" => TICKERS))
 @info "Results saved to $results_path"
 
-# ── 9. Print LaTeX table rows ────────────────────────────────────────────────
+# ── 6. Print LaTeX table rows ────────────────────────────────────────────────
 println("\n" * "="^80)
-println("LaTeX rows for Supplemental Table (Table S1)")
+println("LaTeX rows for Supplemental Table (Table S5)")
 println("="^80)
 
 for ticker in TICKERS

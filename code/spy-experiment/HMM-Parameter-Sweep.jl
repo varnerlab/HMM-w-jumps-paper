@@ -4,8 +4,9 @@
 # Grid search over (ε, λ) to find the jump hyperparameters that best reproduce
 # the observed SPY ACF of |excess growth rates| (ARCH effect) and kurtosis.
 #
-# The jump simulation is implemented inline so ε and λ can be varied freely
-# without rebuilding the MyHiddenMarkovModelWithJumps object each time.
+# Uses JumpHMM.jl model struct. For each grid point, constructs a new
+# JumpHiddenMarkovModel with the candidate jump parameters and simulates
+# via JumpHMM.simulate().
 #
 # Outputs
 #   data/HMM-Parameter-Sweep-SPY.jld2   — full J(ε,λ) surface + optimal params
@@ -24,19 +25,13 @@ const _N_TAIL     = 5          # number of tail states on each side
 const _P_NEG      = 0.52       # bias toward negative tail
 const _W_KURT     = 0.20       # kurtosis penalty weight (matches paper)
 
-# ── 1. Load base model from JLD2 ─────────────────────────────────────────────
-@info "Loading base HMM from $(_JLD2_HMM)..."
+# ── 1. Load JumpHMM model from JLD2 ────────────────────────────────────────
+@info "Loading JumpHMM model from $(_JLD2_HMM)..."
 hmm_dict     = load(_JLD2_HMM)
 insample_obs = hmm_dict["insampledataset"]
+model_nj     = hmm_dict["model_nj"]   # JumpHiddenMarkovModel with ε=0 (no jumps)
 T_is         = length(insample_obs)
-π̄            = hmm_dict["stationary"]
-decode_model = hmm_dict["decode"]
-hmm_model    = hmm_dict["model"]
-T_dict       = hmm_model.transition         # Dict{Int, Categorical} — one dist per state
-N            = length(T_dict)
-
-bottom_states = collect(1:_N_TAIL)
-top_states    = collect((N - _N_TAIL + 1):N)
+N            = length(model_nj.emissions)
 
 @info "  States N=$(N)  |  IS observations T=$(T_is)"
 
@@ -45,75 +40,33 @@ obs_acf  = autocor(abs.(insample_obs), collect(1:_L_ACF))
 obs_kurt = kurtosis(insample_obs)
 @info "  Observed kurtosis : $(round(obs_kurt, digits=3))"
 
-# ── 2. Inline jump simulation ─────────────────────────────────────────────────
-"""
-    simulate_jump_path(T_mat, π̄, decode, ε, λ, n_steps) -> (decoded, has_jump)
-
-Simulate one path of length `n_steps` using the empirical transition matrix
-`T_mat`, augmented with a Poisson jump-duration mechanism (ε, λ).
-Returns the decoded excess growth rate vector and a Bool indicating whether
-at least one jump event occurred.
-"""
-function simulate_jump_path(T_dict::Dict, π̄, decode::Dict,
-                            ε::Float64, λ::Float64, n_steps::Int;
-                            bottom::Vector{Int}, top::Vector{Int},
-                            p_neg::Float64 = _P_NEG)
-    states   = Vector{Int}(undef, n_steps)
-    has_jump = false
-
-    states[1] = rand(π̄)
-    t = 2
-    while t <= n_steps
-        if rand() < ε
-            K = rand(Poisson(λ))
-            if K > 0
-                has_jump = true
-                for _ in 1:K
-                    t > n_steps && break
-                    states[t] = rand() < p_neg ? rand(bottom) : rand(top)
-                    t += 1
-                end
-            else
-                states[t] = rand(T_dict[states[t-1]])
-                t += 1
-            end
-        else
-            states[t] = rand(T_dict[states[t-1]])
-            t += 1
-        end
-    end
-
-    decoded = [rand(decode[s]) for s in states]
-    return decoded, has_jump
+# ── 2. Helper: build model with candidate jump parameters ───────────────────
+function make_jump_model(base::JumpHiddenMarkovModel, ε::Float64, λ::Float64)
+    jp = JumpParameters(ε, λ; p_neg = _P_NEG, N_tail = _N_TAIL)
+    return JumpHiddenMarkovModel(
+        base.partition, base.transition, base.emissions,
+        base.stationary, jp, base.ν, base.rf, base.dt
+    )
 end
 
 # ── 3. Objective function J(ε, λ) ────────────────────────────────────────────
-"""
-    objective(ε, λ; n_paths, jump_only) -> (J, acf_mae, kurt_err, n_jump_paths)
+function objective(ε::Float64, λ::Float64)
+    model = make_jump_model(model_nj, ε, λ)
+    result = simulate(model, T_is; n_paths = _N_PATHS)
 
-Simulate `n_paths` paths and compute the multi-objective loss.
-`jump_only=true` uses only paths containing at least one jump for ACF/kurtosis.
-"""
-function objective(ε::Float64, λ::Float64;
-                   n_paths::Int = _N_PATHS,
-                   jump_only::Bool = true)
-
+    # Only use paths with at least one jump
     acf_accum  = zeros(_L_ACF)
     kurt_accum = 0.0
     n_used     = 0
 
-    for _ in 1:n_paths
-        decoded, has_jump = simulate_jump_path(T_dict, π̄, decode_model, ε, λ, T_is;
-                                               bottom = bottom_states,
-                                               top    = top_states)
-        jump_only && !has_jump && continue   # skip non-jump paths if requested
-
-        acf_accum  .+= autocor(abs.(decoded), collect(1:_L_ACF))
-        kurt_accum  += kurtosis(decoded)
+    for path in result.paths
+        any(path.jumps) || continue
+        acf_accum  .+= autocor(abs.(path.observations), collect(1:_L_ACF))
+        kurt_accum  += kurtosis(path.observations)
         n_used      += 1
     end
 
-    n_used == 0 && return (Inf, Inf, Inf, 0)   # no jump paths — ε too small
+    n_used == 0 && return (Inf, Inf, Inf, 0)
 
     mean_acf  = acf_accum  ./ n_used
     mean_kurt = kurt_accum  / n_used
@@ -126,8 +79,6 @@ function objective(ε::Float64, λ::Float64;
 end
 
 # ── 4. Define search grid ────────────────────────────────────────────────────
-# Shifted ε upward so jumps fire often enough to affect ACF(|g|).
-# At T=2766: ε=1e-4 → ~24% paths jump, ε=1e-3 → ~94%, ε=1e-2 → ~100%.
 ε_grid = [1e-4, 2.5e-4, 5e-4, 1e-3, 2.5e-3, 5e-3, 1e-2, 2.5e-2]
 λ_grid = [10.0, 25.0, 40.0, 55.0, 70.0, 85.0, 100.0, 130.0, 160.0]
 
@@ -170,7 +121,6 @@ println("="^60)
 # ── 6. Figure 5a: contour plot of J(ε, λ) ────────────────────────────────────
 @info "Generating Figure 5 (grid search landscape)..."
 
-# log-scale ε axis — plot against log10(ε) so grid points are evenly spaced
 log_ε_grid  = log10.(ε_grid)
 ε_labels    = [@sprintf("%.0e", e) for e in ε_grid]
 
@@ -184,25 +134,21 @@ pJ = heatmap(λ_grid, log_ε_grid, log10.(J_surface);
              colorbar_title = "log₁₀ J",
              framestyle = :box)
 
-# Mark the optimum
 scatter!(pJ, [λ_star], [log10(ε_star)];
          mc = :red, ms = 10, markershape = :star5,
          markerstrokewidth = 0, label = "Optimum (ε*,λ*)")
 
-# ── 7. Figure 5b: ACF comparison at optimal parameters (high-path-count) ─────
+# ── 7. Figure 5b: ACF comparison at optimal parameters ───────────────────────
 @info "Simulating best-fit paths at (ε*=$(ε_star), λ*=$(λ_star)) with 500 paths..."
 
-best_decoded_list = Vector{Float64}[]
-for _ in 1:500
-    decoded, has_jump = simulate_jump_path(T_dict, π̄, decode_model,
-                                           ε_star, λ_star, T_is;
-                                           bottom = bottom_states,
-                                           top    = top_states)
-    has_jump && push!(best_decoded_list, decoded)
-end
-@info "  Jump paths: $(length(best_decoded_list)) / 500"
+best_model  = make_jump_model(model_nj, ε_star, λ_star)
+best_result = simulate(best_model, T_is; n_paths = 500, seed = 1234)
 
-best_acf_mat  = hcat([autocor(abs.(p), collect(1:_L_ACF)) for p in best_decoded_list]...)
+# Keep only paths with jumps
+best_obs_list = [p.observations for p in best_result.paths if any(p.jumps)]
+@info "  Jump paths: $(length(best_obs_list)) / 500"
+
+best_acf_mat  = hcat([autocor(abs.(p), collect(1:_L_ACF)) for p in best_obs_list]...)
 mean_best_acf = vec(mean(best_acf_mat, dims = 2))
 lo_best_acf   = [quantile(best_acf_mat[l, :], 0.10) for l in 1:_L_ACF]
 hi_best_acf   = [quantile(best_acf_mat[l, :], 0.90) for l in 1:_L_ACF]

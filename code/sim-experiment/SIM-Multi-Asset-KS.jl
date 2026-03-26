@@ -26,16 +26,14 @@ const _DT      = 1.0 / 252.0
 sim_jld2 = joinpath(_PATH_TO_DATA, "SIMs-SP500-01-03-14-to-12-31-24.jld2")
 sim_data = load(sim_jld2)["data"]  # Dict{String, NamedTuple} with fields alpha, beta, training_variance, etc.
 
-# ── 2. Load HMM-WJ model ────────────────────────────────────────────────────
-@info "Loading HMM-WJ model..."
+# ── 2. Load JumpHMM model ──────────────────────────────────────────────────
+@info "Loading JumpHMM model..."
 hmm_jld2 = joinpath(@__DIR__, "..", "spy-experiment", "data",
                      "HMM-WJ-SPY-N-100-daily-aggregate.jld2")
 hmm_d = load(hmm_jld2)
 
-jump_model   = hmm_d["jump_model"]
-decode_model = hmm_d["decode"]
-pi_bar       = hmm_d["stationary"]
-g_is_spy     = hmm_d["insampledataset"]  # observed SPY growth rates, length 2766
+model_wj     = hmm_d["model_wj"]          # JumpHiddenMarkovModel (tuned)
+g_is_spy     = hmm_d["insampledataset"]    # observed SPY growth rates, length 2766
 T_is         = length(g_is_spy)
 
 @info "  T_is = $T_is trading days"
@@ -63,16 +61,10 @@ growth_rate_array = log_growth_matrix(dataset, list_of_tickers,
 spy_idx = findfirst(==("SPY"), list_of_tickers)
 G_spy_obs = growth_rate_array[:, spy_idx]
 
-# ── 4. Simulate 1000 HMM-WJ SPY paths ───────────────────────────────────────
+# ── 4. Simulate 1000 HMM-WJ SPY paths via JumpHMM ─────────────────────────
 @info "Simulating $_N_PATHS HMM-WJ SPY paths (T=$T_is)..."
-spy_sim_paths = Matrix{Float64}(undef, T_is, _N_PATHS)
-for j in 1:_N_PATHS
-    start_state = rand(pi_bar)
-    result = jump_model(start_state, T_is)
-    states = Int.(result[:, 1])
-    spy_sim_paths[:, j] = [rand(decode_model[s]) for s in states]
-    j % 200 == 0 && @info "  $j / $_N_PATHS SPY paths simulated..."
-end
+wj_result = simulate(model_wj, T_is; n_paths = _N_PATHS, seed = 1234)
+spy_sim_paths = hcat([p.observations for p in wj_result.paths]...)
 
 # ── 5. For each asset, compute R² and KS pass rate ──────────────────────────
 @info "Computing KS pass rates and R² for $n_assets assets..."

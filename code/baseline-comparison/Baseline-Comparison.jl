@@ -64,15 +64,13 @@ g_oos        = Ri_test[1:(max_days_test - 1)]
 
 @info "  IS obs: $(length(g_is)), OoS obs: $(length(g_oos))"
 
-# ── 2. Load HMM model ───────────────────────────────────────────────────────
-@info "Loading HMM model..."
+# ── 2. Load JumpHMM models ──────────────────────────────────────────────────
+@info "Loading JumpHMM models..."
 hmm_dict     = load(_JLD2_HMM)
 insample_obs = hmm_dict["insampledataset"]
 T_is         = length(insample_obs)
-π̄            = hmm_dict["stationary"]
-decode_model = hmm_dict["decode"]
-hmm_model    = hmm_dict["model"]
-jump_model   = hmm_dict["jump_model"]
+model_nj     = hmm_dict["model_nj"]   # JumpHiddenMarkovModel (ε=0)
+model_wj     = hmm_dict["model_wj"]   # JumpHiddenMarkovModel (tuned jumps)
 T_oos        = length(g_oos)
 
 # ── 3. Metric computation functions ──────────────────────────────────────────
@@ -295,56 +293,32 @@ garch_fit = fit(GARCH{1, 1}, insample_obs)
 @info "Simulating GARCH IS paths..."
 garch_is_paths = Matrix{Float64}(undef, T_is, _N_PATHS)
 for i in 1:_N_PATHS
-    garch_is_paths[:, i] = simulate(garch_fit, T_is).data
+    garch_is_paths[:, i] = ARCHModels.simulate(garch_fit, T_is).data
 end
 
 @info "Simulating GARCH OoS paths..."
 garch_oos_paths = Matrix{Float64}(undef, T_oos, _N_PATHS)
 for i in 1:_N_PATHS
-    garch_oos_paths[:, i] = simulate(garch_fit, T_oos).data
+    garch_oos_paths[:, i] = ARCHModels.simulate(garch_fit, T_oos).data
 end
 
-# ── 4c. HMM-NJ ──────────────────────────────────────────────────────────────
+# ── 4c. HMM-NJ (via JumpHMM) ─────────────────────────────────────────────────
 @info "Simulating HMM-NJ IS paths..."
-nj_is_paths = Matrix{Float64}(undef, T_is, _N_PATHS)
-for i in 1:_N_PATHS
-    start = rand(π̄)
-    result = hmm_model(start, T_is)
-    for j in 1:T_is
-        nj_is_paths[j, i] = rand(decode_model[result[j, 1]])
-    end
-end
+nj_is_result = simulate(model_nj, T_is; n_paths = _N_PATHS, seed = 1234)
+nj_is_paths = hcat([p.observations for p in nj_is_result.paths]...)
 
 @info "Simulating HMM-NJ OoS paths..."
-nj_oos_paths = Matrix{Float64}(undef, T_oos, _N_PATHS)
-for i in 1:_N_PATHS
-    start = rand(π̄)
-    result = hmm_model(start, T_oos)
-    for j in 1:T_oos
-        nj_oos_paths[j, i] = rand(decode_model[result[j, 1]])
-    end
-end
+nj_oos_result = simulate(model_nj, T_oos; n_paths = _N_PATHS, seed = 1234)
+nj_oos_paths = hcat([p.observations for p in nj_oos_result.paths]...)
 
-# ── 4d. HMM-WJ ──────────────────────────────────────────────────────────────
+# ── 4d. HMM-WJ (via JumpHMM) ─────────────────────────────────────────────────
 @info "Simulating HMM-WJ IS paths..."
-wj_is_paths = Matrix{Float64}(undef, T_is, _N_PATHS)
-for i in 1:_N_PATHS
-    start = rand(π̄)
-    result = jump_model(start, T_is)
-    for j in 1:T_is
-        wj_is_paths[j, i] = rand(decode_model[result[j, 1]])
-    end
-end
+wj_is_result = simulate(model_wj, T_is; n_paths = _N_PATHS, seed = 1234)
+wj_is_paths = hcat([p.observations for p in wj_is_result.paths]...)
 
 @info "Simulating HMM-WJ OoS paths..."
-wj_oos_paths = Matrix{Float64}(undef, T_oos, _N_PATHS)
-for i in 1:_N_PATHS
-    start = rand(π̄)
-    result = jump_model(start, T_oos)
-    for j in 1:T_oos
-        wj_oos_paths[j, i] = rand(decode_model[result[j, 1]])
-    end
-end
+wj_oos_result = simulate(model_wj, T_oos; n_paths = _N_PATHS, seed = 1234)
+wj_oos_paths = hcat([p.observations for p in wj_oos_result.paths]...)
 
 # ── 5. Compute all metrics ──────────────────────────────────────────────────
 models_is = [

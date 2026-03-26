@@ -201,6 +201,86 @@ These are issues a hard JDIQ reviewer would likely require before acceptance, or
 
 ---
 
+## Phase 5: JumpHMM.jl Refactor + Copula Exploration
+
+**Context:** Replace `VLQuantitativeFinancePackage.jl` with the new standalone [`JumpHMM.jl`](https://github.com/varnerlab/JumpHMM.jl.git) package, and explore copula-based multivariate modeling to strengthen the multi-asset story (addresses C3 weakness: SIM-only results at 58.4% KS).
+
+### Track 1: Code Refactor (VLQuantitativeFinancePackage -> JumpHMM.jl)
+
+**Goal:** Replace all HMM logic with JumpHMM.jl's clean API. Hundreds of lines of manual inline code (partition, transition matrix, emission fitting, jump simulation, metric computation) collapse into API calls.
+
+#### What changes:
+
+| Current (manual/VLQuantitativeFinancePackage) | New (JumpHMM.jl) |
+|---|---|
+| `MyTrainingMarketDataSet()` + `log_growth_matrix()` | Keep data loading; feed prices to `fit()` |
+| Manual Laplace fit + quantile partition + encode | `fit(JumpHiddenMarkovModel, prices; N=100, nu=5.0)` |
+| Manual transition matrix counting | Handled inside `fit()` |
+| Manual `Dict{Int, Distribution}` emissions | `StudentTEmission` structs inside model |
+| `build(MyHiddenMarkovModel, ...)` | `fit()` returns `JumpHiddenMarkovModel` directly |
+| `build(MyHiddenMarkovModelWithJumps, ...)` | `tune(model, prices; ...)` adds jump params |
+| Manual grid search over (epsilon, lambda) | `tune(model, prices; eps_range=..., lam_range=...)` |
+| Inline jump simulation loop (~30 lines) | `simulate(model, n_steps; n_paths=1000)` |
+| Manual KS/AD/kurtosis/ACF/W1/Hellinger computation | `validate(model, prices)` returns `ValidationReport` |
+| `Dict{Int, Categorical}` transition storage | Immutable `JumpHiddenMarkovModel` struct |
+| No decoding/inference | `decode()`, `forward_filter()`, `log_likelihood()` |
+
+#### Step-by-step:
+
+- [ ] **R1. Update Project.toml files** -- Replace `VLQuantitativeFinancePackage` with `JumpHMM` in all 5 experiment directories. Keep data-loading utilities (or migrate to direct CSV/JLD2 loads).
+- [ ] **R2. Refactor `spy-experiment/Include.jl`** -- `using JumpHMM` instead of `using VLQuantitativeFinancePackage`. Keep `Plots`, `JLD2`, `PrettyTables`, etc.
+- [ ] **R3. Refactor core SPY scripts** -- `Table2-StudentT-Emissions.jl`, `HMM-Parameter-Sweep.jl`, `OoS-Validation-SPY.jl`: replace manual model building with `fit()` + `tune()` + `simulate()` + `validate()`.
+- [ ] **R4. Refactor figure scripts** -- `Fig1`, `Fig3`, `Fig4`, `Fig6`: adapt to new struct fields (e.g., `model.partition.boundaries`, `model.transition`, `model.emissions`).
+- [ ] **R5. Refactor baseline-comparison/** -- `Baseline-Comparison.jl`, `Semi-Markov-Baseline.jl`: update HMM-NJ/HMM-WJ to use JumpHMM.jl API.
+- [ ] **R6. Refactor other-ticker-experiment/** -- `Multi-Ticker-Evaluation.jl`: replace `build(MyHiddenMarkovModel)` and `build(MyHiddenMarkovModelWithJumps)` with `fit()` + `tune()`.
+- [ ] **R7. Refactor sim-experiment/** -- `SIM-Multi-Asset-KS.jl` and related: replace manual SIM with `fit(SingleIndexModel, ...)`.
+- [ ] **R8. Regenerate JLD2 artifacts** -- Old JLD2 files store `Dict{Int, Categorical}`, `Dict{Int, Distribution}`, etc. New package uses immutable structs. Re-run all scripts to produce new artifacts.
+- [ ] **R9. Verify numerical reproducibility** -- Confirm Table 2, Table 3, and all figures match (or document any changes from improved numerics). Key metrics: IS KS 97.6%, AD 91.3%, kurtosis 7.6, ACF-MAE 0.052.
+- [ ] **R10. Update README.md** -- Replace VLQuantitativeFinancePackage references with JumpHMM.jl.
+
+#### Data loading question (to resolve):
+`MyTrainingMarketDataSet()` and `MyTestingMarketDataSet()` are convenience functions from VLQuantitativeFinancePackage. Options:
+1. Keep VLQuantitativeFinancePackage as a data-only dependency
+2. Export these from JumpHMM.jl
+3. Replace with direct CSV/JLD2 loads (preferred for reproducibility)
+
+### Track 2: Copula Exploration (New Multivariate Content)
+
+**Goal:** Compare dependence models for multi-asset synthetic data generation. JumpHMM.jl provides four interchangeable dependence models via `PortfolioModel`:
+
+| Dependence Model | Tail Dependence | Parameters | Scales to 424 assets? |
+|---|---|---|---|
+| `SingleIndexModel` (current) | None (linear factor) | 2 per asset | Yes |
+| `GaussianCopula` | None | N(N-1)/2 correlation | Moderate (needs regularization) |
+| `StudentTCopula` | Symmetric (via nu) | N(N-1)/2 + 1 | Moderate |
+| `VineCopula` (C-vine) | Heterogeneous per pair | ~2 per edge, AIC-selected | Small portfolios only |
+
+#### Exploration experiments:
+
+- [ ] **E1. Small portfolio copula comparison (3-5 assets)** -- Use SPY + NVDA + JNJ + JPM (assets we already analyze). Fit `PortfolioModel` with each of the 4 dependence types. Compare: marginal KS pass rates, cross-asset correlation reproduction, tail dependence metrics. This is the proof-of-concept.
+- [ ] **E2. Vine copula family analysis** -- For the small portfolio, examine which bivariate families are selected per edge (Clayton for lower tail? Gumbel for upper?). This reveals asymmetric dependence structure in equity returns; interesting for the paper.
+- [ ] **E3. Medium portfolio (20-30 assets, sector representatives)** -- Test `StudentTCopula` and `SingleIndexModel` at moderate scale. Vine likely too expensive. Compare sector-level correlation reproduction.
+- [ ] **E4. Full universe (424 assets)** -- Compare `SingleIndexModel` vs `StudentTCopula` (the two that scale). Does copula improve on the 58.4% mean KS pass rate?
+- [ ] **E5. Validation metrics for multivariate quality** -- Beyond marginal KS: pairwise correlation MAE, portfolio-level VaR accuracy, sector correlation matrix Frobenius norm error.
+
+#### Paper integration:
+
+- [ ] **P1. New results subsection** -- "Multivariate Fidelity" or "Cross-Asset Dependence Quality" in Section 4.
+- [ ] **P2. New table** -- Table 5: Copula comparison (small portfolio, all 4 models x multivariate metrics).
+- [ ] **P3. New figure** -- Empirical vs simulated correlation matrix heatmaps (SIM vs copula).
+- [ ] **P4. Discussion update** -- Copula advantages/limitations; vine copula scalability tradeoff; connection to C3 weakness.
+- [ ] **P5. Related work update** -- Expand copula subsection beyond Embrechts/Cherubini; add vine copula refs (Aas et al. 2009, Joe 2014).
+- [ ] **P6. Methods update** -- Add copula dependence model description to Section 3.
+
+#### Key questions to answer through exploration:
+1. Does copula dependence improve marginal KS pass rates vs SIM?
+2. How well does each model reproduce cross-asset correlations?
+3. Does Student-t copula's tail dependence matter for equity portfolios?
+4. What bivariate families does the vine select for equity pairs? (Clayton for crash co-movements?)
+5. At what portfolio size does vine copula become computationally impractical?
+
+---
+
 ## Key Differences: Finance Journal vs JDIQ
 
 | Dimension | Finance Journal (JFE) | JDIQ |

@@ -2,12 +2,12 @@
 # Table2-StudentT-Emissions.jl
 #
 # Regenerates all Table 2 metrics with Student-t(df=5) emissions for
-# HMM-NJ and HMM-WJ. All other models (Bootstrap, Gaussian, Laplace, GARCH)
-# are unchanged.
+# HMM-NJ and HMM-WJ using JumpHMM.jl. All other models (Bootstrap,
+# Gaussian, Laplace, GARCH) are unchanged.
 #
-# The Laplace quantile partition and transition matrix are identical to the
-# baseline; only the per-state emission distribution changes from
-# Normal(mu_s, sigma_s) to LocationScale(mu_s, sigma_s, TDist(5)).
+# The HMM model is fit via JumpHMM.fit(JumpHiddenMarkovModel, ...) which
+# builds the Laplace quantile partition, transition matrix, and Student-t
+# emissions internally. Jump parameters are optimized via tune().
 # =============================================================================
 
 include("Include.jl")
@@ -25,8 +25,6 @@ const _COV_QUANTILES = collect(0.01:0.01:0.99)
 const N_STATES = 100
 const _N_TAIL  = 5
 const _P_NEG   = 0.52
-const _EPS_STAR = 1e-4
-const _LAM_STAR = 100.0
 const _DF      = 5.0
 
 const _JLD2_HMM = joinpath(_PATH_TO_DATA, "HMM-WJ-SPY-N-100-daily-aggregate.jld2")
@@ -64,61 +62,29 @@ T_is  = length(g_is)
 T_oos = length(g_oos)
 @info "  IS: T=$(T_is), OoS: T=$(T_oos)"
 
-# ── 2. Load existing HMM model (for transition matrix + stationary dist) ──
-@info "Loading base HMM model..."
-hmm_dict     = load(_JLD2_HMM)
-insample_obs = hmm_dict["insampledataset"]
-π̄            = hmm_dict["stationary"]
-hmm_model    = hmm_dict["model"]
-jump_model   = hmm_dict["jump_model"]
-T_dict       = hmm_model.transition
+# Extract SPY prices for JumpHMM (uses VWAP, same as log_growth_matrix)
+spy_prices_is  = train_dataset["SPY"][!, :volume_weighted_average_price]
+spy_prices_oos = test_dataset["SPY"][!, :volume_weighted_average_price]
 
-# ── 3. Rebuild emission distributions with Student-t(df=5) ────────────────
-@info "Rebuilding emissions with Student-t(df=$(_DF))..."
-d_laplace = fit_mle(Laplace, g_is)
-states = collect(1:N_STATES)
+# ── 2. Fit HMM model via JumpHMM.jl ─────────────────────────────────────────
+@info "Fitting JumpHiddenMarkovModel (N=$N_STATES, ν=$_DF)..."
+model_nj = JumpHMM.fit(JumpHiddenMarkovModel, spy_prices_is;
+                       rf = _RF_IS, N = N_STATES, ν = _DF, dt = _DT)
 
-# Quantile boundaries (same as original)
-pct = collect(range(0.0, 1.0, length = N_STATES + 1))
-bounds = Matrix{Float64}(undef, N_STATES, 2)
-for s in states
-    bounds[s, 1] = quantile(d_laplace, pct[s])
-    bounds[s, 2] = quantile(d_laplace, pct[s + 1])
-end
-bounds[1, 1] = -Inf
-bounds[N_STATES, 2] = +Inf
+@info "Tuning jump parameters..."
+model_wj = tune(model_nj, spy_prices_is;
+                ϵ_range = range(1e-4, 2.5e-2, length = 20),
+                λ_range = range(10.0, 160.0, length = 16),
+                n_paths = 200, w_κ = 0.20,
+                p_neg = _P_NEG, N_tail = _N_TAIL,
+                acf_lags = 25, seed = 1234)
 
-# Encode observations
-encoded = Vector{Int}(undef, T_is)
-for i in eachindex(g_is)
-    v = g_is[i]
-    encoded[i] = N_STATES
-    for s in states
-        if bounds[s, 1] <= v < bounds[s, 2]
-            encoded[i] = s
-            break
-        end
-    end
-end
+@info "  Optimal: ε=$(model_wj.jump.ϵ), λ=$(model_wj.jump.λ)"
 
-# Fit Student-t emissions per state
-decode_t = Dict{Int, Distribution}()
-for s in states
-    idxs = findall(x -> x == s, encoded)
-    if length(idxs) >= 2
-        mu_s = mean(g_is[idxs])
-        sigma_s = std(g_is[idxs])
-        sigma_s < 1e-12 && (sigma_s = std(g_is))
-        decode_t[s] = LocationScale(mu_s, sigma_s, TDist(_DF))
-    else
-        decode_t[s] = LocationScale(mean(g_is), std(g_is), TDist(_DF))
-    end
-end
+# Use g_is as the reference observation vector (from VLPackage, consistent with baselines)
+insample_obs = g_is
 
-state_counts = [count(x -> x == s, encoded) for s in states]
-@info "  Min state count: $(minimum(state_counts)), empty: $(count(x->x==0, state_counts))"
-
-# ── 4. Metric computation functions ───────────────────────────────────────
+# ── 3. Metric computation functions ─────────────────────────────────────────
 
 function bootstrap_acf_mae_se(acf_mat::Matrix{Float64}, obs_acf::Vector{Float64};
                                n_boot::Int = _N_BOOT)
@@ -250,49 +216,26 @@ function compute_all_metrics(obs::Vector{Float64}, paths::Matrix{Float64})
     )
 end
 
-# ── 5. Simulate HMM paths with Student-t emissions ───────────────────────
+# ── 4. Simulate HMM paths via JumpHMM.jl ────────────────────────────────────
 
-function simulate_hmm_nj_path(T_dict, pi_bar, decode, n_steps, n_states)
-    path_states = Vector{Int}(undef, n_steps)
-    path_states[1] = rand(pi_bar)
-    for t in 2:n_steps
-        path_states[t] = rand(T_dict[path_states[t-1]])
-    end
-    return [rand(decode[s]) for s in path_states]
-end
+@info "Simulating HMM-NJ IS paths..."
+nj_result_is = simulate(model_nj, T_is; n_paths = _N_PATHS, seed = 1234)
+nj_is = hcat([p.observations for p in nj_result_is.paths]...)
 
-function simulate_hmm_wj_path(T_dict, pi_bar, decode, n_steps, n_states;
-                               eps = _EPS_STAR, lam = _LAM_STAR,
-                               n_tail = _N_TAIL, p_neg = _P_NEG)
-    bottom = collect(1:n_tail)
-    top    = collect((n_states - n_tail + 1):n_states)
-    path_states = Vector{Int}(undef, n_steps)
-    path_states[1] = rand(pi_bar)
-    t = 2
-    while t <= n_steps
-        if rand() < eps
-            K = rand(Poisson(lam))
-            if K > 0
-                for _ in 1:K
-                    t > n_steps && break
-                    path_states[t] = rand() < p_neg ? rand(bottom) : rand(top)
-                    t += 1
-                end
-            else
-                path_states[t] = rand(T_dict[path_states[t-1]])
-                t += 1
-            end
-        else
-            path_states[t] = rand(T_dict[path_states[t-1]])
-            t += 1
-        end
-    end
-    return [rand(decode[s]) for s in path_states]
-end
+@info "Simulating HMM-NJ OoS paths..."
+nj_result_oos = simulate(model_nj, T_oos; n_paths = _N_PATHS, seed = 1234)
+nj_oos = hcat([p.observations for p in nj_result_oos.paths]...)
 
-# ── 6. Generate all paths ────────────────────────────────────────────────────
+@info "Simulating HMM-WJ IS paths..."
+wj_result_is = simulate(model_wj, T_is; n_paths = _N_PATHS, seed = 1234)
+wj_is = hcat([p.observations for p in wj_result_is.paths]...)
 
-# Baselines (unchanged)
+@info "Simulating HMM-WJ OoS paths..."
+wj_result_oos = simulate(model_wj, T_oos; n_paths = _N_PATHS, seed = 1234)
+wj_oos = hcat([p.observations for p in wj_result_oos.paths]...)
+
+# ── 5. Generate baseline paths (unchanged) ──────────────────────────────────
+
 μ_is  = mean(insample_obs)
 σ_is  = std(insample_obs)
 lap_b = mean(abs.(insample_obs .- μ_is))
@@ -318,24 +261,10 @@ lap_oos   = gen_paths(laplace_gen, T_oos, _N_PATHS)
 garch_fit = fit(GARCH{1, 1}, insample_obs)
 
 @info "Simulating GARCH paths..."
-garch_is  = hcat([simulate(garch_fit, T_is).data for _ in 1:_N_PATHS]...)
-garch_oos = hcat([simulate(garch_fit, T_oos).data for _ in 1:_N_PATHS]...)
+garch_is  = hcat([ARCHModels.simulate(garch_fit, T_is).data for _ in 1:_N_PATHS]...)
+garch_oos = hcat([ARCHModels.simulate(garch_fit, T_oos).data for _ in 1:_N_PATHS]...)
 
-# HMM-NJ with Student-t emissions
-@info "Simulating HMM-NJ IS paths (Student-t emissions)..."
-nj_is = hcat([simulate_hmm_nj_path(T_dict, π̄, decode_t, T_is, N_STATES) for _ in 1:_N_PATHS]...)
-
-@info "Simulating HMM-NJ OoS paths..."
-nj_oos = hcat([simulate_hmm_nj_path(T_dict, π̄, decode_t, T_oos, N_STATES) for _ in 1:_N_PATHS]...)
-
-# HMM-WJ with Student-t emissions
-@info "Simulating HMM-WJ IS paths (Student-t emissions)..."
-wj_is = hcat([simulate_hmm_wj_path(T_dict, π̄, decode_t, T_is, N_STATES) for _ in 1:_N_PATHS]...)
-
-@info "Simulating HMM-WJ OoS paths..."
-wj_oos = hcat([simulate_hmm_wj_path(T_dict, π̄, decode_t, T_oos, N_STATES) for _ in 1:_N_PATHS]...)
-
-# ── 7. Compute all metrics ───────────────────────────────────────────────────
+# ── 6. Compute all metrics ───────────────────────────────────────────────────
 
 model_names = ["Bootstrap", "Gaussian", "Laplace", "GARCH(1,1)", "HMM-NJ", "HMM-WJ"]
 is_paths  = [boot_is, gauss_is, lap_is, garch_is, nj_is, wj_is]
@@ -354,7 +283,7 @@ for (name, paths) in zip(model_names, oos_paths)
     results_oos[name] = compute_all_metrics(g_oos, paths)
 end
 
-# ── 8. Print Table 2 ─────────────────────────────────────────────────────────
+# ── 7. Print Table 2 ─────────────────────────────────────────────────────────
 
 function print_row(label, res, model_names, getter; fmt_fn)
     row = @sprintf("  %-24s", label)
@@ -396,7 +325,8 @@ end
 
 println("\n" * "="^140)
 println("  Table 2 — Student-t(df=$(_DF)) Emissions")
-println("  $_N_PATHS simulated paths, α=$(_ALPHA), ε*=$(_EPS_STAR), λ*=$(_LAM_STAR)")
+println("  $_N_PATHS simulated paths, α=$(_ALPHA)")
+println("  HMM-WJ: ε=$(model_wj.jump.ϵ), λ=$(model_wj.jump.λ)")
 println("="^140)
 
 print_full_table(insample_obs, results_is,
@@ -411,4 +341,14 @@ let row = @sprintf("  %-24s", "Parameters estimated")
 end
 
 println("\n" * "="^140)
+
+# ── 8. Save JumpHMM model for downstream scripts ────────────────────────────
+@info "Saving JumpHMM model to JLD2..."
+save(_JLD2_HMM, Dict(
+    "insampledataset"  => insample_obs,
+    "model_nj"         => model_nj,
+    "model_wj"         => model_wj,
+    "number_of_states" => N_STATES,
+))
+
 @info "Done."

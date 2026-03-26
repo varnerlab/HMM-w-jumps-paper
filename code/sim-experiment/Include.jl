@@ -8,11 +8,15 @@ const _PATH_TO_FIGS = joinpath(_ROOT, "figs");
 using Pkg
 if (isfile(joinpath(_ROOT, "Manifest.toml")) == false) # have manifest file, we are good. Otherwise, we need to instantiate the environment
     Pkg.add(path="https://github.com/varnerlab/VLQuantitativeFinancePackage.jl.git")
+    Pkg.add(url="https://github.com/varnerlab/JumpHMM.jl.git")
     Pkg.activate("."); Pkg.resolve(); Pkg.instantiate(); Pkg.update();
 end
 
 # load external packages -
 using VLQuantitativeFinancePackage
+import JumpHMM
+using JumpHMM: JumpHiddenMarkovModel, JumpParameters, SimulationResult, SimulationPath,
+               simulate, tune, validate
 using DataFrames
 using CSV
 using Dates
