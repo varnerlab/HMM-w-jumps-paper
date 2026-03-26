@@ -241,14 +241,106 @@ JPM  & HMM-WJ & 76.9 (1.3) & 76.4 (1.3) & 5.8 (0.09) & 0.031 ({$<$}0.001) \\
 
 \clearpage
 
-\subsection*{S6. Emission distribution and semi-Markov comparison}
+\subsection*{S6. Copula dependence models: mathematical details}
+\label{sec:copula_math}
 
-Table~\ref{tab:emission_hsmm} isolates the contributions of the emission distribution and the persistence mechanism by comparing three model variants on SPY: the HSMM baseline ($K=8$ states, negative-binomial dwell times, Student-t emissions), HMM-WJ with the original Gaussian emissions ($N=100$), and HMM-WJ with Student-t emissions ($N=100$). The comparison confirms that HMM-WJ dominates the HSMM on distributional fidelity regardless of emission choice, and that the Student-t upgrade provides incremental improvements in tail reproduction (excess kurtosis closer to observed) and marginal fit (higher KS and AD pass rates).
+This section provides the mathematical foundations for the copula-based dependence models introduced in Section~3. The main text describes these models at a conceptual level; here we give the densities, fitting procedures, and simulation algorithms in full.
+
+\paragraph{Sklar's theorem and the copula framework.}
+Let $\mathbf{G} = (G^{(1)}, \dots, G^{(d)})$ denote a $d$-dimensional random vector of excess growth rates with joint CDF $H$ and marginal CDFs $F_1, \dots, F_d$. Sklar's theorem \cite{embrechts_copulas_2002} states that there exists a copula $C: [0,1]^d \to [0,1]$ such that
+\begin{equation}
+    H(g_1, \dots, g_d) = C\bigl(F_1(g_1), \dots, F_d(g_d)\bigr).
+    \label{eq:sklar}
+\end{equation}
+If the marginals are continuous, $C$ is unique. The copula $C$ captures all dependence structure independently of the marginals, which is why it pairs naturally with per-asset HMM marginal models: each asset's marginal distribution is determined by its fitted HMM, while the copula governs how extreme events co-occur across assets.
+
+\paragraph{Probability integral transform (PIT).}
+To fit a copula, we first transform the observed growth rates to uniform marginals. Given $n$ observations $g_{1,t}, \dots, g_{d,t}$ for $t = 1, \dots, n$, we compute pseudo-uniform observations
+\begin{equation}
+    u_{j,t} = \frac{\text{rank}(g_{j,t})}{n+1}, \quad j = 1, \dots, d,
+    \label{eq:pit}
+\end{equation}
+where $\text{rank}(g_{j,t})$ is the ordinal rank of $g_{j,t}$ among $\{g_{j,1}, \dots, g_{j,n}\}$. The denominator $n+1$ (rather than $n$) ensures that $u_{j,t} \in (0,1)$, avoiding boundary singularities in the copula density. This nonparametric PIT avoids misspecification of the marginals.
+
+\paragraph{Gaussian copula.}
+The Gaussian copula with correlation matrix $\mathbf{\Sigma}$ has CDF
+\begin{equation}
+    C_{\text{Ga}}(\mathbf{u}; \mathbf{\Sigma}) = \Phi_d\bigl(\Phi^{-1}(u_1), \dots, \Phi^{-1}(u_d); \mathbf{\Sigma}\bigr),
+\end{equation}
+where $\Phi$ is the standard normal CDF and $\Phi_d(\cdot; \mathbf{\Sigma})$ is the $d$-dimensional normal CDF with correlation matrix $\mathbf{\Sigma}$. For a bivariate pair $(u, v)$ with correlation $\rho$, the copula density is
+\begin{equation}
+    c_{\text{Ga}}(u, v; \rho) = \frac{1}{\sqrt{1 - \rho^2}} \exp\!\left(-\frac{\rho^2(x^2 + y^2) - 2\rho xy}{2(1 - \rho^2)}\right),
+    \label{eq:gauss_density}
+\end{equation}
+where $x = \Phi^{-1}(u)$ and $y = \Phi^{-1}(v)$. The parameter $\rho$ is estimated from Kendall's $\tau$ via $\rho = \sin(\pi\tau/2)$. The Gaussian copula has \emph{zero} upper and lower tail dependence coefficients, $\lambda_U = \lambda_L = 0$, regardless of $\rho$ \cite{embrechts_copulas_2002}; in other words, the probability of jointly extreme observations vanishes faster than linearly in the tail.
+
+\paragraph{Student-t copula.}
+The Student-t copula with correlation matrix $\mathbf{\Sigma}$ and $\nu$ degrees of freedom has CDF
+\begin{equation}
+    C_t(\mathbf{u}; \mathbf{\Sigma}, \nu) = t_{d,\nu}\!\bigl(t_\nu^{-1}(u_1), \dots, t_\nu^{-1}(u_d); \mathbf{\Sigma}\bigr),
+\end{equation}
+where $t_\nu$ is the univariate Student-t CDF and $t_{d,\nu}(\cdot; \mathbf{\Sigma})$ is the $d$-variate Student-t CDF with $\nu$ degrees of freedom and correlation $\mathbf{\Sigma}$. For a bivariate pair the log-density is
+\begin{equation}
+    \ln c_t(u, v; \rho, \nu) = \ln\Gamma\!\tfrac{\nu+2}{2} + \ln\Gamma\!\tfrac{\nu}{2} - 2\ln\Gamma\!\tfrac{\nu+1}{2} - \tfrac{1}{2}\ln(1-\rho^2) + T_3 + T_4,
+    \label{eq:t_density}
+\end{equation}
+where $x = t_\nu^{-1}(u)$, $y = t_\nu^{-1}(v)$, and
+\begin{align}
+    T_3 &= -\tfrac{\nu+2}{2}\ln\!\left(1 + \frac{x^2 + y^2 - 2\rho xy}{\nu(1-\rho^2)}\right), \\
+    T_4 &= \tfrac{\nu+1}{2}\left(\ln\!\left(1+\tfrac{x^2}{\nu}\right) + \ln\!\left(1+\tfrac{y^2}{\nu}\right)\right).
+\end{align}
+The correlation $\rho$ is estimated from Kendall's $\tau$ (as for the Gaussian copula), and the degrees-of-freedom $\nu$ is selected by profile maximum likelihood over a discrete grid $\nu \in \{2.5, 3, 4, 5, 6, 8, 10, 15, 20, 30\}$. The Student-t copula has \emph{symmetric} tail dependence: $\lambda_U = \lambda_L > 0$ for all finite $\nu$, with the coefficient given by
+\begin{equation}
+    \lambda_U = \lambda_L = 2\,t_{\nu+1}\!\left(-\sqrt{\frac{(\nu+1)(1-\rho)}{1+\rho}}\right),
+    \label{eq:tail_dep}
+\end{equation}
+which increases as $\nu$ decreases (heavier tails). For example, at $\rho = 0.5$ and $\nu = 4$, the tail dependence coefficient is approximately 0.18; this means that, conditional on one asset being in its 1st percentile, there is an 18\% probability that the other asset is simultaneously in its 1st percentile, far exceeding what a Gaussian copula would predict (exactly 0\%).
+
+\paragraph{C-vine copula decomposition.}
+A $d$-dimensional copula density can be decomposed into a product of $d(d-1)/2$ bivariate copula densities arranged in a vine structure \cite{aas_pair_2009}. The canonical vine (C-vine) factorization is
+\begin{equation}
+    c(\mathbf{u}) = \prod_{k=1}^{d-1} \prod_{j=k+1}^{d} c_{k,j|1,\dots,k-1}\!\bigl(u_{k|1,\dots,k-1},\; u_{j|1,\dots,k-1}\bigr),
+    \label{eq:cvine}
+\end{equation}
+where $c_{k,j|1,\dots,k-1}$ is a bivariate copula density for the pair $(k, j)$ conditioned on variables $\{1, \dots, k{-}1\}$, and $u_{k|1,\dots,k-1}$ denotes the conditional CDF (pseudo-observation) obtained by iteratively applying the $h$-function. The $h$-function for a bivariate copula $C_{ab}$ is defined as
+\begin{equation}
+    h(u \mid v; \theta) = \frac{\partial C_{ab}(u, v; \theta)}{\partial v},
+    \label{eq:hfunc}
+\end{equation}
+and represents the conditional CDF of $U$ given $V = v$ under the bivariate copula $C_{ab}$. For tree level $k$, pseudo-observations are computed as $u_{j|1,\dots,k} = h(u_{j|1,\dots,k-1} \mid u_{k|1,\dots,k-1}; \hat{\theta}_{k,j})$, where $\hat{\theta}_{k,j}$ is the parameter fitted at that edge.
+
+At each edge, five candidate bivariate families are fitted and the one with the lowest AIC $= 2p - 2\ln\hat{L}$ is selected, where $p$ is the number of parameters ($p=2$ for Student-t, $p=1$ for all others) and $\hat{L}$ is the maximized likelihood on the pseudo-observations at that edge. The five families and their densities are as follows.
+
+\begin{itemize}
+    \item \textit{Gaussian bivariate copula} (Eq.~\ref{eq:gauss_density}): parameter $\rho$, no tail dependence.
+    \item \textit{Student-t bivariate copula} (Eq.~\ref{eq:t_density}): parameters $(\rho, \nu)$, symmetric tail dependence.
+    \item \textit{Clayton copula}: density $c_{\text{Cl}}(u,v;\theta) = (1{+}\theta)\,(uv)^{-\theta-1}(u^{-\theta}{+}v^{-\theta}{-}1)^{-2-1/\theta}$ for $\theta > 0$, with \emph{lower} tail dependence $\lambda_L = 2^{-1/\theta}$ and $\lambda_U = 0$. Fitted via $\theta = 2\tau/(1{-}\tau)$.
+    \item \textit{Gumbel copula}: density involves $A = ((-\ln u)^\theta{+}(-\ln v)^\theta)^{1/\theta}$ with \emph{upper} tail dependence $\lambda_U = 2 - 2^{1/\theta}$ and $\lambda_L = 0$. Fitted via $\theta = 1/(1{-}\tau)$ for $\theta \geq 1$.
+    \item \textit{Frank copula}: density $c_{\text{Fr}}(u,v;\theta) = -\theta e^{-\theta(u+v)}(e^{-\theta}{-}1)/D^2$ where $D = e^{-\theta}{-}1+(e^{-\theta u}{-}1)(e^{-\theta v}{-}1)$, with $\lambda_U = \lambda_L = 0$ (no tail dependence). The parameter $\theta$ is obtained by numerically inverting the Debye function relationship $\tau = 1 - 4(\mathcal{D}_1(\theta){-}1)/\theta$, where $\mathcal{D}_1(\theta) = \theta^{-1}\!\int_0^\theta t/(e^t{-}1)\,dt$.
+\end{itemize}
+
+\paragraph{Variable ordering.}
+The C-vine requires specifying the root variable at each tree level. We order variables by decreasing sum of absolute Kendall's $\tau$: $\text{order}_k = \arg\max_j \sum_{i \neq j} |\hat{\tau}_{ij}|$ among variables not yet placed. For equity portfolios, this typically places the market index (e.g., SPY) at the root, reflecting its role as the dominant source of co-movement.
+
+\paragraph{Simulation via rank reordering.}
+In the PortfolioModel framework, copula simulation proceeds by rank reordering \cite{embrechts_copulas_2002}:
+\begin{enumerate}
+    \item Simulate $n_{\text{paths}}$ independent paths from each asset's marginal HMM, producing a matrix $\mathbf{G}_j^{(\text{ind})} \in \mathbb{R}^{T \times n_{\text{paths}}}$ for $j = 1, \dots, d$.
+    \item Sample $T \times d$ uniform variates $\mathbf{U} \sim C$ from the fitted copula.
+    \item For each asset $j$ and each path $i$, reorder the simulated observations $G_{j,1:T}^{(i)}$ so that their ranks match the copula-sampled ranks $\text{rank}(U_{j,1:T}^{(i)})$.
+\end{enumerate}
+This procedure preserves each asset's marginal distribution exactly (since reordering does not change the set of values, only their temporal arrangement) while injecting the cross-asset dependence structure specified by the copula. For the Student-t copula, the uniform variates in step~2 are obtained by sampling from a multivariate Student-t distribution with correlation $\hat{\mathbf{\Sigma}}$ and $\hat{\nu}$ degrees of freedom, then applying the univariate Student-t CDF to each margin.
+
+\clearpage
+
+\subsection*{S7. Emission distribution and semi-Markov comparison}
+
+Table~\ref{tab:emission_hsmm_s7} isolates the contributions of the emission distribution and the persistence mechanism by comparing three model variants on SPY: the HSMM baseline ($K=8$ states, negative-binomial dwell times, Student-t emissions), HMM-WJ with the original Gaussian emissions ($N=100$), and HMM-WJ with Student-t emissions ($N=100$). The comparison confirms that HMM-WJ dominates the HSMM on distributional fidelity regardless of emission choice, and that the Student-t upgrade provides incremental improvements in tail reproduction (excess kurtosis closer to observed) and marginal fit (higher KS and AD pass rates).
 
 \begin{table}[tp]
 \centering
 \caption{Three-way comparison isolating the emission distribution and persistence mechanism for SPY ($N=100$ for HMM-WJ, $K=8$ for HSMM; 1{,}000 simulated paths, $\alpha=0.05$). Standard errors in parentheses.}
-\label{tab:emission_hsmm}
+\label{tab:emission_hsmm_s7}
 \small
 \begin{tabular}{@{}lccc@{}}
 \toprule

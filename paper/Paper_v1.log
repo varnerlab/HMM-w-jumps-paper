@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.27 (TeX Live 2025) (preloaded format=pdflatex 2025.3.8)  26 MAR 2026 12:57
+This is pdfTeX, Version 3.141592653-2.6-1.40.27 (TeX Live 2025) (preloaded format=pdflatex 2025.3.8)  26 MAR 2026 15:44
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -2224,7 +2224,179 @@ LF/m/n/9 (+20) 5 \LMS/ntxsy/m/n/9 ^^B \OT1/LinuxLibertineT-TLF/m/n/9 (+20) 10[]
 
 
 
-[8.39])
+[8.39]
+pdfTeX warning (ext4): destination with the same identifier (name{equation.1}) 
+has been already used, duplicate ignored
+<to be read again> 
+                   \relax 
+l.251 \begin{equation}
+                      
+pdfTeX warning (ext4): destination with the same identifier (name{equation.1}) 
+has been already used, duplicate ignored
+<to be read again> 
+                   \relax 
+l.251 \begin{equation}
+                      
+pdfTeX warning (ext4): destination with the same identifier (name{equation.1}) 
+has been already used, duplicate ignored
+<to be read again> 
+                   \relax 
+l.251 \begin{equation}
+                      
+pdfTeX warning (ext4): destination with the same identifier (name{equation.1}) 
+has been already used, duplicate ignored
+<to be read again> 
+                   \relax 
+l.251 \begin{equation}
+                      
+pdfTeX warning (ext4): destination with the same identifier (name{equation.2}) 
+has been already used, duplicate ignored
+<to be read again> 
+                   \relax 
+l.259 \begin{equation}
+                      
+pdfTeX warning (ext4): destination with the same identifier (name{equation.2}) 
+has been already used, duplicate ignored
+<to be read again> 
+                   \relax 
+l.259 \begin{equation}
+                      
+pdfTeX warning (ext4): destination with the same identifier (name{equation.2}) 
+has been already used, duplicate ignored
+<to be read again> 
+                   \relax 
+l.259 \begin{equation}
+                      
+pdfTeX warning (ext4): destination with the same identifier (name{equation.2}) 
+has been already used, duplicate ignored
+<to be read again> 
+                   \relax 
+l.259 \begin{equation}
+                      
+pdfTeX warning (ext4): destination with the same identifier (name{equation.3}) 
+has been already used, duplicate ignored
+<to be read again> 
+                   \relax 
+l.267 \begin{equation}
+                      
+pdfTeX warning (ext4): destination with the same identifier (name{equation.3}) 
+has been already used, duplicate ignored
+<to be read again> 
+                   \relax 
+l.267 \begin{equation}
+                      
+pdfTeX warning (ext4): destination with the same identifier (name{equation.3}) 
+has been already used, duplicate ignored
+<to be read again> 
+                   \relax 
+l.267 \begin{equation}
+                      
+pdfTeX warning (ext4): destination with the same identifier (name{equation.3}) 
+has been already used, duplicate ignored
+<to be read again> 
+                   \relax 
+l.267 \begin{equation}
+                      
+pdfTeX warning (ext4): destination with the same identifier (name{equation.4}) 
+has been already used, duplicate ignored
+<to be read again> 
+                   \relax 
+l.271 \begin{equation}
+                      
+pdfTeX warning (ext4): destination with the same identifier (name{equation.4}) 
+has been already used, duplicate ignored
+<to be read again> 
+                   \relax 
+l.271 \begin{equation}
+                      
+pdfTeX warning (ext4): destination with the same identifier (name{equation.4}) 
+has been already used, duplicate ignored
+<to be read again> 
+                   \relax 
+l.271 \begin{equation}
+                      
+pdfTeX warning (ext4): destination with the same identifier (name{equation.4}) 
+has been already used, duplicate ignored
+<to be read again> 
+                   \relax 
+l.271 \begin{equation}
+                      
+pdfTeX warning (ext4): destination with the same identifier (name{equation.5}) 
+has been already used, duplicate ignored
+<to be read again> 
+                   \relax 
+l.279 \begin{equation}
+                      
+pdfTeX warning (ext4): destination with the same identifier (name{equation.5}) 
+has been already used, duplicate ignored
+<to be read again> 
+                   \relax 
+l.279 \begin{equation}
+                      
+pdfTeX warning (ext4): destination with the same identifier (name{equation.5}) 
+has been already used, duplicate ignored
+<to be read again> 
+                   \relax 
+l.279 \begin{equation}
+                      
+pdfTeX warning (ext4): destination with the same identifier (name{equation.5}) 
+has been already used, duplicate ignored
+<to be read again> 
+                   \relax 
+l.279 \begin{equation}
+                      
+pdfTeX warning (ext4): destination with the same identifier (name{equation.6}) 
+has been already used, duplicate ignored
+<to be read again> 
+                   \relax 
+l.283 \begin{equation}
+                      
+pdfTeX warning (ext4): destination with the same identifier (name{equation.6}) 
+has been already used, duplicate ignored
+<to be read again> 
+                   \relax 
+l.283 \begin{equation}
+                      
+pdfTeX warning (ext4): destination with the same identifier (name{equation.6}) 
+has been already used, duplicate ignored
+<to be read again> 
+                   \relax 
+l.283 \begin{equation}
+                      
+pdfTeX warning (ext4): destination with the same identifier (name{equation.6}) 
+has been already used, duplicate ignored
+<to be read again> 
+                   \relax 
+l.283 \begin{equation}
+                      
+pdfTeX warning (ext4): destination with the same identifier (name{equation.7}) 
+has been already used, duplicate ignored
+<to be read again> 
+                   \relax 
+l.291 \end{align}
+                 
+pdfTeX warning (ext4): destination with the same identifier (name{equation.8}) 
+has been already used, duplicate ignored
+<to be read again> 
+                   \relax 
+l.291 \end{align}
+                 
+Overfull \hbox (16.09479pt too wide) in paragraph at lines 291--293
+\T1/LinuxLibertineT-TLF/m/n/10 (-20) freedom $\OML/nxlmi/m/it/10 ^^W$ \T1/Linux
+LibertineT-TLF/m/n/10 (-20) is se-lected by pro-file max-i-mum like-li-hood ove
+r a dis-crete grid $\OML/nxlmi/m/it/10 ^^W \LMS/ntxsy/m/n/10 2 f\OT1/LinuxLiber
+tineT-TLF/m/n/10 (-20) 2\OML/nxlmi/m/it/10 :\OT1/LinuxLibertineT-TLF/m/n/10 (-2
+0) 5\OML/nxlmi/m/it/10 ; \OT1/LinuxLibertineT-TLF/m/n/10 (-20) 3\OML/nxlmi/m/it
+/10 ; \OT1/LinuxLibertineT-TLF/m/n/10 (-20) 4\OML/nxlmi/m/it/10 ; \OT1/LinuxLib
+ertineT-TLF/m/n/10 (-20) 5\OML/nxlmi/m/it/10 ; \OT1/LinuxLibertineT-TLF/m/n/10 
+(-20) 6\OML/nxlmi/m/it/10 ; \OT1/LinuxLibertineT-TLF/m/n/10 (-20) 8\OML/nxlmi/m
+/it/10 ; \OT1/LinuxLibertineT-TLF/m/n/10 (-20) 10\OML/nxlmi/m/it/10 ; \OT1/Linu
+xLibertineT-TLF/m/n/10 (-20) 15\OML/nxlmi/m/it/10 ; \OT1/LinuxLibertineT-TLF/m/
+n/10 (-20) 20\OML/nxlmi/m/it/10 ; \OT1/LinuxLibertineT-TLF/m/n/10 (-20) 30\LMS/
+ntxsy/m/n/10 g$\T1/LinuxLibertineT-TLF/m/n/10 (-20) .
+ []
+
+
 
 
 Package fancyhdr Warning: \headheight is too small (13.0pt): 
@@ -2233,15 +2405,103 @@ Package fancyhdr Warning: \headheight is too small (13.0pt):
 (fancyhdr)                You might also make \topmargin smaller:
 (fancyhdr)                \addtolength{\topmargin}{-5.48402pt}.
 
+[9.40
+
+
+
+
+]
+pdfTeX warning (ext4): destination with the same identifier (name{equation.9}) 
+has been already used, duplicate ignored
+<to be read again> 
+                   \relax 
+l.293 \begin{equation}
+                      
+pdfTeX warning (ext4): destination with the same identifier (name{equation.9}) 
+has been already used, duplicate ignored
+<to be read again> 
+                   \relax 
+l.293 \begin{equation}
+                      
+pdfTeX warning (ext4): destination with the same identifier (name{equation.9}) 
+has been already used, duplicate ignored
+<to be read again> 
+                   \relax 
+l.293 \begin{equation}
+                      
+pdfTeX warning (ext4): destination with the same identifier (name{equation.9}) 
+has been already used, duplicate ignored
+<to be read again> 
+                   \relax 
+l.293 \begin{equation}
+                      
+pdfTeX warning (ext4): destination with the same identifier (name{equation.10})
+ has been already used, duplicate ignored
+<to be read again> 
+                   \relax 
+l.301 \begin{equation}
+                      
+pdfTeX warning (ext4): destination with the same identifier (name{equation.10})
+ has been already used, duplicate ignored
+<to be read again> 
+                   \relax 
+l.301 \begin{equation}
+                      
+pdfTeX warning (ext4): destination with the same identifier (name{equation.10})
+ has been already used, duplicate ignored
+<to be read again> 
+                   \relax 
+l.301 \begin{equation}
+                      
+pdfTeX warning (ext4): destination with the same identifier (name{equation.10})
+ has been already used, duplicate ignored
+<to be read again> 
+                   \relax 
+l.301 \begin{equation}
+                      
+Overfull \hbox (1.12321pt too wide) in paragraph at lines 304--306
+\T1/LinuxLibertineT-TLF/m/n/10 (-20) where $\OML/nxlmi/m/it/10 c[]$ \T1/LinuxLi
+bertineT-TLF/m/n/10 (-20) is a bi-vari-ate cop-ula den-sity for the pair $\LMS/
+ntxsy/m/n/10 น\OML/nxlmi/m/it/10 k; j\LMS/ntxsy/m/n/10 บ$ \T1/LinuxLibertineT-T
+LF/m/n/10 (-20) con-di-tioned on vari-ables $\LMS/ntxsy/m/n/10 f\OT1/LinuxLiber
+tineT-TLF/m/n/10 (-20) 1\OML/nxlmi/m/it/10 ; [] ; k[]\OT1/LinuxLibertineT-TLF/m
+/n/10 (-20) 1\LMS/ntxsy/m/n/10 g$\T1/LinuxLibertineT-TLF/m/n/10 (-20) ,
+ []
+
+
+Overfull \hbox (19.39081pt too wide) in paragraph at lines 319--320
+[]\T1/LinuxLibertineT-TLF/m/it/10 (-20) Frank cop-ula\T1/LinuxLibertineT-TLF/m/
+n/10 (-20) : den-sity $\OML/nxlmi/m/it/10 c[]\LMS/ntxsy/m/n/10 น\OML/nxlmi/m/it
+/10 u; v\OT1/LinuxLibertineT-TLF/m/n/10 (-20) ; \OML/nxlmi/m/it/10 ^^R\LMS/ntxs
+y/m/n/10 บ \U/ntxmia/m/it/10 = \LMS/ntxsy/m/n/10 ^^@\OML/nxlmi/m/it/10 ^^Re[]\L
+MS/ntxsy/m/n/10 น\OML/nxlmi/m/it/10 e[][]\OT1/LinuxLibertineT-TLF/m/n/10 (-20) 
+1\LMS/ntxsy/m/n/10 บ\OML/nxlmi/m/it/10 D[]$ \T1/LinuxLibertineT-TLF/m/n/10 (-2
+0) where $\OML/nxlmi/m/it/10 D \U/ntxmia/m/it/10 = \OML/nxlmi/m/it/10 e[][]\OT1
+/LinuxLibertineT-TLF/m/n/10 (-20) 1 \LMS/ntxsy/m/n/10 ฯ น\OML/nxlmi/m/it/10 e[]
+[]\OT1/LinuxLibertineT-TLF/m/n/10 (-20) 1\LMS/ntxsy/m/n/10 บน\OML/nxlmi/m/it/10
+ e[][]\OT1/LinuxLibertineT-TLF/m/n/10 (-20) 1\LMS/ntxsy/m/n/10 บ$\T1/LinuxLiber
+tineT-TLF/m/n/10 (-20) ,
+ []
+
+
+
+[10.41]
+
+
+Package fancyhdr Warning: \headheight is too small (13.0pt): 
+(fancyhdr)                Make it at least 18.48402pt, for example:
+(fancyhdr)                \setlength{\headheight}{18.48402pt}.
+(fancyhdr)                You might also make \topmargin smaller:
+(fancyhdr)                \addtolength{\topmargin}{-5.48402pt}.
+
+[11.42])
+
 (/usr/local/texlive/2025/texmf-dist/tex/generic/stringenc/se-pdfdoc.def
 File: se-pdfdoc.def 2019/11/29 v1.12 stringenc: PDFDocEncoding
 )
 (/usr/local/texlive/2025/texmf-dist/tex/generic/stringenc/se-utf8.def
 File: se-utf8.def 2019/11/29 v1.12 stringenc: UTF-8
-) [9.40
-
-
-
+) [12.43
 
 ]
 (./Paper_v1.aux)
@@ -2253,13 +2513,13 @@ Package rerunfilecheck Info: File `Paper_v1.out' has not changed.
 (rerunfilecheck)             Checksum: 6FD2D0DB996A751148CE69F3EE2604BA;4405.
  ) 
 Here is how much of TeX's memory you used:
- 47337 strings out of 473190
- 1045549 string characters out of 5715801
- 1586018 words of memory out of 5000000
- 68415 multiletter control sequences out of 15000+600000
- 845460 words of font info for 731 fonts, out of 8000000 for 9000
+ 47387 strings out of 473190
+ 1046526 string characters out of 5715801
+ 1584851 words of memory out of 5000000
+ 68429 multiletter control sequences out of 15000+600000
+ 847897 words of font info for 745 fonts, out of 8000000 for 9000
  1302 hyphenation exceptions out of 8191
- 99i,15n,131p,3329b,1013s stack positions out of 10000i,1000n,20000p,200000b,200000s
+ 99i,15n,131p,3332b,1013s stack positions out of 10000i,1000n,20000p,200000b,200000s
 </usr/local/texlive/2025/texmf-dist/fonts/type1/public/newtx/LibertineMathMI.
 pfb></usr/local/texlive/2025/texmf-dist/fonts/type1/public/newtx/LibertineMathM
 I5.pfb></usr/local/texlive/2025/texmf-dist/fonts/type1/public/newtx/LibertineMa
@@ -2278,10 +2538,10 @@ public/newtx/txexs.pfb></usr/local/texlive/2025/texmf-dist/fonts/type1/public/n
 ewtx/txmiaX.pfb></usr/local/texlive/2025/texmf-dist/fonts/type1/public/newtx/tx
 sym.pfb></usr/local/texlive/2025/texmf-dist/fonts/type1/public/newtx/txsys.pfb>
 
-Output written on Paper_v1.pdf (40 pages, 1691728 bytes).
+Output written on Paper_v1.pdf (43 pages, 1709979 bytes).
 PDF statistics:
- 832 PDF objects out of 1000 (max. 8388607)
- 728 compressed objects within 8 object streams
- 248 named destinations out of 1000 (max. 500000)
- 145635 words of extra memory for PDF output out of 154059 (max. 10000000)
+ 866 PDF objects out of 1000 (max. 8388607)
+ 759 compressed objects within 8 object streams
+ 263 named destinations out of 1000 (max. 500000)
+ 147683 words of extra memory for PDF output out of 154059 (max. 10000000)
 
