@@ -48,9 +48,9 @@
 \citation{hamilton_1989}
 \citation{rossi_volatility_2006}
 \citation{nguyen_hidden_2018}
-\@writefile{toc}{\contentsline {subsection}{\numberline {2.2}Hidden Markov models and regime-switching}{4}{subsection.2.2}\protected@file@percent }
 \citation{ryden_stylized_1998}
 \citation{bulla_stylized_2006}
+\@writefile{toc}{\contentsline {subsection}{\numberline {2.2}Hidden Markov models and regime-switching}{4}{subsection.2.2}\protected@file@percent }
 \citation{assefa_generating_2021}
 \citation{takahashi_2019}
 \citation{kwon_can_2024}
@@ -63,7 +63,7 @@
 \citation{dias_mixture_2010}
 \citation{embrechts_copulas_2002,cherubini_copula_2004}
 \@writefile{toc}{\contentsline {subsection}{\numberline {2.3}Synthetic data generation and deep generative models}{5}{subsection.2.3}\protected@file@percent }
-\@writefile{toc}{\contentsline {subsection}{\numberline {2.4}Factor models and multi-asset extensions}{6}{subsection.2.4}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {2.4}Factor models and multi-asset extensions}{5}{subsection.2.4}\protected@file@percent }
 \citation{rabiner_introduction_1986}
 \citation{mandelbrot_variation_1963,toth_against_2019,cont_empirical_2001,kotz_laplace_2001}
 \citation{bilmes_gentle_nodate}
@@ -128,97 +128,105 @@
 \@writefile{toc}{\contentsline {subsection}{\numberline {4.5}Multi-asset extension}{19}{subsection.4.5}\protected@file@percent }
 \@writefile{lot}{\contentsline {table}{\numberline {3}{\ignorespaces Cross-sectional summary statistics for the Single-Index Model (SIM) extension across S\&P\nonbreakingspace 500 constituents. Individual asset paths are generated as $\hat  {G}_{i,t}=\hat  {\alpha }_i+\hat  {\beta }_i G_{{\rm  SPY},t}+\hat  {\eta }_{i,t}$ where $G_{{\rm  SPY},t}$ is drawn from HMM-WJ ($N=100$) simulated paths and $\hat  {\eta }_{i,t}$ is resampled from empirical residuals. KS pass rates computed over 1{,}000 paths at $\alpha =0.05$.}}{20}{table.caption.26}\protected@file@percent }
 \newlabel{tab:multi_asset}{{3}{20}{Cross-sectional summary statistics for the Single-Index Model (SIM) extension across S\&P~500 constituents. Individual asset paths are generated as $\hat {G}_{i,t}=\hat {\alpha }_i+\hat {\beta }_i G_{{\rm SPY},t}+\hat {\eta }_{i,t}$ where $G_{{\rm SPY},t}$ is drawn from HMM-WJ ($N=100$) simulated paths and $\hat {\eta }_{i,t}$ is resampled from empirical residuals. KS pass rates computed over 1{,}000 paths at $\alpha =0.05$}{table.caption.26}{}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {4.6}Copula-based dependence models}{20}{subsection.4.6}\protected@file@percent }
+\citation{ang_asymmetric_2002,longin_extreme_2001}
+\citation{burnham_model_2002}
+\@writefile{lot}{\contentsline {table}{\numberline {4}{\ignorespaces Dependence model comparison for a four-asset portfolio (SPY, NVDA, JNJ, JPM). Each model uses per-asset HMM marginals ($N=100$, Student-t emissions with $\nu =5$); only the dependence structure differs. 1{,}000 simulated paths, $\alpha =0.05$. Corr Frobenius: root-sum-squared error of upper-triangle correlation entries (observed vs.\ mean simulated). Pairwise corr MAE: mean absolute error across all six asset pairs. SIM results exclude SPY (market factor).}}{21}{table.caption.27}\protected@file@percent }
+\newlabel{tab:copula_comparison}{{4}{21}{Dependence model comparison for a four-asset portfolio (SPY, NVDA, JNJ, JPM). Each model uses per-asset HMM marginals ($N=100$, Student-t emissions with $\nu =5$); only the dependence structure differs. 1{,}000 simulated paths, $\alpha =0.05$. Corr Frobenius: root-sum-squared error of upper-triangle correlation entries (observed vs.\ mean simulated). Pairwise corr MAE: mean absolute error across all six asset pairs. SIM results exclude SPY (market factor)}{table.caption.27}{}}
+\@writefile{toc}{\contentsline {paragraph}{Vine copula family selection and the symmetry of equity tail dependence.}{21}{section*.28}\protected@file@percent }
 \citation{ryden_stylized_1998,bulla_stylized_2006}
 \citation{bulla_stylized_2006}
-\@writefile{lof}{\contentsline {figure}{\numberline {5}{\ignorespaces Multi-asset extension via the Single-Index Model (SIM) across 424 S\&P\nonbreakingspace 500 constituents. Panel\nonbreakingspace (a) summarizes the SIM regression fit quality by GICS sector. Panel\nonbreakingspace (b) shows that KS distributional consistency is maintained across the full asset universe when paths are generated via the factor structure $\hat  {G}_{i,t} = \hat  {\alpha }_i + \hat  {\beta }_i G_{{\rm  SPY},t} + \hat  {\eta }_{i,t}$. Panel\nonbreakingspace (c) illustrates representative marginal density comparisons for three assets spanning a wide range of systematic risk exposure.}}{21}{figure.caption.27}\protected@file@percent }
-\newlabel{fig:multi_asset}{{5}{21}{Multi-asset extension via the Single-Index Model (SIM) across 424 S\&P~500 constituents. Panel~(a) summarizes the SIM regression fit quality by GICS sector. Panel~(b) shows that KS distributional consistency is maintained across the full asset universe when paths are generated via the factor structure $\hat {G}_{i,t} = \hat {\alpha }_i + \hat {\beta }_i G_{{\rm SPY},t} + \hat {\eta }_{i,t}$. Panel~(c) illustrates representative marginal density comparisons for three assets spanning a wide range of systematic risk exposure}{figure.caption.27}{}}
-\@writefile{toc}{\contentsline {section}{\numberline {5}Discussion}{21}{section.5}\protected@file@percent }
-\newlabel{sec:discussion}{{5}{21}{Discussion}{section.5}{}}
-\@writefile{toc}{\contentsline {subsection}{\numberline {5.1}The role of the jump-duration mechanism}{21}{subsection.5.1}\protected@file@percent }
+\@writefile{lof}{\contentsline {figure}{\numberline {5}{\ignorespaces Multi-asset extension via the Single-Index Model (SIM) across 424 S\&P\nonbreakingspace 500 constituents. Panel\nonbreakingspace (a) summarizes the SIM regression fit quality by GICS sector. Panel\nonbreakingspace (b) shows that KS distributional consistency is maintained across the full asset universe when paths are generated via the factor structure $\hat  {G}_{i,t} = \hat  {\alpha }_i + \hat  {\beta }_i G_{{\rm  SPY},t} + \hat  {\eta }_{i,t}$. Panel\nonbreakingspace (c) illustrates representative marginal density comparisons for three assets spanning a wide range of systematic risk exposure.}}{22}{figure.caption.29}\protected@file@percent }
+\newlabel{fig:multi_asset}{{5}{22}{Multi-asset extension via the Single-Index Model (SIM) across 424 S\&P~500 constituents. Panel~(a) summarizes the SIM regression fit quality by GICS sector. Panel~(b) shows that KS distributional consistency is maintained across the full asset universe when paths are generated via the factor structure $\hat {G}_{i,t} = \hat {\alpha }_i + \hat {\beta }_i G_{{\rm SPY},t} + \hat {\eta }_{i,t}$. Panel~(c) illustrates representative marginal density comparisons for three assets spanning a wide range of systematic risk exposure}{figure.caption.29}{}}
+\@writefile{toc}{\contentsline {section}{\numberline {5}Discussion}{22}{section.5}\protected@file@percent }
+\newlabel{sec:discussion}{{5}{22}{Discussion}{section.5}{}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {5.1}The role of the jump-duration mechanism}{22}{subsection.5.1}\protected@file@percent }
 \citation{glasserman_monte_2003}
 \citation{dwork_differential_2006}
 \citation{stadler_synthetic_2022}
 \citation{stenger_jdiq_ts_synthesis_2024}
 \citation{sharpe_simplified_1963,fama_french_1993}
-\@writefile{toc}{\contentsline {subsection}{\numberline {5.2}Practical implications}{23}{subsection.5.2}\protected@file@percent }
-\@writefile{toc}{\contentsline {subsection}{\numberline {5.3}Limitations}{23}{subsection.5.3}\protected@file@percent }
-\citation{fama_french_1993}
-\@writefile{toc}{\contentsline {section}{\numberline {6}Conclusion}{25}{section.6}\protected@file@percent }
-\newlabel{sec:conclusion}{{6}{25}{Conclusion}{section.6}{}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {5.2}Practical implications}{24}{subsection.5.2}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {5.3}Limitations}{24}{subsection.5.3}\protected@file@percent }
+\@writefile{toc}{\contentsline {section}{\numberline {6}Conclusion}{26}{section.6}\protected@file@percent }
+\newlabel{sec:conclusion}{{6}{26}{Conclusion}{section.6}{}}
 \bibstyle{ACM-Reference-Format}
 \bibdata{References_v1.bib}
 \bibcite{anderson_darling_1952}{{1}{1952}{{Anderson and Darling}}{{}}}
-\bibcite{arthur_complexity_2021}{{2}{2021}{{Arthur}}{{}}}
-\bibcite{assefa_generating_2021}{{3}{2020}{{Assefa et~al\mbox  {.}}}{{}}}
-\bibcite{au_yeung_jump_2020}{{4}{2020}{{Au~Yeung et~al\mbox  {.}}}{{}}}
-\bibcite{baum_1970}{{5}{1970}{{Baum et~al\mbox  {.}}}{{}}}
-\bibcite{berghaus_foundation_2025}{{6}{2024}{{Berghaus et~al\mbox  {.}}}{{}}}
-\bibcite{bilmes_gentle_nodate}{{7}{1998}{{Bilmes}}{{}}}
-\bibcite{black_scholes_1973}{{8}{1973}{{Black and Scholes}}{{}}}
-\bibcite{bollerslev_garch_1986}{{9}{1986}{{Bollerslev}}{{}}}
-\bibcite{bulla_stylized_2006}{{10}{2006}{{Bulla and Bulla}}{{}}}
-\bibcite{challet_zhang_1997}{{11}{1997}{{Challet and Zhang}}{{}}}
-\bibcite{chen_herding_2015}{{12}{2015}{{Chen et~al\mbox  {.}}}{{}}}
-\bibcite{cherubini_copula_2004}{{13}{2004}{{Cherubini et~al\mbox  {.}}}{{}}}
-\bibcite{cho_gru_2014}{{14}{2014}{{Cho et~al\mbox  {.}}}{{}}}
-\bibcite{cont_empirical_2001}{{15}{2001}{{Cont}}{{}}}
-\bibcite{cont_bouchaud_2000}{{16}{2000}{{Cont and Bouchaud}}{{}}}
-\bibcite{dias_mixture_2010}{{17}{2010}{{Dias et~al\mbox  {.}}}{{}}}
-\bibcite{diebold_inoue_2001}{{18}{2001}{{Diebold and Inoue}}{{}}}
-\bibcite{dwork_differential_2006}{{19}{2006}{{Dwork}}{{}}}
-\bibcite{embrechts_copulas_2002}{{20}{2002}{{Embrechts et~al\mbox  {.}}}{{}}}
-\bibcite{engle_1982}{{21}{1982}{{Engle}}{{}}}
-\bibcite{fama_efficient_1970}{{22}{1970}{{Fama}}{{}}}
-\bibcite{fama_french_1993}{{23}{1993}{{Fama and French}}{{}}}
-\bibcite{farmer_quantitative_2025}{{24}{2025}{{Farmer}}{{}}}
-\bibcite{farmer_joshi_2002}{{25}{2002}{{Farmer and Joshi}}{{}}}
-\bibcite{fischer_krauss_2018}{{26}{2018}{{Fischer and Krauss}}{{}}}
-\@writefile{toc}{\contentsline {section}{References}{27}{section*.32}\protected@file@percent }
-\bibcite{glasserman_monte_2003}{{27}{2003}{{Glasserman}}{{}}}
-\bibcite{grinstead_introduction_1997}{{28}{1997}{{Grinstead and Snell}}{{}}}
-\bibcite{hamilton_1989}{{29}{1989}{{Hamilton}}{{}}}
-\bibcite{hamilton_regime_2018}{{30}{2018}{{Hamilton}}{{}}}
-\bibcite{heston_stochastic_1993}{{31}{1993}{{Heston}}{{}}}
-\bibcite{hochreiter_lstm_1997}{{32}{1997}{{Hochreiter and Schmidhuber}}{{}}}
-\bibcite{jordon_synthetic_2022}{{33}{2022}{{Jordon et~al\mbox  {.}}}{{}}}
-\bibcite{kim_nelson_1999}{{34}{1999}{{Kim and Nelson}}{{}}}
-\bibcite{kolmogorov_1933}{{35}{1933}{{Kolmogorov}}{{}}}
-\bibcite{kotz_laplace_2001}{{36}{2001}{{Kotz et~al\mbox  {.}}}{{}}}
-\bibcite{kou_jump-diffusion_2002}{{37}{2002}{{Kou}}{{}}}
-\bibcite{kwon_can_2024}{{38}{2024}{{Kwon and Lee}}{{}}}
-\bibcite{lebaron_agent_2006}{{39}{2006}{{LeBaron}}{{}}}
-\bibcite{lux_marchesi_1999}{{40}{1999}{{Lux and Marchesi}}{{}}}
-\bibcite{mandelbrot_variation_1963}{{41}{1963}{{Mandelbrot}}{{}}}
-\bibcite{merton_jump_1976}{{42}{1976}{{Merton}}{{}}}
-\bibcite{nguyen_hidden_2018}{{43}{2018}{{Nguyen}}{{}}}
-\bibcite{rabiner_introduction_1986}{{44}{1986}{{Rabiner and Juang}}{{}}}
-\bibcite{rossi_volatility_2006}{{45}{2006}{{Rossi and Gallo}}{{}}}
-\bibcite{ryden_stylized_1998}{{46}{1998}{{Rydén et~al\mbox  {.}}}{{}}}
-\bibcite{schwert_why_1989}{{47}{1989}{{Schwert}}{{}}}
-\bibcite{sharpe_simplified_1963}{{48}{1963}{{Sharpe}}{{}}}
-\bibcite{smirnov_1948}{{49}{1948}{{Smirnov}}{{}}}
-\bibcite{stadler_synthetic_2022}{{50}{2022}{{Stadler et~al\mbox  {.}}}{{}}}
-\bibcite{stein_stock_1991}{{51}{1991}{{Stein and Stein}}{{}}}
-\bibcite{stenger_jdiq_ts_synthesis_2024}{{52}{2024}{{Stenger et~al\mbox  {.}}}{{}}}
-\bibcite{takahashi_2019}{{53}{2019}{{Takahashi et~al\mbox  {.}}}{{}}}
-\bibcite{toth_against_2019}{{54}{2019}{{Toth and Jones}}{{}}}
-\bibcite{yoon_timegan_2019}{{55}{2019}{{Yoon et~al\mbox  {.}}}{{}}}
-\@writefile{lof}{\contentsline {figure}{\numberline {S1}{\ignorespaces Fitted model internals for SPY with $N=100$ states. Panel\nonbreakingspace (a) overlays the fitted Laplace CDF on the empirical CDF; the 99 vertical lines mark the equal-probability quantile boundaries that define the $N$ hidden states. The close agreement confirms that the Laplace distribution is an accurate marginal model for the excess growth rate data. Panel\nonbreakingspace (b) displays the empirical transition matrix $\mathbf  {T}$ in $\log _{10}$ color scale; the dominant near-diagonal band reflects short-range regime persistence. Panel\nonbreakingspace (c) plots the expected natural residence time $1/(1-T_{kk})$ for each state on a $\log _{10}$ scale, with the bottom tail set $\mathcal  {S}_{-}$ (states 1--5, red shading) and top tail set $\mathcal  {S}_{+}$ (states 96--100, teal shading) highlighted. Under pure Markovian dynamics every state, including the tail states, exits within 1--2 steps on average, far too quickly to reproduce empirical volatility clustering. The dashed horizontal line marks the mean mean jump duration $\lambda ^* = 100$ steps at the grid-search optimum, quantifying the two-order-of-magnitude gap between natural residence times and the jump-duration mechanism.}}{S-1}{figure.caption.35}\protected@file@percent }
-\newlabel{fig:model_internals}{{S1}{S-1}{Fitted model internals for SPY with $N=100$ states. Panel~(a) overlays the fitted Laplace CDF on the empirical CDF; the 99 vertical lines mark the equal-probability quantile boundaries that define the $N$ hidden states. The close agreement confirms that the Laplace distribution is an accurate marginal model for the excess growth rate data. Panel~(b) displays the empirical transition matrix $\mathbf {T}$ in $\log _{10}$ color scale; the dominant near-diagonal band reflects short-range regime persistence. Panel~(c) plots the expected natural residence time $1/(1-T_{kk})$ for each state on a $\log _{10}$ scale, with the bottom tail set $\mathcal {S}_{-}$ (states 1--5, red shading) and top tail set $\mathcal {S}_{+}$ (states 96--100, teal shading) highlighted. Under pure Markovian dynamics every state, including the tail states, exits within 1--2 steps on average, far too quickly to reproduce empirical volatility clustering. The dashed horizontal line marks the mean mean jump duration $\lambda ^* = 100$ steps at the grid-search optimum, quantifying the two-order-of-magnitude gap between natural residence times and the jump-duration mechanism}{figure.caption.35}{}}
-\@writefile{lof}{\contentsline {figure}{\numberline {S2}{\ignorespaces Hyperparameter grid search over $(\epsilon ,\lambda )$ for SPY ($N=100$, 200 paths per grid point). Panel\nonbreakingspace (a): heatmap of the objective function $J(\epsilon ,\lambda )$ in $\log _{10}$ scale over the full search grid ($\epsilon \in [10^{-4}, 2.5\times 10^{-2}]$, $\lambda \in [10, 160]$); the red star marks the optimal pair $(\epsilon ^*=10^{-4},\lambda ^*=100)$. The clear minimum confirms that the jump hyperparameters are jointly identifiable from data; $\epsilon ^*$ sits at the lower boundary of the search grid, indicating that smaller tail-entry probabilities are consistently preferred. Panel\nonbreakingspace (b): ACF of $|G_t|$ at the optimal parameters computed from 500 jump-containing paths (10th--90th percentile band shaded; mean curve solid navy) compared with the SPY observed ACF (dashed red) and the 95\% significance band (dotted black).}}{S-2}{figure.caption.37}\protected@file@percent }
-\newlabel{fig:parameter_sweep}{{S2}{S-2}{Hyperparameter grid search over $(\epsilon ,\lambda )$ for SPY ($N=100$, 200 paths per grid point). Panel~(a): heatmap of the objective function $J(\epsilon ,\lambda )$ in $\log _{10}$ scale over the full search grid ($\epsilon \in [10^{-4}, 2.5\times 10^{-2}]$, $\lambda \in [10, 160]$); the red star marks the optimal pair $(\epsilon ^*=10^{-4},\lambda ^*=100)$. The clear minimum confirms that the jump hyperparameters are jointly identifiable from data; $\epsilon ^*$ sits at the lower boundary of the search grid, indicating that smaller tail-entry probabilities are consistently preferred. Panel~(b): ACF of $|G_t|$ at the optimal parameters computed from 500 jump-containing paths (10th--90th percentile band shaded; mean curve solid navy) compared with the SPY observed ACF (dashed red) and the 95\% significance band (dotted black)}{figure.caption.37}{}}
-\@writefile{lot}{\contentsline {table}{\numberline {T1}{\ignorespaces Sensitivity of model performance to state resolution $N$. All metrics computed over 1{,}000 simulated in-sample paths at $\alpha =0.05$. ACF-MAE = mean absolute error of the ACF of $|G_t|$ over lags 1--252. Standard errors in parentheses: binomial SE for pass rates, bootstrap SE ($B=500$) for ACF-MAE.}}{S-3}{table.caption.39}\protected@file@percent }
-\newlabel{tab:sensitivity_results}{{T1}{S-3}{Sensitivity of model performance to state resolution $N$. All metrics computed over 1{,}000 simulated in-sample paths at $\alpha =0.05$. ACF-MAE = mean absolute error of the ACF of $|G_t|$ over lags 1--252. Standard errors in parentheses: binomial SE for pass rates, bootstrap SE ($B=500$) for ACF-MAE}{table.caption.39}{}}
-\@writefile{lot}{\contentsline {table}{\numberline {T2}{\ignorespaces Cross-asset generalization of HMM-NJ and HMM-WJ to individual equities ($N=100$, 1{,}000 simulated paths, $\alpha =0.05$). Each ticker was fitted independently with a per-asset grid search over $(\epsilon , \lambda )$. Standard errors in parentheses: binomial SE for pass rates, $\text  {std}/\!\sqrt  {n}$ for kurtosis, bootstrap SE ($B=500$) for ACF-MAE.}}{S-5}{table.caption.42}\protected@file@percent }
-\newlabel{tab:cross_asset}{{T2}{S-5}{Cross-asset generalization of HMM-NJ and HMM-WJ to individual equities ($N=100$, 1{,}000 simulated paths, $\alpha =0.05$). Each ticker was fitted independently with a per-asset grid search over $(\epsilon , \lambda )$. Standard errors in parentheses: binomial SE for pass rates, $\text {std}/\!\sqrt {n}$ for kurtosis, bootstrap SE ($B=500$) for ACF-MAE}{table.caption.42}{}}
+\bibcite{ang_asymmetric_2002}{{2}{2002}{{Ang and Chen}}{{}}}
+\bibcite{arthur_complexity_2021}{{3}{2021}{{Arthur}}{{}}}
+\bibcite{assefa_generating_2021}{{4}{2020}{{Assefa et~al\mbox  {.}}}{{}}}
+\bibcite{au_yeung_jump_2020}{{5}{2020}{{Au~Yeung et~al\mbox  {.}}}{{}}}
+\bibcite{baum_1970}{{6}{1970}{{Baum et~al\mbox  {.}}}{{}}}
+\bibcite{berghaus_foundation_2025}{{7}{2024}{{Berghaus et~al\mbox  {.}}}{{}}}
+\bibcite{bilmes_gentle_nodate}{{8}{1998}{{Bilmes}}{{}}}
+\bibcite{black_scholes_1973}{{9}{1973}{{Black and Scholes}}{{}}}
+\bibcite{bollerslev_garch_1986}{{10}{1986}{{Bollerslev}}{{}}}
+\bibcite{bulla_stylized_2006}{{11}{2006}{{Bulla and Bulla}}{{}}}
+\bibcite{burnham_model_2002}{{12}{2002}{{Burnham and Anderson}}{{}}}
+\bibcite{challet_zhang_1997}{{13}{1997}{{Challet and Zhang}}{{}}}
+\bibcite{chen_herding_2015}{{14}{2015}{{Chen et~al\mbox  {.}}}{{}}}
+\bibcite{cherubini_copula_2004}{{15}{2004}{{Cherubini et~al\mbox  {.}}}{{}}}
+\bibcite{cho_gru_2014}{{16}{2014}{{Cho et~al\mbox  {.}}}{{}}}
+\bibcite{cont_empirical_2001}{{17}{2001}{{Cont}}{{}}}
+\bibcite{cont_bouchaud_2000}{{18}{2000}{{Cont and Bouchaud}}{{}}}
+\bibcite{dias_mixture_2010}{{19}{2010}{{Dias et~al\mbox  {.}}}{{}}}
+\bibcite{diebold_inoue_2001}{{20}{2001}{{Diebold and Inoue}}{{}}}
+\bibcite{dwork_differential_2006}{{21}{2006}{{Dwork}}{{}}}
+\bibcite{embrechts_copulas_2002}{{22}{2002}{{Embrechts et~al\mbox  {.}}}{{}}}
+\bibcite{engle_1982}{{23}{1982}{{Engle}}{{}}}
+\bibcite{fama_efficient_1970}{{24}{1970}{{Fama}}{{}}}
+\bibcite{fama_french_1993}{{25}{1993}{{Fama and French}}{{}}}
+\bibcite{farmer_quantitative_2025}{{26}{2025}{{Farmer}}{{}}}
+\@writefile{toc}{\contentsline {section}{References}{28}{section*.34}\protected@file@percent }
+\bibcite{farmer_joshi_2002}{{27}{2002}{{Farmer and Joshi}}{{}}}
+\bibcite{fischer_krauss_2018}{{28}{2018}{{Fischer and Krauss}}{{}}}
+\bibcite{glasserman_monte_2003}{{29}{2003}{{Glasserman}}{{}}}
+\bibcite{grinstead_introduction_1997}{{30}{1997}{{Grinstead and Snell}}{{}}}
+\bibcite{hamilton_1989}{{31}{1989}{{Hamilton}}{{}}}
+\bibcite{hamilton_regime_2018}{{32}{2018}{{Hamilton}}{{}}}
+\bibcite{heston_stochastic_1993}{{33}{1993}{{Heston}}{{}}}
+\bibcite{hochreiter_lstm_1997}{{34}{1997}{{Hochreiter and Schmidhuber}}{{}}}
+\bibcite{jordon_synthetic_2022}{{35}{2022}{{Jordon et~al\mbox  {.}}}{{}}}
+\bibcite{kim_nelson_1999}{{36}{1999}{{Kim and Nelson}}{{}}}
+\bibcite{kolmogorov_1933}{{37}{1933}{{Kolmogorov}}{{}}}
+\bibcite{kotz_laplace_2001}{{38}{2001}{{Kotz et~al\mbox  {.}}}{{}}}
+\bibcite{kou_jump-diffusion_2002}{{39}{2002}{{Kou}}{{}}}
+\bibcite{kwon_can_2024}{{40}{2024}{{Kwon and Lee}}{{}}}
+\bibcite{lebaron_agent_2006}{{41}{2006}{{LeBaron}}{{}}}
+\bibcite{longin_extreme_2001}{{42}{2001}{{Longin and Solnik}}{{}}}
+\bibcite{lux_marchesi_1999}{{43}{1999}{{Lux and Marchesi}}{{}}}
+\bibcite{mandelbrot_variation_1963}{{44}{1963}{{Mandelbrot}}{{}}}
+\bibcite{merton_jump_1976}{{45}{1976}{{Merton}}{{}}}
+\bibcite{nguyen_hidden_2018}{{46}{2018}{{Nguyen}}{{}}}
+\bibcite{rabiner_introduction_1986}{{47}{1986}{{Rabiner and Juang}}{{}}}
+\bibcite{rossi_volatility_2006}{{48}{2006}{{Rossi and Gallo}}{{}}}
+\bibcite{ryden_stylized_1998}{{49}{1998}{{Rydén et~al\mbox  {.}}}{{}}}
+\bibcite{schwert_why_1989}{{50}{1989}{{Schwert}}{{}}}
+\bibcite{sharpe_simplified_1963}{{51}{1963}{{Sharpe}}{{}}}
+\bibcite{smirnov_1948}{{52}{1948}{{Smirnov}}{{}}}
+\bibcite{stadler_synthetic_2022}{{53}{2022}{{Stadler et~al\mbox  {.}}}{{}}}
+\bibcite{stein_stock_1991}{{54}{1991}{{Stein and Stein}}{{}}}
+\bibcite{stenger_jdiq_ts_synthesis_2024}{{55}{2024}{{Stenger et~al\mbox  {.}}}{{}}}
+\bibcite{takahashi_2019}{{56}{2019}{{Takahashi et~al\mbox  {.}}}{{}}}
+\bibcite{toth_against_2019}{{57}{2019}{{Toth and Jones}}{{}}}
+\bibcite{yoon_timegan_2019}{{58}{2019}{{Yoon et~al\mbox  {.}}}{{}}}
+\@writefile{lof}{\contentsline {figure}{\numberline {S1}{\ignorespaces Fitted model internals for SPY with $N=100$ states. Panel\nonbreakingspace (a) overlays the fitted Laplace CDF on the empirical CDF; the 99 vertical lines mark the equal-probability quantile boundaries that define the $N$ hidden states. The close agreement confirms that the Laplace distribution is an accurate marginal model for the excess growth rate data. Panel\nonbreakingspace (b) displays the empirical transition matrix $\mathbf  {T}$ in $\log _{10}$ color scale; the dominant near-diagonal band reflects short-range regime persistence. Panel\nonbreakingspace (c) plots the expected natural residence time $1/(1-T_{kk})$ for each state on a $\log _{10}$ scale, with the bottom tail set $\mathcal  {S}_{-}$ (states 1--5, red shading) and top tail set $\mathcal  {S}_{+}$ (states 96--100, teal shading) highlighted. Under pure Markovian dynamics every state, including the tail states, exits within 1--2 steps on average, far too quickly to reproduce empirical volatility clustering. The dashed horizontal line marks the mean mean jump duration $\lambda ^* = 100$ steps at the grid-search optimum, quantifying the two-order-of-magnitude gap between natural residence times and the jump-duration mechanism.}}{S-1}{figure.caption.37}\protected@file@percent }
+\newlabel{fig:model_internals}{{S1}{S-1}{Fitted model internals for SPY with $N=100$ states. Panel~(a) overlays the fitted Laplace CDF on the empirical CDF; the 99 vertical lines mark the equal-probability quantile boundaries that define the $N$ hidden states. The close agreement confirms that the Laplace distribution is an accurate marginal model for the excess growth rate data. Panel~(b) displays the empirical transition matrix $\mathbf {T}$ in $\log _{10}$ color scale; the dominant near-diagonal band reflects short-range regime persistence. Panel~(c) plots the expected natural residence time $1/(1-T_{kk})$ for each state on a $\log _{10}$ scale, with the bottom tail set $\mathcal {S}_{-}$ (states 1--5, red shading) and top tail set $\mathcal {S}_{+}$ (states 96--100, teal shading) highlighted. Under pure Markovian dynamics every state, including the tail states, exits within 1--2 steps on average, far too quickly to reproduce empirical volatility clustering. The dashed horizontal line marks the mean mean jump duration $\lambda ^* = 100$ steps at the grid-search optimum, quantifying the two-order-of-magnitude gap between natural residence times and the jump-duration mechanism}{figure.caption.37}{}}
+\@writefile{lof}{\contentsline {figure}{\numberline {S2}{\ignorespaces Hyperparameter grid search over $(\epsilon ,\lambda )$ for SPY ($N=100$, 200 paths per grid point). Panel\nonbreakingspace (a): heatmap of the objective function $J(\epsilon ,\lambda )$ in $\log _{10}$ scale over the full search grid ($\epsilon \in [10^{-4}, 2.5\times 10^{-2}]$, $\lambda \in [10, 160]$); the red star marks the optimal pair $(\epsilon ^*=10^{-4},\lambda ^*=100)$. The clear minimum confirms that the jump hyperparameters are jointly identifiable from data; $\epsilon ^*$ sits at the lower boundary of the search grid, indicating that smaller tail-entry probabilities are consistently preferred. Panel\nonbreakingspace (b): ACF of $|G_t|$ at the optimal parameters computed from 500 jump-containing paths (10th--90th percentile band shaded; mean curve solid navy) compared with the SPY observed ACF (dashed red) and the 95\% significance band (dotted black).}}{S-2}{figure.caption.39}\protected@file@percent }
+\newlabel{fig:parameter_sweep}{{S2}{S-2}{Hyperparameter grid search over $(\epsilon ,\lambda )$ for SPY ($N=100$, 200 paths per grid point). Panel~(a): heatmap of the objective function $J(\epsilon ,\lambda )$ in $\log _{10}$ scale over the full search grid ($\epsilon \in [10^{-4}, 2.5\times 10^{-2}]$, $\lambda \in [10, 160]$); the red star marks the optimal pair $(\epsilon ^*=10^{-4},\lambda ^*=100)$. The clear minimum confirms that the jump hyperparameters are jointly identifiable from data; $\epsilon ^*$ sits at the lower boundary of the search grid, indicating that smaller tail-entry probabilities are consistently preferred. Panel~(b): ACF of $|G_t|$ at the optimal parameters computed from 500 jump-containing paths (10th--90th percentile band shaded; mean curve solid navy) compared with the SPY observed ACF (dashed red) and the 95\% significance band (dotted black)}{figure.caption.39}{}}
+\@writefile{lot}{\contentsline {table}{\numberline {T1}{\ignorespaces Sensitivity of model performance to state resolution $N$. All metrics computed over 1{,}000 simulated in-sample paths at $\alpha =0.05$. ACF-MAE = mean absolute error of the ACF of $|G_t|$ over lags 1--252. Standard errors in parentheses: binomial SE for pass rates, bootstrap SE ($B=500$) for ACF-MAE.}}{S-3}{table.caption.41}\protected@file@percent }
+\newlabel{tab:sensitivity_results}{{T1}{S-3}{Sensitivity of model performance to state resolution $N$. All metrics computed over 1{,}000 simulated in-sample paths at $\alpha =0.05$. ACF-MAE = mean absolute error of the ACF of $|G_t|$ over lags 1--252. Standard errors in parentheses: binomial SE for pass rates, bootstrap SE ($B=500$) for ACF-MAE}{table.caption.41}{}}
+\@writefile{lot}{\contentsline {table}{\numberline {T2}{\ignorespaces Cross-asset generalization of HMM-NJ and HMM-WJ to individual equities ($N=100$, 1{,}000 simulated paths, $\alpha =0.05$). Each ticker was fitted independently with a per-asset grid search over $(\epsilon , \lambda )$. Standard errors in parentheses: binomial SE for pass rates, $\text  {std}/\!\sqrt  {n}$ for kurtosis, bootstrap SE ($B=500$) for ACF-MAE.}}{S-5}{table.caption.44}\protected@file@percent }
+\newlabel{tab:cross_asset}{{T2}{S-5}{Cross-asset generalization of HMM-NJ and HMM-WJ to individual equities ($N=100$, 1{,}000 simulated paths, $\alpha =0.05$). Each ticker was fitted independently with a per-asset grid search over $(\epsilon , \lambda )$. Standard errors in parentheses: binomial SE for pass rates, $\text {std}/\!\sqrt {n}$ for kurtosis, bootstrap SE ($B=500$) for ACF-MAE}{table.caption.44}{}}
 \@writefile{loa}{\contentsline {algorithm}{\numberline {2}{\ignorespaces Empirical hidden Markov model construction via Laplace partitioning}}{S-6}{algorithm.2}\protected@file@percent }
 \newlabel{alg:build}{{2}{S-6}{Empirical hidden Markov model construction via Laplace partitioning}{algorithm.2}{}}
 \@writefile{loa}{\contentsline {algorithm}{\numberline {3}{\ignorespaces State decoding and continuous excess growth rate reconstruction}}{S-7}{algorithm.3}\protected@file@percent }
 \newlabel{alg:decode}{{3}{S-7}{State decoding and continuous excess growth rate reconstruction}{algorithm.3}{}}
 \@writefile{loa}{\contentsline {algorithm}{\numberline {4}{\ignorespaces Multi-objective grid search for jump hyperparameters}}{S-8}{algorithm.4}\protected@file@percent }
 \newlabel{alg:grid_search}{{4}{S-8}{Multi-objective grid search for jump hyperparameters}{algorithm.4}{}}
-\@writefile{lot}{\contentsline {table}{\numberline {T3}{\ignorespaces Three-way comparison isolating the emission distribution and persistence mechanism for SPY ($N=100$ for HMM-WJ, $K=8$ for HSMM; 1{,}000 simulated paths, $\alpha =0.05$). Standard errors in parentheses.}}{S-9}{table.caption.44}\protected@file@percent }
-\newlabel{tab:emission_hsmm}{{T3}{S-9}{Three-way comparison isolating the emission distribution and persistence mechanism for SPY ($N=100$ for HMM-WJ, $K=8$ for HSMM; 1{,}000 simulated paths, $\alpha =0.05$). Standard errors in parentheses}{table.caption.44}{}}
+\@writefile{lot}{\contentsline {table}{\numberline {T3}{\ignorespaces Three-way comparison isolating the emission distribution and persistence mechanism for SPY ($N=100$ for HMM-WJ, $K=8$ for HSMM; 1{,}000 simulated paths, $\alpha =0.05$). Standard errors in parentheses.}}{S-9}{table.caption.46}\protected@file@percent }
+\newlabel{tab:emission_hsmm}{{T3}{S-9}{Three-way comparison isolating the emission distribution and persistence mechanism for SPY ($N=100$ for HMM-WJ, $K=8$ for HSMM; 1{,}000 simulated paths, $\alpha =0.05$). Standard errors in parentheses}{table.caption.46}{}}
 \newlabel{tocindent-1}{0pt}
 \newlabel{tocindent0}{0pt}
 \newlabel{tocindent1}{4.65pt}
@@ -226,5 +234,5 @@
 \newlabel{tocindent3}{0pt}
 \newlabel{tocindent4}{0pt}
 \newlabel{tocindent5}{0pt}
-\newlabel{TotPages}{{38}{S-9}{}{page.S-9}{}}
-\gdef \@abspage@last{38}
+\newlabel{TotPages}{{39}{S-9}{}{page.S-9}{}}
+\gdef \@abspage@last{39}

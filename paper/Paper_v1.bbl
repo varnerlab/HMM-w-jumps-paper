@@ -2,7 +2,7 @@
 %%% Do NOT edit. File created by BibTeX with style
 %%% ACM-Reference-Format-Journals [18-Jan-2012].
 
-\begin{thebibliography}{55}
+\begin{thebibliography}{58}
 
 %%% ====================================================================
 %%% NOTE TO THE USER: you can override these defaults by providing
@@ -45,6 +45,17 @@
 \newblock \bibinfo{journal}{\emph{The Annals of Mathematical Statistics}}
   \bibinfo{volume}{23}, \bibinfo{number}{2} (\bibinfo{year}{1952}),
   \bibinfo{pages}{193--212}.
+\newblock
+
+
+\bibitem[Ang and Chen(2002)]%
+        {ang_asymmetric_2002}
+\bibfield{author}{\bibinfo{person}{Andrew Ang} {and} \bibinfo{person}{Joseph
+  Chen}.} \bibinfo{year}{2002}\natexlab{}.
+\newblock \showarticletitle{Asymmetric Correlations of Equity Portfolios}.
+\newblock \bibinfo{journal}{\emph{Journal of Financial Economics}}
+  \bibinfo{volume}{63}, \bibinfo{number}{3} (\bibinfo{year}{2002}),
+  \bibinfo{pages}{443--494}.
 \newblock
 
 
@@ -161,6 +172,16 @@
   \bibinfo{pages}{2192--2209}.
 \newblock
 \href{https://doi.org/10.1016/j.csda.2006.07.021}{doi:\nolinkurl{10.1016/j.csda.2006.07.021}}
+
+
+\bibitem[Burnham and Anderson(2002)]%
+        {burnham_model_2002}
+\bibfield{author}{\bibinfo{person}{Kenneth~P. Burnham} {and}
+  \bibinfo{person}{David~R. Anderson}.} \bibinfo{year}{2002}\natexlab{}.
+\newblock \bibinfo{booktitle}{\emph{Model Selection and Multimodel Inference: A
+  Practical Information-Theoretic Approach} (\bibinfo{edition}{2nd} ed.)}.
+\newblock \bibinfo{publisher}{Springer}, \bibinfo{address}{New York}.
+\newblock
 
 
 \bibitem[Challet and Zhang(1997)]%
@@ -518,6 +539,18 @@
   \bibinfo{publisher}{Elsevier}, \bibinfo{pages}{1187--1233}.
 \newblock
 \href{https://doi.org/10.1016/S1574-0021(05)02024-1}{doi:\nolinkurl{10.1016/S1574-0021(05)02024-1}}
+
+
+\bibitem[Longin and Solnik(2001)]%
+        {longin_extreme_2001}
+\bibfield{author}{\bibinfo{person}{Fran{\c{c}}ois Longin} {and}
+  \bibinfo{person}{Bruno Solnik}.} \bibinfo{year}{2001}\natexlab{}.
+\newblock \showarticletitle{Extreme Correlation of International Equity
+  Markets}.
+\newblock \bibinfo{journal}{\emph{The Journal of Finance}}
+  \bibinfo{volume}{56}, \bibinfo{number}{2} (\bibinfo{year}{2001}),
+  \bibinfo{pages}{649--676}.
+\newblock
 
 
 \bibitem[Lux and Marchesi(1999)]%

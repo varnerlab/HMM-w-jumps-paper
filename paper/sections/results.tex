@@ -211,3 +211,40 @@ $\hat{\beta}$ (factor loading)       &  1.064 &  1.084 &  0.482 &  1.660 \\
 $\hat{\alpha}$ (intercept)           & $-0.0320$ & $-0.0186$ & $-0.2035$ & 0.0965 \\ \bottomrule
 \end{tabular}
 \end{table}
+
+\subsection{Copula-based dependence models}
+The SIM extension captured cross-asset dependence through a linear factor structure, which limited marginal fidelity for assets with low $R^2$ and could not model nonlinear or tail dependence between assets. To evaluate whether richer dependence specifications could improve multi-asset synthetic data quality, we compared four dependence models on a four-asset portfolio (SPY, NVDA, JNJ, JPM), each combined with the same per-asset HMM marginal models: (i) a Gaussian copula, (ii) a Student-t copula, (iii) a C-vine copula with AIC-selected bivariate families, and (iv) the Single-Index Model with bootstrap residuals.
+
+We fitted each dependence model to the in-sample growth rate matrix and generated 1,000 synthetic paths of 2,766 steps. Table~\ref{tab:copula_comparison} summarizes the results. The copula-based approaches preserved each asset's HMM marginal distribution by construction, achieving KS pass rates above 95\% for all four tickers. By contrast, the SIM produced KS pass rates of 79.5\% (NVDA), 92.1\% (JNJ), and 27.5\% (JPM), reflecting the inability of a linear factor model with bootstrap residuals to reproduce asset-specific tail structure for assets with low factor loadings.
+
+For cross-asset dependence quality, we measured the Frobenius norm of the correlation error between observed and mean simulated correlation matrices, and the mean absolute error of all six pairwise correlations. The Student-t copula achieved the lowest correlation Frobenius error (0.134, SE 0.001) and pairwise MAE (0.039), followed by the Gaussian copula (0.168, 0.055) and the vine copula (0.287, 0.099). The vine copula's poor correlation reproduction in this four-asset setting was attributable to overfitting: with only six bivariate edges and five candidate families per edge, the AIC-selected model captured local pairwise structure at the expense of global correlation coherence.
+
+% ── Table 5: Copula Comparison ────────────────────────────────────────────
+\begin{table}[tp]
+\centering
+\caption{Dependence model comparison for a four-asset portfolio (SPY, NVDA, JNJ, JPM).
+    Each model uses per-asset HMM marginals ($N=100$, Student-t emissions with $\nu=5$);
+    only the dependence structure differs.
+    1{,}000 simulated paths, $\alpha=0.05$.
+    Corr Frobenius: root-sum-squared error of upper-triangle correlation entries
+    (observed vs.\ mean simulated). Pairwise corr MAE: mean absolute error across
+    all six asset pairs. SIM results exclude SPY (market factor).}
+\label{tab:copula_comparison}
+\small
+\begin{tabular}{@{}lcccc@{}}
+\toprule
+ & \textbf{SIM} & \textbf{Gaussian} & \textbf{Student-t} & \textbf{Vine} \\ \midrule
+\multicolumn{5}{l}{\textit{Marginal KS pass rate (\%)}} \\[2pt]
+SPY   & n/a           & 98.2 (0.4) & \textbf{98.9} (0.3) & 96.3 (0.6) \\
+NVDA  & 79.5 (1.3)    & 96.6 (0.6) & \textbf{99.1} (0.3) & 98.6 (0.4) \\
+JNJ   & 92.1 (0.9)    & \textbf{98.3} (0.4) & 97.3 (0.5) & 99.2 (0.3) \\
+JPM   & 27.5 (1.4)    & \textbf{97.8} (0.5) & 95.1 (0.7) & 97.4 (0.5) \\[4pt]
+\multicolumn{5}{l}{\textit{Cross-asset dependence quality}} \\[2pt]
+Corr Frobenius error $\downarrow$  & n/a  & 0.168 (0.001) & \textbf{0.134} (0.001) & 0.287 (0.002) \\
+Pairwise corr MAE $\downarrow$     & n/a  & 0.055         & \textbf{0.039}         & 0.099         \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\paragraph{Vine copula family selection and the symmetry of equity tail dependence.}
+To understand why the vine copula underperformed the simpler Student-t copula, we examined the bivariate families selected at each edge of the C-vine. The AIC-based selection procedure chose the Student-t bivariate copula at all six edges across all three vine tree levels, with no Clayton (lower-tail), Gumbel (upper-tail), or Frank (no-tail) families selected. This result was unexpected, as the financial risk literature frequently posits asymmetric tail dependence in equity returns, with crash co-movements expected to be stronger than rally co-movements \cite{ang_asymmetric_2002, longin_extreme_2001}. We verified the finding by independently computing the AIC for all five candidate families on each of the six unconditional asset pairs. Student-t won every comparison by a margin of $\Delta\text{AIC} > 60$, far exceeding the threshold of 10 conventionally regarded as strong evidence \cite{burnham_model_2002}. The fitted degrees-of-freedom parameter varied systematically: $\nu=4$--$5$ for direct market pairs (SPY-NVDA, SPY-JNJ, SPY-JPM), indicating heavy symmetric tail dependence; $\nu=10$--$30$ for conditional pairs after removing the market factor, indicating that most tail dependence was attributable to the common market component. The uniformity of Student-t selection across all edges explained the vine copula's underperformance: because every edge used the same family, the vine's flexibility in mixing heterogeneous families provided no advantage over a single Student-t copula, while adding estimation noise from the sequential h-function transformations. This finding suggested that, for U.S.\ large-cap equities over this sample period, a single Student-t copula with a global degrees-of-freedom parameter was a parsimonious and sufficient specification for cross-asset dependence modeling, and that the additional complexity of vine copulas was not justified at moderate portfolio sizes.
