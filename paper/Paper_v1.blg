@@ -16,8 +16,6 @@ Warning--empty publisher in assefa_generating_2021
 Warning--empty address in assefa_generating_2021
 Warning--empty publisher in berghaus_foundation_2025
 Warning--empty address in berghaus_foundation_2025
-Warning--no number and no volume in bilmes_gentle_nodate
-Warning--page numbers missing in both pages and numpages fields in bilmes_gentle_nodate
 Warning--empty address in cherubini_copula_2004
 Warning--no number and no volume in cho_gru_2014
 Warning--page numbers missing in both pages and numpages fields in cho_gru_2014
@@ -42,43 +40,43 @@ Warning--empty address in yoon_timegan_2019
 Warning--page numbers missing in both pages and numpages fields in yoon_timegan_2019
 You've used 59 entries,
             6273 wiz_defined-function locations,
-            1896 strings with 28951 characters,
-and the built_in function-call counts, 69209 in all, are:
-= -- 10592
+            1896 strings with 28956 characters,
+and the built_in function-call counts, 69037 in all, are:
+= -- 10526
 > -- 1727
-< -- 0
+< -- 1
 + -- 578
 - -- 665
-* -- 4476
-:= -- 6226
-add.period$ -- 302
+* -- 4473
+:= -- 6230
+add.period$ -- 303
 call.type$ -- 59
 change.case$ -- 374
 chr.to.int$ -- 59
-cite$ -- 87
-duplicate$ -- 5943
-empty$ -- 4181
+cite$ -- 85
+duplicate$ -- 5933
+empty$ -- 4170
 format.name$ -- 817
-if$ -- 17893
+if$ -- 17804
 int.to.chr$ -- 2
 int.to.str$ -- 1
-missing$ -- 227
+missing$ -- 223
 newline$ -- 545
 num.names$ -- 415
-pop$ -- 2043
+pop$ -- 2028
 preamble$ -- 1
 purify$ -- 845
 quote$ -- 0
-skip$ -- 2110
+skip$ -- 2117
 stack$ -- 0
-substring$ -- 5611
-swap$ -- 654
-text.length$ -- 0
+substring$ -- 5609
+swap$ -- 657
+text.length$ -- 1
 text.prefix$ -- 0
 top$ -- 0
-type$ -- 1065
-warning$ -- 28
+type$ -- 1079
+warning$ -- 26
 while$ -- 487
 width$ -- 0
-write$ -- 1196
-(There were 28 warnings)
+write$ -- 1197
+(There were 26 warnings)

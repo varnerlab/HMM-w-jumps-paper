@@ -140,11 +140,11 @@
         {bilmes_gentle_nodate}
 \bibfield{author}{\bibinfo{person}{Jeff~A. Bilmes}.}
   \bibinfo{year}{1998}\natexlab{}.
-\newblock \showarticletitle{A {Gentle} {Tutorial} of the {EM} {Algorithm} and
-  its {Application} to {Parameter} {Estimation} for {Gaussian} {Mixture} and
-  {Hidden} {Markov} {Models}}.
-\newblock \bibinfo{journal}{\emph{International Computer Science Institute}}
-  (\bibinfo{year}{1998}).
+\newblock \bibinfo{booktitle}{\emph{A {Gentle} {Tutorial} of the {EM}
+  {Algorithm} and its {Application} to {Parameter} {Estimation} for {Gaussian}
+  {Mixture} and {Hidden} {Markov} {Models}}}.
+\newblock \bibinfo{type}{{T}echnical {R}eport} TR-97-021.
+  \bibinfo{institution}{International Computer Science Institute}.
 \newblock
 
 
@@ -269,11 +269,11 @@
 \href{https://doi.org/10.1017/S1365100500015029}{doi:\nolinkurl{10.1017/S1365100500015029}}
 
 
-\bibitem[Dias et~al\mbox{.}(2010)]%
+\bibitem[Dias et~al\mbox{.}(2009)]%
         {dias_mixture_2010}
 \bibfield{author}{\bibinfo{person}{José~G. Dias}, \bibinfo{person}{Jeroen~K.
   Vermunt}, {and} \bibinfo{person}{Sofia Ramos}.}
-  \bibinfo{year}{2010}\natexlab{}.
+  \bibinfo{year}{2009}\natexlab{}.
 \newblock \showarticletitle{Mixture {Hidden} {Markov} {Models} in {Finance}
   {Research}}. In \bibinfo{booktitle}{\emph{Advances in {Data} {Analysis},
   {Data} {Handling} and {Business} {Intelligence}}}.
