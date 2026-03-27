@@ -246,6 +246,24 @@ Pairwise corr MAE $\downarrow$     & n/a  & 0.055         & \textbf{0.039}      
 \end{tabular}
 \end{table}
 
+% ── Figure: Price Trajectories ─────────────────────────────────────────────
+\begin{figure*}[tp]
+    \centering
+    \includegraphics[width=\textwidth]{Fig-Price-Trajectories.pdf}
+    \Description{Three-panel figure showing simulated price trajectories for a four-asset portfolio (SPY, NVDA, JNJ, JPM) under three dependence specifications, all starting at \$100. Panel (a) shows independent marginals where assets move without coordination; drawdowns and rallies occur at unrelated times. Panel (b) shows the Single-Index Model where assets share partial co-movement via the market factor. Panel (c) shows the Student-t copula where crash episodes and rallies are synchronized across all four assets, particularly in the tails.}
+    \caption{Simulated price trajectories for the four-asset portfolio under three dependence
+    specifications. All assets start at \$100; prices are reconstructed from excess growth rates
+    via $P_t = P_{t-1}\exp\bigl((G_t + r_f)\Delta t\bigr)$.
+    Panel~(a): independent HMM marginals with no cross-asset dependence; drawdowns and rallies
+    occur at unrelated times across tickers.
+    Panel~(b): Single-Index Model; assets share partial co-movement via the market factor
+    $\hat{G}_i = \hat\alpha_i + \hat\beta_i G_{\mathrm{SPY}} + \hat\eta_i$.
+    Panel~(c): Student-t copula; crash episodes and rallies are synchronized across all four
+    assets, particularly in the tails, because the copula reorders each asset's independently
+    simulated values so that extreme days coincide.}
+    \label{fig:price_trajectories}
+\end{figure*}
+
 % ── Figure: Copula Comparison ─────────────────────────────────────────────
 \begin{figure}[tp]
     \centering
