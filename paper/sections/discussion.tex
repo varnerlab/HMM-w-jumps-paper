@@ -1,17 +1,16 @@
 The empirical results established that the hybrid HMM framework generates synthetic equity paths whose distributional and temporal properties closely match those of historical data, both in-sample and out-of-sample. In this section we interpret the key findings, discuss their practical implications, and identify the limitations that inform the scope of these conclusions.
 
-% ── Figure 7: Multi-Asset SIM Extension ──────────────────────────────────────
+% ── Figure: Multi-Asset SIM Extension ──────────────────────────────────────
 \begin{figure}[tp]
     \centering
     \includegraphics[width=\textwidth]{Fig7-Multi-Asset-SIM.pdf}
-    \Description{Three-panel figure showing the multi-asset SIM extension across 424 S&P 500 constituents. Panel (a) shows a bar chart of SIM regression R-squared values by GICS sector, indicating fit quality of the single-factor decomposition. Panel (b) shows a histogram of KS pass rates across all 424 assets, with most assets achieving acceptable distributional fidelity. Panel (c) shows representative marginal density comparisons for three individual assets spanning a wide range of systematic risk exposure, each comparing the observed and simulated excess growth rate distributions.}
+    \Description{Two-panel figure showing the multi-asset SIM extension across 424 S&P 500 constituents. Panel (a) shows a scatter plot of SIM beta versus R-squared values colored by GICS sector, indicating fit quality of the single-factor decomposition. Panel (b) shows a histogram of KS pass rates across all 424 assets.}
     \caption{Multi-asset extension via the Single-Index Model (SIM) across 424 S\&P~500
-    constituents.  Panel~(a) summarizes the SIM regression fit quality by GICS sector.
-    Panel~(b) shows that KS distributional consistency is maintained across the full asset
-    universe when paths are generated via the factor structure
-    $\hat{G}_{i,t} = \hat{\alpha}_i + \hat{\beta}_i G_{{\rm SPY},t} + \hat{\eta}_{i,t}$.
-    Panel~(c) illustrates representative marginal density comparisons for three assets spanning
-    a wide range of systematic risk exposure.}
+    constituents.  Panel~(a) shows the SIM regression fit quality ($R^2_i$ vs.\ $\hat{\beta}_i$) by GICS sector;
+    assets with higher systematic risk exposure exhibit stronger factor model fit.
+    Panel~(b) shows the distribution of KS pass rates across the full asset universe
+    (median 66.7\%, mean 58.4\%), confirming that the SIM captures most of the distributional
+    structure for high-$\beta$ assets but degrades for low-correlation names.}
     \label{fig:multi_asset}
 \end{figure}
 
