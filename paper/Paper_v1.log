@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.27 (TeX Live 2025) (preloaded format=pdflatex 2025.3.8)  27 MAR 2026 13:19
+This is pdfTeX, Version 3.141592653-2.6-1.40.27 (TeX Live 2025) (preloaded format=pdflatex 2025.3.8)  27 MAR 2026 13:31
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -2537,11 +2537,11 @@ Package rerunfilecheck Info: File `Paper_v1.out' has not changed.
 (rerunfilecheck)             Checksum: DA65624C170CB8396988537A98EB8FEA;4405.
  ) 
 Here is how much of TeX's memory you used:
- 47427 strings out of 473190
- 1047829 string characters out of 5715801
- 1586787 words of memory out of 5000000
+ 47424 strings out of 473190
+ 1047751 string characters out of 5715801
+ 1586788 words of memory out of 5000000
  68451 multiletter control sequences out of 15000+600000
- 849196 words of font info for 755 fonts, out of 8000000 for 9000
+ 848923 words of font info for 753 fonts, out of 8000000 for 9000
  1302 hyphenation exceptions out of 8191
  99i,15n,131p,3332b,1013s stack positions out of 10000i,1000n,20000p,200000b,200000s
 </usr/local/texlive/2025/texmf-dist/fonts/type1/public/newtx/LibertineMathMI.
@@ -2562,7 +2562,7 @@ public/newtx/txexs.pfb></usr/local/texlive/2025/texmf-dist/fonts/type1/public/n
 ewtx/txmiaX.pfb></usr/local/texlive/2025/texmf-dist/fonts/type1/public/newtx/tx
 sym.pfb></usr/local/texlive/2025/texmf-dist/fonts/type1/public/newtx/txsys.pfb>
 
-Output written on Paper_v1.pdf (44 pages, 1664192 bytes).
+Output written on Paper_v1.pdf (44 pages, 1664205 bytes).
 PDF statistics:
  886 PDF objects out of 1000 (max. 8388607)
  774 compressed objects within 8 object streams
