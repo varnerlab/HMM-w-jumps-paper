@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.27 (TeX Live 2025) (preloaded format=pdflatex 2025.3.8)  27 MAR 2026 11:49
+This is pdfTeX, Version 3.141592653-2.6-1.40.27 (TeX Live 2025) (preloaded format=pdflatex 2025.3.8)  27 MAR 2026 12:29
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -1735,10 +1735,57 @@ noring your postal code on input line 146.
 Class acmart Warning: ACM no longer collects authors' postal addresses. I am ig
 noring your postal code on input line 146.
 
+LaTeX Font Info:    Font shape `OT1/LinuxLibertineT-TLF/m/n' will be
+(Font)              scaled to size 9.0pt on input line 146.
+Package microtype Info: Loading generic protrusion settings for font family
+(microtype)             `LinuxLibertineT-TLF' (encoding: OT1).
+(microtype)             For optimal results, create family-specific settings.
+(microtype)             See the microtype manual for details.
+LaTeX Font Info:    Font shape `OT1/LinuxLibertineT-TLF/m/n' will be
+(Font)              scaled to size 6.6pt on input line 146.
+LaTeX Font Info:    Font shape `OML/nxlmi/m/it' will be
+(Font)              scaled to size 9.0pt on input line 146.
+LaTeX Font Info:    Font shape `OML/nxlmi/m/it' will be
+(Font)              scaled to size 6.6pt on input line 146.
+LaTeX Font Info:    Font shape `LMS/ntxsy/m/n' will be
+(Font)              scaled to size 9.0pt on input line 146.
+LaTeX Font Info:    Font shape `LMS/ntxsy/m/n' will be
+(Font)              scaled to size 6.6pt on input line 146.
+LaTeX Font Info:    Font shape `LMX/ntxexx/m/n' will be
+(Font)              scaled to size 9.0pt on input line 146.
+LaTeX Font Info:    Font shape `LMX/ntxexx/m/n' will be
+(Font)              scaled to size 6.6pt on input line 146.
+(/usr/local/texlive/2025/texmf-dist/tex/latex/microtype/mt-msa.cfg
+File: mt-msa.cfg 2006/02/04 v1.1 microtype config. file: AMS symbols (a) (RS)
+)
+(/usr/local/texlive/2025/texmf-dist/tex/latex/microtype/mt-msb.cfg
+File: mt-msb.cfg 2005/06/01 v1.0 microtype config. file: AMS symbols (b) (RS)
+)
+LaTeX Font Info:    Font shape `U/ntxmia/m/it' will be
+(Font)              scaled to size 9.0pt on input line 146.
+LaTeX Font Info:    Font shape `U/ntxmia/m/it' will be
+(Font)              scaled to size 6.6pt on input line 146.
+LaTeX Font Info:    Font shape `U/ntxsym/m/n' will be
+(Font)              scaled to size 9.0pt on input line 146.
+LaTeX Font Info:    Font shape `U/ntxsym/m/n' will be
+(Font)              scaled to size 6.6pt on input line 146.
+LaTeX Font Info:    Font shape `U/ntxsyc/m/n' will be
+(Font)              scaled to size 9.0pt on input line 146.
+LaTeX Font Info:    Font shape `U/ntxsyc/m/n' will be
+(Font)              scaled to size 6.6pt on input line 146.
+LaTeX Font Info:    Font shape `U/ntxexa/m/n' will be
+(Font)              scaled to size 9.0pt on input line 146.
+LaTeX Font Info:    Font shape `U/ntxexa/m/n' will be
+(Font)              scaled to size 6.6pt on input line 146.
+LaTeX Font Info:    Font shape `T1/LinuxLibertineT-TLF/m/n' will be
+(Font)              scaled to size 6.6pt on input line 146.
+LaTeX Font Info:    Font shape `T1/LinuxLibertineT-TLF/m/n' will be
+(Font)              scaled to size 5.5pt on input line 146.
 LaTeX Font Info:    Font shape `T1/LinuxBiolinumT-TLF/m/n' will be
 (Font)              scaled to size 10.0pt on input line 148.
 LaTeX Font Info:    Font shape `T1/LinuxBiolinumT-TLF/b/n' will be
 (Font)              scaled to size 10.0pt on input line 148.
+
 (./sections/introduction.tex
 LaTeX Font Info:    Font shape `T1/LinuxLibertineT-TLF/m/it' will be
 (Font)              scaled to size 10.0pt on input line 1.
@@ -1747,8 +1794,9 @@ LaTeX Font Info:    Font shape `T1/LinuxLibertineT-TLF/m/it' will be
 [1.1{/usr/local/texlive/2025/texmf-var/fonts/map/pdftex/updmap/pdftex.map}{/usr
 /local/texlive/2025/texmf-dist/fonts/enc/dvips/libertine/lbtn_25tcsq.enc}{/usr/
 local/texlive/2025/texmf-dist/fonts/enc/dvips/libertine/lbtn_76gpa5.enc}{/usr/l
-ocal/texlive/2025/texmf-dist/fonts/enc/dvips/libertine/lbtn_7grukw.enc}]
-<sections/figs/Fig1-Empirical-Motivation.pdf, id=137, 1204.5pt x 903.375pt>
+ocal/texlive/2025/texmf-dist/fonts/enc/dvips/libertine/lbtn_oexx6f.enc}{/usr/lo
+cal/texlive/2025/texmf-dist/fonts/enc/dvips/libertine/lbtn_7grukw.enc}]
+<sections/figs/Fig1-Empirical-Motivation.pdf, id=135, 1204.5pt x 903.375pt>
 File: sections/figs/Fig1-Empirical-Motivation.pdf Graphic file (type pdf)
 <use sections/figs/Fig1-Empirical-Motivation.pdf>
 Package pdftex.def Info: sections/figs/Fig1-Empirical-Motivation.pdf  used on i
@@ -1770,7 +1818,10 @@ Package fancyhdr Warning: \headheight is too small (13.0pt):
 
 [3.3 <./sections/figs/Fig1-Empirical-Motivation.pdf>]
 
-[4.4])
+[4.4]
+Underfull \vbox (badness 6396) has occurred while \output is active []
+
+
 
 
 Package fancyhdr Warning: \headheight is too small (13.0pt): 
@@ -1779,15 +1830,11 @@ Package fancyhdr Warning: \headheight is too small (13.0pt):
 (fancyhdr)                You might also make \topmargin smaller:
 (fancyhdr)                \addtolength{\topmargin}{-5.48402pt}.
 
-[5.5]
+[5.5])
 
 [6.6] (./sections/methods.tex
 LaTeX Font Info:    Font shape `OT1/LinuxLibertineT-TLF/m/n' will be
 (Font)              scaled to size 10.0pt on input line 4.
-Package microtype Info: Loading generic protrusion settings for font family
-(microtype)             `LinuxLibertineT-TLF' (encoding: OT1).
-(microtype)             For optimal results, create family-specific settings.
-(microtype)             See the microtype manual for details.
 LaTeX Font Info:    Font shape `OT1/LinuxLibertineT-TLF/m/n' will be
 (Font)              scaled to size 7.3pt on input line 4.
 LaTeX Font Info:    Font shape `OML/nxlmi/m/it' will be
@@ -1802,13 +1849,6 @@ LaTeX Font Info:    Font shape `LMX/ntxexx/m/n' will be
 (Font)              scaled to size 10.0pt on input line 4.
 LaTeX Font Info:    Font shape `LMX/ntxexx/m/n' will be
 (Font)              scaled to size 7.3pt on input line 4.
-
-(/usr/local/texlive/2025/texmf-dist/tex/latex/microtype/mt-msa.cfg
-File: mt-msa.cfg 2006/02/04 v1.1 microtype config. file: AMS symbols (a) (RS)
-)
-(/usr/local/texlive/2025/texmf-dist/tex/latex/microtype/mt-msb.cfg
-File: mt-msb.cfg 2005/06/01 v1.0 microtype config. file: AMS symbols (b) (RS)
-)
 LaTeX Font Info:    Font shape `U/ntxmia/m/it' will be
 (Font)              scaled to size 10.0pt on input line 4.
 LaTeX Font Info:    Font shape `U/ntxmia/m/it' will be
@@ -1842,47 +1882,12 @@ Package fancyhdr Warning: \headheight is too small (13.0pt):
 
 [7.7
 
-{/usr/local/texlive/2025/texmf-dist/fonts/enc/dvips/libertine/lbtn_oexx6f.enc}{
-/usr/local/texlive/2025/texmf-dist/fonts/enc/dvips/libertine/lbtn_fygcup.enc}]
+{/usr/local/texlive/2025/texmf-dist/fonts/enc/dvips/libertine/lbtn_fygcup.enc}]
 LaTeX Font Info:    Font shape `T1/LinuxLibertineT-TLF/m/n' will be
 (Font)              scaled to size 7.3pt on input line 20.
-LaTeX Font Info:    Font shape `T1/LinuxLibertineT-TLF/m/n' will be
-(Font)              scaled to size 5.5pt on input line 20.
-LaTeX Font Info:    Font shape `OT1/LinuxLibertineT-TLF/m/n' will be
-(Font)              scaled to size 9.0pt on input line 135.
-LaTeX Font Info:    Font shape `OT1/LinuxLibertineT-TLF/m/n' will be
-(Font)              scaled to size 6.6pt on input line 135.
-LaTeX Font Info:    Font shape `OML/nxlmi/m/it' will be
-(Font)              scaled to size 9.0pt on input line 135.
-LaTeX Font Info:    Font shape `OML/nxlmi/m/it' will be
-(Font)              scaled to size 6.6pt on input line 135.
-LaTeX Font Info:    Font shape `LMS/ntxsy/m/n' will be
-(Font)              scaled to size 9.0pt on input line 135.
-LaTeX Font Info:    Font shape `LMS/ntxsy/m/n' will be
-(Font)              scaled to size 6.6pt on input line 135.
-LaTeX Font Info:    Font shape `LMX/ntxexx/m/n' will be
-(Font)              scaled to size 9.0pt on input line 135.
-LaTeX Font Info:    Font shape `LMX/ntxexx/m/n' will be
-(Font)              scaled to size 6.6pt on input line 135.
 LaTeX Font Info:    Font shape `OT1/LinuxLibertineT-TLF/sb/n' will be
 (Font)              scaled to size 9.0pt on input line 135.
 LaTeX Font Info:    Font shape `OT1/LinuxLibertineT-TLF/sb/n' will be
-(Font)              scaled to size 6.6pt on input line 135.
-LaTeX Font Info:    Font shape `U/ntxmia/m/it' will be
-(Font)              scaled to size 9.0pt on input line 135.
-LaTeX Font Info:    Font shape `U/ntxmia/m/it' will be
-(Font)              scaled to size 6.6pt on input line 135.
-LaTeX Font Info:    Font shape `U/ntxsym/m/n' will be
-(Font)              scaled to size 9.0pt on input line 135.
-LaTeX Font Info:    Font shape `U/ntxsym/m/n' will be
-(Font)              scaled to size 6.6pt on input line 135.
-LaTeX Font Info:    Font shape `U/ntxsyc/m/n' will be
-(Font)              scaled to size 9.0pt on input line 135.
-LaTeX Font Info:    Font shape `U/ntxsyc/m/n' will be
-(Font)              scaled to size 6.6pt on input line 135.
-LaTeX Font Info:    Font shape `U/ntxexa/m/n' will be
-(Font)              scaled to size 9.0pt on input line 135.
-LaTeX Font Info:    Font shape `U/ntxexa/m/n' will be
 (Font)              scaled to size 6.6pt on input line 135.
 LaTeX Font Info:    Font shape `T1/LinuxLibertineT-TLF/m/n' will be
 (Font)              scaled to size 12.0pt on input line 135.
@@ -1962,8 +1967,6 @@ LaTeX Font Info:    Font shape `T1/LinuxLibertineT-TLF/b/n' will be
 (Font)              scaled to size 10.0pt on input line 238.
 LaTeX Font Info:    Font shape `T1/LinuxLibertineT-TLF/b/n' will be
 (Font)              scaled to size 9.0pt on input line 242.
-LaTeX Font Info:    Font shape `T1/LinuxLibertineT-TLF/m/n' will be
-(Font)              scaled to size 6.6pt on input line 245.
 )
 
 
@@ -2014,7 +2017,7 @@ LaTeX Font Info:    Font shape `T1/LinuxLibertineT-TLF/b/n' will be
 (Font)              scaled to size 8.0pt on input line 109.
 LaTeX Font Info:    Font shape `T1/LinuxLibertineT-TLF/m/n' will be
 (Font)              scaled to size 6.0pt on input line 109.
-<sections/figs/Fig4-Model-Comparison.pdf, id=406, 1806.75pt x 562.1pt>
+<sections/figs/Fig4-Model-Comparison.pdf, id=409, 1806.75pt x 562.1pt>
 File: sections/figs/Fig4-Model-Comparison.pdf Graphic file (type pdf)
 <use sections/figs/Fig4-Model-Comparison.pdf>
 Package pdftex.def Info: sections/figs/Fig4-Model-Comparison.pdf  used on input
@@ -2034,7 +2037,7 @@ Package fancyhdr Warning: \headheight is too small (13.0pt):
 [17.17 <./sections/figs/Fig4-Model-Comparison.pdf>]
 
 [18.18]
-<sections/figs/Fig6-Statistical-Validation.pdf, id=428, 1204.5pt x 903.375pt>
+<sections/figs/Fig6-Statistical-Validation.pdf, id=431, 1204.5pt x 903.375pt>
 File: sections/figs/Fig6-Statistical-Validation.pdf Graphic file (type pdf)
 <use sections/figs/Fig6-Statistical-Validation.pdf>
 Package pdftex.def Info: sections/figs/Fig6-Statistical-Validation.pdf  used on
@@ -2067,13 +2070,13 @@ Package fancyhdr Warning: \headheight is too small (13.0pt):
 (fancyhdr)                \addtolength{\topmargin}{-5.48402pt}.
 
 [21.21]
-<sections/figs/Fig-Price-Trajectories.pdf, id=460, 1806.75pt x 501.875pt>
+<sections/figs/Fig-Price-Trajectories.pdf, id=463, 1806.75pt x 501.875pt>
 File: sections/figs/Fig-Price-Trajectories.pdf Graphic file (type pdf)
 <use sections/figs/Fig-Price-Trajectories.pdf>
 Package pdftex.def Info: sections/figs/Fig-Price-Trajectories.pdf  used on inpu
 t line 252.
 (pdftex.def)             Requested size: 395.8225pt x 109.9457pt.
-<sections/figs/Fig-Copula-Comparison.pdf, id=461, 1405.25pt x 501.875pt>
+<sections/figs/Fig-Copula-Comparison.pdf, id=464, 1405.25pt x 501.875pt>
 File: sections/figs/Fig-Copula-Comparison.pdf Graphic file (type pdf)
 <use sections/figs/Fig-Copula-Comparison.pdf>
 Package pdftex.def Info: sections/figs/Fig-Copula-Comparison.pdf  used on input
@@ -2091,7 +2094,7 @@ Package fancyhdr Warning: \headheight is too small (13.0pt):
 (fancyhdr)                \addtolength{\topmargin}{-5.48402pt}.
 
 [23.23 <./sections/figs/Fig-Copula-Comparison.pdf>] (./sections/discussion.tex
-<sections/figs/Fig7-Multi-Asset-SIM.pdf, id=483, 1405.25pt x 481.8pt>
+<sections/figs/Fig7-Multi-Asset-SIM.pdf, id=486, 1405.25pt x 481.8pt>
 File: sections/figs/Fig7-Multi-Asset-SIM.pdf Graphic file (type pdf)
 <use sections/figs/Fig7-Multi-Asset-SIM.pdf>
 Package pdftex.def Info: sections/figs/Fig7-Multi-Asset-SIM.pdf  used on input 
@@ -2161,7 +2164,7 @@ Package fancyhdr Warning: \headheight is too small (13.0pt):
 [31.31])
 
 [32.32] (./sections/supplemental.tex
-<sections/figs/Fig3-Model-Internals.pdf, id=596, 1606.0pt x 521.95pt>
+<sections/figs/Fig3-Model-Internals.pdf, id=599, 1606.0pt x 521.95pt>
 File: sections/figs/Fig3-Model-Internals.pdf Graphic file (type pdf)
 <use sections/figs/Fig3-Model-Internals.pdf>
 Package pdftex.def Info: sections/figs/Fig3-Model-Internals.pdf  used on input 
@@ -2179,7 +2182,7 @@ Package fancyhdr Warning: \headheight is too small (13.0pt):
 [1.33
 
  <./sections/figs/Fig3-Model-Internals.pdf>]
-<sections/figs/Fig5-Parameter-Sweep.pdf, id=609, 1405.25pt x 562.1pt>
+<sections/figs/Fig5-Parameter-Sweep.pdf, id=612, 1405.25pt x 562.1pt>
 File: sections/figs/Fig5-Parameter-Sweep.pdf Graphic file (type pdf)
 <use sections/figs/Fig5-Parameter-Sweep.pdf>
 Package pdftex.def Info: sections/figs/Fig5-Parameter-Sweep.pdf  used on input 
@@ -2534,11 +2537,11 @@ Package rerunfilecheck Info: File `Paper_v1.out' has not changed.
 (rerunfilecheck)             Checksum: DA65624C170CB8396988537A98EB8FEA;4405.
  ) 
 Here is how much of TeX's memory you used:
- 47415 strings out of 473190
- 1047526 string characters out of 5715801
- 1586339 words of memory out of 5000000
+ 47427 strings out of 473190
+ 1047829 string characters out of 5715801
+ 1586787 words of memory out of 5000000
  68451 multiletter control sequences out of 15000+600000
- 848104 words of font info for 747 fonts, out of 8000000 for 9000
+ 849196 words of font info for 755 fonts, out of 8000000 for 9000
  1302 hyphenation exceptions out of 8191
  99i,15n,131p,3332b,1013s stack positions out of 10000i,1000n,20000p,200000b,200000s
 </usr/local/texlive/2025/texmf-dist/fonts/type1/public/newtx/LibertineMathMI.
@@ -2559,10 +2562,10 @@ public/newtx/txexs.pfb></usr/local/texlive/2025/texmf-dist/fonts/type1/public/n
 ewtx/txmiaX.pfb></usr/local/texlive/2025/texmf-dist/fonts/type1/public/newtx/tx
 sym.pfb></usr/local/texlive/2025/texmf-dist/fonts/type1/public/newtx/txsys.pfb>
 
-Output written on Paper_v1.pdf (44 pages, 1662109 bytes).
+Output written on Paper_v1.pdf (44 pages, 1663341 bytes).
 PDF statistics:
- 880 PDF objects out of 1000 (max. 8388607)
- 768 compressed objects within 8 object streams
+ 883 PDF objects out of 1000 (max. 8388607)
+ 771 compressed objects within 8 object streams
  266 named destinations out of 1000 (max. 500000)
  147693 words of extra memory for PDF output out of 154059 (max. 10000000)
 
