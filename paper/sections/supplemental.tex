@@ -86,7 +86,10 @@ The operating point $N = 100$ balances these two effects, achieving strong perfo
     All metrics computed over 1{,}000 simulated in-sample paths at $\alpha=0.05$.
     ACF-MAE = mean absolute error of the ACF of $|G_t|$ over lags 1--252.
     Standard errors in parentheses: binomial SE for pass rates,
-    bootstrap SE ($B=500$) for ACF-MAE.}
+    bootstrap SE ($B=500$) for ACF-MAE.
+    Values at $N=100$ differ slightly from Table~\ref{tab:model_comparison}
+    because the grid search was re-run independently for each $N$, producing
+    a different $(\epsilon^{*},\lambda^{*})$ optimum due to Monte Carlo variability.}
 \label{tab:sensitivity_results}
 \begin{tabular}{@{}lcccc@{}}
 \toprule

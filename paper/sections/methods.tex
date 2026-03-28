@@ -210,12 +210,12 @@ where $\widehat{\rho}_{|G|}^{\,\text{obs}}(\tau)$ and $\widehat{\rho}_{|G|}^{\,\
 \subsection*{Single-Index Factor Model extension}
 The framework described above applied to any individual asset ticker within the 424-asset dataset. To generalize synthetic path generation to a correlated multi-asset setting without fitting a separate HMM for each asset, we exploited the linear factor structure of the Single-Index Model (SIM) \cite{sharpe_simplified_1963}. The SIM expresses the excess growth rate of asset $i$ at time $t$ as:
 \begin{equation}
-    G_{i,t} = \alpha_i + \beta_i \cdot G_{\text{SPY},t} + \eta_{i,t}, \qquad \eta_{i,t} \stackrel{\text{i.i.d.}}{\sim} \mathcal{N}(0, \sigma_{\eta,i}^2)
+    G_{i,t} = \alpha_i + \beta_i \cdot G_{\text{SPY},t} + \eta_{i,t}
     \label{eq:sim}
 \end{equation}
-where $G_{\text{SPY},t}$ denotes the SPY excess growth rate at time $t$, $\beta_i$ measures the systematic sensitivity of asset $i$ to the index, $\alpha_i$ is the idiosyncratic drift, and $\eta_{i,t}$ is a zero-mean idiosyncratic shock assumed independent across assets and time. The parameters $(\alpha_i, \beta_i, \sigma_{\eta,i}^2)$ were estimated via ordinary least squares on the in-sample time series for each asset $i$.
+where $G_{\text{SPY},t}$ denotes the SPY excess growth rate at time $t$, $\beta_i$ measures the systematic sensitivity of asset $i$ to the index, $\alpha_i$ is the idiosyncratic drift, and $\eta_{i,t}$ is the idiosyncratic shock. The parameters $(\alpha_i, \beta_i)$ were estimated via ordinary least squares on the in-sample time series for each asset $i$, and the empirical residuals $\hat{\eta}_{i,t} = G_{i,t} - \hat{\alpha}_i - \hat{\beta}_i G_{\text{SPY},t}$ were retained for resampling.
 
-Synthetic multi-asset paths were generated in three steps. First, the hybrid HMM produced a single synthetic SPY excess growth rate path $\{\hat{G}_{\text{SPY},t}\}_{t=1}^T$ using the regime-switching and jump-duration mechanism described above. Second, for each asset $i$, an idiosyncratic shock sequence $\{\hat{\eta}_{i,t}\}$ was drawn independently from $\mathcal{N}(0, \hat{\sigma}_{\eta,i}^2)$. Third, the synthetic excess growth rate for asset $i$ was recovered as:
+Synthetic multi-asset paths were generated in three steps. First, the hybrid HMM produced a single synthetic SPY excess growth rate path $\{\hat{G}_{\text{SPY},t}\}_{t=1}^T$ using the regime-switching and jump-duration mechanism described above. Second, for each asset $i$, an idiosyncratic shock sequence $\{\hat{\eta}_{i,t}\}$ was drawn by resampling the empirical residuals with replacement, preserving their non-Gaussian distribution (empirical residual kurtosis exceeded 10 for several assets). Third, the synthetic excess growth rate for asset $i$ was recovered as:
 \begin{equation}
     \hat{G}_{i,t} = \hat{\alpha}_i + \hat{\beta}_i \cdot \hat{G}_{\text{SPY},t} + \hat{\eta}_{i,t}.
     \label{eq:sim_gen}
