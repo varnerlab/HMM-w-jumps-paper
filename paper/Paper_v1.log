@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.27 (TeX Live 2025) (preloaded format=pdflatex 2025.3.8)  27 MAR 2026 13:31
+This is pdfTeX, Version 3.141592653-2.6-1.40.27 (TeX Live 2025) (preloaded format=pdflatex 2025.3.8)  28 MAR 2026 08:38
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -2059,12 +2059,12 @@ Package fancyhdr Warning: \headheight is too small (13.0pt):
 
 [20.20 <./sections/figs/Fig6-Statistical-Validation.pdf>]
 LaTeX Font Info:    Font shape `T1/LinuxLibertineT-TLF/m/it' will be
-(Font)              scaled to size 9.0pt on input line 202.
-<sections/figs/Fig-Price-Trajectories.pdf, id=458, 1806.75pt x 501.875pt>
+(Font)              scaled to size 9.0pt on input line 204.
+<sections/figs/Fig-Price-Trajectories.pdf, id=459, 1806.75pt x 501.875pt>
 File: sections/figs/Fig-Price-Trajectories.pdf Graphic file (type pdf)
 <use sections/figs/Fig-Price-Trajectories.pdf>
 Package pdftex.def Info: sections/figs/Fig-Price-Trajectories.pdf  used on inpu
-t line 221.
+t line 223.
 (pdftex.def)             Requested size: 395.8225pt x 109.9457pt.
 
 
@@ -2076,11 +2076,11 @@ Package fancyhdr Warning: \headheight is too small (13.0pt):
 (fancyhdr)                \addtolength{\topmargin}{-5.48402pt}.
 
 [21.21]
-<sections/figs/Fig-Copula-Comparison.pdf, id=468, 1405.25pt x 501.875pt>
+<sections/figs/Fig-Copula-Comparison.pdf, id=469, 1405.25pt x 501.875pt>
 File: sections/figs/Fig-Copula-Comparison.pdf Graphic file (type pdf)
 <use sections/figs/Fig-Copula-Comparison.pdf>
 Package pdftex.def Info: sections/figs/Fig-Copula-Comparison.pdf  used on input
- line 268.
+ line 270.
 (pdftex.def)             Requested size: 395.8225pt x 141.36641pt.
 
 
@@ -2094,7 +2094,7 @@ Package fancyhdr Warning: \headheight is too small (13.0pt):
 (fancyhdr)                \addtolength{\topmargin}{-5.48402pt}.
 
 [23.23 <./sections/figs/Fig-Copula-Comparison.pdf>] (./sections/discussion.tex
-<sections/figs/Fig7-Multi-Asset-SIM.pdf, id=489, 1405.25pt x 481.8pt>
+<sections/figs/Fig7-Multi-Asset-SIM.pdf, id=490, 1405.25pt x 481.8pt>
 File: sections/figs/Fig7-Multi-Asset-SIM.pdf Graphic file (type pdf)
 <use sections/figs/Fig7-Multi-Asset-SIM.pdf>
 Package pdftex.def Info: sections/figs/Fig7-Multi-Asset-SIM.pdf  used on input 
@@ -2164,7 +2164,7 @@ Package fancyhdr Warning: \headheight is too small (13.0pt):
 [31.31])
 
 [32.32] (./sections/supplemental.tex
-<sections/figs/Fig3-Model-Internals.pdf, id=602, 1606.0pt x 521.95pt>
+<sections/figs/Fig3-Model-Internals.pdf, id=603, 1606.0pt x 521.95pt>
 File: sections/figs/Fig3-Model-Internals.pdf Graphic file (type pdf)
 <use sections/figs/Fig3-Model-Internals.pdf>
 Package pdftex.def Info: sections/figs/Fig3-Model-Internals.pdf  used on input 
@@ -2182,7 +2182,7 @@ Package fancyhdr Warning: \headheight is too small (13.0pt):
 [1.33
 
  <./sections/figs/Fig3-Model-Internals.pdf>]
-<sections/figs/Fig5-Parameter-Sweep.pdf, id=616, 1405.25pt x 562.1pt>
+<sections/figs/Fig5-Parameter-Sweep.pdf, id=617, 1405.25pt x 562.1pt>
 File: sections/figs/Fig5-Parameter-Sweep.pdf Graphic file (type pdf)
 <use sections/figs/Fig5-Parameter-Sweep.pdf>
 Package pdftex.def Info: sections/figs/Fig5-Parameter-Sweep.pdf  used on input 
@@ -2518,14 +2518,32 @@ Package fancyhdr Warning: \headheight is too small (13.0pt):
 (fancyhdr)                You might also make \topmargin smaller:
 (fancyhdr)                \addtolength{\topmargin}{-5.48402pt}.
 
-[11.43])
+[11.43]
+<sections/figs/FigS-ACF-Jump-Paths.pdf, id=741, 903.375pt x 501.875pt>
+File: sections/figs/FigS-ACF-Jump-Paths.pdf Graphic file (type pdf)
+<use sections/figs/FigS-ACF-Jump-Paths.pdf>
+Package pdftex.def Info: sections/figs/FigS-ACF-Jump-Paths.pdf  used on input l
+ine 345.
+(pdftex.def)             Requested size: 395.8225pt x 219.90672pt.
+
+
+[12.44
+
+ <./sections/figs/FigS-ACF-Jump-Paths.pdf>])
+
+
+Package fancyhdr Warning: \headheight is too small (13.0pt): 
+(fancyhdr)                Make it at least 18.48402pt, for example:
+(fancyhdr)                \setlength{\headheight}{18.48402pt}.
+(fancyhdr)                You might also make \topmargin smaller:
+(fancyhdr)                \addtolength{\topmargin}{-5.48402pt}.
 
 (/usr/local/texlive/2025/texmf-dist/tex/generic/stringenc/se-pdfdoc.def
 File: se-pdfdoc.def 2019/11/29 v1.12 stringenc: PDFDocEncoding
 )
 (/usr/local/texlive/2025/texmf-dist/tex/generic/stringenc/se-utf8.def
 File: se-utf8.def 2019/11/29 v1.12 stringenc: UTF-8
-) [12.44
+) [13.45
 
 ]
 (./Paper_v1.aux)
@@ -2537,11 +2555,11 @@ Package rerunfilecheck Info: File `Paper_v1.out' has not changed.
 (rerunfilecheck)             Checksum: DA65624C170CB8396988537A98EB8FEA;4405.
  ) 
 Here is how much of TeX's memory you used:
- 47424 strings out of 473190
- 1047751 string characters out of 5715801
- 1586788 words of memory out of 5000000
- 68451 multiletter control sequences out of 15000+600000
- 848923 words of font info for 753 fonts, out of 8000000 for 9000
+ 47429 strings out of 473190
+ 1048000 string characters out of 5715801
+ 1587625 words of memory out of 5000000
+ 68462 multiletter control sequences out of 15000+600000
+ 848098 words of font info for 747 fonts, out of 8000000 for 9000
  1302 hyphenation exceptions out of 8191
  99i,15n,131p,3332b,1013s stack positions out of 10000i,1000n,20000p,200000b,200000s
 </usr/local/texlive/2025/texmf-dist/fonts/type1/public/newtx/LibertineMathMI.
@@ -2562,10 +2580,10 @@ public/newtx/txexs.pfb></usr/local/texlive/2025/texmf-dist/fonts/type1/public/n
 ewtx/txmiaX.pfb></usr/local/texlive/2025/texmf-dist/fonts/type1/public/newtx/tx
 sym.pfb></usr/local/texlive/2025/texmf-dist/fonts/type1/public/newtx/txsys.pfb>
 
-Output written on Paper_v1.pdf (44 pages, 1664205 bytes).
+Output written on Paper_v1.pdf (45 pages, 1712877 bytes).
 PDF statistics:
- 886 PDF objects out of 1000 (max. 8388607)
- 774 compressed objects within 8 object streams
- 266 named destinations out of 1000 (max. 500000)
- 147693 words of extra memory for PDF output out of 154059 (max. 10000000)
+ 895 PDF objects out of 1000 (max. 8388607)
+ 781 compressed objects within 8 object streams
+ 269 named destinations out of 1000 (max. 500000)
+ 147698 words of extra memory for PDF output out of 154059 (max. 10000000)
 

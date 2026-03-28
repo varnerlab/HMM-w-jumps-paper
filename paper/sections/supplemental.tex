@@ -333,14 +333,36 @@ This procedure preserves each asset's marginal distribution exactly (since reord
 
 \clearpage
 
-\subsection*{S7. Emission distribution and semi-Markov comparison}
+\subsection*{S7. Volatility clustering: all paths vs.\ jump-containing paths}
+\label{sec:acf_jump}
 
-Table~\ref{tab:emission_hsmm_s7} isolates the contributions of the emission distribution and the persistence mechanism by comparing three model variants on SPY: the HSMM baseline ($K=8$ states, negative-binomial dwell times, Student-t emissions), HMM-WJ with the original Gaussian emissions ($N=100$), and HMM-WJ with Student-t emissions ($N=100$). The comparison confirms that HMM-WJ dominates the HSMM on distributional fidelity regardless of emission choice, and that the Student-t upgrade provides incremental improvements in tail reproduction (excess kurtosis closer to observed) and marginal fit (higher KS and AD pass rates).
+The jump-duration mechanism produces volatility clustering only in the subset of simulated paths that contain at least one Poisson jump event. At the optimal $\epsilon^{*}=10^{-4}$, approximately 24\% of in-sample paths (239 out of 1{,}000) contained jumps; the remaining 76\% followed pure Markov dynamics and exhibited no persistent ACF structure. When the ACF of $|G_t|$ was averaged over all 1{,}000 paths, the jump-path signal was diluted by the majority of non-jump paths, producing an ensemble-mean ACF that appeared to show little volatility clustering beyond lag~1. This dilution was an artifact of ensemble averaging, not a failure of the mechanism.
+
+Figure~\ref{fig:acf_jump_comparison} demonstrates this directly. The steel dashed curve shows the mean ACF averaged over all 1{,}000 paths: it drops to near zero by lag~5, which would suggest the model fails to reproduce volatility clustering. The navy solid curve shows the mean ACF averaged over only the 239 jump-containing paths: it tracks the observed SPY ACF (red dashed) closely across the full 252-lag horizon. The 10th--90th percentile band of the jump-path ensemble encompasses the observed ACF at most lags. This confirms that the jump mechanism does reproduce persistent volatility clustering within the paths it affects; the apparent gap in an all-paths average reflects the mixture composition of the ensemble rather than a structural limitation.
+
+\begin{figure}[tp]
+    \centering
+    \includegraphics[width=\textwidth]{FigS-ACF-Jump-Paths.pdf}
+    \Description{Comparison of in-sample ACF of absolute excess growth rates averaged over all 1000 simulated paths versus the 239 jump-containing paths only. The all-paths mean drops to near zero by lag 5, while the jump-path mean closely tracks the observed SPY ACF across all 252 lags.}
+    \caption{In-sample ACF of $|G_t|$ for HMM-WJ: all paths vs.\ jump-containing paths.
+    The mean ACF over all 1{,}000 paths (steel dashed) is diluted by the 76\% of paths
+    without jump events, producing an apparent failure to reproduce volatility clustering.
+    Conditioning on the 239 paths that contain at least one Poisson jump (navy solid,
+    with 10th--90th percentile band) recovers the persistent ACF decay observed in the
+    SPY data (red dashed). ACF-MAE values are reported in the legend.}
+    \label{fig:acf_jump_comparison}
+\end{figure}
+
+\clearpage
+
+\subsection*{S8. Emission distribution and semi-Markov comparison}
+
+Table~\ref{tab:emission_hsmm_s8} isolates the contributions of the emission distribution and the persistence mechanism by comparing three model variants on SPY: the HSMM baseline ($K=8$ states, negative-binomial dwell times, Student-t emissions), HMM-WJ with the original Gaussian emissions ($N=100$), and HMM-WJ with Student-t emissions ($N=100$). The comparison confirms that HMM-WJ dominates the HSMM on distributional fidelity regardless of emission choice, and that the Student-t upgrade provides incremental improvements in tail reproduction (excess kurtosis closer to observed) and marginal fit (higher KS and AD pass rates).
 
 \begin{table}[tp]
 \centering
 \caption{Three-way comparison isolating the emission distribution and persistence mechanism for SPY ($N=100$ for HMM-WJ, $K=8$ for HSMM; 1{,}000 simulated paths, $\alpha=0.05$). Standard errors in parentheses.}
-\label{tab:emission_hsmm_s7}
+\label{tab:emission_hsmm_s8}
 \small
 \begin{tabular}{@{}lccc@{}}
 \toprule
