@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.27 (TeX Live 2025) (preloaded format=pdflatex 2025.3.8)  28 MAR 2026 08:53
+This is pdfTeX, Version 3.141592653-2.6-1.40.27 (TeX Live 2025) (preloaded format=pdflatex 2025.3.8)  28 MAR 2026 09:15
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -2044,9 +2044,6 @@ Package pdftex.def Info: sections/figs/Fig6-Statistical-Validation.pdf  used on
  input line 162.
 (pdftex.def)             Requested size: 395.8225pt x 296.86029pt.
 
-Underfull \vbox (badness 1377) has occurred while \output is active []
-
-
 
 
 Package fancyhdr Warning: \headheight is too small (13.0pt): 
@@ -2066,6 +2063,12 @@ File: sections/figs/Fig-Price-Trajectories.pdf Graphic file (type pdf)
 Package pdftex.def Info: sections/figs/Fig-Price-Trajectories.pdf  used on inpu
 t line 223.
 (pdftex.def)             Requested size: 395.8225pt x 109.9457pt.
+<sections/figs/Fig-Copula-Comparison.pdf, id=457, 1405.25pt x 501.875pt>
+File: sections/figs/Fig-Copula-Comparison.pdf Graphic file (type pdf)
+<use sections/figs/Fig-Copula-Comparison.pdf>
+Package pdftex.def Info: sections/figs/Fig-Copula-Comparison.pdf  used on input
+ line 270.
+(pdftex.def)             Requested size: 395.8225pt x 141.36641pt.
 
 
 
@@ -2075,16 +2078,9 @@ Package fancyhdr Warning: \headheight is too small (13.0pt):
 (fancyhdr)                You might also make \topmargin smaller:
 (fancyhdr)                \addtolength{\topmargin}{-5.48402pt}.
 
-[21.21]
-<sections/figs/Fig-Copula-Comparison.pdf, id=464, 1405.25pt x 501.875pt>
-File: sections/figs/Fig-Copula-Comparison.pdf Graphic file (type pdf)
-<use sections/figs/Fig-Copula-Comparison.pdf>
-Package pdftex.def Info: sections/figs/Fig-Copula-Comparison.pdf  used on input
- line 270.
-(pdftex.def)             Requested size: 395.8225pt x 141.36641pt.
+[21.21])
 
-
-[22.22 <./sections/figs/Fig-Price-Trajectories.pdf>])
+[22.22 <./sections/figs/Fig-Price-Trajectories.pdf>]
 
 
 Package fancyhdr Warning: \headheight is too small (13.0pt): 
@@ -2555,11 +2551,11 @@ Package rerunfilecheck Info: File `Paper_v1.out' has not changed.
 (rerunfilecheck)             Checksum: DA65624C170CB8396988537A98EB8FEA;4405.
  ) 
 Here is how much of TeX's memory you used:
- 47429 strings out of 473190
- 1048000 string characters out of 5715801
+ 47423 strings out of 473190
+ 1047847 string characters out of 5715801
  1587625 words of memory out of 5000000
  68462 multiletter control sequences out of 15000+600000
- 848098 words of font info for 747 fonts, out of 8000000 for 9000
+ 847552 words of font info for 743 fonts, out of 8000000 for 9000
  1302 hyphenation exceptions out of 8191
  99i,15n,131p,3297b,1013s stack positions out of 10000i,1000n,20000p,200000b,200000s
 </usr/local/texlive/2025/texmf-dist/fonts/type1/public/newtx/LibertineMathMI.
@@ -2580,7 +2576,7 @@ public/newtx/txexs.pfb></usr/local/texlive/2025/texmf-dist/fonts/type1/public/n
 ewtx/txmiaX.pfb></usr/local/texlive/2025/texmf-dist/fonts/type1/public/newtx/tx
 sym.pfb></usr/local/texlive/2025/texmf-dist/fonts/type1/public/newtx/txsys.pfb>
 
-Output written on Paper_v1.pdf (45 pages, 1712388 bytes).
+Output written on Paper_v1.pdf (45 pages, 1712142 bytes).
 PDF statistics:
  886 PDF objects out of 1000 (max. 8388607)
  772 compressed objects within 8 object streams
