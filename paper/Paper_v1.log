@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.27 (TeX Live 2025) (preloaded format=pdflatex 2025.3.8)  28 MAR 2026 08:38
+This is pdfTeX, Version 3.141592653-2.6-1.40.27 (TeX Live 2025) (preloaded format=pdflatex 2025.3.8)  28 MAR 2026 08:53
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -2037,7 +2037,7 @@ Package fancyhdr Warning: \headheight is too small (13.0pt):
 [17.17 <./sections/figs/Fig4-Model-Comparison.pdf>]
 
 [18.18]
-<sections/figs/Fig6-Statistical-Validation.pdf, id=431, 1204.5pt x 903.375pt>
+<sections/figs/Fig6-Statistical-Validation.pdf, id=429, 1204.5pt x 903.375pt>
 File: sections/figs/Fig6-Statistical-Validation.pdf Graphic file (type pdf)
 <use sections/figs/Fig6-Statistical-Validation.pdf>
 Package pdftex.def Info: sections/figs/Fig6-Statistical-Validation.pdf  used on
@@ -2060,7 +2060,7 @@ Package fancyhdr Warning: \headheight is too small (13.0pt):
 [20.20 <./sections/figs/Fig6-Statistical-Validation.pdf>]
 LaTeX Font Info:    Font shape `T1/LinuxLibertineT-TLF/m/it' will be
 (Font)              scaled to size 9.0pt on input line 204.
-<sections/figs/Fig-Price-Trajectories.pdf, id=459, 1806.75pt x 501.875pt>
+<sections/figs/Fig-Price-Trajectories.pdf, id=454, 1806.75pt x 501.875pt>
 File: sections/figs/Fig-Price-Trajectories.pdf Graphic file (type pdf)
 <use sections/figs/Fig-Price-Trajectories.pdf>
 Package pdftex.def Info: sections/figs/Fig-Price-Trajectories.pdf  used on inpu
@@ -2076,7 +2076,7 @@ Package fancyhdr Warning: \headheight is too small (13.0pt):
 (fancyhdr)                \addtolength{\topmargin}{-5.48402pt}.
 
 [21.21]
-<sections/figs/Fig-Copula-Comparison.pdf, id=469, 1405.25pt x 501.875pt>
+<sections/figs/Fig-Copula-Comparison.pdf, id=464, 1405.25pt x 501.875pt>
 File: sections/figs/Fig-Copula-Comparison.pdf Graphic file (type pdf)
 <use sections/figs/Fig-Copula-Comparison.pdf>
 Package pdftex.def Info: sections/figs/Fig-Copula-Comparison.pdf  used on input
@@ -2094,7 +2094,7 @@ Package fancyhdr Warning: \headheight is too small (13.0pt):
 (fancyhdr)                \addtolength{\topmargin}{-5.48402pt}.
 
 [23.23 <./sections/figs/Fig-Copula-Comparison.pdf>] (./sections/discussion.tex
-<sections/figs/Fig7-Multi-Asset-SIM.pdf, id=490, 1405.25pt x 481.8pt>
+<sections/figs/Fig7-Multi-Asset-SIM.pdf, id=485, 1405.25pt x 481.8pt>
 File: sections/figs/Fig7-Multi-Asset-SIM.pdf Graphic file (type pdf)
 <use sections/figs/Fig7-Multi-Asset-SIM.pdf>
 Package pdftex.def Info: sections/figs/Fig7-Multi-Asset-SIM.pdf  used on input 
@@ -2164,7 +2164,7 @@ Package fancyhdr Warning: \headheight is too small (13.0pt):
 [31.31])
 
 [32.32] (./sections/supplemental.tex
-<sections/figs/Fig3-Model-Internals.pdf, id=603, 1606.0pt x 521.95pt>
+<sections/figs/Fig3-Model-Internals.pdf, id=594, 1606.0pt x 521.95pt>
 File: sections/figs/Fig3-Model-Internals.pdf Graphic file (type pdf)
 <use sections/figs/Fig3-Model-Internals.pdf>
 Package pdftex.def Info: sections/figs/Fig3-Model-Internals.pdf  used on input 
@@ -2182,7 +2182,7 @@ Package fancyhdr Warning: \headheight is too small (13.0pt):
 [1.33
 
  <./sections/figs/Fig3-Model-Internals.pdf>]
-<sections/figs/Fig5-Parameter-Sweep.pdf, id=617, 1405.25pt x 562.1pt>
+<sections/figs/Fig5-Parameter-Sweep.pdf, id=607, 1405.25pt x 562.1pt>
 File: sections/figs/Fig5-Parameter-Sweep.pdf Graphic file (type pdf)
 <use sections/figs/Fig5-Parameter-Sweep.pdf>
 Package pdftex.def Info: sections/figs/Fig5-Parameter-Sweep.pdf  used on input 
@@ -2519,7 +2519,7 @@ Package fancyhdr Warning: \headheight is too small (13.0pt):
 (fancyhdr)                \addtolength{\topmargin}{-5.48402pt}.
 
 [11.43]
-<sections/figs/FigS-ACF-Jump-Paths.pdf, id=741, 903.375pt x 501.875pt>
+<sections/figs/FigS-ACF-Jump-Paths.pdf, id=732, 903.375pt x 501.875pt>
 File: sections/figs/FigS-ACF-Jump-Paths.pdf Graphic file (type pdf)
 <use sections/figs/FigS-ACF-Jump-Paths.pdf>
 Package pdftex.def Info: sections/figs/FigS-ACF-Jump-Paths.pdf  used on input l
@@ -2561,7 +2561,7 @@ Here is how much of TeX's memory you used:
  68462 multiletter control sequences out of 15000+600000
  848098 words of font info for 747 fonts, out of 8000000 for 9000
  1302 hyphenation exceptions out of 8191
- 99i,15n,131p,3332b,1013s stack positions out of 10000i,1000n,20000p,200000b,200000s
+ 99i,15n,131p,3297b,1013s stack positions out of 10000i,1000n,20000p,200000b,200000s
 </usr/local/texlive/2025/texmf-dist/fonts/type1/public/newtx/LibertineMathMI.
 pfb></usr/local/texlive/2025/texmf-dist/fonts/type1/public/newtx/LibertineMathM
 I5.pfb></usr/local/texlive/2025/texmf-dist/fonts/type1/public/newtx/LibertineMa
@@ -2580,10 +2580,10 @@ public/newtx/txexs.pfb></usr/local/texlive/2025/texmf-dist/fonts/type1/public/n
 ewtx/txmiaX.pfb></usr/local/texlive/2025/texmf-dist/fonts/type1/public/newtx/tx
 sym.pfb></usr/local/texlive/2025/texmf-dist/fonts/type1/public/newtx/txsys.pfb>
 
-Output written on Paper_v1.pdf (45 pages, 1712877 bytes).
+Output written on Paper_v1.pdf (45 pages, 1712388 bytes).
 PDF statistics:
- 895 PDF objects out of 1000 (max. 8388607)
- 781 compressed objects within 8 object streams
+ 886 PDF objects out of 1000 (max. 8388607)
+ 772 compressed objects within 8 object streams
  269 named destinations out of 1000 (max. 500000)
  147698 words of extra memory for PDF output out of 154059 (max. 10000000)
 
