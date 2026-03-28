@@ -38,45 +38,45 @@ Warning--page numbers missing in both pages and numpages fields in toth_against_
 Warning--empty publisher in yoon_timegan_2019
 Warning--empty address in yoon_timegan_2019
 Warning--page numbers missing in both pages and numpages fields in yoon_timegan_2019
-You've used 59 entries,
+You've used 58 entries,
             6273 wiz_defined-function locations,
-            1896 strings with 28956 characters,
-and the built_in function-call counts, 69037 in all, are:
-= -- 10526
-> -- 1727
+            1889 strings with 28801 characters,
+and the built_in function-call counts, 67772 in all, are:
+= -- 10315
+> -- 1696
 < -- 1
-+ -- 578
-- -- 665
-* -- 4473
-:= -- 6230
-add.period$ -- 303
-call.type$ -- 59
-change.case$ -- 374
-chr.to.int$ -- 59
-cite$ -- 85
-duplicate$ -- 5933
-empty$ -- 4170
-format.name$ -- 817
-if$ -- 17804
++ -- 567
+- -- 651
+* -- 4392
+:= -- 6118
+add.period$ -- 298
+call.type$ -- 58
+change.case$ -- 368
+chr.to.int$ -- 58
+cite$ -- 84
+duplicate$ -- 5831
+empty$ -- 4098
+format.name$ -- 799
+if$ -- 17471
 int.to.chr$ -- 2
 int.to.str$ -- 1
-missing$ -- 223
-newline$ -- 545
-num.names$ -- 415
-pop$ -- 2028
+missing$ -- 219
+newline$ -- 536
+num.names$ -- 408
+pop$ -- 1997
 preamble$ -- 1
-purify$ -- 845
+purify$ -- 831
 quote$ -- 0
-skip$ -- 2117
+skip$ -- 2080
 stack$ -- 0
-substring$ -- 5609
-swap$ -- 657
+substring$ -- 5503
+swap$ -- 645
 text.length$ -- 1
 text.prefix$ -- 0
 top$ -- 0
-type$ -- 1079
+type$ -- 1063
 warning$ -- 26
-while$ -- 487
+while$ -- 477
 width$ -- 0
-write$ -- 1197
+write$ -- 1177
 (There were 26 warnings)

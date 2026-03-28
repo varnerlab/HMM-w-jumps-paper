@@ -2,7 +2,7 @@
 %%% Do NOT edit. File created by BibTeX with style
 %%% ACM-Reference-Format-Journals [18-Jan-2012].
 
-\begin{thebibliography}{59}
+\begin{thebibliography}{58}
 
 %%% ====================================================================
 %%% NOTE TO THE USER: you can override these defaults by providing
@@ -194,19 +194,6 @@
   Practical Information-Theoretic Approach} (\bibinfo{edition}{2nd} ed.)}.
 \newblock \bibinfo{publisher}{Springer}, \bibinfo{address}{New York}.
 \newblock
-
-
-\bibitem[Challet and Zhang(1997)]%
-        {challet_zhang_1997}
-\bibfield{author}{\bibinfo{person}{D. Challet} {and} \bibinfo{person}{Y.-C.
-  Zhang}.} \bibinfo{year}{1997}\natexlab{}.
-\newblock \showarticletitle{Emergence of cooperation and organization in an
-  evolutionary game}.
-\newblock \bibinfo{journal}{\emph{Physica A: Statistical Mechanics and its
-  Applications}} \bibinfo{volume}{246}, \bibinfo{number}{3--4}
-  (\bibinfo{year}{1997}), \bibinfo{pages}{407--418}.
-\newblock
-\href{https://doi.org/10.1016/S0378-4371(97)00419-6}{doi:\nolinkurl{10.1016/S0378-4371(97)00419-6}}
 
 
 \bibitem[Chen et~al\mbox{.}(2015)]%

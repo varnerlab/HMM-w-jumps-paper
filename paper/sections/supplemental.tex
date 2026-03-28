@@ -111,10 +111,41 @@ HMM-WJ &  30 & 98.0 (0.4) & 96.8 (0.6) & 0.057 \\ \bottomrule
 
 \clearpage
 
-\subsection*{S4. Additional algorithms}
+\subsection*{S4. Algorithms}
 
-The main text presents Algorithm~\ref{alg:sim}, which generates synthetic state sequences from the fitted HMM with jump-duration dynamics.
-The three algorithms below detail the remaining stages of the computational pipeline.
+The four algorithms below detail the complete computational pipeline. Algorithm~\ref{alg:sim} generates synthetic state sequences from the fitted HMM with jump-duration dynamics (referenced in the main text). The remaining three algorithms detail model construction, state decoding, and hyperparameter optimization.
+
+\begin{algorithm}[tp]
+\caption{Hybrid jump-diffusion simulation with persistent volatility}
+\label{alg:sim}
+\small
+\begin{algorithmic}[1]
+\REQUIRE Model parameters $\mathbf{T}, \bar{\pi}, \epsilon, \lambda, N_{tail}, p_{neg}$, Total Steps $M$
+\ENSURE Simulated state sequence $S_{1:M}$
+\STATE Define tail-states $\mathcal{S}_{bottom} = \{1, \dots, N_{tail}\}$ and $\mathcal{S}_{top} = \{N-N_{tail}+1, \dots, N\}$.
+\STATE Sample initial state $S_1 \sim \text{Categorical}(\bar{\pi})$.
+\STATE Set $counter \leftarrow 2$.
+\WHILE{$counter \le M$}
+    \STATE Sample $u \sim \text{Uniform}(0, 1)$.
+    \IF{$u < \epsilon$}
+        \STATE Sample jump-duration $K \sim \text{Poisson}(\lambda)$.
+        \FOR{$j = 1$ to $K$ while $counter \le M$}
+            \STATE Sample $w \sim \text{Uniform}(0, 1)$.
+            \IF{$w < p_{neg}$}
+                \STATE $S_{counter} \sim \text{Uniform}(\mathcal{S}_{bottom})$ \COMMENT{Bias toward negative-tail events}
+            \ELSE
+                \STATE $S_{counter} \sim \text{Uniform}(\mathcal{S}_{top})$
+            \ENDIF
+            \STATE $counter \leftarrow counter + 1$.
+        \ENDFOR
+    \ELSE
+        \STATE Sample $S_{counter} \sim \text{Categorical}(\mathbf{T}_{S_{counter-1}, :})$.
+        \STATE $counter \leftarrow counter + 1$.
+    \ENDIF
+\ENDWHILE
+\RETURN $S_{1:M}$
+\end{algorithmic}
+\end{algorithm}
 Algorithm~\ref{alg:build} describes model construction: fitting a Laplace distribution to the observed excess growth rates, partitioning the support into $N$ equal-probability bins, assigning each observation to a discrete state, and estimating the transition matrix by row-normalizing the state-to-state count matrix.
 Algorithm~\ref{alg:decode} converts a simulated discrete state sequence back into continuous excess growth rates by sampling from a location-scale Student-t distribution ($\nu=5$) within each state, parameterized by the state-conditional sample mean and standard deviation.
 Algorithm~\ref{alg:grid_search} performs the multi-objective grid search over the jump hyperparameters $(\epsilon, \lambda)$, minimizing a composite objective that penalizes both ACF mismatch and kurtosis deviation relative to the observed series.
@@ -358,14 +389,60 @@ Figure~\ref{fig:acf_jump_comparison} demonstrates this directly. The steel dashe
 
 \clearpage
 
-\subsection*{S8. Emission distribution and semi-Markov comparison}
+\subsection*{S8. Multi-asset SIM extension: detailed results}
 
-Table~\ref{tab:emission_hsmm_s8} isolates the contributions of the emission distribution and the persistence mechanism by comparing three model variants on SPY: the HSMM baseline ($K=8$ states, negative-binomial dwell times, Student-t emissions), HMM-WJ with the original Gaussian emissions ($N=100$), and HMM-WJ with Student-t emissions ($N=100$). The comparison confirms that HMM-WJ dominates the HSMM on distributional fidelity regardless of emission choice, and that the Student-t upgrade provides incremental improvements in tail reproduction (excess kurtosis closer to observed) and marginal fit (higher KS and AD pass rates).
+The Single-Index Model extension propagated HMM-WJ SPY paths to a 424-asset universe via the factor decomposition $\hat{G}_{i,t}=\hat{\alpha}_i+\hat{\beta}_i G_{{\rm SPY},t}+\hat{\eta}_{i,t}$, where idiosyncratic shocks were resampled from empirical residuals. Figure~\ref{fig:multi_asset} shows the SIM fit quality by GICS sector (panel~a) and the distribution of KS pass rates across all 424 assets (panel~b). Table~\ref{tab:multi_asset} reports the cross-sectional summary statistics.
+
+% ── Figure: Multi-Asset SIM Extension ──────────────────────────────────────
+\begin{figure}[tp]
+    \centering
+    \includegraphics[width=\textwidth]{Fig7-Multi-Asset-SIM.pdf}
+    \Description{Two-panel figure showing the multi-asset SIM extension across 424 S&P 500 constituents. Panel (a) shows a scatter plot of SIM beta versus R-squared values colored by GICS sector. Panel (b) shows a histogram of KS pass rates across all 424 assets.}
+    \caption{Multi-asset extension via the Single-Index Model (SIM) across 424 S\&P~500
+    constituents.  Panel~(a) shows the SIM regression fit quality ($R^2_i$ vs.\ $\hat{\beta}_i$) by GICS sector;
+    assets with higher systematic risk exposure exhibit stronger factor model fit.
+    Panel~(b) shows the distribution of KS pass rates across the full asset universe
+    (median 66.7\%, mean 58.4\%).}
+    \label{fig:multi_asset}
+\end{figure}
+
+% ── Table: Multi-Asset SIM Extension Results ──────────────────────────────
+\begin{table}[tp]
+\centering
+\caption{Cross-sectional summary statistics for the Single-Index Model (SIM) extension
+    across S\&P~500 constituents.  Individual asset paths are generated as
+    $\hat{G}_{i,t}=\hat{\alpha}_i+\hat{\beta}_i G_{{\rm SPY},t}+\hat{\eta}_{i,t}$
+    where $G_{{\rm SPY},t}$ is drawn from HMM-WJ ($N=100$) simulated paths
+    and $\hat{\eta}_{i,t}$ is resampled from empirical residuals.
+    KS pass rates computed over 1{,}000 paths at $\alpha=0.05$.}
+\label{tab:multi_asset}
+\small
+\begin{tabular}{@{}lcccc@{}}
+\toprule
+\textbf{Statistic} & \textbf{Mean} & \textbf{Median} & \textbf{5th pct} & \textbf{95th pct} \\ \midrule
+\multicolumn{5}{l}{\textit{In-sample (424 assets, 2{,}766 trading days, 2014--2024)}} \\[2pt]
+KS pass rate (\%)                    & 58.4   & 66.7   &  2.5   & 96.0   \\
+SIM $R^2$                            &  0.298 &  0.295 &  0.107 &  0.507 \\
+$\hat{\beta}$ (factor loading)       &  1.066 &  1.086 &  0.480 &  1.657 \\
+$\hat{\alpha}$ (intercept)           & $-0.0328$ & $-0.0196$ & $-0.2037$ & 0.0964 \\[4pt]
+\multicolumn{5}{l}{\textit{Out-of-sample (417 assets, 249 trading days, 2025)}} \\[2pt]
+KS pass rate (\%)                    & 82.1   & 91.8   & 23.8   & 99.0   \\
+SIM $R^2$                            &  0.142 &  0.142 & $-0.169$ &  0.479 \\
+$\hat{\beta}$ (factor loading)       &  1.064 &  1.084 &  0.482 &  1.660 \\
+$\hat{\alpha}$ (intercept)           & $-0.0320$ & $-0.0186$ & $-0.2035$ & 0.0965 \\ \bottomrule
+\end{tabular}
+\end{table}
+
+\clearpage
+
+\subsection*{S9. Emission distribution and semi-Markov comparison}
+
+Table~\ref{tab:emission_hsmm_s9} isolates the contributions of the emission distribution and the persistence mechanism by comparing three model variants on SPY: the HSMM baseline ($K=8$ states, negative-binomial dwell times, Student-t emissions), HMM-WJ with the original Gaussian emissions ($N=100$), and HMM-WJ with Student-t emissions ($N=100$). The comparison confirms that HMM-WJ dominates the HSMM on distributional fidelity regardless of emission choice, and that the Student-t upgrade provides incremental improvements in tail reproduction (excess kurtosis closer to observed) and marginal fit (higher KS and AD pass rates).
 
 \begin{table}[tp]
 \centering
 \caption{Three-way comparison isolating the emission distribution and persistence mechanism for SPY ($N=100$ for HMM-WJ, $K=8$ for HSMM; 1{,}000 simulated paths, $\alpha=0.05$). Standard errors in parentheses.}
-\label{tab:emission_hsmm_s8}
+\label{tab:emission_hsmm_s9}
 \small
 \begin{tabular}{@{}lccc@{}}
 \toprule
@@ -390,3 +467,23 @@ Hellinger              & 0.239 (0.001) & 0.212 (0.001) & \textbf{0.210} (0.001) 
 \bottomrule
 \end{tabular}
 \end{table}
+
+\clearpage
+
+\subsection*{S10. Price trajectory comparison}
+
+Figure~\ref{fig:price_trajectories} compares simulated price trajectories for the four-asset portfolio under three dependence specifications, demonstrating the visual effect of the copula reordering mechanism.
+
+\begin{figure*}[tp]
+    \centering
+    \includegraphics[width=\textwidth]{Fig-Price-Trajectories.pdf}
+    \Description{Three-panel figure showing simulated price trajectories for SPY, NVDA, JNJ, JPM under three dependence specifications.}
+    \caption{Simulated price trajectories under three dependence specifications (all starting at \$100).
+    (a)~Independent HMM marginals: drawdowns and rallies occur at unrelated times.
+    (b)~Single-Index Model: partial co-movement via the market factor.
+    (c)~Student-t copula: crash episodes synchronize because the copula reorders each asset's
+    independently simulated values so that extreme days coincide.
+    Panels~(a) and~(c) use the same growth rate values; only the temporal ordering differs.}
+    \label{fig:price_trajectories}
+\end{figure*}
+
