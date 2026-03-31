@@ -4,6 +4,7 @@
 \providecommand\HyField@AuxAddToFields[1]{}
 \providecommand\HyField@AuxAddToCoFields[2]{}
 \citation{assefa_generating_2021,jordon_synthetic_2022}
+\citation{mandelbrot_variation_1963}
 \citation{mandelbrot_variation_1963,cont_empirical_2001,stenger_jdiq_ts_synthesis_2024}
 \citation{engle_1982,bollerslev_garch_1986}
 \citation{heston_stochastic_1993,merton_jump_1976}
@@ -15,7 +16,6 @@
 \@writefile{toc}{\contentsline {section}{Abstract}{1}{section*.1}\protected@file@percent }
 \@writefile{toc}{\contentsline {section}{\numberline {1}Introduction}{1}{section.1}\protected@file@percent }
 \newlabel{sec:introduction}{{1}{1}{Introduction}{section.1}{}}
-\citation{au_yeung_jump_2020}
 \citation{sharpe_simplified_1963}
 \citation{embrechts_copulas_2002,aas_pair_2009}
 \citation{lux_marchesi_1999,cont_bouchaud_2000,chen_herding_2015,farmer_joshi_2002,lebaron_agent_2006,arthur_complexity_2021,farmer_quantitative_2025}
@@ -26,10 +26,7 @@
 \citation{cont_empirical_2001}
 \@writefile{toc}{\contentsline {section}{\numberline {2}Related Work}{2}{section.2}\protected@file@percent }
 \newlabel{sec:related-work}{{2}{2}{Related Work}{section.2}{}}
-\@writefile{lof}{\contentsline {figure}{\numberline {1}{\ignorespaces Empirical stylized facts of SPY daily excess growth rates (2014--2024). Panel\nonbreakingspace (a) shows the leptokurtic marginal distribution; the Laplace fit substantially outperforms the Gaussian. Panel\nonbreakingspace (b) confirms heavy tails via a normal Q-Q plot. Panels\nonbreakingspace (c) and\nonbreakingspace (d) contrast the near-zero autocorrelation of raw returns (consistent with the efficient markets hypothesis) against the persistent autocorrelation of absolute returns, motivating the jump-duration extension.}}{3}{figure.caption.2}\protected@file@percent }
-\providecommand*\caption@xref[2]{\@setref\relax\@undefined{#1}}
-\newlabel{fig:empirical_motivation}{{1}{3}{Empirical stylized facts of SPY daily excess growth rates (2014--2024). Panel~(a) shows the leptokurtic marginal distribution; the Laplace fit substantially outperforms the Gaussian. Panel~(b) confirms heavy tails via a normal Q-Q plot. Panels~(c) and~(d) contrast the near-zero autocorrelation of raw returns (consistent with the efficient markets hypothesis) against the persistent autocorrelation of absolute returns, motivating the jump-duration extension}{figure.caption.2}{}}
-\@writefile{toc}{\contentsline {subsection}{\numberline {2.1}Stylized facts and the limitations of parametric models}{3}{subsection.2.1}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {2.1}Stylized facts and the limitations of parametric models}{2}{subsection.2.1}\protected@file@percent }
 \citation{engle_1982}
 \citation{bollerslev_garch_1986}
 \citation{diebold_inoue_2001}
@@ -37,6 +34,9 @@
 \citation{merton_jump_1976}
 \citation{kou_jump-diffusion_2002}
 \citation{au_yeung_jump_2020}
+\@writefile{lof}{\contentsline {figure}{\numberline {1}{\ignorespaces Empirical stylized facts of SPY daily excess growth rates (2014--2024). Panel\nonbreakingspace (a) shows the leptokurtic marginal distribution; the Laplace fit substantially outperforms the Gaussian. Panel\nonbreakingspace (b) confirms heavy tails via a normal quantile-quantile (Q-Q) plot. Panels\nonbreakingspace (c) and\nonbreakingspace (d) contrast the near-zero autocorrelation of raw returns (consistent with the efficient markets hypothesis) against the persistent autocorrelation of absolute returns, motivating the jump-duration extension.}}{3}{figure.caption.2}\protected@file@percent }
+\providecommand*\caption@xref[2]{\@setref\relax\@undefined{#1}}
+\newlabel{fig:empirical_motivation}{{1}{3}{Empirical stylized facts of SPY daily excess growth rates (2014--2024). Panel~(a) shows the leptokurtic marginal distribution; the Laplace fit substantially outperforms the Gaussian. Panel~(b) confirms heavy tails via a normal quantile-quantile (Q-Q) plot. Panels~(c) and~(d) contrast the near-zero autocorrelation of raw returns (consistent with the efficient markets hypothesis) against the persistent autocorrelation of absolute returns, motivating the jump-duration extension}{figure.caption.2}{}}
 \citation{baum_1970}
 \citation{rabiner_introduction_1986}
 \citation{hamilton_1989}
@@ -65,7 +65,7 @@
 \citation{kou_jump-diffusion_2002}
 \@writefile{toc}{\contentsline {section}{\numberline {3}Methods}{7}{section.3}\protected@file@percent }
 \newlabel{sec:methods}{{3}{7}{Methods}{section.3}{}}
-\newlabel{eq:growth_rate}{{1}{7}{Excess growth rate calculation}{equation.1}{}}
+\newlabel{eq:growth_rate}{{1}{7}{Excess growth rate calculation}{equation.3.1}{}}
 \citation{bilmes_gentle_nodate}
 \citation{bulla_stylized_2006}
 \citation{glasserman_monte_2003}
@@ -79,35 +79,35 @@
 \citation{kolmogorov_1933,smirnov_1948}
 \citation{anderson_darling_1952}
 \citation{anderson_darling_1952}
-\newlabel{eq:grid_search}{{3}{9}{Hyperparameter optimization via grid search}{equation.3}{}}
-\newlabel{eq:ks_stat}{{4}{9}{Statistical validation metrics}{equation.4}{}}
-\newlabel{eq:ad_stat}{{5}{9}{Statistical validation metrics}{equation.5}{}}
+\newlabel{eq:grid_search}{{3}{9}{Hyperparameter optimization via grid search}{equation.3.3}{}}
+\newlabel{eq:ks_stat}{{4}{9}{Statistical validation metrics}{equation.3.4}{}}
+\newlabel{eq:ad_stat}{{5}{9}{Statistical validation metrics}{equation.3.5}{}}
 \citation{sharpe_simplified_1963}
-\newlabel{eq:wasserstein}{{6}{10}{Continuous distributional distance metrics}{equation.6}{}}
-\newlabel{eq:hellinger}{{7}{10}{Continuous distributional distance metrics}{equation.7}{}}
-\newlabel{eq:acf_mae}{{8}{10}{Temporal fidelity metric}{equation.8}{}}
-\newlabel{eq:sim}{{9}{10}{Single-Index Factor Model extension}{equation.9}{}}
+\newlabel{eq:wasserstein}{{6}{10}{Continuous distributional distance metrics}{equation.3.6}{}}
+\newlabel{eq:hellinger}{{7}{10}{Continuous distributional distance metrics}{equation.3.7}{}}
+\newlabel{eq:acf_mae}{{8}{10}{Temporal fidelity metric}{equation.3.8}{}}
+\newlabel{eq:sim}{{9}{10}{Single-Index Factor Model extension}{equation.3.9}{}}
 \citation{embrechts_copulas_2002,cherubini_copula_2004}
 \citation{embrechts_copulas_2002}
-\newlabel{eq:sim_gen}{{10}{11}{Single-Index Factor Model extension}{equation.10}{}}
+\newlabel{eq:sim_gen}{{10}{11}{Single-Index Factor Model extension}{equation.3.10}{}}
 \citation{aas_pair_2009}
 \citation{fama_efficient_1970}
 \citation{bulla_stylized_2006}
-\@writefile{lot}{\contentsline {table}{\numberline {1}{\ignorespaces Descriptive statistics and stylized-facts tests for SPY daily excess growth rates. In-sample: 2014--2024 ($T=2{,}766$); out-of-sample: 2025 ($T=249$). Gaussian and Laplace columns show MLE fits to the in-sample data. JB = Jarque-Bera normality test. LB = Ljung-Box autocorrelation test at lag 20. $^\ast $ denotes rejection at $\alpha =0.05$.}}{13}{table.caption.14}\protected@file@percent }
-\newlabel{tab:descriptive_stats}{{1}{13}{Descriptive statistics and stylized-facts tests for SPY daily excess growth rates. In-sample: 2014--2024 ($T=2{,}766$); out-of-sample: 2025 ($T=249$). Gaussian and Laplace columns show MLE fits to the in-sample data. JB = Jarque-Bera normality test. LB = Ljung-Box autocorrelation test at lag 20. $^\ast $ denotes rejection at $\alpha =0.05$}{table.caption.14}{}}
+\@writefile{lot}{\contentsline {table}{\numberline {1}{\ignorespaces Descriptive statistics and stylized-facts tests for SPY daily excess growth rates. In-sample: 2014--2024 ($T=2{,}766$); out-of-sample: 2025 ($T=249$). Gaussian and Laplace columns show maximum likelihood estimation (MLE) fits to the in-sample data. JB = Jarque-Bera normality test. LB = Ljung-Box autocorrelation test at lag 20. $^\ast $ denotes rejection at $\alpha =0.05$.}}{13}{table.caption.14}\protected@file@percent }
+\newlabel{tab:descriptive_stats}{{1}{13}{Descriptive statistics and stylized-facts tests for SPY daily excess growth rates. In-sample: 2014--2024 ($T=2{,}766$); out-of-sample: 2025 ($T=249$). Gaussian and Laplace columns show maximum likelihood estimation (MLE) fits to the in-sample data. JB = Jarque-Bera normality test. LB = Ljung-Box autocorrelation test at lag 20. $^\ast $ denotes rejection at $\alpha =0.05$}{table.caption.14}{}}
 \@writefile{toc}{\contentsline {section}{\numberline {4}Empirical Study}{13}{section.4}\protected@file@percent }
 \newlabel{sec:empirical-study}{{4}{13}{Empirical Study}{section.4}{}}
 \@writefile{toc}{\contentsline {subsection}{\numberline {4.1}Descriptive statistics and stylized facts}{13}{subsection.4.1}\protected@file@percent }
 \@writefile{toc}{\contentsline {subsection}{\numberline {4.2}Jump hyperparameter optimization and state resolution}{13}{subsection.4.2}\protected@file@percent }
 \@writefile{toc}{\contentsline {subsection}{\numberline {4.3}In-sample distributional and temporal quality}{13}{subsection.4.3}\protected@file@percent }
-\@writefile{toc}{\contentsline {paragraph}{Baseline anchors.}{13}{section*.15}\protected@file@percent }
+\@writefile{toc}{\contentsline {paragraph}{Baseline anchors.}{14}{section*.15}\protected@file@percent }
 \@writefile{toc}{\contentsline {paragraph}{Distributional fidelity.}{14}{section*.16}\protected@file@percent }
 \@writefile{toc}{\contentsline {paragraph}{Continuous distributional distances.}{14}{section*.17}\protected@file@percent }
-\@writefile{toc}{\contentsline {paragraph}{Temporal fidelity.}{14}{section*.18}\protected@file@percent }
 \citation{cho_gru_2014}
 \citation{bulla_stylized_2006}
 \citation{cho_gru_2014}
 \citation{bulla_stylized_2006}
+\@writefile{toc}{\contentsline {paragraph}{Temporal fidelity.}{15}{section*.18}\protected@file@percent }
 \@writefile{toc}{\contentsline {paragraph}{Novelty, diversity, and parsimony.}{15}{section*.19}\protected@file@percent }
 \@writefile{toc}{\contentsline {subsection}{\numberline {4.4}Out-of-sample evaluation and model tradeoffs}{15}{subsection.4.4}\protected@file@percent }
 \@writefile{lot}{\contentsline {table}{\numberline {2}{\ignorespaces In-sample and out-of-sample model comparison for SPY (1{,}000 simulated paths, significance level $\alpha =0.05$). Bootstrap: i.i.d.\ resample of training data. Gaussian/Laplace: i.i.d.\ draws from MLE-fitted distributions. GARCH: GARCH(1,1) estimated by quasi-maximum likelihood. GRU: 2-layer gated recurrent unit \citep  {cho_gru_2014} with Gaussian output head (autoregressive generation). HSMM: hidden semi-Markov model with $K=8$ Laplace quantile states, negative-binomial dwell times, and Student-t($\nu =5$) emissions \citep  {bulla_stylized_2006}. HMM-NJ: hidden Markov model ($N=100$ states) without jumps. HMM-WJ: hybrid model with Poisson jump-duration extension. ACF-MAE: mean absolute error of the ACF of $|G_t|$ over lags 1--252. Wasserstein-1: mean absolute difference of sorted empirical quantiles (Eq.\nonbreakingspace \ref {eq:wasserstein}); units are daily excess growth rates. Hellinger: histogram-based distributional overlap distance in $[0,1]$ (Eq.\nonbreakingspace \ref {eq:hellinger}); $H=0$ is identical, $H=1$ is disjoint. Coverage: fraction of 99 empirical quantiles (1st--99th) falling within the [5th, 95th] percentile envelope of the corresponding synthetic quantiles. Standard errors in parentheses: binomial SE for pass rates, $\text  {std}/\!\sqrt  {n}$ for kurtosis, Wasserstein-1, and Hellinger, bootstrap SE ($B=500$) for ACF-MAE and coverage. Novelty and diversity (not shown) were uniformly high ($>0.98$) across all models. Arrows indicate preferred direction: $\uparrow $\nonbreakingspace higher is better, $\downarrow $\nonbreakingspace lower is better, $\approx $\nonbreakingspace closer to observed is better.}}{16}{table.caption.20}\protected@file@percent }
@@ -129,19 +129,19 @@
 \@writefile{toc}{\contentsline {paragraph}{Vine copula family selection and the symmetry of equity tail dependence.}{19}{section*.25}\protected@file@percent }
 \citation{ryden_stylized_1998,bulla_stylized_2006}
 \citation{glasserman_monte_2003}
-\@writefile{lof}{\contentsline {figure}{\numberline {5}{\ignorespaces Multi-asset extension via the Single-Index Model (SIM) across 424 S\&P\nonbreakingspace 500 constituents. Panel\nonbreakingspace (a) shows the SIM regression fit quality ($R^2_i$ vs.\ $\hat  {\beta }_i$) by GICS sector; assets with higher systematic risk exposure exhibit stronger factor model fit. Panel\nonbreakingspace (b) shows the distribution of KS pass rates across the full asset universe (median 66.7\%, mean 58.4\%), confirming that the SIM captures most of the distributional structure for high-$\beta $ assets but degrades for low-correlation names.}}{20}{figure.caption.26}\protected@file@percent }
-\newlabel{fig:multi_asset}{{5}{20}{Multi-asset extension via the Single-Index Model (SIM) across 424 S\&P~500 constituents. Panel~(a) shows the SIM regression fit quality ($R^2_i$ vs.\ $\hat {\beta }_i$) by GICS sector; assets with higher systematic risk exposure exhibit stronger factor model fit. Panel~(b) shows the distribution of KS pass rates across the full asset universe (median 66.7\%, mean 58.4\%), confirming that the SIM captures most of the distributional structure for high-$\beta $ assets but degrades for low-correlation names}{figure.caption.26}{}}
-\@writefile{toc}{\contentsline {section}{\numberline {5}Discussion}{20}{section.5}\protected@file@percent }
-\newlabel{sec:discussion}{{5}{20}{Discussion}{section.5}{}}
-\@writefile{toc}{\contentsline {subsection}{\numberline {5.1}The role of the jump-duration mechanism}{20}{subsection.5.1}\protected@file@percent }
+\@writefile{lof}{\contentsline {figure}{\numberline {5}{\ignorespaces Multi-asset extension via the Single-Index Model (SIM) across 424 S\&P\nonbreakingspace 500 constituents. Panel\nonbreakingspace (a) shows the SIM regression fit quality ($R^2_i$ vs.\ $\hat  {\beta }_i$) by GICS sector; assets with higher systematic risk exposure exhibit stronger factor model fit. Panel\nonbreakingspace (b) shows the distribution of KS pass rates across the full asset universe (median 66.7\%, mean 58.4\%), confirming that the SIM captures most of the distributional structure for high-$\beta $ assets but degrades for low-correlation names.}}{21}{figure.caption.26}\protected@file@percent }
+\newlabel{fig:multi_asset}{{5}{21}{Multi-asset extension via the Single-Index Model (SIM) across 424 S\&P~500 constituents. Panel~(a) shows the SIM regression fit quality ($R^2_i$ vs.\ $\hat {\beta }_i$) by GICS sector; assets with higher systematic risk exposure exhibit stronger factor model fit. Panel~(b) shows the distribution of KS pass rates across the full asset universe (median 66.7\%, mean 58.4\%), confirming that the SIM captures most of the distributional structure for high-$\beta $ assets but degrades for low-correlation names}{figure.caption.26}{}}
+\@writefile{toc}{\contentsline {section}{\numberline {5}Discussion}{21}{section.5}\protected@file@percent }
+\newlabel{sec:discussion}{{5}{21}{Discussion}{section.5}{}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {5.1}The role of the jump-duration mechanism}{21}{subsection.5.1}\protected@file@percent }
 \citation{dwork_differential_2006}
 \citation{stadler_synthetic_2022}
 \citation{stenger_jdiq_ts_synthesis_2024}
 \citation{sharpe_simplified_1963,fama_french_1993}
-\@writefile{toc}{\contentsline {subsection}{\numberline {5.2}Practical implications}{21}{subsection.5.2}\protected@file@percent }
-\@writefile{toc}{\contentsline {subsection}{\numberline {5.3}Limitations}{21}{subsection.5.3}\protected@file@percent }
-\@writefile{toc}{\contentsline {section}{\numberline {6}Conclusion}{23}{section.6}\protected@file@percent }
-\newlabel{sec:conclusion}{{6}{23}{Conclusion}{section.6}{}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {5.2}Practical implications}{22}{subsection.5.2}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {5.3}Limitations}{22}{subsection.5.3}\protected@file@percent }
+\@writefile{toc}{\contentsline {section}{\numberline {6}Conclusion}{24}{section.6}\protected@file@percent }
+\newlabel{sec:conclusion}{{6}{24}{Conclusion}{section.6}{}}
 \bibstyle{ACM-Reference-Format}
 \bibdata{References_v1.bib}
 \bibcite{aas_pair_2009}{{1}{2009}{{Aas et~al\mbox  {.}}}{{}}}
@@ -170,7 +170,7 @@
 \bibcite{fama_efficient_1970}{{24}{1970}{{Fama}}{{}}}
 \bibcite{fama_french_1993}{{25}{1993}{{Fama and French}}{{}}}
 \bibcite{farmer_quantitative_2025}{{26}{2025}{{Farmer}}{{}}}
-\@writefile{toc}{\contentsline {section}{References}{25}{section*.31}\protected@file@percent }
+\@writefile{toc}{\contentsline {section}{References}{26}{section*.31}\protected@file@percent }
 \bibcite{farmer_joshi_2002}{{27}{2002}{{Farmer and Joshi}}{{}}}
 \bibcite{fischer_krauss_2018}{{28}{2018}{{Fischer and Krauss}}{{}}}
 \bibcite{glasserman_monte_2003}{{29}{2003}{{Glasserman}}{{}}}
@@ -223,18 +223,18 @@
 \citation{embrechts_copulas_2002}
 \newlabel{sec:copula_math}{{6}{S-9}{S6. Copula dependence models: mathematical details}{section*.42}{}}
 \@writefile{toc}{\contentsline {paragraph}{Sklar's theorem and the copula framework.}{S-9}{section*.43}\protected@file@percent }
-\newlabel{eq:sklar}{{S1}{S-9}{Sklar's theorem and the copula framework}{equation.1}{}}
+\newlabel{eq:sklar}{{S1}{S-9}{Sklar's theorem and the copula framework}{equation.6.1}{}}
 \@writefile{toc}{\contentsline {paragraph}{Probability integral transform (PIT).}{S-9}{section*.44}\protected@file@percent }
-\newlabel{eq:pit}{{S2}{S-9}{Probability integral transform (PIT)}{equation.2}{}}
+\newlabel{eq:pit}{{S2}{S-9}{Probability integral transform (PIT)}{equation.6.2}{}}
 \@writefile{toc}{\contentsline {paragraph}{Gaussian copula.}{S-9}{section*.45}\protected@file@percent }
-\newlabel{eq:gauss_density}{{S4}{S-9}{Gaussian copula}{equation.4}{}}
+\newlabel{eq:gauss_density}{{S4}{S-9}{Gaussian copula}{equation.6.4}{}}
 \@writefile{toc}{\contentsline {paragraph}{Student-t copula.}{S-9}{section*.46}\protected@file@percent }
-\newlabel{eq:t_density}{{S6}{S-9}{Student-t copula}{equation.6}{}}
+\newlabel{eq:t_density}{{S6}{S-9}{Student-t copula}{equation.6.6}{}}
 \citation{aas_pair_2009}
-\newlabel{eq:tail_dep}{{S9}{S-10}{Student-t copula}{equation.9}{}}
+\newlabel{eq:tail_dep}{{S9}{S-10}{Student-t copula}{equation.6.9}{}}
 \@writefile{toc}{\contentsline {paragraph}{C-vine copula decomposition.}{S-10}{section*.47}\protected@file@percent }
-\newlabel{eq:cvine}{{S10}{S-10}{C-vine copula decomposition}{equation.10}{}}
-\newlabel{eq:hfunc}{{S11}{S-10}{C-vine copula decomposition}{equation.11}{}}
+\newlabel{eq:cvine}{{S10}{S-10}{C-vine copula decomposition}{equation.6.10}{}}
+\newlabel{eq:hfunc}{{S11}{S-10}{C-vine copula decomposition}{equation.6.11}{}}
 \citation{embrechts_copulas_2002}
 \@writefile{toc}{\contentsline {paragraph}{Variable ordering.}{S-11}{section*.48}\protected@file@percent }
 \@writefile{toc}{\contentsline {paragraph}{Simulation via rank reordering.}{S-11}{section*.49}\protected@file@percent }
@@ -256,5 +256,5 @@
 \newlabel{tocindent3}{0pt}
 \newlabel{tocindent4}{0pt}
 \newlabel{tocindent5}{0pt}
-\newlabel{TotPages}{{42}{S-15}{}{page.S-15}{}}
-\gdef \@abspage@last{42}
+\newlabel{TotPages}{{43}{S-15}{}{page.S-15}{}}
+\gdef \@abspage@last{43}

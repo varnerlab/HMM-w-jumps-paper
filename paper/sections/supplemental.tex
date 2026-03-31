@@ -343,7 +343,7 @@ where $c_{k,j|1,\dots,k-1}$ is a bivariate copula density for the pair $(k, j)$ 
 \end{equation}
 and represents the conditional CDF of $U$ given $V = v$ under the bivariate copula $C_{ab}$. For tree level $k$, pseudo-observations are computed as $u_{j|1,\dots,k} = h(u_{j|1,\dots,k-1} \mid u_{k|1,\dots,k-1}; \hat{\theta}_{k,j})$, where $\hat{\theta}_{k,j}$ is the parameter fitted at that edge.
 
-At each edge, five candidate bivariate families are fitted and the one with the lowest AIC $= 2p - 2\ln\hat{L}$ is selected, where $p$ is the number of parameters ($p=2$ for Student-t, $p=1$ for all others) and $\hat{L}$ is the maximized likelihood on the pseudo-observations at that edge. The five families and their densities are as follows.
+At each edge, five candidate bivariate families are fitted and the one with the lowest Akaike information criterion (AIC) $= 2p - 2\ln\hat{L}$ is selected, where $p$ is the number of parameters ($p=2$ for Student-t, $p=1$ for all others) and $\hat{L}$ is the maximized likelihood on the pseudo-observations at that edge. The five families and their densities are as follows.
 
 \begin{itemize}
     \item \textit{Gaussian bivariate copula} (Eq.~\ref{eq:gauss_density}): parameter $\rho$, no tail dependence.
@@ -391,7 +391,7 @@ Figure~\ref{fig:acf_jump_comparison} demonstrates this directly. The steel dashe
 
 \subsection*{S8. Multi-asset SIM extension: detailed results}
 
-The Single-Index Model extension propagated HMM-WJ SPY paths to a 424-asset universe via the factor decomposition $\hat{G}_{i,t}=\hat{\alpha}_i+\hat{\beta}_i G_{{\rm SPY},t}+\hat{\eta}_{i,t}$, where idiosyncratic shocks were resampled from empirical residuals. Figure~\ref{fig:multi_asset} shows the SIM fit quality by GICS sector (panel~a) and the distribution of KS pass rates across all 424 assets (panel~b). Table~\ref{tab:multi_asset} reports the cross-sectional summary statistics.
+The Single-Index Model extension propagated HMM-WJ SPY paths to a 424-asset universe via the factor decomposition $\hat{G}_{i,t}=\hat{\alpha}_i+\hat{\beta}_i G_{{\rm SPY},t}+\hat{\eta}_{i,t}$, where idiosyncratic shocks were resampled from empirical residuals. Figure~\ref{fig:multi_asset} shows the SIM fit quality by Global Industry Classification Standard (GICS) sector (panel~a) and the distribution of KS pass rates across all 424 assets (panel~b). Table~\ref{tab:multi_asset} reports the cross-sectional summary statistics.
 
 % ── Figure: Multi-Asset SIM Extension ──────────────────────────────────────
 \begin{figure}[tp]
