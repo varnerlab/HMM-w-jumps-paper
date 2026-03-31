@@ -2,7 +2,7 @@
 %%% Do NOT edit. File created by BibTeX with style
 %%% ACM-Reference-Format-Journals [18-Jan-2012].
 
-\begin{thebibliography}{58}
+\begin{thebibliography}{57}
 
 %%% ====================================================================
 %%% NOTE TO THE USER: you can override these defaults by providing
@@ -725,17 +725,6 @@
   \bibinfo{pages}{121261}.
 \newblock
 \href{https://doi.org/10.1016/j.physa.2019.121261}{doi:\nolinkurl{10.1016/j.physa.2019.121261}}
-
-
-\bibitem[Toth and Jones(2019)]%
-        {toth_against_2019}
-\bibfield{author}{\bibinfo{person}{David Toth} {and} \bibinfo{person}{Bruce
-  Jones}.} \bibinfo{year}{2019}\natexlab{}.
-\newblock \showarticletitle{Against the {Norm}: {Modeling} {Daily} {Stock}
-  {Returns} with the {Laplace} {Distribution}}.
-\newblock \bibinfo{journal}{\emph{arXiv preprint arXiv:1906.10325}}
-  (\bibinfo{year}{2019}).
-\newblock
 
 
 \bibitem[Yoon et~al\mbox{.}(2019)]%

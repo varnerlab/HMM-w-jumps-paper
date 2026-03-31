@@ -487,3 +487,42 @@ Figure~\ref{fig:price_trajectories} compares simulated price trajectories for th
     \label{fig:price_trajectories}
 \end{figure*}
 
+\clearpage
+
+\subsection*{S11. Validation metric definitions}
+\label{sec:validation_metrics}
+
+This section provides the formal definitions of the four validation metrics used in the main text to assess the distributional fidelity of synthetic paths.
+
+\paragraph{Kolmogorov-Smirnov (KS) statistic.}
+The two-sample KS statistic \cite{kolmogorov_1933, smirnov_1948} measures the maximum pointwise difference between two empirical CDFs:
+\begin{equation}
+    D_{KS} = \sup_{x} \left\lvert F_n(x) - F_m(x) \right\rvert
+    \label{eq:ks_stat}
+\end{equation}
+where $F_n$ and $F_m$ denote the empirical CDFs of the observed and simulated sequences of lengths $n$ and $m$, respectively. The null hypothesis of distributional equivalence is rejected at significance level $\alpha$ when $D_{KS}$ exceeds the critical value $c(\alpha)\sqrt{(n+m)/(nm)}$.
+
+\paragraph{Anderson-Darling (AD) statistic.}
+The AD statistic \cite{anderson_darling_1952} places greater weight on the distributional tails than the KS test. The one-sample form measures deviation from a reference CDF $F_0$:
+\begin{equation}
+    A^2 = -n - \sum_{i=1}^{n} \frac{2i-1}{n}\left[\ln F_0(X_{(i)}) + \ln\left(1 - F_0(X_{(n+1-i)})\right)\right]
+    \label{eq:ad_stat}
+\end{equation}
+where $X_{(1)} \le \cdots \le X_{(n)}$ are the order statistics of the sample. In this study, we applied the two-sample variant, which replaces $F_0$ with the empirical CDF of the observed SPY series; critical values are obtained from the $k$-sample variant of \citeauthor{anderson_darling_1952} as implemented in HypothesisTests.jl. The AD test is particularly suited for assessing tail-distributional fidelity, which is the primary concern for risk management applications.
+
+\paragraph{Wasserstein-1 distance.}
+The Wasserstein-1 distance measures the minimum work (distance $\times$ probability mass) required to transform one distribution into the other. For two equal-length empirical samples with order statistics $x_{(1)} \le \cdots \le x_{(T)}$ and $y_{(1)} \le \cdots \le y_{(T)}$:
+\begin{equation}
+    W_1 = \frac{1}{T}\sum_{i=1}^{T} \left\lvert x_{(i)} - y_{(i)} \right\rvert
+    \label{eq:wasserstein}
+\end{equation}
+$W_1$ is expressed in the same units as the data (daily excess growth rates) and equals zero only when the empirical distributions are identical. Because it is computed from sorted order statistics, the temporal ordering of observations is irrelevant.
+
+\paragraph{Hellinger distance.}
+The Hellinger distance measures distributional overlap on a bounded scale $[0, 1]$, with $H = 0$ indicating identical distributions and $H = 1$ indicating completely disjoint support. Given normalized histogram estimates $\{p_k\}_{k=1}^{K}$ and $\{q_k\}_{k=1}^{K}$ over a common $K$-bin grid:
+\begin{equation}
+    H(P, Q) = \frac{1}{\sqrt{2}}\sqrt{\sum_{k=1}^{K}\left(\sqrt{p_k} - \sqrt{q_k}\right)^2}
+    \label{eq:hellinger}
+\end{equation}
+Histograms were constructed on the common support of observed and simulated samples using $K = 50$ equal-width bins. The bounded scale makes $H$ directly comparable across models and evaluation windows without rescaling.
+

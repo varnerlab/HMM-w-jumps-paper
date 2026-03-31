@@ -1,4 +1,4 @@
-This is BibTeX, Version 0.99d (TeX Live 2024)
+This is BibTeX, Version 0.99d (TeX Live 2025)
 Capacity: max_strings=200000, hash_size=200000, hash_prime=170003
 The top-level auxiliary file: Paper_v1.aux
 The style file: ACM-Reference-Format.bst
@@ -33,50 +33,48 @@ Warning--empty address in kwon_can_2024
 Warning--empty address in lebaron_agent_2006
 Warning--empty publisher in stadler_synthetic_2022
 Warning--empty address in stadler_synthetic_2022
-Warning--no number and no volume in toth_against_2019
-Warning--page numbers missing in both pages and numpages fields in toth_against_2019
 Warning--empty publisher in yoon_timegan_2019
 Warning--empty address in yoon_timegan_2019
 Warning--page numbers missing in both pages and numpages fields in yoon_timegan_2019
-You've used 58 entries,
+You've used 57 entries,
             6273 wiz_defined-function locations,
-            1889 strings with 28801 characters,
-and the built_in function-call counts, 67772 in all, are:
-= -- 10315
-> -- 1696
+            1885 strings with 28635 characters,
+and the built_in function-call counts, 66743 in all, are:
+= -- 10148
+> -- 1665
 < -- 1
-+ -- 567
-- -- 651
-* -- 4392
-:= -- 6118
-add.period$ -- 298
-call.type$ -- 58
-change.case$ -- 368
-chr.to.int$ -- 58
-cite$ -- 84
-duplicate$ -- 5831
-empty$ -- 4098
-format.name$ -- 799
-if$ -- 17471
++ -- 556
+- -- 637
+* -- 4328
+:= -- 6022
+add.period$ -- 293
+call.type$ -- 57
+change.case$ -- 362
+chr.to.int$ -- 57
+cite$ -- 81
+duplicate$ -- 5749
+empty$ -- 4038
+format.name$ -- 781
+if$ -- 17197
 int.to.chr$ -- 2
 int.to.str$ -- 1
-missing$ -- 219
-newline$ -- 536
-num.names$ -- 408
-pop$ -- 1997
+missing$ -- 215
+newline$ -- 528
+num.names$ -- 401
+pop$ -- 1960
 preamble$ -- 1
-purify$ -- 831
+purify$ -- 817
 quote$ -- 0
-skip$ -- 2080
+skip$ -- 2055
 stack$ -- 0
-substring$ -- 5503
-swap$ -- 645
+substring$ -- 5449
+swap$ -- 641
 text.length$ -- 1
 text.prefix$ -- 0
 top$ -- 0
-type$ -- 1063
-warning$ -- 26
-while$ -- 477
+type$ -- 1047
+warning$ -- 24
+while$ -- 470
 width$ -- 0
-write$ -- 1177
-(There were 26 warnings)
+write$ -- 1159
+(There were 24 warnings)
