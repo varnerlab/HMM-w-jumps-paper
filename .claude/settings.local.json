@@ -37,7 +37,16 @@
       "Bash(git add:*)",
       "Bash(git commit:*)",
       "Bash(git push:*)",
-      "Bash(sh paper/Build.sh Paper_v1)"
+      "Bash(sh paper/Build.sh Paper_v1)",
+      "Bash(for file:*)",
+      "Bash(do test:*)",
+      "Bash(echo \"✓ $file exists\")",
+      "Bash(echo \"✗ $file MISSING\")",
+      "Bash(__NEW_LINE_b62a3f8041b34b72__ for:*)",
+      "Bash(test -f \"/Users/jeffreyvarner/Desktop/papers/HMM-w-jumps-paper/paper/sections/figs/$fig\")",
+      "Bash(echo \"✓ $fig\")",
+      "Bash(echo \"✗ $fig MISSING\")",
+      "Bash(sort -t'[' -k2 -n)"
     ]
   }
 }
