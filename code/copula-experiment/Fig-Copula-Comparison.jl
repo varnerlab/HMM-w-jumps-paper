@@ -99,20 +99,11 @@ studt_corr = results["StudentTCopula"].sim_corr
 # Compute correlation error matrix
 corr_err = obs_corr .- studt_corr
 
-# Build a single heatmap showing observed (lower triangle) and simulated (upper triangle)
-# with the error annotated
+# Build heatmap colored by observed correlations; annotations show obs / sim
 n = length(TICKERS)
-combined = zeros(n, n)
+combined = copy(obs_corr)
 for i in 1:n
-    for j in 1:n
-        if i == j
-            combined[i, j] = 1.0
-        elseif i > j
-            combined[i, j] = obs_corr[i, j]      # lower triangle: observed
-        else
-            combined[i, j] = studt_corr[i, j]     # upper triangle: simulated
-        end
-    end
+    combined[i, i] = 1.0
 end
 
 pb = heatmap(1:n, 1:n, combined;
@@ -120,21 +111,24 @@ pb = heatmap(1:n, 1:n, combined;
     xticks = (1:n, TICKERS), yticks = (1:n, TICKERS),
     xrotation = 0,
     colorbar_title = "Correlation",
-    title = "(b) Observed (lower) vs Student-t Copula (upper)",
+    title = "(b) Pairwise Correlations: Observed / Student-t Copula",
     basestyle...)
 
-# Annotate cells with values
+# Annotate cells with both observed / simulated values
 for i in 1:n
     for j in 1:n
-        val = combined[i, j]
-        txt_col = abs(val) > 0.5 ? :white : :black
-        annotate!(pb, j, i, text(@sprintf("%.2f", val), :center, 9, txt_col))
+        if i == j
+            annotate!(pb, j, i, text("1.00", :center, 9, :white))
+        else
+            obs_val = obs_corr[i, j]
+            sim_val = studt_corr[i, j]
+            # Color text based on the cell's background (use combined matrix value)
+            bg_val = combined[i, j]
+            txt_col = abs(bg_val) > 0.5 ? :white : :black
+            label = @sprintf("%.2f / %.2f", obs_val, sim_val)
+            annotate!(pb, j, i, text(label, :center, 8, txt_col))
+        end
     end
-end
-
-# Add dividing line annotations
-for i in 1:n
-    annotate!(pb, i, i, text("1.00", :center, 9, :white))
 end
 
 # ── 5. Combine and save ─────────────────────────────────────────────────────

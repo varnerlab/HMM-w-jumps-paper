@@ -470,26 +470,7 @@ Hellinger              & 0.239 (0.001) & 0.212 (0.001) & \textbf{0.210} (0.001) 
 
 \clearpage
 
-\subsection*{S10. Price trajectory comparison}
-
-Figure~\ref{fig:price_trajectories} compares simulated price trajectories for the four-asset portfolio under three dependence specifications, demonstrating the visual effect of the copula reordering mechanism.
-
-\begin{figure*}[tp]
-    \centering
-    \includegraphics[width=\textwidth]{Fig-Price-Trajectories.pdf}
-    \Description{Three-panel figure showing simulated price trajectories for SPY, NVDA, JNJ, JPM under three dependence specifications.}
-    \caption{Simulated price trajectories under three dependence specifications (all starting at \$100).
-    (a)~Independent HMM marginals: drawdowns and rallies occur at unrelated times.
-    (b)~Single-Index Model: partial co-movement via the market factor.
-    (c)~Student-t copula: crash episodes synchronize because the copula reorders each asset's
-    independently simulated values so that extreme days coincide.
-    Panels~(a) and~(c) use the same growth rate values; only the temporal ordering differs.}
-    \label{fig:price_trajectories}
-\end{figure*}
-
-\clearpage
-
-\subsection*{S11. Validation metric definitions}
+\subsection*{S10. Validation metric definitions}
 \label{sec:validation_metrics}
 
 This section provides the formal definitions of the four validation metrics used in the main text to assess the distributional fidelity of synthetic paths.

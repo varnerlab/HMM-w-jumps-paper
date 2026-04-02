@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.27 (TeX Live 2025) (preloaded format=pdflatex 2025.3.8)  2 APR 2026 11:14
+This is pdfTeX, Version 3.141592653-2.6-1.40.27 (TeX Live 2025) (preloaded format=pdflatex 2025.3.8)  2 APR 2026 12:00
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -1441,17 +1441,14 @@ Package hyperref Info: Option `pdfdisplaydoctitle' set `true' on input line 144
 \c@theorem=\count386
 
 Include comment 'screenonly' Excluding comment 'printonly'
-Include comment 'anonsuppress' (./Paper_v1.aux
-
-LaTeX Warning: Label `fig:multi_asset' multiply defined.
-
-)
+Include comment 'anonsuppress' (./Paper_v1.aux)
 \openout1 = `Paper_v1.aux'.
 
 LaTeX Font Info:    Checking defaults for OML/nxlmi/m/it on input line 144.
 LaTeX Font Info:    Trying to load font information for OML+nxlmi on input line
  144.
- (/usr/local/texlive/2025/texmf-dist/tex/latex/newtx/omlnxlmi.fd
+
+(/usr/local/texlive/2025/texmf-dist/tex/latex/newtx/omlnxlmi.fd
 File: omlnxlmi.fd 2013/11/19 Fontinst v1.933 font definitions for OML/nxlmi.
 )
 LaTeX Font Info:    ... okay on input line 144.
@@ -1931,9 +1928,9 @@ Package fancyhdr Warning: \headheight is too small (13.0pt):
 (fancyhdr)                You might also make \topmargin smaller:
 (fancyhdr)                \addtolength{\topmargin}{-5.48402pt}.
 
-[7.7]
+[7.7])
 
-[8.8])
+[8.8]
 
 
 Package fancyhdr Warning: \headheight is too small (13.0pt): 
@@ -1964,6 +1961,33 @@ m/n/10 g$
 .enc}
 
 ]
+LaTeX Font Info:    Font shape `T1/LinuxBiolinumT-TLF/m/n' will be
+(Font)              scaled to size 6.6pt on input line 65.
+LaTeX Font Info:    Font shape `T1/LinuxBiolinumT-TLF/m/n' will be
+(Font)              scaled to size 5.5pt on input line 65.
+LaTeX Font Info:    Font shape `T1/LinuxLibertineT-TLF/m/n' will be
+(Font)              scaled to size 7.0pt on input line 92.
+LaTeX Font Info:    Font shape `T1/LinuxLibertineT-TLF/b/n' will be
+(Font)              scaled to size 7.0pt on input line 92.
+LaTeX Font Info:    Font shape `T1/LinuxLibertineT-TLF/m/it' will be
+(Font)              scaled to size 7.0pt on input line 92.
+LaTeX Font Info:    Font shape `T1/LinuxLibertineT-TLF/m/n' will be
+(Font)              scaled to size 6.0pt on input line 93.
+<sections/figs/Fig4-Model-Comparison.pdf, id=318, 1806.75pt x 562.1pt>
+File: sections/figs/Fig4-Model-Comparison.pdf Graphic file (type pdf)
+<use sections/figs/Fig4-Model-Comparison.pdf>
+Package pdftex.def Info: sections/figs/Fig4-Model-Comparison.pdf  used on input
+ line 99.
+(pdftex.def)             Requested size: 395.8225pt x 123.13919pt.
+LaTeX Font Info:    Font shape `T1/LinuxBiolinumT-TLF/m/it' will be
+(Font)              scaled to size 9.0pt on input line 122.
+<sections/figs/Fig6-Statistical-Validation.pdf, id=323, 1204.5pt x 903.375pt>
+File: sections/figs/Fig6-Statistical-Validation.pdf Graphic file (type pdf)
+<use sections/figs/Fig6-Statistical-Validation.pdf>
+Package pdftex.def Info: sections/figs/Fig6-Statistical-Validation.pdf  used on
+ input line 134.
+(pdftex.def)             Requested size: 395.8225pt x 296.86029pt.
+
 
 
 Package fancyhdr Warning: \headheight is too small (13.0pt): 
@@ -1973,29 +1997,18 @@ Package fancyhdr Warning: \headheight is too small (13.0pt):
 (fancyhdr)                \addtolength{\topmargin}{-5.48402pt}.
 
 [11.11]
-LaTeX Font Info:    Font shape `T1/LinuxBiolinumT-TLF/m/n' will be
-(Font)              scaled to size 6.6pt on input line 67.
-LaTeX Font Info:    Font shape `T1/LinuxBiolinumT-TLF/m/n' will be
-(Font)              scaled to size 5.5pt on input line 67.
-LaTeX Font Info:    Font shape `T1/LinuxLibertineT-TLF/m/n' will be
-(Font)              scaled to size 7.0pt on input line 94.
-LaTeX Font Info:    Font shape `T1/LinuxLibertineT-TLF/b/n' will be
-(Font)              scaled to size 7.0pt on input line 94.
-LaTeX Font Info:    Font shape `T1/LinuxLibertineT-TLF/m/it' will be
-(Font)              scaled to size 7.0pt on input line 94.
-LaTeX Font Info:    Font shape `T1/LinuxLibertineT-TLF/m/n' will be
-(Font)              scaled to size 6.0pt on input line 95.
-<sections/figs/Fig4-Model-Comparison.pdf, id=326, 1806.75pt x 562.1pt>
-File: sections/figs/Fig4-Model-Comparison.pdf Graphic file (type pdf)
-<use sections/figs/Fig4-Model-Comparison.pdf>
-Package pdftex.def Info: sections/figs/Fig4-Model-Comparison.pdf  used on input
- line 101.
-(pdftex.def)             Requested size: 395.8225pt x 123.13919pt.
-LaTeX Font Info:    Font shape `T1/LinuxBiolinumT-TLF/m/it' will be
-(Font)              scaled to size 9.0pt on input line 124.
+<sections/figs/Fig-Price-Trajectories.pdf, id=331, 1806.75pt x 501.875pt>
+File: sections/figs/Fig-Price-Trajectories.pdf Graphic file (type pdf)
+<use sections/figs/Fig-Price-Trajectories.pdf>
+Package pdftex.def Info: sections/figs/Fig-Price-Trajectories.pdf  used on inpu
+t line 149.
+(pdftex.def)             Requested size: 395.8225pt x 109.9457pt.
 
 
 [12.12]
+LaTeX Font Info:    Font shape `T1/LinuxLibertineT-TLF/m/it' will be
+(Font)              scaled to size 9.0pt on input line 179.
+
 
 
 Package fancyhdr Warning: \headheight is too small (13.0pt): 
@@ -2005,42 +2018,16 @@ Package fancyhdr Warning: \headheight is too small (13.0pt):
 (fancyhdr)                \addtolength{\topmargin}{-5.48402pt}.
 
 [13.13 <./sections/figs/Fig4-Model-Comparison.pdf>]
-<sections/figs/Fig6-Statistical-Validation.pdf, id=349, 1204.5pt x 903.375pt>
-File: sections/figs/Fig6-Statistical-Validation.pdf Graphic file (type pdf)
-<use sections/figs/Fig6-Statistical-Validation.pdf>
-Package pdftex.def Info: sections/figs/Fig6-Statistical-Validation.pdf  used on
- input line 136.
-(pdftex.def)             Requested size: 395.8225pt x 296.86029pt.
 
-
-[14.14 <./sections/figs/Fig6-Statistical-Validation.pdf>]
-<sections/figs/Fig7-Multi-Asset-SIM.pdf, id=361, 1405.25pt x 481.8pt>
-File: sections/figs/Fig7-Multi-Asset-SIM.pdf Graphic file (type pdf)
-<use sections/figs/Fig7-Multi-Asset-SIM.pdf>
-Package pdftex.def Info: sections/figs/Fig7-Multi-Asset-SIM.pdf  used on input 
-line 155.
-(pdftex.def)             Requested size: 395.8225pt x 135.71176pt.
-LaTeX Font Info:    Font shape `T1/LinuxLibertineT-TLF/m/it' will be
-(Font)              scaled to size 9.0pt on input line 184.
-
-
-
-Package fancyhdr Warning: \headheight is too small (13.0pt): 
-(fancyhdr)                Make it at least 18.48402pt, for example:
-(fancyhdr)                \setlength{\headheight}{18.48402pt}.
-(fancyhdr)                You might also make \topmargin smaller:
-(fancyhdr)                \addtolength{\topmargin}{-5.48402pt}.
-
-[15.15 <./sections/figs/Fig7-Multi-Asset-SIM.pdf>]
-<sections/figs/Fig-Copula-Comparison.pdf, id=374, 1405.25pt x 501.875pt>
+[14.14 <./sections/figs/Fig6-Statistical-Validation.pdf> <./sections/figs/Fig-P
+rice-Trajectories.pdf>]
+<sections/figs/Fig-Copula-Comparison.pdf, id=364, 1405.25pt x 501.875pt>
 File: sections/figs/Fig-Copula-Comparison.pdf Graphic file (type pdf)
 <use sections/figs/Fig-Copula-Comparison.pdf>
 Package pdftex.def Info: sections/figs/Fig-Copula-Comparison.pdf  used on input
- line 201.
+ line 196.
 (pdftex.def)             Requested size: 395.8225pt x 141.36641pt.
 )
-
-[16.16 <./sections/figs/Fig-Copula-Comparison.pdf>]
 
 
 Package fancyhdr Warning: \headheight is too small (13.0pt): 
@@ -2049,14 +2036,25 @@ Package fancyhdr Warning: \headheight is too small (13.0pt):
 (fancyhdr)                You might also make \topmargin smaller:
 (fancyhdr)                \addtolength{\topmargin}{-5.48402pt}.
 
-[17.17] (./sections/discussion.tex
+[15.15 <./sections/figs/Fig-Copula-Comparison.pdf>]
+
+[16.16] (./sections/discussion.tex
 Underfull \vbox (badness 10000) has occurred while \output is active []
 
 
 
-[18.18
+
+Package fancyhdr Warning: \headheight is too small (13.0pt): 
+(fancyhdr)                Make it at least 18.48402pt, for example:
+(fancyhdr)                \setlength{\headheight}{18.48402pt}.
+(fancyhdr)                You might also make \topmargin smaller:
+(fancyhdr)                \addtolength{\topmargin}{-5.48402pt}.
+
+[17.17
 
 ])
+
+[18.18]
 
 
 Package fancyhdr Warning: \headheight is too small (13.0pt): 
@@ -2065,9 +2063,11 @@ Package fancyhdr Warning: \headheight is too small (13.0pt):
 (fancyhdr)                You might also make \topmargin smaller:
 (fancyhdr)                \addtolength{\topmargin}{-5.48402pt}.
 
-[19.19]
+[19.19] (./sections/conclusion.tex)
 
-[20.20] (./sections/conclusion.tex)
+[20.20
+
+] (./sections/endmatter.tex)
 
 
 Package fancyhdr Warning: \headheight is too small (13.0pt): 
@@ -2078,31 +2078,18 @@ Package fancyhdr Warning: \headheight is too small (13.0pt):
 
 [21.21
 
-] (./sections/endmatter.tex)
-
-[22.22
-
 ] (./Paper_v1.bbl
 Underfull \vbox (badness 10000) has occurred while \output is active []
 
 
 
-
-Package fancyhdr Warning: \headheight is too small (13.0pt): 
-(fancyhdr)                Make it at least 18.48402pt, for example:
-(fancyhdr)                \setlength{\headheight}{18.48402pt}.
-(fancyhdr)                You might also make \topmargin smaller:
-(fancyhdr)                \addtolength{\topmargin}{-5.48402pt}.
-
-[23.23
+[22.22
 
 ]
 Underfull \vbox (badness 6396) has occurred while \output is active []
 
 
 
-[24.24])
-
 
 Package fancyhdr Warning: \headheight is too small (13.0pt): 
 (fancyhdr)                Make it at least 18.48402pt, for example:
@@ -2110,8 +2097,10 @@ Package fancyhdr Warning: \headheight is too small (13.0pt):
 (fancyhdr)                You might also make \topmargin smaller:
 (fancyhdr)                \addtolength{\topmargin}{-5.48402pt}.
 
-[25.25] (./sections/supplemental.tex
-<sections/figs/Fig3-Model-Internals.pdf, id=493, 1606.0pt x 521.95pt>
+[23.23])
+
+[24.24] (./sections/supplemental.tex
+<sections/figs/Fig3-Model-Internals.pdf, id=483, 1606.0pt x 521.95pt>
 File: sections/figs/Fig3-Model-Internals.pdf Graphic file (type pdf)
 <use sections/figs/Fig3-Model-Internals.pdf>
 Package pdftex.def Info: sections/figs/Fig3-Model-Internals.pdf  used on input 
@@ -2126,10 +2115,10 @@ Package fancyhdr Warning: \headheight is too small (13.0pt):
 (fancyhdr)                You might also make \topmargin smaller:
 (fancyhdr)                \addtolength{\topmargin}{-5.48402pt}.
 
-[1.26
+[1.25
 
  <./sections/figs/Fig3-Model-Internals.pdf>]
-<sections/figs/Fig5-Parameter-Sweep.pdf, id=507, 1405.25pt x 562.1pt>
+<sections/figs/Fig5-Parameter-Sweep.pdf, id=497, 1405.25pt x 562.1pt>
 File: sections/figs/Fig5-Parameter-Sweep.pdf Graphic file (type pdf)
 <use sections/figs/Fig5-Parameter-Sweep.pdf>
 Package pdftex.def Info: sections/figs/Fig5-Parameter-Sweep.pdf  used on input 
@@ -2137,7 +2126,7 @@ line 51.
 (pdftex.def)             Requested size: 395.8225pt x 158.33038pt.
 
 
-[2.27
+[2.26
 
  <./sections/figs/Fig5-Parameter-Sweep.pdf>]
 LaTeX Font Info:    Font shape `T1/LinuxLibertineT-TLF/b/n' will be
@@ -2151,7 +2140,7 @@ Package fancyhdr Warning: \headheight is too small (13.0pt):
 (fancyhdr)                You might also make \topmargin smaller:
 (fancyhdr)                \addtolength{\topmargin}{-5.48402pt}.
 
-[3.28
+[3.27
 
 ]
 Package hyperref Info: bookmark level for unknown algorithm defaults to 0 on in
@@ -2160,7 +2149,7 @@ LaTeX Font Info:    Font shape `T1/LinuxLibertineT-TLF/m/n' will be
 (Font)              scaled to size 6.6pt on input line 126.
 
 
-[4.29
+[4.28
 
 ]
 
@@ -2171,9 +2160,9 @@ Package fancyhdr Warning: \headheight is too small (13.0pt):
 (fancyhdr)                You might also make \topmargin smaller:
 (fancyhdr)                \addtolength{\topmargin}{-5.48402pt}.
 
-[5.30]
+[5.29]
 
-[6.31]
+[6.30]
 
 
 Package fancyhdr Warning: \headheight is too small (13.0pt): 
@@ -2182,7 +2171,7 @@ Package fancyhdr Warning: \headheight is too small (13.0pt):
 (fancyhdr)                You might also make \topmargin smaller:
 (fancyhdr)                \addtolength{\topmargin}{-5.48402pt}.
 
-[7.32]
+[7.31]
 Underfull \hbox (badness 1496) in paragraph at lines 249--250
 [] []\T1/LinuxLibertineT-TLF/m/n/9 (+20) Grid: $\OML/nxlmi/m/it/9 ^^O \LMS/ntxs
 y/m/n/9 2 f\OT1/LinuxLibertineT-TLF/m/n/9 (+20) 10[]\OML/nxlmi/m/it/9 ; \OT1/Li
@@ -2203,7 +2192,7 @@ LF/m/n/9 (+20) 5 \LMS/ntxsy/m/n/9 ^^B \OT1/LinuxLibertineT-TLF/m/n/9 (+20) 10[]
 
 
 
-[8.33]
+[8.32]
 pdfTeX warning (ext4): destination with the same identifier (name{equation.1}) 
 has been already used, duplicate ignored
 <to be read again> 
@@ -2308,7 +2297,7 @@ Package fancyhdr Warning: \headheight is too small (13.0pt):
 (fancyhdr)                You might also make \topmargin smaller:
 (fancyhdr)                \addtolength{\topmargin}{-5.48402pt}.
 
-[9.34
+[9.33
 
 
 
@@ -2356,7 +2345,7 @@ tineT-TLF/m/n/10 (-20) ,
 
 
 
-[10.35]
+[10.34]
 
 
 Package fancyhdr Warning: \headheight is too small (13.0pt): 
@@ -2365,8 +2354,8 @@ Package fancyhdr Warning: \headheight is too small (13.0pt):
 (fancyhdr)                You might also make \topmargin smaller:
 (fancyhdr)                \addtolength{\topmargin}{-5.48402pt}.
 
-[11.36]
-<sections/figs/FigS-ACF-Jump-Paths.pdf, id=660, 903.375pt x 501.875pt>
+[11.35]
+<sections/figs/FigS-ACF-Jump-Paths.pdf, id=651, 903.375pt x 501.875pt>
 File: sections/figs/FigS-ACF-Jump-Paths.pdf Graphic file (type pdf)
 <use sections/figs/FigS-ACF-Jump-Paths.pdf>
 Package pdftex.def Info: sections/figs/FigS-ACF-Jump-Paths.pdf  used on input l
@@ -2374,9 +2363,10 @@ ine 379.
 (pdftex.def)             Requested size: 395.8225pt x 219.90672pt.
 
 
-[12.37
+[12.36
 
  <./sections/figs/FigS-ACF-Jump-Paths.pdf>]
+<sections/figs/Fig7-Multi-Asset-SIM.pdf, id=661, 1405.25pt x 481.8pt>
 File: sections/figs/Fig7-Multi-Asset-SIM.pdf Graphic file (type pdf)
 <use sections/figs/Fig7-Multi-Asset-SIM.pdf>
 Package pdftex.def Info: sections/figs/Fig7-Multi-Asset-SIM.pdf  used on input 
@@ -2391,20 +2381,13 @@ Package fancyhdr Warning: \headheight is too small (13.0pt):
 (fancyhdr)                You might also make \topmargin smaller:
 (fancyhdr)                \addtolength{\topmargin}{-5.48402pt}.
 
-[13.38
+[13.37
 
-]
+ <./sections/figs/Fig7-Multi-Asset-SIM.pdf>]
 
-[14.39
+[14.38
 
-]
-<sections/figs/Fig-Price-Trajectories.pdf, id=683, 1806.75pt x 501.875pt>
-File: sections/figs/Fig-Price-Trajectories.pdf Graphic file (type pdf)
-<use sections/figs/Fig-Price-Trajectories.pdf>
-Package pdftex.def Info: sections/figs/Fig-Price-Trajectories.pdf  used on inpu
-t line 479.
-(pdftex.def)             Requested size: 395.8225pt x 109.9457pt.
-
+])
 
 
 Package fancyhdr Warning: \headheight is too small (13.0pt): 
@@ -2413,16 +2396,12 @@ Package fancyhdr Warning: \headheight is too small (13.0pt):
 (fancyhdr)                You might also make \topmargin smaller:
 (fancyhdr)                \addtolength{\topmargin}{-5.48402pt}.
 
-[15.40
-
- <./sections/figs/Fig-Price-Trajectories.pdf>])
-
 (/usr/local/texlive/2025/texmf-dist/tex/generic/stringenc/se-pdfdoc.def
 File: se-pdfdoc.def 2019/11/29 v1.12 stringenc: PDFDocEncoding
 )
 (/usr/local/texlive/2025/texmf-dist/tex/generic/stringenc/se-utf8.def
 File: se-utf8.def 2019/11/29 v1.12 stringenc: UTF-8
-) [16.41
+) [15.39
 
 ]
 (./Paper_v1.aux)
@@ -2430,19 +2409,15 @@ File: se-utf8.def 2019/11/29 v1.12 stringenc: UTF-8
 LaTeX2e <2024-11-01> patch level 2
 L3 programming layer <2025-01-18>
  ***********
-
-
-LaTeX Warning: There were multiply-defined labels.
-
 Package rerunfilecheck Info: File `Paper_v1.out' has not changed.
 (rerunfilecheck)             Checksum: 505F6669E16A355F5AF0B29A34696BD2;3358.
  ) 
 Here is how much of TeX's memory you used:
- 47393 strings out of 473190
- 1047349 string characters out of 5715801
- 1581604 words of memory out of 5000000
+ 47389 strings out of 473190
+ 1047317 string characters out of 5715801
+ 1583594 words of memory out of 5000000
  68454 multiletter control sequences out of 15000+600000
- 856770 words of font info for 735 fonts, out of 8000000 for 9000
+ 856742 words of font info for 735 fonts, out of 8000000 for 9000
  1302 hyphenation exceptions out of 8191
  99i,15n,131p,2724b,1013s stack positions out of 10000i,1000n,20000p,200000b,200000s
 </usr/local/texlive/2025/texmf-dist/fonts/type1/public/newtx/LibertineMathMI.
@@ -2463,10 +2438,10 @@ public/newtx/txexs.pfb></usr/local/texlive/2025/texmf-dist/fonts/type1/public/n
 ewtx/txmiaX.pfb></usr/local/texlive/2025/texmf-dist/fonts/type1/public/newtx/tx
 sym.pfb></usr/local/texlive/2025/texmf-dist/fonts/type1/public/newtx/txsys.pfb>
 
-Output written on Paper_v1.pdf (41 pages, 1683893 bytes).
+Output written on Paper_v1.pdf (39 pages, 1682953 bytes).
 PDF statistics:
- 845 PDF objects out of 1000 (max. 8388607)
- 735 compressed objects within 8 object streams
- 257 named destinations out of 1000 (max. 500000)
+ 830 PDF objects out of 1000 (max. 8388607)
+ 722 compressed objects within 8 object streams
+ 253 named destinations out of 1000 (max. 500000)
  155850 words of extra memory for PDF output out of 184870 (max. 10000000)
 
