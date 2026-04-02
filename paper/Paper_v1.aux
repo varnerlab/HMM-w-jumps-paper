@@ -63,7 +63,7 @@
 \citation{glasserman_monte_2003}
 \@writefile{toc}{\contentsline {section}{\numberline {3}Methods}{6}{section.3}\protected@file@percent }
 \newlabel{sec:methods}{{3}{6}{Methods}{section.3}{}}
-\newlabel{eq:growth_rate}{{1}{6}{Excess growth rate calculation}{equation.3.1}{}}
+\newlabel{eq:growth_rate}{{1}{6}{Excess growth rate calculation}{equation.1}{}}
 \citation{hamilton_regime_2018,grinstead_introduction_1997}
 \citation{merton_jump_1976,kou_jump-diffusion_2002}
 \citation{cont_empirical_2001,ryden_stylized_1998}
@@ -75,8 +75,8 @@
 \citation{kolmogorov_1933,smirnov_1948}
 \citation{anderson_darling_1952}
 \citation{sharpe_simplified_1963}
-\newlabel{eq:grid_search}{{3}{8}{Hyperparameter optimization via grid search}{equation.3.3}{}}
-\newlabel{eq:acf_mae}{{4}{8}{Temporal fidelity metric}{equation.3.4}{}}
+\newlabel{eq:grid_search}{{3}{8}{Hyperparameter optimization via grid search}{equation.3}{}}
+\newlabel{eq:acf_mae}{{4}{8}{Temporal fidelity metric}{equation.4}{}}
 \citation{embrechts_copulas_2002,cherubini_copula_2004}
 \citation{aas_pair_2009}
 \citation{fama_efficient_1970}
@@ -99,24 +99,24 @@
 \@writefile{lof}{\contentsline {figure}{\numberline {4}{\ignorespaces Statistical validation of HMM-WJ ($N=100$, $\alpha =0.05$). Panels\nonbreakingspace (a) and\nonbreakingspace (d) condition on the $\sim $24\% of IS paths containing jump events. (a)\nonbreakingspace IS KS $p$-values for 239 jump paths (pass rate 93.7\%). (b)\nonbreakingspace OoS KS $p$-values for all 1{,}000 paths (pass rate 95.4\%). (c)\nonbreakingspace OoS density fan chart; observed density falls within the simulation envelope. (d)\nonbreakingspace IS ACF of $|G_t|$ for jump paths; the mean closely tracks the observed ACF. The all-paths vs.\ jump-paths ACF comparison is in Online Appendix\nonbreakingspace S7.}}{14}{figure.caption.14}\protected@file@percent }
 \newlabel{fig:statistical_validation}{{4}{14}{Statistical validation of HMM-WJ ($N=100$, $\alpha =0.05$). Panels~(a) and~(d) condition on the $\sim $24\% of IS paths containing jump events. (a)~IS KS $p$-values for 239 jump paths (pass rate 93.7\%). (b)~OoS KS $p$-values for all 1{,}000 paths (pass rate 95.4\%). (c)~OoS density fan chart; observed density falls within the simulation envelope. (d)~IS ACF of $|G_t|$ for jump paths; the mean closely tracks the observed ACF. The all-paths vs.\ jump-paths ACF comparison is in Online Appendix~S7}{figure.caption.14}{}}
 \@writefile{toc}{\contentsline {subsection}{\numberline {4.4}Multi-asset extension}{14}{subsection.4.4}\protected@file@percent }
+\@writefile{lof}{\contentsline {figure}{\numberline {5}{\ignorespaces Multi-asset extension via the Single-Index Model (SIM) across 424 S\&P\nonbreakingspace 500 constituents. Panel\nonbreakingspace (a) shows the SIM regression fit quality ($R^2_i$ vs.\ $\hat  {\beta }_i$) by GICS sector; assets with higher systematic risk exposure exhibit stronger factor model fit. Panel\nonbreakingspace (b) shows the distribution of KS pass rates across the full asset universe (median 66.7\%, mean 58.4\%), confirming that the SIM captures most of the distributional structure for high-$\beta $ assets but degrades for low-correlation names.}}{15}{figure.caption.15}\protected@file@percent }
+\newlabel{fig:multi_asset}{{5}{15}{Multi-asset extension via the Single-Index Model (SIM) across 424 S\&P~500 constituents. Panel~(a) shows the SIM regression fit quality ($R^2_i$ vs.\ $\hat {\beta }_i$) by GICS sector; assets with higher systematic risk exposure exhibit stronger factor model fit. Panel~(b) shows the distribution of KS pass rates across the full asset universe (median 66.7\%, mean 58.4\%), confirming that the SIM captures most of the distributional structure for high-$\beta $ assets but degrades for low-correlation names}{figure.caption.15}{}}
+\@writefile{lot}{\contentsline {table}{\numberline {3}{\ignorespaces Dependence model comparison for a four-asset portfolio (SPY, NVDA, JNJ, JPM). Each model uses per-asset HMM marginals ($N=100$, Student-t emissions with $\nu =5$); only the dependence structure differs. 1{,}000 simulated paths, $\alpha =0.05$. Corr Frobenius: root-sum-squared error of upper-triangle correlation entries (observed vs.\ mean simulated). Pairwise corr MAE: mean absolute error across all six asset pairs. SIM results exclude SPY (market factor).}}{15}{table.caption.16}\protected@file@percent }
+\newlabel{tab:copula_comparison}{{3}{15}{Dependence model comparison for a four-asset portfolio (SPY, NVDA, JNJ, JPM). Each model uses per-asset HMM marginals ($N=100$, Student-t emissions with $\nu =5$); only the dependence structure differs. 1{,}000 simulated paths, $\alpha =0.05$. Corr Frobenius: root-sum-squared error of upper-triangle correlation entries (observed vs.\ mean simulated). Pairwise corr MAE: mean absolute error across all six asset pairs. SIM results exclude SPY (market factor)}{table.caption.16}{}}
 \citation{burnham_model_2002}
 \citation{ang_asymmetric_2002,longin_extreme_2001}
-\@writefile{lot}{\contentsline {table}{\numberline {3}{\ignorespaces Dependence model comparison for a four-asset portfolio (SPY, NVDA, JNJ, JPM). Each model uses per-asset HMM marginals ($N=100$, Student-t emissions with $\nu =5$); only the dependence structure differs. 1{,}000 simulated paths, $\alpha =0.05$. Corr Frobenius: root-sum-squared error of upper-triangle correlation entries (observed vs.\ mean simulated). Pairwise corr MAE: mean absolute error across all six asset pairs. SIM results exclude SPY (market factor).}}{15}{table.caption.15}\protected@file@percent }
-\newlabel{tab:copula_comparison}{{3}{15}{Dependence model comparison for a four-asset portfolio (SPY, NVDA, JNJ, JPM). Each model uses per-asset HMM marginals ($N=100$, Student-t emissions with $\nu =5$); only the dependence structure differs. 1{,}000 simulated paths, $\alpha =0.05$. Corr Frobenius: root-sum-squared error of upper-triangle correlation entries (observed vs.\ mean simulated). Pairwise corr MAE: mean absolute error across all six asset pairs. SIM results exclude SPY (market factor)}{table.caption.15}{}}
-\@writefile{lof}{\contentsline {figure}{\numberline {5}{\ignorespaces Dependence model comparison for the four-asset portfolio (SPY, NVDA, JNJ, JPM). Panel\nonbreakingspace (a): KS pass rates by ticker and dependence model. All three copula specifications preserve per-asset marginal fidelity above 95\%, while the SIM degrades to 27.5\% for JPM due to low factor loading ($R^2 = 0.48$). The dashed line marks the 95\% threshold. Panel\nonbreakingspace (b): observed pairwise correlations (lower triangle) vs.\ Student-t copula simulated correlations (upper triangle). The Student-t copula reproduces the cross-asset dependence structure with a pairwise MAE of 0.039; the largest discrepancy is SPY-JNJ (observed 0.47, simulated 0.41).}}{16}{figure.caption.16}\protected@file@percent }
-\newlabel{fig:copula_comparison}{{5}{16}{Dependence model comparison for the four-asset portfolio (SPY, NVDA, JNJ, JPM). Panel~(a): KS pass rates by ticker and dependence model. All three copula specifications preserve per-asset marginal fidelity above 95\%, while the SIM degrades to 27.5\% for JPM due to low factor loading ($R^2 = 0.48$). The dashed line marks the 95\% threshold. Panel~(b): observed pairwise correlations (lower triangle) vs.\ Student-t copula simulated correlations (upper triangle). The Student-t copula reproduces the cross-asset dependence structure with a pairwise MAE of 0.039; the largest discrepancy is SPY-JNJ (observed 0.47, simulated 0.41)}{figure.caption.16}{}}
+\@writefile{lof}{\contentsline {figure}{\numberline {6}{\ignorespaces Dependence model comparison for the four-asset portfolio (SPY, NVDA, JNJ, JPM). Panel\nonbreakingspace (a): KS pass rates by ticker and dependence model. All three copula specifications preserve per-asset marginal fidelity above 95\%, while the SIM degrades to 27.5\% for JPM due to low factor loading ($R^2 = 0.48$). The dashed line marks the 95\% threshold. Panel\nonbreakingspace (b): observed pairwise correlations (lower triangle) vs.\ Student-t copula simulated correlations (upper triangle). The Student-t copula reproduces the cross-asset dependence structure with a pairwise MAE of 0.039; the largest discrepancy is SPY-JNJ (observed 0.47, simulated 0.41).}}{16}{figure.caption.17}\protected@file@percent }
+\newlabel{fig:copula_comparison}{{6}{16}{Dependence model comparison for the four-asset portfolio (SPY, NVDA, JNJ, JPM). Panel~(a): KS pass rates by ticker and dependence model. All three copula specifications preserve per-asset marginal fidelity above 95\%, while the SIM degrades to 27.5\% for JPM due to low factor loading ($R^2 = 0.48$). The dashed line marks the 95\% threshold. Panel~(b): observed pairwise correlations (lower triangle) vs.\ Student-t copula simulated correlations (upper triangle). The Student-t copula reproduces the cross-asset dependence structure with a pairwise MAE of 0.039; the largest discrepancy is SPY-JNJ (observed 0.47, simulated 0.41)}{figure.caption.17}{}}
 \citation{ryden_stylized_1998,bulla_stylized_2006}
-\@writefile{lof}{\contentsline {figure}{\numberline {6}{\ignorespaces Multi-asset extension via the Single-Index Model (SIM) across 424 S\&P\nonbreakingspace 500 constituents. Panel\nonbreakingspace (a) shows the SIM regression fit quality ($R^2_i$ vs.\ $\hat  {\beta }_i$) by GICS sector; assets with higher systematic risk exposure exhibit stronger factor model fit. Panel\nonbreakingspace (b) shows the distribution of KS pass rates across the full asset universe (median 66.7\%, mean 58.4\%), confirming that the SIM captures most of the distributional structure for high-$\beta $ assets but degrades for low-correlation names.}}{17}{figure.caption.17}\protected@file@percent }
-\newlabel{fig:multi_asset}{{6}{17}{Multi-asset extension via the Single-Index Model (SIM) across 424 S\&P~500 constituents. Panel~(a) shows the SIM regression fit quality ($R^2_i$ vs.\ $\hat {\beta }_i$) by GICS sector; assets with higher systematic risk exposure exhibit stronger factor model fit. Panel~(b) shows the distribution of KS pass rates across the full asset universe (median 66.7\%, mean 58.4\%), confirming that the SIM captures most of the distributional structure for high-$\beta $ assets but degrades for low-correlation names}{figure.caption.17}{}}
-\@writefile{toc}{\contentsline {section}{\numberline {5}Discussion}{17}{section.5}\protected@file@percent }
-\newlabel{sec:discussion}{{5}{17}{Discussion}{section.5}{}}
 \citation{glasserman_monte_2003}
 \citation{dwork_differential_2006}
 \citation{stadler_synthetic_2022}
 \citation{stenger_jdiq_ts_synthesis_2024}
+\@writefile{toc}{\contentsline {section}{\numberline {5}Discussion}{18}{section.5}\protected@file@percent }
+\newlabel{sec:discussion}{{5}{18}{Discussion}{section.5}{}}
 \citation{sharpe_simplified_1963,fama_french_1993}
-\@writefile{toc}{\contentsline {section}{\numberline {6}Conclusion}{20}{section.6}\protected@file@percent }
-\newlabel{sec:conclusion}{{6}{20}{Conclusion}{section.6}{}}
+\@writefile{toc}{\contentsline {section}{\numberline {6}Conclusion}{21}{section.6}\protected@file@percent }
+\newlabel{sec:conclusion}{{6}{21}{Conclusion}{section.6}{}}
 \bibstyle{ACM-Reference-Format}
 \bibdata{References_v1.bib}
 \bibcite{aas_pair_2009}{{1}{2009}{{Aas et~al\mbox  {.}}}{{}}}
@@ -145,7 +145,7 @@
 \bibcite{fama_efficient_1970}{{24}{1970}{{Fama}}{{}}}
 \bibcite{fama_french_1993}{{25}{1993}{{Fama and French}}{{}}}
 \bibcite{farmer_quantitative_2025}{{26}{2025}{{Farmer}}{{}}}
-\@writefile{toc}{\contentsline {section}{References}{22}{section*.22}\protected@file@percent }
+\@writefile{toc}{\contentsline {section}{References}{23}{section*.22}\protected@file@percent }
 \bibcite{farmer_joshi_2002}{{27}{2002}{{Farmer and Joshi}}{{}}}
 \bibcite{fischer_krauss_2018}{{28}{2018}{{Fischer and Krauss}}{{}}}
 \bibcite{glasserman_monte_2003}{{29}{2003}{{Glasserman}}{{}}}
@@ -197,18 +197,18 @@
 \citation{embrechts_copulas_2002}
 \newlabel{sec:copula_math}{{6}{S-9}{S6. Copula dependence models: mathematical details}{section*.33}{}}
 \@writefile{toc}{\contentsline {paragraph}{Sklar's theorem and the copula framework.}{S-9}{section*.34}\protected@file@percent }
-\newlabel{eq:sklar}{{S1}{S-9}{Sklar's theorem and the copula framework}{equation.6.1}{}}
+\newlabel{eq:sklar}{{S1}{S-9}{Sklar's theorem and the copula framework}{equation.1}{}}
 \@writefile{toc}{\contentsline {paragraph}{Probability integral transform (PIT).}{S-9}{section*.35}\protected@file@percent }
-\newlabel{eq:pit}{{S2}{S-9}{Probability integral transform (PIT)}{equation.6.2}{}}
+\newlabel{eq:pit}{{S2}{S-9}{Probability integral transform (PIT)}{equation.2}{}}
 \@writefile{toc}{\contentsline {paragraph}{Gaussian copula.}{S-9}{section*.36}\protected@file@percent }
-\newlabel{eq:gauss_density}{{S4}{S-9}{Gaussian copula}{equation.6.4}{}}
+\newlabel{eq:gauss_density}{{S4}{S-9}{Gaussian copula}{equation.4}{}}
 \@writefile{toc}{\contentsline {paragraph}{Student-t copula.}{S-9}{section*.37}\protected@file@percent }
-\newlabel{eq:t_density}{{S6}{S-9}{Student-t copula}{equation.6.6}{}}
+\newlabel{eq:t_density}{{S6}{S-9}{Student-t copula}{equation.6}{}}
 \citation{aas_pair_2009}
-\newlabel{eq:tail_dep}{{S9}{S-10}{Student-t copula}{equation.6.9}{}}
+\newlabel{eq:tail_dep}{{S9}{S-10}{Student-t copula}{equation.9}{}}
 \@writefile{toc}{\contentsline {paragraph}{C-vine copula decomposition.}{S-10}{section*.38}\protected@file@percent }
-\newlabel{eq:cvine}{{S10}{S-10}{C-vine copula decomposition}{equation.6.10}{}}
-\newlabel{eq:hfunc}{{S11}{S-10}{C-vine copula decomposition}{equation.6.11}{}}
+\newlabel{eq:cvine}{{S10}{S-10}{C-vine copula decomposition}{equation.10}{}}
+\newlabel{eq:hfunc}{{S11}{S-10}{C-vine copula decomposition}{equation.11}{}}
 \citation{embrechts_copulas_2002}
 \@writefile{toc}{\contentsline {paragraph}{Variable ordering.}{S-11}{section*.39}\protected@file@percent }
 \@writefile{toc}{\contentsline {paragraph}{Simulation via rank reordering.}{S-11}{section*.40}\protected@file@percent }
@@ -228,13 +228,13 @@
 \citation{anderson_darling_1952}
 \newlabel{sec:validation_metrics}{{6}{S-16}{S11. Validation metric definitions}{section*.50}{}}
 \@writefile{toc}{\contentsline {paragraph}{Kolmogorov-Smirnov (KS) statistic.}{S-16}{section*.51}\protected@file@percent }
-\newlabel{eq:ks_stat}{{S12}{S-16}{Kolmogorov-Smirnov (KS) statistic}{equation.6.12}{}}
+\newlabel{eq:ks_stat}{{S12}{S-16}{Kolmogorov-Smirnov (KS) statistic}{equation.12}{}}
 \@writefile{toc}{\contentsline {paragraph}{Anderson-Darling (AD) statistic.}{S-16}{section*.52}\protected@file@percent }
-\newlabel{eq:ad_stat}{{S13}{S-16}{Anderson-Darling (AD) statistic}{equation.6.13}{}}
+\newlabel{eq:ad_stat}{{S13}{S-16}{Anderson-Darling (AD) statistic}{equation.13}{}}
 \@writefile{toc}{\contentsline {paragraph}{Wasserstein-1 distance.}{S-16}{section*.53}\protected@file@percent }
-\newlabel{eq:wasserstein}{{S14}{S-16}{Wasserstein-1 distance}{equation.6.14}{}}
+\newlabel{eq:wasserstein}{{S14}{S-16}{Wasserstein-1 distance}{equation.14}{}}
 \@writefile{toc}{\contentsline {paragraph}{Hellinger distance.}{S-16}{section*.54}\protected@file@percent }
-\newlabel{eq:hellinger}{{S15}{S-16}{Hellinger distance}{equation.6.15}{}}
+\newlabel{eq:hellinger}{{S15}{S-16}{Hellinger distance}{equation.15}{}}
 \newlabel{tocindent-1}{0pt}
 \newlabel{tocindent0}{0pt}
 \newlabel{tocindent1}{4.65pt}
@@ -242,5 +242,5 @@
 \newlabel{tocindent3}{0pt}
 \newlabel{tocindent4}{0pt}
 \newlabel{tocindent5}{0pt}
-\newlabel{TotPages}{{40}{S-16}{}{page.S-16}{}}
-\gdef \@abspage@last{40}
+\newlabel{TotPages}{{41}{S-16}{}{page.S-16}{}}
+\gdef \@abspage@last{41}
