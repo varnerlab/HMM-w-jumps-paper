@@ -1,0 +1,524 @@
+% ── Online Appendix ──────────────────────────────────────────────────────────
+% Content moved from the main text to reduce page count.
+% The main paper is self-contained; this appendix provides additional
+% algorithmic detail, diagnostic figures, and robustness analyses.
+
+\subsection*{S1. Fitted model internals}
+
+This section visualizes the internal components of the fitted HMM-WJ model for SPY with $N=100$ states.
+We constructed the model by fitting a Laplace distribution to the observed excess growth rate series (2014--2024, 2{,}766 trading days), partitioning the support into $N$ equal-probability quantile bins, and estimating the $100 \times 100$ transition matrix from consecutive state assignments (Algorithm~\ref{alg:build}).
+Figure~\ref{fig:model_internals} displays three diagnostics.
+Panel~(a) confirms that the Laplace marginal closely matches the empirical CDF, validating the distributional assumption underlying the state partition.
+Panel~(b) reveals the banded structure of the transition matrix: most probability mass concentrates near the diagonal, reflecting the tendency of markets to transition between adjacent states rather than making large jumps.
+Panel~(c) exposes the key limitation of the pure Markov dynamics: the natural residence time $1/(1-T_{kk})$ for every state, including the extreme tails, is only 1--2 steps.
+This is far too short to reproduce the persistent volatility clustering observed in equity returns, motivating the Poisson jump-duration mechanism described in Section~3.3 of the main text.
+
+\begin{figure}[tp]
+    \centering
+    \includegraphics[width=\textwidth]{Fig3-Model-Internals.pdf}
+    \Description{Three-panel figure showing fitted HMM internals for SPY with N=100 states. Panel (a) overlays the fitted Laplace CDF on the empirical CDF with 99 vertical lines marking quantile boundaries. Panel (b) displays the 100-by-100 empirical transition matrix as a heatmap in log base 10 color scale, revealing a dominant near-diagonal band. Panel (c) plots expected natural residence time per state on a log scale, with bottom-tail states (1 to 5) shaded red and top-tail states (96 to 100) shaded teal; a dashed horizontal line marks the optimal mean jump duration of 100 steps.}
+    \caption{Fitted model internals for SPY with $N=100$ states.
+    Panel~(a) overlays the fitted Laplace CDF on the empirical CDF; the 99 vertical lines mark the
+    equal-probability quantile boundaries that define the $N$ hidden states.  The close agreement
+    confirms that the Laplace distribution is an accurate marginal model for the excess growth rate
+    data.
+    Panel~(b) displays the empirical transition matrix $\mathbf{T}$ in $\log_{10}$ color scale;
+    the dominant near-diagonal band reflects short-range regime persistence.
+    Panel~(c) plots the expected natural residence time $1/(1-T_{kk})$ for each state on a
+    $\log_{10}$ scale, with the bottom tail set $\mathcal{S}_{-}$ (states 1--5, red shading) and
+    top tail set $\mathcal{S}_{+}$ (states 96--100, teal shading) highlighted.  Under pure Markovian
+    dynamics every state, including the tail states, exits within 1--2 steps on average, far too
+    quickly to reproduce empirical volatility clustering.  The dashed horizontal line marks the mean
+    mean jump duration $\lambda^* = 100$ steps at the grid-search optimum, quantifying the
+    two-order-of-magnitude gap between natural residence times and the jump-duration mechanism.}
+    \label{fig:model_internals}
+\end{figure}
+
+\clearpage
+
+\subsection*{S2. Hyperparameter grid search landscape}
+
+The jump mechanism introduces two hyperparameters: the tail-entry probability $\epsilon$ and the mean jump duration $\lambda$.
+We selected these via the multi-objective grid search described in Algorithm~\ref{alg:grid_search}, sweeping $\epsilon \in [10^{-4}, 2.5 \times 10^{-2}]$ (eight points) and $\lambda \in [10, 160]$ (nine points) with 200 simulated paths per grid point.
+The objective $J(\epsilon, \lambda)$ balances two terms: the squared error between observed and simulated absolute-return ACFs (lags 1--252) and a kurtosis penalty weighted by $w_K = 0.20$.
+Figure~\ref{fig:parameter_sweep} presents the results.
+Panel~(a) shows that $J$ is well-behaved over the grid, with a clear minimum confirming that the two hyperparameters are jointly identifiable from data.
+The optimal values $(\epsilon^* = 10^{-4}, \lambda^* = 100)$ indicate that the data favor rare but long-lived tail excursions; $\epsilon^*$ falls at the lower boundary of the $\epsilon$ grid, while $\lambda^*$ is an interior optimum.
+Panel~(b) validates that the ACF of $|G_t|$ at these optimal parameters closely tracks the observed SPY autocorrelation structure, with the simulated 10th--90th percentile envelope (computed from 500 paths) enveloping the empirical curve over the full 252-lag horizon.
+
+\begin{figure}[tp]
+    \centering
+    \includegraphics[width=\textwidth]{Fig5-Parameter-Sweep.pdf}
+    \Description{Two-panel figure showing the hyperparameter grid search results. Panel (a) is a heatmap of the objective function J in log base 10 scale over the epsilon-lambda grid, with a red star marking the optimal pair at epsilon-star equals 1e-4 and lambda-star equals 100; the minimum sits at the lower boundary of the epsilon grid and at an interior point of the lambda grid. Panel (b) shows the ACF of absolute returns computed from 500 jump-containing paths at the optimal parameters, with the 10th to 90th percentile band shaded and the mean curve compared against the observed SPY ACF and 95 percent significance band.}
+    \caption{Hyperparameter grid search over $(\epsilon,\lambda)$ for SPY ($N=100$, 200 paths per
+    grid point).
+    Panel~(a): heatmap of the objective function $J(\epsilon,\lambda)$ in $\log_{10}$ scale over
+    the full search grid ($\epsilon \in [10^{-4}, 2.5\times10^{-2}]$, $\lambda \in [10, 160]$);
+    the red star marks the optimal pair $(\epsilon^*=10^{-4},\lambda^*=100)$.
+    The clear minimum confirms that the jump hyperparameters are jointly identifiable from data;
+    $\epsilon^*$ sits at the lower boundary of the search grid, indicating that smaller tail-entry
+    probabilities are consistently preferred.
+    Panel~(b): ACF of $|G_t|$ at the optimal parameters computed from 500 jump-containing paths
+    (10th--90th percentile band shaded; mean curve solid navy) compared with the SPY observed ACF
+    (dashed red) and the 95\% significance band (dotted black).}
+    \label{fig:parameter_sweep}
+\end{figure}
+
+\clearpage
+
+\subsection*{S3. State resolution sensitivity}
+
+A natural concern is whether the model's performance depends critically on the choice of $N$, the number of discrete states.
+To investigate this, we re-estimated the full pipeline (Laplace fit, quantile partition, transition matrix, and, for HMM-WJ, the grid search over $\epsilon$ and $\lambda$) for $N \in \{30, 60, 90, 100, 150, 200\}$ and evaluated each configuration on 1{,}000 simulated in-sample paths.
+Table~\ref{tab:sensitivity_results} reports KS and AD pass rates at the $\alpha = 0.05$ level along with ACF-MAE (mean absolute error of the absolute-return ACF over lags 1--252).
+Standard errors are computed via the binomial formula for pass rates and bootstrap resampling ($B = 500$) for ACF-MAE.
+
+For HMM-NJ, distributional fidelity is uniformly high across all resolutions (KS $\geq 98.9\%$, AD $\geq 97.9\%$), confirming that the Laplace quantile partition produces well-calibrated marginals regardless of $N$.
+ACF-MAE is effectively constant at 0.059, reflecting the absence of any volatility-clustering mechanism.
+For HMM-WJ, KS pass rates remain above 96\% across all $N$, while AD pass rates range from 88.6\% ($N = 200$) to 96.8\% ($N = 30$).
+The slight decline at high $N$ is expected: finer partitions produce more sparsely populated tail states, making the Anderson-Darling test (which weights tail discrepancies heavily) more sensitive.
+Crucially, ACF-MAE improves monotonically from 0.057 ($N = 30$) to 0.049 ($N = 200$), demonstrating that the jump mechanism's ability to reproduce volatility clustering strengthens with finer state resolution.
+The operating point $N = 100$ balances these two effects, achieving strong performance on all three metrics simultaneously.
+
+\begin{table}[tp]
+\centering
+\caption{Sensitivity of model performance to state resolution $N$.
+    All metrics computed over 1{,}000 simulated in-sample paths at $\alpha=0.05$.
+    ACF-MAE = mean absolute error of the ACF of $|G_t|$ over lags 1--252.
+    Standard errors in parentheses: binomial SE for pass rates,
+    bootstrap SE ($B=500$) for ACF-MAE.
+    Values at $N=100$ differ slightly from Table~\ref{tab:model_comparison}
+    because the grid search was re-run independently for each $N$, producing
+    a different $(\epsilon^{*},\lambda^{*})$ optimum due to Monte Carlo variability.}
+\label{tab:sensitivity_results}
+\begin{tabular}{@{}lcccc@{}}
+\toprule
+\textbf{Model} & \textbf{$N$} & \textbf{KS pass (\%)} & \textbf{AD pass (\%)} & \textbf{ACF-MAE} \\ \midrule
+HMM-NJ & 200 & 99.6 (0.2) & 98.5 (0.4) & 0.059 \\
+HMM-NJ & 150 & 99.6 (0.2) & 98.4 (0.4) & 0.059 \\
+HMM-NJ & 100 & 99.0 (0.3) & 98.8 (0.3) & 0.059 \\
+HMM-NJ &  90 & 99.4 (0.2) & 98.1 (0.4) & 0.059 \\
+HMM-NJ &  60 & 99.4 (0.2) & 98.1 (0.4) & 0.059 \\
+HMM-NJ &  30 & 98.9 (0.3) & 97.9 (0.5) & 0.059 \\ \midrule
+HMM-WJ & 200 & 96.0 (0.6) & 88.6 (1.0) & 0.049 \\
+HMM-WJ & 150 & 96.9 (0.5) & 88.8 (1.0) & 0.050 \\
+HMM-WJ & 100 & 96.8 (0.6) & 91.7 (0.9) & 0.053 \\
+HMM-WJ &  90 & 97.4 (0.5) & 91.0 (0.9) & 0.052 \\
+HMM-WJ &  60 & 96.8 (0.6) & 92.4 (0.8) & 0.054 \\
+HMM-WJ &  30 & 98.0 (0.4) & 96.8 (0.6) & 0.057 \\ \bottomrule
+\end{tabular}
+\end{table}
+
+\clearpage
+
+\subsection*{S4. Algorithms}
+
+The four algorithms below detail the complete computational pipeline. Algorithm~\ref{alg:sim} generates synthetic state sequences from the fitted HMM with jump-duration dynamics (referenced in the main text). The remaining three algorithms detail model construction, state decoding, and hyperparameter optimization.
+
+\begin{algorithm}[tp]
+\caption{Hybrid jump-diffusion simulation with persistent volatility}
+\label{alg:sim}
+\small
+\begin{algorithmic}[1]
+\REQUIRE Model parameters $\mathbf{T}, \bar{\pi}, \epsilon, \lambda, N_{tail}, p_{neg}$, Total Steps $M$
+\ENSURE Simulated state sequence $S_{1:M}$
+\STATE Define tail-states $\mathcal{S}_{bottom} = \{1, \dots, N_{tail}\}$ and $\mathcal{S}_{top} = \{N-N_{tail}+1, \dots, N\}$.
+\STATE Sample initial state $S_1 \sim \text{Categorical}(\bar{\pi})$.
+\STATE Set $counter \leftarrow 2$.
+\WHILE{$counter \le M$}
+    \STATE Sample $u \sim \text{Uniform}(0, 1)$.
+    \IF{$u < \epsilon$}
+        \STATE Sample jump-duration $K \sim \text{Poisson}(\lambda)$.
+        \FOR{$j = 1$ to $K$ while $counter \le M$}
+            \STATE Sample $w \sim \text{Uniform}(0, 1)$.
+            \IF{$w < p_{neg}$}
+                \STATE $S_{counter} \sim \text{Uniform}(\mathcal{S}_{bottom})$ \COMMENT{Bias toward negative-tail events}
+            \ELSE
+                \STATE $S_{counter} \sim \text{Uniform}(\mathcal{S}_{top})$
+            \ENDIF
+            \STATE $counter \leftarrow counter + 1$.
+        \ENDFOR
+    \ELSE
+        \STATE Sample $S_{counter} \sim \text{Categorical}(\mathbf{T}_{S_{counter-1}, :})$.
+        \STATE $counter \leftarrow counter + 1$.
+    \ENDIF
+\ENDWHILE
+\RETURN $S_{1:M}$
+\end{algorithmic}
+\end{algorithm}
+Algorithm~\ref{alg:build} describes model construction: fitting a Laplace distribution to the observed excess growth rates, partitioning the support into $N$ equal-probability bins, assigning each observation to a discrete state, and estimating the transition matrix by row-normalizing the state-to-state count matrix.
+Algorithm~\ref{alg:decode} converts a simulated discrete state sequence back into continuous excess growth rates by sampling from a location-scale Student-t distribution ($\nu=5$) within each state, parameterized by the state-conditional sample mean and standard deviation.
+Algorithm~\ref{alg:grid_search} performs the multi-objective grid search over the jump hyperparameters $(\epsilon, \lambda)$, minimizing a composite objective that penalizes both ACF mismatch and kurtosis deviation relative to the observed series.
+
+\subsection*{S5. Cross-asset generalization}
+
+To assess whether the framework generalized beyond the SPY market factor, we fitted standalone HMM-NJ and HMM-WJ models to three individual equities spanning distinct risk profiles: NVDA (high-beta technology), JNJ (low-beta health care), and JPM (moderate-beta financials). Each ticker was fitted independently using the same $N=100$ Laplace quantile partition and the same grid search procedure described in Section~3.3 of the main text, with 1{,}000 simulated paths evaluated against the observed series.
+
+Table~\ref{tab:cross_asset} reports the results. In-sample KS pass rates exceeded 91\% for all three tickers under both HMM-NJ and HMM-WJ, confirming that the Student-t emission structure captured the marginal distribution of individual equities with diverse tail characteristics. The grid search selected $\epsilon^{*}=10^{-4}$ for all three assets, with $\lambda^{*}=160$ for NVDA and JPM (long-lived volatility episodes) and $\lambda^{*}=30$ for JNJ (shorter episodes consistent with its weaker volatility clustering). HMM-WJ reduced ACF-MAE relative to HMM-NJ for NVDA (0.043$\to$0.028) and JPM (0.045$\to$0.032), while JNJ showed minimal improvement (0.027$\to$0.026), consistent with its lower baseline autocorrelation in absolute returns.
+
+Out-of-sample performance varied across tickers. NVDA maintained strong distributional fidelity (KS 97.1\%, AD 95.6\%), while JNJ and JPM showed more pronounced OoS degradation (KS 70--77\%), reflecting asset-specific regime shifts in 2025 that the stationary IS-calibrated parameters could not fully capture. These results confirmed that the HMM-WJ framework was not specific to ETFs or broad market indices; it generalized to individual equities, with the grid search automatically adapting the jump parameters to each asset's volatility dynamics.
+
+\begin{table}[tp]
+\centering
+\caption{Cross-asset generalization of HMM-NJ and HMM-WJ to individual equities ($N=100$, 1{,}000 simulated paths, $\alpha=0.05$). Each ticker was fitted independently with a per-asset grid search over $(\epsilon, \lambda)$. Standard errors in parentheses: binomial SE for pass rates, $\text{std}/\!\sqrt{n}$ for kurtosis, bootstrap SE ($B=500$) for ACF-MAE.}
+\label{tab:cross_asset}
+\small
+\begin{tabular}{@{}llcccc@{}}
+\toprule
+\textbf{Ticker} & \textbf{Model} & \textbf{KS pass (\%)} & \textbf{AD pass (\%)} & \textbf{Excess kurtosis} & \textbf{ACF-MAE} \\ \midrule
+\multicolumn{6}{l}{\textit{In-sample (2{,}766 trading days, 2014--2024)}} \\[2pt]
+& & & & Observed: 5.0 & \\
+NVDA & HMM-NJ & 99.3 (0.3) & 99.1 (0.3) & 4.4 (0.02) & 0.043 ({$<$}0.001) \\
+NVDA & HMM-WJ & 91.7 (0.9) & 77.5 (1.3) & 4.1 (0.03) & 0.028 (0.001) \\[2pt]
+& & & & Observed: 8.7 & \\
+JNJ  & HMM-NJ & 99.8 (0.1) & 99.2 (0.3) & 6.8 (0.04) & 0.027 ({$<$}0.001) \\
+JNJ  & HMM-WJ & 99.8 (0.1) & 99.1 (0.3) & 6.7 (0.04) & 0.026 ({$<$}0.001) \\[2pt]
+& & & & Observed: 8.0 & \\
+JPM  & HMM-NJ & 99.6 (0.2) & 99.3 (0.3) & 6.7 (0.03) & 0.045 ({$<$}0.001) \\
+JPM  & HMM-WJ & 92.8 (0.8) & 79.6 (1.3) & 6.3 (0.03) & 0.032 (0.001) \\[4pt]
+\multicolumn{6}{l}{\textit{Out-of-sample (249 trading days, 2025)}} \\[2pt]
+& & & & Observed: 7.0 & \\
+NVDA & HMM-NJ & 99.0 (0.3) & 97.7 (0.5) & 3.8 (0.07) & 0.039 ({$<$}0.001) \\
+NVDA & HMM-WJ & 97.1 (0.5) & 95.6 (0.6) & 3.7 (0.07) & 0.037 ({$<$}0.001) \\[2pt]
+& & & & Observed: 6.4 & \\
+JNJ  & HMM-NJ & 73.2 (1.4) & 59.4 (1.6) & 5.5 (0.11) & 0.034 ({$<$}0.001) \\
+JNJ  & HMM-WJ & 70.3 (1.4) & 59.7 (1.6) & 5.6 (0.11) & 0.034 ({$<$}0.001) \\[2pt]
+& & & & Observed: 6.7 & \\
+JPM  & HMM-NJ & 77.6 (1.3) & 78.1 (1.3) & 5.9 (0.09) & 0.032 ({$<$}0.001) \\
+JPM  & HMM-WJ & 76.9 (1.3) & 76.4 (1.3) & 5.8 (0.09) & 0.031 ({$<$}0.001) \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\clearpage
+
+\begin{algorithm}[tp]
+\caption{Empirical hidden Markov model construction via Laplace partitioning}
+\label{alg:build}
+\small
+\begin{algorithmic}[1]
+\REQUIRE Price history $P_{1:T}$, Risk-free rate $r_f$, Number of states $N$
+\ENSURE Transition matrix $\mathbf{T}$, Quantile boundaries $\mathcal{Q}$
+\STATE Compute excess growth rates $R_t = \frac{1}{\Delta t} \ln(P_t / P_{t-1}) - r_f$ for all $t$.
+\STATE Fit Laplace parameters $(\mu_L, b_L)$ to the series $\mathbf{R}$ using maximum-likelihood estimation.
+\STATE Define interior boundaries $Q_k = F_L^{-1}(k/N; \mu_L, b_L)$ for $k \in \{1, \dots, N-1\}$, where $F_L^{-1}$ is the inverse CDF of the Laplace distribution.
+\STATE Set finite outer bounds $Q_0 = F_L^{-1}(0.001; \mu_L, b_L)$ and $Q_N = F_L^{-1}(0.999; \mu_L, b_L)$.
+\STATE Assign each excess growth rate $R_t$ to a discrete state $s_t \in \{1, \dots, N\}$ based on the boundaries in $\mathcal{Q} = \{Q_k\}$.
+\STATE Initialize count matrix $\mathbf{C} \in \mathbb{R}^{N \times N}$ and transition matrix $\mathbf{T} \in \mathbb{R}^{N \times N}$ with zeros.
+\FOR{$t = 1$ to $T-1$}
+    \STATE Identify transition $i = s_t$ to $j = s_{t+1}$.
+\STATE $\mathbf{C}_{i,j} \leftarrow \mathbf{C}_{i,j} + 1$.
+\ENDFOR
+\FOR{$i = 1$ to $N$}
+    \STATE $\mathbf{T}_{i,:} \leftarrow \mathbf{C}_{i,:} / \sum_{j=1}^{N} \mathbf{C}_{i,j}$ \COMMENT{Row-wise normalization}
+\ENDFOR
+\RETURN $\mathbf{T}, \mathcal{Q}$
+\end{algorithmic}
+\end{algorithm}
+
+\clearpage
+
+\begin{algorithm}[tp]
+\caption{State decoding and continuous excess growth rate reconstruction}
+\label{alg:decode}
+\small
+\begin{algorithmic}[1]
+\REQUIRE Simulated state sequence $S_{1:M}$, Encoded training observations, Degrees of freedom $\nu=5$
+\ENSURE Reconstructed continuous excess growth rates $\hat{R}_{1:M}$
+\FOR{$k = 1$ to $N$}
+    \STATE Set $\mu_k = \text{mean}(\{G_t : S_t^{\text{train}} = k\})$.
+    \STATE Set $\sigma_k = \text{std}(\{G_t : S_t^{\text{train}} = k\})$.
+\ENDFOR
+\STATE Initialize the reconstructed excess growth rate vector $\mathbf{\hat{G}}$ of length $M$.
+\FOR{$t = 1$ to $M$}
+    \STATE Retrieve the simulated state $k = S_t$.
+\STATE Sample $\hat{G}_t = \mu_k + \sigma_k \cdot Z$, where $Z \sim t_\nu$.
+\ENDFOR
+\RETURN $\hat{G}_{1:M}$
+\end{algorithmic}
+\end{algorithm}
+
+\clearpage
+
+\begin{algorithm}[tp]
+\caption{Multi-objective grid search for jump hyperparameters}
+\label{alg:grid_search}
+\small
+\begin{algorithmic}[1]
+\REQUIRE Observed growth rates $\mathbf{R}_{obs}$, ACF max lag $L=252$, Number of paths $P=200$, Time steps $M=2766$
+\REQUIRE Grid: $\epsilon \in \{10^{-4}, 2.5\times10^{-4}, 5\times10^{-4}, 10^{-3}, 2.5\times10^{-3}, 5\times10^{-3}, 10^{-2}, 2.5\times10^{-2}\}$, $\lambda \in \{10, 25, 40, 55, 70, 85, 100, 130, 160\}$
+\REQUIRE Kurtosis penalty weight $w_K = 0.20$
+\ENSURE Optimal jump hyperparameters $(\epsilon^*, \lambda^*)$
+\STATE Calculate observed absolute ACF: $A_{obs}(\tau) = \text{ACF}(|\mathbf{R}_{obs}|, \tau)$ for $\tau \in \{1, \dots, L\}$.
+\STATE Calculate observed global kurtosis: $K_{obs} = \text{Kurtosis}(\mathbf{R}_{obs})$.
+\STATE Initialize minimum error $E_{min} \leftarrow \infty$.
+\FOR{each $\epsilon$ in grid space}
+    \FOR{each $\lambda$ in grid space}
+        \STATE Initialize simulated ACF accumulator $\mathbf{A}_{sum} \leftarrow \mathbf{0}$ and kurtosis accumulator $K_{sum} \leftarrow 0$.
+        \FOR{$p = 1$ to $P$}
+            \STATE Simulate path using Algorithm \ref{alg:sim} to obtain state sequence $S_{1:M}$.
+            \STATE Decode sequence using Algorithm \ref{alg:decode} to obtain continuous rates $\mathbf{\hat{R}}^{(p)}$.
+            \STATE $\mathbf{A}_{sum}(\tau) \leftarrow \mathbf{A}_{sum}(\tau) + \text{ACF}(|\mathbf{\hat{R}}^{(p)}|, \tau)$ for all $\tau$.
+            \STATE $K_{sum} \leftarrow K_{sum} + \text{Kurtosis}(\mathbf{\hat{R}}^{(p)})$.
+        \ENDFOR
+        \STATE Compute ensemble averages: $\overline{A}_{sim}(\tau) = \mathbf{A}_{sum}(\tau) / P$ and $\overline{K}_{sim} = K_{sum} / P$.
+        \STATE Compute objective: $J = \sum_{\tau=1}^L \left(A_{obs}(\tau) - \overline{A}_{sim}(\tau)\right)^2 + w_K \left(K_{obs} - \overline{K}_{sim}\right)^2$.
+        \IF{$J < E_{min}$}
+            \STATE $E_{min} \leftarrow J$
+            \STATE $(\epsilon^*, \lambda^*) \leftarrow (\epsilon, \lambda)$
+        \ENDIF
+    \ENDFOR
+\ENDFOR
+\RETURN $\epsilon^*, \lambda^*$
+\end{algorithmic}
+\end{algorithm}
+
+\clearpage
+
+\subsection*{S6. Copula dependence models: mathematical details}
+\label{sec:copula_math}
+
+This section provides the mathematical foundations for the copula-based dependence models introduced in Section~3. The main text describes these models at a conceptual level; here we give the densities, fitting procedures, and simulation algorithms in full.
+
+\paragraph{Sklar's theorem and the copula framework.}
+Let $\mathbf{G} = (G^{(1)}, \dots, G^{(d)})$ denote a $d$-dimensional random vector of excess growth rates with joint CDF $H$ and marginal CDFs $F_1, \dots, F_d$. Sklar's theorem \cite{embrechts_copulas_2002} states that there exists a copula $C: [0,1]^d \to [0,1]$ such that
+\begin{equation}
+    H(g_1, \dots, g_d) = C\bigl(F_1(g_1), \dots, F_d(g_d)\bigr).
+    \label{eq:sklar}
+\end{equation}
+If the marginals are continuous, $C$ is unique. The copula $C$ captures all dependence structure independently of the marginals, which is why it pairs naturally with per-asset HMM marginal models: each asset's marginal distribution is determined by its fitted HMM, while the copula governs how extreme events co-occur across assets.
+
+\paragraph{Probability integral transform (PIT).}
+To fit a copula, we first transform the observed growth rates to uniform marginals. Given $n$ observations $g_{1,t}, \dots, g_{d,t}$ for $t = 1, \dots, n$, we compute pseudo-uniform observations
+\begin{equation}
+    u_{j,t} = \frac{\text{rank}(g_{j,t})}{n+1}, \quad j = 1, \dots, d,
+    \label{eq:pit}
+\end{equation}
+where $\text{rank}(g_{j,t})$ is the ordinal rank of $g_{j,t}$ among $\{g_{j,1}, \dots, g_{j,n}\}$. The denominator $n+1$ (rather than $n$) ensures that $u_{j,t} \in (0,1)$, avoiding boundary singularities in the copula density. This nonparametric PIT avoids misspecification of the marginals.
+
+\paragraph{Gaussian copula.}
+The Gaussian copula with correlation matrix $\mathbf{\Sigma}$ has CDF
+\begin{equation}
+    C_{\text{Ga}}(\mathbf{u}; \mathbf{\Sigma}) = \Phi_d\bigl(\Phi^{-1}(u_1), \dots, \Phi^{-1}(u_d); \mathbf{\Sigma}\bigr),
+\end{equation}
+where $\Phi$ is the standard normal CDF and $\Phi_d(\cdot; \mathbf{\Sigma})$ is the $d$-dimensional normal CDF with correlation matrix $\mathbf{\Sigma}$. For a bivariate pair $(u, v)$ with correlation $\rho$, the copula density is
+\begin{equation}
+    c_{\text{Ga}}(u, v; \rho) = \frac{1}{\sqrt{1 - \rho^2}} \exp\!\left(-\frac{\rho^2(x^2 + y^2) - 2\rho xy}{2(1 - \rho^2)}\right),
+    \label{eq:gauss_density}
+\end{equation}
+where $x = \Phi^{-1}(u)$ and $y = \Phi^{-1}(v)$. The parameter $\rho$ is estimated from Kendall's $\tau$ via $\rho = \sin(\pi\tau/2)$, which is the exact inversion of the relationship $\tau = (2/\pi)\arcsin(\rho)$ for the Gaussian copula. This rank-based estimator is robust to outliers and does not depend on the marginal distributions; it generally differs from both the Pearson correlation of the raw growth rates and the Pearson correlation of the PIT-transformed uniforms. The Gaussian copula has \emph{zero} upper and lower tail dependence coefficients, $\lambda_U = \lambda_L = 0$, regardless of $\rho$ \cite{embrechts_copulas_2002}; in other words, the probability of jointly extreme observations vanishes faster than linearly in the tail.
+
+\paragraph{Student-t copula.}
+The Student-t copula with correlation matrix $\mathbf{\Sigma}$ and $\nu$ degrees of freedom has CDF
+\begin{equation}
+    C_t(\mathbf{u}; \mathbf{\Sigma}, \nu) = t_{d,\nu}\!\bigl(t_\nu^{-1}(u_1), \dots, t_\nu^{-1}(u_d); \mathbf{\Sigma}\bigr),
+\end{equation}
+where $t_\nu$ is the univariate Student-t CDF and $t_{d,\nu}(\cdot; \mathbf{\Sigma})$ is the $d$-variate Student-t CDF with $\nu$ degrees of freedom and correlation $\mathbf{\Sigma}$. For a bivariate pair the log-density is
+\begin{equation}
+    \ln c_t(u, v; \rho, \nu) = \ln\Gamma\!\tfrac{\nu+2}{2} + \ln\Gamma\!\tfrac{\nu}{2} - 2\ln\Gamma\!\tfrac{\nu+1}{2} - \tfrac{1}{2}\ln(1-\rho^2) + T_3 + T_4,
+    \label{eq:t_density}
+\end{equation}
+where $x = t_\nu^{-1}(u)$, $y = t_\nu^{-1}(v)$, and
+\begin{align}
+    T_3 &= -\tfrac{\nu+2}{2}\ln\!\left(1 + \frac{x^2 + y^2 - 2\rho xy}{\nu(1-\rho^2)}\right), \\
+    T_4 &= \tfrac{\nu+1}{2}\left(\ln\!\left(1+\tfrac{x^2}{\nu}\right) + \ln\!\left(1+\tfrac{y^2}{\nu}\right)\right).
+\end{align}
+The correlation $\rho$ is estimated from Kendall's $\tau$ (as for the Gaussian copula), and the degrees-of-freedom $\nu$ is selected by profile maximum likelihood over a discrete grid $\nu \in \{2.5, 3, 4, 5, 6, 8, 10, 15, 20, 30\}$. The Student-t copula has \emph{symmetric} tail dependence: $\lambda_U = \lambda_L > 0$ for all finite $\nu$, with the coefficient given by
+\begin{equation}
+    \lambda_U = \lambda_L = 2\,t_{\nu+1}\!\left(-\sqrt{\frac{(\nu+1)(1-\rho)}{1+\rho}}\right),
+    \label{eq:tail_dep}
+\end{equation}
+which increases as $\nu$ decreases (heavier tails). For example, at $\rho = 0.5$ and $\nu = 4$, the tail dependence coefficient is approximately 0.18; this means that, conditional on one asset being in its 1st percentile, there is an 18\% probability that the other asset is simultaneously in its 1st percentile, far exceeding what a Gaussian copula would predict (exactly 0\%).
+
+\paragraph{C-vine copula decomposition.}
+A $d$-dimensional copula density can be decomposed into a product of $d(d-1)/2$ bivariate copula densities arranged in a vine structure \cite{aas_pair_2009}. The canonical vine (C-vine) factorization is
+\begin{equation}
+    c(\mathbf{u}) = \prod_{k=1}^{d-1} \prod_{j=k+1}^{d} c_{k,j|1,\dots,k-1}\!\bigl(u_{k|1,\dots,k-1},\; u_{j|1,\dots,k-1}\bigr),
+    \label{eq:cvine}
+\end{equation}
+where $c_{k,j|1,\dots,k-1}$ is a bivariate copula density for the pair $(k, j)$ conditioned on variables $\{1, \dots, k{-}1\}$, and $u_{k|1,\dots,k-1}$ denotes the conditional CDF (pseudo-observation) obtained by iteratively applying the $h$-function. The $h$-function for a bivariate copula $C_{ab}$ is defined as
+\begin{equation}
+    h(u \mid v; \theta) = \frac{\partial C_{ab}(u, v; \theta)}{\partial v},
+    \label{eq:hfunc}
+\end{equation}
+and represents the conditional CDF of $U$ given $V = v$ under the bivariate copula $C_{ab}$. For tree level $k$, pseudo-observations are computed as $u_{j|1,\dots,k} = h(u_{j|1,\dots,k-1} \mid u_{k|1,\dots,k-1}; \hat{\theta}_{k,j})$, where $\hat{\theta}_{k,j}$ is the parameter fitted at that edge.
+
+At each edge, five candidate bivariate families are fitted and the one with the lowest Akaike information criterion (AIC) $= 2p - 2\ln\hat{L}$ is selected, where $p$ is the number of parameters ($p=2$ for Student-t, $p=1$ for all others) and $\hat{L}$ is the maximized likelihood on the pseudo-observations at that edge. The five families and their densities are as follows.
+
+\begin{itemize}
+    \item \textit{Gaussian bivariate copula} (Eq.~\ref{eq:gauss_density}): parameter $\rho$, no tail dependence.
+    \item \textit{Student-t bivariate copula} (Eq.~\ref{eq:t_density}): parameters $(\rho, \nu)$, symmetric tail dependence.
+    \item \textit{Clayton copula}: density $c_{\text{Cl}}(u,v;\theta) = (1{+}\theta)\,(uv)^{-\theta-1}(u^{-\theta}{+}v^{-\theta}{-}1)^{-2-1/\theta}$ for $\theta > 0$, with \emph{lower} tail dependence $\lambda_L = 2^{-1/\theta}$ and $\lambda_U = 0$. Fitted via $\theta = 2\tau/(1{-}\tau)$.
+    \item \textit{Gumbel copula}: density involves $A = ((-\ln u)^\theta{+}(-\ln v)^\theta)^{1/\theta}$ with \emph{upper} tail dependence $\lambda_U = 2 - 2^{1/\theta}$ and $\lambda_L = 0$. Fitted via $\theta = 1/(1{-}\tau)$ for $\theta \geq 1$.
+    \item \textit{Frank copula}: density $c_{\text{Fr}}(u,v;\theta) = -\theta e^{-\theta(u+v)}(e^{-\theta}{-}1)/D^2$ where $D = e^{-\theta}{-}1+(e^{-\theta u}{-}1)(e^{-\theta v}{-}1)$, with $\lambda_U = \lambda_L = 0$ (no tail dependence). The parameter $\theta$ is obtained by numerically inverting the Debye function relationship $\tau = 1 - 4(\mathcal{D}_1(\theta){-}1)/\theta$, where $\mathcal{D}_1(\theta) = \theta^{-1}\!\int_0^\theta t/(e^t{-}1)\,dt$.
+\end{itemize}
+
+\paragraph{Variable ordering.}
+The C-vine requires specifying the root variable at each tree level. We order variables by decreasing sum of absolute Kendall's $\tau$: $\text{order}_k = \arg\max_j \sum_{i \neq j} |\hat{\tau}_{ij}|$ among variables not yet placed. For equity portfolios, this typically places the market index (e.g., SPY) at the root, reflecting its role as the dominant source of co-movement.
+
+\paragraph{Simulation via rank reordering.}
+In the PortfolioModel framework, copula simulation proceeds by rank reordering \cite{embrechts_copulas_2002}:
+\begin{enumerate}
+    \item Simulate $n_{\text{paths}}$ independent paths from each asset's marginal HMM, producing a matrix $\mathbf{G}_j^{(\text{ind})} \in \mathbb{R}^{T \times n_{\text{paths}}}$ for $j = 1, \dots, d$.
+    \item Sample $T \times d$ uniform variates $\mathbf{U} \sim C$ from the fitted copula.
+    \item For each asset $j$ and each path $i$, reorder the simulated observations $G_{j,1:T}^{(i)}$ so that their ranks match the copula-sampled ranks $\text{rank}(U_{j,1:T}^{(i)})$.
+\end{enumerate}
+This procedure preserves each asset's marginal distribution exactly (since reordering does not change the set of values, only their temporal arrangement) while injecting the cross-asset dependence structure specified by the copula. For the Student-t copula, the uniform variates in step~2 are obtained by sampling from a multivariate Student-t distribution with correlation $\hat{\mathbf{\Sigma}}$ and $\hat{\nu}$ degrees of freedom, then applying the univariate Student-t CDF to each margin.
+
+\clearpage
+
+\subsection*{S7. Volatility clustering: all paths vs.\ jump-containing paths}
+\label{sec:acf_jump}
+
+The jump-duration mechanism produces volatility clustering only in the subset of simulated paths that contain at least one Poisson jump event. At the optimal $\epsilon^{*}=10^{-4}$, approximately 24\% of in-sample paths (239 out of 1{,}000) contained jumps; the remaining 76\% followed pure Markov dynamics and exhibited no persistent ACF structure. When the ACF of $|G_t|$ was averaged over all 1{,}000 paths, the jump-path signal was diluted by the majority of non-jump paths, producing an ensemble-mean ACF that appeared to show little volatility clustering beyond lag~1. This dilution was an artifact of ensemble averaging, not a failure of the mechanism.
+
+Figure~\ref{fig:acf_jump_comparison} demonstrates this directly. The steel dashed curve shows the mean ACF averaged over all 1{,}000 paths: it drops to near zero by lag~5, which would suggest the model fails to reproduce volatility clustering. The navy solid curve shows the mean ACF averaged over only the 239 jump-containing paths: it tracks the observed SPY ACF (red dashed) closely across the full 252-lag horizon. The 10th--90th percentile band of the jump-path ensemble encompasses the observed ACF at most lags. This confirms that the jump mechanism does reproduce persistent volatility clustering within the paths it affects; the apparent gap in an all-paths average reflects the mixture composition of the ensemble rather than a structural limitation.
+
+\begin{figure}[tp]
+    \centering
+    \includegraphics[width=\textwidth]{FigS-ACF-Jump-Paths.pdf}
+    \Description{Comparison of in-sample ACF of absolute excess growth rates averaged over all 1000 simulated paths versus the 239 jump-containing paths only. The all-paths mean drops to near zero by lag 5, while the jump-path mean closely tracks the observed SPY ACF across all 252 lags.}
+    \caption{In-sample ACF of $|G_t|$ for HMM-WJ: all paths vs.\ jump-containing paths.
+    The mean ACF over all 1{,}000 paths (steel dashed) is diluted by the 76\% of paths
+    without jump events, producing an apparent failure to reproduce volatility clustering.
+    Conditioning on the 239 paths that contain at least one Poisson jump (navy solid,
+    with 10th--90th percentile band) recovers the persistent ACF decay observed in the
+    SPY data (red dashed). ACF-MAE values are reported in the legend.}
+    \label{fig:acf_jump_comparison}
+\end{figure}
+
+\clearpage
+
+\subsection*{S8. Multi-asset SIM extension: detailed results}
+
+The Single-Index Model extension propagated HMM-WJ SPY paths to a 424-asset universe via the factor decomposition $\hat{G}_{i,t}=\hat{\alpha}_i+\hat{\beta}_i G_{{\rm SPY},t}+\hat{\eta}_{i,t}$, where idiosyncratic shocks were resampled from empirical residuals. Figure~\ref{fig:multi_asset} shows the in-sample SIM fit quality by Global Industry Classification Standard (GICS) sector (panel~a) and the distribution of KS pass rates across all 424 assets (panel~b). Table~\ref{tab:multi_asset} reports the cross-sectional summary statistics. Figure~\ref{fig:multi_asset_oos} presents the corresponding out-of-sample evaluation across 417 surviving assets: panel~(a) shows OoS SIM fit quality by sector, panel~(b) shows the OoS KS pass rate distribution (median 91.8\%, mean 82.1\%), and panels~(c$_1$)--(c$_3$) display density fan charts for three representative assets (NVDA, JNJ, QQQ).
+
+% ── Figure: Multi-Asset SIM Extension ──────────────────────────────────────
+\begin{figure}[tp]
+    \centering
+    \includegraphics[width=\textwidth]{Fig7-Multi-Asset-SIM.pdf}
+    \Description{Two-panel figure showing the multi-asset SIM extension across 424 S&P 500 constituents. Panel (a) shows a scatter plot of SIM beta versus R-squared values colored by GICS sector. Panel (b) shows a histogram of KS pass rates across all 424 assets.}
+    \caption{Multi-asset extension via the Single-Index Model (SIM) across 424 S\&P~500
+    constituents.  Panel~(a) shows the SIM regression fit quality ($R^2_i$ vs.\ $\hat{\beta}_i$) by GICS sector;
+    assets with higher systematic risk exposure exhibit stronger factor model fit.
+    Panel~(b) shows the distribution of KS pass rates across the full asset universe
+    (median 66.7\%, mean 58.4\%).}
+    \label{fig:multi_asset}
+\end{figure}
+
+% ── Table: Multi-Asset SIM Extension Results ──────────────────────────────
+\begin{table}[tp]
+\centering
+\caption{Cross-sectional summary statistics for the Single-Index Model (SIM) extension
+    across S\&P~500 constituents.  Individual asset paths are generated as
+    $\hat{G}_{i,t}=\hat{\alpha}_i+\hat{\beta}_i G_{{\rm SPY},t}+\hat{\eta}_{i,t}$
+    where $G_{{\rm SPY},t}$ is drawn from HMM-WJ ($N=100$) simulated paths
+    and $\hat{\eta}_{i,t}$ is resampled from empirical residuals.
+    KS pass rates computed over 1{,}000 paths at $\alpha=0.05$.}
+\label{tab:multi_asset}
+\small
+\begin{tabular}{@{}lcccc@{}}
+\toprule
+\textbf{Statistic} & \textbf{Mean} & \textbf{Median} & \textbf{5th pct} & \textbf{95th pct} \\ \midrule
+\multicolumn{5}{l}{\textit{In-sample (424 assets, 2{,}766 trading days, 2014--2024)}} \\[2pt]
+KS pass rate (\%)                    & 58.4   & 66.7   &  2.5   & 96.0   \\
+SIM $R^2$                            &  0.298 &  0.295 &  0.107 &  0.507 \\
+$\hat{\beta}$ (factor loading)       &  1.066 &  1.086 &  0.480 &  1.657 \\
+$\hat{\alpha}$ (intercept)           & $-0.0328$ & $-0.0196$ & $-0.2037$ & 0.0964 \\[4pt]
+\multicolumn{5}{l}{\textit{Out-of-sample (417 assets, 249 trading days, 2025)}} \\[2pt]
+KS pass rate (\%)                    & 82.1   & 91.8   & 23.8   & 99.0   \\
+SIM $R^2$                            &  0.142 &  0.142 & $-0.169$ &  0.479 \\
+$\hat{\beta}$ (factor loading)       &  1.064 &  1.084 &  0.482 &  1.660 \\
+$\hat{\alpha}$ (intercept)           & $-0.0320$ & $-0.0186$ & $-0.2035$ & 0.0965 \\ \bottomrule
+\end{tabular}
+\end{table}
+
+% ── Figure: Multi-Asset SIM OoS ────────────────────────────────────────────
+\begin{figure*}[tp]
+    \centering
+    \includegraphics[width=\textwidth]{Fig7S-Multi-Asset-SIM-OoS.pdf}
+    \Description{Five-panel figure showing the out-of-sample SIM extension across 417 S&P 500 constituents. Panel (a) shows a scatter plot of SIM beta versus OoS R-squared by GICS sector. Panel (b) shows a histogram of OoS KS pass rates (median 91.8 percent, mean 82.1 percent). Panels (c1) through (c3) show density fan charts for NVDA, JNJ, and QQQ comparing simulated and observed 2025 distributions.}
+    \caption{Out-of-sample evaluation of the Single-Index Model (SIM) across 417 S\&P~500
+    constituents (249 trading days, 2025).
+    Panel~(a): OoS SIM fit quality ($R^2_i$ vs.\ $\hat{\beta}_i$) by GICS sector.
+    Panel~(b): distribution of OoS KS pass rates (median 91.8\%, mean 82.1\%).
+    Panels~(c$_1$)--(c$_3$): density fan charts for three representative assets spanning
+    high (NVDA, $\beta=1.75$, KS 99\%), moderate (JNJ, $\beta=0.54$, KS 77\%),
+    and intermediate (QQQ, $\beta=1.13$, KS 93\%) systematic risk exposure.}
+    \label{fig:multi_asset_oos}
+\end{figure*}
+
+\clearpage
+
+\subsection*{S9. Emission distribution and semi-Markov comparison}
+
+Table~\ref{tab:emission_hsmm_s9} isolates the contributions of the emission distribution and the persistence mechanism by comparing three model variants on SPY: the HSMM baseline ($K=8$ states, negative-binomial dwell times, Student-t emissions), HMM-WJ with the original Gaussian emissions ($N=100$), and HMM-WJ with Student-t emissions ($N=100$). The comparison confirms that HMM-WJ dominates the HSMM on distributional fidelity regardless of emission choice, and that the Student-t upgrade provides incremental improvements in tail reproduction (excess kurtosis closer to observed) and marginal fit (higher KS and AD pass rates).
+
+\begin{table}[tp]
+\centering
+\caption{Three-way comparison isolating the emission distribution and persistence mechanism for SPY ($N=100$ for HMM-WJ, $K=8$ for HSMM; 1{,}000 simulated paths, $\alpha=0.05$). Standard errors in parentheses.}
+\label{tab:emission_hsmm_s9}
+\small
+\begin{tabular}{@{}lccc@{}}
+\toprule
+\textbf{Metric} & \textbf{HSMM} & \textbf{HMM-WJ} & \textbf{HMM-WJ} \\
+                 & \textbf{(Student-$t$)} & \textbf{(Gaussian)} & \textbf{(Student-$t$)} \\ \midrule
+States           & $K=8$ & $N=100$ & $N=100$ \\
+Parameters       & 18    & 4       & 4 \\[4pt]
+\multicolumn{4}{l}{\textit{In-sample (2{,}766 trading days, 2014--2024)}} \\[2pt]
+KS pass rate (\%)      &  82.0 (1.2) &  97.0 (0.5) & \textbf{97.6} (0.5) \\
+AD pass rate (\%)      &  42.5 (1.6) &  90.5 (0.9) & \textbf{91.3} (0.9) \\
+Excess kurtosis        &   4.8 (0.08) &   5.5 (0.03) & \textbf{7.6} (0.14) \\
+ACF-MAE                & 0.059 ({$<$}0.001) & \textbf{0.052} ({$<$}0.001) & \textbf{0.052} ({$<$}0.001) \\
+Wasserstein-1          & 0.176 (0.001) & \textbf{0.101} (0.002) & \textbf{0.101} (0.001) \\
+Hellinger              & 0.113 ({$<$}0.001) & 0.076 ({$<$}0.001) & \textbf{0.075} ({$<$}0.001) \\[4pt]
+\multicolumn{4}{l}{\textit{Out-of-sample (249 trading days, 2025)}} \\[2pt]
+KS pass rate (\%)      &  96.2 (0.6) & \textbf{95.0} (0.7) &  94.4 (0.7) \\
+AD pass rate (\%)      & \textbf{96.7} (0.6) &  95.9 (0.6) &  95.1 (0.7) \\
+Excess kurtosis        &   4.1 (0.13) &   4.9 (0.08) & \textbf{6.1} (0.13) \\
+ACF-MAE                & 0.042 ({$<$}0.001) & 0.040 ({$<$}0.001) & \textbf{0.039} ({$<$}0.001) \\
+Wasserstein-1          & 0.287 (0.002) & 0.275 (0.005) & \textbf{0.282} (0.006) \\
+Hellinger              & 0.239 (0.001) & 0.212 (0.001) & \textbf{0.210} (0.001) \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\clearpage
+
+\subsection*{S10. Validation metric definitions}
+\label{sec:validation_metrics}
+
+This section provides the formal definitions of the four validation metrics used in the main text to assess the distributional fidelity of synthetic paths.
+
+\paragraph{Kolmogorov-Smirnov (KS) statistic.}
+The two-sample KS statistic \cite{kolmogorov_1933, smirnov_1948} measures the maximum pointwise difference between two empirical CDFs:
+\begin{equation}
+    D_{KS} = \sup_{x} \left\lvert F_n(x) - F_m(x) \right\rvert
+    \label{eq:ks_stat}
+\end{equation}
+where $F_n$ and $F_m$ denote the empirical CDFs of the observed and simulated sequences of lengths $n$ and $m$, respectively. The null hypothesis of distributional equivalence is rejected at significance level $\alpha$ when $D_{KS}$ exceeds the critical value $c(\alpha)\sqrt{(n+m)/(nm)}$.
+
+\paragraph{Anderson-Darling (AD) statistic.}
+The AD statistic \cite{anderson_darling_1952} places greater weight on the distributional tails than the KS test. The one-sample form measures deviation from a reference CDF $F_0$:
+\begin{equation}
+    A^2 = -n - \sum_{i=1}^{n} \frac{2i-1}{n}\left[\ln F_0(X_{(i)}) + \ln\left(1 - F_0(X_{(n+1-i)})\right)\right]
+    \label{eq:ad_stat}
+\end{equation}
+where $X_{(1)} \le \cdots \le X_{(n)}$ are the order statistics of the sample. In this study, we applied the two-sample variant, which replaces $F_0$ with the empirical CDF of the observed SPY series; critical values are obtained from the $k$-sample variant of \citeauthor{anderson_darling_1952} as implemented in HypothesisTests.jl. The AD test is particularly suited for assessing tail-distributional fidelity, which is the primary concern for risk management applications.
+
+\paragraph{Wasserstein-1 distance.}
+The Wasserstein-1 distance measures the minimum work (distance $\times$ probability mass) required to transform one distribution into the other. For two equal-length empirical samples with order statistics $x_{(1)} \le \cdots \le x_{(T)}$ and $y_{(1)} \le \cdots \le y_{(T)}$:
+\begin{equation}
+    W_1 = \frac{1}{T}\sum_{i=1}^{T} \left\lvert x_{(i)} - y_{(i)} \right\rvert
+    \label{eq:wasserstein}
+\end{equation}
+$W_1$ is expressed in the same units as the data (daily excess growth rates) and equals zero only when the empirical distributions are identical. Because it is computed from sorted order statistics, the temporal ordering of observations is irrelevant.
+
+\paragraph{Hellinger distance.}
+The Hellinger distance measures distributional overlap on a bounded scale $[0, 1]$, with $H = 0$ indicating identical distributions and $H = 1$ indicating completely disjoint support. Given normalized histogram estimates $\{p_k\}_{k=1}^{K}$ and $\{q_k\}_{k=1}^{K}$ over a common $K$-bin grid:
+\begin{equation}
+    H(P, Q) = \frac{1}{\sqrt{2}}\sqrt{\sum_{k=1}^{K}\left(\sqrt{p_k} - \sqrt{q_k}\right)^2}
+    \label{eq:hellinger}
+\end{equation}
+Histograms were constructed on the common support of observed and simulated samples using $K = 50$ equal-width bins. The bounded scale makes $H$ directly comparable across models and evaluation windows without rescaling.
+

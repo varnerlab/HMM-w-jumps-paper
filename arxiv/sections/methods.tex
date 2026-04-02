@@ -1,0 +1,174 @@
+\subsection*{Data.} The empirical foundation of this study was a dataset composed of 424 United States-listed equities and exchange-traded funds spanning 10 years (2014-2024). A pipeline was developed to support the automated construction of excess growth rate models for any ticker within this dataset, allowing for batch simulation and stress testing across market sectors. To validate the performance of this pipeline, we focused our analysis on the single-asset SPY, which tracked the Standard \& Poor's (S\&P) 500 index. The data included daily open, high, low, and close prices along with volume-weighted average price metrics (VWAP). For training purposes, the first 2,766 observations constituted the in-sample dataset, spanning from January 3, 2014, to December 31, 2024. A subsequent 249 trading days, from January 2 to December 31, 2025, were reserved for out-of-sample testing to assess model generalizability.
+
+\subsection*{Excess growth rate calculation.}
+We computed the excess growth rate $G_{i,j}$ for ticker $i$ between time period $j-1\rightarrow{j}$ given the equity price series $P_{i,j}$:
+\begin{equation}
+    G_{i,j} \equiv \left( \frac{1}{\Delta t} \right) \cdot \ln \left( \frac{P_{i,j}}{P_{i,j-1}} \right) - r_f
+    \label{eq:growth_rate}
+\end{equation}
+where $\Delta t = 1/252$ (one trading day in years) and $r_f$ was a constant continuously compounded risk-free rate derived from STRIPS bond yields. The excess growth rate has units of year$^{-1}$ and is time-additive under continuous compounding. A constant $r_f$ was used to isolate volatility patterns without adding noise from interest rate movements.
+
+\subsection*{Discrete hidden Markov model growth rate generator.}
+We defined the hidden Markov model as the tuple $\mathcal{M} = (\mathcal{S}, \mathcal{O}, \mathbf{T}, \mathbf{E}, \bar{\pi})$ \cite{rabiner_introduction_1986}, where the hidden state $S_t \in \mathcal{S} = \{1,\dots,N\}$ represented market regimes, the observation space $\mathcal{O} \subset \mathbb{R}$ consisted of continuous excess growth rate values, $\mathbf{T}$ governed regime-to-regime transitions, $\mathbf{E}$ specified the state-conditional emission model, and $\bar{\pi}$ denoted the stationary distribution. States were defined by quantile boundaries $Q_k = F_L^{-1}(k/N; \mu_L, b_L)$ of a fitted Laplace distribution, with $Q_0 = -\infty$ and $Q_N = +\infty$; the Laplace was chosen for its sharper peak (better matching the concentration of small price movements \cite{mandelbrot_variation_1963, cont_empirical_2001, kotz_laplace_2001}) and its closed-form quantile function, which scaled to the 424-ticker pipeline without iterative optimization \cite{bilmes_gentle_nodate}. An observation was assigned to state $k$ when $Q_{k-1} < G_t \le Q_k$. The within-state emission followed a location-scale Student-t distribution:
+\begin{equation}
+    G_t \mid S_t = k \sim \mu_k + \sigma_k \cdot t_{\nu}, \qquad \nu = 5,
+\end{equation}
+where $\nu=5$ was selected from a sensitivity analysis over $\nu\in\{3,4,5,6,7,8,10,15,30,\infty\}$ as the value that minimized the kurtosis gap without degrading distributional fidelity ($\nu=\infty$ recovers the Normal baseline).
+
+We estimated the transition matrix $\mathbf{T}$ through direct frequentist counting: the discrete state assignments allowed straightforward counting of observed transitions between regimes, making the approach conceptually simple and free of the initialization sensitivity inherent to EM \cite{bilmes_gentle_nodate}. A consequence of direct counting was that empirical transition matrices often had low probabilities for exiting central states into tail states, which caused models to lose the effect of volatility clustering too quickly \cite{bulla_stylized_2006}. We corrected this by adding jump parameters $\epsilon$, representing the probability of a jump event, and $\lambda$, representing the mean duration, along with a tail-state selection rule. Tail-states were defined as $\mathcal{S}_{bottom} = \{1, \dots, N_{tail}\}$ and $\mathcal{S}_{top} = \{N-N_{tail}+1, \dots, N\}$, where $N_{tail}$ was user-configurable. If a jump was triggered, the jump-duration $K$ was sampled from a Poisson distribution such that $K \sim \text{Poisson}(\lambda)$, which is standard for modeling independent events in fixed intervals \cite{glasserman_monte_2003}. During these $K$ steps, the standard Markovian transitions were overridden to target tail-states, with a user-configurable bias $p_{neg}$ (default 0.52) that favored negative-tail states to reproduce gain/loss asymmetry (Figure~\ref{fig:model_architecture}).
+
+% ── Figure 2: Model Architecture ──────────────────────────────────────────────
+\begin{figure}[tp]
+\centering
+\resizebox{\textwidth}{!}{%
+\begin{tikzpicture}[
+  % ----- node styles -----
+  state/.style    = {circle, draw=black, very thick, minimum size=1.1cm,
+                     inner sep=0pt, font=\small},
+  tailbot/.style  = {state, fill=red!25,  draw=red!70!black},
+  tailtop/.style  = {state, fill=blue!25, draw=blue!70!black},
+  midstate/.style = {state, fill=white,   draw=black!70},
+  % ----- arrow styles -----
+  markov/.style   = {<->, >=Stealth, thin, gray!80},
+  trigger/.style  = {->, >=Stealth, thick, dashed, black!80},
+  jumparc/.style  = {->, >=Stealth, very thick},
+]
+
+  % ===== State nodes along the horizontal axis =====
+  \node[tailbot]              (s1)   at ( 0.0, 0) {$1$};
+  \node[tailbot]              (s2)   at ( 2.0, 0) {$2$};
+  \node[font=\Large]          (ld)   at ( 4.0, 0) {$\cdots$};
+  \node[midstate]             (sk)   at ( 6.0, 0) {$k$};
+  \node[font=\Large]          (rd)   at ( 8.0, 0) {$\cdots$};
+  \node[tailtop]              (sNm1) at (10.0, 0) {$N\!-\!1$};
+  \node[tailtop]              (sN)   at (12.0, 0) {$N$};
+
+  % ===== Markov transition arrows (bidirectional, thin) =====
+  \draw[markov] (s1)  -- (s2);
+  \draw[markov] (s2)  -- (ld);
+  \draw[markov] (ld)  -- (sk);
+  \draw[markov] (sk)  -- (rd);
+  \draw[markov] (rd)  -- (sNm1);
+  \draw[markov] (sNm1)-- (sN);
+
+  % ===== Laplace emission bell curves above each visible state =====
+  \draw[red!75!black, thick]
+    plot[domain=-0.42:0.42, samples=40, smooth, variable=\t]
+    ({ 0.0+\t}, {1.45 + 0.72*exp(-\t*\t/0.024)});
+  \draw[red!25, thin] (-0.42,1.45) -- (0.42,1.45);
+
+  \draw[red!75!black, thick]
+    plot[domain=-0.42:0.42, samples=40, smooth, variable=\t]
+    ({ 2.0+\t}, {1.45 + 0.72*exp(-\t*\t/0.024)});
+  \draw[red!25, thin] (1.58,1.45) -- (2.42,1.45);
+
+  \draw[black!55, thick]
+    plot[domain=-0.42:0.42, samples=40, smooth, variable=\t]
+    ({ 6.0+\t}, {1.45 + 0.72*exp(-\t*\t/0.024)});
+  \draw[gray!40, thin] (5.58,1.45) -- (6.42,1.45);
+
+  \draw[blue!75!black, thick]
+    plot[domain=-0.42:0.42, samples=40, smooth, variable=\t]
+    ({10.0+\t}, {1.45 + 0.72*exp(-\t*\t/0.024)});
+  \draw[blue!25, thin] (9.58,1.45) -- (10.42,1.45);
+
+  \draw[blue!75!black, thick]
+    plot[domain=-0.42:0.42, samples=40, smooth, variable=\t]
+    ({12.0+\t}, {1.45 + 0.72*exp(-\t*\t/0.024)});
+  \draw[blue!25, thin] (11.58,1.45) -- (12.42,1.45);
+
+  \node[font=\footnotesize\itshape, text=black!55]
+    at (6.0, 2.7) {$\mu_k\!+\!\sigma_k\cdot t_5$ emission};
+
+  % ===== Poisson clock (jump trigger box) =====
+  \node[draw, rounded corners=5pt, fill=yellow!20, very thick,
+        minimum width=2.8cm, minimum height=1.1cm,
+        align=center, font=\small] (clock) at (6.0, 5.0)
+        {Poisson clock\\[1pt]prob.~$\epsilon$};
+
+  \draw[trigger] (sk.north) -- (clock.south)
+    node[midway, right=3pt, font=\footnotesize] {jump triggered};
+
+  % ===== Jump arcs from clock to tail state sets =====
+  \draw[jumparc, red!70!black]
+    (clock.west)
+    to[out=180, in=100]
+    node[above, sloped, font=\footnotesize, red!80!black,
+         pos=0.45, yshift=2pt]
+      {$K\!\sim\!\mathrm{Pois}(\lambda)$ forced steps}
+    (s1.north);
+
+  \draw[jumparc, blue!70!black]
+    (clock.east)
+    to[out=0, in=80]
+    node[above, sloped, font=\footnotesize, blue!80!black,
+         pos=0.45, yshift=2pt]
+      {$K\!\sim\!\mathrm{Pois}(\lambda)$ forced steps}
+    (sN.north);
+
+  % ===== Tail set brace labels below states =====
+  \draw[decorate,
+        decoration={brace, amplitude=6pt, mirror},
+        red!70!black, thick]
+    (-0.6, -0.65) -- (2.6, -0.65)
+    node[midway, below=7pt, red!80!black, font=\small]
+      {$\mathcal{S}_{-}$\ (bottom tail)};
+
+  \draw[decorate,
+        decoration={brace, amplitude=6pt, mirror},
+        blue!70!black, thick]
+    (9.4, -0.65) -- (12.6, -0.65)
+    node[midway, below=7pt, blue!80!black, font=\small]
+      {$\mathcal{S}_{+}$\ (top tail)};
+
+  % ===== State-axis arrow =====
+  \draw[->, >=Stealth, gray!70, thin]
+    (-1.0, -0.5) -- (13.2, -0.5)
+    node[right, font=\small, text=black!70] {state index};
+
+  \node[font=\footnotesize, text=gray!80, above right=2pt and 4pt of sk]
+    {prob.~$1\!-\!\epsilon$};
+
+\end{tikzpicture}%
+}
+\Description{Diagram of the HMM-WJ architecture showing a linear chain of hidden states from state 1 (red, bottom tail) through middle states to state N (blue, top tail). Thin bidirectional arrows represent normal Markov transitions. A dashed arrow from a middle state points upward to a Poisson clock node labeled epsilon, which then directs flow into either the bottom-tail (red) or top-tail (blue) state sets for K steps before returning to normal Markov transitions. Small bell curves above each state represent the state-conditional Student-t emission distribution.}
+\caption{Architecture of the Hybrid Hidden Markov Model with Jump-Diffusion (HMM-WJ).
+    At each step the chain transitions according to the empirical transition matrix $\mathbf{T}$
+    (probability $1-\epsilon$, thin bidirectional arrows) or enters a Poisson jump episode
+    (probability $\epsilon$, dashed upward arrow to the Poisson clock).
+    During a jump episode the active state is forced to the bottom tail set $\mathcal{S}_{-}$
+    (red, lowest-valued states) or the top tail set $\mathcal{S}_{+}$ (blue, highest-valued states)
+    for $K\!\sim\!\mathrm{Poisson}(\lambda)$ consecutive steps before normal Markovian evolution
+    resumes.  Small bell curves above each state depict the state-conditional
+    location-scale Student-t ($\nu=5$) emission distribution.  Tail sets are defined as the
+    $N_{\rm tail}$ lowest- and highest-quantile states under the Laplace quantile partition.}
+\label{fig:model_architecture}
+\end{figure}
+
+Given the state assignments and transition matrix, the remaining model components were estimated directly from the data. The emission parameters $\mu_k$ and $\sigma_k$ were the sample mean and standard deviation of observations assigned to state $k$. The empirical transition matrix exhibited a dominant near-diagonal band reflecting short-range regime persistence (Figure~\ref{fig:model_internals}, Online Appendix~S1). The stationary distribution $\bar{\pi}$ satisfied $\bar{\pi} = \bar{\pi}\mathbf{T}$ and was estimated by matrix powering ($\mathbf{T}^{50}$) \cite{hamilton_regime_2018, grinstead_introduction_1997}. An initial state was drawn from $X_0 \sim \bar{\pi}$; at each subsequent step the chain either transitioned according to the empirical row $\mathbf{T}_{X_{n-1},\,\cdot}$ (probability $1-\epsilon$) or entered a Poisson jump episode (probability $\epsilon$) that forced the state into the tail set $\mathcal{S}_{-}$ or $\mathcal{S}_{+}$ for $K \sim \text{Poisson}(\lambda)$ consecutive steps before normal transitions resumed. In both cases, an observation was sampled from the emission distribution $O_n \sim \mathbf{E}_{X_n}$. The full simulation algorithm and remaining pipeline stages (model construction, state decoding) are given in Online Appendix~S4 (Algorithm~\ref{alg:sim}).
+
+\subsection*{Hyperparameter optimization via grid search.}
+To identify the optimal jump probability ($\epsilon$) and mean jump duration ($\lambda$) \cite{merton_jump_1976, kou_jump-diffusion_2002}, we implemented a multi-objective grid search that minimized the discrepancy between historical and simulated market signatures. The error function targeted two stylized facts \cite{cont_empirical_2001, ryden_stylized_1998}: volatility clustering, measured as the sum of squared errors between the observed and simulated autocorrelation function (ACF) of absolute excess growth rates \cite{schwert_why_1989} up to a lag of $L=252$ trading days (approximately one trading year); and leptokurtosis, captured by a penalty term on the global kurtosis \cite{mandelbrot_variation_1963}.
+
+We defined the objective function $J(\epsilon, \lambda)$ as:
+\begin{equation}
+    J(\epsilon, \lambda) = \sum_{\tau=1}^{L} \left( \text{ACF}_{obs}(\tau) - \overline{\text{ACF}}_{sim}(\tau) \right)^2 + w_K \left( K_{obs} - \overline{K}_{sim} \right)^2
+    \label{eq:grid_search}
+\end{equation}
+where $\text{ACF}_{obs}(\tau)$ and $K_{obs}$ represented the empirical absolute growth autocorrelation at lag $\tau$ and the global kurtosis, respectively. The simulated equivalents, $\overline{\text{ACF}}_{sim}(\tau)$ and $\overline{K}_{sim}$, were averaged across 200 independent synthetic paths of 2,766 trading days per grid point \cite{glasserman_monte_2003}. We set the kurtosis penalty weight to $w_K = 0.20$ to balance tail behavior against the temporal ACF term. The grid search explored $\epsilon$ values from $10^{-4}$ to $2.5\times10^{-2}$ and $\lambda$ values from $10$ to $160$. The full computational procedure is detailed in Algorithm \ref{alg:grid_search}.
+
+\subsection*{Validation metrics}
+Each of the 1,000 simulated paths was compared against the historical excess growth rate series using four complementary metrics. The two-sample Kolmogorov-Smirnov (KS) test \cite{kolmogorov_1933, smirnov_1948} assessed overall distributional agreement; the two-sample Anderson-Darling (AD) test \cite{anderson_darling_1952} placed greater weight on the tails. For each test, we reported the \textit{pass rate}: the proportion of paths for which the null hypothesis of distributional equivalence was not rejected at $\alpha = 0.05$. To complement these binary verdicts with continuous effect-size measures, we also computed the Wasserstein-1 distance ($W_1$) and the Hellinger distance ($H \in [0,1]$), averaged path-by-path across simulations. Formal definitions of all four metrics are given in Supplemental Section~S10.
+
+\subsection*{Temporal fidelity metric}
+While KS and AD tests assess marginal distributional quality, they are insensitive to temporal dependence. To measure how well a generator reproduced volatility clustering, we defined the autocorrelation mean absolute error (ACF-MAE) as:
+\begin{equation}
+    \text{ACF-MAE} = \frac{1}{L}\sum_{\tau=1}^{L} \left\lvert \widehat{\rho}_{|G|}^{\,\text{obs}}(\tau) - \widehat{\rho}_{|G|}^{\,\text{sim}}(\tau) \right\rvert
+    \label{eq:acf_mae}
+\end{equation}
+where $\widehat{\rho}_{|G|}^{\,\text{obs}}(\tau)$ and $\widehat{\rho}_{|G|}^{\,\text{sim}}(\tau)$ are the sample autocorrelations of the absolute excess growth rate series $|G_t|$ at lag $\tau$ for the observed and simulated paths, respectively, and $L=252$ (one trading year). An i.i.d.\ generator produces $\widehat{\rho}_{|G|}^{\,\text{sim}}(\tau)\approx 0$ for all $\tau>0$, so its ACF-MAE equals the mean level of the observed autocorrelation function; lower values indicate better reproduction of empirical volatility persistence.
+
+\subsection*{Multi-asset extensions}
+To generalize synthetic path generation beyond a single asset, we considered two dependence specifications. The Single-Index Model (SIM) \cite{sharpe_simplified_1963} decomposes each asset's excess growth rate as $G_{i,t} = \alpha_i + \beta_i \cdot G_{\text{SPY},t} + \eta_{i,t}$, where $\beta_i$ measures systematic sensitivity to the index and $\eta_{i,t}$ is an idiosyncratic shock. The parameters $(\alpha_i, \beta_i)$ were estimated via OLS, and synthetic multi-asset paths were generated by (i)~producing a single HMM-generated SPY path, (ii)~resampling the empirical residuals $\hat{\eta}_{i,t}$ with replacement, and (iii)~recovering $\hat{G}_{i,t} = \hat{\alpha}_i + \hat{\beta}_i \cdot \hat{G}_{\text{SPY},t} + \hat{\eta}_{i,t}$. This construction preserved cross-sectional correlation via the common factor while maintaining the regime-switching dynamics of the index across all 424 assets.
+
+The SIM imposes a linear, single-factor structure that cannot capture nonlinear or tail dependence. As an alternative, we considered copula-based dependence specifications \cite{embrechts_copulas_2002, cherubini_copula_2004}, which fit an independent HMM to each asset, simulate each path independently (preserving marginals exactly), and then \emph{reorder} simulated values so that cross-asset dependence matches the historical structure. We evaluated three families: a \textit{Gaussian copula} (zero tail dependence), a \textit{Student-t copula} (symmetric tail dependence controlled by $\nu$), and a \textit{C-vine copula} \cite{aas_pair_2009} that decomposed the $d$-dimensional structure into a hierarchy of bivariate copulas selected per-edge by AIC from five candidate families. Copula parameters were estimated from Kendall's rank correlation after converting growth rates to uniform marginals via the probability integral transform. Full mathematical details are given in Supplemental Section~S6.
