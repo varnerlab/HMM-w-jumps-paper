@@ -391,7 +391,7 @@ Figure~\ref{fig:acf_jump_comparison} demonstrates this directly. The steel dashe
 
 \subsection*{S8. Multi-asset SIM extension: detailed results}
 
-The Single-Index Model extension propagated HMM-WJ SPY paths to a 424-asset universe via the factor decomposition $\hat{G}_{i,t}=\hat{\alpha}_i+\hat{\beta}_i G_{{\rm SPY},t}+\hat{\eta}_{i,t}$, where idiosyncratic shocks were resampled from empirical residuals. Figure~\ref{fig:multi_asset} shows the SIM fit quality by Global Industry Classification Standard (GICS) sector (panel~a) and the distribution of KS pass rates across all 424 assets (panel~b). Table~\ref{tab:multi_asset} reports the cross-sectional summary statistics.
+The Single-Index Model extension propagated HMM-WJ SPY paths to a 424-asset universe via the factor decomposition $\hat{G}_{i,t}=\hat{\alpha}_i+\hat{\beta}_i G_{{\rm SPY},t}+\hat{\eta}_{i,t}$, where idiosyncratic shocks were resampled from empirical residuals. Figure~\ref{fig:multi_asset} shows the in-sample SIM fit quality by Global Industry Classification Standard (GICS) sector (panel~a) and the distribution of KS pass rates across all 424 assets (panel~b). Table~\ref{tab:multi_asset} reports the cross-sectional summary statistics. Figure~\ref{fig:multi_asset_oos} presents the corresponding out-of-sample evaluation across 417 surviving assets: panel~(a) shows OoS SIM fit quality by sector, panel~(b) shows the OoS KS pass rate distribution (median 91.8\%, mean 82.1\%), and panels~(c$_1$)--(c$_3$) display density fan charts for three representative assets (NVDA, JNJ, QQQ).
 
 % ── Figure: Multi-Asset SIM Extension ──────────────────────────────────────
 \begin{figure}[tp]
@@ -432,6 +432,21 @@ $\hat{\beta}$ (factor loading)       &  1.064 &  1.084 &  0.482 &  1.660 \\
 $\hat{\alpha}$ (intercept)           & $-0.0320$ & $-0.0186$ & $-0.2035$ & 0.0965 \\ \bottomrule
 \end{tabular}
 \end{table}
+
+% ── Figure: Multi-Asset SIM OoS ────────────────────────────────────────────
+\begin{figure*}[tp]
+    \centering
+    \includegraphics[width=\textwidth]{Fig7S-Multi-Asset-SIM-OoS.pdf}
+    \Description{Five-panel figure showing the out-of-sample SIM extension across 417 S&P 500 constituents. Panel (a) shows a scatter plot of SIM beta versus OoS R-squared by GICS sector. Panel (b) shows a histogram of OoS KS pass rates (median 91.8 percent, mean 82.1 percent). Panels (c1) through (c3) show density fan charts for NVDA, JNJ, and QQQ comparing simulated and observed 2025 distributions.}
+    \caption{Out-of-sample evaluation of the Single-Index Model (SIM) across 417 S\&P~500
+    constituents (249 trading days, 2025).
+    Panel~(a): OoS SIM fit quality ($R^2_i$ vs.\ $\hat{\beta}_i$) by GICS sector.
+    Panel~(b): distribution of OoS KS pass rates (median 91.8\%, mean 82.1\%).
+    Panels~(c$_1$)--(c$_3$): density fan charts for three representative assets spanning
+    high (NVDA, $\beta=1.75$, KS 99\%), moderate (JNJ, $\beta=0.54$, KS 77\%),
+    and intermediate (QQQ, $\beta=1.13$, KS 93\%) systematic risk exposure.}
+    \label{fig:multi_asset_oos}
+\end{figure*}
 
 \clearpage
 
