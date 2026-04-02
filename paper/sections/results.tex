@@ -143,21 +143,8 @@ Out-of-sample, both HMM variants generalized robustly: HMM-NJ achieved 96.7\% KS
     \label{fig:statistical_validation}
 \end{figure}
 
-% ── Figure: Price Trajectories ─────────────────────────────────────────────
-\begin{figure*}[tp]
-    \centering
-    \includegraphics[width=\textwidth]{Fig-Price-Trajectories.pdf}
-    \Description{Three-panel figure showing simulated price trajectories for SPY, NVDA, JNJ, JPM under three dependence specifications.}
-    \caption{Simulated price trajectories under three dependence specifications (all starting at \$100).
-    (a)~Independent HMM marginals: drawdowns and rallies occur at unrelated times.
-    (b)~Single-Index Model: partial co-movement via the market factor.
-    (c)~Student-t copula: crash episodes synchronize because the copula reorders each asset's
-    independently simulated values so that extreme days coincide.
-    Panels~(a) and~(c) use the same growth rate values; only the temporal ordering differs.}
-    \label{fig:price_trajectories}
-\end{figure*}
 
-\FloatBarrier
+
 \subsection{Multi-asset extension}
 The single-asset results confirmed distributional and temporal fidelity for SPY; the remaining question was whether the framework could scale to a full asset universe. We propagated HMM-WJ SPY paths through a Single-Index Model (SIM) for 424 S\&P~500 constituents, with idiosyncratic shocks drawn by resampling empirical residuals. The SIM yielded a median IS KS pass rate of 66.7\% and a mean of 58.4\% across the asset universe (well below the 95\% expected under a correct model); high-$\beta$ assets closely tracking SPY retained pass rates above 80\%, while degradation concentrated among low-$R^2$ assets, confirming that the HMM generative engine was not the bottleneck. Out-of-sample, the mean KS pass rate reached 82.1\% across 417 surviving assets. Full cross-sectional results, sector-level analysis, and the SIM $R^2$ distribution are reported in Online Appendix~S8 (Figure~\ref{fig:multi_asset}, Table~\ref{tab:multi_asset}). To determine whether richer dependence specifications could recover the fidelity lost by the SIM's linear assumption, we compared four dependence models on a four-asset portfolio (SPY, NVDA, JNJ, JPM): (i)~a Gaussian copula, (ii)~a Student-t copula, (iii)~a C-vine copula with AIC-selected bivariate families, and (iv)~the Single-Index Model with bootstrap residuals (Figure~\ref{fig:price_trajectories}). We fitted an independent HMM to each asset, fitted each dependence model to the in-sample growth rate matrix, generated 1,000 synthetic paths of 2,766 steps, and evaluated both marginal fidelity (per-asset KS pass rates) and cross-asset dependence quality (correlation reproduction). For the copula models, simulation proceeded by rank reordering: each asset's independently simulated HMM values were rearranged in time so that the cross-asset rank structure matched the fitted copula, preserving each marginal distribution exactly while injecting the desired correlation and tail dependence (Online Appendix~S6).
 
@@ -191,19 +178,18 @@ Pairwise corr MAE $\downarrow$     & n/a  & 0.055         & \textbf{0.039}      
 
 We observed a clear separation between copula-based and factor-based approaches on marginal fidelity (Table~\ref{tab:copula_comparison}, Figure~\ref{fig:copula_comparison}, panel~a). All three copula specifications achieved KS pass rates above 95\% for every ticker, which confirmed that the rank-reordering mechanism preserved each asset's HMM marginal distribution as expected. The SIM, by contrast, produced KS pass rates of 79.5\% for NVDA, 92.1\% for JNJ, and only 27.5\% for JPM, which reflected the inability of a linear factor model to reproduce asset-specific tail structure when the factor loading was moderate ($R^2 = 0.48$ for JPM). This gap demonstrated that the multi-asset quality limitation identified in the 424-asset SIM analysis was attributable to the dependence specification, not to the underlying HMM marginal models. While copulas preserved marginals, the key question was whether they also captured cross-asset dependence. We measured this using the Frobenius norm of the correlation error and the mean absolute error across all six pairwise correlations (Figure~\ref{fig:copula_comparison}, panel~b). The Student-t copula achieved the best correlation reproduction (Frobenius error 0.134, SE~0.001; pairwise MAE 0.039), followed by the Gaussian copula (0.168; 0.055) and the vine copula (0.287; 0.099). The vine copula's poor correlation reproduction in this four-asset setting was attributable to overfitting: with only six bivariate edges and five candidate families per edge, the AIC-selected model captured local pairwise structure at the expense of global correlation coherence. The Student-t copula's advantage over the Gaussian copula arose from its ability to model tail dependence; at the fitted $\nu = 5$ degrees of freedom, extreme co-movements across assets occurred substantially more frequently than a Gaussian dependence structure would produce, which better matched the observed concentration of joint drawdowns in the historical data.
 
-% ── Figure: Copula Comparison ─────────────────────────────────────────────
-\begin{figure}[tp]
+% ── Figure: Price Trajectories ─────────────────────────────────────────────
+\begin{figure*}[h!]
     \centering
-    \includegraphics[width=\textwidth]{Fig-Copula-Comparison.pdf}
-    \Description{Two-panel figure comparing dependence models for a four-asset portfolio. Panel (a) shows a grouped bar chart of KS pass rates for SPY, NVDA, JNJ, and JPM under four dependence models: SIM, Gaussian copula, Student-t copula, and vine copula. All three copula models achieve pass rates above 95 percent for all tickers, while SIM falls below 30 percent for JPM. Panel (b) shows a correlation heatmap where each off-diagonal cell displays the observed and Student-t copula simulated correlation side by side, demonstrating close agreement.}
-    \caption{Dependence model comparison for the four-asset portfolio (SPY, NVDA, JNJ, JPM).
-    Panel~(a): KS pass rates by ticker and dependence model. All three copula specifications
-    preserve per-asset marginal fidelity above 95\%, while the SIM degrades to 27.5\% for JPM
-    due to low factor loading ($R^2 = 0.48$). The dashed line marks the 95\% threshold.
-    Panel~(b): each off-diagonal cell shows observed / Student-t copula simulated pairwise
-    correlations. The Student-t copula reproduces the cross-asset dependence structure with
-    a pairwise MAE of 0.039; the largest discrepancy is SPY-JNJ (0.47 vs.\ 0.41).}
-    \label{fig:copula_comparison}
-\end{figure}
+    \includegraphics[width=\textwidth]{Fig-Price-Trajectories.pdf}
+    \Description{Three-panel figure showing simulated price trajectories for SPY, NVDA, JNJ, JPM under three dependence specifications.}
+    \caption{Simulated price trajectories under three dependence specifications (all starting at \$100).
+    (a)~Independent HMM marginals: drawdowns and rallies occur at unrelated times.
+    (b)~Single-Index Model: partial co-movement via the market factor.
+    (c)~Student-t copula: crash episodes synchronize because the copula reorders each asset's
+    independently simulated values so that extreme days coincide.
+    Panels~(a) and~(c) use the same growth rate values; only the temporal ordering differs.}
+    \label{fig:price_trajectories}
+\end{figure*}
 
 The vine copula's underperformance had a revealing explanation: the AIC-based selection procedure chose the Student-t bivariate copula at all six edges across all three vine tree levels ($\Delta\text{AIC} > 60$ over every alternative \cite{burnham_model_2002}), with no Clayton, Gumbel, or Frank families selected. This was unexpected given that the financial risk literature frequently posits asymmetric tail dependence in equity returns \cite{ang_asymmetric_2002, longin_extreme_2001}. The fitted degrees-of-freedom parameter varied systematically: $\nu=4$--$5$ for direct market pairs (SPY-NVDA, SPY-JNJ, SPY-JPM), indicating heavy symmetric tail dependence, and $\nu=10$--$30$ for conditional pairs after removing the market factor, indicating that most tail dependence was attributable to the common market component. Because every vine edge selected the same family, the vine's flexibility provided no advantage over a single Student-t copula while adding estimation noise from the sequential h-function transformations. For these four U.S.\ large-cap equities over this sample period, a single Student-t copula was a parsimonious and sufficient specification; whether this symmetry persists across broader asset universes or crisis periods remains an open question.
