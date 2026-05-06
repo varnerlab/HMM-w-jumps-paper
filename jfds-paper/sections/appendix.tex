@@ -1,0 +1,175 @@
+% appendix.tex
+% Supplementary material: empirical validations of assumptions used in
+% the main-text derivations, plus material that is too dense for the
+% main body but useful for replication.
+
+\section{Empirical cross-term diagnostic}
+\label{sec:supp-cov}
+
+The variance correction of Eq.~\eqref{eq:scale} rests on the
+assumption $\Cov[\teps_i, g_m] \approx 0$, which is what allows the
+derivation to drop the cross-term in the expansion of $\Var[g_i]$. Because the per-asset JumpHMM marginals are
+fit to each asset's full growth-rate history, including its
+market-correlated component, the assumption is not automatic: a
+generator that picked up a residual market loading would invalidate
+the closed-form scaling. We tested the assumption empirically by sampling $R = 100$
+innovation paths $\teps_i^{(r)}$ per ticker from each generator and
+computing the normalized cross-covariance against the real SPY path:
+\begin{equation}
+  \mathrm{cov}^{\mathrm{norm}}_i
+  = \frac{1}{R} \sum_{r=1}^{R}
+    \frac{\Cov[\teps_i^{(r)},\, g_m]}{\sigma_{\teps,i}\, \sigma_m}.
+\end{equation}
+Per-ticker values were plotted as histograms in
+Fig.~\ref{fig:cov_diag}. Across the $423$ tickers, the full-return
+JumpHMM generator (\texttt{jumphmm\_full}, used by hybrid and naive)
+sat within $\pm 0.006$ of zero with a per-ticker mean bias of
+$1.5\times 10^{-4}$ (Fig.~\ref{fig:cov_diag}); the residual-fit
+JumpHMM generator (\texttt{jumphmm\_residual}, used by
+JumpHMM-on-residuals) and the Gaussian baseline were also centered
+at zero (mean $7\times 10^{-5}$ and $2.3\times 10^{-4}$
+respectively, Fig.~\ref{fig:cov_diag}). The
+independence assumption was therefore satisfied to within sampling
+tolerance for all three generators, and the derivation of
+Eq.~\eqref{eq:scale} held in practice.
+
+\begin{figure}[t]
+  \centering
+  \includegraphics[width=0.85\textwidth]{figs/figS1_cov_diagnostic.pdf}
+  \caption{\textbf{Empirical normalized cross-covariance
+    $\Cov[\teps_i, g_m] / (\sigma_{\teps,i}\, \sigma_m)$ across
+    the $423$-ticker universe.} Histograms were stacked per generator,
+    with each per-ticker value averaged over $R = 100$ innovation
+    draws. The full-return JumpHMM, residual-fit JumpHMM, and
+    Gaussian generators all clustered at zero, validating the
+    independence assumption used to derive Eq.~\eqref{eq:scale}.}
+  \label{fig:cov_diag}
+\end{figure}
+
+% =============================================================================
+% S2  Bias correction for daily-rebalanced backtests
+%
+% OUTLINE  (drafted 2026-05-06; awaits final empirical numbers from a generic
+%           re-run of the rebalancing decomposition on the released
+%           jfds-paper/code/ pipeline; current numbers carried over from the
+%           eCornell deployed-engine measurement.)
+% =============================================================================
+
+\section{Bias correction for daily-rebalanced backtests}
+\label{sec:supp-bias}
+
+\subsection*{S2.1 The diversification-return artifact under iid SIM residuals}
+
+% - SIM identity g_i = α + β g_m + ε with iid ε.
+% - Booth--Fama (1992) closed form: bonus ≈ ½(Σ wᵢ σᵢ² − σ_p²).
+% - Why amplifiers (daily frequency, σ²-weighted concentration, signal-driven
+%   allocator feedback) push the basic single-digit pp/yr theoretical bonus
+%   to the observed ~28 pp/yr.
+% - Empirical anchor: ρ ≈ 0.05–0.10 daily residual autocorrelation in real
+%   markets~\cite{loMacKinlay1990} is what neutralizes the free lunch in
+%   real deployment.
+
+\subsection*{S2.2 Empirical demonstration on a 20-asset deployed allocator}
+
+% - Setup: hybrid-composed 2025 universe (calibration 2014–2024, N=100,
+%   ε, λ tuned via the protocol of Section~2), 20 long-only names with
+%   calibrated (α, β), max β = 1.21, target-weight allocator, 5 bps
+%   round-trip cost.
+% - Decomposition Table~\ref{tab:rebalancing-decomp}:
+%     Equal-weight buy-and-hold:                    7.7%/yr
+%     Static target-weight (no rebalance):          2.0%/yr
+%     Daily-rebalanced target-weight (no signal):  29.7%/yr
+%     Daily-rebalanced target-weight (with signal): 29.8%/yr
+% - +27.7 pp from static to daily on identical allocation rule = the entire
+%   artifact; signal contributes +0.13 pp.
+% - Real-2025 comparison: same allocator on real growth-rate history → 11.5%/yr.
+
+\subsection*{S2.3 Location-shift bias correction}
+
+% - Eq.~\eqref{eq:bias-correction} restated.
+% - Why exp(-b·t·Δt) and not additive: log-CCGR space is the natural scale;
+%   multiplicative drag preserves drawdown geometry. Per-path monotone
+%   transform; rank correlation with raw engine = 1.000.
+% - Anchor selection:
+%     * CCGR^prior = rf + active premium net of frictions.
+%     * At submission: rf ≈ 4.5%/yr (5y Treasury basis), long-run equity
+%       premium 4–6 pp~\cite{damodaranERP}, net of fees/turnover/impact
+%       subtract 1–2 pp → 3.5 pp active premium → 8.0%/yr.
+%     * Robustness: anchoring at 7%/9% shifts real-year percentile by ~10
+%       pts but preserves all rank statistics.
+% - Why a documented prior, not the realized year:
+%     * Realized-year anchoring is circular; the synthetic median collapses
+%       onto the test sample by construction.
+%     * Realized-year anchoring misrepresents typical years (the 2025 case:
+%       above-typical year forced to median).
+
+\subsection*{S2.4 Why alternatives don't work (or have worse trade-offs)}
+
+% (a) Path-filtering (drop synthetic paths with engine CCGR > τ): threshold
+%     becomes a target the audience probes; doesn't remove the structural
+%     artifact, just selects a subset.
+% (b) Transaction-cost inflation: would require ~70 bps/round-trip vs
+%     realistic 1–10 bps; transfers the lie from "engine is great" to
+%     "costs are huge."
+% (c) Parameter drift between calibration and deployment: empirically tested
+%     (drift_scale ∈ {0,1,2,3,5} × SE); moves median Sharpe 2.02 → 2.03 across
+%     the sweep; β is estimated too tightly for SE-scale drift to matter.
+% (d) AR(1) on residuals without copula restructuring: the copula reorder
+%     destroys all temporal structure by construction; AR(1) must precede the
+%     reorder, requiring block-ordered copula sampling. ~10–15 hours
+%     engineering for the single-asset AR(1) plus a copula sampler redesign.
+%     With ρ ≈ 0.075 the artifact compresses to ~8–15 pp, still inflated.
+% (e) Residual block-bootstrap (Politis–Romano)~\cite{politisRomano1994}:
+%     preserves temporal and cross-asset structure by construction but
+%     replaces the JumpHMM marginal pipeline, losing the parametric story
+%     of Section~2. Listed as a valid alternative for workflows that prefer
+%     non-parametric residuals.
+% (f) Multiplicative haircut on engine-vs-static deviation
+%     W^corr = W_static · (W_engine / W_static)^k: rank-correlation with raw
+%     engine drops to 0.748 (paths reorder under the correction), and the
+%     corrected drawdown distribution inherits static-allocation character
+%     (median DD jumps from 5% to 9%, P95 from 13.5% to 19%). A and C hit
+%     the same anchor with very different downstream properties; we do not
+%     recommend C.
+
+\subsection*{S2.5 Validation and downstream-use guidance}
+
+% - Smoke-test (200 paths, smaller-than-production):
+%     Engine raw median 29.78%/yr; bias drag b = 21.78 pp/yr; corrected
+%     median = 8.00%/yr (matches anchor); real-2025 lands at P63.5 of
+%     corrected ensemble. P5 ≈ -9% (bad year), P50 = 8% (typical year),
+%     P95 ≈ +25% (great year).
+% - Use cases the corrected ensemble supports:
+%     (i)   percentile diagnostics overlaying real outcomes;
+%     (ii)  relative ranking of strategies on the same corrected paths;
+%     (iii) drawdown distribution; (iv) tail-shape analysis.
+% - Use cases that require the real-fix path (AR(1)/GARCH residuals with
+%   restructured copula sampling, listed as future work in the Conclusion):
+%     (i)   forward-prediction claims on absolute Sharpe;
+%     (ii)  optimal-rebalancing-frequency studies;
+%     (iii) any workflow where residual autocorrelation is itself the
+%           quantity of interest.
+
+\subsection*{S2.6 Reproducibility}
+
+% - Reference implementation: apply_bias_correction lives in the released
+%   jfds-paper/code archive (NOT in JumpHMM.jl, since it is a downstream-use
+%   utility, not a model API).
+% - Anchor parameter is a single constant CCGR_PRIOR_PCT exposed at the top
+%   of the bias-correction script.
+% - Inputs: wealth_paths matrix from any backtest result; outputs: corrected
+%   wealth_paths plus recomputed final_wealth, max_drawdowns, sharpe_ratios
+%   on the corrected paths.
+
+% --- Table to be filled in once the generic re-run is complete ----------------
+% \begin{table}[t]
+%   \centering
+%   \caption{\textbf{Rebalancing-alpha decomposition on the same allocation
+%     rule and the same synthetic paths.} The +27.7~pp jump from static to
+%     daily-rebalanced isolates the diversification-return
+%     artifact~\cite{boothFama1992}. The signal contributes $+0.13$~pp;
+%     the rebalancing frequency itself accounts for the entire artifact.}
+%   \label{tab:rebalancing-decomp}
+%   \small
+%   % \input{sections/tables/tableS2_rebalancing_decomp}
+% \end{table}

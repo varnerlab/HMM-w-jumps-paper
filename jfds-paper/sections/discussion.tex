@@ -1,0 +1,239 @@
+% discussion.tex
+% Discussion: scope, caveats, and extensions.
+
+In this study, we composed synthetic per-asset growth-rate paths
+under a single-index model (SIM) by drawing each asset's innovation
+from an independent JumpHMM generator fit to the asset's own
+full growth-rate history, then rescaling the draw by a closed-form scalar
+before inserting it into the SIM composition. We evaluated six
+composers on a calibrated universe of $424$ US equities and
+exchange-traded funds against the real SPY market path: the naive
+composition, a Gaussian-residual SIM baseline, the hybrid
+construction proposed here, and three residual-fit alternatives
+(JumpHMM-on-residuals, Politis--Romano block
+bootstrap~\cite{politisRomano1994}, and a per-ticker GARCH(1,1)-$t$
+fit~\cite{bollerslev1986}). The one-line variance correction,
+together with the sign-preserving clip rule and the $R^2$-preserving
+branch, closes a gap between two previously incomplete options for
+building synthetic asset paths with both marginal structure and
+factor structure: naive composition gives both but distorts the
+marginal by $\beta^2 \sigma_m^2$, while Gaussian-residual SIM gives
+the factor exactly but strips the marginal. The hybrid construction
+sat between the Gaussian-residual and naive baselines: it recovered
+$\beta$ to the same precision as either, held the generator marginal
+to its target variance in every ticker, and preserved the generator's
+tails at a level indistinguishable from the naive composition
+(Fig.~\ref{fig:preservation}, Table~\ref{tab:aggregate}). The
+three residual-fit composers produced higher Kolmogorov--Smirnov
+pass rates than hybrid on marginal body fidelity ($67$ to $76\%$
+versus $50\%$, Table~\ref{tab:aggregate}), but matched hybrid on
+the $99\%$ Value-at-Risk coverage test to within statistical
+tolerance (Table~\ref{tab:var}); the body-fidelity gap did not
+translate to a tail-accuracy gap. The contribution of hybrid was therefore scoped to the case where
+the per-asset generator was specified in full-return units (a common
+setting, since per-asset generators are often calibrated for
+distributional interpretability, cached for other pipelines, or
+chosen to retain regime-switching or jump structure); in that case
+hybrid delivered $99\%$ VaR accuracy on par with a dedicated
+residual generator without requiring a separate fitting stage. The variance-inflation gap was large enough to matter in
+practice: at the high-$\beta$ end of the universe, naive composition
+inflated the marginal variance by over $70\%$ relative to the
+generator target (Fig.~\ref{fig:preservation}). Because branch selection was
+driven entirely by the calibrated $R^2$ and each asset carried a
+persisted construction flag, the procedure ran uniformly across the
+ticker universe without external metadata and left an audit trail
+that downstream consumers could inspect. No part of the
+construction is new in a deep sense; the contribution is a minimal,
+practitioner-ready recipe with an auditable branch flag and a
+principled treatment of the degenerate tracker limit, usable as a
+drop-in replacement for naive composition in workflows where both
+tail shape and market dependence matter.
+
+The evaluation isolated the composition rule by fixing the market
+path at the real SPY history and using the
+same per-ticker innovation draw across all three composers. This design
+yielded a paired comparison of composition rules at the per-ticker level
+but set aside two questions that production users will need to address
+separately. The first concerns cross-sectional dependence: we skipped
+the optional rank-reorder step in Algorithm~\ref{alg:hybrid} so that
+per-ticker metrics reflected the composition rule alone. When the
+reorder is applied, the variance algebra is unchanged
+(rank-reordering preserves the marginal variance of $\eps_i$), so the
+marginal results here carry over; cross-sectional fidelity under
+different copula specifications is studied in the companion
+\texttt{JumpHMM.jl} paper~\cite{alswaidanVarner2026jdiq}. The second
+concerns market-path uncertainty: the metrics reported here used the
+real SPY path, and under a simulated market path the composed
+marginal picks up additional variance from the sampling of
+$g_m^{(r)}$, which for high-$R^2$ tickers becomes a noticeable
+effect. In production, the two deferred questions compose:
+a reorder-plus-simulated-market pipeline would layer cross-sectional
+structure on top of per-ticker draws built against sampled market
+paths, with the variance correction of Eq.~\eqref{eq:scale} still
+providing the per-asset variance target on each realized
+$g_m^{(r)}$. A separate scope boundary concerns the downstream use
+case: the main metrics reported here characterize marginal and
+factor fidelity of the composition rule on per-ticker targets. To
+test whether that fidelity translates to a consequential downstream
+number, we also report a per-ticker one-day $95\%$ and $99\%$
+Value-at-Risk backtest of the composed paths against the real
+2014--2024 growth-rate histories, with exceedance counts assessed by
+Kupiec's unconditional coverage test; the per-ticker framing keeps
+this validation inside the paper's scope, while portfolio-level VaR
+requires the cross-sectional copula deferred to the companion
+paper~\cite{alswaidanVarner2026jdiq}. High-turnover portfolio
+strategies remain a distinct scope boundary: the temporal structure
+of the residual draw becomes load-bearing in a way that
+contemporaneous composition does not address.
+
+A related boundary on the recipe was the clipping rule. Clipping
+did not trigger anywhere in the US-equity universe used here,
+because the JumpHMM marginals carried enough variance that
+$\rho_i = \beta_i^2 \sigma_m^2 / \sigma_{\gen,i}^2$ stayed below $0.90$
+even for the highest-$\beta$ ticker. Clipping becomes relevant in two
+settings we did not evaluate: scenario-driven markets, where the
+synthetic $g_m$ is constructed to be much more volatile than the
+calibration market (e.g., stress tests), and universes that mix
+low-volatility single stocks with extreme betas (e.g., leveraged ETFs).
+In both settings we recommend reporting the original and effective
+$\beta_i$ alongside the output, as in Algorithm~\ref{alg:hybrid}, so
+that downstream consumers can audit the attenuation. A related
+attenuation appeared at the other end of the $\beta$ spectrum, even
+when clipping did not trigger: the hybrid KS pass rate fell from
+$67\%$ at low $\beta$ to $44\%$ at high $\beta$
+(Table~\ref{tab:beta_bucket}), a mild attenuation that followed
+directly from the composition algebra. As
+$\beta_i^2 \sigma_m^2$ grows toward the idiosyncratic floor
+$(1 - f)\sigma_{\gen,i}^2$, the market-driven component carries an
+increasing share of the marginal, and that component is only as
+heavy-tailed as $g_m$. The market's own heavy tails slow the attenuation
+(SPY growth rates are themselves heavy-tailed after JumpHMM fitting),
+but the effect is visible. Users who need exact marginal fidelity at
+high $\beta$ can recover it by lowering the floor $f$ (at the cost of
+less conservative clipping behavior) or by pre-scaling the generator
+variance so that $\rho_i$ stays small.
+
+The variance correction $s_i^2 = 1 - \rho_i$ relies on
+$\mathrm{Cov}(\teps_i, g_m) \approx 0$. The JumpHMM marginals are fit
+in isolation and sampled independently of the market path, so this
+holds by construction; if the generator is already correlated with
+the market (for example, a bootstrap from joint history), the
+empirical covariance should be subtracted from $\beta_i$ before
+applying the correction, or $s_i^2$ should be estimated directly from
+the empirical variance of the composed series. The same warning
+applies to the $R^2$-preserving branch, whose variance identity
+assumes $\eps$ is uncorrelated with $g_m$ after any reorder. The
+construction also injects a contemporaneous market factor only:
+$g_i(t)$ depends on $g_m(t)$ and on $\teps_i(t)$ but not on
+$g_m(t-1), g_m(t-2), \dots$, so lagged market dependence (lead-lag
+effects, market-driven volatility clustering, asymmetric responses to
+drawdowns) is not reproduced by this recipe. The natural extension is
+a lagged-factor SIM,
+$g_i(t) = \alpha_i + \sum_{k=0}^K \beta_{i,k}\, g_m(t - k) + \eps_i(t)$;
+the variance correction generalizes to that form by replacing
+$\beta_i^2 \sigma_m^2$ with the variance of the full market-factor
+component, though the empirical value of the extra parameters is
+beyond the scope here. Lagged idiosyncratic dependence is likewise
+absent: the JumpHMM residuals $\teps_i$ are drawn independently
+across time, so any residual autocorrelation present in the real
+data is discarded by the composition. This matters most for
+workflows that evaluate portfolios rebalancing at high frequency.
+With iid residuals, a rebalancing rule collects the full
+diversification return of \cite{boothFama1992}, a compounding
+premium that scales with residual variance and rebalancing frequency
+and is largely absent in real markets, where daily residual
+autocorrelation is small but positive \cite{boucheyGunthorpSutherland2012}.
+Two generator alternatives in Table~\ref{tab:aggregate} preserve
+temporal structure directly: the block-bootstrap composer resamples
+blocks of the empirical OLS residual series~\cite{politisRomano1994},
+inheriting whatever autocorrelation is present in the data, and the
+GARCH(1,1)-$t$ composer fits a conditional-variance model per
+ticker~\cite{bollerslev1986}. Both recover marginal fidelity at the
+cost of committing the pipeline to a specific residual generator,
+whereas the variance correction of Eq.~\eqref{eq:scale} is
+generator-agnostic and accepts a full-return JumpHMM marginal (with
+its jump and regime structure) as input. Users evaluating
+high-turnover strategies on JumpHMM-corrected paths should benchmark
+absolute return levels against a static-allocation baseline on the
+same paths, or adopt the bootstrap or GARCH alternatives when
+residual autocorrelation is the load-bearing structure for the
+downstream task.
+
+The diversification-return artifact is quantitatively large enough on
+standard rebalancing rules that absolute-return claims drawn from
+JumpHMM-corrected paths require an explicit correction or an explicit
+caveat. As a concrete demonstration, a $20$-asset target-weight
+allocator deployed against a hybrid-composed $2025$ universe (calibration
+window $2014$--$2024$) produced a median synthetic continuously-compounded
+growth rate (CCGR) of $\sim\!30\%/\mathrm{yr}$, while the same allocator
+deployed against the real $2025$ growth-rate history produced
+$11.5\%/\mathrm{yr}$. The decomposition isolated the artifact: equal-weight
+buy-and-hold on the synthetic ensemble produced $\sim\!7.7\%/\mathrm{yr}$,
+the same target-weight allocation held statically (no rebalance) produced
+$\sim\!2.0\%/\mathrm{yr}$, and switching the same allocation rule to daily
+rebalancing produced $\sim\!29.7\%/\mathrm{yr}$, a $+27.7$ percentage-point
+jump from the static-to-daily switch on the same allocation rule and the
+same paths (Online Appendix~S2, Table~\ref{tab:rebalancing-decomp}). The
+$\sim\!22$\,pp gap between the synthetic and real engine CCGR was therefore
+a structural feature of the iid-residual generator family rather than a
+calibration error, consistent with~\cite{boothFama1992,
+boucheyGunthorpSutherland2012, markowitz1976longRun}.
+
+Two practical responses follow. Where the workflow can tolerate being
+explicit about the issue, we recommend reporting the static-versus-rebalanced
+decomposition on the same allocation rule and the same synthetic paths, and
+framing absolute Sharpe levels under daily rebalancing as ``this generator
+with this strategy'' rather than as a forward prediction. Where the
+workflow requires an absolute-return level for downstream consumption
+(e.g., percentile diagnostics overlaying real outcomes against a synthetic
+distribution), we recommend a uniform location-shift bias correction that
+anchors the corrected synthetic median CCGR to a documented long-run prior:
+\begin{equation}
+\label{eq:bias-correction}
+  W_{p,t}^{\mathrm{corr}} \;=\; W_{p,t}\cdot
+  \exp\!\Big(\!-\tfrac{b}{100}\,\cdot t\,\Delta t\Big),
+  \qquad
+  b \;=\; \operatorname*{median}_{p}\mathrm{CCGR}_p \;-\; \mathrm{CCGR}^{\mathrm{prior}},
+\end{equation}
+where $W_{p,t}$ is path-$p$ wealth at integer step $t$, $\Delta t$ is the
+integration step in years, and $\mathrm{CCGR}^{\mathrm{prior}}$ is set from
+an external long-run prior (typically near $8\%/\mathrm{yr}$, decomposable
+into the prevailing risk-free rate plus an active premium net of
+frictions~\cite{damodaranERP, ibbotsonSBBI}). The correction is a per-path
+monotone transform: it preserves the rank order of paths by terminal
+wealth, the drawdown shape, and the volatility envelope; only the level
+shifts. Anchoring to a documented prior rather than to the realized
+test-year outcome keeps the correction independent of the sample to which
+the synthetic ensemble is being compared and avoids circular calibration.
+The realized year then lands inside the corrected ensemble at an honest
+percentile (in our deployment, real-$2025$ landed at the $63$rd percentile
+of the corrected ensemble, consistent with $2025$ being an above-typical
+equity year). Online Appendix~S2 details the methodology, contrasts the
+location-shift correction with a multiplicative haircut alternative (which
+we do not recommend because it scrambles per-path rank order and distorts
+the drawdown distribution), and discusses why several intuitive
+alternatives (parameter drift between calibration and deployment,
+transaction-cost inflation, AR(1) on residuals without restructuring the
+copula sampling, residual block-bootstrap) do not address the underlying
+mechanism within the iid-residual SIM framework. The synthetic data
+remained reliable, both before and after correction, for the
+ensemble-shape questions the paper validates: percentile structure,
+drawdown distribution, and relative ranking of strategies on the same
+paths. The location-shift correction extends that reliability to absolute
+Sharpe and CCGR levels under daily rebalancing, at the cost of an external
+prior.
+
+Two further extensions follow naturally. Multi-factor SIM replaces
+the single market factor with $K$ factors, requiring $\rho_i$ to
+become the sum of factor contributions and the loading vector to be
+clipped rather than a scalar, though the branch logic is unchanged.
+Per-ticker tuning of the JumpHMM jump parameters $(\epsilon, \lambda)$
+tightens each marginal's fit; we used defaults to keep fitting
+tractable across the universe, but tuning as reported in the
+companion paper~\cite{alswaidanVarner2026jdiq} would push the hybrid
+KS pass rates upward. A
+stress-test harness ties these together: using the clipping rule to
+enforce a minimum idiosyncratic share in constructed market scenarios
+guarantees that per-asset marginals remain heavy-tailed even under
+synthetic markets much more volatile than history, which is precisely
+the regime where naive SIM composition breaks down most severely.

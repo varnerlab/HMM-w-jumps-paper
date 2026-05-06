@@ -1,0 +1,32 @@
+% abstract.tex
+% Two-paragraph structure:
+% (1) two-stage contribution: HMM-WJ marginals + variance-corrected SIM composer.
+% (2) validation summary + bias-correction caveat.
+
+We addressed two long-standing gaps in synthetic equity path generation:
+single-asset stylized facts (heavy tails, regime persistence, volatility
+clustering) and multi-asset factor structure (cross-sectional dependence
+with marginal preservation). We developed a hybrid hidden Markov framework
+that discretized excess growth rates into Laplace quantile-defined states
+and augmented regime switching with a Poisson jump-duration mechanism,
+enforcing realistic tail-state dwell times without Baum-Welch
+optimization. We then composed the per-asset hybrid HMM marginals into a
+multi-asset Single-Index Model via a closed-form variance correction that
+rescaled the idiosyncratic draw to preserve the marginal variance while
+recovering the calibrated factor loading; a sign-preserving clip and an
+$R^2$-driven branch handled high-leverage and index-tracking edge cases.
+
+Evaluated on a $424$-ticker US equity and ETF universe against the
+$2014$--$2024$ SPY history, the hybrid HMM marginals passed a per-asset
+Kolmogorov--Smirnov test against the real univariate distribution at
+$97.6\%$ in-sample and $94.4\%$ out-of-sample, outperforming Bootstrap,
+Gaussian, Laplace, GARCH, and GRU baselines on combined distributional
+and tail metrics. The variance-corrected SIM composition recovered the
+factor loading to a median absolute error of $0.018$ and matched the
+leading residual-fit alternatives on a per-ticker one-day $99\%$
+Value-at-Risk backtest (mean exceedance $0.95\%$ versus the nominal
+$1\%$, Kupiec pass rate $80\%$). We documented one downstream caveat:
+an iid-residual diversification-return artifact under daily rebalancing,
+addressable via a uniform location-shift correction anchored to a
+documented long-run prior. All code and per-asset fitted marginals are
+released as part of \texttt{JumpHMM.jl}.
