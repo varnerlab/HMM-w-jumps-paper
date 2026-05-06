@@ -60,8 +60,8 @@ per-ticker metrics reflected the composition rule alone. When the
 reorder is applied, the variance algebra is unchanged
 (rank-reordering preserves the marginal variance of $\eps_i$), so the
 marginal results here carry over; cross-sectional fidelity under
-different copula specifications is studied in the companion
-\texttt{JumpHMM.jl} paper~\cite{alswaidanVarner2026jdiq}. The second
+different copula specifications is a separate evaluation that we
+defer to follow-up work. The second
 concerns market-path uncertainty: the metrics reported here used the
 real SPY path, and under a simulated market path the composed
 marginal picks up additional variance from the sampling of
@@ -80,8 +80,8 @@ Value-at-Risk backtest of the composed paths against the real
 2014--2024 growth-rate histories, with exceedance counts assessed by
 Kupiec's unconditional coverage test; the per-ticker framing keeps
 this validation inside the paper's scope, while portfolio-level VaR
-requires the cross-sectional copula deferred to the companion
-paper~\cite{alswaidanVarner2026jdiq}. High-turnover portfolio
+requires the cross-sectional copula reorder deferred above.
+High-turnover portfolio
 strategies remain a distinct scope boundary: the temporal structure
 of the residual draw becomes load-bearing in a way that
 contemporaneous composition does not address.
@@ -227,11 +227,12 @@ Two further extensions follow naturally. Multi-factor SIM replaces
 the single market factor with $K$ factors, requiring $\rho_i$ to
 become the sum of factor contributions and the loading vector to be
 clipped rather than a scalar, though the branch logic is unchanged.
-Per-ticker tuning of the JumpHMM jump parameters $(\epsilon, \lambda)$
-tightens each marginal's fit; we used defaults to keep fitting
-tractable across the universe, but tuning as reported in the
-companion paper~\cite{alswaidanVarner2026jdiq} would push the hybrid
-KS pass rates upward. A
+Per-ticker tuning of the jump parameters $(\epsilon, \lambda)$
+tightens each marginal's fit; the multi-asset evaluation used package
+defaults to keep fitting tractable across the universe, but the
+single-asset tuning protocol of Section~\ref{sec:method-hmm-tuning},
+applied per ticker, would push the hybrid KS pass rates upward at the
+cost of a calibration step per asset. A
 stress-test harness ties these together: using the clipping rule to
 enforce a minimum idiosyncratic share in constructed market scenarios
 guarantees that per-asset marginals remain heavy-tailed even under

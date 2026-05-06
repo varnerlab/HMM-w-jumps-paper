@@ -1,7 +1,140 @@
 % results.tex
-% Results (merged Experiments + Results):
-%   setup preamble, then aggregate scorecard, preservation figures,
-%   per-branch split, beta dependence.
+% Combined empirical study with two subsections:
+%   §4.1 Single-asset validation (HMM-WJ marginals; ported from JDIQ)
+%   §4.2 Multi-asset validation (variance-corrected SIM composer; from hybrid)
+% A bridge paragraph between the two subsections ties validated
+% single-asset marginals to the multi-asset composition pipeline.
+
+We validated the two-stage construction in two passes. The first pass
+asks whether the hybrid hidden Markov framework reproduces single-asset
+stylized facts on real SPY data, in-sample and out-of-sample, against
+six baseline generators (Section~\ref{sec:results-hmm}). The second
+pass asks whether the variance-corrected single-index composer
+preserves those validated marginals when combined with a market factor
+across a $424$-ticker universe, against five alternative composers
+(Section~\ref{sec:results-sim}), and whether the resulting paths
+support a downstream Value-at-Risk backtest at industry-standard
+coverage levels.
+
+\subsection{Single-asset validation: hybrid HMM marginals}\label{sec:results-hmm}
+
+\subsubsection{Stylized facts and descriptive statistics}
+Descriptive statistics confirmed that all three canonical stylized
+facts were present in both the in-sample ($2014$--$2024$, $T = 2{,}766$)
+and out-of-sample ($2025$, $T = 249$) windows
+(Table~\ref{tab:descriptive_stats}): excess kurtosis of $7.7$ (IS) and
+$6.9$ (OoS) with Jarque-Bera rejection ($p<0.001$), persistent
+volatility clustering (Ljung-Box on $|G_t|$ rejected, $p<0.001$), and
+near-zero linear autocorrelation in raw returns \cite{famaEMH1970}.
+
+\subsubsection{Jump hyperparameter optimization and state resolution}
+With the stylized facts confirmed in both evaluation windows, we
+turned to calibrating the jump mechanism. A multi-objective grid
+search over $\epsilon \in [10^{-4},\, 2.5 \times 10^{-2}]$ and
+$\lambda \in [10,\, 160]$, with $200$ simulated paths per grid point,
+identified the optimal values $\epsilon^{*} = 10^{-4}$ and
+$\lambda^{*} = 100$ (Online Appendix~\ref{sec:supp-pseudo}). The
+optimal $\lambda^{*} = 100$ was an interior point of the grid,
+confirming that the mean jump duration was identifiable from data;
+$\epsilon^{*} = 10^{-4}$ fell at the lower boundary of the $\epsilon$
+grid, indicating that the data consistently preferred rarer
+tail-entry events over the range explored. At these optimal values,
+the ACF of $|G_t|$ closely tracked the observed SPY ACF across lags
+$1$--$252$, confirming that the jump mechanism partially reproduced
+the empirical ARCH effect. The primary analysis used $N = 100$
+states, but a sensitivity study over $N \in \{30, 60, 90, 100, 150,
+200\}$ confirmed robustness: KS and AD pass rates remained stable for
+both HMM-NJ (without jumps) and HMM-WJ (with jumps) across this
+range, with every state receiving adequate statistical support
+(Online Appendix~\ref{sec:supp-sensitivity}). At $N = 350$, certain
+states were never visited in the historical record, establishing a
+practical upper bound on state resolution.
+
+\subsubsection{In-sample distributional and temporal quality}
+We benchmarked HMM-WJ against seven alternative generators on $1{,}000$
+synthetic paths of $2{,}766$ trading days each
+(Table~\ref{tab:model_comparison}, Figure~\ref{fig:model_comparison}).
+Bootstrap resampling set the non-parametric ceiling ($100\%$ KS,
+$100\%$ coverage), while the Gaussian i.i.d.\ baseline ($0\%$ KS)
+confirmed that thin-tailed models were categorically inadequate.
+Between these anchors, every model excelled on one quality dimension
+but failed on another. GARCH(1,1) achieved the best temporal fidelity
+(ACF-MAE $0.031$) but catastrophic distributional failure ($5.5\%$
+KS), indicating a systematic shape mismatch despite its well-known
+volatility clustering properties. The Gated Recurrent Unit (GRU)
+\cite{choEtAl2014gru} closed $83\%$ of the ACF-MAE gap but suffered
+variance collapse ($0.6\%$ KS). The hidden semi-Markov model (HSMM)
+\cite{bullaBulla2006} occupied a middle ground ($82\%$ KS) but its
+coarse $8$-state partition could not capture the full growth-rate
+distribution, as reflected by a $38\%$ kurtosis gap and only $68.7\%$
+quantile coverage. This pattern illustrates the difficulty of
+simultaneously capturing both distributional and temporal quality
+with a single paradigm.
+
+Both HMM variants achieved the highest distributional fidelity among
+all parametric models, with HMM-WJ's pass rates $2$--$8$ percentage
+points below HMM-NJ's, a cost of the jump mechanism occasionally
+overweighting tail states. The Student-$t$ ($\nu = 5$) emissions
+closely matched the observed kurtosis (within $1.3\%$ for HMM-WJ), a
+substantial improvement over Normal emissions which underestimated
+kurtosis by approximately $29\%$. Negative skewness ($-0.75$
+observed) was also well reproduced by both HMM variants, arising from
+the asymmetric state-occupancy distribution inherited from the
+Laplace partition rather than any explicit skewness parameter;
+symmetric-innovation models (GARCH, Gaussian, Laplace) all produced
+near-zero skewness by construction. On the temporal dimension,
+HMM-NJ scored $0.059$ on ACF-MAE, closing only $3\%$ of the gap
+between the i.i.d.\ floor ($0.060$) and the GARCH ceiling ($0.031$),
+confirming that the standard transition matrix alone could not
+generate persistent volatility clustering. HMM-WJ scored $0.052$,
+closing $28\%$ of the gap and the only non-GARCH non-neural model to
+reduce ACF-MAE meaningfully below the i.i.d.\ floor. The improvement
+arose because approximately $24\%$ of HMM-WJ paths contained at least
+one Poisson jump event that sustained $\mathrm{ACF}(|G_t|)$ decay
+across all lags, while the remaining $76\%$ behaved identically to
+HMM-NJ.
+
+\subsubsection{Out-of-sample evaluation and model tradeoffs}
+The in-sample results demonstrated that HMM-WJ was the only model to
+improve on both distributional and temporal dimensions; the
+out-of-sample window tested whether this advantage survived on unseen
+data. We evaluated all eight generators on a held-out window of $249$
+trading days (full calendar year $2025$) using the same metrics
+(Table~\ref{tab:model_comparison}, Figure~\ref{fig:statistical_validation}).
+No single model dominated all quality dimensions simultaneously.
+GARCH(1,1) achieved the best temporal fidelity (closing $100\%$ of
+the ACF-MAE gap) but the worst distributional fit among parametric
+models; the GRU achieved the worst distributional fit overall
+($0.6\%$ KS), demonstrating that even nearly $38{,}000$ trainable
+parameters could not jointly capture both quality dimensions. HMM-NJ
+achieved the highest distributional pass rates ($99.7\%$ KS) but
+could not reproduce volatility clustering (closing only $3\%$ of the
+ACF gap). HMM-WJ occupied the Pareto frontier: it closed $28\%$ of
+the ACF gap while maintaining distributional pass rates above $91\%$
+of the ceiling, the only model to improve meaningfully on both
+dimensions simultaneously. Out-of-sample, both HMM variants
+generalized robustly: HMM-NJ achieved $96.7\%$ KS and HMM-WJ achieved
+$94.4\%$ KS, with simulated kurtosis of $6.4$ and $6.1$ against an
+observed $6.9$. GARCH's $W_1$ deteriorated by $67\%$ from in-sample
+to out-of-sample, exposing a tail misspecification that binary pass
+rates obscured. Cross-asset generalization to NVDA, JNJ, and JPM
+confirmed that the jump mechanism automatically adapted its duration
+$\lambda^{*}$ to each asset's clustering intensity (Online
+Appendix~\ref{sec:supp-cross-asset}).
+
+\paragraph{From validated marginals to multi-asset composition.}
+The single-asset evaluation established that the hybrid HMM
+framework produces synthetic excess growth-rate paths that pass
+distributional tests against the real series at high rate and
+partially reproduce volatility clustering, on a held-out window. The
+remaining question is whether those validated marginals plug into a
+multi-asset composition pipeline without breaking either target. The
+next subsection answers that question for the variance-corrected
+single-index composer of Section~\ref{sec:method-sim}, on a $424$-ticker
+US equity universe, against five alternative multi-asset composers
+plus a downstream one-day Value-at-Risk backtest.
+
+\subsection{Multi-asset validation: variance-corrected SIM composer}\label{sec:results-sim}
 
 We evaluated the three composers on a fixed set of per-asset JumpHMM
 marginals calibrated against the real SPY growth-rate path. This
@@ -13,8 +146,8 @@ universe was a $424$-asset US equity/ETF set drawn from Polygon.io
 daily-close histories, filtered to tickers with a complete in-sample
 trading history matching the reference length of AAPL
 ($T = 2{,}767$ daily closes covering January~2014 through
-December~2024, the same window used by the companion
-\texttt{JumpHMM.jl} validation paper); filtering on the common length
+December~2024, the same window used in the single-asset evaluation
+of Section~\ref{sec:results-hmm}); filtering on the common length
 preserved $424$ tickers, of which the SPY total-return growth-rate
 series was taken as the market path $g_m$ and the remaining $423$
 tickers as non-market assets. For each non-market ticker $i$ we fitted
@@ -55,10 +188,9 @@ composers that draw their innovations from dedicated residual
 generators, each fit to the real OLS residual series
 $e_i(t) = G_i(t) - \alpha_i - \beta_i G_m(t)$. The
 \emph{JumpHMM-on-residuals} composer fits a fresh JumpHMM marginal
-to $e_i$ via a pseudo-price inversion (so the
-\texttt{JumpHMM.jl}~\cite{alswaidanVarner2026jdiq} fit interface
-that expects a price series accepts the residual target without
-modification) and composes
+to $e_i$ via a pseudo-price inversion (so the \texttt{JumpHMM.jl}
+fit interface that expects a price series accepts the residual
+target without modification) and composes
 $g_i^{(r)} = \alpha_i + \beta_i g_m + \teps_{\mathrm{resid},i}^{(r)}$
 with no variance correction. The \emph{Block bootstrap} composer
 draws a Politis--Romano stationary bootstrap
@@ -71,9 +203,9 @@ yielded a non-stationary GARCH fit ($\alpha + \beta \ge 1$ at the
 optimizer's termination) and were excluded from that composer only. Across all composers, we
 skipped the optional cross-sectional rank reorder in
 Algorithm~\ref{alg:hybrid} so that per-ticker metrics reflected the
-marginal construction in isolation; cross-sectional dependence is
-studied separately in the companion \texttt{JumpHMM.jl} paper and
-is not the object of this evaluation.
+marginal construction in isolation; cross-sectional dependence under
+copula-based reorder is treated separately and is not the object of
+the per-ticker evaluation reported here.
 
 For every composed series we computed three metric families against
 the ticker's real growth-rate history and the real SPY path: SIM

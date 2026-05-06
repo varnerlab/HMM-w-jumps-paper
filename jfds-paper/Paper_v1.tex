@@ -22,6 +22,8 @@
 \usepackage{bm}
 \usepackage{multirow}
 \usepackage{lineno}
+\usepackage{tikz}
+\usetikzlibrary{arrows.meta, decorations.pathreplacing, positioning}
 
 % --- figure/table placement ---
 \setcounter{topnumber}{1}
@@ -82,14 +84,25 @@
 \section{Introduction}\label{sec:introduction}
 \input{sections/introduction}
 
+\section{Related Work}\label{sec:related-work}
+\input{sections/related}
+
 \section{Method}\label{sec:method}
-\input{sections/method}
+
+\subsection{Hybrid hidden Markov marginal generator}\label{sec:method-hmm}
+\input{sections/method_hmm}
+
+\subsection{Variance-corrected single-index composition}\label{sec:method-sim}
+\input{sections/method_sim}
 
 \section{Results}\label{sec:results}
 \input{sections/results}
 
 \section{Discussion}\label{sec:discussion}
 \input{sections/discussion}
+
+\section{Conclusion}\label{sec:conclusion}
+\input{sections/conclusion}
 
 \section*{Acknowledgments}
 The authors thank the eCornell AI in Finance program participants for
@@ -123,6 +136,85 @@ that repository.
 % --- Figures and Tables (placed after bibliography, PNAS-style) ---
 \clearpage
 
+
+% --- Table: Single-asset model comparison (KS, AD, kurtosis, ACF-MAE, etc.) ---
+\begin{table}[p]
+\centering
+\caption{\textbf{In-sample and out-of-sample model comparison for SPY}
+    ($1{,}000$ simulated paths, significance level $\alpha = 0.05$).
+    Bootstrap: i.i.d.\ resample of training data. Gaussian/Laplace:
+    i.i.d.\ draws from MLE-fitted distributions. GARCH: GARCH(1,1)
+    estimated by quasi-maximum likelihood. GRU: 2-layer gated recurrent
+    unit \cite{choEtAl2014gru} with Gaussian output head. HSMM: hidden
+    semi-Markov model with $K = 8$ Laplace quantile states,
+    negative-binomial dwell times, and Student-$t$ ($\nu = 5$) emissions
+    \cite{bullaBulla2006}. HMM-NJ: hidden Markov model ($N = 100$
+    states) without jumps. HMM-WJ: hybrid model with Poisson
+    jump-duration extension. ACF-MAE: mean absolute error of the ACF of
+    $|G_t|$ over lags $1$--$252$. Wasserstein-$1$ and Hellinger
+    distance defined in Online Appendix~\ref{sec:supp-validation}.
+    Coverage: fraction of $99$ empirical quantiles ($1$st--$99$th)
+    falling within the $[5$th, $95$th$]$ percentile envelope of the
+    corresponding synthetic quantiles. Standard errors in parentheses:
+    binomial SE for pass rates, $\mathrm{std}/\sqrt{n}$ for kurtosis,
+    Wasserstein-$1$, and Hellinger; bootstrap SE ($B = 500$) for
+    ACF-MAE and coverage. Best value per row in bold.}
+\label{tab:model_comparison}
+\resizebox{\columnwidth}{!}{%
+\scriptsize
+\begin{tabular}{@{}lcccccccc@{}}
+\toprule
+\textbf{Metric} & \textbf{Bootstrap} & \textbf{Gaussian} & \textbf{Laplace} & \textbf{GARCH(1,1)} & \textbf{GRU} & \textbf{HSMM} & \textbf{HMM-NJ} & \textbf{HMM-WJ} \\ \midrule
+\multicolumn{9}{l}{\textit{In-sample: $2{,}766$ trading days ($2014$--$2024$)}} \\[2pt]
+KS pass rate (\%) $\uparrow$              & 100.0 ($<$0.1) &   0.0 ($<$0.1) &  44.0 (1.6) &   5.5 (0.7) &   0.6 (0.2) &  82.0 (1.2) & \textbf{99.7} (0.2) &  97.6 (0.5) \\
+AD pass rate (\%) $\uparrow$              &  99.7 (0.2)    &   0.0 ($<$0.1) &  43.3 (1.6) &   1.9 (0.4) &   0.2 (0.1) &  42.5 (1.6) & \textbf{99.1} (0.3) &  91.3 (0.9) \\
+Excess kurtosis (observed)                & \multicolumn{8}{c}{$7.715$} \\
+Excess kurtosis (simulated) $\approx$     &   7.6 (0.08) & $-$0.0 ($<$0.01) &   3.0 (0.02) & \textbf{8.2} (0.37) &   5.7 (0.16) &   4.8 (0.08) &   8.1 (0.14) &   7.6 (0.14) \\
+ACF-MAE $\downarrow$                       & 0.060 ($<$0.001) & 0.060 ($<$0.001) & 0.060 ($<$0.001) & \textbf{0.031} (0.001) & 0.036 ($<$0.001) & 0.059 ($<$0.001) & 0.059 ($<$0.001) & 0.052 ($<$0.001) \\
+Coverage (\%) $\uparrow$                  & 100.0 ($<$0.1)   &  13.1 (0.1)       &  37.4 (1.5) &  29.3 (1.4) &  17.2 (0.5) &  68.7 (1.1) & \textbf{100.0} ($<$0.1)   & \textbf{100.0} ($<$0.1) \\
+Wasserstein-$1$ $\downarrow$              & 0.062 (0.001) & 0.399 (0.001) & 0.138 (0.001) & 0.304 (0.006) & 0.421 (0.003) & 0.176 (0.001) & \textbf{0.081} (0.001) & 0.101 (0.001) \\
+Hellinger dist $\downarrow$               & 0.042 ($<$0.001) & 0.148 ($<$0.001) & \textbf{0.072} ($<$0.001) & 0.100 (0.001) & 0.134 (0.001) & 0.113 ($<$0.001) & 0.073 ($<$0.001) & 0.075 ($<$0.001) \\[4pt]
+\multicolumn{9}{l}{\textit{Out-of-sample: $249$ trading days ($2025$)}} \\[2pt]
+KS pass rate (\%) $\uparrow$              &  97.4 (0.5) &  62.2 (1.5) &  88.0 (1.0) &  80.3 (1.3) &  71.8 (1.4) &  96.2 (0.6) & \textbf{96.7} (0.6) &  94.4 (0.7) \\
+AD pass rate (\%) $\uparrow$              &  98.5 (0.4) &  46.3 (1.6) &  92.9 (0.8) &  72.0 (1.4) &  44.8 (1.6) & \textbf{96.7} (0.6) & \textbf{96.7} (0.6) &  95.1 (0.7) \\
+Excess kurtosis (observed)                & \multicolumn{8}{c}{$6.867$} \\
+Excess kurtosis (simulated) $\approx$     &   6.0 (0.18) & $-$0.0 ($<$0.01) &   2.7 (0.05) &   1.6 (0.07) &   2.9 (0.10) &   4.1 (0.13) & \textbf{6.4} (0.22) &   6.1 (0.13) \\
+ACF-MAE $\downarrow$                       & 0.043 ($<$0.001) & 0.043 ($<$0.001) & 0.043 ($<$0.001) & \textbf{0.026} ($<$0.001) & 0.033 ($<$0.001) & 0.042 ($<$0.001) & 0.041 ($<$0.001) & 0.039 ($<$0.001) \\
+Coverage (\%) $\uparrow$                  & 100.0 ($<$0.1) &  36.4 (1.9) &  74.7 (1.0) &  96.0 (1.3) &  77.8 (2.9) & \textbf{100.0} (0.2) & \textbf{100.0} ($<$0.1) & \textbf{100.0} ($<$0.1) \\
+Wasserstein-$1$ $\downarrow$              & 0.232 (0.002) & 0.452 (0.002) & 0.263 (0.002) & 0.507 (0.018) & 0.488 (0.005) & 0.287 (0.002) & \textbf{0.258} (0.002) & 0.282 (0.006) \\
+Hellinger dist $\downarrow$               & 0.205 (0.001) & 0.235 (0.001) & 0.211 (0.001) & 0.232 (0.001) & 0.240 (0.001) & 0.239 (0.001) & \textbf{0.207} (0.001) & 0.210 (0.001) \\[4pt]
+\midrule
+Parameters estimated         &     0 &     2 &     2 &     3 & 37{,}954 &    18 &     2 &     4 \\
+\bottomrule
+\end{tabular}}
+\end{table}
+
+% --- Figure: JDIQ Fig 4 head-to-head model comparison ---
+\begin{figure}[p]
+  \centering
+  \includegraphics[width=\textwidth]{figs/Fig4-Model-Comparison.pdf}
+  \caption{\textbf{Head-to-head in-sample model comparison for SPY}
+    ($N = 100$, $1{,}000$ simulated paths). \emph{Panel (a):} marginal
+    density of excess growth rates with in-sample KS pass rates
+    annotated. GARCH(1,1) fails the two-sample KS test on $95\%$ of
+    paths, indicating a systematic shape mismatch with the empirical
+    distribution; both HMM variants pass at rates $\ge 97\%$. \emph{Panel
+    (b):} autocorrelation function of $|G_t|$ at lags $1$--$252$
+    (shaded bands: $10$th--$90$th percentile across paths). HMM-NJ is
+    structurally incapable of producing persistent volatility
+    clustering; HMM-WJ generates a mixture of two path families,
+    approximately $76\%$ behaving like HMM-NJ and the remaining
+    $\sim\!24\%$ containing at least one Poisson jump that sustains
+    $\mathrm{ACF}(|G_t|)$ decay across all lags. \emph{Panel (c):}
+    tail Q-Q plot at the $0.1$st--$99.9$th percentile region; HMM-WJ
+    provides the closest mean quantile match in the extreme tails.}
+  \label{fig:model_comparison}
+\end{figure}
+
+% =======================================================================
+% Hybrid-side floats (multi-asset composition)
+% =======================================================================
+
 % -----------------------------------------------------------------------
 % Table 1: Aggregate scorecard across composers
 % -----------------------------------------------------------------------
@@ -143,6 +235,145 @@ that repository.
   \small
   \input{sections/tables/table1_aggregate}
 \end{table}
+
+% -----------------------------------------------------------------------
+% Figure 1: Preservation headline
+% -----------------------------------------------------------------------
+\begin{figure}[p]
+  \centering
+  \includegraphics[width=\textwidth]{figs/fig1_preservation.pdf}
+  \caption{\textbf{Marginal-distribution preservation and variance
+    preservation vs calibrated $\beta$.}
+    Each point is a per-ticker median over $100$ replications.
+    \emph{Left:} Kolmogorov--Smirnov pass rate against the real marginal
+    at $\alpha = 0.05$. The hybrid composer (orange) maintains a pass
+    rate between $\sim 0.3$ and $\sim 0.9$ across the full $\beta$ range;
+    the naive composer (blue) collapses past $\beta \approx 0.7$ as the
+    market loading inflates the marginal variance; the Gaussian SIM
+    baseline (purple) is pinned at zero throughout.
+    \emph{Right:} variance ratio $\mathrm{Var}(g)/\sigma^2_{\mathrm{gen}}$.
+    The dotted curve is the theoretical naive inflation $1 + \rho$
+    evaluated at the universe-median $\sigma^2_{\mathrm{gen}}$; the naive
+    scatter follows it. Hybrid and Gaussian SIM sit on the unit line by
+    design.}
+  \label{fig:preservation}
+\end{figure}
+
+% -----------------------------------------------------------------------
+% Table 5: VaR backtest
+% -----------------------------------------------------------------------
+\begin{table}[p]
+  \centering
+  \caption{\textbf{Per-ticker one-day Value-at-Risk backtest across the
+    six composers.} For each (ticker, replication) pair we estimate the
+    VaR threshold at coverage level $\alpha$ from the composed path and
+    count exceedances against the real $2014$--$2024$ growth-rate
+    history. \textit{rate}: mean exceedance rate across tickers
+    (nominal: $1-\alpha$). \textit{Kupiec pass}: fraction of tickers on
+    which the Kupiec unconditional-coverage test $p$-value exceeds
+    $0.05$. Hybrid and JumpHMM-on-residuals are statistically
+    indistinguishable at both coverage levels; both strawman composers
+    (naive, Gaussian SIM) fail coverage on a majority of the universe.}
+  \label{tab:var}
+  \small
+  \input{sections/tables/table5_var_backtest}
+\end{table}
+
+% -----------------------------------------------------------------------
+% Figure 4: Six-composer baseline panel
+% -----------------------------------------------------------------------
+\begin{figure}[p]
+  \centering
+  \includegraphics[width=\textwidth]{figs/fig4_baseline_panel.pdf}
+  \caption{\textbf{Six-composer comparison on aggregate marginal fidelity
+    and tail index.} \emph{Left:} per-ticker Kolmogorov--Smirnov pass
+    rate at $\alpha = 0.05$, aggregated across $423$ tickers and $100$
+    replications per ticker. The three residual-fit composers
+    (JumpHMM-on-residuals, block bootstrap, GARCH(1,1)-$t$) dominate the
+    hybrid on marginal body fidelity; both strawman composers collapse.
+    \emph{Right:} median Hill tail index on the upper $5\%$ of $|g|$.
+    Hybrid, JumpHMM-on-residuals, and naive cluster at $\sim 0.37$,
+    reflecting the shared full-return JumpHMM generator's tail
+    character; block bootstrap and GARCH sit slightly lower at
+    $0.33$--$0.32$; Gaussian SIM collapses to $0.22$.}
+  \label{fig:baseline}
+\end{figure}
+
+% -----------------------------------------------------------------------
+% Figure 8: VaR exceedance and Kupiec coverage at 99%
+% -----------------------------------------------------------------------
+\begin{figure}[p]
+  \centering
+  \includegraphics[width=\textwidth]{figs/fig8_var_backtest.pdf}
+  \caption{\textbf{$99\%$ Value-at-Risk exceedance rates and Kupiec
+    coverage across the six composers.} \emph{Left:} mean exceedance
+    rate across tickers (nominal $1\%$, dashed line); error bars are
+    one SD across tickers. Hybrid, JumpHMM-on-residuals, block
+    bootstrap, and GARCH(1,1)-$t$ all hit coverage within $0.1$pp of
+    nominal; naive under-breaches (inflated variance in the composed
+    marginal) and Gaussian over-breaches (thin tails). \emph{Right:}
+    fraction of tickers on which the Kupiec unconditional-coverage
+    test $p$-value exceeds $0.05$. Hybrid and JumpHMM-on-residuals are
+    statistically indistinguishable ($80$ and $83\%$); the strawman
+    composers fail on the majority of the universe.}
+  \label{fig:var}
+\end{figure}
+
+% --- SI Appendix ---
+\clearpage
+\appendix
+
+
+% =============================================================================
+% Supplementary floats (moved from main per the JFDS triage; main-text
+% versions of the four critical figures and three critical tables remain
+% above the bibliography clearpage).
+% =============================================================================
+
+% =======================================================================
+% JDIQ-side floats (single-asset validation)
+% =======================================================================
+
+% --- Table: SPY descriptive statistics ---
+\begin{table}[p]
+\centering
+\caption{\textbf{Descriptive statistics and stylized-facts tests for
+    SPY daily excess growth rates.} In-sample: $2014$--$2024$
+    ($T = 2{,}766$); out-of-sample: $2025$ ($T = 249$). Gaussian and
+    Laplace columns show maximum likelihood estimation (MLE) fits to the
+    in-sample data. JB: Jarque-Bera normality test. LB: Ljung-Box
+    autocorrelation test at lag $20$. $^{\ast}$ denotes rejection at
+    $\alpha = 0.05$.}
+\label{tab:descriptive_stats}
+\small
+\begin{tabular}{@{}lcccc@{}}
+\toprule
+\textbf{Statistic} & \textbf{IS Observed} & \textbf{OoS Observed} & \textbf{Gaussian} & \textbf{Laplace} \\ \midrule
+Mean (annualized, \%)       & 6.31   & 11.60  & 6.31   & 14.19  \\
+Std Dev (annualized, \%)    & 214.50 & 220.62 & 214.46 & 205.93 \\
+Skewness                    & $-0.753$ & $-1.093$ & 0    & 0      \\
+Excess Kurtosis             & 7.715  & 6.867  & 0      & 3      \\
+JB normality test           & reject$^\ast$ ($p<0.001$) & reject$^\ast$ ($p<0.001$) & n/a   & n/a   \\
+LB test on $G_t$ (lag 20)   & reject$^\ast$ ($p<0.001$) & reject$^\ast$ ($p=0.019$) & n/a   & n/a   \\
+LB test on $|G_t|$ (lag 20) & reject$^\ast$ ($p<0.001$) & reject$^\ast$ ($p<0.001$) & n/a   & n/a   \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+% --- Figure: JDIQ Fig 6 statistical validation (out-of-sample) ---
+\begin{figure}[p]
+  \centering
+  \includegraphics[width=\textwidth]{figs/Fig6-Statistical-Validation.pdf}
+  \caption{\textbf{Statistical validation of HMM-WJ} ($N = 100$,
+    $\alpha = 0.05$). Panels (a) and (d) condition on the
+    $\sim\!24\%$ of in-sample paths containing jump events. (a)~In-sample
+    KS $p$-values for $239$ jump paths (pass rate $93.7\%$). (b)~Out-of-sample
+    KS $p$-values for all $1{,}000$ paths (pass rate $95.4\%$). (c)~Out-of-sample
+    density fan chart; the observed density falls within the simulation
+    envelope. (d)~In-sample ACF of $|G_t|$ for jump paths; the mean
+    closely tracks the observed ACF.}
+  \label{fig:statistical_validation}
+\end{figure}
 
 % -----------------------------------------------------------------------
 % Table 2: Per-construction-flag breakdown (hybrid only)
@@ -196,29 +427,6 @@ that repository.
 \end{table}
 
 % -----------------------------------------------------------------------
-% Figure 1: Preservation headline
-% -----------------------------------------------------------------------
-\begin{figure}[p]
-  \centering
-  \includegraphics[width=\textwidth]{figs/fig1_preservation.pdf}
-  \caption{\textbf{Marginal-distribution preservation and variance
-    preservation vs calibrated $\beta$.}
-    Each point is a per-ticker median over $100$ replications.
-    \emph{Left:} Kolmogorov--Smirnov pass rate against the real marginal
-    at $\alpha = 0.05$. The hybrid composer (orange) maintains a pass
-    rate between $\sim 0.3$ and $\sim 0.9$ across the full $\beta$ range;
-    the naive composer (blue) collapses past $\beta \approx 0.7$ as the
-    market loading inflates the marginal variance; the Gaussian SIM
-    baseline (purple) is pinned at zero throughout.
-    \emph{Right:} variance ratio $\mathrm{Var}(g)/\sigma^2_{\mathrm{gen}}$.
-    The dotted curve is the theoretical naive inflation $1 + \rho$
-    evaluated at the universe-median $\sigma^2_{\mathrm{gen}}$; the naive
-    scatter follows it. Hybrid and Gaussian SIM sit on the unit line by
-    design.}
-  \label{fig:preservation}
-\end{figure}
-
-% -----------------------------------------------------------------------
 % Figure 2: Tails and kurtosis
 % -----------------------------------------------------------------------
 \begin{figure}[p]
@@ -260,46 +468,6 @@ that repository.
     ratio $\rho_i = \beta_i^2 \sigma_m^2 / \sigma_{\gen,i}^2$ stays
     below $0.90$ for every ticker.}
   \label{fig:branch_map}
-\end{figure}
-
-% -----------------------------------------------------------------------
-% Table 5: VaR backtest
-% -----------------------------------------------------------------------
-\begin{table}[p]
-  \centering
-  \caption{\textbf{Per-ticker one-day Value-at-Risk backtest across the
-    six composers.} For each (ticker, replication) pair we estimate the
-    VaR threshold at coverage level $\alpha$ from the composed path and
-    count exceedances against the real $2014$--$2024$ growth-rate
-    history. \textit{rate}: mean exceedance rate across tickers
-    (nominal: $1-\alpha$). \textit{Kupiec pass}: fraction of tickers on
-    which the Kupiec unconditional-coverage test $p$-value exceeds
-    $0.05$. Hybrid and JumpHMM-on-residuals are statistically
-    indistinguishable at both coverage levels; both strawman composers
-    (naive, Gaussian SIM) fail coverage on a majority of the universe.}
-  \label{tab:var}
-  \small
-  \input{sections/tables/table5_var_backtest}
-\end{table}
-
-% -----------------------------------------------------------------------
-% Figure 4: Six-composer baseline panel
-% -----------------------------------------------------------------------
-\begin{figure}[p]
-  \centering
-  \includegraphics[width=\textwidth]{figs/fig4_baseline_panel.pdf}
-  \caption{\textbf{Six-composer comparison on aggregate marginal fidelity
-    and tail index.} \emph{Left:} per-ticker Kolmogorov--Smirnov pass
-    rate at $\alpha = 0.05$, aggregated across $423$ tickers and $100$
-    replications per ticker. The three residual-fit composers
-    (JumpHMM-on-residuals, block bootstrap, GARCH(1,1)-$t$) dominate the
-    hybrid on marginal body fidelity; both strawman composers collapse.
-    \emph{Right:} median Hill tail index on the upper $5\%$ of $|g|$.
-    Hybrid, JumpHMM-on-residuals, and naive cluster at $\sim 0.37$,
-    reflecting the shared full-return JumpHMM generator's tail
-    character; block bootstrap and GARCH sit slightly lower at
-    $0.33$--$0.32$; Gaussian SIM collapses to $0.22$.}
-  \label{fig:baseline}
 \end{figure}
 
 % -----------------------------------------------------------------------
@@ -383,32 +551,7 @@ that repository.
     $0.001$ of $R^2_{\mathrm{true}}$, and cleared the $\alpha = 0.05$
     KS test on at least $99\%$ of replications per cell.}
   \label{fig:synth_tracker}
-\end{figure}
-
-% -----------------------------------------------------------------------
-% Figure 8: VaR exceedance and Kupiec coverage at 99%
-% -----------------------------------------------------------------------
-\begin{figure}[p]
-  \centering
-  \includegraphics[width=\textwidth]{figs/fig8_var_backtest.pdf}
-  \caption{\textbf{$99\%$ Value-at-Risk exceedance rates and Kupiec
-    coverage across the six composers.} \emph{Left:} mean exceedance
-    rate across tickers (nominal $1\%$, dashed line); error bars are
-    one SD across tickers. Hybrid, JumpHMM-on-residuals, block
-    bootstrap, and GARCH(1,1)-$t$ all hit coverage within $0.1$pp of
-    nominal; naive under-breaches (inflated variance in the composed
-    marginal) and Gaussian over-breaches (thin tails). \emph{Right:}
-    fraction of tickers on which the Kupiec unconditional-coverage
-    test $p$-value exceeds $0.05$. Hybrid and JumpHMM-on-residuals are
-    statistically indistinguishable ($80$ and $83\%$); the strawman
-    composers fail on the majority of the universe.}
-  \label{fig:var}
-\end{figure}
-
-% --- SI Appendix ---
-\clearpage
-\appendix
-\renewcommand{\thefigure}{S\arabic{figure}}
+\end{figure}\renewcommand{\thefigure}{S\arabic{figure}}
 \renewcommand{\thetable}{S\arabic{table}}
 \renewcommand{\theequation}{S\arabic{equation}}
 \setcounter{figure}{0}

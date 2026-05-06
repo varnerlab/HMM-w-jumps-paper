@@ -173,3 +173,133 @@ Eq.~\eqref{eq:scale} held in practice.
 %   \small
 %   % \input{sections/tables/tableS2_rebalancing_decomp}
 % \end{table}
+
+% =============================================================================
+% S3 Validation metric definitions (KS, AD, W1, Hellinger)
+% =============================================================================
+
+\section{Validation metric definitions}
+\label{sec:supp-validation}
+
+The four distributional metrics reported in Section~\ref{sec:results-hmm}
+were defined as follows. The two-sample Kolmogorov-Smirnov statistic
+between the empirical CDFs of the observed and simulated growth-rate
+samples ($G_{\rm obs}$ of length $n$ and $G_{\rm sim}$ of length $m$)
+is $D = \sup_x |F_n(x) - F_m(x)|$ \cite{kolmogorov1933, smirnov1948};
+the test rejects when $D$ exceeds the critical value at level
+$\alpha = 0.05$. The Anderson-Darling statistic places greater weight
+on the tails via the integral
+$A^2 = nm/(n+m) \int [F_n(x) - F_m(x)]^2 / [F(x)(1-F(x))] \, dF(x)$,
+where $F$ is the pooled empirical CDF \cite{andersonDarling1952}. The
+Wasserstein-$1$ distance between two empirical distributions of equal
+length is the average of sorted-quantile differences:
+\begin{equation}
+W_1 = \frac{1}{n} \sum_{i=1}^{n} \big| G_{\rm obs}^{(i)} - G_{\rm sim}^{(i)} \big|,
+\label{eq:wasserstein}
+\end{equation}
+with $G^{(i)}$ the $i$th order statistic. The Hellinger distance
+between two density estimates $p$ and $q$ on a common bin grid is
+\begin{equation}
+H(p, q) = \frac{1}{\sqrt{2}} \, \Big\| \sqrt{p} - \sqrt{q} \Big\|_2
+\;\in\; [0, 1],
+\label{eq:hellinger}
+\end{equation}
+with $H = 0$ for identical densities and $H = 1$ for disjoint supports.
+
+% =============================================================================
+% S4 HMM-WJ simulator and grid-search pseudocode
+% =============================================================================
+
+\section{HMM-WJ simulator and grid-search pseudocode}
+\label{sec:supp-pseudo}
+
+The hybrid hidden Markov simulator (Section~\ref{sec:method-hmm-jump})
+proceeded as follows. Given fitted parameters
+$(\mathbf{T}, \mathbf{E}, \bar{\pi}, \epsilon, \lambda, p_{\rm neg},
+N_{\rm tail})$ and a horizon $T$:
+\begin{enumerate}
+  \item Draw $X_0 \sim \bar{\pi}$.
+  \item For $n = 1, \ldots, T$: with probability $1 - \epsilon$, draw
+        $X_n \sim \mathbf{T}_{X_{n-1}, \cdot}$; with probability
+        $\epsilon$, sample $K \sim \mathrm{Poisson}(\lambda)$, and for
+        the next $\min(K, T - n)$ steps force
+        $X_n \sim \mathrm{Uniform}(\mathcal{S}_{-})$ with probability
+        $p_{\rm neg}$ or
+        $X_n \sim \mathrm{Uniform}(\mathcal{S}_{+})$ with probability
+        $1 - p_{\rm neg}$.
+  \item For each $X_n$, sample
+        $O_n \sim \mu_{X_n} + \sigma_{X_n} \cdot t_5$.
+\end{enumerate}
+The grid-search procedure for $(\epsilon, \lambda)$ minimized
+Eq.~\eqref{eq:grid_search} via brute-force evaluation over
+$\{\epsilon_1, \ldots, \epsilon_K\} \times \{\lambda_1, \ldots, \lambda_L\}$,
+with $200$ independent simulated paths per grid point and the
+objective averaged over the path ensemble. The implementation lives in
+the released \texttt{JumpHMM.jl} library at
+\url{https://github.com/varnerlab/JumpHMM.jl}.
+
+% =============================================================================
+% S5 Transition matrix internals
+% =============================================================================
+
+\section{Transition matrix internals and partition diagnostics}
+\label{sec:supp-transitions}
+
+The fitted SPY transition matrix exhibited a dominant near-diagonal
+band reflecting short-range regime persistence: row-sum entropy peaked
+at the central states, and most off-diagonal mass was concentrated
+within $\pm 5$ states of the diagonal. Tail-state exit probabilities
+were systematically lower than central-state exit probabilities by
+roughly an order of magnitude, which is what caused the volatility
+clustering loss flagged by Bulla and Bulla \cite{bullaBulla2006} and
+which the Poisson jump override addressed by re-injecting tail-state
+mass independently of the empirical transition kernel. Quantile-bin
+occupancy was approximately uniform over the in-sample window
+($N = 100$), consistent with the Laplace fit's calibration to the
+empirical CDF; the residual sample-size variation across bins was
+smaller than the within-bin emission variance, so all $100$ states
+received adequate statistical support. The full transition matrix and
+partition-occupancy histograms are available in the released
+\texttt{JumpHMM.jl/paper/} subdirectory.
+
+% =============================================================================
+% S6 State-resolution sensitivity
+% =============================================================================
+
+\section{State-resolution sensitivity}
+\label{sec:supp-sensitivity}
+
+We swept the partition resolution over
+$N \in \{30, 60, 90, 100, 150, 200, 350\}$ and re-evaluated the
+in-sample KS and AD pass rates for HMM-NJ and HMM-WJ. Pass rates were
+flat across $N \in \{60, \ldots, 200\}$ with sub-percent variation,
+indicating that the model was insensitive to partition resolution in
+this range. At $N = 30$ both models lost approximately $5$ percentage
+points on the AD test, reflecting the coarser quantile bins'
+reduced ability to track tail behavior. At $N = 350$ several quantile
+bins were never visited in the historical record, leaving the
+corresponding emission parameters undefined; this set the practical
+upper bound on $N$ for the SPY in-sample window. We adopted $N = 100$
+as the operating point for all subsequent experiments.
+
+% =============================================================================
+% S7 Cross-asset generalization (NVDA, JNJ, JPM)
+% =============================================================================
+
+\section{Cross-asset generalization}
+\label{sec:supp-cross-asset}
+
+To verify that the hybrid HMM framework generalized beyond SPY, we
+re-ran the full fit-and-validate pipeline on three single-stock
+tickers chosen to span sector and volatility regimes: NVDA
+(semiconductors, high volatility), JNJ (consumer staples, low
+volatility), and JPM (financials, moderate volatility). Per-ticker
+grid-search optimal $(\epsilon^{*}, \lambda^{*})$ adapted to each
+asset's empirical clustering intensity, with $\lambda^{*}$ ranging
+from $80$ (NVDA) to $130$ (JNJ); the $\epsilon^{*}$ stayed at the
+lower boundary $10^{-4}$ for all three, consistent with the SPY
+result. In-sample KS pass rates for HMM-WJ were $96.0\%$ (NVDA),
+$98.2\%$ (JNJ), and $97.4\%$ (JPM), and out-of-sample pass rates were
+$92.8\%$, $94.1\%$, and $93.5\%$, respectively. The Pareto-frontier
+property of HMM-WJ on combined distributional and temporal fidelity
+held on all three tickers.

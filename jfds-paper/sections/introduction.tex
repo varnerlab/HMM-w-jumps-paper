@@ -1,130 +1,107 @@
 % introduction.tex
-% Introduction: motivation, technical gap, contribution, roadmap.
+% Four-paragraph structure:
+% (1) practitioner motivation;
+% (2) the two gaps the paper closes (single-asset stylized facts; multi-asset
+%     factor structure with marginal preservation) + connective tissue;
+% (3) the two-stage contribution (HMM-WJ marginals + variance-corrected SIM);
+% (4) validation roadmap and pointer to the bias-correction caveat.
 
-Portfolio construction, risk attribution, and stress testing often
-take long synthetic time series of asset growth rates as inputs. A
-good generator has to satisfy two things the downstream consumer
-cares about. First, each single asset's synthetic series should look
-like its real counterpart when you histogram it day by day: the tails
-should be as heavy as real tails, the kurtosis should match, regimes
-and jumps should show up with roughly the right frequency; in
-statistical language this is the \emph{marginal distribution} of the
-asset. Second, if we stack synthetic series across many assets they should
-co-move the way real markets co-move: on a day when the market
-plunges, stocks with high factor loadings should plunge with it, tail
-co-movement should look realistic, and factor structure should be
-intact; this is the \emph{cross-sectional dependence} across assets.
-These two requirements are largely orthogonal, and off-the-shelf
-generators tend to handle only one of them. Per-asset generators
-built from hidden Markov models~\cite{hamilton1989}, generalized
-autoregressive conditional heteroskedasticity (GARCH)
-families~\cite{bollerslev1986}, or empirical
-bootstraps~\cite{politisRomano1994} handle the first: fit one of
-these models to AAPL's growth-rate history and its synthetic paths
-carry AAPL's tail thickness, kurtosis, and regime structure. But the
-fit knows nothing about market factors, e.g., SPY, or any other assets, e.g., MSFT. 
-Stacking the per-asset draws therefore produces one synthetic
-growth-rate path per asset, each matching its own asset's
-full growth-rate marginal. But the paths carry no joint
-structure: on a day when synthetic SPY plunges, synthetic AAPL has
-no reason to plunge with it (but real AAPL would).
+Synthetic equity return paths are an essential input to many
+quantitative-finance workflows. Stress-testing a portfolio against
+plausible but unobserved market scenarios, validating a portfolio
+optimization algorithm under conditions the historical record does not
+contain, augmenting limited training sets for machine-learning
+pipelines, and backtesting an allocator across many independent draws
+all require synthetic data that behave statistically like real markets
+in the dimensions the downstream task cares about
+\cite{assefaEtAl2020, jordonEtAl2022}. The quality requirements are
+demanding. Empirical equity excess growth rates exhibit three
+well-documented statistical regularities that any generative framework
+must simultaneously reproduce to be considered faithful: a heavy-tailed
+(leptokurtic) marginal distribution, negligible linear autocorrelation
+of raw returns, and persistent volatility clustering, in which large
+changes are followed by large changes of either sign and small changes
+by small changes \cite{mandelbrot1963, cont2001, stengerEtAl2024}. These
+domain-specific quality criteria, often called \emph{stylized facts},
+serve as the benchmark against which the fidelity of any synthetic
+financial data must be evaluated.
 
-The standard recipe for adding factor structure is a linear factor
-model, either the one-factor single-index model (SIM) of
-Sharpe~\cite{sharpe1963} or a multi-factor variant such as Ross's
-arbitrage pricing theory~\cite{rossAPT1976} or
-Fama-French~\cite{famaFrench1993}. We develop the construction for
-the one-factor SIM, which writes each asset's growth rate as an
-intercept plus a market-loaded term plus an idiosyncratic residual;
-the variance correction we propose extends to the multi-factor case
-without structural change. Applied naively, the recipe plugs a
-synthetic full growth-rate path from the per-asset generator (fit
-to the asset's real growth-rate history and matching its full
-growth-rate marginal) straight into the SIM as the idiosyncratic residual.
-Because the full growth rate already contains the market-driven part,
-using it as the residual double-counts the market variance and
-inflates the marginal variance of the composed series by an amount
-that grows quadratically in the factor loading. For high-loading
-assets the inflation is large enough to be visible in the empirical
-marginal: the body widens, the kurtosis drops, and the heavy tails
-that the generator was built to deliver are pushed out into a
-Gaussian-flavored distribution driven by the market term, defeating
-the purpose of fitting a heavy-tailed generator in the first place.
-The opposite failure mode, drawing the residual from a Gaussian with
-variance taken from the real ordinary least squares (OLS) fit,
-recovers the SIM coefficients exactly but erases the marginal
-structure entirely. Neither naive option satisfies both targets at
-once, and closing that gap is the problem the rest of this paper
-addresses.
+Two gaps in the literature leave even careful practitioners without a
+drop-in solution. The first is the single-asset stylized-facts gap.
+Existing generative approaches each excel at one of the three
+regularities and miss others. Generalized autoregressive conditional
+heteroscedasticity (GARCH) models \cite{engle1982, bollerslev1986}
+capture conditional variance dynamics but do not represent discrete
+regimes; stochastic-volatility and jump-diffusion models
+\cite{heston1993, merton1976} enrich tail behavior but lack volatility
+persistence after jumps; deep generative models
+\cite{hochreiterSchmidhuber1997, fischerKrauss2018, takahashiEtAl2019,
+kwonLee2024, yoonEtAl2019timegan} can learn complex distributions but
+struggle to reproduce volatility clustering \cite{stengerEtAl2024}.
+Hidden Markov models (HMMs) offer a probabilistic regime-switching
+structure \cite{rabinerJuang1986}, yet standard HMMs revert too quickly
+to central regimes after extreme events and fail to dwell in
+high-volatility tail states long enough to reproduce the empirical
+volatility-clustering profile \cite{rydenTerasvirtaAsbrink1998,
+bullaBulla2006}. The second gap is the multi-asset factor-structure
+gap. A per-asset generator that reproduces single-asset stylized facts
+on a given equity says nothing about how that equity should co-move
+with the market index or with other equities on the same day. The
+standard recipe for adding such cross-sectional structure is a linear
+factor model, either Sharpe's one-factor single-index model (SIM)
+\cite{sharpe1963} or a multi-factor variant such as Ross's arbitrage
+pricing theory \cite{rossAPT1976} or the Fama-French construction
+\cite{famaFrench1993}. Applied naively to a per-asset full-return
+generator, however, the SIM recipe inflates the marginal variance of
+the composed series quadratically in the factor loading, defeating the
+purpose of fitting a heavy-tailed generator in the first place. The
+opposite failure mode, drawing the residual from a Gaussian with
+variance taken from the real ordinary least squares fit, recovers the
+SIM coefficients exactly but erases the marginal structure entirely.
+Neither naive option satisfies both the stylized-facts requirement and
+the factor-structure requirement at once.
 
-This paper describes a closed-form variance correction that sits
-between the two failure modes. The construction rescales the
-per-asset generator draw by a scalar chosen so that the variance
-algebra works out to preserve the generator marginal; the scalar
-admits a closed form whenever the market component accounts for
-less than the full generator variance. When that condition fails
-(high-loading assets paired with a low-volatility generator, or a
-synthetic market more volatile than the calibration market), the
-factor loading is clipped downward against a floor that reserves a
-configurable share of the marginal variance for idiosyncratic
-noise, with a sign-preserving clip that keeps defensive assets
-defensive. A separate branch handles index-tracking assets, where
-the calibrated coefficient of determination (the $R^2$ from OLS of
-the asset's real growth-rate history against the market path)
-rather than the generator marginal is the quantity worth preserving;
-SPY against itself recovers as the degenerate perfect-tracking
-limit with no special-casing. Branch
-selection is driven entirely by the calibrated $R^2$, and each
-asset carries a persisted construction flag (\texttt{hybrid},
-\texttt{hybrid-clipped}, \texttt{r2-preserve}) so downstream
-consumers can audit which path each asset took, and the procedure
-generalizes to any new ticker without external metadata.
+This paper closes both gaps with a two-stage construction. We first
+introduce a hybrid hidden Markov framework
+(Section~\ref{sec:method-hmm}) that discretizes continuous excess
+growth rates into Laplace quantile-defined states and augments regime
+switching with a two-parameter Poisson jump-duration mechanism. The
+Laplace partition lets us bypass the iterative Baum-Welch algorithm
+\cite{baumPetrieSoulesWeiss1970, bilmes1998} via direct frequentist
+counting of regime transitions, scaling the framework to a $424$-asset
+pipeline. The Poisson override forces the chain to dwell in
+high-volatility tail states for empirically realistic durations,
+closing the volatility-clustering gap that standard HMMs leave open.
+We then introduce a variance-corrected single-index composition
+(Section~\ref{sec:method-sim}) that takes the per-asset hybrid HMM
+marginal as input and rescales it by a closed-form scalar so the
+composed series inherits the generator's marginal variance while
+recovering the calibrated factor loading. A sign-preserving clip
+handles high-leverage assets where the market loading would otherwise
+exceed the generator variance, and a separate $R^2$-driven branch
+handles index-tracking assets where the calibrated coefficient of
+determination, rather than the generator marginal, is the quantity
+worth preserving. Branch selection is driven entirely by the
+calibrated $R^2$, and each asset carries a persisted construction flag
+(\texttt{hybrid}, \texttt{hybrid-clipped}, \texttt{r2-preserve}) so
+downstream consumers can audit which path each asset took. The same
+construction generalizes to multi-factor variants without structural
+change.
 
-In this study, the distinction between the present paper and the
-companion \texttt{JumpHMM.jl} validation paper of Alswaidan and
-Varner~\cite{alswaidanVarner2026jdiq} is worth stating explicitly:
-the companion fits and validates the per-asset JumpHMM marginals
-themselves and asks whether the generator reproduces real marginal
-and joint statistics when used as-is, while the present paper takes
-the generator as given and asks how it should be composed with a
-single-index market factor without breaking either target. The
-variance correction, the sign-preserving clip rule, the
-$R^2$-preserving branch, the construction flag, and the empirical
-comparison of composition rules on a common universe are specific
-to this work; the two contributions are orthogonal. We tested the
-construction on the $424$-ticker US equity universe and SPY market
-path used by the companion paper, comparing six composition recipes
-on the same generators and the same market path: the naive
-composition, a Gaussian-residual SIM that recovers the calibrated
-factor coefficients and $R^2$ but loses the marginal structure, the
-hybrid construction proposed here, a JumpHMM marginal fit directly
-to the OLS residual series (composed with no variance correction),
-a Politis--Romano stationary bootstrap of the real residual
-history~\cite{politisRomano1994}, and a per-ticker GARCH(1,1)-$t$
-fit to residuals~\cite{bollerslev1986}. We measured SIM recovery,
-marginal fidelity, and per-ticker one-day Value-at-Risk accuracy,
-reporting each per construction-flag branch. All six composers
-recovered the factor loading to a median absolute error of $0.018$
-(hybrid, residual-fit, bootstrap, GARCH) or $0.022$ (naive)
-(Table~\ref{tab:aggregate}). On marginal fidelity the hybrid
-construction held the Kolmogorov--Smirnov pass rate at $50\%$,
-against $4\%$ for the naive composition and below $1\%$ for the
-Gaussian baseline; the three residual-fit alternatives attained
-pass rates of $67$ to $76\%$ (Table~\ref{tab:aggregate}). On the
-$99\%$ Value-at-Risk backtest, hybrid and JumpHMM-on-residuals
-delivered statistically indistinguishable coverage (Kupiec pass
-rates $80\%$ and $83\%$ respectively), while the strawman composers
-failed coverage at around $45\%$ (Table~\ref{tab:var}). These results indicated that the marginal-versus-factor tradeoff
-long assumed in SIM composition was not fundamental: a single
-closed-form scalar correction closed it to within a few percentage
-points of a dedicated residual-fit generator (JumpHMM-on-residuals,
-block bootstrap, or GARCH(1,1)-$t$) on marginal-body fidelity, and
-matched the residual-fit generator on a one-day $99\%$ Value-at-Risk
-backtest against the real growth-rate histories. The hybrid
-composition rule traded a small body-fidelity gap for generator
-agnosticism: any per-asset full-return marginal, including
-heavy-tailed HMM-with-jumps or regime-switching generators
-calibrated once for other purposes, could enter the factor pipeline
-unchanged. The correction generalizes to richer factor structures
-(multi-factor SIM, lagged-factor SIM) without changing the
-underlying algebra.
+We validated both stages on a $424$-ticker US equity and ETF universe
+calibrated against the $2014$--$2024$ SPY history, with $2025$ held
+out for out-of-sample evaluation. The single-asset stage was assessed
+against six baselines (Bootstrap, Gaussian, Laplace, GARCH, HMM
+without jumps, and a Gated Recurrent Unit \cite{choEtAl2014gru} neural
+baseline) on Kolmogorov-Smirnov, Anderson-Darling, Wasserstein-1, and
+Hellinger pass rates (Section~\ref{sec:results}). The multi-asset
+stage was assessed against five composers (the naive composition, a
+Gaussian single-index residual, a JumpHMM fit directly to OLS
+residuals, a Politis-Romano stationary bootstrap of the real residual
+history \cite{politisRomano1994}, and a per-ticker GARCH(1,1)-$t$ fit
+\cite{bollerslev1986}) on factor-loading recovery, marginal fidelity,
+and a per-ticker one-day Value-at-Risk backtest assessed by the Kupiec
+unconditional-coverage test. Section~\ref{sec:discussion} closes with
+a documented downstream-use caveat, an iid-residual diversification-return
+artifact under daily rebalancing, and a calibrated location-shift bias
+correction that addresses it without restructuring the generator.

@@ -1,0 +1,255 @@
+% method_hmm.tex
+% Subsection 3.1 body. Three subsubsections:
+%   3.1.1 State space, Laplace partition, and emissions
+%   3.1.2 Transition matrix and jump override
+%   3.1.3 Hyperparameter optimization (ε, λ grid search)
+% Ported from jdiq-paper/sections/methods.tex with citation keys rewritten
+% to the merged-bib camelCase convention. Multi-asset SIM extension and
+% validation-metrics blocks are dropped (superseded by §3.2 and §4).
+
+The empirical foundation of this study was a dataset of $424$ United
+States-listed equities and exchange-traded funds spanning ten years
+($2014$--$2024$). To validate the hybrid hidden Markov framework on a
+single canonical asset, we focused our headline analysis on the SPDR
+S\&P 500 ETF (SPY), reserving the $2,766$ observations from January 3,
+$2014$ to December 31, $2024$ for in-sample fitting and the subsequent
+$249$ trading days of $2025$ for out-of-sample testing. The data
+consisted of daily open, high, low, and close prices and
+volume-weighted average price values. We computed the excess
+growth rate $G_{i,j}$ for ticker $i$ between time period $j-1
+\rightarrow j$ from the equity price series $P_{i,j}$ as
+\begin{equation}
+    G_{i,j} \equiv \left( \frac{1}{\Delta t} \right) \cdot
+    \ln\!\left( \frac{P_{i,j}}{P_{i,j-1}} \right) - r_f,
+    \label{eq:growth_rate}
+\end{equation}
+with $\Delta t = 1/252$ (one trading day in years) and $r_f$ a constant
+continuously compounded risk-free rate derived from STRIPS bond yields.
+The excess growth rate has units of year$^{-1}$ and is time-additive
+under continuous compounding.
+
+\subsubsection{State space, Laplace partition, and emissions}
+\label{sec:method-hmm-states}
+
+We defined the hybrid hidden Markov model as the tuple
+$\mathcal{M} = (\mathcal{S}, \mathcal{O}, \mathbf{T}, \mathbf{E}, \bar{\pi})$
+\cite{rabinerJuang1986}, where the hidden state
+$S_t \in \mathcal{S} = \{1,\dots,N\}$ represented market regimes, the
+observation space $\mathcal{O} \subset \mathbb{R}$ consisted of
+continuous excess growth rate values, $\mathbf{T}$ governed
+regime-to-regime transitions, $\mathbf{E}$ specified the
+state-conditional emission model, and $\bar{\pi}$ denoted the
+stationary distribution. States were defined by quantile boundaries
+$Q_k = F_L^{-1}(k/N;\, \mu_L, b_L)$ of a fitted Laplace distribution,
+with $Q_0 = -\infty$ and $Q_N = +\infty$. The Laplace was chosen for
+its sharper peak (better matching the concentration of small price
+movements \cite{mandelbrot1963, cont2001, kotzKozubowskiPodgorski2001})
+and its closed-form quantile function, which scaled to the $424$-ticker
+pipeline without iterative optimization \cite{bilmes1998}. An
+observation was assigned to state $k$ when $Q_{k-1} < G_t \le Q_k$. The
+within-state emission followed a location-scale Student-$t$
+distribution
+\begin{equation}
+    G_t \mid S_t = k \;\sim\; \mu_k + \sigma_k \cdot t_{\nu},
+    \qquad \nu = 5,
+    \label{eq:emission}
+\end{equation}
+where $\nu=5$ was selected from a sensitivity analysis over
+$\nu \in \{3,4,5,6,7,8,10,15,30,\infty\}$ as the value that minimized
+the kurtosis gap without degrading distributional fidelity
+($\nu=\infty$ recovers the Normal baseline).
+
+\subsubsection{Transition matrix and jump override}
+\label{sec:method-hmm-jump}
+
+We estimated the transition matrix $\mathbf{T}$ through direct
+frequentist counting: the discrete state assignments allowed
+straightforward counting of observed transitions between regimes,
+making the approach conceptually simple and free of the initialization
+sensitivity inherent to expectation-maximization
+\cite{bilmes1998}. A consequence of direct counting was that empirical
+transition matrices often had low probabilities for exiting central
+states into tail states, which caused models to lose the effect of
+volatility clustering too quickly \cite{bullaBulla2006}. We corrected
+this by adding two jump parameters, $\epsilon$ representing the
+probability of a jump event and $\lambda$ representing the mean
+jump-event duration, along with a tail-state selection rule. Tail
+states were defined as $\mathcal{S}_{-} = \{1, \dots, N_{\rm tail}\}$
+and $\mathcal{S}_{+} = \{N - N_{\rm tail} + 1, \dots, N\}$, where
+$N_{\rm tail}$ was user-configurable. When a jump was triggered, the
+jump duration $K$ was sampled from a Poisson distribution
+$K \sim \mathrm{Poisson}(\lambda)$, which is standard for modeling
+independent events in fixed intervals \cite{glasserman2003}. During
+these $K$ steps, the standard Markovian transitions were overridden to
+target tail states, with a user-configurable bias $p_{\rm neg}$
+(default $0.52$) that favored negative-tail states to reproduce
+gain/loss asymmetry (Figure~\ref{fig:model_architecture}). Given the
+state assignments and transition matrix, the remaining model
+components were estimated directly from the data: the emission
+parameters $\mu_k$ and $\sigma_k$ were the sample mean and standard
+deviation of observations assigned to state $k$, and the empirical
+transition matrix exhibited a dominant near-diagonal band reflecting
+short-range regime persistence (Online Appendix~\ref{sec:supp-transitions}).
+The stationary distribution $\bar{\pi}$ satisfied
+$\bar{\pi} = \bar{\pi}\mathbf{T}$ and was estimated by matrix powering
+($\mathbf{T}^{50}$) \cite{hamilton2018regime, grinsteadSnell1997}. An
+initial state was drawn from $X_0 \sim \bar{\pi}$; at each subsequent
+step the chain either transitioned according to the empirical row
+$\mathbf{T}_{X_{n-1},\,\cdot}$ (probability $1-\epsilon$) or entered a
+Poisson jump episode (probability $\epsilon$) that forced the state
+into $\mathcal{S}_{-}$ or $\mathcal{S}_{+}$ for $K$ consecutive steps
+before normal transitions resumed. In both cases an observation was
+sampled from the emission distribution $O_n \sim \mathbf{E}_{X_n}$. The
+full simulation pseudocode is given in Online
+Appendix~\ref{sec:supp-pseudo}.
+
+% --- Architecture figure ----------------------------------------------------
+\begin{figure}[tp]
+\centering
+\resizebox{\textwidth}{!}{%
+\begin{tikzpicture}[
+  state/.style    = {circle, draw=black, very thick, minimum size=1.1cm,
+                     inner sep=0pt, font=\small},
+  tailbot/.style  = {state, fill=red!25,  draw=red!70!black},
+  tailtop/.style  = {state, fill=blue!25, draw=blue!70!black},
+  midstate/.style = {state, fill=white,   draw=black!70},
+  markov/.style   = {<->, >=Stealth, thin, gray!80},
+  trigger/.style  = {->, >=Stealth, thick, dashed, black!80},
+  jumparc/.style  = {->, >=Stealth, very thick},
+]
+  \node[tailbot]              (s1)   at ( 0.0, 0) {$1$};
+  \node[tailbot]              (s2)   at ( 2.0, 0) {$2$};
+  \node[font=\Large]          (ld)   at ( 4.0, 0) {$\cdots$};
+  \node[midstate]             (sk)   at ( 6.0, 0) {$k$};
+  \node[font=\Large]          (rd)   at ( 8.0, 0) {$\cdots$};
+  \node[tailtop]              (sNm1) at (10.0, 0) {$N\!-\!1$};
+  \node[tailtop]              (sN)   at (12.0, 0) {$N$};
+  \draw[markov] (s1)  -- (s2);
+  \draw[markov] (s2)  -- (ld);
+  \draw[markov] (ld)  -- (sk);
+  \draw[markov] (sk)  -- (rd);
+  \draw[markov] (rd)  -- (sNm1);
+  \draw[markov] (sNm1)-- (sN);
+  \draw[red!75!black, thick]
+    plot[domain=-0.42:0.42, samples=40, smooth, variable=\t]
+    ({ 0.0+\t}, {1.45 + 0.72*exp(-\t*\t/0.024)});
+  \draw[red!25, thin] (-0.42,1.45) -- (0.42,1.45);
+  \draw[red!75!black, thick]
+    plot[domain=-0.42:0.42, samples=40, smooth, variable=\t]
+    ({ 2.0+\t}, {1.45 + 0.72*exp(-\t*\t/0.024)});
+  \draw[red!25, thin] (1.58,1.45) -- (2.42,1.45);
+  \draw[black!55, thick]
+    plot[domain=-0.42:0.42, samples=40, smooth, variable=\t]
+    ({ 6.0+\t}, {1.45 + 0.72*exp(-\t*\t/0.024)});
+  \draw[gray!40, thin] (5.58,1.45) -- (6.42,1.45);
+  \draw[blue!75!black, thick]
+    plot[domain=-0.42:0.42, samples=40, smooth, variable=\t]
+    ({10.0+\t}, {1.45 + 0.72*exp(-\t*\t/0.024)});
+  \draw[blue!25, thin] (9.58,1.45) -- (10.42,1.45);
+  \draw[blue!75!black, thick]
+    plot[domain=-0.42:0.42, samples=40, smooth, variable=\t]
+    ({12.0+\t}, {1.45 + 0.72*exp(-\t*\t/0.024)});
+  \draw[blue!25, thin] (11.58,1.45) -- (12.42,1.45);
+  \node[font=\footnotesize\itshape, text=black!55]
+    at (6.0, 2.7) {$\mu_k\!+\!\sigma_k\cdot t_5$ emission};
+  \node[draw, rounded corners=5pt, fill=yellow!20, very thick,
+        minimum width=2.8cm, minimum height=1.1cm,
+        align=center, font=\small] (clock) at (6.0, 5.0)
+        {Poisson clock\\[1pt]prob.~$\epsilon$};
+  \draw[trigger] (sk.north) -- (clock.south)
+    node[midway, right=3pt, font=\footnotesize] {jump triggered};
+  \draw[jumparc, red!70!black]
+    (clock.west)
+    to[out=180, in=100]
+    node[above, sloped, font=\footnotesize, red!80!black,
+         pos=0.45, yshift=2pt]
+      {$K\!\sim\!\mathrm{Pois}(\lambda)$ forced steps}
+    (s1.north);
+  \draw[jumparc, blue!70!black]
+    (clock.east)
+    to[out=0, in=80]
+    node[above, sloped, font=\footnotesize, blue!80!black,
+         pos=0.45, yshift=2pt]
+      {$K\!\sim\!\mathrm{Pois}(\lambda)$ forced steps}
+    (sN.north);
+  \draw[decorate,
+        decoration={brace, amplitude=6pt, mirror},
+        red!70!black, thick]
+    (-0.6, -0.65) -- (2.6, -0.65)
+    node[midway, below=7pt, red!80!black, font=\small]
+      {$\mathcal{S}_{-}$\ (bottom tail)};
+  \draw[decorate,
+        decoration={brace, amplitude=6pt, mirror},
+        blue!70!black, thick]
+    (9.4, -0.65) -- (12.6, -0.65)
+    node[midway, below=7pt, blue!80!black, font=\small]
+      {$\mathcal{S}_{+}$\ (top tail)};
+  \draw[->, >=Stealth, gray!70, thin]
+    (-1.0, -0.5) -- (13.2, -0.5)
+    node[right, font=\small, text=black!70] {state index};
+  \node[font=\footnotesize, text=gray!80, above right=2pt and 4pt of sk]
+    {prob.~$1\!-\!\epsilon$};
+\end{tikzpicture}%
+}
+\caption{\textbf{Architecture of the hybrid hidden Markov model with
+    jump-diffusion (HMM-WJ).} At each step the chain transitions
+    according to the empirical transition matrix $\mathbf{T}$
+    (probability $1 - \epsilon$, thin bidirectional arrows) or enters a
+    Poisson jump episode (probability $\epsilon$, dashed upward arrow
+    to the Poisson clock). During a jump episode the active state is
+    forced to the bottom tail set $\mathcal{S}_{-}$ (red, lowest-valued
+    states) or the top tail set $\mathcal{S}_{+}$ (blue, highest-valued
+    states) for $K \sim \mathrm{Poisson}(\lambda)$ consecutive steps
+    before normal Markovian evolution resumes. Small bell curves above
+    each state depict the state-conditional location-scale Student-$t$
+    ($\nu=5$) emission distribution. Tail sets are defined as the
+    $N_{\rm tail}$ lowest- and highest-quantile states under the
+    Laplace quantile partition.}
+\label{fig:model_architecture}
+\end{figure}
+
+\subsubsection{Hyperparameter optimization}
+\label{sec:method-hmm-tuning}
+
+To identify the jump probability $\epsilon$ and mean jump duration
+$\lambda$ \cite{merton1976, kou2002}, we implemented a multi-objective
+grid search that minimized the discrepancy between historical and
+simulated market signatures. The objective targeted two stylized facts
+\cite{cont2001, rydenTerasvirtaAsbrink1998}: volatility clustering,
+measured as the squared error between the observed and simulated
+autocorrelation function (ACF) of absolute excess growth rates
+\cite{schwert1989} up to a lag of $L=252$ trading days (approximately
+one trading year), and leptokurtosis, captured by a penalty term on
+the global kurtosis \cite{mandelbrot1963}:
+\begin{equation}
+    J(\epsilon, \lambda) =
+    \sum_{\tau=1}^{L} \left( \mathrm{ACF}_{\rm obs}(\tau)
+    - \overline{\mathrm{ACF}}_{\rm sim}(\tau) \right)^2
+    + w_K \left( K_{\rm obs} - \overline{K}_{\rm sim} \right)^2,
+    \label{eq:grid_search}
+\end{equation}
+where $\mathrm{ACF}_{\rm obs}(\tau)$ and $K_{\rm obs}$ are the
+empirical absolute-growth autocorrelation at lag $\tau$ and the global
+kurtosis, respectively, and the simulated counterparts
+$\overline{\mathrm{ACF}}_{\rm sim}(\tau)$ and $\overline{K}_{\rm sim}$
+were averaged across $200$ independent synthetic paths of $2{,}766$
+trading days per grid point \cite{glasserman2003}. We set the
+kurtosis-penalty weight to $w_K = 0.20$ to balance tail behavior
+against the temporal ACF term. The grid explored $\epsilon$ from
+$10^{-4}$ to $2.5 \times 10^{-2}$ and $\lambda$ from $10$ to $160$. The
+full pseudocode is given in Online Appendix~\ref{sec:supp-pseudo}.
+
+\paragraph{From single-asset marginals to multi-asset composition.}
+The hybrid hidden Markov framework above produces a synthetic excess
+growth-rate path for one asset at a time, with a marginal that
+reproduces the asset's heavy tails, regime persistence, and
+volatility-clustering profile (validated empirically in
+Section~\ref{sec:results}). Multi-asset workflows that consume these
+paths (portfolio construction, factor risk attribution, multi-name
+stress testing) need a second ingredient on top of the per-asset
+marginals: a cross-sectional structure that ties the synthetic series
+together so they co-move the way real markets do. The next subsection
+develops a closed-form composition rule that takes the per-asset
+hybrid HMM marginal as a black-box input and inserts it into a
+single-index market factor in a way that preserves the marginal the
+generator was built to deliver.
