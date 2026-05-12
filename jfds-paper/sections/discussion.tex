@@ -42,12 +42,11 @@ generator target (Fig.~\ref{fig:preservation}). Because branch selection was
 driven entirely by the calibrated $R^2$ and each asset carried a
 persisted construction flag, the procedure ran uniformly across the
 ticker universe without external metadata and left an audit trail
-that downstream consumers could inspect. No part of the
-construction is new in a deep sense; the contribution is a minimal,
-practitioner-ready recipe with an auditable branch flag and a
-principled treatment of the degenerate tracker limit, usable as a
-drop-in replacement for naive composition in workflows where both
-tail shape and market dependence matter.
+that downstream consumers could inspect. No part of the construction is new; the contribution is a minimal,
+practitioner-ready recipe with an auditable branch flag and an
+explicit treatment of the tracker limit, usable as a drop-in
+replacement for naive composition in workflows where both tail shape
+and market dependence matter.
 
 The evaluation isolated the composition rule by fixing the market
 path at the real SPY history and using the
@@ -83,8 +82,8 @@ this validation inside the paper's scope, while portfolio-level VaR
 requires the cross-sectional copula reorder deferred above.
 High-turnover portfolio
 strategies remain a distinct scope boundary: the temporal structure
-of the residual draw becomes load-bearing in a way that
-contemporaneous composition does not address.
+of the residual draw matters in a way that contemporaneous
+composition does not capture.
 
 A related boundary on the recipe was the clipping rule. Clipping
 did not trigger anywhere in the US-equity universe used here,
@@ -156,7 +155,7 @@ its jump and regime structure) as input. Users evaluating
 high-turnover strategies on JumpHMM-corrected paths should benchmark
 absolute return levels against a static-allocation baseline on the
 same paths, or adopt the bootstrap or GARCH alternatives when
-residual autocorrelation is the load-bearing structure for the
+residual autocorrelation is the relevant structure for the
 downstream task.
 
 The diversification-return artifact is quantitatively large enough on
@@ -186,20 +185,13 @@ framing absolute Sharpe levels under daily rebalancing as ``this generator
 with this strategy'' rather than as a forward prediction. Where the
 workflow requires an absolute-return level for downstream consumption
 (e.g., percentile diagnostics overlaying real outcomes against a synthetic
-distribution), we recommend a uniform location-shift bias correction that
-anchors the corrected synthetic median CCGR to a documented long-run prior:
-\begin{equation}
-\label{eq:bias-correction}
-  W_{p,t}^{\mathrm{corr}} \;=\; W_{p,t}\cdot
-  \exp\!\Big(\!-\tfrac{b}{100}\,\cdot t\,\Delta t\Big),
-  \qquad
-  b \;=\; \operatorname*{median}_{p}\mathrm{CCGR}_p \;-\; \mathrm{CCGR}^{\mathrm{prior}},
-\end{equation}
-where $W_{p,t}$ is path-$p$ wealth at integer step $t$, $\Delta t$ is the
-integration step in years, and $\mathrm{CCGR}^{\mathrm{prior}}$ is set from
-an external long-run prior (typically near $8\%/\mathrm{yr}$, decomposable
-into the prevailing risk-free rate plus an active premium net of
-frictions~\cite{damodaranERP, ibbotsonSBBI}). The correction is a per-path
+distribution), we recommend a uniform location-shift bias correction
+(Eq.~\ref{eq:bias-correction}, Online Appendix~S2) that scales each
+synthetic wealth path by an exponential drag whose rate is set so the
+corrected median annualized growth rate matches a documented long-run
+prior, typically near eight percent per year, decomposable into the
+prevailing risk-free rate plus an active premium net of
+frictions~\cite{damodaranERP, ibbotsonSBBI}. The correction is a per-path
 monotone transform: it preserves the rank order of paths by terminal
 wealth, the drawdown shape, and the volatility envelope; only the level
 shifts. Anchoring to a documented prior rather than to the realized
@@ -230,8 +222,8 @@ clipped rather than a scalar, though the branch logic is unchanged.
 Per-ticker tuning of the jump parameters $(\epsilon, \lambda)$
 tightens each marginal's fit; the multi-asset evaluation used package
 defaults to keep fitting tractable across the universe, but the
-single-asset tuning protocol of Section~\ref{sec:method-hmm-tuning},
-applied per ticker, would push the hybrid KS pass rates upward at the
+per-ticker grid search used for the single-asset evaluation, applied
+across the universe, would push the hybrid KS pass rates upward at the
 cost of a calibration step per asset. A
 stress-test harness ties these together: using the clipping rule to
 enforce a minimum idiosyncratic share in constructed market scenarios

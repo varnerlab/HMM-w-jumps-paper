@@ -31,8 +31,8 @@ events generate large discrete moves \cite{auYeungEtAl2020}, but in
 standard form do not provide a mechanism for post-jump volatility
 persistence.
 
-Hidden Markov models offer a structurally different solution by
-embedding regime and jump dynamics in a latent discrete-state process.
+Hidden Markov models offer a different solution by embedding regime
+and jump dynamics in a latent discrete-state process.
 Hamilton \cite{hamilton1989} introduced the regime-switching HMM to
 economics in a two-state expansion-recession formulation, and
 subsequent work applied the framework to volatility forecasting
@@ -66,17 +66,16 @@ systematic evaluations have found that naive architectures fail to
 reproduce volatility clustering even when they match the marginal
 distribution \cite{takahashiEtAl2019}. Foundation inference models for
 Markov jump processes \cite{berghausEtAl2025} offer a pretrained
-perspective whose application to financial data remains an open
-question. Surveys of synthetic data quality more broadly
-\cite{assefaEtAl2020, jordonEtAl2022, stengerEtAl2024} converge on a
-common concern: stylized-facts reproduction is the primary quality
-criterion, and naive generators tend to fail on at least one core
-stylized fact. The present paper follows the latent-state tradition
+alternative not yet evaluated on financial data. Surveys of synthetic
+data quality more broadly \cite{assefaEtAl2020, jordonEtAl2022,
+stengerEtAl2024} agree on the same concern: stylized-facts reproduction
+is the primary quality criterion, and naive generators tend to fail on
+at least one core stylized fact. The present paper follows the latent-state tradition
 rather than the deep-generative one, trading architectural complexity
 for a direct-counting fit augmented by a parameter-light jump override.
 
 The single-index model (SIM) of Sharpe \cite{sharpe1963} is the
-canonical recipe for adding multi-asset factor structure to an
+standard recipe for adding multi-asset factor structure to an
 otherwise univariate generator: each asset's growth rate decomposes
 into a market-loaded term plus an idiosyncratic residual, reducing the
 parameter count relative to a full multivariate specification. The
@@ -102,8 +101,7 @@ Copula-based dependence models \cite{embrechtsMcNeilStraumann2002,
 cherubiniLucianoVecchiato2004, aasCzadoFrigessiBakken2009} separate
 marginal distributions from the dependence structure but introduce
 model-selection complexity in the copula family. The variance-corrected
-SIM composition we develop in Section~\ref{sec:method-sim} threads
-these constraints: the closed-form scalar correction lets a full-return
+SIM composition we develop below threads these constraints: the closed-form scalar correction lets a full-return
 generator enter the factor pipeline while preserving the marginal
 variance, and the auditable $R^2$-driven branch handles
 index-tracking edge cases without external metadata.
@@ -122,4 +120,4 @@ present under empirical positive residual autocorrelation
 \cite{loMacKinlay1990}. We adopt both the classical distributional
 metrics and a downstream Value-at-Risk backtest assessed by Kupiec
 coverage, and we explicitly address the diversification-return
-artifact via a documented bias correction (Section~\ref{sec:discussion}).
+artifact via a documented bias correction.

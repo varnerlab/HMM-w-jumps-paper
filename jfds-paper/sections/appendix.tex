@@ -86,6 +86,22 @@ Eq.~\eqref{eq:scale} held in practice.
 
 \subsection*{S2.3 Location-shift bias correction}
 
+The location-shift correction multiplies each path-$p$ wealth trajectory
+$W_{p,t}$ at integer step $t$ by a uniform exponential drag whose rate
+$b$ closes the gap between the engine's median annualized growth rate
+and an external long-run prior $\mathrm{CCGR}^{\mathrm{prior}}$:
+\begin{equation}
+\label{eq:bias-correction}
+  W_{p,t}^{\mathrm{corr}} \;=\; W_{p,t}\cdot
+  \exp\!\Big(\!-\tfrac{b}{100}\,\cdot t\,\Delta t\Big),
+  \qquad
+  b \;=\; \operatorname*{median}_{p}\mathrm{CCGR}_p \;-\; \mathrm{CCGR}^{\mathrm{prior}},
+\end{equation}
+with $\Delta t$ the integration step in years. The transform is monotone
+in $W_{p,t}$ for every path and every step, so per-path rank order on
+terminal wealth, drawdown geometry, and the volatility envelope are all
+preserved; only the level shifts.
+
 % - Eq.~\eqref{eq:bias-correction} restated.
 % - Why exp(-b·t·Δt) and not additive: log-CCGR space is the natural scale;
 %   multiplicative drag preserves drawdown geometry. Per-path monotone
@@ -181,7 +197,7 @@ Eq.~\eqref{eq:scale} held in practice.
 \section{Validation metric definitions}
 \label{sec:supp-validation}
 
-The four distributional metrics reported in Section~\ref{sec:results-hmm}
+The four distributional metrics reported in the single-asset evaluation
 were defined as follows. The two-sample Kolmogorov-Smirnov statistic
 between the empirical CDFs of the observed and simulated growth-rate
 samples ($G_{\rm obs}$ of length $n$ and $G_{\rm sim}$ of length $m$)
@@ -213,8 +229,8 @@ with $H = 0$ for identical densities and $H = 1$ for disjoint supports.
 \section{HMM-WJ simulator and grid-search pseudocode}
 \label{sec:supp-pseudo}
 
-The hybrid hidden Markov simulator (Section~\ref{sec:method-hmm-jump})
-proceeded as follows. Given fitted parameters
+The hybrid hidden Markov simulator described in the main text proceeded
+as follows. Given fitted parameters
 $(\mathbf{T}, \mathbf{E}, \bar{\pi}, \epsilon, \lambda, p_{\rm neg},
 N_{\rm tail})$ and a horizon $T$:
 \begin{enumerate}

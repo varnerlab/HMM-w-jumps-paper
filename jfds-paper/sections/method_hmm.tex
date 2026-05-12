@@ -1,17 +1,13 @@
 % method_hmm.tex
-% Subsection 3.1 body. Three subsubsections:
-%   3.1.1 State space, Laplace partition, and emissions
-%   3.1.2 Transition matrix and jump override
-%   3.1.3 Hyperparameter optimization (ε, λ grid search)
-% Ported from jdiq-paper/sections/methods.tex with citation keys rewritten
-% to the merged-bib camelCase convention. Multi-asset SIM extension and
-% validation-metrics blocks are dropped (superseded by §3.2 and §4).
+% Subsection 3.1 body. Flat prose, no subsubsections. Topic flow:
+%   dataset and growth-rate definition → state space + emissions →
+%   transition matrix and jump override → hyperparameter calibration →
+%   bridge to the multi-asset composition of §3.2.
 
-The empirical foundation of this study was a dataset of $424$ United
-States-listed equities and exchange-traded funds spanning ten years
-($2014$--$2024$). To validate the hybrid hidden Markov framework on a
-single canonical asset, we focused our headline analysis on the SPDR
-S\&P 500 ETF (SPY), reserving the $2,766$ observations from January 3,
+The dataset was $424$ United States-listed equities and
+exchange-traded funds spanning ten years ($2014$--$2024$). To validate
+the hybrid hidden Markov framework on a single representative asset,
+we focused the headline analysis on the SPDR S\&P 500 ETF (SPY), reserving the $2,766$ observations from January 3,
 $2014$ to December 31, $2024$ for in-sample fitting and the subsequent
 $249$ trading days of $2025$ for out-of-sample testing. The data
 consisted of daily open, high, low, and close prices and
@@ -28,10 +24,7 @@ continuously compounded risk-free rate derived from STRIPS bond yields.
 The excess growth rate has units of year$^{-1}$ and is time-additive
 under continuous compounding.
 
-\subsubsection{State space, Laplace partition, and emissions}
-\label{sec:method-hmm-states}
-
-We defined the hybrid hidden Markov model as the tuple
+We defined the hybrid hidden Markov model on this dataset as the tuple
 $\mathcal{M} = (\mathcal{S}, \mathcal{O}, \mathbf{T}, \mathbf{E}, \bar{\pi})$
 \cite{rabinerJuang1986}, where the hidden state
 $S_t \in \mathcal{S} = \{1,\dots,N\}$ represented market regimes, the
@@ -59,15 +52,10 @@ $\nu \in \{3,4,5,6,7,8,10,15,30,\infty\}$ as the value that minimized
 the kurtosis gap without degrading distributional fidelity
 ($\nu=\infty$ recovers the Normal baseline).
 
-\subsubsection{Transition matrix and jump override}
-\label{sec:method-hmm-jump}
-
-We estimated the transition matrix $\mathbf{T}$ through direct
-frequentist counting: the discrete state assignments allowed
-straightforward counting of observed transitions between regimes,
-making the approach conceptually simple and free of the initialization
-sensitivity inherent to expectation-maximization
-\cite{bilmes1998}. A consequence of direct counting was that empirical
+With the state space and emission family fixed, we estimated the
+transition matrix $\mathbf{T}$ through direct frequentist counting: the discrete state assignments allowed straightforward counting of
+observed transitions between regimes, which avoided the initialization
+sensitivity of expectation-maximization \cite{bilmes1998}. A consequence of direct counting was that empirical
 transition matrices often had low probabilities for exiting central
 states into tail states, which caused models to lose the effect of
 volatility clustering too quickly \cite{bullaBulla2006}. We corrected
@@ -208,12 +196,9 @@ Appendix~\ref{sec:supp-pseudo}.
 \label{fig:model_architecture}
 \end{figure}
 
-\subsubsection{Hyperparameter optimization}
-\label{sec:method-hmm-tuning}
-
-To identify the jump probability $\epsilon$ and mean jump duration
-$\lambda$ \cite{merton1976, kou2002}, we implemented a multi-objective
-grid search that minimized the discrepancy between historical and
+With the simulator specified, we calibrated the two jump parameters,
+the jump probability $\epsilon$ and mean jump duration $\lambda$
+\cite{merton1976, kou2002}, via a multi-objective grid search that minimized the discrepancy between historical and
 simulated market signatures. The objective targeted two stylized facts
 \cite{cont2001, rydenTerasvirtaAsbrink1998}: volatility clustering,
 measured as the squared error between the observed and simulated
@@ -239,17 +224,15 @@ against the temporal ACF term. The grid explored $\epsilon$ from
 $10^{-4}$ to $2.5 \times 10^{-2}$ and $\lambda$ from $10$ to $160$. The
 full pseudocode is given in Online Appendix~\ref{sec:supp-pseudo}.
 
-\paragraph{From single-asset marginals to multi-asset composition.}
 The hybrid hidden Markov framework above produces a synthetic excess
 growth-rate path for one asset at a time, with a marginal that
 reproduces the asset's heavy tails, regime persistence, and
-volatility-clustering profile (validated empirically in
-Section~\ref{sec:results}). Multi-asset workflows that consume these
-paths (portfolio construction, factor risk attribution, multi-name
-stress testing) need a second ingredient on top of the per-asset
-marginals: a cross-sectional structure that ties the synthetic series
-together so they co-move the way real markets do. The next subsection
-develops a closed-form composition rule that takes the per-asset
-hybrid HMM marginal as a black-box input and inserts it into a
-single-index market factor in a way that preserves the marginal the
-generator was built to deliver.
+volatility-clustering profile (validated empirically below).
+Multi-asset workflows that consume these paths (portfolio construction,
+factor risk attribution, multi-name stress testing) need a second
+ingredient on top of the per-asset marginals: a cross-sectional
+structure that ties the synthetic series together so they co-move the
+way real markets do. The next subsection develops a closed-form
+composition rule that takes the per-asset hybrid HMM marginal as a
+black-box input and inserts it into a single-index market factor in a
+way that preserves the marginal the generator was built to deliver.
