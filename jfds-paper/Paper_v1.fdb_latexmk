@@ -1,13 +1,13 @@
 # Fdb version 4
-["bibtex Paper_v1"] 1778606932.95155 "Paper_v1.aux" "Paper_v1.bbl" "Paper_v1" 1778606934.29955 0
+["bibtex Paper_v1"] 1778607622.61403 "Paper_v1.aux" "Paper_v1.bbl" "Paper_v1" 1778607623.90884 0
   "./References_v1.bib" 1778092900.86556 29599 ea70f3ba191c62878428b7161d153a79 ""
   "/usr/local/texlive/2025/texmf-dist/bibtex/bst/natbib/unsrtnat.bst" 1233624470 24550 a41a6405f4de768c43e871d9fbce2bc8 ""
-  "Paper_v1.aux" 1778606934.00864 42875 c9dc0a5b803a846321d4d5bb20fa887b "pdflatex"
+  "Paper_v1.aux" 1778607623.62878 38983 2c2c5056b2aa55878f02f0e69930b923 "pdflatex"
   (generated)
   "Paper_v1.bbl"
   "Paper_v1.blg"
   (rewritten before read)
-["pdflatex"] 1778606933.05179 "Paper_v1.tex" "Paper_v1.pdf" "Paper_v1" 1778606934.29975 0
+["pdflatex"] 1778607622.70964 "Paper_v1.tex" "Paper_v1.pdf" "Paper_v1" 1778607623.90901 0
   "/usr/local/texlive/2025/texmf-dist/fonts/enc/dvips/base/8r.enc" 1165713224 4850 80dc9bab7f31fb78a000ccfed0e27cab ""
   "/usr/local/texlive/2025/texmf-dist/fonts/enc/dvips/cm-super/cm-super-t1.enc" 1136849721 2971 def0b6c1f0b107b3b936def894055589 ""
   "/usr/local/texlive/2025/texmf-dist/fonts/map/fontname/texfonts.map" 1577235249 3524 cb3e574dea2d1052e39280babc910dc8 ""
@@ -232,10 +232,10 @@
   "/usr/local/texlive/2025/texmf-var/fonts/map/pdftex/updmap/pdftex.map" 1747946047 5467155 19efa205003f9ecad95fbbaa6ff24da1 ""
   "/usr/local/texlive/2025/texmf-var/web2c/pdftex/pdflatex.fmt" 1741450574 3345740 46b66fdb0378f7bf5921b5eabf1762b8 ""
   "/usr/local/texlive/2025/texmf.cnf" 1741450484 577 418a7058ec8e006d8704f60ecd22c938 ""
-  "Paper_v1.aux" 1778606934.00864 42875 c9dc0a5b803a846321d4d5bb20fa887b "pdflatex"
-  "Paper_v1.bbl" 1778606933.04897 15972 e163a5133d7a6a1c1e8e1c3c7004199d "bibtex Paper_v1"
-  "Paper_v1.out" 1778606934.01069 2739 d412ef5bc6e3479ab9badd00ce3d5c46 "pdflatex"
-  "Paper_v1.tex" 1778604662.44721 27864 6e19bcbcc85362e2bf324d581829dfcc ""
+  "Paper_v1.aux" 1778607623.62878 38983 2c2c5056b2aa55878f02f0e69930b923 "pdflatex"
+  "Paper_v1.bbl" 1778607622.70699 15972 e163a5133d7a6a1c1e8e1c3c7004199d "bibtex Paper_v1"
+  "Paper_v1.out" 1778607623.63065 2739 d412ef5bc6e3479ab9badd00ce3d5c46 "pdflatex"
+  "Paper_v1.tex" 1778607581.86974 25473 6cb60a563d02e45f9455f716ec55e647 ""
   "figs/Fig4-Model-Comparison.pdf" 1778092643.70323 153826 2a383d7821e9ad927cc710b3350abb85 ""
   "figs/Fig6-Statistical-Validation.pdf" 1778092643.70494 126304 916721a0ecadb898974ee3c17dd04dad ""
   "figs/fig1_preservation.pdf" 1778087166.76895 138374 e6c9acb30c5f8d873c4e927d68350d78 ""
@@ -243,10 +243,8 @@
   "figs/fig3_branch_map.pdf" 1778087166.762 69889 d319d9d17553dc6b0a1fbfb21693bf27 ""
   "figs/fig4_baseline_panel.pdf" 1778087166.76373 57814 ae32d6c1b97fce451ac95e7f6dbc0d02 ""
   "figs/fig5_sensitivity.pdf" 1778087166.76478 36819 8ce9979226e12ded8af0ba9aee82d2c9 ""
-  "figs/fig6_stress.pdf" 1778087166.76083 48009 9c0d8e47dbb9b16155fd4e7f584e7003 ""
   "figs/fig7_r2_distribution.pdf" 1778087166.76658 27354 cadf3e09e3d5a2f0cb2d169cbab989ba ""
   "figs/fig8_var_backtest.pdf" 1778087166.76284 65704 58ecfa829b65a24c84dd5c4a0be4b8a4 ""
-  "figs/fig9_synth_tracker.pdf" 1778087166.76801 54299 5e4f29c4c7bdc6bf0e87c150fc95aec0 ""
   "figs/figS1_cov_diagnostic.pdf" 1778087166.76727 36485 8e76797536ec7343872f8c90fcef95ac ""
   "neurips_2026.sty" 1778087166.76954 13023 2817c1b954c70ec3156371423da6545c ""
   "sections/abstract.tex" 1778587460.02299 2247 8c5a11f4b24d37976544c96f6ee7abdb ""
@@ -257,7 +255,7 @@
   "sections/method_hmm.tex" 1778599061.79089 12237 d92705e2da6248027d5701e7ce6db1c3 ""
   "sections/method_sim.tex" 1778603621.36597 16815 5a511d0b19887f8218e41cfc25d3aace ""
   "sections/related.tex" 1778589876.83713 7572 7bdcca11922bd4227b91d40c122f2fbe ""
-  "sections/results.tex" 1778604640.52215 20651 2e48edd21a08a8e83e8eb915fb41f820 ""
+  "sections/results.tex" 1778607615.97902 20218 087d6af556c6302f7cd59bf0a0f5d059 ""
   "sections/tables/table1_aggregate.tex" 1778087166.77367 605 f7212fa93a940744e364e30a96dc804c ""
   "sections/tables/table2_by_branch.tex" 1778087166.77172 321 3b92c9630b5b61293d4688726c31478e ""
   "sections/tables/table3_by_beta_bucket.tex" 1778087166.77261 1563 eb8e0c102c2accb69252b945d508d038 ""

@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.27 (TeX Live 2025) (preloaded format=pdflatex 2025.3.8)  12 MAY 2026 13:28
+This is pdfTeX, Version 3.141592653-2.6-1.40.27 (TeX Live 2025) (preloaded format=pdflatex 2025.3.8)  12 MAY 2026 13:40
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -1044,7 +1044,7 @@ Underfull \vbox (badness 10000) has occurred while \output is active []
 [17])
 
 [18]
-<figs/Fig4-Model-Comparison.pdf, id=449, 1806.75pt x 562.1pt>
+<figs/Fig4-Model-Comparison.pdf, id=445, 1806.75pt x 562.1pt>
 File: figs/Fig4-Model-Comparison.pdf Graphic file (type pdf)
 <use figs/Fig4-Model-Comparison.pdf>
 Package pdftex.def Info: figs/Fig4-Model-Comparison.pdf  used on input line 195
@@ -1055,18 +1055,18 @@ Overfull \hbox (14.65605pt too wide) in paragraph at lines 1--237
  [][] 
  []
 
-<figs/fig1_preservation.pdf, id=450, 1304.875pt x 451.6875pt>
+<figs/fig1_preservation.pdf, id=446, 1304.875pt x 451.6875pt>
 File: figs/fig1_preservation.pdf Graphic file (type pdf)
 <use figs/fig1_preservation.pdf>
 Package pdftex.def Info: figs/fig1_preservation.pdf  used on input line 244.
 (pdftex.def)             Requested size: 397.48499pt x 137.58873pt.
 (./sections/tables/table5_var_backtest.tex)
-<figs/fig4_baseline_panel.pdf, id=451, 1204.5pt x 461.725pt>
+<figs/fig4_baseline_panel.pdf, id=447, 1204.5pt x 461.725pt>
 File: figs/fig4_baseline_panel.pdf Graphic file (type pdf)
 <use figs/fig4_baseline_panel.pdf>
 Package pdftex.def Info: figs/fig4_baseline_panel.pdf  used on input line 287.
 (pdftex.def)             Requested size: 397.48499pt x 152.36972pt.
-<figs/fig8_var_backtest.pdf, id=452, 1204.5pt x 461.725pt>
+<figs/fig8_var_backtest.pdf, id=448, 1204.5pt x 461.725pt>
 File: figs/fig8_var_backtest.pdf Graphic file (type pdf)
 <use figs/fig8_var_backtest.pdf>
 Package pdftex.def Info: figs/fig8_var_backtest.pdf  used on input line 307.
@@ -1078,51 +1078,41 @@ Package pdftex.def Info: figs/fig8_var_backtest.pdf  used on input line 307.
 [20 <./figs/fig1_preservation.pdf>]
 
 [21 <./figs/fig4_baseline_panel.pdf> <./figs/fig8_var_backtest.pdf>]
-<figs/Fig6-Statistical-Validation.pdf, id=470, 1204.5pt x 903.375pt>
+<figs/Fig6-Statistical-Validation.pdf, id=466, 1204.5pt x 903.375pt>
 File: figs/Fig6-Statistical-Validation.pdf Graphic file (type pdf)
 <use figs/Fig6-Statistical-Validation.pdf>
 Package pdftex.def Info: figs/Fig6-Statistical-Validation.pdf  used on input li
-ne 366.
+ne 374.
 (pdftex.def)             Requested size: 397.48499pt x 298.11467pt.
 
 (./sections/tables/table2_by_branch.tex)
 (./sections/tables/table3_by_beta_bucket.tex)
 (./sections/tables/table4_seed_uncertainty.tex)
-Overfull \hbox (86.9207pt too wide) in paragraph at lines 1--427
+Overfull \hbox (86.9207pt too wide) in paragraph at lines 1--435
  [][] 
  []
 
-<figs/fig2_tails.pdf, id=473, 1204.5pt x 451.6875pt>
+<figs/fig2_tails.pdf, id=469, 1204.5pt x 451.6875pt>
 File: figs/fig2_tails.pdf Graphic file (type pdf)
 <use figs/fig2_tails.pdf>
-Package pdftex.def Info: figs/fig2_tails.pdf  used on input line 434.
+Package pdftex.def Info: figs/fig2_tails.pdf  used on input line 442.
 (pdftex.def)             Requested size: 397.48499pt x 149.05733pt.
-<figs/fig3_branch_map.pdf, id=474, 903.375pt x 501.875pt>
+<figs/fig3_branch_map.pdf, id=470, 903.375pt x 501.875pt>
 File: figs/fig3_branch_map.pdf Graphic file (type pdf)
 <use figs/fig3_branch_map.pdf>
-Package pdftex.def Info: figs/fig3_branch_map.pdf  used on input line 459.
+Package pdftex.def Info: figs/fig3_branch_map.pdf  used on input line 467.
 (pdftex.def)             Requested size: 337.86465pt x 187.70488pt.
-<figs/fig6_stress.pdf, id=475, 1104.125pt x 421.575pt>
-File: figs/fig6_stress.pdf Graphic file (type pdf)
-<use figs/fig6_stress.pdf>
-Package pdftex.def Info: figs/fig6_stress.pdf  used on input line 478.
-(pdftex.def)             Requested size: 397.48499pt x 151.76688pt.
-<figs/fig5_sensitivity.pdf, id=476, 642.4pt x 481.8pt>
+<figs/fig5_sensitivity.pdf, id=471, 642.4pt x 481.8pt>
 File: figs/fig5_sensitivity.pdf Graphic file (type pdf)
 <use figs/fig5_sensitivity.pdf>
-Package pdftex.def Info: figs/fig5_sensitivity.pdf  used on input line 500.
+Package pdftex.def Info: figs/fig5_sensitivity.pdf  used on input line 486.
 (pdftex.def)             Requested size: 337.86465pt x 253.40459pt.
-<figs/fig7_r2_distribution.pdf, id=477, 762.85pt x 441.65pt>
+<figs/fig7_r2_distribution.pdf, id=472, 762.85pt x 441.65pt>
 File: figs/fig7_r2_distribution.pdf Graphic file (type pdf)
 <use figs/fig7_r2_distribution.pdf>
-Package pdftex.def Info: figs/fig7_r2_distribution.pdf  used on input line 519.
+Package pdftex.def Info: figs/fig7_r2_distribution.pdf  used on input line 505.
 
 (pdftex.def)             Requested size: 337.86465pt x 195.60027pt.
-<figs/fig9_synth_tracker.pdf, id=478, 1154.3125pt x 461.725pt>
-File: figs/fig9_synth_tracker.pdf Graphic file (type pdf)
-<use figs/fig9_synth_tracker.pdf>
-Package pdftex.def Info: figs/fig9_synth_tracker.pdf  used on input line 537.
-(pdftex.def)             Requested size: 397.48499pt x 158.99234pt.
 (./sections/appendix.tex
 pdfTeX warning (ext4): destination with the same identifier (name{equation.1}) 
 has been already used, duplicate ignored
@@ -1148,7 +1138,7 @@ has been already used, duplicate ignored
                    \relax 
 l.18 \begin{equation}
                      
-<figs/figS1_cov_diagnostic.pdf, id=486, 762.85pt x 441.65pt>
+<figs/figS1_cov_diagnostic.pdf, id=478, 762.85pt x 441.65pt>
 File: figs/figS1_cov_diagnostic.pdf Graphic file (type pdf)
 <use figs/figS1_cov_diagnostic.pdf>
 Package pdftex.def Info: figs/figS1_cov_diagnostic.pdf  used on input line 37.
@@ -1190,9 +1180,7 @@ l.74 \begin{equation}
 
 [25 <./figs/fig2_tails.pdf> <./figs/fig3_branch_map.pdf>]
 
-[26 <./figs/fig6_stress.pdf> <./figs/fig5_sensitivity.pdf>]
-
-[27 <./figs/fig7_r2_distribution.pdf> <./figs/fig9_synth_tracker.pdf>]
+[26 <./figs/fig5_sensitivity.pdf> <./figs/fig7_r2_distribution.pdf>]
 pdfTeX warning (ext4): destination with the same identifier (name{equation.3}) 
 has been already used, duplicate ignored
 <to be read again> 
@@ -1218,7 +1206,7 @@ has been already used, duplicate ignored
 l.140 \begin{equation}
                       
 
-[28 <./figs/figS1_cov_diagnostic.pdf>]
+[27 <./figs/figS1_cov_diagnostic.pdf>]
 pdfTeX warning (ext4): destination with the same identifier (name{equation.4}) 
 has been already used, duplicate ignored
 <to be read again> 
@@ -1292,9 +1280,9 @@ has been already used, duplicate ignored
 l.259 \begin{equation}
                       
 
-[29])
+[28])
 
-[30] (./Paper_v1.aux)
+[29] (./Paper_v1.aux)
  ***********
 LaTeX2e <2024-11-01> patch level 2
 L3 programming layer <2025-01-18>
@@ -1303,11 +1291,11 @@ Package rerunfilecheck Info: File `Paper_v1.out' has not changed.
 (rerunfilecheck)             Checksum: D412EF5BC6E3479AB9BADD00CE3D5C46;2739.
  ) 
 Here is how much of TeX's memory you used:
- 27944 strings out of 473190
- 521078 string characters out of 5715801
- 960151 words of memory out of 5000000
- 50197 multiletter control sequences out of 15000+600000
- 627471 words of font info for 312 fonts, out of 8000000 for 9000
+ 27919 strings out of 473190
+ 520482 string characters out of 5715801
+ 954695 words of memory out of 5000000
+ 50181 multiletter control sequences out of 15000+600000
+ 627119 words of font info for 308 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
  84i,11n,87p,1359b,941s stack positions out of 10000i,1000n,20000p,200000b,200000s
 </usr/local/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx10.pfb
@@ -1333,10 +1321,10 @@ mf-dist/fonts/type1/public/cm-super/sftt0900.pfb></usr/local/texlive/2025/texmf
 ist/fonts/type1/urw/times/utmb8a.pfb></usr/local/texlive/2025/texmf-dist/fonts/
 type1/urw/times/utmr8a.pfb></usr/local/texlive/2025/texmf-dist/fonts/type1/urw/
 times/utmri8a.pfb>
-Output written on Paper_v1.pdf (30 pages, 1416150 bytes).
+Output written on Paper_v1.pdf (29 pages, 1311232 bytes).
 PDF statistics:
- 689 PDF objects out of 1000 (max. 8388607)
- 585 compressed objects within 6 object streams
- 160 named destinations out of 1000 (max. 500000)
- 64705 words of extra memory for PDF output out of 74296 (max. 10000000)
+ 675 PDF objects out of 1000 (max. 8388607)
+ 575 compressed objects within 6 object streams
+ 157 named destinations out of 1000 (max. 500000)
+ 64695 words of extra memory for PDF output out of 74296 (max. 10000000)
 

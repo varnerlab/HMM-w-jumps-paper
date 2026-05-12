@@ -495,11 +495,6 @@ INPUT ./figs/fig3_branch_map.pdf
 INPUT ./figs/fig3_branch_map.pdf
 INPUT ./figs/fig3_branch_map.pdf
 INPUT ./figs/fig3_branch_map.pdf
-INPUT ./figs/fig6_stress.pdf
-INPUT ./figs/fig6_stress.pdf
-INPUT ./figs/fig6_stress.pdf
-INPUT ./figs/fig6_stress.pdf
-INPUT ./figs/fig6_stress.pdf
 INPUT ./figs/fig5_sensitivity.pdf
 INPUT ./figs/fig5_sensitivity.pdf
 INPUT ./figs/fig5_sensitivity.pdf
@@ -510,11 +505,6 @@ INPUT ./figs/fig7_r2_distribution.pdf
 INPUT ./figs/fig7_r2_distribution.pdf
 INPUT ./figs/fig7_r2_distribution.pdf
 INPUT ./figs/fig7_r2_distribution.pdf
-INPUT ./figs/fig9_synth_tracker.pdf
-INPUT ./figs/fig9_synth_tracker.pdf
-INPUT ./figs/fig9_synth_tracker.pdf
-INPUT ./figs/fig9_synth_tracker.pdf
-INPUT ./figs/fig9_synth_tracker.pdf
 INPUT ./sections/appendix.tex
 INPUT ./sections/appendix.tex
 INPUT ./sections/appendix.tex
