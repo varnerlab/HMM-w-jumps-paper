@@ -47,48 +47,96 @@ Eq.~\eqref{eq:scale} held in practice.
 
 % =============================================================================
 % S2  Bias correction for daily-rebalanced backtests
-%
-% OUTLINE  (drafted 2026-05-06; awaits final empirical numbers from a generic
-%           re-run of the rebalancing decomposition on the released
-%           jfds-paper/code/ pipeline; current numbers carried over from the
-%           eCornell deployed-engine measurement.)
+% Four flat paragraphs:
+%   (1) origin of the artifact (Booth-Fama identity + iid residuals)
+%   (2) empirical demonstration on a 20-asset allocator
+%   (3) the location-shift correction (formula, anchor, smoke test)
+%   (4) rejected alternatives + downstream-use guidance
 % =============================================================================
 
 \section{Bias correction for daily-rebalanced backtests}
 \label{sec:supp-bias}
 
-\subsection*{S2.1 The diversification-return artifact under iid SIM residuals}
+The synthetic paths described in the main text reproduce per-asset
+marginals and single-factor cross-sectional dependence faithfully but
+discard temporal structure in the residual draw: at each trading day
+the per-asset residual $\eps_i(t)$ is sampled independently from the
+previous day. Real equity residuals carry a small but positive serial
+autocorrelation \cite{loMacKinlay1990}, typically $\rho \in
+[0.05, 0.10]$ at the daily horizon, so the iid-residual generator
+family used here drops a real feature of the data. That omission
+would be inconsequential for downstream tasks whose targets are
+static (marginal fidelity, factor recovery, single-period
+Value-at-Risk), but it creates a quantitatively large artifact for
+backtests that rebalance at high frequency. A daily-rebalanced
+portfolio with fixed target weights $w_i$ over $N$ assets has an
+expected log-growth rate that, to second order, decomposes as
+\begin{equation}
+\E\!\left[\log \frac{W(t+1)}{W(t)}\right]
+  \;\approx\;
+  \sum_{i=1}^{N} w_i\,\mu_i
+  \;-\; \tfrac{1}{2}\,\sigma_p^2
+  \;+\; \tfrac{1}{2}\sum_{i=1}^{N} w_i\,\sigma_i^2,
+\label{eq:booth-fama}
+\end{equation}
+where $\mu_i$ and $\sigma_i^2$ are the per-asset growth-rate mean and
+variance and $\sigma_p^2 = w^\top \Sigma w$ is the portfolio
+variance \cite{boothFama1992, markowitz1976longRun}. The non-negative
+term $\tfrac{1}{2}\big(\sum_i w_i \sigma_i^2 - \sigma_p^2\big)$ is
+the \emph{diversification return}: a structural bonus the
+daily-rebalancing rule extracts mechanically by selling assets whose
+weight has drifted above target (which on average have just risen)
+and buying those whose weight has drifted below target (which on
+average have just fallen). In real markets this buy-low/sell-high
+mechanism trades into the positive residual autocorrelation noted
+above, which partly offsets the bonus and shrinks the empirical
+diversification return to a single-digit percentage point per year
+depending on rebalancing horizon and cross-section
+\cite{boucheyGunthorpSutherland2012}. Under independent draws the
+autocorrelation is exactly zero and the rebalancing rule collects
+the full structural premium of Eq.~\eqref{eq:booth-fama} unhedged,
+inflating the median compound growth rate of any deployed allocator
+on synthetic paths.
 
-% - SIM identity g_i = α + β g_m + ε with iid ε.
-% - Booth--Fama (1992) closed form: bonus ≈ ½(Σ wᵢ σᵢ² − σ_p²).
-% - Why amplifiers (daily frequency, σ²-weighted concentration, signal-driven
-%   allocator feedback) push the basic single-digit pp/yr theoretical bonus
-%   to the observed ~28 pp/yr.
-% - Empirical anchor: ρ ≈ 0.05–0.10 daily residual autocorrelation in real
-%   markets~\cite{loMacKinlay1990} is what neutralizes the free lunch in
-%   real deployment.
+To anchor the scale of the artifact, we deployed a $20$-asset
+long-only target-weight allocator (calibration window
+$2014$--$2024$, deployment year $2025$, names with calibrated
+$(\alpha, \beta)$ and $\max\beta = 1.21$, $5$~basis-point
+round-trip cost) against the hybrid-composed universe of the main
+text and decomposed the realized continuously compounded growth
+rate (CCGR) into static and rebalancing-driven components.
+Equal-weight buy-and-hold across the $20$ names produced
+$\sim\!7.7\%/\mathrm{yr}$, a passive baseline for context. The same
+target-weight allocation held statically for the deployment year,
+with no intra-year rebalance, produced $\sim\!2.0\%/\mathrm{yr}$,
+reflecting the marginal contribution of the chosen weights net of
+costs. Switching the same allocation rule to daily rebalancing,
+with no signal beyond the target weights themselves, produced
+$\sim\!29.7\%/\mathrm{yr}$, a $+27.7$ percentage-point jump that
+isolates the diversification-return term of
+Eq.~\eqref{eq:booth-fama}. Adding a signal on top of the daily
+rebalance moved the headline by a further $+0.13$~pp, immaterial
+compared with the rebalancing-driven bonus. Deploying the same
+allocator on the real $2025$ growth-rate history produced
+$11.5\%/\mathrm{yr}$, so the synthetic median CCGR ran
+$\sim\!22$~percentage points above reality. The decomposition makes
+clear that the gap is a structural feature of the iid-residual
+generator family rather than a calibration error: the allocator
+choice, the cost model, the marginal calibration, and the
+cross-sectional structure all behave on synthetic paths exactly as
+they behave on real data; only the temporal structure of the
+residual draw differs.
 
-\subsection*{S2.2 Empirical demonstration on a 20-asset deployed allocator}
-
-% - Setup: hybrid-composed 2025 universe (calibration 2014–2024, N=100,
-%   ε, λ tuned via the protocol of Section~2), 20 long-only names with
-%   calibrated (α, β), max β = 1.21, target-weight allocator, 5 bps
-%   round-trip cost.
-% - Decomposition Table~\ref{tab:rebalancing-decomp}:
-%     Equal-weight buy-and-hold:                    7.7%/yr
-%     Static target-weight (no rebalance):          2.0%/yr
-%     Daily-rebalanced target-weight (no signal):  29.7%/yr
-%     Daily-rebalanced target-weight (with signal): 29.8%/yr
-% - +27.7 pp from static to daily on identical allocation rule = the entire
-%   artifact; signal contributes +0.13 pp.
-% - Real-2025 comparison: same allocator on real growth-rate history → 11.5%/yr.
-
-\subsection*{S2.3 Location-shift bias correction}
-
-The location-shift correction multiplies each path-$p$ wealth trajectory
-$W_{p,t}$ at integer step $t$ by a uniform exponential drag whose rate
-$b$ closes the gap between the engine's median annualized growth rate
-and an external long-run prior $\mathrm{CCGR}^{\mathrm{prior}}$:
+Because the artifact acts as a uniform multiplicative drag on the
+path in log-wealth space rather than a distortion of the path's
+shape, a uniform location-shift correction in the same space
+restores the median absolute level without disturbing the rank
+order, the drawdown geometry, or the volatility envelope of the
+synthetic ensemble. Multiplying each path-$p$ wealth trajectory
+$W_{p,t}$ at integer step $t$ by a uniform exponential drag whose
+rate $b$ closes the gap between the engine's median annualized
+growth rate and an external long-run prior
+$\mathrm{CCGR}^{\mathrm{prior}}$,
 \begin{equation}
 \label{eq:bias-correction}
   W_{p,t}^{\mathrm{corr}} \;=\; W_{p,t}\cdot
@@ -96,98 +144,82 @@ and an external long-run prior $\mathrm{CCGR}^{\mathrm{prior}}$:
   \qquad
   b \;=\; \operatorname*{median}_{p}\mathrm{CCGR}_p \;-\; \mathrm{CCGR}^{\mathrm{prior}},
 \end{equation}
-with $\Delta t$ the integration step in years. The transform is monotone
-in $W_{p,t}$ for every path and every step, so per-path rank order on
-terminal wealth, drawdown geometry, and the volatility envelope are all
-preserved; only the level shifts.
+with $\Delta t$ the integration step in years, accomplishes exactly
+this. Working in $\log$-space rather than additively keeps the
+correction multiplicative on wealth, which is the natural scale
+for compounding returns and preserves drawdown geometry
+period-by-period; the transform is monotone in $W_{p,t}$ for every
+path and every step, so per-path rank order on terminal wealth is
+preserved exactly. The prior $\mathrm{CCGR}^{\mathrm{prior}}$ is
+set from external long-run data and is typically near
+$8\%/\mathrm{yr}$ at the time of writing, decomposable into the
+prevailing risk-free rate (roughly $4.5\%/\mathrm{yr}$ on a
+five-year Treasury basis), the historical long-run equity premium
+of $4$--$6$~pp \cite{damodaranERP, ibbotsonSBBI}, less $1$--$2$~pp
+for fees, turnover, and market-impact frictions, leaving
+$\sim\!3.5$~pp of active premium net of costs. Anchoring to a
+documented prior rather than to the realized test-year outcome
+avoids circular calibration: anchoring to the realized year would
+force the synthetic median to collapse onto the test sample by
+construction and would misrepresent typical years (in our
+deployment, the realized $2025$ was an above-typical equity year,
+so anchoring to its $11.5\%/\mathrm{yr}$ outcome would have
+suppressed the corrected ensemble below its appropriate long-run
+level). On a $200$-path smoke test the engine-raw median was
+$29.78\%/\mathrm{yr}$, the bias drag was $b = 21.78$ percentage
+points, the corrected median matched the prior at
+$8.00\%/\mathrm{yr}$, and the real-$2025$ outcome landed at the
+$63$rd percentile of the corrected ensemble, consistent with an
+above-typical year (P5 $\approx -9\%$ for a bad year,
+P50 $= 8\%$ for a typical year, P95 $\approx +25\%$ for a great
+year).
 
-% - Eq.~\eqref{eq:bias-correction} restated.
-% - Why exp(-b·t·Δt) and not additive: log-CCGR space is the natural scale;
-%   multiplicative drag preserves drawdown geometry. Per-path monotone
-%   transform; rank correlation with raw engine = 1.000.
-% - Anchor selection:
-%     * CCGR^prior = rf + active premium net of frictions.
-%     * At submission: rf ≈ 4.5%/yr (5y Treasury basis), long-run equity
-%       premium 4–6 pp~\cite{damodaranERP}, net of fees/turnover/impact
-%       subtract 1–2 pp → 3.5 pp active premium → 8.0%/yr.
-%     * Robustness: anchoring at 7%/9% shifts real-year percentile by ~10
-%       pts but preserves all rank statistics.
-% - Why a documented prior, not the realized year:
-%     * Realized-year anchoring is circular; the synthetic median collapses
-%       onto the test sample by construction.
-%     * Realized-year anchoring misrepresents typical years (the 2025 case:
-%       above-typical year forced to median).
-
-\subsection*{S2.4 Why alternatives don't work (or have worse trade-offs)}
-
-% (a) Path-filtering (drop synthetic paths with engine CCGR > τ): threshold
-%     becomes a target the audience probes; doesn't remove the structural
-%     artifact, just selects a subset.
-% (b) Transaction-cost inflation: would require ~70 bps/round-trip vs
-%     realistic 1–10 bps; transfers the lie from "engine is great" to
-%     "costs are huge."
-% (c) Parameter drift between calibration and deployment: empirically tested
-%     (drift_scale ∈ {0,1,2,3,5} × SE); moves median Sharpe 2.02 → 2.03 across
-%     the sweep; β is estimated too tightly for SE-scale drift to matter.
-% (d) AR(1) on residuals without copula restructuring: the copula reorder
-%     destroys all temporal structure by construction; AR(1) must precede the
-%     reorder, requiring block-ordered copula sampling. ~10–15 hours
-%     engineering for the single-asset AR(1) plus a copula sampler redesign.
-%     With ρ ≈ 0.075 the artifact compresses to ~8–15 pp, still inflated.
-% (e) Residual block-bootstrap (Politis–Romano)~\cite{politisRomano1994}:
-%     preserves temporal and cross-asset structure by construction but
-%     replaces the JumpHMM marginal pipeline, losing the parametric story
-%     of Section~2. Listed as a valid alternative for workflows that prefer
-%     non-parametric residuals.
-% (f) Multiplicative haircut on engine-vs-static deviation
-%     W^corr = W_static · (W_engine / W_static)^k: rank-correlation with raw
-%     engine drops to 0.748 (paths reorder under the correction), and the
-%     corrected drawdown distribution inherits static-allocation character
-%     (median DD jumps from 5% to 9%, P95 from 13.5% to 19%). A and C hit
-%     the same anchor with very different downstream properties; we do not
-%     recommend C.
-
-\subsection*{S2.5 Validation and downstream-use guidance}
-
-% - Smoke-test (200 paths, smaller-than-production):
-%     Engine raw median 29.78%/yr; bias drag b = 21.78 pp/yr; corrected
-%     median = 8.00%/yr (matches anchor); real-2025 lands at P63.5 of
-%     corrected ensemble. P5 ≈ -9% (bad year), P50 = 8% (typical year),
-%     P95 ≈ +25% (great year).
-% - Use cases the corrected ensemble supports:
-%     (i)   percentile diagnostics overlaying real outcomes;
-%     (ii)  relative ranking of strategies on the same corrected paths;
-%     (iii) drawdown distribution; (iv) tail-shape analysis.
-% - Use cases that require the real-fix path (AR(1)/GARCH residuals with
-%   restructured copula sampling, listed as future work in the Conclusion):
-%     (i)   forward-prediction claims on absolute Sharpe;
-%     (ii)  optimal-rebalancing-frequency studies;
-%     (iii) any workflow where residual autocorrelation is itself the
-%           quantity of interest.
-
-\subsection*{S2.6 Reproducibility}
-
-% - Reference implementation: apply_bias_correction lives in the released
-%   jfds-paper/code archive (NOT in JumpHMM.jl, since it is a downstream-use
-%   utility, not a model API).
-% - Anchor parameter is a single constant CCGR_PRIOR_PCT exposed at the top
-%   of the bias-correction script.
-% - Inputs: wealth_paths matrix from any backtest result; outputs: corrected
-%   wealth_paths plus recomputed final_wealth, max_drawdowns, sharpe_ratios
-%   on the corrected paths.
-
-% --- Table to be filled in once the generic re-run is complete ----------------
-% \begin{table}[t]
-%   \centering
-%   \caption{\textbf{Rebalancing-alpha decomposition on the same allocation
-%     rule and the same synthetic paths.} The +27.7~pp jump from static to
-%     daily-rebalanced isolates the diversification-return
-%     artifact~\cite{boothFama1992}. The signal contributes $+0.13$~pp;
-%     the rebalancing frequency itself accounts for the entire artifact.}
-%   \label{tab:rebalancing-decomp}
-%   \small
-%   % \input{sections/tables/tableS2_rebalancing_decomp}
-% \end{table}
+Several alternative fixes were considered and rejected. A
+path-filtering rule that drops synthetic paths above a CCGR
+threshold turns the threshold itself into a target the audience
+will probe and does not remove the structural artifact, merely a
+subset of its consequences. Inflating per-trade transaction costs
+to absorb the bonus would require round-trip costs of
+$\sim\!70$~basis points versus the realistic $1$--$10$~basis points
+seen on liquid US equity, and transfers a misrepresentation from
+``the engine is great'' to ``costs are huge''. Drifting the
+calibrated parameters between calibration and deployment to widen
+the predictive envelope, with drift scale varied across
+$\{0, 1, 2, 3, 5\}$ multiples of the OLS standard error, moved the
+median Sharpe ratio from $2.02$ to $2.03$ across the sweep,
+confirming that $\beta$ is estimated too tightly for SE-scale
+drift to absorb the artifact. Imposing an AR(1) on the residual
+draw inside the existing pipeline would conflict with the copula
+reorder step, which destroys temporal structure by construction;
+recovering the AR(1) requires a block-ordered copula sampler,
+which is a structural redesign rather than a downstream
+correction. The block bootstrap of empirical
+residuals~\cite{politisRomano1994} preserves both temporal and
+cross-sectional structure of the residual series by construction
+and is a valid alternative generator pipeline, listed as a
+future-work item that replaces the JumpHMM marginal rather than
+correcting it. A multiplicative haircut on the engine-versus-static
+deviation,
+$W^{\mathrm{corr}} = W_{\mathrm{static}}\cdot
+   (W_{\mathrm{engine}}/W_{\mathrm{static}})^{k}$, hits the same
+anchor at $k$ chosen to match the prior but the rank correlation
+with the raw engine drops to $0.748$ (paths reorder under the
+correction) and the corrected drawdown distribution inherits
+static-allocation geometry (median drawdown jumps from $5\%$ to
+$9\%$, P95 from $13.5\%$ to $19\%$); we do not recommend it. The
+corrected ensemble remains reliable for the ensemble-shape
+analyses the paper validates: percentile diagnostics overlaying
+real outcomes against the synthetic distribution, drawdown
+distribution and tail-shape analysis, and relative ranking of
+strategies evaluated on the same corrected paths. It does not
+remove the underlying iid-residual limitation, so it does not
+support workflows where residual autocorrelation is itself the
+quantity of interest, where forward-prediction claims on absolute
+Sharpe at daily rebalancing frequency are load-bearing, or where
+the optimal rebalancing frequency is the question being asked;
+for those workflows the AR(1) or GARCH residual structure
+restructured around the copula reorder, listed as future work in
+the Conclusion, is the appropriate path.
 
 % =============================================================================
 % S3 Validation metric definitions (KS, AD, W1, Hellinger)

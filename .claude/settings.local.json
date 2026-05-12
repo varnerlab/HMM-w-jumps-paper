@@ -47,7 +47,9 @@
       "Bash(echo \"✓ $fig\")",
       "Bash(echo \"✗ $fig MISSING\")",
       "Bash(sort -t'[' -k2 -n)",
-      "Skill(review-section)"
+      "Skill(review-section)",
+      "Bash(rm Paper_v1.aux Paper_v1.bbl)",
+      "Bash(latexmk -pdf -bibtex -interaction=nonstopmode Paper_v1)"
     ]
   }
 }
