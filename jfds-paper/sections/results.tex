@@ -117,87 +117,70 @@ December~2024); filtering on the common length preserved $424$
 tickers, of which the SPY total-return growth-rate series was taken
 as the market path $g_m$ and the remaining $423$ tickers as
 non-market assets. For each non-market ticker $i$ we fitted a
-\texttt{JumpHMM} marginal to the asset's own growth-rate history,
-using the default configuration ($N = 100$ Laplace-partition states,
-Student-$t$ emissions with $\nu = 5$, annualized growth rates via
-\texttt{excess\_growth\_rates}, risk-free rate $r_f = 0$,
-$\Delta t = 1/252$); jump parameters $(\epsilon, \lambda)$ were left
-at the package defaults rather than tuned per ticker, which would
+JumpHMM marginal to the asset's own growth-rate history, using the
+default configuration ($N = 100$ Laplace-partition states,
+Student-$t$ emissions with $\nu = 5$, annualized excess growth rates
+with risk-free rate $r_f = 0$ and $\Delta t = 1/252$); jump
+parameters $(\epsilon, \lambda)$ were left at the package defaults
+rather than tuned per ticker, which would
 improve per-ticker marginal fit but was not required for a
 comparison that tests the effect of the composition rule on top of
-whatever marginal the generator produces. For each non-market
-ticker we then ran ordinary least squares of the asset's
-growth-rate history on $g_m$, yielding the calibrated quadruple
-$(\alpha_i, \beta_i, R^2_{i,\real}, \sigma_{\eps,\real,i})$. The
-universe spanned $\beta \in [0.01, 1.79]$ with median $\beta = 1.00$
-and quartiles $(0.81, 1.00, 1.18)$, with $R^2_{i,\real}$ ranging
-from $0.001$ to $0.933$ (Fig.~\ref{fig:r2_distribution}).
+whatever marginal the generator produces. For each non-market ticker we
+then ran OLS against the market path to obtain the calibrated SIM
+intercept, slope, coefficient of determination, and residual standard
+deviation. The universe spanned $\beta \in [0.01, 1.79]$ with median
+$\beta = 1.00$ and quartiles $(0.81, 1.00, 1.18)$, with $R^2_{i,\real}$
+ranging from $0.001$ to $0.933$
+(Fig.~\ref{fig:r2_distribution}).
 
 The composition rules used a \emph{paired innovation} protocol
-where applicable: for each non-market ticker and each replication
-$r \in \{1, \dots, R\}$ we drew a single innovation path
-$\teps_i^{(r)}$ of length $T$ from the ticker's JumpHMM marginal,
-and the same $\teps_i^{(r)}$ was passed to the naive,
-Gaussian-residual-SIM, and hybrid composers, so that differences
-among those three reflected the composition rule and not generator
-stochasticity. The \emph{Naive} composer set
-$g_i^{(r)} = \alpha_i + \beta_i\, g_m + \teps_i^{(r)}$ with no
-variance correction. The \emph{Gaussian SIM} baseline replaced the
-JumpHMM draw with
-$g_i^{(r)} = \alpha_i + \beta_i\, g_m + \sigma_{\eps,\real,i}\,\xi_i^{(r)}$,
-$\xi_i^{(r)} \sim \mathcal{N}(0, I_T)$ drawn fresh per replication,
-recovering the calibrated $R^2$ exactly but discarding any marginal
-structure carried by $\teps$. The \emph{Hybrid} composer applied
-Algorithm~\ref{alg:hybrid} with floor $f = 0.10$ and threshold
-$R^2_{\mathrm{preserve}} = 0.80$. Three further composers drew
-their innovations from dedicated residual generators, each fit to
-the real OLS residual series
-$e_i(t) = G_i(t) - \alpha_i - \beta_i G_m(t)$: the
-\emph{JumpHMM-on-residuals} composer fitted a fresh JumpHMM
-marginal to $e_i$ via a pseudo-price inversion and composed
-$g_i^{(r)} = \alpha_i + \beta_i g_m + \teps_{\mathrm{resid},i}^{(r)}$
-with no variance correction; the \emph{Block bootstrap} composer
-drew a Politis--Romano stationary bootstrap
-replicate~\cite{politisRomano1994} of the empirical residual series
-with mean block length $\sqrt{T} \approx 50$ and composed
-analogously; the \emph{GARCH(1,1)-$t$} composer fitted a
-conditional-variance model per ticker~\cite{bollerslev1986} and
-substituted a simulated residual path, with $30$ of the $423$
-tickers yielding a non-stationary fit ($\alpha + \beta \ge 1$ at
-the optimizer's termination) and excluded from that composer only.
-Across all composers, we skipped the optional cross-sectional rank
-reorder in Algorithm~\ref{alg:hybrid} so that per-ticker metrics
-reflected the marginal construction in isolation; cross-sectional
-dependence under copula-based reorder is treated separately and is
-outside the scope of the per-ticker evaluation reported here. For
-every composed series we computed three metric families against
-the ticker's real growth-rate history and the real SPY path: SIM
-recovery reported $(\hat\alpha_i, \hat\beta_i, \hat R^2_i)$ from
-OLS of $g_i^{(r)}$ on $g_m$ along with the absolute deviations
+where applicable: for each ticker and each replication, a single
+innovation path drawn from the ticker's JumpHMM marginal was passed
+unchanged to the naive, Gaussian-residual-SIM, and hybrid composers,
+so that differences among those three reflected the composition rule
+alone, not generator stochasticity. The \emph{Naive} composer plugged
+the JumpHMM draw into the SIM identity with no variance correction.
+The \emph{Gaussian SIM} baseline replaced the JumpHMM draw with
+i.i.d.\ Gaussian noise scaled to the calibrated residual variance,
+recovering $R^2$ exactly but discarding any marginal structure. The
+\emph{Hybrid} composer applied Algorithm~\ref{alg:hybrid} with floor
+$f = 0.10$ and threshold $R^2_{\mathrm{preserve}} = 0.80$. Three
+further composers drew their innovations from dedicated residual
+generators fit to the real OLS residual series:
+\emph{JumpHMM-on-residuals} fitted a fresh JumpHMM marginal to the
+residuals via a pseudo-price inversion; \emph{Block
+bootstrap}~\cite{politisRomano1994} drew Politis--Romano stationary
+bootstrap replicates of the empirical residual series with mean block
+length $\sqrt{T} \approx 50$; \emph{GARCH(1,1)-$t$}~\cite{bollerslev1986}
+fitted a conditional-variance model per ticker, with $30$ of the
+$423$ non-stationary fits excluded from that composer only. We
+skipped the optional cross-sectional rank reorder in
+Algorithm~\ref{alg:hybrid} so per-ticker metrics reflected the
+marginal construction alone; cross-sectional dependence under copula
+reorder is outside the scope of the per-ticker evaluation reported
+here.
+
+For every composed series we computed three metric families against
+the ticker's real growth-rate history: SIM recovery via OLS on the
+market path, reporting the absolute deviations
 $|\hat\beta - \beta|$ and $|\hat R^2 - R^2_{\real}|$; marginal
-fidelity was assessed by Kolmogorov--Smirnov (KS) and
-Anderson--Darling (AD) two-sample $p$-values against the real
-marginal, Wasserstein-$1$ distance $W_1$, excess kurtosis
-$\kappa$, and the classical Hill tail-index estimator
-$\hat\xi = (k-1)^{-1}\sum_{i=1}^{k-1}\log(X_{(i)}/X_{(k)})$ on
-the upper $5\%$ order statistics of $|g_i^{(r)}|$, so reported
-Hill values are tail indices with $\hat\xi \approx 1/\alpha$ for a
-Pareto-tailed distribution with shape $\alpha$; variance
-preservation was the ratio
-$\mathrm{Var}(g_i^{(r)}) / \sigma_{\gen,i}^2$, using the real-data
-variance as a proxy for the generator's targeted variance. Pass
-rates were reported at $\alpha = 0.05$, and we reported $R = 100$
-replications per ticker so that aggregate metrics were averages
-over $423 \times 100 = 42{,}300$ per-ticker observations per
-composer; the simulation seed was fixed at $1234$.
+fidelity via Kolmogorov--Smirnov (KS) and Anderson--Darling (AD)
+two-sample $p$-values against the real marginal, plus
+Wasserstein-1 distance, excess kurtosis, and the Hill upper-tail
+index on the upper $5\%$ order statistics of $|g|$ (definitions in
+Online Appendix~\ref{sec:supp-validation}); and variance
+preservation via the ratio of composed to generator sample
+variance. Pass rates were reported at $\alpha = 0.05$, with
+$R = 100$ replications per ticker yielding aggregates over
+$42{,}300$ per-ticker observations per composer; the simulation
+seed was fixed at $1234$.
 
 With the protocol established, we computed per-asset medians of
 each metric and aggregated across the universe
-(Table~\ref{tab:aggregate}). All composers recovered $\beta$ to
-within a median absolute error of $0.018$ to $0.022$, consistent
-with the identity $\mathrm{Cov}(g, g_m)/\sigma_m^2 \to
-\beta_i^{\eff}$ holding at all residual scales. The differences
-between composers appeared everywhere else. The Gaussian SIM
+(Table~\ref{tab:aggregate}). All composers recovered $\beta$ to within a median absolute error
+of $0.018$ to $0.022$, as expected since every composer respects the
+SIM identity in expectation. The differences between composers
+appeared everywhere else. The Gaussian SIM
 baseline recovered $R^2$ most tightly (median error $0.008$)
 because it targeted $R^2$ by construction, but it failed marginal
 fidelity badly: KS pass rate $0.6\%$, AD pass rate $0.5\%$, excess
@@ -253,12 +236,10 @@ accuracy, we traced where the KS advantage over the naive
 baseline came from. We plotted per-ticker KS pass rate and
 per-ticker marginal variance ratio
 $\mathrm{Var}(g) / \sigma_{\gen}^2$ as functions of the calibrated
-$\beta$ (Fig.~\ref{fig:preservation}). The variance-ratio panel
-made the mechanism explicit: the naive scatter traced the
-theoretical curve $1 + \rho_i$ with
-$\rho_i = \beta_i^2 \sigma_m^2 / \sigma_{\gen,i}^2$, overshooting
-the generator variance by $50\%$ to $75\%$ at high $\beta$, while
-hybrid and Gaussian SIM sat on the unit line by design. The
+$\beta$ (Fig.~\ref{fig:preservation}). The variance-ratio panel made the mechanism explicit: the naive
+scatter traced the theoretical curve $1 + \rho_i$, overshooting the
+generator variance by $50\%$ to $75\%$ at high $\beta$, while hybrid
+and Gaussian SIM sat on the unit line by design. The
 KS-pass-rate panel showed the consequence: naive fell from a pass
 rate of $\sim 0.25$ at $\beta \approx 0.3$ to below $0.01$ past
 $\beta \approx 0.7$, while hybrid sat between $0.3$ and $0.9$
@@ -274,9 +255,9 @@ difference in tail shape, while Gaussian SIM collapsed to
 $\kappa \approx 1$ and Hill $\approx 0.22$, pinned below the
 generator regardless of $\beta$. Applying the branch-selection
 rule of Algorithm~\ref{alg:hybrid} to the $423$-ticker universe
-produced $421$ assignments to the \texttt{hybrid} branch, $2$ to
-the \texttt{r2-preserve} branch, and no assignments to the
-\texttt{hybrid-clipped} branch (Fig.~\ref{fig:branch_map},
+assigned $421$ tickers to the variance-preserving branch, $2$ to
+the $R^2$-preserving branch, and none to the clipped
+variance-preserving branch (Fig.~\ref{fig:branch_map},
 Table~\ref{tab:branch}); the two $R^2$-preserving tickers were
 QQQ ($R^2 = 0.861$) and SPYG ($R^2 = 0.933$), both ETFs that
 track market-capitalization indices closely, and the
@@ -297,7 +278,7 @@ where the target $(\beta, R^2)$ was known by construction
 (Fig.~\ref{fig:synth_tracker}): across $15$ cells of
 $(\beta_{\mathrm{true}}, R^2_{\mathrm{true}}) \in
 \{0.8, 1.0, 1.2\} \times \{0.80, 0.85, 0.90, 0.95, 0.99\}$, the
-branch selector assigned \texttt{r2-preserve} as intended,
+branch selector assigned the $R^2$-preserving branch as intended,
 recovered median $\hat\beta$ to within $0.001$ of
 $\beta_{\mathrm{true}}$ and median $\hat{R}^2$ to within $0.001$
 of $R^2_{\mathrm{true}}$, and cleared the $\alpha = 0.05$ KS
@@ -305,12 +286,12 @@ test on at least $99\%$ of replications per cell. To check
 whether the preservation advantage held across the $\beta$
 distribution, we bucketed the universe by $\beta$ quartile and
 recomputed the aggregate metrics within each bucket
-(Table~\ref{tab:beta_bucket}): the hybrid KS pass rate declined
-gently from $67\%$ in the low-$\beta$ quartile to $44\%$ in the
-high-$\beta$ quartile, reflecting the caveat noted alongside
-Algorithm~\ref{alg:hybrid} that as $\beta^{\eff\,2}\sigma_m^2$
-grows toward $(1 - f)\sigma_{\gen}^2$ the market-driven component
-of $g$ tightens the marginal toward Gaussian along its own axis;
+(Table~\ref{tab:beta_bucket}): the hybrid KS pass rate declined gently from $67\%$ in the
+low-$\beta$ quartile to $44\%$ in the high-$\beta$ quartile,
+reflecting the caveat noted alongside Algorithm~\ref{alg:hybrid}
+that as $\rho_i$ approaches the clipping threshold the
+market-driven component of $g$ tightens the marginal toward
+Gaussian along its own axis;
 the effect was small enough that hybrid still beat both
 baselines by more than an order of magnitude in every bucket.
 To probe the clipping branch, which did not trigger anywhere in
@@ -326,10 +307,9 @@ $95.2\%$ of tickers respectively, and the hybrid KS pass rate
 rose to $71.8\%$ and $77.3\%$ above the unclipped baseline
 because the clipping branch rescales $\beta^{\eff}$ to hold the
 idiosyncratic floor and prevents the market component from
-crowding out the marginal. The clipping branch is therefore not
-a degradation under stress but a mechanism that keeps the
-composed marginal near the generator target as
-$\beta^{\eff\,2}\sigma_m^2$ inflates.
+crowding out the marginal. The clipping branch is therefore not a degradation under stress
+but a mechanism that keeps the composed marginal near the generator
+target as the market loading inflates.
 
 Finally, we asked whether the headline results were robust to the
 two hyperparameter choices of Algorithm~\ref{alg:hybrid} and to

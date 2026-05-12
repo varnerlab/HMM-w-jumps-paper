@@ -77,11 +77,9 @@ exceed the generator variance, and a separate $R^2$-driven branch
 handles index-tracking assets where the calibrated coefficient of
 determination, rather than the generator marginal, is the quantity
 worth preserving. Branch selection is driven entirely by the
-calibrated $R^2$, and each asset carries a persisted construction flag
-(\texttt{hybrid}, \texttt{hybrid-clipped}, \texttt{r2-preserve}) so
-downstream consumers can audit which path each asset took. The same
-construction generalizes to multi-factor variants without changes to
-its structure.
+calibrated $R^2$, and each asset is labelled with the branch that
+produced it. The same construction generalizes to multi-factor
+variants without changes to its structure.
 
 We validated both stages on a $424$-ticker US equity and ETF universe
 calibrated against the $2014$--$2024$ SPY history, with $2025$ held

@@ -22,12 +22,11 @@ computing the normalized cross-covariance against the real SPY path:
 \end{equation}
 Per-ticker values were plotted as histograms in
 Fig.~\ref{fig:cov_diag}. Across the $423$ tickers, the full-return
-JumpHMM generator (\texttt{jumphmm\_full}, used by hybrid and naive)
-sat within $\pm 0.006$ of zero with a per-ticker mean bias of
+JumpHMM generator (used by the hybrid and naive composers) sat
+within $\pm 0.006$ of zero with a per-ticker mean bias of
 $1.5\times 10^{-4}$ (Fig.~\ref{fig:cov_diag}); the residual-fit
-JumpHMM generator (\texttt{jumphmm\_residual}, used by
-JumpHMM-on-residuals) and the Gaussian baseline were also centered
-at zero (mean $7\times 10^{-5}$ and $2.3\times 10^{-4}$
+JumpHMM generator (used by the JumpHMM-on-residuals composer) and
+the Gaussian baseline were also centered at zero (mean $7\times 10^{-5}$ and $2.3\times 10^{-4}$
 respectively, Fig.~\ref{fig:cov_diag}). The
 independence assumption was therefore satisfied to within sampling
 tolerance for all three generators, and the derivation of
@@ -197,7 +196,7 @@ preserved; only the level shifts.
 \section{Validation metric definitions}
 \label{sec:supp-validation}
 
-The four distributional metrics reported in the single-asset evaluation
+The distributional and tail metrics reported in the main results
 were defined as follows. The two-sample Kolmogorov-Smirnov statistic
 between the empirical CDFs of the observed and simulated growth-rate
 samples ($G_{\rm obs}$ of length $n$ and $G_{\rm sim}$ of length $m$)
@@ -213,8 +212,18 @@ length is the average of sorted-quantile differences:
 W_1 = \frac{1}{n} \sum_{i=1}^{n} \big| G_{\rm obs}^{(i)} - G_{\rm sim}^{(i)} \big|,
 \label{eq:wasserstein}
 \end{equation}
-with $G^{(i)}$ the $i$th order statistic. The Hellinger distance
-between two density estimates $p$ and $q$ on a common bin grid is
+with $G^{(i)}$ the $i$th order statistic. The Hill upper-tail index is the classical
+order-statistic estimator
+\begin{equation}
+\hat\xi = \frac{1}{k-1} \sum_{i=1}^{k-1}
+  \log\!\left( \frac{X_{(i)}}{X_{(k)}} \right),
+\label{eq:hill}
+\end{equation}
+with $X_{(1)} \ge X_{(2)} \ge \dots$ the ordered upper-tail
+absolute returns; $k$ is set to the upper $5\%$ of the
+sample. For a Pareto-tailed distribution with shape $\alpha$,
+$\hat\xi \approx 1/\alpha$. The Hellinger distance between two
+density estimates $p$ and $q$ on a common bin grid is
 \begin{equation}
 H(p, q) = \frac{1}{\sqrt{2}} \, \Big\| \sqrt{p} - \sqrt{q} \Big\|_2
 \;\in\; [0, 1],

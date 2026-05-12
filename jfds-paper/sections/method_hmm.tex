@@ -1,8 +1,8 @@
 % method_hmm.tex
 % Subsection 3.1 body. Flat prose, no subsubsections. Topic flow:
 %   dataset and growth-rate definition → state space + emissions →
-%   transition matrix and jump override → hyperparameter calibration →
-%   bridge to the multi-asset composition of §3.2.
+%   transition matrix and jump override → hyperparameter calibration
+%   (with closing bridge sentence to the multi-asset composition of §3.2).
 
 The dataset was $424$ United States-listed equities and
 exchange-traded funds spanning ten years ($2014$--$2024$). To validate
@@ -221,18 +221,11 @@ were averaged across $200$ independent synthetic paths of $2{,}766$
 trading days per grid point \cite{glasserman2003}. We set the
 kurtosis-penalty weight to $w_K = 0.20$ to balance tail behavior
 against the temporal ACF term. The grid explored $\epsilon$ from
-$10^{-4}$ to $2.5 \times 10^{-2}$ and $\lambda$ from $10$ to $160$. The
-full pseudocode is given in Online Appendix~\ref{sec:supp-pseudo}.
-
-The hybrid hidden Markov framework above produces a synthetic excess
-growth-rate path for one asset at a time, with a marginal that
-reproduces the asset's heavy tails, regime persistence, and
-volatility-clustering profile (validated empirically below).
-Multi-asset workflows that consume these paths (portfolio construction,
-factor risk attribution, multi-name stress testing) need a second
-ingredient on top of the per-asset marginals: a cross-sectional
-structure that ties the synthetic series together so they co-move the
-way real markets do. The next subsection develops a closed-form
-composition rule that takes the per-asset hybrid HMM marginal as a
-black-box input and inserts it into a single-index market factor in a
-way that preserves the marginal the generator was built to deliver.
+$10^{-4}$ to $2.5 \times 10^{-2}$ and $\lambda$ from $10$ to $160$, and
+the full pseudocode is given in Online
+Appendix~\ref{sec:supp-pseudo}. The framework above produces a
+per-ticker marginal that reproduces heavy tails, regime persistence,
+and volatility clustering (validated empirically below); multi-asset
+workflows that consume these paths need a cross-sectional structure on
+top, which the next subsection supplies via a closed-form composition
+rule.

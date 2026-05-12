@@ -11,10 +11,7 @@ those validated marginals in a multi-asset factor structure without
 inflating the marginal variance. The construction is
 generator-agnostic on the composition side, in the sense that any
 per-asset full-return generator can plug into the variance correction
-and inherit the marginal it was built to deliver. Each composed asset
-carries an audit trail (\texttt{hybrid}, \texttt{hybrid-clipped},
-\texttt{r2-preserve}) so downstream consumers can inspect the path
-selected per ticker without external metadata.
+and inherit the marginal it was built to deliver.
 
 On the empirical side, the hybrid HMM marginals passed the
 Kolmogorov-Smirnov test against the real SPY univariate distribution

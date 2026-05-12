@@ -380,12 +380,12 @@ LB test on $|G_t|$ (lag 20) & reject$^\ast$ ($p<0.001$) & reject$^\ast$ ($p<0.00
 % -----------------------------------------------------------------------
 \begin{table}[p]
   \centering
-  \caption{\textbf{Hybrid composer broken out by construction flag.}
+  \caption{\textbf{Hybrid composer broken out by branch.}
     $N_{\mathrm{tickers}}$: number of tickers assigned to each branch by
-    the $R^2_{\mathrm{preserve}} = 0.80$ threshold. The
-    \texttt{hybrid-clipped} branch does not trigger anywhere in the
-    universe ($\rho_i < 0.90$ for all tickers) and is omitted.
-    The two trackers in the \texttt{r2-preserve} branch (QQQ and SPYG)
+    the $R^2_{\mathrm{preserve}} = 0.80$ threshold. The clipped
+    variance-preserving branch does not trigger anywhere in the
+    universe ($\rho_i < 0.90$ for all tickers) and is omitted. The
+    two trackers in the $R^2$-preserving branch (QQQ and SPYG)
     attain a KS pass rate of $99\%$, consistent with the branch
     recovering both $\beta$ and $R^2$ by construction.}
   \label{tab:branch}
@@ -457,16 +457,16 @@ LB test on $|G_t|$ (lag 20) & reject$^\ast$ ($p<0.001$) & reject$^\ast$ ($p<0.00
 \begin{figure}[p]
   \centering
   \includegraphics[width=0.85\textwidth]{figs/fig3_branch_map.pdf}
-  \caption{\textbf{Construction-flag assignment in calibrated
+  \caption{\textbf{Branch assignment in calibrated
     $(\beta, R^2_{\real})$ space.}
     The $R^2_{\mathrm{preserve}} = 0.80$ threshold (dashed line) separates
     tracker assets from genuine single stocks. In this universe, only
     QQQ and SPYG exceed the threshold, and both are assigned to the
-    \texttt{r2-preserve} branch. The remaining $421$ tickers populate the
-    \texttt{hybrid} (variance-preserving) branch; the
-    \texttt{hybrid-clipped} branch is unused because the market loading
-    ratio $\rho_i = \beta_i^2 \sigma_m^2 / \sigma_{\gen,i}^2$ stays
-    below $0.90$ for every ticker.}
+    $R^2$-preserving branch. The remaining $421$ tickers populate the
+    variance-preserving branch; the clipped variance-preserving
+    branch is unused because the market loading ratio
+    $\rho_i = \beta_i^2 \sigma_m^2 / \sigma_{\gen,i}^2$ stays below
+    $0.90$ for every ticker.}
   \label{fig:branch_map}
 \end{figure}
 
@@ -522,10 +522,10 @@ LB test on $|G_t|$ (lag 20) & reject$^\ast$ ($p<0.001$) & reject$^\ast$ ($p<0.00
     $2014$--$2024$ window. The two tickers crossing the
     $R^2_{\mathrm{preserve}} = 0.80$ threshold (dashed line) are index
     ETFs (QQQ, SPYG); the highest-$R^2$ individual stock (BLK, $0.645$)
-    sits a structural $\sim 0.22$ below the threshold. The
-    \texttt{r2-preserve} branch's $n = 2$ occupancy is therefore a
-    property of the single-factor SIM on S\&P 500 names against SPY,
-    not a sample-size artifact or a data-peeked threshold.}
+    sits $\sim 0.22$ below the threshold. The $R^2$-preserving
+    branch's $n = 2$ occupancy is therefore a property of the
+    single-factor SIM on S\&P 500 names against SPY, not a
+    sample-size artifact or a data-peeked threshold.}
   \label{fig:r2_distribution}
 \end{figure}
 
