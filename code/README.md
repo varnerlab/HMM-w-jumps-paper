@@ -1,1 +1,61 @@
-Code for this paper goes here
+# Code for the JFDS paper
+
+Reproducibility code for *Hybrid Hidden Markov Model for Modeling Equity Excess
+Growth Rate Dynamics: A Discrete-State Approach with Jump-Diffusion*
+(Alswaidan & Varner). Each subdirectory is a self-contained Julia project with
+its own `Project.toml` / `Manifest.toml`; activate with `julia --project=.`
+from inside the directory or `julia --project=code/<subdir>` from the repo
+root.
+
+Every script starts with `include("Include.jl")`, which sets `Random.seed!(1234)`
+and installs `JumpHMM.jl` + `VLQuantitativeFinancePackage.jl` from GitHub on
+first run.
+
+## Subdirectories
+
+- **`spy-experiment/`** — single-asset SPY pipeline. Fits HMM-WJ and HMM-NJ on
+  2014-2024 SPY, validates IS/OoS on 2025, produces descriptive stats,
+  Student-t emissions table, parameter sweeps, OoS validation. Feeds:
+  `jfds-paper/figs/Fig3-Model-Internals.pdf`, `Fig4-Model-Comparison.pdf`,
+  `Fig5-Parameter-Sweep.pdf`, `Fig6-Statistical-Validation.pdf`, plus
+  Table 1 (descriptive stats) and Table 2 (Student-t emissions).
+- **`sim-experiment/`** — multi-asset SIM extension (424 tickers). Computes
+  per-ticker KS pass rates and R² for the hybrid SIM composer using the fitted
+  HMM-WJ from `spy-experiment/`. Feeds: `Fig7-Multi-Asset-SIM.pdf`,
+  `Fig7S-Multi-Asset-SIM-OoS.pdf`.
+- **`downstream-evaluation/`** — six-composer comparison (naive, Gaussian SIM,
+  hybrid, JumpHMM-on-residuals, block bootstrap, GARCH(1,1)-t) plus VaR
+  backtest, seed sweep, stress test, sensitivity sweep, synthetic-tracker
+  check, cross-term covariance diagnostic. Feeds Tables 3-5 and the appendix
+  figures. See `downstream-evaluation/README.md` for the 14-script pipeline.
+- **`baseline-comparison/`** — six-model distributional benchmark on SPY
+  (Bootstrap, Gaussian, Laplace, GARCH, HMM-NJ, HMM-WJ) plus HSMM and a GRU
+  neural baseline. Feeds the baseline-comparison results in Section 4.
+- **`other-ticker-experiment/`** — cross-asset NVDA/JNJ/JPM evaluation showing
+  the SPY-calibrated model generalises.
+- **`gbm-experiment/`** — Geometric Brownian Motion baseline for sanity checks.
+- **`copula-experiment/`** — copula-based multivariate path generation
+  (Gaussian, Student-t, vine) for cross-sectional dependence sanity checks.
+
+## Reproduction order
+
+Some experiments depend on artifacts written by `spy-experiment/`. Run
+`spy-experiment/` first; then the others can run in any order:
+
+```bash
+julia --project=code/spy-experiment       code/spy-experiment/Fit-HMM-WJ-SPY.jl
+julia --project=code/sim-experiment       code/sim-experiment/SIM-Multi-Asset-KS.jl
+cd code/downstream-evaluation && julia --project=. scripts/01-Fit-Marginals.jl   # ... through 09
+```
+
+Output `.tex` table fragments land in `jfds-paper/sections/tables/`; output
+PDF figures land in `jfds-paper/figs/`. Re-running a script overwrites its
+outputs in place, after which `cd jfds-paper && pdflatex Paper_v1` rebuilds
+the manuscript with the recomputed numbers.
+
+## Note on Table 5 (VaR backtest)
+
+`jfds-paper/sections/tables/table5_var_backtest.tex` is hand-imported from
+`downstream-evaluation/data/var-backtest-summary.csv` (script 06 produces the
+CSV but does not emit the `.tex` directly). Re-running script 06 refreshes
+the source CSV, but the `.tex` must be updated by hand if numbers change.

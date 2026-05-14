@@ -1,14 +1,14 @@
-\begin{tabular}{lrrrr}
+\begin{tabular}{lrrrrrr}
 \toprule
- & \multicolumn{2}{c}{$\alpha = 0.95$} & \multicolumn{2}{c}{$\alpha = 0.99$} \\
-\cmidrule(lr){2-3} \cmidrule(lr){4-5}
-Composer & rate (\%) & Kupiec pass (\%) & rate (\%) & Kupiec pass (\%) \\
+ & \multicolumn{3}{c}{$\alpha = 0.95$} & \multicolumn{3}{c}{$\alpha = 0.99$} \\
+\cmidrule(lr){2-4} \cmidrule(lr){5-7}
+Composer & rate (\%) & SD (pp) & Kupiec pass (\%) & rate (\%) & SD (pp) & Kupiec pass (\%) \\
 \midrule
-Naive                  & 3.55 & 10.4 & 0.67 & 45.2 \\
-Gaussian SIM           & 4.06 & 42.6 & 1.40 & 47.0 \\
-Hybrid                 & 4.75 & 80.4 & 0.95 & 79.7 \\
-JumpHMM-on-residuals   & 4.87 & 84.0 & 0.99 & 82.9 \\
-Block bootstrap        & 4.78 & 76.7 & 1.09 & 86.0 \\
-GARCH(1,1)-$t$         & 4.64 & 69.0 & 1.09 & 72.1 \\
+Naive                  & 3.55 & 0.52 & 10.4 & 0.67 & 0.23 & 45.2 \\
+Gaussian SIM           & 4.06 & 0.76 & 42.6 & 1.40 & 0.29 & 47.0 \\
+Hybrid                 & 4.75 & 0.56 & 80.4 & 0.95 & 0.27 & 79.7 \\
+JumpHMM-on-residuals   & 4.87 & 0.55 & 84.0 & 0.99 & 0.26 & 82.9 \\
+Block bootstrap        & 4.78 & 0.64 & 76.7 & 1.09 & 0.25 & 86.0 \\
+GARCH(1,1)-$t$         & 4.64 & 0.93 & 69.0 & 1.09 & 0.35 & 72.1 \\
 \bottomrule
 \end{tabular}

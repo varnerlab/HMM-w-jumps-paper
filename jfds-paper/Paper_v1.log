@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.27 (TeX Live 2025) (preloaded format=pdflatex 2025.3.8)  12 MAY 2026 13:40
+This is pdfTeX, Version 3.141592653-2.6-1.40.27 (TeX Live 2025) (preloaded format=pdflatex 2025.3.8)  14 MAY 2026 16:40
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -807,6 +807,9 @@ brarydecorations.pathreplacing.code.tex))
 s/tikzlibrarypositioning.code.tex
 File: tikzlibrarypositioning.code.tex 2023-01-15 v3.1.10 (3.1.10)
 )
+(/usr/local/texlive/2025/texmf-dist/tex/latex/placeins/placeins.sty
+Package: placeins 2005/04/18  v 2.2
+)
 \c@theorem=\count345
 
 (/usr/local/texlive/2025/texmf-dist/tex/latex/l3backend/l3backend-pdftex.def
@@ -817,24 +820,24 @@ File: l3backend-pdftex.def 2024-05-08 L3 backend support: PDF output (pdfTeX)
 (./Paper_v1.aux)
 \openout1 = `Paper_v1.aux'.
 
-LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 70.
-LaTeX Font Info:    ... okay on input line 70.
-LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 70.
-LaTeX Font Info:    ... okay on input line 70.
-LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 70.
-LaTeX Font Info:    ... okay on input line 70.
-LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 70.
-LaTeX Font Info:    ... okay on input line 70.
-LaTeX Font Info:    Checking defaults for TS1/cmr/m/n on input line 70.
-LaTeX Font Info:    ... okay on input line 70.
-LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 70.
-LaTeX Font Info:    ... okay on input line 70.
-LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 70.
-LaTeX Font Info:    ... okay on input line 70.
-LaTeX Font Info:    Checking defaults for PD1/pdf/m/n on input line 70.
-LaTeX Font Info:    ... okay on input line 70.
-LaTeX Font Info:    Checking defaults for PU/pdf/m/n on input line 70.
-LaTeX Font Info:    ... okay on input line 70.
+LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 78.
+LaTeX Font Info:    ... okay on input line 78.
+LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 78.
+LaTeX Font Info:    ... okay on input line 78.
+LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 78.
+LaTeX Font Info:    ... okay on input line 78.
+LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 78.
+LaTeX Font Info:    ... okay on input line 78.
+LaTeX Font Info:    Checking defaults for TS1/cmr/m/n on input line 78.
+LaTeX Font Info:    ... okay on input line 78.
+LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 78.
+LaTeX Font Info:    ... okay on input line 78.
+LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 78.
+LaTeX Font Info:    ... okay on input line 78.
+LaTeX Font Info:    Checking defaults for PD1/pdf/m/n on input line 78.
+LaTeX Font Info:    ... okay on input line 78.
+LaTeX Font Info:    Checking defaults for PU/pdf/m/n on input line 78.
+LaTeX Font Info:    ... okay on input line 78.
 
 *geometry* driver: auto-detecting
 *geometry* detected driver: pdftex
@@ -902,25 +905,25 @@ LaTeX Font Info:    ... okay on input line 70.
 * \@reversemarginfalse
 * (1in=72.27pt=25.4mm, 1cm=28.453pt)
 
-Package hyperref Info: Link coloring ON on input line 70.
+Package hyperref Info: Link coloring ON on input line 78.
 (./Paper_v1.out) (./Paper_v1.out)
 \@outlinefile=\write4
 \openout4 = `Paper_v1.out'.
 
-LaTeX Info: Redefining \microtypecontext on input line 70.
-Package microtype Info: Applying patch `item' on input line 70.
-Package microtype Info: Applying patch `toc' on input line 70.
-Package microtype Info: Applying patch `eqnum' on input line 70.
-Package microtype Info: Applying patch `footnote' on input line 70.
-Package microtype Info: Applying patch `verbatim' on input line 70.
-LaTeX Info: Redefining \microtypesetup on input line 70.
+LaTeX Info: Redefining \microtypecontext on input line 78.
+Package microtype Info: Applying patch `item' on input line 78.
+Package microtype Info: Applying patch `toc' on input line 78.
+Package microtype Info: Applying patch `eqnum' on input line 78.
+Package microtype Info: Applying patch `footnote' on input line 78.
+Package microtype Info: Applying patch `verbatim' on input line 78.
+LaTeX Info: Redefining \microtypesetup on input line 78.
 Package microtype Info: Generating PDF output.
 Package microtype Info: Character protrusion enabled (level 2).
 Package microtype Info: Using default protrusion set `alltext'.
 Package microtype Info: Automatic font expansion enabled (level 2),
 (microtype)             stretch: 20, shrink: 20, step: 1, non-selected.
 Package microtype Info: Using default expansion set `alltext-nott'.
-LaTeX Info: Redefining \showhyphens on input line 70.
+LaTeX Info: Redefining \showhyphens on input line 78.
 Package microtype Info: No adjustment of tracking.
 Package microtype Info: No adjustment of interword spacing.
 Package microtype Info: No adjustment of character kerning.
@@ -958,7 +961,7 @@ Package caption Info: End \AtBeginDocument code.
 File: mt-cmr.cfg 2013/05/19 v2.2 microtype config. file: Computer Modern Roman 
 (RS)
 )
-LaTeX Font Info:    Trying to load font information for U+msa on input line 76.
+LaTeX Font Info:    Trying to load font information for U+msa on input line 84.
 
 
 (/usr/local/texlive/2025/texmf-dist/tex/latex/amsfonts/umsa.fd
@@ -967,7 +970,7 @@ File: umsa.fd 2013/01/14 v3.01 AMS symbols A
 (/usr/local/texlive/2025/texmf-dist/tex/latex/microtype/mt-msa.cfg
 File: mt-msa.cfg 2006/02/04 v1.1 microtype config. file: AMS symbols (a) (RS)
 )
-LaTeX Font Info:    Trying to load font information for U+msb on input line 76.
+LaTeX Font Info:    Trying to load font information for U+msb on input line 84.
 
 
 (/usr/local/texlive/2025/texmf-dist/tex/latex/amsfonts/umsb.fd
@@ -1014,106 +1017,60 @@ put line 238.
 [8] (./sections/results.tex
 
 [9]
-Underfull \vbox (badness 10000) has occurred while \output is active []
-
-
-
-[10]
-Underfull \vbox (badness 10000) has occurred while \output is active []
-
-
-
-[11]) (./sections/discussion.tex
-
-[12]
-Underfull \vbox (badness 10000) has occurred while \output is active []
-
-
-
-[13])
-Underfull \vbox (badness 10000) has occurred while \output is active []
-
-
-
-[14] (./sections/conclusion.tex) (./Paper_v1.bbl
-
-[15]
-
-[16]
-
-[17])
-
-[18]
-<figs/Fig4-Model-Comparison.pdf, id=445, 1806.75pt x 562.1pt>
+<figs/Fig4-Model-Comparison.pdf, id=335, 1806.75pt x 562.1pt>
 File: figs/Fig4-Model-Comparison.pdf Graphic file (type pdf)
 <use figs/Fig4-Model-Comparison.pdf>
-Package pdftex.def Info: figs/Fig4-Model-Comparison.pdf  used on input line 195
+Package pdftex.def Info: figs/Fig4-Model-Comparison.pdf  used on input line 157
 .
 (pdftex.def)             Requested size: 397.48499pt x 123.66238pt.
- (./sections/tables/table1_aggregate.tex)
-Overfull \hbox (14.65605pt too wide) in paragraph at lines 1--237
+
+Underfull \vbox (badness 5460) has occurred while \output is active []
+
+
+
+[10] (./sections/tables/table1_aggregate.tex)
+Overfull \hbox (14.65605pt too wide) in paragraph at lines 1--269
  [][] 
  []
 
-<figs/fig1_preservation.pdf, id=446, 1304.875pt x 451.6875pt>
+(./sections/tables/table5_var_backtest.tex)
+Overfull \hbox (10.152pt too wide) in paragraph at lines 1--327
+ [][] 
+ []
+
+
+
+[11 <./figs/Fig4-Model-Comparison.pdf>]
+<figs/fig1_preservation.pdf, id=358, 1304.875pt x 451.6875pt>
 File: figs/fig1_preservation.pdf Graphic file (type pdf)
 <use figs/fig1_preservation.pdf>
-Package pdftex.def Info: figs/fig1_preservation.pdf  used on input line 244.
+Package pdftex.def Info: figs/fig1_preservation.pdf  used on input line 349.
 (pdftex.def)             Requested size: 397.48499pt x 137.58873pt.
-(./sections/tables/table5_var_backtest.tex)
-<figs/fig4_baseline_panel.pdf, id=447, 1204.5pt x 461.725pt>
-File: figs/fig4_baseline_panel.pdf Graphic file (type pdf)
-<use figs/fig4_baseline_panel.pdf>
-Package pdftex.def Info: figs/fig4_baseline_panel.pdf  used on input line 287.
-(pdftex.def)             Requested size: 397.48499pt x 152.36972pt.
-<figs/fig8_var_backtest.pdf, id=448, 1204.5pt x 461.725pt>
-File: figs/fig8_var_backtest.pdf Graphic file (type pdf)
-<use figs/fig8_var_backtest.pdf>
-Package pdftex.def Info: figs/fig8_var_backtest.pdf  used on input line 307.
-(pdftex.def)             Requested size: 397.48499pt x 152.36972pt.
+
+Underfull \vbox (badness 10000) has occurred while \output is active []
 
 
-[19 <./figs/Fig4-Model-Comparison.pdf>]
 
-[20 <./figs/fig1_preservation.pdf>]
+[12]
 
-[21 <./figs/fig4_baseline_panel.pdf> <./figs/fig8_var_backtest.pdf>]
-<figs/Fig6-Statistical-Validation.pdf, id=466, 1204.5pt x 903.375pt>
-File: figs/Fig6-Statistical-Validation.pdf Graphic file (type pdf)
-<use figs/Fig6-Statistical-Validation.pdf>
-Package pdftex.def Info: figs/Fig6-Statistical-Validation.pdf  used on input li
-ne 374.
-(pdftex.def)             Requested size: 397.48499pt x 298.11467pt.
+[13 <./figs/fig1_preservation.pdf>]) (./sections/discussion.tex
 
-(./sections/tables/table2_by_branch.tex)
-(./sections/tables/table3_by_beta_bucket.tex)
-(./sections/tables/table4_seed_uncertainty.tex)
-Overfull \hbox (86.9207pt too wide) in paragraph at lines 1--435
- [][] 
- []
+[14]
+Underfull \vbox (badness 10000) has occurred while \output is active []
 
-<figs/fig2_tails.pdf, id=469, 1204.5pt x 451.6875pt>
-File: figs/fig2_tails.pdf Graphic file (type pdf)
-<use figs/fig2_tails.pdf>
-Package pdftex.def Info: figs/fig2_tails.pdf  used on input line 442.
-(pdftex.def)             Requested size: 397.48499pt x 149.05733pt.
-<figs/fig3_branch_map.pdf, id=470, 903.375pt x 501.875pt>
-File: figs/fig3_branch_map.pdf Graphic file (type pdf)
-<use figs/fig3_branch_map.pdf>
-Package pdftex.def Info: figs/fig3_branch_map.pdf  used on input line 467.
-(pdftex.def)             Requested size: 337.86465pt x 187.70488pt.
-<figs/fig5_sensitivity.pdf, id=471, 642.4pt x 481.8pt>
-File: figs/fig5_sensitivity.pdf Graphic file (type pdf)
-<use figs/fig5_sensitivity.pdf>
-Package pdftex.def Info: figs/fig5_sensitivity.pdf  used on input line 486.
-(pdftex.def)             Requested size: 337.86465pt x 253.40459pt.
-<figs/fig7_r2_distribution.pdf, id=472, 762.85pt x 441.65pt>
-File: figs/fig7_r2_distribution.pdf Graphic file (type pdf)
-<use figs/fig7_r2_distribution.pdf>
-Package pdftex.def Info: figs/fig7_r2_distribution.pdf  used on input line 505.
 
-(pdftex.def)             Requested size: 337.86465pt x 195.60027pt.
-(./sections/appendix.tex
+
+[15]) (./sections/conclusion.tex
+
+[16]) (./Paper_v1.bbl
+
+[17]
+
+[18]
+
+[19])
+
+[20] (./sections/appendix.tex
 pdfTeX warning (ext4): destination with the same identifier (name{equation.1}) 
 has been already used, duplicate ignored
 <to be read again> 
@@ -1138,7 +1095,7 @@ has been already used, duplicate ignored
                    \relax 
 l.18 \begin{equation}
                      
-<figs/figS1_cov_diagnostic.pdf, id=478, 762.85pt x 441.65pt>
+<figs/figS1_cov_diagnostic.pdf, id=459, 762.85pt x 441.65pt>
 File: figs/figS1_cov_diagnostic.pdf Graphic file (type pdf)
 <use figs/figS1_cov_diagnostic.pdf>
 Package pdftex.def Info: figs/figS1_cov_diagnostic.pdf  used on input line 37.
@@ -1169,120 +1126,162 @@ has been already used, duplicate ignored
 l.74 \begin{equation}
                      
 
-[22
+[21
 
+ <./figs/figS1_cov_diagnostic.pdf>]
+<figs/fig2_tails.pdf, id=473, 1204.5pt x 451.6875pt>
+File: figs/fig2_tails.pdf Graphic file (type pdf)
+<use figs/fig2_tails.pdf>
+Package pdftex.def Info: figs/fig2_tails.pdf  used on input line 159.
+(pdftex.def)             Requested size: 397.48499pt x 149.05733pt.
 
-]
-
-[23 <./figs/Fig6-Statistical-Validation.pdf>]
-
-[24]
-
-[25 <./figs/fig2_tails.pdf> <./figs/fig3_branch_map.pdf>]
-
-[26 <./figs/fig5_sensitivity.pdf> <./figs/fig7_r2_distribution.pdf>]
 pdfTeX warning (ext4): destination with the same identifier (name{equation.3}) 
 has been already used, duplicate ignored
 <to be read again> 
                    \relax 
-l.140 \begin{equation}
-                      
-pdfTeX warning (ext4): destination with the same identifier (name{equation.3}) 
-has been already used, duplicate ignored
-<to be read again> 
-                   \relax 
-l.140 \begin{equation}
+l.189 \begin{equation}
                       
 pdfTeX warning (ext4): destination with the same identifier (name{equation.3}) 
 has been already used, duplicate ignored
 <to be read again> 
                    \relax 
-l.140 \begin{equation}
+l.189 \begin{equation}
                       
 pdfTeX warning (ext4): destination with the same identifier (name{equation.3}) 
 has been already used, duplicate ignored
 <to be read again> 
                    \relax 
-l.140 \begin{equation}
+l.189 \begin{equation}
+                      
+pdfTeX warning (ext4): destination with the same identifier (name{equation.3}) 
+has been already used, duplicate ignored
+<to be read again> 
+                   \relax 
+l.189 \begin{equation}
                       
 
-[27 <./figs/figS1_cov_diagnostic.pdf>]
-pdfTeX warning (ext4): destination with the same identifier (name{equation.4}) 
-has been already used, duplicate ignored
-<to be read again> 
-                   \relax 
-l.243 \begin{equation}
-                      
-pdfTeX warning (ext4): destination with the same identifier (name{equation.4}) 
-has been already used, duplicate ignored
-<to be read again> 
-                   \relax 
-l.243 \begin{equation}
-                      
-pdfTeX warning (ext4): destination with the same identifier (name{equation.4}) 
-has been already used, duplicate ignored
-<to be read again> 
-                   \relax 
-l.243 \begin{equation}
-                      
-pdfTeX warning (ext4): destination with the same identifier (name{equation.4}) 
-has been already used, duplicate ignored
-<to be read again> 
-                   \relax 
-l.243 \begin{equation}
-                      
-pdfTeX warning (ext4): destination with the same identifier (name{equation.5}) 
-has been already used, duplicate ignored
-<to be read again> 
-                   \relax 
-l.249 \begin{equation}
-                      
-pdfTeX warning (ext4): destination with the same identifier (name{equation.5}) 
-has been already used, duplicate ignored
-<to be read again> 
-                   \relax 
-l.249 \begin{equation}
-                      
-pdfTeX warning (ext4): destination with the same identifier (name{equation.5}) 
-has been already used, duplicate ignored
-<to be read again> 
-                   \relax 
-l.249 \begin{equation}
-                      
-pdfTeX warning (ext4): destination with the same identifier (name{equation.5}) 
-has been already used, duplicate ignored
-<to be read again> 
-                   \relax 
-l.249 \begin{equation}
-                      
-pdfTeX warning (ext4): destination with the same identifier (name{equation.6}) 
-has been already used, duplicate ignored
-<to be read again> 
-                   \relax 
-l.259 \begin{equation}
-                      
-pdfTeX warning (ext4): destination with the same identifier (name{equation.6}) 
-has been already used, duplicate ignored
-<to be read again> 
-                   \relax 
-l.259 \begin{equation}
-                      
-pdfTeX warning (ext4): destination with the same identifier (name{equation.6}) 
-has been already used, duplicate ignored
-<to be read again> 
-                   \relax 
-l.259 \begin{equation}
-                      
-pdfTeX warning (ext4): destination with the same identifier (name{equation.6}) 
-has been already used, duplicate ignored
-<to be read again> 
-                   \relax 
-l.259 \begin{equation}
-                      
+[22]
+<figs/fig7_r2_distribution.pdf, id=480, 762.85pt x 441.65pt>
+File: figs/fig7_r2_distribution.pdf Graphic file (type pdf)
+<use figs/fig7_r2_distribution.pdf>
+Package pdftex.def Info: figs/fig7_r2_distribution.pdf  used on input line 229.
 
-[28])
+(pdftex.def)             Requested size: 337.86465pt x 195.60027pt.
 
-[29] (./Paper_v1.aux)
+Underfull \vbox (badness 10000) has occurred while \output is active []
+
+
+
+[23 <./figs/fig2_tails.pdf>]
+pdfTeX warning (ext4): destination with the same identifier (name{equation.4}) 
+has been already used, duplicate ignored
+<to be read again> 
+                   \relax 
+l.308 \begin{equation}
+                      
+pdfTeX warning (ext4): destination with the same identifier (name{equation.4}) 
+has been already used, duplicate ignored
+<to be read again> 
+                   \relax 
+l.308 \begin{equation}
+                      
+pdfTeX warning (ext4): destination with the same identifier (name{equation.4}) 
+has been already used, duplicate ignored
+<to be read again> 
+                   \relax 
+l.308 \begin{equation}
+                      
+pdfTeX warning (ext4): destination with the same identifier (name{equation.4}) 
+has been already used, duplicate ignored
+<to be read again> 
+                   \relax 
+l.308 \begin{equation}
+                      
+pdfTeX warning (ext4): destination with the same identifier (name{equation.5}) 
+has been already used, duplicate ignored
+<to be read again> 
+                   \relax 
+l.314 \begin{equation}
+                      
+pdfTeX warning (ext4): destination with the same identifier (name{equation.5}) 
+has been already used, duplicate ignored
+<to be read again> 
+                   \relax 
+l.314 \begin{equation}
+                      
+pdfTeX warning (ext4): destination with the same identifier (name{equation.5}) 
+has been already used, duplicate ignored
+<to be read again> 
+                   \relax 
+l.314 \begin{equation}
+                      
+pdfTeX warning (ext4): destination with the same identifier (name{equation.5}) 
+has been already used, duplicate ignored
+<to be read again> 
+                   \relax 
+l.314 \begin{equation}
+                      
+pdfTeX warning (ext4): destination with the same identifier (name{equation.6}) 
+has been already used, duplicate ignored
+<to be read again> 
+                   \relax 
+l.324 \begin{equation}
+                      
+pdfTeX warning (ext4): destination with the same identifier (name{equation.6}) 
+has been already used, duplicate ignored
+<to be read again> 
+                   \relax 
+l.324 \begin{equation}
+                      
+pdfTeX warning (ext4): destination with the same identifier (name{equation.6}) 
+has been already used, duplicate ignored
+<to be read again> 
+                   \relax 
+l.324 \begin{equation}
+                      
+pdfTeX warning (ext4): destination with the same identifier (name{equation.6}) 
+has been already used, duplicate ignored
+<to be read again> 
+                   \relax 
+l.324 \begin{equation}
+                      
+<figs/Fig6-Statistical-Validation.pdf, id=490, 1204.5pt x 903.375pt>
+File: figs/Fig6-Statistical-Validation.pdf Graphic file (type pdf)
+<use figs/Fig6-Statistical-Validation.pdf>
+Package pdftex.def Info: figs/Fig6-Statistical-Validation.pdf  used on input li
+ne 338.
+(pdftex.def)             Requested size: 397.48499pt x 298.11467pt.
+
+
+[24 <./figs/fig7_r2_distribution.pdf>]
+
+[25 <./figs/Fig6-Statistical-Validation.pdf>]
+(./sections/tables/table2_by_branch.tex)
+<figs/fig3_branch_map.pdf, id=510, 903.375pt x 501.875pt>
+File: figs/fig3_branch_map.pdf Graphic file (type pdf)
+<use figs/fig3_branch_map.pdf>
+Package pdftex.def Info: figs/fig3_branch_map.pdf  used on input line 445.
+(pdftex.def)             Requested size: 337.86465pt x 187.70488pt.
+
+(./sections/tables/table3_by_beta_bucket.tex)
+<figs/fig5_sensitivity.pdf, id=513, 642.4pt x 481.8pt>
+File: figs/fig5_sensitivity.pdf Graphic file (type pdf)
+<use figs/fig5_sensitivity.pdf>
+Package pdftex.def Info: figs/fig5_sensitivity.pdf  used on input line 477.
+(pdftex.def)             Requested size: 337.86465pt x 253.40459pt.
+
+
+[26 <./figs/fig3_branch_map.pdf>]
+(./sections/tables/table4_seed_uncertainty.tex)
+Overfull \hbox (86.9207pt too wide) in paragraph at lines 1--524
+ [][] 
+ []
+
+)
+
+[27]
+
+[28 <./figs/fig5_sensitivity.pdf>] (./Paper_v1.aux)
  ***********
 LaTeX2e <2024-11-01> patch level 2
 L3 programming layer <2025-01-18>
@@ -1291,11 +1290,11 @@ Package rerunfilecheck Info: File `Paper_v1.out' has not changed.
 (rerunfilecheck)             Checksum: D412EF5BC6E3479AB9BADD00CE3D5C46;2739.
  ) 
 Here is how much of TeX's memory you used:
- 27919 strings out of 473190
- 520482 string characters out of 5715801
- 954695 words of memory out of 5000000
- 50181 multiletter control sequences out of 15000+600000
- 627119 words of font info for 308 fonts, out of 8000000 for 9000
+ 27921 strings out of 473190
+ 520512 string characters out of 5715801
+ 943568 words of memory out of 5000000
+ 50188 multiletter control sequences out of 15000+600000
+ 626767 words of font info for 304 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
  84i,11n,87p,1359b,941s stack positions out of 10000i,1000n,20000p,200000b,200000s
 </usr/local/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx10.pfb
@@ -1321,10 +1320,10 @@ mf-dist/fonts/type1/public/cm-super/sftt0900.pfb></usr/local/texlive/2025/texmf
 ist/fonts/type1/urw/times/utmb8a.pfb></usr/local/texlive/2025/texmf-dist/fonts/
 type1/urw/times/utmr8a.pfb></usr/local/texlive/2025/texmf-dist/fonts/type1/urw/
 times/utmri8a.pfb>
-Output written on Paper_v1.pdf (29 pages, 1311232 bytes).
+Output written on Paper_v1.pdf (28 pages, 1168652 bytes).
 PDF statistics:
- 675 PDF objects out of 1000 (max. 8388607)
- 575 compressed objects within 6 object streams
- 157 named destinations out of 1000 (max. 500000)
- 64695 words of extra memory for PDF output out of 74296 (max. 10000000)
+ 662 PDF objects out of 1000 (max. 8388607)
+ 565 compressed objects within 6 object streams
+ 154 named destinations out of 1000 (max. 500000)
+ 64685 words of extra memory for PDF output out of 74296 (max. 10000000)
 

@@ -1,0 +1,56 @@
+  Activating project at `~/Desktop/papers/hybrid-jump-hmm-paper/code`
+[ Info: Loading universe / marginals / calibration...
+┌ Info: Composition setup
+│   market = "SPY"
+│   T_eff = 2766
+│   σ_m = 2.7411038348706427
+└   n_paths = 100
+[ Info: Composing and scoring across 423 non-market tickers × 100 replications × 3 composers...
+[ Info:   ticker 1 / 423: A (β=1.034, R²=0.463)
+[ Info:   ticker 10 / 423: ADM (β=0.823, R²=0.286)
+[ Info:   ticker 20 / 423: AKAM (β=0.868, R²=0.23)
+[ Info:   ticker 30 / 423: AMP (β=1.507, R²=0.629)
+[ Info:   ticker 40 / 423: ATO (β=0.584, R²=0.23)
+[ Info:   ticker 50 / 423: BBY (β=1.104, R²=0.25)
+[ Info:   ticker 60 / 423: BRO (β=0.848, R²=0.451)
+[ Info:   ticker 70 / 423: CCI (β=0.729, R²=0.272)
+[ Info:   ticker 80 / 423: CINF (β=0.957, R²=0.367)
+[ Info:   ticker 90 / 423: CNP (β=0.83, R²=0.3)
+[ Info:   ticker 100 / 423: CSX (β=1.063, R²=0.441)
+[ Info:   ticker 110 / 423: DG (β=0.577, R²=0.109)
+[ Info:   ticker 120 / 423: DTE (β=0.648, R²=0.248)
+[ Info:   ticker 130 / 423: EL (β=1.037, R²=0.323)
+[ Info:   ticker 140 / 423: EW (β=0.995, R²=0.267)
+[ Info:   ticker 150 / 423: FE (β=0.649, R²=0.197)
+[ Info:   ticker 160 / 423: GE (β=1.109, R²=0.323)
+[ Info:   ticker 170 / 423: GRMN (β=0.925, R²=0.344)
+[ Info:   ticker 180 / 423: HIG (β=0.977, R²=0.351)
+[ Info:   ticker 190 / 423: HUM (β=0.78, R²=0.186)
+[ Info:   ticker 200 / 423: IP (β=0.994, R²=0.352)
+[ Info:   ticker 210 / 423: JCI (β=1.025, R²=0.438)
+[ Info:   ticker 220 / 423: KMI (β=0.956, R²=0.289)
+[ Info:   ticker 230 / 423: LLY (β=0.694, R²=0.199)
+[ Info:   ticker 240 / 423: MA (β=1.221, R²=0.043)
+[ Info:   ticker 250 / 423: MET (β=1.213, R²=0.488)
+[ Info:   ticker 260 / 423: MOS (β=1.182, R²=0.225)
+[ Info:   ticker 270 / 423: MU (β=1.58, R²=0.352)
+[ Info:   ticker 280 / 423: NRG (β=0.983, R²=0.201)
+[ Info:   ticker 290 / 423: NXPI (β=1.441, R²=0.402)
+[ Info:   ticker 300 / 423: PEG (β=0.626, R²=0.245)
+[ Info:   ticker 310 / 423: PLD (β=0.97, R²=0.425)
+[ Info:   ticker 320 / 423: PSX (β=1.062, R²=0.295)
+[ Info:   ticker 330 / 423: RJF (β=1.231, R²=0.497)
+[ Info:   ticker 340 / 423: SCHW (β=1.196, R²=0.378)
+[ Info:   ticker 350 / 423: SPYG (β=1.082, R²=0.933)
+[ Info:   ticker 360 / 423: T (β=0.629, R²=0.22)
+[ Info:   ticker 370 / 423: TMO (β=0.895, R²=0.405)
+[ Info:   ticker 380 / 423: TXT (β=1.282, R²=0.467)
+[ Info:   ticker 390 / 423: UPS (β=0.849, R²=0.35)
+[ Info:   ticker 400 / 423: VTR (β=0.95, R²=0.224)
+[ Info:   ticker 410 / 423: WMT (β=0.513, R²=0.186)
+[ Info:   ticker 420 / 423: YUM (β=0.813, R²=0.295)
+┌ Info: Result rows
+│   total = 126900
+└   per_composer = 42300
+[ Info: Caching results to /Users/jdv27/Desktop/papers/hybrid-jump-hmm-paper/code/data/results.jld2
+[ Info: Results CSV dumped to /Users/jdv27/Desktop/papers/hybrid-jump-hmm-paper/code/data/results-summary.csv

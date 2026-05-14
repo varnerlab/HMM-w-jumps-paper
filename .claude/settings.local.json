@@ -49,7 +49,9 @@
       "Bash(sort -t'[' -k2 -n)",
       "Skill(review-section)",
       "Bash(rm Paper_v1.aux Paper_v1.bbl)",
-      "Bash(latexmk -pdf -bibtex -interaction=nonstopmode Paper_v1)"
+      "Bash(latexmk -pdf -bibtex -interaction=nonstopmode Paper_v1)",
+      "Bash(rm -f Paper_v1.aux Paper_v1.log Paper_v1.bbl Paper_v1.blg Paper_v1.pdf Paper_v1.fls Paper_v1.fdb_latexmk Paper_v1.out)",
+      "Bash(latexmk -pdf -bibtex -interaction=nonstopmode -halt-on-error Paper_v1)"
     ]
   }
 }
