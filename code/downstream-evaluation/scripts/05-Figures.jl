@@ -199,7 +199,7 @@ p2a = plot(title = "Excess kurtosis vs \$\\beta\$",
            ylims = (-2, 20),
            legend = :topright)
 scatter_composers!(p2a, summary, :kurt_med; markersize = 3.5, alpha = 0.5)
-binned_median_line!(p2a, summary, :kurt_med)
+kernel_smooth_line!(p2a, summary, :kurt_med; bandwidth = 0.15)
 hline!(p2a, [real_kurt_med];
        label = "real data (median)",
        color = :black, lw = 2, ls = :dash)
@@ -209,7 +209,7 @@ p2b = plot(title = "Hill tail index vs \$\\beta\$",
            ylabel = "Hill index, upper 5 pct tail",
            legend = false)
 scatter_composers!(p2b, summary, :hill_med; markersize = 3.5, alpha = 0.5, labels = false)
-binned_median_line!(p2b, summary, :hill_med)
+kernel_smooth_line!(p2b, summary, :hill_med; bandwidth = 0.15)
 
 fig2 = plot(p2a, p2b;
             layout = (1, 2), size = (1200, 450),

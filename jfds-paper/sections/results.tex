@@ -307,6 +307,25 @@ $0.318$) than either JumpHMM-based recipe. The downstream
 consequence of the body-fidelity gap was the question a
 per-ticker one-day Value-at-Risk backtest was designed to answer
 (Table~\ref{tab:var}):
+
+at $\alpha = 0.99$ the nominal exceedance rate is $1\%$; the naive composer
+under-breached at $0.67\%$ and the Gaussian baseline
+over-breached at $1.40\%$, both failing Kupiec unconditional
+coverage on the majority of the universe ($45$ and $47\%$ pass
+rates), while the hybrid, JumpHMM-on-residuals, block bootstrap,
+and GARCH(1,1)-$t$ composers all hit coverage within one-tenth of
+a percentage point of nominal ($0.95$, $0.99$, $1.09$, and
+$1.09\%$ respectively), and their Kupiec pass rates clustered
+between $72$ and $86\%$. Hybrid and JumpHMM-on-residuals were
+statistically indistinguishable on this test: the $25$
+percentage-point body-fidelity gap between them did not translate
+to a Value-at-Risk accuracy difference. Hybrid's standalone
+advantage is therefore scoped: it is the right rule when a
+full-return per-asset generator is the given input, and it
+delivers tail accuracy on par with a dedicated residual generator
+without requiring a separate fitting stage.
+
+\FloatBarrier
 % --- Table: VaR backtest ---
 \begin{table}[tbp]
   \centering
@@ -325,44 +344,6 @@ per-ticker one-day Value-at-Risk backtest was designed to answer
   \small
   \input{sections/tables/table5_var_backtest}
 \end{table}
-at $\alpha = 0.99$ the
-nominal exceedance rate is $1\%$; the naive composer
-under-breached at $0.67\%$ and the Gaussian baseline
-over-breached at $1.40\%$, both failing Kupiec unconditional
-coverage on the majority of the universe ($45$ and $47\%$ pass
-rates), while the hybrid, JumpHMM-on-residuals, block bootstrap,
-and GARCH(1,1)-$t$ composers all hit coverage within one-tenth of
-a percentage point of nominal ($0.95$, $0.99$, $1.09$, and
-$1.09\%$ respectively), and their Kupiec pass rates clustered
-between $72$ and $86\%$. Hybrid and JumpHMM-on-residuals were
-statistically indistinguishable on this test: the $25$
-percentage-point body-fidelity gap between them did not translate
-to a Value-at-Risk accuracy difference. Hybrid's standalone
-advantage is therefore scoped: it is the right rule when a
-full-return per-asset generator is the given input, and it
-delivers tail accuracy on par with a dedicated residual generator
-without requiring a separate fitting stage.
-
-% --- Figure: preservation headline ---
-\begin{figure}[tbp]
-  \centering
-  \includegraphics[width=\textwidth]{figs/fig1_preservation.pdf}
-  \caption{\textbf{Hybrid's variance correction and its KS-pass-rate
-    consequence, per ticker vs calibrated $\beta$.}
-    Each point is a per-ticker median over $100$ replications; thick
-    lines are binned medians. \emph{Left (consequence):} Kolmogorov--Smirnov
-    pass rate against the real marginal at $\alpha = 0.05$. The naive
-    composer (blue) collapses past $\beta \approx 0.6$ as market loading
-    inflates the composed marginal; the hybrid composer (orange) stays
-    between $\sim 0.3$ and $\sim 0.9$ across the full $\beta$ range.
-    \emph{Right (mechanism):} variance ratio
-    $\mathrm{Var}(g)/\sigma^2_{\mathrm{gen}}$. The dotted curve is the
-    theoretical naive inflation $1 + \rho$ evaluated at the universe-median
-    $\sigma^2_{\mathrm{gen}}$; the naive scatter follows it, overshooting
-    generator variance by $50$ to $75\%$ at high $\beta$. Hybrid sits on
-    the unit line (dashed) by construction.}
-  \label{fig:preservation}
-\end{figure}
 
 Having established that body-fidelity did not translate into VaR
 accuracy, we traced where the KS advantage over the naive

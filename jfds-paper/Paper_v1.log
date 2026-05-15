@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.27 (TeX Live 2025) (preloaded format=pdflatex 2025.3.8)  14 MAY 2026 16:40
+This is pdfTeX, Version 3.141592653-2.6-1.40.27 (TeX Live 2025) (preloaded format=pdflatex 2025.3.8)  15 MAY 2026 14:30
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -1033,29 +1033,33 @@ Overfull \hbox (14.65605pt too wide) in paragraph at lines 1--269
  [][] 
  []
 
+
+
+[11 <./figs/Fig4-Model-Comparison.pdf>]
 (./sections/tables/table5_var_backtest.tex)
-Overfull \hbox (10.152pt too wide) in paragraph at lines 1--327
+Overfull \hbox (10.152pt too wide) in paragraph at lines 1--346
  [][] 
  []
 
 
+Underfull \vbox (badness 1270) has occurred while \output is active []
 
-[11 <./figs/Fig4-Model-Comparison.pdf>]
-<figs/fig1_preservation.pdf, id=358, 1304.875pt x 451.6875pt>
+
+
+[12]) (./sections/discussion.tex
+<figs/fig1_preservation.pdf, id=373, 1304.875pt x 451.6875pt>
 File: figs/fig1_preservation.pdf Graphic file (type pdf)
 <use figs/fig1_preservation.pdf>
-Package pdftex.def Info: figs/fig1_preservation.pdf  used on input line 349.
+Package pdftex.def Info: figs/fig1_preservation.pdf  used on input line 7.
 (pdftex.def)             Requested size: 397.48499pt x 137.58873pt.
 
 Underfull \vbox (badness 10000) has occurred while \output is active []
 
 
 
-[12]
+[13]
 
-[13 <./figs/fig1_preservation.pdf>]) (./sections/discussion.tex
-
-[14]
+[14 <./figs/fig1_preservation.pdf>]
 Underfull \vbox (badness 10000) has occurred while \output is active []
 
 
@@ -1272,12 +1276,7 @@ Package pdftex.def Info: figs/fig5_sensitivity.pdf  used on input line 477.
 
 
 [26 <./figs/fig3_branch_map.pdf>]
-(./sections/tables/table4_seed_uncertainty.tex)
-Overfull \hbox (86.9207pt too wide) in paragraph at lines 1--524
- [][] 
- []
-
-)
+(./sections/tables/table4_seed_uncertainty.tex))
 
 [27]
 
@@ -1296,7 +1295,7 @@ Here is how much of TeX's memory you used:
  50188 multiletter control sequences out of 15000+600000
  626767 words of font info for 304 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
- 84i,11n,87p,1359b,941s stack positions out of 10000i,1000n,20000p,200000b,200000s
+ 84i,12n,87p,1359b,941s stack positions out of 10000i,1000n,20000p,200000b,200000s
 </usr/local/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx10.pfb
 ></usr/local/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/cm/cmex10.pfb>
 </usr/local/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi10.pfb><
@@ -1320,7 +1319,7 @@ mf-dist/fonts/type1/public/cm-super/sftt0900.pfb></usr/local/texlive/2025/texmf
 ist/fonts/type1/urw/times/utmb8a.pfb></usr/local/texlive/2025/texmf-dist/fonts/
 type1/urw/times/utmr8a.pfb></usr/local/texlive/2025/texmf-dist/fonts/type1/urw/
 times/utmri8a.pfb>
-Output written on Paper_v1.pdf (28 pages, 1168652 bytes).
+Output written on Paper_v1.pdf (28 pages, 1170048 bytes).
 PDF statistics:
  662 PDF objects out of 1000 (max. 8388607)
  565 compressed objects within 6 object streams

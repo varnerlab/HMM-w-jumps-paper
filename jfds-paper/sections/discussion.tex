@@ -1,6 +1,27 @@
 % discussion.tex
 % Discussion: scope, caveats, and extensions.
 
+% --- Figure: preservation headline ---
+\begin{figure}[tbp]
+  \centering
+  \includegraphics[width=\textwidth]{figs/fig1_preservation.pdf}
+  \caption{\textbf{Hybrid's variance correction and its KS-pass-rate
+    consequence, per ticker vs calibrated $\beta$.}
+    Each point is a per-ticker median over $100$ replications; thick
+    lines are binned medians. \emph{Left (consequence):} Kolmogorov--Smirnov
+    pass rate against the real marginal at $\alpha = 0.05$. The naive
+    composer (blue) collapses past $\beta \approx 0.6$ as market loading
+    inflates the composed marginal; the hybrid composer (orange) stays
+    between $\sim 0.3$ and $\sim 0.9$ across the full $\beta$ range.
+    \emph{Right (mechanism):} variance ratio
+    $\mathrm{Var}(g)/\sigma^2_{\mathrm{gen}}$. The dotted curve is the
+    theoretical naive inflation $1 + \rho$ evaluated at the universe-median
+    $\sigma^2_{\mathrm{gen}}$; the naive scatter follows it, overshooting
+    generator variance by $50$ to $75\%$ at high $\beta$. Hybrid sits on
+    the unit line (dashed) by construction.}
+  \label{fig:preservation}
+\end{figure}
+
 In this study, we composed synthetic per-asset growth-rate paths
 under a single-index model (SIM) by drawing each asset's innovation
 from an independent JumpHMM generator fit to the asset's own
