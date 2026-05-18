@@ -71,17 +71,20 @@ Value-at-Risk), but it creates a quantitatively large artifact for
 backtests that rebalance at high frequency. A daily-rebalanced
 portfolio with fixed target weights $w_i$ over $N$ assets has an
 expected log-growth rate that, to second order, decomposes as
-\begin{equation}
-\E\!\left[\log \frac{W(t+1)}{W(t)}\right]
-  \;\approx\;
+\begin{align*}
+\E\!\left[\log \frac{W_{t+1}}{W_t}\right]
+  &\approx
   \sum_{i=1}^{N} w_i\,\mu_i
   \;-\; \tfrac{1}{2}\,\sigma_p^2
-  \;+\; \tfrac{1}{2}\sum_{i=1}^{N} w_i\,\sigma_i^2,
+  \;+\; \tfrac{1}{2}\sum_{i=1}^{N} w_i\,\sigma_i^2,\\
+  &\approx \sum_{i=1}^{N} w_i\,\mu_i + \underbrace{\tfrac{1}{2}\big(\sum_{i=1}^{N} w_i \sigma_i^2 - \sigma_p^2\big)}_{\text{Diversification Return}}\\
 \label{eq:booth-fama}
-\end{equation}
-where $\mu_i$ and $\sigma_i^2$ are the per-asset growth-rate mean and
-variance and $\sigma_p^2 = w^\top \Sigma w$ is the portfolio
-variance \cite{boothFama1992, markowitz1976longRun}. The non-negative
+\end{align*}
+where $\mu_i = \E[g_i]$ and $\sigma_i^2 = \Var[g_i]$ are the per-asset
+growth-rate mean and variance (under the iid-residual generator,
+$\sigma_i^2 = \sigma_{\gen,i}^2$), and
+$\sigma_p^2 = w^\top \Sigma w$ is the portfolio variance
+\cite{boothFama1992, markowitz1976longRun}. The non-negative
 term $\tfrac{1}{2}\big(\sum_i w_i \sigma_i^2 - \sigma_p^2\big)$ is
 the \emph{diversification return}: a structural bonus the
 daily-rebalancing rule extracts mechanically by selling assets whose
@@ -129,8 +132,9 @@ long-only target-weight allocator (calibration window
 $2014$--$2024$, deployment year $2025$, names with calibrated
 $(\alpha, \beta)$ and $\max\beta = 1.21$, $5$~basis-point
 round-trip cost) against the hybrid-composed universe of the main
-text and decomposed the realized continuously compounded growth
-rate (CCGR) into static and rebalancing-driven components.
+text and decomposed the realized path-mean annualized growth rate
+$\bar g_p \equiv (1/T_{\mathrm{yr}})\,\log(W_{p,T}/W_{p,0})$ into
+static and rebalancing-driven components.
 Equal-weight buy-and-hold across the $20$ names produced
 $\sim\!7.7\%/\mathrm{yr}$, a passive baseline for context. The same
 target-weight allocation held statically for the deployment year,
@@ -144,7 +148,7 @@ Eq.~\eqref{eq:booth-fama}. Adding a signal on top of the daily
 rebalance moved the headline by a further $+0.13$~pp, immaterial
 compared with the rebalancing-driven bonus. Deploying the same
 allocator on the real $2025$ growth-rate history produced
-$11.5\%/\mathrm{yr}$, so the synthetic median CCGR ran
+$11.5\%/\mathrm{yr}$, so the synthetic median $\bar g_p$ ran
 $\sim\!22$~percentage points above reality. The decomposition makes
 clear that the gap is a structural feature of the iid-residual
 generator family rather than a calibration error: the allocator
@@ -182,26 +186,26 @@ shape, a uniform location-shift correction in the same space
 restores the median absolute level without disturbing the rank
 order, the drawdown geometry, or the volatility envelope of the
 synthetic ensemble. Multiplying each path-$p$ wealth trajectory
-$W_{p,t}$ at integer step $t$ by a uniform exponential drag whose
-rate $b$ closes the gap between the engine's median annualized
-growth rate and an external long-run prior
-$\mathrm{CCGR}^{\mathrm{prior}}$,
+$W_{p,t}$ at integer step $t$ by a uniform exponential drag at rate
+$b$ that closes the gap between the engine's median annualized
+growth rate and an external long-run prior $\bar g^{\mathrm{prior}}$,
 \begin{equation}
 \label{eq:bias-correction}
   W_{p,t}^{\mathrm{corr}} \;=\; W_{p,t}\cdot
-  \exp\!\Big(\!-\tfrac{b}{100}\,\cdot t\,\Delta t\Big),
+  \exp\!\big(\!-b\,\cdot t\,\Delta t\big),
   \qquad
-  b \;=\; \operatorname*{median}_{p}\mathrm{CCGR}_p \;-\; \mathrm{CCGR}^{\mathrm{prior}},
+  b \;=\; \operatorname*{median}_{p}\bar g_p \;-\; \bar g^{\mathrm{prior}},
 \end{equation}
-with $\Delta t$ the integration step in years, accomplishes exactly
-this. Working in $\log$-space rather than additively keeps the
+with $\Delta t$ the integration step in years and $b$, $\bar g_p$,
+$\bar g^{\mathrm{prior}}$ all in the same per-year growth-rate units,
+accomplishes exactly this. Working in $\log$-space rather than additively keeps the
 correction multiplicative on wealth, which is the natural scale
 for compounding returns and preserves drawdown geometry
 period-by-period; the transform is monotone in $W_{p,t}$ for every
 path and every step, so per-path rank order on terminal wealth is
-preserved exactly. The prior $\mathrm{CCGR}^{\mathrm{prior}}$ is
-set from external long-run data and is typically near
-$8\%/\mathrm{yr}$ at the time of writing, decomposable into the
+preserved exactly. The prior $\bar g^{\mathrm{prior}}$ is set from
+external long-run data and is typically near $8\%/\mathrm{yr}$ at
+the time of writing, decomposable into the
 prevailing risk-free rate (roughly $4.5\%/\mathrm{yr}$ on a
 five-year Treasury basis), the historical long-run equity premium
 of $4$--$6$~pp \cite{damodaranERP, ibbotsonSBBI}, less $1$--$2$~pp
@@ -215,9 +219,9 @@ deployment, the realized $2025$ was an above-typical equity year,
 so anchoring to its $11.5\%/\mathrm{yr}$ outcome would have
 suppressed the corrected ensemble below its appropriate long-run
 level). On a $200$-path smoke test the engine-raw median was
-$29.78\%/\mathrm{yr}$, the bias drag was $b = 21.78$ percentage
-points, the corrected median matched the prior at
-$8.00\%/\mathrm{yr}$, and the real-$2025$ outcome landed at the
+$29.78\%/\mathrm{yr}$, the bias drag was $b = 21.78\%/\mathrm{yr}$,
+the corrected median matched the prior at $8.00\%/\mathrm{yr}$, and
+the real-$2025$ outcome landed at the
 $63$rd percentile of the corrected ensemble, consistent with an
 above-typical year (P5 $\approx -9\%$ for a bad year,
 P50 $= 8\%$ for a typical year, P95 $\approx +25\%$ for a great
@@ -240,7 +244,7 @@ year).
 \end{figure}
 
 Several alternative fixes were considered and rejected. A
-path-filtering rule that drops synthetic paths above a CCGR
+path-filtering rule that drops synthetic paths above a $\bar g_p$
 threshold turns the threshold itself into a target the audience
 will probe and does not remove the structural artifact, merely a
 subset of its consequences. Inflating per-trade transaction costs
