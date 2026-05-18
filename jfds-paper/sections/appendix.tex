@@ -62,44 +62,158 @@ marginals and single-factor cross-sectional dependence faithfully but
 discard temporal structure in the residual draw: at each trading day
 the per-asset residual $\eps_i(t)$ is sampled independently from the
 previous day. Real equity residuals carry a small but positive serial
-autocorrelation \cite{loMacKinlay1990}, typically $\rho \in
-[0.05, 0.10]$ at the daily horizon, so the iid-residual generator
-family used here drops a real feature of the data. That omission
-would be inconsequential for downstream tasks whose targets are
-static (marginal fidelity, factor recovery, single-period
-Value-at-Risk), but it creates a quantitatively large artifact for
-backtests that rebalance at high frequency. A daily-rebalanced
-portfolio with fixed target weights $w_i$ over $N$ assets has an
-expected log-growth rate that, to second order, decomposes as
-\begin{align*}
-\E\!\left[\log \frac{W_{t+1}}{W_t}\right]
-  &\approx
-  \sum_{i=1}^{N} w_i\,\mu_i
-  \;-\; \tfrac{1}{2}\,\sigma_p^2
-  \;+\; \tfrac{1}{2}\sum_{i=1}^{N} w_i\,\sigma_i^2,\\
-  &\approx \sum_{i=1}^{N} w_i\,\mu_i + \underbrace{\tfrac{1}{2}\big(\sum_{i=1}^{N} w_i \sigma_i^2 - \sigma_p^2\big)}_{\text{Diversification Return}}\\
-\label{eq:booth-fama}
-\end{align*}
-where $\mu_i = \E[g_i]$ and $\sigma_i^2 = \Var[g_i]$ are the per-asset
-growth-rate mean and variance (under the iid-residual generator,
-$\sigma_i^2 = \sigma_{\gen,i}^2$), and
-$\sigma_p^2 = w^\top \Sigma w$ is the portfolio variance
-\cite{boothFama1992, markowitz1976longRun}. The non-negative
-term $\tfrac{1}{2}\big(\sum_i w_i \sigma_i^2 - \sigma_p^2\big)$ is
-the \emph{diversification return}: a structural bonus the
-daily-rebalancing rule extracts mechanically by selling assets whose
-weight has drifted above target (which on average have just risen)
-and buying those whose weight has drifted below target (which on
-average have just fallen). In real markets this buy-low/sell-high
-mechanism trades into the positive residual autocorrelation noted
-above, which partly offsets the bonus and shrinks the empirical
-diversification return to a single-digit percentage point per year
-depending on rebalancing horizon and cross-section
-\cite{boucheyGunthorpSutherland2012}. Under independent draws the
-autocorrelation is exactly zero and the rebalancing rule collects
-the full structural premium of Eq.~\eqref{eq:booth-fama} unhedged,
-inflating the median compound growth rate of any deployed allocator
-on synthetic paths.
+autocorrelation \cite{loMacKinlay1990}, typically $\rho \in [0.05,
+0.10]$ at the daily horizon, so the iid-residual generator family
+used here drops a real feature of the data. To make the consequences
+precise for daily-rebalanced backtests, consider a portfolio of $N$
+assets with constant target weights $w_i \ge 0$, $\sum_i w_i = 1$,
+reset to those weights at the start of each trading day. Throughout
+this derivation $g_i(t)$ is the annualized log-growth rate of
+Eq.~\eqref{eq:growth_rate}, so the per-period log return on asset
+$i$ is $g_i(t)\,\Delta t$ with $\Delta t = 1/252$~yr. The wealth
+process is $W_t = W_{t-1}\sum_i w_i \exp(g_i(t)\,\Delta t)$,
+and the per-step log return is $\log(W_t/W_{t-1}) = \log\sum_i w_i
+\exp(g_i(t)\,\Delta t)$. Second-order Taylor expansion of
+$\exp(g_i\,\Delta t)$ about zero, followed by second-order
+expansion of $\log(1+x)$ about zero, gives
+\begin{equation}
+  \log\!\frac{W_t}{W_{t-1}} \;=\;
+  \Delta t \sum_{i} w_i\, g_i(t)
+  \;+\; \tfrac{1}{2}(\Delta t)^2 \!\left(\sum_{i} w_i\, g_i(t)^2
+       \;-\; \Big(\sum_{i} w_i\, g_i(t)\Big)^{\!2}\right)
+  \;+\; O\!\big((g\,\Delta t)^3\big),
+  \label{eq:rp-taylor}
+\end{equation}
+which, after dividing by $\Delta t$ to extract the annualized
+single-step rate $r_p(t) := \Delta t^{-1}\log(W_t/W_{t-1})$ and
+taking unconditional expectations under stationarity (using
+$\E[g_i^2] = \mu_i^2 + \sigma_i^2$ and $\E[(\sum_i w_i g_i)^2] =
+(\sum_i w_i \mu_i)^2 + \sigma_p^2$ with $\sigma_p^2 = w^\top \Sigma w$
+the per-rate portfolio variance), becomes
+\begin{equation}
+  \E[r_p] \;=\; \sum_{i} w_i\, \mu_i
+  \;+\; \underbrace{\tfrac{1}{2}\,\Delta t\!\left(\sum_{i} w_i\, \sigma_i^2
+       - \sigma_p^2\right)}_{\displaystyle D}
+  \;+\; \tfrac{1}{2}\,\Delta t\!\left(\sum_{i} w_i\, \mu_i^2
+       - \Big(\sum_{i} w_i\, \mu_i\Big)^{\!2}\right)
+  \;+\; O\!\big((\Delta t)^2\big),
+  \label{eq:booth-fama}
+\end{equation}
+the Booth-Fama identity for the daily-rebalanced portfolio in
+annualized growth-rate units \cite{boothFama1992,
+markowitz1976longRun}. The per-rate moments $\mu_i = \E[g_i(t)]$
+and $\sigma_i^2 = \Var(g_i(t))$ carry units $\mathrm{yr}^{-1}$ and
+$\mathrm{yr}^{-2}$ respectively; the products $\Delta t\,\sigma_i^2$
+and $\Delta t\,\sigma_p^2$ in Eq.~\eqref{eq:booth-fama} are the
+annualized variances ($\mathrm{yr}^{-1}$) that finance practice
+reports directly. The third bracket is the cross-sectional
+dispersion of the per-asset annualized means, of order
+$\Delta t\,\mu^2 \sim 3\!\times\!10^{-5}~\mathrm{yr}^{-1}$ at
+$\mu \sim 0.08~\mathrm{yr}^{-1}$ and negligible against the
+variance term $D \sim \Delta t\,\sigma^2 \sim 4\!\times\!10^{-2}~
+\mathrm{yr}^{-1}$; we drop it. The realized annualized compound
+growth rate $\bar g_p = (T\,\Delta t)^{-1}\log(W_T/W_0) =
+T^{-1}\sum_{t} r_p(t)$ converges to $\E[r_p]$ by the ergodic
+theorem under any stationary residual process, so the long-run
+limit is fixed by the one-time-slice unconditional joint
+distribution of $(g_i(t))_i$ and does not, in itself, depend on
+the serial structure of the residual draw.
+
+The middle term $D$ in Eq.~\eqref{eq:booth-fama} is the
+diversification return. Expanding $\sigma_p^2 = \sum_i w_i^2
+\sigma_i^2 + 2 \sum_{i<j} w_i w_j \Sigma_{ij}$ and using the
+identity $\sum_i w_i (1 - w_i) \sigma_i^2 = \sum_{i<j} w_i w_j
+(\sigma_i^2 + \sigma_j^2)$ that holds for any weights summing to
+one,
+\begin{equation}
+  D \;=\; \tfrac{1}{2}\,\Delta t\!\left(\sum_i w_i \sigma_i^2 - \sigma_p^2\right)
+  \;=\; \tfrac{1}{2}\,\Delta t \sum_{i<j} w_i w_j \,\Var(g_i - g_j) \;\ge\; 0,
+  \label{eq:dr-pairwise}
+\end{equation}
+so $D$ equals one-half the annualized weighted-average pairwise
+return-difference variance and is therefore non-negative, with equality only when every
+pair $(i,j)$ comoves perfectly ($\Var(g_i - g_j) = 0$) or all weight
+concentrates on a single asset. The mechanism is the rebalancing
+rule itself: weights drift between rebalances, the rebalancer sells
+whatever has outperformed (its weight rose above target) and buys
+whatever has underperformed (its weight fell below target), and the
+trade systematically converts period-by-period cross-sectional
+dispersion into compounded growth. Markowitz
+\cite{markowitz1976longRun} described this as the variance bonus of
+the long-run mean-variance allocation; Booth and Fama
+\cite{boothFama1992} called it the diversification return.
+
+Substituting the single-index decomposition
+$g_i(t) = \alpha_i + \beta_i\, g_m(t) + \eps_i(t)$ with
+$\Cov[g_m, \eps_i] = 0$ (verified in
+Sec.~\ref{sec:supp-cov}) into Eq.~\eqref{eq:dr-pairwise} gives
+\begin{equation}
+  \Var(g_i - g_j) \;=\; (\beta_i - \beta_j)^2 \sigma_m^2
+  \;+\; \Var(\eps_i - \eps_j),
+\end{equation}
+since $g_m$ and the residuals are uncorrelated, so the diversification
+return splits cleanly into a market-beta-dispersion component and an
+idiosyncratic component,
+\begin{equation}
+  D \;=\;
+  \underbrace{\tfrac{1}{2}\,\Delta t\,\sigma_m^2 \sum_{i<j} w_i w_j (\beta_i - \beta_j)^2}_{D_{\mathrm{mkt}}}
+  \;+\;
+  \underbrace{\tfrac{1}{2}\,\Delta t \sum_{i<j} w_i w_j \,\Var(\eps_i - \eps_j)}_{D_\eps},
+  \label{eq:dr-sim}
+\end{equation}
+where the first term equals $\tfrac{1}{2}\,\Delta t\,\sigma_m^2 [\sum_i
+w_i \beta_i^2 - (\sum_i w_i \beta_i)^2]$, the weighted cross-sectional
+$\beta$ dispersion scaled by the annualized market variance
+$\Delta t\,\sigma_m^2$. Across the $423$-ticker universe the empirical
+$\beta$ distribution concentrates in $[0.5, 1.5]$
+(Sec.~\ref{sec:supp-cross-asset}) and the SPY annualized variance
+$\Delta t\,\sigma_m^2 \approx 0.04~\mathrm{yr}^{-1}$, so
+$D_{\mathrm{mkt}}$ contributes at most a few percentage points per
+year for any diversified equity portfolio. The idiosyncratic
+component $D_\eps$ is the dominant term: with residuals approximately
+orthogonal across assets at the same time slice,
+$\Var(\eps_i - \eps_j) \approx \sigma_{\eps,i}^2 + \sigma_{\eps,j}^2$,
+and $D_\eps$ scales with the weighted-average annualized idiosyncratic
+variance $\Delta t\,\sigma_{\eps,i}^2$ per name. Concentrated allocators on
+high-idiosyncratic-volatility names therefore inherit large formula
+values of $D_\eps$ structurally.
+
+The iid construction of the residual draw fixes both terms of
+Eq.~\eqref{eq:dr-sim}. The variance correction of
+Eq.~\eqref{eq:scale} pins the synthetic per-asset variance
+$\sigma_{\gen,i}^2 = \beta_i^2 \sigma_m^2 + \sigma_{\eps,i}^2$ to
+its empirical target, so the formula value
+$D = D_{\mathrm{mkt}} + D_\eps$ on synthetic paths equals the
+formula value under any alternative residual generator matched on
+the same unconditional second moments, including a stationary
+AR(1) residual generator $\eps_i(t) = \phi\, \eps_i(t-1) +
+\eta_i(t)$ with iid innovations $\eta_i$ tuned so that
+$\Var(\eps_i) = \sigma_{\eta,i}^2 / (1 - \phi^2) = \sigma_{\eps,i}^2$.
+The AR(1) parameter $\phi$ leaves the unconditional joint
+distribution of $(g_i(t))_i$ at a single time slice unchanged,
+which by Eqs.~\eqref{eq:booth-fama}, \eqref{eq:dr-sim} means
+$\phi$ enters at zeroth order in $\E[r_p]$ and at first order
+only in the long-run variance of the sample mean
+($\Var(\bar g_p) \to T^{-1}\,\sigma_p^2 \,(1+\phi)/(1-\phi)$).
+The synthetic-ensemble median across $1{,}000$ paths therefore
+converges to the same formula value whether the residuals are
+drawn iid or with positive serial autocorrelation: the iid versus
+AR(1) distinction shows up in per-path sampling noise, not in the
+ensemble median itself. The empirical excess of the
+engine-raw median over an external long-run growth prior, reported
+quantitatively as $\sim\!22$~percentage points in the next
+paragraph, is therefore not a structural artifact of the iid
+sampling at the level of the second-order formula. It is the
+combined empirical magnitude of the higher-moment corrections to
+the Taylor expansion (heavy-tailed JumpHMM marginals carry
+non-trivial third and fourth cumulants), the time-varying
+volatility and correlation across the $2014$--$2024$ calibration
+window relative to a long-run prior, and the documented attenuation
+of realized diversification returns on real equity portfolios at
+all rebalancing horizons \cite{boucheyGunthorpSutherland2012}. The
+location-shift correction derived below treats this composite
+shortfall as a single empirical drag $b$ to be absorbed and is
+agnostic to its decomposition.
 
 % --- Table: SPY descriptive statistics ---
 \begin{table}[tbp]
