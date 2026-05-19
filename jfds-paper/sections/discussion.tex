@@ -1,5 +1,61 @@
 % discussion.tex
-% Discussion: scope, caveats, and extensions.
+% Discussion: stage-1 standing, stage-2 scope, caveats, and extensions.
+
+The per-asset evaluation positioned HMM-WJ as the only generator in
+the eight-model comparison to make meaningful progress on
+distributional and temporal fidelity at once. Bootstrap resampling
+set the non-parametric ceiling on marginal fit but inherited the
+historical realization wholesale and could not extrapolate beyond
+it. GARCH(1,1) carried the best temporal score (ACF-MAE $0.031$) yet
+failed the KS test on $95\%$ of in-sample paths, indicating that
+conditional-variance dynamics on their own did not reproduce the
+empirical body; the same model's Wasserstein-$1$ distance to the
+real marginal deteriorated by $67\%$ from in-sample to
+out-of-sample, exposing a tail misspecification that binary pass
+rates had obscured. The Gated Recurrent Unit captured a comparable
+fraction of the temporal structure with $37{,}954$ estimated
+parameters but produced a $0.6\%$ KS pass rate. The hidden
+semi-Markov model passed KS at $82\%$, but its eight-state quantile
+partition could not span the full growth-rate range, leaving a
+$38\%$ kurtosis gap. HMM-WJ paid a small distributional cost
+relative to the no-jump variant ($2$--$8$ percentage points lower on
+the KS and AD pass rates in-sample) in exchange for becoming the
+only non-GARCH non-neural model to reduce ACF-MAE meaningfully below
+the i.i.d.\ floor: approximately one path in four contained a
+Poisson jump that sustained $\mathrm{ACF}(|G_t|)$ decay across all
+lags, while the remaining $76\%$ behaved like the no-jump variant.
+Out-of-sample on the held-out $2025$ history HMM-WJ retained a KS
+pass rate of $94.4\%$ and excess kurtosis $6.1$ against the
+observed $6.9$, with the relative ordering of the eight generators
+preserved.
+
+Three caveats applied to the per-asset stage. First, the state
+resolution was sized at $N = 100$ Laplace-partition states by a
+sensitivity sweep over $\{30, 60, 90, 100, 150, 200\}$, beyond which
+the count of empirical visits per state thinned, and at $N = 350$
+certain states received no support in the historical record; for
+assets with shorter trading histories or with thinner sampling at
+the extremes, the practical upper bound on state resolution will be
+lower, and the partition has to be re-sized rather than carried over
+directly from the SPY calibration. Second, the jump parameters
+$(\epsilon, \lambda)$ were tuned once against the in-sample SPY
+history and applied across the $424$-ticker universe; the
+cross-asset extension in Online Appendix~\ref{sec:supp-cross-asset}
+confirmed that the duration parameter $\lambda^{*}$ adapted
+automatically to each asset's clustering intensity at the optimum,
+but per-ticker tuning of $(\epsilon, \lambda)$ would tighten each
+marginal at the cost of a calibration step per asset, an exchange we
+made explicit by reporting universe-wide results under a shared
+optimum. Third, the Student-$t$ emission with $\nu = 5$ closed the
+kurtosis gap from $29\%$ under Normal emissions to within $1.3\%$
+of the observed value, an improvement that came from matching tail
+mass at the per-state innovation level. The negative skewness
+reproduced by both HMM variants ($-0.75$ observed) came from the
+asymmetric state-occupancy of the Laplace partition rather than from
+any explicit skewness parameter, so assets whose growth-rate
+distribution is skewed in a direction the partition cannot induce
+will not be matched by this construction without a corresponding
+adjustment to the quantile rule.
 
 % --- Figure: preservation headline ---
 \begin{figure}[tbp]
@@ -22,10 +78,13 @@
   \label{fig:preservation}
 \end{figure}
 
-In this study, we composed synthetic per-asset growth-rate paths
-under a single-index model (SIM) by drawing each asset's innovation
-from an independent JumpHMM generator fit to the asset's own
-full growth-rate history, then rescaling the draw by a closed-form scalar
+With the per-asset marginals characterized, we turned to the
+multi-asset stage and asked whether those marginals plugged into a
+single-index composition rule without losing what made them
+faithful. We composed synthetic per-asset growth-rate paths under a
+single-index model (SIM) by drawing each asset's innovation from an
+independent JumpHMM generator fit to the asset's own full
+growth-rate history, then rescaling the draw by a closed-form scalar
 before inserting it into the SIM composition. We evaluated six
 composers on a calibrated universe of $424$ US equities and
 exchange-traded funds against the real SPY market path: the naive
@@ -240,14 +299,8 @@ Two further extensions follow naturally. Multi-factor SIM replaces
 the single market factor with $K$ factors, requiring $\rho_i$ to
 become the sum of factor contributions and the loading vector to be
 clipped rather than a scalar, though the branch logic is unchanged.
-Per-ticker tuning of the jump parameters $(\epsilon, \lambda)$
-tightens each marginal's fit; the multi-asset evaluation used package
-defaults to keep fitting tractable across the universe, but the
-per-ticker grid search used for the single-asset evaluation, applied
-across the universe, would push the hybrid KS pass rates upward at the
-cost of a calibration step per asset. A
-stress-test harness ties these together: using the clipping rule to
-enforce a minimum idiosyncratic share in constructed market scenarios
-guarantees that per-asset marginals remain heavy-tailed even under
-synthetic markets much more volatile than history, which is precisely
-the regime where naive SIM composition breaks down most severely.
+A stress-test harness pairs the clipping rule with a constructed
+market scenario more volatile than history: enforcing a minimum
+idiosyncratic share guarantees that per-asset marginals remain
+heavy-tailed in precisely the regime where naive SIM composition
+breaks down most severely.

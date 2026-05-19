@@ -58,43 +58,49 @@ SIM coefficients exactly but erases the marginal structure entirely.
 Neither naive option satisfies both the stylized-facts requirement and
 the factor-structure requirement at once.
 
-This paper closes both gaps with a two-stage construction. We first
-introduce a hybrid hidden Markov framework that discretizes continuous
-excess growth rates into Laplace quantile-defined states and augments
-regime switching with a two-parameter Poisson jump-duration mechanism.
-The Laplace partition lets us bypass the iterative Baum-Welch
-algorithm \cite{baumPetrieSoulesWeiss1970, bilmes1998} via direct
-frequentist counting of regime transitions, scaling the framework to a
-$424$-asset pipeline. The Poisson override forces the chain to dwell
-in high-volatility tail states for empirically realistic durations,
+In this study, we introduce a two-stage construction that closes
+both gaps. The first stage is a hybrid hidden Markov framework that
+discretizes continuous excess growth rates into Laplace
+quantile-defined states and augments regime switching with a
+two-parameter Poisson jump-duration mechanism. The Laplace partition
+bypasses the iterative Baum-Welch algorithm
+\cite{baumPetrieSoulesWeiss1970, bilmes1998} via direct frequentist
+counting of regime transitions, scaling the framework to a $424$-asset
+pipeline. The Poisson override forces the chain to dwell in
+high-volatility tail states for empirically realistic durations,
 closing the volatility-clustering gap that standard HMMs leave open.
-We then introduce a variance-corrected single-index composition that
+The per-state emissions are Student-$t$ with $\nu = 5$ degrees of
+freedom, which matched the empirical kurtosis to within $1.3\%$ on SPY
+where Normal emissions would underestimate by approximately $29\%$.
+The second stage is a variance-corrected single-index composition that
 takes the per-asset hybrid HMM marginal as input and rescales it by a
 closed-form scalar so the composed series inherits the generator's
-marginal variance while recovering the calibrated factor loading. A sign-preserving clip
-handles high-leverage assets where the market loading would otherwise
-exceed the generator variance, and a separate $R^2$-driven branch
-handles index-tracking assets where the calibrated coefficient of
-determination, rather than the generator marginal, is the quantity
-worth preserving. Branch selection is driven entirely by the
-calibrated $R^2$, and each asset is labelled with the branch that
-produced it. The same construction generalizes to multi-factor
-variants without changes to its structure.
+marginal variance while recovering the calibrated factor loading. A
+sign-preserving clip handles high-leverage assets where the market
+loading would otherwise exceed the generator variance, and a separate
+$R^2$-driven branch handles index-tracking assets where the calibrated
+coefficient of determination, rather than the generator marginal, is
+the quantity worth preserving. The same construction generalizes to
+multi-factor variants without changes to its structure.
 
 We validated both stages on a $424$-ticker US equity and ETF universe
 calibrated against the $2014$--$2024$ SPY history, with $2025$ held
 out for out-of-sample evaluation. The single-asset stage was assessed
-against six baselines (Bootstrap, Gaussian, Laplace, GARCH, HMM
-without jumps, and a Gated Recurrent Unit \cite{choEtAl2014gru} neural
-baseline) on Kolmogorov-Smirnov, Anderson-Darling, Wasserstein-1, and
-Hellinger pass rates. The multi-asset stage was assessed against five
-composers (the naive composition, a Gaussian single-index residual, a
-JumpHMM fit directly to OLS residuals, a Politis-Romano stationary
-bootstrap of the real residual history \cite{politisRomano1994}, and
-a per-ticker GARCH(1,1)-$t$ fit \cite{bollerslev1986}) on
-factor-loading recovery, marginal fidelity, and a per-ticker one-day
-Value-at-Risk backtest assessed by the Kupiec unconditional-coverage
-test. We close with a documented downstream-use caveat, an
-iid-residual diversification-return artifact under daily rebalancing,
-and a calibrated location-shift bias correction that addresses it
-without restructuring the generator.
+in-sample and out-of-sample against seven baselines (bootstrap
+resampling, Gaussian, Laplace, GARCH(1,1), a hidden semi-Markov model
+\cite{bullaBulla2006}, a hidden Markov model without jumps, and a
+Gated Recurrent Unit \cite{choEtAl2014gru} neural baseline) on
+Kolmogorov-Smirnov, Anderson-Darling, Wasserstein-1, and Hellinger
+pass rates for distributional fidelity, alongside the autocorrelation
+function of $|g|$ as a measure of volatility clustering. The
+multi-asset stage was assessed against five composers (the naive
+composition, a Gaussian single-index residual, a JumpHMM fit directly
+to OLS residuals, a Politis-Romano stationary bootstrap of the real
+residual history \cite{politisRomano1994}, and a per-ticker
+GARCH(1,1)-$t$ fit \cite{bollerslev1986}) on factor-loading recovery,
+marginal fidelity, and a per-ticker one-day Value-at-Risk backtest
+assessed by Kupiec's unconditional-coverage test. We close with a
+documented downstream-use caveat, an iid-residual
+diversification-return artifact under daily rebalancing, addressed by
+a calibrated location-shift bias correction that preserves rank order,
+drawdown shape, and volatility envelope while shifting only the level.
