@@ -193,7 +193,7 @@ less conservative clipping behavior) or by pre-scaling the generator
 variance so that $\rho_i$ stays small.
 
 The variance correction $s_i^2 = 1 - \rho_i$ relies on
-$\mathrm{Cov}(\teps_i, g_m) \approx 0$. The JumpHMM marginals are fit
+$\mathrm{Cov}(\tg_i, g_m) \approx 0$. The JumpHMM marginals are fit
 in isolation and sampled independently of the market path, so this
 holds by construction; if the generator is already correlated with
 the market (for example, a bootstrap from joint history), the
@@ -203,7 +203,7 @@ the empirical variance of the composed series. The same warning
 applies to the $R^2$-preserving branch, whose variance identity
 assumes $\eps$ is uncorrelated with $g_m$ after any reorder. The
 construction also injects a contemporaneous market factor only:
-$g_i(t)$ depends on $g_m(t)$ and on $\teps_i(t)$ but not on
+$g_i(t)$ depends on $g_m(t)$ and on $\tg_i(t)$ but not on
 $g_m(t-1), g_m(t-2), \dots$, so lagged market dependence (lead-lag
 effects, market-driven volatility clustering, asymmetric responses to
 drawdowns) is not reproduced by this recipe. The natural extension is
@@ -213,9 +213,9 @@ the variance correction generalizes to that form by replacing
 $\beta_i^2 \sigma_m^2$ with the variance of the full market-factor
 component, though the empirical value of the extra parameters is
 beyond the scope here. Lagged idiosyncratic dependence is likewise
-absent: the JumpHMM residuals $\teps_i$ are drawn independently
-across time, so any residual autocorrelation present in the real
-data is discarded by the composition. This matters most for
+absent: each generator growth-rate path $\tg_i$ is sampled
+independently of the others, so any residual autocorrelation
+present in the real data is discarded by the composition. This matters most for
 workflows that evaluate portfolios rebalancing at high frequency.
 With iid residuals, a rebalancing rule collects the full
 diversification return of \cite{boothFama1992}, a compounding

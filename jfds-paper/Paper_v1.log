@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.27 (TeX Live 2025) (preloaded format=pdflatex 2025.3.8)  19 MAY 2026 07:49
+This is pdfTeX, Version 3.141592653-2.6-1.40.27 (TeX Live 2025) (preloaded format=pdflatex 2025.3.8)  19 MAY 2026 08:35
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -1014,16 +1014,19 @@ Underfull \vbox (badness 5592) has occurred while \output is active []
 
 [7]
 Package hyperref Info: bookmark level for unknown algorithm defaults to 0 on in
-put line 238.
-) (./sections/results.tex
+put line 242.
+)
 Underfull \vbox (badness 10000) has occurred while \output is active []
 
 
 
-[8]
+[8] (./sections/results.tex
+Underfull \vbox (badness 5726) has occurred while \output is active []
+
+
 
 [9]
-<figs/Fig4-Model-Comparison.pdf, id=335, 1806.75pt x 562.1pt>
+<figs/Fig4-Model-Comparison.pdf, id=332, 1806.75pt x 562.1pt>
 File: figs/Fig4-Model-Comparison.pdf Graphic file (type pdf)
 <use figs/Fig4-Model-Comparison.pdf>
 Package pdftex.def Info: figs/Fig4-Model-Comparison.pdf  used on input line 157
@@ -1036,6 +1039,9 @@ Package pdftex.def Info: figs/Fig4-Model-Comparison.pdf  used on input line 157
 Overfull \hbox (14.65605pt too wide) in paragraph at lines 1--269
  [][] 
  []
+
+
+Underfull \vbox (badness 3536) has occurred while \output is active []
 
 
 
@@ -1055,7 +1061,7 @@ Underfull \vbox (badness 1215) has occurred while \output is active []
 
 
 [13]
-<figs/fig1_preservation.pdf, id=385, 1304.875pt x 451.6875pt>
+<figs/fig1_preservation.pdf, id=383, 1304.875pt x 451.6875pt>
 File: figs/fig1_preservation.pdf Graphic file (type pdf)
 <use figs/fig1_preservation.pdf>
 Package pdftex.def Info: figs/fig1_preservation.pdf  used on input line 63.
@@ -1073,100 +1079,105 @@ Underfull \vbox (badness 10000) has occurred while \output is active []
 
 
 [16]) (./sections/conclusion.tex)
+Underfull \vbox (badness 1275) has occurred while \output is active []
+
+
 
 [17] (./Paper_v1.bbl
 
 [18]
 
-[19])
+[19]
 
-[20] (./sections/appendix.tex
+[20])
+
+[21] (./sections/appendix.tex
 pdfTeX warning (ext4): destination with the same identifier (name{equation.1}) 
 has been already used, duplicate ignored
 <to be read again> 
                    \relax 
-l.18 \begin{equation}
+l.19 \begin{equation}
                      
 pdfTeX warning (ext4): destination with the same identifier (name{equation.1}) 
 has been already used, duplicate ignored
 <to be read again> 
                    \relax 
-l.18 \begin{equation}
+l.19 \begin{equation}
                      
 pdfTeX warning (ext4): destination with the same identifier (name{equation.1}) 
 has been already used, duplicate ignored
 <to be read again> 
                    \relax 
-l.18 \begin{equation}
+l.19 \begin{equation}
                      
 pdfTeX warning (ext4): destination with the same identifier (name{equation.1}) 
 has been already used, duplicate ignored
 <to be read again> 
                    \relax 
-l.18 \begin{equation}
+l.19 \begin{equation}
                      
-<figs/figS1_cov_diagnostic.pdf, id=460, 762.85pt x 441.65pt>
+<figs/figS1_cov_diagnostic.pdf, id=462, 762.85pt x 441.65pt>
 File: figs/figS1_cov_diagnostic.pdf Graphic file (type pdf)
 <use figs/figS1_cov_diagnostic.pdf>
-Package pdftex.def Info: figs/figS1_cov_diagnostic.pdf  used on input line 37.
+Package pdftex.def Info: figs/figS1_cov_diagnostic.pdf  used on input line 38.
 (pdftex.def)             Requested size: 337.86465pt x 195.60027pt.
 
 pdfTeX warning (ext4): destination with the same identifier (name{equation.2}) 
 has been already used, duplicate ignored
 <to be read again> 
                    \relax 
-l.79 \begin{equation}
+l.80 \begin{equation}
                      
 pdfTeX warning (ext4): destination with the same identifier (name{equation.2}) 
 has been already used, duplicate ignored
 <to be read again> 
                    \relax 
-l.79 \begin{equation}
+l.80 \begin{equation}
                      
 pdfTeX warning (ext4): destination with the same identifier (name{equation.2}) 
 has been already used, duplicate ignored
 <to be read again> 
                    \relax 
-l.79 \begin{equation}
+l.80 \begin{equation}
                      
 pdfTeX warning (ext4): destination with the same identifier (name{equation.2}) 
 has been already used, duplicate ignored
 <to be read again> 
                    \relax 
-l.79 \begin{equation}
+l.80 \begin{equation}
                      
 Underfull \vbox (badness 1442) has occurred while \output is active []
 
 
 
-[21
+[22
 
  <./figs/figS1_cov_diagnostic.pdf>]
 pdfTeX warning (ext4): destination with the same identifier (name{equation.3}) 
 has been already used, duplicate ignored
 <to be read again> 
                    \relax 
-l.93 \begin{equation}
+l.94 \begin{equation}
                      
 pdfTeX warning (ext4): destination with the same identifier (name{equation.3}) 
 has been already used, duplicate ignored
 <to be read again> 
                    \relax 
-l.93 \begin{equation}
+l.94 \begin{equation}
                      
 pdfTeX warning (ext4): destination with the same identifier (name{equation.3}) 
 has been already used, duplicate ignored
 <to be read again> 
                    \relax 
-l.93 \begin{equation}
+l.94 \begin{equation}
                      
 pdfTeX warning (ext4): destination with the same identifier (name{equation.3}) 
 has been already used, duplicate ignored
 <to be read again> 
                    \relax 
-l.93 \begin{equation}
+l.94 \begin{equation}
                      
-Overfull \hbox (3.05882pt too wide) detected at line 101
+Overfull \hbox (3.05882pt too wide) detected at line 102
 [][][]\U/msb/m/n/10 E\OT1/cmr/m/n/10 [\OML/cmm/m/it/10 r[]\OT1/cmr/m/n/10 ]  = 
  [] \OML/cmm/m/it/10 w[] ^^V[]  \OT1/cmr/m/n/10 +  []  + [] ^^A\OML/cmm/m/it/10
  t  []  \OT1/cmr/m/n/10 +  \OML/cmm/m/it/10 O []\OT1/cmr/m/n/10 (^^A\OML/cmm/m/
@@ -1178,224 +1189,224 @@ pdfTeX warning (ext4): destination with the same identifier (name{equation.4})
 has been already used, duplicate ignored
 <to be read again> 
                    \relax 
-l.128 \begin{equation}
+l.129 \begin{equation}
                       
 pdfTeX warning (ext4): destination with the same identifier (name{equation.4}) 
 has been already used, duplicate ignored
 <to be read again> 
                    \relax 
-l.128 \begin{equation}
+l.129 \begin{equation}
                       
 pdfTeX warning (ext4): destination with the same identifier (name{equation.4}) 
 has been already used, duplicate ignored
 <to be read again> 
                    \relax 
-l.128 \begin{equation}
+l.129 \begin{equation}
                       
 pdfTeX warning (ext4): destination with the same identifier (name{equation.4}) 
 has been already used, duplicate ignored
 <to be read again> 
                    \relax 
-l.128 \begin{equation}
+l.129 \begin{equation}
                       
 pdfTeX warning (ext4): destination with the same identifier (name{equation.5}) 
 has been already used, duplicate ignored
 <to be read again> 
                    \relax 
-l.150 \begin{equation}
+l.151 \begin{equation}
                       
 pdfTeX warning (ext4): destination with the same identifier (name{equation.5}) 
 has been already used, duplicate ignored
 <to be read again> 
                    \relax 
-l.150 \begin{equation}
+l.151 \begin{equation}
                       
 pdfTeX warning (ext4): destination with the same identifier (name{equation.5}) 
 has been already used, duplicate ignored
 <to be read again> 
                    \relax 
-l.150 \begin{equation}
+l.151 \begin{equation}
                       
 pdfTeX warning (ext4): destination with the same identifier (name{equation.5}) 
 has been already used, duplicate ignored
 <to be read again> 
                    \relax 
-l.150 \begin{equation}
+l.151 \begin{equation}
                       
 pdfTeX warning (ext4): destination with the same identifier (name{equation.6}) 
 has been already used, duplicate ignored
 <to be read again> 
                    \relax 
-l.157 \begin{equation}
+l.158 \begin{equation}
                       
 pdfTeX warning (ext4): destination with the same identifier (name{equation.6}) 
 has been already used, duplicate ignored
 <to be read again> 
                    \relax 
-l.157 \begin{equation}
+l.158 \begin{equation}
                       
 pdfTeX warning (ext4): destination with the same identifier (name{equation.6}) 
 has been already used, duplicate ignored
 <to be read again> 
                    \relax 
-l.157 \begin{equation}
+l.158 \begin{equation}
                       
 pdfTeX warning (ext4): destination with the same identifier (name{equation.6}) 
 has been already used, duplicate ignored
 <to be read again> 
                    \relax 
-l.157 \begin{equation}
+l.158 \begin{equation}
                       
 
-[22]
-<figs/fig2_tails.pdf, id=489, 1204.5pt x 451.6875pt>
+[23]
+<figs/fig2_tails.pdf, id=491, 1204.5pt x 451.6875pt>
 File: figs/fig2_tails.pdf Graphic file (type pdf)
 <use figs/fig2_tails.pdf>
-Package pdftex.def Info: figs/fig2_tails.pdf  used on input line 277.
+Package pdftex.def Info: figs/fig2_tails.pdf  used on input line 278.
 (pdftex.def)             Requested size: 397.48499pt x 149.05733pt.
 
 pdfTeX warning (ext4): destination with the same identifier (name{equation.7}) 
 has been already used, duplicate ignored
 <to be read again> 
                    \relax 
-l.306 \begin{equation}
+l.307 \begin{equation}
                       
 pdfTeX warning (ext4): destination with the same identifier (name{equation.7}) 
 has been already used, duplicate ignored
 <to be read again> 
                    \relax 
-l.306 \begin{equation}
+l.307 \begin{equation}
                       
 pdfTeX warning (ext4): destination with the same identifier (name{equation.7}) 
 has been already used, duplicate ignored
 <to be read again> 
                    \relax 
-l.306 \begin{equation}
+l.307 \begin{equation}
                       
 pdfTeX warning (ext4): destination with the same identifier (name{equation.7}) 
 has been already used, duplicate ignored
 <to be read again> 
                    \relax 
-l.306 \begin{equation}
+l.307 \begin{equation}
                       
 Underfull \vbox (badness 10000) has occurred while \output is active []
 
 
 
-[23]
-<figs/fig7_r2_distribution.pdf, id=496, 762.85pt x 441.65pt>
+[24]
+<figs/fig7_r2_distribution.pdf, id=499, 762.85pt x 441.65pt>
 File: figs/fig7_r2_distribution.pdf Graphic file (type pdf)
 <use figs/fig7_r2_distribution.pdf>
-Package pdftex.def Info: figs/fig7_r2_distribution.pdf  used on input line 347.
+Package pdftex.def Info: figs/fig7_r2_distribution.pdf  used on input line 348.
 
 (pdftex.def)             Requested size: 337.86465pt x 195.60027pt.
 
 
-[24 <./figs/fig2_tails.pdf>]
+[25 <./figs/fig2_tails.pdf>]
 pdfTeX warning (ext4): destination with the same identifier (name{equation.8}) 
 has been already used, duplicate ignored
 <to be read again> 
                    \relax 
-l.426 \begin{equation}
-                      
-pdfTeX warning (ext4): destination with the same identifier (name{equation.8}) 
-has been already used, duplicate ignored
-<to be read again> 
-                   \relax 
-l.426 \begin{equation}
+l.427 \begin{equation}
                       
 pdfTeX warning (ext4): destination with the same identifier (name{equation.8}) 
 has been already used, duplicate ignored
 <to be read again> 
                    \relax 
-l.426 \begin{equation}
+l.427 \begin{equation}
                       
 pdfTeX warning (ext4): destination with the same identifier (name{equation.8}) 
 has been already used, duplicate ignored
 <to be read again> 
                    \relax 
-l.426 \begin{equation}
+l.427 \begin{equation}
+                      
+pdfTeX warning (ext4): destination with the same identifier (name{equation.8}) 
+has been already used, duplicate ignored
+<to be read again> 
+                   \relax 
+l.427 \begin{equation}
                       
 pdfTeX warning (ext4): destination with the same identifier (name{equation.9}) 
 has been already used, duplicate ignored
 <to be read again> 
                    \relax 
-l.432 \begin{equation}
+l.433 \begin{equation}
                       
 pdfTeX warning (ext4): destination with the same identifier (name{equation.9}) 
 has been already used, duplicate ignored
 <to be read again> 
                    \relax 
-l.432 \begin{equation}
+l.433 \begin{equation}
                       
 pdfTeX warning (ext4): destination with the same identifier (name{equation.9}) 
 has been already used, duplicate ignored
 <to be read again> 
                    \relax 
-l.432 \begin{equation}
+l.433 \begin{equation}
                       
 pdfTeX warning (ext4): destination with the same identifier (name{equation.9}) 
 has been already used, duplicate ignored
 <to be read again> 
                    \relax 
-l.432 \begin{equation}
+l.433 \begin{equation}
                       
 
-[25 <./figs/fig7_r2_distribution.pdf>]
+[26 <./figs/fig7_r2_distribution.pdf>]
 pdfTeX warning (ext4): destination with the same identifier (name{equation.10})
  has been already used, duplicate ignored
 <to be read again> 
                    \relax 
-l.442 \begin{equation}
+l.443 \begin{equation}
                       
 pdfTeX warning (ext4): destination with the same identifier (name{equation.10})
  has been already used, duplicate ignored
 <to be read again> 
                    \relax 
-l.442 \begin{equation}
+l.443 \begin{equation}
                       
 pdfTeX warning (ext4): destination with the same identifier (name{equation.10})
  has been already used, duplicate ignored
 <to be read again> 
                    \relax 
-l.442 \begin{equation}
+l.443 \begin{equation}
                       
 pdfTeX warning (ext4): destination with the same identifier (name{equation.10})
  has been already used, duplicate ignored
 <to be read again> 
                    \relax 
-l.442 \begin{equation}
+l.443 \begin{equation}
                       
-<figs/Fig6-Statistical-Validation.pdf, id=513, 1204.5pt x 903.375pt>
+<figs/Fig6-Statistical-Validation.pdf, id=515, 1204.5pt x 903.375pt>
 File: figs/Fig6-Statistical-Validation.pdf Graphic file (type pdf)
 <use figs/Fig6-Statistical-Validation.pdf>
 Package pdftex.def Info: figs/Fig6-Statistical-Validation.pdf  used on input li
-ne 456.
+ne 457.
 (pdftex.def)             Requested size: 397.48499pt x 298.11467pt.
 
 
-[26 <./figs/Fig6-Statistical-Validation.pdf>]
+[27 <./figs/Fig6-Statistical-Validation.pdf>]
 (./sections/tables/table2_by_branch.tex)
-<figs/fig3_branch_map.pdf, id=526, 903.375pt x 501.875pt>
+<figs/fig3_branch_map.pdf, id=528, 903.375pt x 501.875pt>
 File: figs/fig3_branch_map.pdf Graphic file (type pdf)
 <use figs/fig3_branch_map.pdf>
-Package pdftex.def Info: figs/fig3_branch_map.pdf  used on input line 563.
+Package pdftex.def Info: figs/fig3_branch_map.pdf  used on input line 564.
 (pdftex.def)             Requested size: 337.86465pt x 187.70488pt.
 
 (./sections/tables/table3_by_beta_bucket.tex)
-<figs/fig5_sensitivity.pdf, id=529, 642.4pt x 481.8pt>
+<figs/fig5_sensitivity.pdf, id=531, 642.4pt x 481.8pt>
 File: figs/fig5_sensitivity.pdf Graphic file (type pdf)
 <use figs/fig5_sensitivity.pdf>
-Package pdftex.def Info: figs/fig5_sensitivity.pdf  used on input line 595.
+Package pdftex.def Info: figs/fig5_sensitivity.pdf  used on input line 596.
 (pdftex.def)             Requested size: 337.86465pt x 253.40459pt.
 
 (./sections/tables/table4_seed_uncertainty.tex))
 
-[27]
+[28]
 
-[28 <./figs/fig3_branch_map.pdf>]
+[29 <./figs/fig3_branch_map.pdf>]
 
-[29 <./figs/fig5_sensitivity.pdf>] (./Paper_v1.aux)
+[30 <./figs/fig5_sensitivity.pdf>] (./Paper_v1.aux)
  ***********
 LaTeX2e <2024-11-01> patch level 2
 L3 programming layer <2025-01-18>
@@ -1404,11 +1415,11 @@ Package rerunfilecheck Info: File `Paper_v1.out' has not changed.
 (rerunfilecheck)             Checksum: D412EF5BC6E3479AB9BADD00CE3D5C46;2739.
  ) 
 Here is how much of TeX's memory you used:
- 27925 strings out of 473190
- 520560 string characters out of 5715801
- 946771 words of memory out of 5000000
- 50191 multiletter control sequences out of 15000+600000
- 626767 words of font info for 304 fonts, out of 8000000 for 9000
+ 27914 strings out of 473190
+ 520446 string characters out of 5715801
+ 947163 words of memory out of 5000000
+ 50189 multiletter control sequences out of 15000+600000
+ 623883 words of font info for 298 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
  84i,12n,87p,1358b,941s stack positions out of 10000i,1000n,20000p,200000b,200000s
 </usr/local/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx10.pfb
@@ -1434,10 +1445,10 @@ mf-dist/fonts/type1/public/cm-super/sftt0900.pfb></usr/local/texlive/2025/texmf
 ist/fonts/type1/urw/times/utmb8a.pfb></usr/local/texlive/2025/texmf-dist/fonts/
 type1/urw/times/utmr8a.pfb></usr/local/texlive/2025/texmf-dist/fonts/type1/urw/
 times/utmri8a.pfb>
-Output written on Paper_v1.pdf (29 pages, 1182845 bytes).
+Output written on Paper_v1.pdf (30 pages, 1180830 bytes).
 PDF statistics:
- 678 PDF objects out of 1000 (max. 8388607)
- 580 compressed objects within 6 object streams
+ 681 PDF objects out of 1000 (max. 8388607)
+ 582 compressed objects within 6 object streams
  155 named destinations out of 1000 (max. 500000)
- 64685 words of extra memory for PDF output out of 74296 (max. 10000000)
+ 60589 words of extra memory for PDF output out of 61914 (max. 10000000)
 
