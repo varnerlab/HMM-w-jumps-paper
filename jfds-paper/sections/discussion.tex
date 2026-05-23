@@ -159,7 +159,8 @@ Value-at-Risk backtest of the composed paths against the real
 2014--2024 growth-rate histories, with exceedance counts assessed by
 Kupiec's unconditional coverage test; the per-ticker framing keeps
 this validation inside the paper's scope, while portfolio-level VaR
-requires the cross-sectional copula reorder deferred above.
+requires the cross-sectional copula reorder of
+Algorithm~\ref{alg:hybrid} (the optional step we did not run).
 High-turnover portfolio
 strategies remain a distinct scope boundary: the temporal structure
 of the residual draw matters in a way that contemporaneous
@@ -197,8 +198,8 @@ $\mathrm{Cov}(\tg_i, g_m) \approx 0$. The JumpHMM marginals are fit
 in isolation and sampled independently of the market path, so this
 holds by construction; if the generator is already correlated with
 the market (for example, a bootstrap from joint history), the
-empirical covariance should be subtracted from $\beta_i$ before
-applying the correction, or $s_i^2$ should be estimated directly from
+empirical covariance can be subtracted from $\beta_i$ before
+applying the correction, or $s_i^2$ can be estimated directly from
 the empirical variance of the composed series. The same warning
 applies to the $R^2$-preserving branch, whose variance identity
 assumes $\eps$ is uncorrelated with $g_m$ after any reorder. The
@@ -295,7 +296,7 @@ paths. The location-shift correction extends that reliability to absolute
 Sharpe and CCGR levels under daily rebalancing, at the cost of an external
 prior.
 
-Two further extensions follow naturally. Multi-factor SIM replaces
+Two further extensions follow. Multi-factor SIM replaces
 the single market factor with $K$ factors, requiring $\rho_i$ to
 become the sum of factor contributions and the loading vector to be
 clipped rather than a scalar, though the branch logic is unchanged.

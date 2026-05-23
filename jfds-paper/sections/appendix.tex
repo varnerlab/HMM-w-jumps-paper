@@ -201,10 +201,9 @@ converges to the same formula value whether the residuals are
 drawn iid or with positive serial autocorrelation: the iid versus
 AR(1) distinction shows up in per-path sampling noise, not in the
 ensemble median itself. The empirical excess of the
-engine-raw median over an external long-run growth prior, reported
-quantitatively as $\sim\!22$~percentage points in the next
-paragraph, is therefore not a structural artifact of the iid
-sampling at the level of the second-order formula. It is the
+engine-raw median over an external long-run growth prior,
+$\sim\!22$~percentage points, is therefore not a structural artifact
+of the iid sampling at the level of the second-order formula. It is the
 combined empirical magnitude of the higher-moment corrections to
 the Taylor expansion (heavy-tailed JumpHMM marginals carry
 non-trivial third and fourth cumulants), the time-varying
@@ -212,9 +211,9 @@ volatility and correlation across the $2014$--$2024$ calibration
 window relative to a long-run prior, and the documented attenuation
 of realized diversification returns on real equity portfolios at
 all rebalancing horizons \cite{boucheyGunthorpSutherland2012}. The
-location-shift correction derived below treats this composite
-shortfall as a single empirical drag $b$ to be absorbed and is
-agnostic to its decomposition.
+location-shift correction of Eq.~\eqref{eq:bias-correction} treats
+this composite shortfall as a single empirical drag $b$ to be
+absorbed and is agnostic to its decomposition.
 
 % --- Table: SPY descriptive statistics ---
 \begin{table}[tbp]
@@ -361,8 +360,8 @@ year).
 Several alternative fixes were considered and rejected. A
 path-filtering rule that drops synthetic paths above a $\bar g_p$
 threshold turns the threshold itself into a target the audience
-will probe and does not remove the structural artifact, merely a
-subset of its consequences. Inflating per-trade transaction costs
+will probe and removes only a subset of the artifact's consequences
+while leaving the structural artifact intact. Inflating per-trade transaction costs
 to absorb the bonus would require round-trip costs of
 $\sim\!70$~basis points versus the realistic $1$--$10$~basis points
 seen on liquid US equity, and transfers a misrepresentation from
@@ -399,7 +398,7 @@ strategies evaluated on the same corrected paths. It does not
 remove the underlying iid-residual limitation, so it does not
 support workflows where residual autocorrelation is itself the
 quantity of interest, where forward-prediction claims on absolute
-Sharpe at daily rebalancing frequency are load-bearing, or where
+Sharpe at daily rebalancing frequency are decision-critical, or where
 the optimal rebalancing frequency is the question being asked;
 for those workflows the AR(1) or GARCH residual structure
 restructured around the copula reorder, listed as future work in
@@ -466,33 +465,16 @@ with $H = 0$ for identical densities and $H = 1$ for disjoint supports.
   \label{fig:statistical_validation}
 \end{figure}
 
-\section{HMM-WJ simulator and grid-search pseudocode}
+\section{Jump-parameter grid-search procedure}
 \label{sec:supp-pseudo}
 
-The hybrid hidden Markov simulator described in the main text proceeded
-as follows. Given fitted parameters
-$(\mathbf{T}, \mathbf{E}, \bar{\pi}, \epsilon, \lambda, p_{\rm neg},
-N_{\rm tail})$ and a horizon $T$:
-\begin{enumerate}
-  \item Draw $X_0 \sim \bar{\pi}$.
-  \item For $n = 1, \ldots, T$: with probability $1 - \epsilon$, draw
-        $X_n \sim \mathbf{T}_{X_{n-1}, \cdot}$; with probability
-        $\epsilon$, sample $K \sim \mathrm{Poisson}(\lambda)$, and for
-        the next $\min(K, T - n)$ steps force
-        $X_n \sim \mathrm{Uniform}(\mathcal{S}_{-})$ with probability
-        $p_{\rm neg}$ or
-        $X_n \sim \mathrm{Uniform}(\mathcal{S}_{+})$ with probability
-        $1 - p_{\rm neg}$.
-  \item For each $X_n$, sample
-        $O_n \sim \mu_{X_n} + \sigma_{X_n} \cdot t_5$.
-\end{enumerate}
-The grid-search procedure for $(\epsilon, \lambda)$ minimized
-Eq.~\eqref{eq:grid_search} via brute-force evaluation over
-$\{\epsilon_1, \ldots, \epsilon_K\} \times \{\lambda_1, \ldots, \lambda_L\}$,
-with $200$ independent simulated paths per grid point and the
-objective averaged over the path ensemble. The implementation lives in
-the released \texttt{JumpHMM.jl} library at
-\url{https://github.com/varnerlab/JumpHMM.jl}.
+The HMM-WJ simulator itself is stated as Algorithm~\ref{alg:hmmwj}
+in the main text. The grid-search procedure for the jump parameters
+$(\epsilon, \lambda)$ minimized the objective of
+Eq.~\eqref{eq:grid_search} by brute-force evaluation over
+$\{\epsilon_1, \ldots, \epsilon_K\} \times \{\lambda_1, \ldots,
+\lambda_L\}$, with $200$ independent simulated paths per grid point
+and the objective averaged over the path ensemble.
 
 % =============================================================================
 % S5 Transition matrix internals
@@ -640,3 +622,68 @@ held on all three tickers.
   \label{tab:seed_uncertainty}
   \resizebox{\textwidth}{!}{\input{sections/tables/table4_seed_uncertainty}}
 \end{table}
+
+\section{SIM composition derivations and properties verification}
+\label{sec:supp-sim-derivations}
+
+The variance-corrected single-index composition of §3.2 states two
+closed-form results, the variance scale of Eq.~\eqref{eq:scale} and
+the residual-variance target of Eq.~\eqref{eq:r2-target}, and asserts
+that the composed series $g_i$ satisfies the three preservation
+criteria (SIM recovery, marginal fidelity, cross-sectional
+dependence) in the large-$T$ limit. This appendix gives the algebra
+behind the two boxed results and verifies the criteria.
+
+To derive Eq.~\eqref{eq:scale}, form the candidate residual
+$\eps_i = s_i\,\tg_i$ for some scalar $s_i \in (0, 1]$ and require
+that the composed series have the same variance as the generator
+path:
+\begin{equation}
+  \Var(g_i) \;=\; \Var(\alpha_i + \beta_i\, g_m + \eps_i)
+            \;=\; \Var(\beta_i\, g_m + \eps_i)
+            \;=\; \sigma_{\gen,i}^2,
+\end{equation}
+where $\alpha_i$ drops out because it is a constant offset. Expanding
+the variance of the sum:
+\begin{equation}
+  \Var(\beta_i\, g_m + \eps_i) \;=\; \beta_i^2\, \Var(g_m)
+  \;+\; 2 \beta_i\, \Cov(g_m,\, \eps_i)
+  \;+\; \Var(\eps_i).
+\end{equation}
+Substituting $\eps_i = s_i\,\tg_i$ yields
+$\Var(\eps_i) = s_i^2\,\sigma_{\gen,i}^2$ and
+$\Cov(g_m,\, \eps_i) = s_i\,\Cov(g_m,\, \tg_i)$, so under the
+independence assumption $\Cov(\tg_i,\, g_m) \approx 0$ the cross term
+vanishes and the variance condition reduces to
+$\beta_i^2\, \sigma_m^2 + s_i^2\, \sigma_{\gen,i}^2 =
+\sigma_{\gen,i}^2$, which rearranges directly to
+Eq.~\eqref{eq:scale}.
+
+To derive Eq.~\eqref{eq:r2-target}, write the population $R^2$
+identity for Eq.~\eqref{eq:sim-composition}:
+\begin{equation}
+  R^2 \;=\; \frac{\beta_i^2\, \sigma_m^2}{\beta_i^2\, \sigma_m^2 + \sigma_{\eps,i}^2},
+\end{equation}
+and invert for the residual variance that hits the calibrated $R^2$;
+the result is the boxed Eq.~\eqref{eq:r2-target}.
+
+By construction the composed series $g_i$ then satisfies the three
+preservation criteria in the large-$T$ limit. OLS of $g_i$ on $g_m$
+recovers $\hat\alpha_i \to \alpha_i$ and
+$\hat\beta_i \to \beta_i^{\eff}$, with $\beta_i^{\eff} = \beta_i$
+unclipped and $\beta_i^{\eff}$ persisted alongside $\beta_i$ when the
+clip triggers. Marginal variance matches $\sigma_{\gen,i}^2$ on the
+variance-preserving branch, either exactly
+$\Var(g_i) = \beta_i^2 \sigma_m^2 + s_i^2 \sigma_{\gen,i}^2
+  = \sigma_{\gen,i}^2$, or by the choice of $\beta_i^{\eff}$ in
+Eq.~\eqref{eq:clip} under clipping; on the $R^2$-preserving branch
+the marginal variance instead matches
+$\beta_i^2 \sigma_m^2 / R^2_{i,\real}$, the value implied by the
+calibrated $(\beta_i, R^2_{i,\real})$ rather than by the generator
+marginal. Tail behavior on the variance-preserving branch follows
+from the floor: because at least $f\,\sigma_{\gen,i}^2$ of the
+variance is reserved for $\eps_i$, the tails inherited from $\tg_i$
+dominate whenever $(\beta_i^{\eff})^2 \sigma_m^2$ is small relative
+to those tails, while as $\beta_i$ grows the marginal of $g_i$
+tightens toward Gaussian along the market-driven axis, mildly for
+low-$\beta$ assets and noticeably at high $\beta$.

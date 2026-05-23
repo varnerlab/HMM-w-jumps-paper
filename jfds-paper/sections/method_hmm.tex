@@ -15,7 +15,7 @@ volume-weighted average price values. We computed the excess growth rate $G_{i,j
 trading days $j-1$ and $j$ from the equity price series
 $P_{i,j}$ as:
 \begin{equation}
-    G_{i,j} \;\equiv\; \frac{1}{\Delta t}\,
+    G_{i,j} \;\equiv\; \left(\frac{1}{\Delta t}\right)\,
     \ln\!\left( \frac{P_{i,j}}{P_{i,j-1}} \right) \;-\; r_f,
     \label{eq:growth_rate}
 \end{equation}
@@ -54,7 +54,7 @@ distribution:
 \end{equation}
 where $t_\nu$ denotes a standard Student-$t$ random variable with
 $\nu$ degrees of freedom, and $\mu_k, \sigma_k$ are state-conditional
-location and scale parameters defined below. The value $\nu = 5$ was
+location and scale parameters. The value $\nu = 5$ was
 selected from a sensitivity analysis over
 $\nu \in \{3, 4, 5, 6, 7, 8, 10, 15, 30, \infty\}$ as the value that
 minimized the kurtosis gap without degrading distributional fidelity
@@ -96,9 +96,8 @@ entered a Poisson jump episode (probability $\epsilon$) that forced
 the state into $\mathcal{S}_{-}$ or $\mathcal{S}_{+}$ for $K$
 consecutive steps before normal transitions resumed. In both cases
 an observation was sampled from the emission distribution
-$G_t \sim \mathbf{E}_{S_t}$. The
-full simulation pseudocode is given in Online
-Appendix~\ref{sec:supp-pseudo}.
+$G_t \sim \mathbf{E}_{S_t}$. The full simulator is given in
+Algorithm~\ref{alg:hmmwj}.
 
 % --- Architecture figure ----------------------------------------------------
 \begin{figure}[tp]
@@ -205,6 +204,41 @@ Appendix~\ref{sec:supp-pseudo}.
 \label{fig:model_architecture}
 \end{figure}
 
+\begin{algorithm}[t]
+\caption{HMM-WJ simulator (Stage 1).}
+\label{alg:hmmwj}
+\begin{algorithmic}[1]
+  \REQUIRE Fitted parameters
+    $(\mathbf{T}, \mathbf{E}, \bar{\pi}, \epsilon, \lambda,
+    p_{\rm neg}, N_{\rm tail})$; horizon $T$;
+    tail sets $\mathcal{S}_{-} = \{1, \dots, N_{\rm tail}\}$ and
+    $\mathcal{S}_{+} = \{N - N_{\rm tail} + 1, \dots, N\}$.
+  \ENSURE State sequence $\{S_t\}_{t=0}^{T}$ and growth-rate path
+    $\{G_t\}_{t=1}^{T}$.
+  \STATE Draw $S_0 \sim \bar{\pi}$;\quad
+    $k \gets 0$;\quad $\mathcal{J} \gets \emptyset$
+    \hfill \COMMENT{$k$: forced-step counter}
+  \FOR{$t = 1, \dots, T$}
+    \IF{$k > 0$}
+      \STATE $S_t \sim \mathrm{Uniform}(\mathcal{J})$;\quad $k \gets k - 1$
+        \hfill \COMMENT{continue forced jump episode}
+    \ELSIF{$\mathrm{Uniform}(0,1) > \epsilon$}
+      \STATE $S_t \sim \mathbf{T}_{S_{t-1}, \cdot}$
+        \hfill \COMMENT{standard Markov transition}
+    \ELSE
+      \STATE $K \sim \mathrm{Poisson}(\lambda)$;\quad
+        $k \gets \min(K, T - t)$
+        \hfill \COMMENT{trigger jump of duration $K$}
+      \STATE With probability $p_{\rm neg}$ set $\mathcal{J} \gets \mathcal{S}_{-}$,
+        else $\mathcal{J} \gets \mathcal{S}_{+}$
+      \STATE $S_t \sim \mathrm{Uniform}(\mathcal{J})$
+    \ENDIF
+    \STATE Draw $G_t \sim \mu_{S_t} + \sigma_{S_t}\, t_{5}$
+      \hfill \COMMENT{Eq.~\eqref{eq:emission}}
+  \ENDFOR
+\end{algorithmic}
+\end{algorithm}
+
 With the simulator specified, we calibrated the two jump parameters,
 the jump probability $\epsilon$ and mean jump duration $\lambda$
 \cite{merton1976, kou2002}, via a multi-objective grid search that minimized the discrepancy between historical and
@@ -230,11 +264,12 @@ were averaged across $200$ independent synthetic paths of $2{,}766$
 trading days per grid point \cite{glasserman2003}. We set the
 kurtosis-penalty weight to $w_K = 0.20$ to balance tail behavior
 against the temporal ACF term. The grid explored $\epsilon$ from
-$10^{-4}$ to $2.5 \times 10^{-2}$ and $\lambda$ from $10$ to $160$, and
-the full pseudocode is given in Online
-Appendix~\ref{sec:supp-pseudo}. The framework above produces a
+$10^{-4}$ to $2.5 \times 10^{-2}$ and $\lambda$ from $10$ to $160$ in
+brute-force evaluation; further details of the grid search are in
+Online Appendix~\ref{sec:supp-pseudo}. The HMM-WJ framework produces a
 per-ticker marginal that reproduces heavy tails, regime persistence,
-and volatility clustering (validated empirically below); multi-asset
-workflows that consume these paths need a cross-sectional structure on
-top, which the next subsection supplies via a closed-form composition
+and volatility clustering (validated empirically in Results);
+multi-asset workflows that consume these paths need a
+cross-sectional structure on top, which the variance-corrected
+single-index composition described next supplies via a closed-form
 rule.

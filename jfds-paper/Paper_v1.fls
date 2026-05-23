@@ -397,13 +397,13 @@ INPUT /usr/local/texlive/2025/texmf-dist/fonts/tfm/public/cm/cmbx12.tfm
 INPUT /usr/local/texlive/2025/texmf-dist/fonts/tfm/public/cm/cmmib10.tfm
 INPUT /usr/local/texlive/2025/texmf-dist/fonts/tfm/public/cm/cmbsy10.tfm
 INPUT /usr/local/texlive/2025/texmf-dist/fonts/tfm/adobe/times/ptmri8t.tfm
+INPUT /usr/local/texlive/2025/texmf-dist/fonts/vf/adobe/times/ptmri8t.vf
+INPUT /usr/local/texlive/2025/texmf-dist/fonts/tfm/adobe/times/ptmri8r.tfm
 INPUT ./sections/method_sim.tex
 INPUT ./sections/method_sim.tex
 INPUT ./sections/method_sim.tex
 INPUT ./sections/method_sim.tex
 INPUT sections/method_sim.tex
-INPUT /usr/local/texlive/2025/texmf-dist/fonts/vf/adobe/times/ptmri8t.vf
-INPUT /usr/local/texlive/2025/texmf-dist/fonts/tfm/adobe/times/ptmri8r.tfm
 INPUT /usr/local/texlive/2025/texmf-dist/fonts/tfm/adobe/times/ptmr8t.tfm
 INPUT /usr/local/texlive/2025/texmf-dist/fonts/tfm/adobe/times/ptmr8t.tfm
 INPUT ./sections/results.tex

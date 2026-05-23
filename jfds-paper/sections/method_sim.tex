@@ -1,26 +1,18 @@
 % method_sim.tex
 % Method §3.2: variance-corrected SIM composition.
-% Seven paragraphs (with the Algorithm float between #6 and #7):
-%   (1) setup and the SIM composition we are filling in
-%   (2) inputs and assumptions (market path, generator, calibration triple)
-%   (3) preservation criteria + why naive composition fails
-%   (4) variance correction + degenerate case + clipping rule
-%   (5) R^2-preserving branch + SPY identity corollary
-%   (6) algorithm intro (combining branches and flag)
-%   (7) properties of the composed series + compute cost
+% Five paragraphs ending with the Algorithm float:
+%   (1) setup, SIM composition equation, and notation
+%   (2) inputs + preservation criteria + why naive composition fails
+%   (3) variance correction + degenerate case + clipping rule
+%   (4) R^2-preserving branch + SPY identity corollary
+%   (5) algorithm intro + verification + contemporaneous-only caveat
+%       (closes with the Algorithm float)
 
 As in the preceding subsection, we work in continuously compounded
-annualized excess growth rates: $g(t) = \Delta t^{-1}\,\ln[p(t)/p(t-1)]
-- r_f$, where $p(t)$ is the closing price on trading day $t$, $r_f$
-is a constant continuously compounded risk-free rate, and
-$\Delta t = 1/252$ is the fraction of a trading year spanned by one
-trading day. Annualized growth rates keep variances and covariances
-in the units customary in risk reporting, and they compose linearly
-under aggregation in time. Throughout this subsection, the sample
-mean, sample variance, and sample covariance of any length-$T$ real
-vector $x \in \R^T$ (and any two such vectors $x, y$) are written
-$\bar{x}$, $\Var(x)$, and $\Cov(x, y)$; all three are computed over
-the $T$ time steps of the path in the usual way. The construction
+annualized excess growth rates. Throughout this subsection, $\bar{x}$,
+$\Var(x)$, and $\Cov(x, y)$ denote the sample mean, sample variance,
+and sample covariance of any length-$T$ real vectors $x, y \in \R^T$,
+computed over the $T$ time steps of the path. The construction
 composes a synthetic per-asset growth-rate path $g_i$ under the
 single-index model (SIM):
 \begin{equation}
@@ -35,114 +27,58 @@ which carry no tilde). The residual $\eps_i$ in the SIM is a scaled
 copy of $\tg_i$: $\eps_i(t) = s_i\,\tg_i(t)$, with $s_i \in (0, 1]$
 a scalar chosen so the composed path inherits one of two per-asset
 marginal targets while recovering the calibrated SIM coefficients
-$(\alpha_i, \beta_i)$ in ordinary least squares (OLS). The next
-paragraph defines the inputs formally; the rest of the subsection
-derives $s_i$ and a sign-preserving clip on $\beta_i$ that handles
-high-leverage assets.
+$(\alpha_i, \beta_i)$ in ordinary least squares (OLS).
 
-The construction takes three inputs. The first input is the
-\emph{market growth-rate path}: a length-$T$ real-valued vector
-$g_m = (g_m(1), \dots, g_m(T)) \in \R^T$ giving the market's excess
-growth rate on each of $T$ trading days, with sample mean $\mu_m$
-and sample variance $\sigma_m^2 = \Var(g_m)$. In the experiments
-below, $g_m$ is the SPY total-return excess growth-rate series; the
-construction does not depend on this choice, and $g_m$ can equally
-be a single-name proxy, a synthetic index, or a model-generated
-path. The second input is, for each of $N$ assets indexed by
-$i = 1, \dots, N$, a per-asset \emph{generator growth-rate path}: a
-length-$T$ real-valued vector $\tg_i = (\tg_i(1), \dots, \tg_i(T))
-\in \R^T$ produced by a probabilistic model of the asset's
-growth-rate dynamics. In this paper the generator is the hybrid
-hidden Markov model developed above, whose single-time-step marginal
-is a mixture of state-conditional Student-$t$ ($\nu = 5$) emissions
-over the $N = 100$ Laplace-quantile states, and whose path-level
-structure adds regime persistence and occasional Poisson jump
-episodes (Eq.~\eqref{eq:emission}, Fig.~\ref{fig:model_architecture}).
-The SIM composition below is generator-agnostic, however: it uses
-only the values of $\tg_i$ and its sample variance $\sigma_{\gen,i}^2
-= \Var(\tg_i)$, and assumes no parametric form for the marginal
-distribution. Two operating conditions are imposed on each generator
-path. First, $\tg_i$ has sample mean zero, so any drift carried by
-the asset is absorbed by the SIM intercept $\alpha_i$ rather than by
-the generator. Second, $\tg_i$ is approximately uncorrelated with
-the market path, $\Cov(\tg_i, g_m) \approx 0$, which is automatic
-when the generator is fit and sampled in isolation, and which we
-verify empirically across the universe (Fig.~\ref{fig:cov_diag}). The
-third input is a per-asset \emph{calibration triple}
+The construction takes three inputs: a \emph{market growth-rate
+path} $g_m \in \R^T$ with sample mean $\mu_m$ and sample variance
+$\sigma_m^2 = \Var(g_m)$; for each of $N$ assets indexed by
+$i = 1, \dots, N$, a per-asset \emph{generator growth-rate path}
+$\tg_i \in \R^T$ produced by a probabilistic model of the asset's
+growth-rate dynamics, with $\tg_i$ having sample mean zero (so any
+drift is absorbed by the SIM intercept $\alpha_i$) and approximately
+uncorrelated with the market, $\Cov(\tg_i, g_m) \approx 0$
+(automatic when the generator is fit and sampled in isolation;
+verified empirically across the universe in
+Fig.~\ref{fig:cov_diag}); and a per-asset \emph{calibration triple}
 $(\alpha_i, \beta_i, R^2_{i,\real})$ obtained by OLS of the asset's
-real excess growth-rate history on $g_m$: $\alpha_i$ and $\beta_i$
-are the OLS intercept and slope, and $R^2_{i,\real}$ is the
-coefficient of determination. These are the targets the synthetic
-construction must recover; $R^2_{i,\real}$ also selects which of
-two branches (variance-preserving or $R^2$-preserving) is used by
-the construction below.
-
+real excess growth-rate history on $g_m$. In our experiments, $g_m$
+is the SPY total-return excess growth-rate series and $\tg_i$ is
+produced by the HMM-WJ model; the SIM composition is
+generator-agnostic, using only $\tg_i$ and $\sigma_{\gen,i}^2 =
+\Var(\tg_i)$ with no parametric form assumed for the marginal.
 Given these inputs, we want the synthetic composition
-$g_i = \alpha_i + \beta_i^{\eff}\, g_m + \eps_i$, with effective slope
-$\beta_i^{\eff}$ (equal to $\beta_i$ on the unclipped branch and the
-attenuated value of Eq.~\eqref{eq:clip} otherwise), to satisfy three
-properties in the large-$T$ limit. The first is \emph{SIM recovery}:
-ordinary least squares of $g_i$ on $g_m$ returns the calibrated
-intercept and slope, $\hat\alpha_i = \alpha_i$ and
-$\hat\beta_i = \beta_i^{\eff}$; on the unclipped branch,
-$\beta_i^{\eff} = \beta_i$ and the OLS output reproduces the
-calibration exactly, while on the clipped branch the attenuation is
-persisted alongside the output so it is auditable. The second is
-\emph{marginal fidelity}: each asset is assigned one of two per-asset
-targets based on its calibrated $R^2$, not both at once. Assets whose
-generator marginal (heavy tails, regime structure, jumps) is the
-quantity of interest receive the variance-preserving target
-$\Var(g_i) = \sigma_{\gen,i}^2$; assets that track the market closely
-receive the $R^2$-preserving target $R^2 = R^2_{i,\real}$, measured by
-the same OLS regression as above. The branch chosen for each asset is
-recorded as a construction flag so downstream consumers can audit
-which target was pursued. The third is \emph{cross-sectional
-dependence}: any joint dependence structure applied to the residuals
-$\{\eps_i\}_{i=1}^N$ passes through unchanged to the composed series
-$\{g_i\}_{i=1}^N$, automatic given the linearity of
-Eq.~\eqref{eq:sim-composition} in $\eps_i$; the joint structure
-itself (empirical copula, factor copula, t-copula) is supplied as a
-separate design choice, and we report cross-sectional fidelity for
-the empirical-copula choice in the results below. The naive
-composition $g_i = \alpha_i + \beta_i\, g_m + \tg_i$ satisfies SIM
-recovery and cross-sectional dependence but violates marginal
-fidelity: its marginal variance is
-$\sigma_{\gen,i}^2 + \beta_i^2 \sigma_m^2$, an inflation that grows
-quadratically in $\beta_i$. The rest of this subsection fixes this
-inflation with a closed-form scalar correction, handles the
-degenerate high-$\beta$ case with a sign-preserving clip, treats
-index-tracking assets through an $R^2$-preserving branch, and ties
-the pieces together in an algorithm that states the resulting
-properties of the composed series.
+$g_i = \alpha_i + \beta_i^{\eff}\, g_m + \eps_i$, with effective
+slope $\beta_i^{\eff}$ (equal to $\beta_i$ on the unclipped branch
+and the attenuated value of Eq.~\eqref{eq:clip} otherwise), to
+satisfy three properties in the large-$T$ limit: \emph{SIM
+recovery}, where OLS of $g_i$ on $g_m$ returns
+$\hat\alpha_i = \alpha_i$ and $\hat\beta_i = \beta_i^{\eff}$ (with
+the attenuated $\beta_i^{\eff}$ persisted alongside $\beta_i$ when
+the clip triggers); \emph{marginal fidelity}, where each asset is
+assigned one of two per-asset targets based on $R^2_{i,\real}$,
+either the variance-preserving target $\Var(g_i) =
+\sigma_{\gen,i}^2$ (for assets whose generator marginal, with
+heavy tails, regime structure, and jumps, is the quantity of
+interest) or the $R^2$-preserving target $R^2 = R^2_{i,\real}$ (for
+assets that track the market closely); and \emph{cross-sectional
+dependence}, where any joint dependence structure applied to
+$\{\eps_i\}_{i=1}^N$ (empirical copula, factor copula, t-copula)
+passes through unchanged to $\{g_i\}_{i=1}^N$ by the linearity of
+Eq.~\eqref{eq:sim-composition} in $\eps_i$. We report
+cross-sectional fidelity for the empirical-copula choice in
+Results. The naive composition
+$g_i = \alpha_i + \beta_i\, g_m + \tg_i$ satisfies SIM recovery and
+cross-sectional dependence but violates marginal fidelity: its
+marginal variance is $\sigma_{\gen,i}^2 + \beta_i^2 \sigma_m^2$, an
+inflation that grows quadratically in $\beta_i$.
 
 To fix the inflation, form the candidate residual
-$\eps_i = s_i\,\tg_i$ for some scalar $s_i \in (0, 1]$, and require
+$\eps_i = s_i\,\tg_i$ for some scalar $s_i \in (0, 1]$ and require
 that the composed series have the same variance as the generator
-path:
-\begin{equation}
-  \Var(g_i) \;=\; \Var(\alpha_i + \beta_i\, g_m + \eps_i)
-            \;=\; \Var(\beta_i\, g_m + \eps_i)
-            \;=\; \sigma_{\gen,i}^2,
-  \label{eq:variance-target}
-\end{equation}
-where $\alpha_i$ drops out because it is a constant offset and adds
-nothing to the variance. Expanding the variance of the sum gives:
-\begin{equation}
-  \Var(\beta_i\, g_m + \eps_i) \;=\; \beta_i^2\, \Var(g_m)
-  \;+\; 2 \beta_i\, \Cov(g_m,\, \eps_i)
-  \;+\; \Var(\eps_i).
-  \label{eq:variance-expansion}
-\end{equation}
-Substituting $\eps_i = s_i\,\tg_i$ in \eqref{eq:variance-expansion}
-yields $\Var(\eps_i) = s_i^2\,\sigma_{\gen,i}^2$ and
-$\Cov(g_m,\, \eps_i) = s_i\,\Cov(g_m,\, \tg_i)$, so under the
-independence assumption $\Cov(\tg_i,\, g_m) \approx 0$ the middle
-(cross) term vanishes and the variance-target condition
-\eqref{eq:variance-target} reduces to:
-\begin{equation}
-  \beta_i^2\, \sigma_m^2 \;+\; s_i^2\, \sigma_{\gen,i}^2 \;=\; \sigma_{\gen,i}^2,
-\end{equation}
-which gives:
+path, $\Var(g_i) = \sigma_{\gen,i}^2$. Under the independence
+assumption $\Cov(\tg_i,\, g_m) \approx 0$, expanding
+$\Var(\beta_i\, g_m + s_i\,\tg_i)$ and solving for $s_i^2$ yields the
+variance scale (Online Appendix~\ref{sec:supp-sim-derivations}):
 \begin{equation}
   \boxed{\;s_i^2 \;=\; 1 \;-\; \frac{\beta_i^2\, \sigma_m^2}{\sigma_{\gen,i}^2}\;}
   \label{eq:scale}
@@ -182,16 +118,15 @@ piecewise rule is:
 \end{equation}
 Sign preservation in \eqref{eq:clip} keeps defensive
 (negative-$\beta$) assets defensive even when clipped. The floor $f$
-is a tunable knob; in the experiments below we use $f = 0.10$, which
+is a tunable knob; in our experiments we use $f = 0.10$, which
 guarantees that at least $10\%$ of each asset's variance comes from
 idiosyncratic noise. When $\beta_i$ is clipped we log a warning and
 persist both $\beta_i$ and $\beta_i^{\eff}$ so downstream consumers
 can audit the attenuation.
 
-The variance-preserving construction above targets
-$\Var(g_i) = \sigma_{\gen,i}^2$, which is the right target when the
-generator marginal carries information one wants to keep. For some
-assets the generator marginal is not really the quantity of interest;
+The variance-preserving construction defined by
+Eq.~\eqref{eq:scale} targets $\Var(g_i) = \sigma_{\gen,i}^2$. For
+some assets the generator marginal is not the quantity of interest;
 the SIM relationship to the market is. Index ETFs are the standard
 example: SPY against itself has $\beta = 1$, $R^2 = 1$,
 $\sigma_\eps = 0$ exactly; QQQ against SPY has $R^2 \approx 0.84$,
@@ -206,23 +141,24 @@ ETFs above $0.80$ and the most market-like single names below $0.65$
 (Fig.~\ref{fig:r2_distribution}), so $R^2_{\mathrm{preserve}} = 0.80$
 captures the trackers without sweeping in any genuinely idiosyncratic
 name. For any asset with $R^2_{i,\real} \ge R^2_{\mathrm{preserve}}$,
-the population $R^2$ identity for \eqref{eq:sim-composition} is:
-\begin{equation}
-  R^2 \;=\; \frac{\beta_i^2\, \sigma_m^2}{\beta_i^2\, \sigma_m^2 + \sigma_{\eps,i}^2}.
-\end{equation}
-This inverts to give the residual variance that hits the
-calibrated $R^2$:
+inverting the population $R^2$ identity for
+Eq.~\eqref{eq:sim-composition} for the residual variance that hits
+the calibrated $R^2$ gives (Online
+Appendix~\ref{sec:supp-sim-derivations}):
 \begin{equation}
   \boxed{\;\sigma_{\eps,\mathrm{target}}^2 \;=\; \beta_i^2\, \sigma_m^2 \cdot
     \frac{1 - R^2_{i,\real}}{R^2_{i,\real}}\;}
   \label{eq:r2-target}
 \end{equation}
-Draw $\tg_i$ from the ticker's generator and rescale:
+The residual that achieves this target variance is the generator
+path $\tg_i$ rescaled by the ratio of target to generator standard
+deviation:
 \begin{equation}
-  \eps_i \;=\; \sqrt{\frac{\sigma_{\eps,\mathrm{target}}^2}{\sigma_{\gen,i}^2}}\,\tg_i,
+  \eps_i \;=\; \left(\sqrt{\frac{\sigma_{\eps,\mathrm{target}}^2}{\sigma_{\gen,i}^2}}\,\right)\tg_i,
   \label{eq:r2-rescale}
 \end{equation}
-then copula-reorder and compose as in \eqref{eq:sim-composition}. The
+which can then be copula-reordered and composed via
+\eqref{eq:sim-composition}. The
 construction recovers both calibrated quantities by design:
 $\hat\beta \to \beta_i$ in the large-$T$ limit because $\eps_i$ is
 uncorrelated with $g_m$ after the rank reorder, and $R^2 \to
@@ -252,6 +188,15 @@ structure (empirical copula, t-copula, factor copula); reordering
 preserves the marginal variance of $\eps_i$, so the variance algebra
 of Eq.~\eqref{eq:scale} is unaffected and whatever cross-sectional
 structure is applied to $\eps_i$ passes through to $g_i$ unchanged.
+By construction the composed $g_i$ then satisfies all three
+preservation criteria (SIM recovery, marginal fidelity,
+cross-sectional dependence) in the large-$T$ limit; the verification
+algebra, including the tail behavior implied by the floor $f$, is
+laid out in Online Appendix~\ref{sec:supp-sim-derivations}. The
+construction injects \emph{contemporaneous} market dependence only;
+lagged dependence (lead-lag effects, market-driven volatility
+clustering) requires a richer construction, which we return to in
+the discussion.
 
 \begin{algorithm}[t]
 \caption{Hybrid SIM composition with variance correction.}
@@ -268,7 +213,7 @@ structure is applied to $\eps_i$ passes through to $g_i$ unchanged.
     \IF{$R^2_{i,\real} \ge R^2_{\mathrm{preserve}}$}
       \STATE $\sigma_{\eps,\mathrm{target}}^2 \gets \beta_i^2 \sigma_m^2 (1 - R^2_{i,\real})/R^2_{i,\real}$
         \hfill \COMMENT{Eq.~\eqref{eq:r2-target}}
-      \STATE $\eps_i \gets \sqrt{\sigma_{\eps,\mathrm{target}}^2 / \sigma_{\gen,i}^2}\,\tg_i$
+      \STATE $\eps_i \gets \left(\sqrt{\sigma_{\eps,\mathrm{target}}^2 / \sigma_{\gen,i}^2}\,\right)\tg_i$
       \STATE $\beta_i^{\eff} \gets \beta_i$;\quad branch $\gets$ $R^2$-preserving
     \ELSE
       \STATE $\rho_i \gets \beta_i^2 \sigma_m^2 / \sigma_{\gen,i}^2$
@@ -288,36 +233,3 @@ structure is applied to $\eps_i$ passes through to $g_i$ unchanged.
   \ENDFOR
 \end{algorithmic}
 \end{algorithm}
-
-By construction the composed series $g_i$ satisfies the three
-preservation criteria above (SIM recovery, marginal fidelity,
-cross-sectional dependence) in the large-$T$ limit. OLS of $g_i$ on
-$g_m$ recovers $\hat\alpha_i \to \alpha_i$ and
-$\hat\beta_i \to \beta_i^{\eff}$, with $\beta_i^{\eff} = \beta_i$
-unclipped and $\beta_i^{\eff}$ persisted alongside $\beta_i$ when the
-clip triggers. Marginal variance matches $\sigma_{\gen,i}^2$ on the
-variance-preserving branch, either exactly,
-$\Var(g_i) = \beta_i^2 \sigma_m^2 + s_i^2 \sigma_{\gen,i}^2
-  = \sigma_{\gen,i}^2$, or by the choice of $\beta_i^{\eff}$ in
-\eqref{eq:clip} under clipping; on the $R^2$-preserving branch the
-marginal variance instead matches
-$\beta_i^2 \sigma_m^2 / R^2_{i,\real}$, the value implied by the
-calibrated $(\beta_i, R^2_{i,\real})$ rather than by the generator
-marginal. Tail behavior on the variance-preserving branch follows
-from the floor: because at least $f\,\sigma_{\gen,i}^2$ of the
-variance is reserved for $\eps_i$, the tails inherited from $\tg_i$
-dominate whenever $(\beta_i^{\eff})^2 \sigma_m^2$ is small relative
-to those tails, while as $\beta_i$ grows the marginal of $g_i$
-tightens toward Gaussian along the market-driven axis, mildly for
-low-$\beta$ assets and noticeably at high $\beta$. The construction
-injects \emph{contemporaneous} market dependence only; lagged
-dependence (lead-lag effects, market-driven volatility clustering)
-requires a richer construction, which we return to in the discussion.
-The pipeline is modest in compute: fitting the $423$ per-asset
-JumpHMM marginals runs once offline against the $2014$--$2024$ price
-histories and is cached, while GARCH(1,1)-$t$ residual paths are
-simulated per (ticker, replication) at scoring time rather than
-cached, so each run consumes a fresh draw. The scoring loop across
-$423 \times 100 = 42{,}300$ per-ticker replications per composer
-runs in minutes on a single laptop, and the full six-composer sweep
-reported below completes within an hour on the same hardware.
