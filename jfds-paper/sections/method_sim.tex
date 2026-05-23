@@ -117,13 +117,28 @@ properties of the composed series.
 
 To fix the inflation, form the candidate residual
 $\eps_i = s_i\,\tg_i$ for some scalar $s_i \in (0, 1]$, and require
-that the composed series have the same variance as the generator:
+that the composed series have the same variance as the generator
+path:
 \begin{equation}
-  \Var(\beta_i\, g_m + \eps_i) \;=\; \sigma_{\gen,i}^2.
+  \Var(g_i) \;=\; \Var(\alpha_i + \beta_i\, g_m + \eps_i)
+            \;=\; \Var(\beta_i\, g_m + \eps_i)
+            \;=\; \sigma_{\gen,i}^2,
   \label{eq:variance-target}
 \end{equation}
-Under the independence assumption $\Cov(\tg_i, g_m) \approx 0$,
-the cross term in \eqref{eq:variance-target} vanishes:
+where $\alpha_i$ drops out because it is a constant offset and adds
+nothing to the variance. Expanding the variance of the sum gives:
+\begin{equation}
+  \Var(\beta_i\, g_m + \eps_i) \;=\; \beta_i^2\, \Var(g_m)
+  \;+\; 2 \beta_i\, \Cov(g_m,\, \eps_i)
+  \;+\; \Var(\eps_i).
+  \label{eq:variance-expansion}
+\end{equation}
+Substituting $\eps_i = s_i\,\tg_i$ in \eqref{eq:variance-expansion}
+yields $\Var(\eps_i) = s_i^2\,\sigma_{\gen,i}^2$ and
+$\Cov(g_m,\, \eps_i) = s_i\,\Cov(g_m,\, \tg_i)$, so under the
+independence assumption $\Cov(\tg_i,\, g_m) \approx 0$ the middle
+(cross) term vanishes and the variance-target condition
+\eqref{eq:variance-target} reduces to:
 \begin{equation}
   \beta_i^2\, \sigma_m^2 \;+\; s_i^2\, \sigma_{\gen,i}^2 \;=\; \sigma_{\gen,i}^2,
 \end{equation}
