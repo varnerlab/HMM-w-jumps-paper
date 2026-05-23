@@ -10,29 +10,30 @@
 %   (7) mechanism trace + branch behavior + clipping stress
 %   (8) robustness (hyperparameter grid + seed sweep)
 
-We validated the two-stage construction in two passes. The first pass
-asked whether the hybrid hidden Markov framework reproduced
-single-asset stylized facts on real SPY data, in-sample and
-out-of-sample, against six baseline generators. The second pass asked
-whether the variance-corrected single-index composer preserved those
-validated marginals when combined with a market factor across a
-$424$-ticker universe, against five alternative composers, and
-whether the resulting paths supported a downstream Value-at-Risk
-backtest at industry-standard coverage levels. Descriptive statistics
-confirmed that all three stylized facts were present in both the
-in-sample ($2014$--$2024$, $T = 2{,}766$) and out-of-sample ($2025$,
-$T = 249$) windows (Table~\ref{tab:descriptive_stats}): excess
-kurtosis of $7.7$ (IS) and $6.9$ (OoS) with Jarque-Bera rejection
-($p<0.001$), persistent volatility clustering (Ljung-Box on $|G_t|$
-rejected, $p<0.001$), and near-zero linear autocorrelation in raw
-returns \cite{famaEMH1970}.
+We first measured the empirical SPY data targets that any synthetic
+generator must reproduce. Descriptive statistics on the real SPY
+series confirmed all three stylized facts in both the in-sample
+($2014$--$2024$, $T = 2{,}766$) and out-of-sample ($2025$,
+$T = 249$) windows (Table~\ref{tab:descriptive_stats}): excess kurtosis with
+Jarque-Bera rejection, persistent volatility clustering, and
+near-zero linear autocorrelation in raw returns
+\cite{famaEMH1970}. With these data targets in hand, we organized
+the remainder around three sequential questions: whether the hybrid
+hidden Markov framework, once calibrated to those targets,
+reproduced them in-sample and out-of-sample against six baseline
+generators; whether the variance-corrected single-index composer
+preserved the validated marginals when combined with a market factor
+across a $424$-ticker universe against five alternative composers;
+and whether the resulting paths supported a downstream
+Value-at-Risk backtest at industry-standard coverage levels.
 
-With the stylized facts confirmed in both evaluation windows, we
-calibrated the jump mechanism. A multi-objective grid search over
+To meet those empirical targets, we calibrated the jump mechanism
+via a multi-objective grid search against the observed in-sample SPY
+series (Online Appendix~\ref{sec:supp-pseudo}). The grid spanned
 $\epsilon \in [10^{-4},\, 2.5 \times 10^{-2}]$ and
-$\lambda \in [10,\, 160]$, with $200$ simulated paths per grid point,
-identified the optimal values $\epsilon^{*} = 10^{-4}$ and
-$\lambda^{*} = 100$ (Online Appendix~\ref{sec:supp-pseudo}). The
+$\lambda \in [10,\, 160]$ with $200$ simulated paths per grid point,
+identifying the optimal values $\epsilon^{*} = 10^{-4}$ and
+$\lambda^{*} = 100$. The
 optimal $\lambda^{*} = 100$ was an interior point of the grid,
 confirming that the mean jump duration was identifiable from data;
 $\epsilon^{*} = 10^{-4}$ fell at the lower boundary of the $\epsilon$
@@ -175,10 +176,11 @@ Appendix~\ref{sec:supp-cross-asset}).
 
 Having validated the per-asset marginals on single-asset stylized
 facts in both windows, we turned to the multi-asset composition
-pipeline and asked whether those validated marginals plugged into a
-multi-asset construction without breaking either target. We
-evaluated six composers on a fixed set of per-asset JumpHMM
-marginals calibrated against the real SPY growth-rate path. This
+pipeline (Algorithm~\ref{alg:hybrid}) and asked whether those
+validated marginals plugged into a multi-asset construction without
+breaking either target. We evaluated six composers on a fixed set of
+per-asset JumpHMM marginals calibrated against the real SPY
+growth-rate path. This
 isolated the effect of the composition rule from the effect of
 market-path randomness: all composers consumed the same real SPY
 history and the same per-ticker innovation draw, so metric
@@ -235,14 +237,14 @@ reorder is outside the scope of the per-ticker evaluation reported
 here.
 
 For every composed series we computed three metric families against
-the ticker's real growth-rate history: SIM recovery via OLS on the
+the ticker's real growth-rate history (metric definitions in Online
+Appendix~\ref{sec:supp-validation}): SIM recovery via OLS on the
 market path, reporting the absolute deviations
 $|\hat\beta - \beta|$ and $|\hat R^2 - R^2_{\real}|$; marginal
 fidelity via Kolmogorov--Smirnov (KS) and Anderson--Darling (AD)
 two-sample $p$-values against the real marginal, plus
 Wasserstein-1 distance, excess kurtosis, and the Hill upper-tail
-index on the upper $5\%$ order statistics of $|g|$ (definitions in
-Online Appendix~\ref{sec:supp-validation}); and variance
+index on the upper $5\%$ order statistics of $|g|$; and variance
 preservation via the ratio of composed to generator sample
 variance. Pass rates were reported at $\alpha = 0.05$, with
 $R = 100$ replications per ticker yielding aggregates over
@@ -303,13 +305,13 @@ full-return generator even when the rescaling is applied; block
 bootstrap and GARCH, by fitting their own residual generators,
 reproduced the empirical residual series but with slightly
 lighter tails ($\kappa = 6.68$ and $6.04$; Hill $0.330$ and
-$0.318$) than either JumpHMM-based recipe. The downstream
-consequence of the body-fidelity gap was the question a
-per-ticker one-day Value-at-Risk backtest was designed to answer
-(Table~\ref{tab:var}):
+$0.318$) than either JumpHMM-based recipe.
 
-at $\alpha = 0.99$ the nominal exceedance rate is $1\%$; the naive composer
-under-breached at $0.67\%$ and the Gaussian baseline
+To test whether the body-fidelity gap propagated into Value-at-Risk
+accuracy, we ran a per-ticker one-day VaR backtest on the same
+universe (Table~\ref{tab:var}). At $\alpha = 0.99$ the nominal
+exceedance rate is $1\%$; the naive composer under-breached at
+$0.67\%$ and the Gaussian baseline
 over-breached at $1.40\%$, both failing Kupiec unconditional
 coverage on the majority of the universe ($45$ and $47\%$ pass
 rates), while the hybrid, JumpHMM-on-residuals, block bootstrap,
@@ -346,11 +348,10 @@ without requiring a separate fitting stage.
 \end{table}
 
 Having established that body-fidelity did not translate into VaR
-accuracy, we traced where the KS advantage over the naive
-baseline came from. We plotted per-ticker KS pass rate and
-per-ticker marginal variance ratio
-$\mathrm{Var}(g) / \sigma_{\gen}^2$ as functions of the calibrated
-$\beta$ (Fig.~\ref{fig:preservation}). The variance-ratio panel made the mechanism explicit: the naive
+accuracy, we traced where the KS advantage over the naive baseline
+came from by plotting per-ticker KS pass rate and per-ticker
+marginal variance ratio $\mathrm{Var}(g) / \sigma_{\gen}^2$ against
+the calibrated $\beta$ (Fig.~\ref{fig:preservation}). The variance-ratio panel made the mechanism explicit: the naive
 scatter traced the theoretical curve $1 + \rho_i$, overshooting the
 generator variance by $50\%$ to $75\%$ at high $\beta$, while hybrid
 sat on the unit line by construction. The KS-pass-rate panel showed
