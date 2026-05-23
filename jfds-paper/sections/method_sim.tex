@@ -43,9 +43,10 @@ Fig.~\ref{fig:cov_diag}); and a per-asset \emph{calibration triple}
 $(\alpha_i, \beta_i, R^2_{i,\real})$ obtained by OLS of the asset's
 real excess growth-rate history on $g_m$. In our experiments, $g_m$
 is the SPY total-return excess growth-rate series and $\tg_i$ is
-produced by the HMM-WJ model; the SIM composition is
-generator-agnostic, using only $\tg_i$ and $\sigma_{\gen,i}^2 =
-\Var(\tg_i)$ with no parametric form assumed for the marginal.
+produced by the HMM-WJ model (Algorithm~\ref{alg:hmmwj}); the SIM
+composition is generator-agnostic, using only $\tg_i$ and
+$\sigma_{\gen,i}^2 = \Var(\tg_i)$ with no parametric form assumed
+for the marginal.
 Given these inputs, we want the synthetic composition
 $g_i = \alpha_i + \beta_i^{\eff}\, g_m + \eps_i$, with effective
 slope $\beta_i^{\eff}$ (equal to $\beta_i$ on the unclipped branch

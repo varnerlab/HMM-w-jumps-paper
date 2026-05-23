@@ -28,7 +28,8 @@ and whether the resulting paths supported a downstream
 Value-at-Risk backtest at industry-standard coverage levels.
 
 To meet those empirical targets, we calibrated the jump mechanism
-via a multi-objective grid search against the observed in-sample SPY
+of the HMM-WJ simulator (Algorithm~\ref{alg:hmmwj}) via a
+multi-objective grid search against the observed in-sample SPY
 series (Online Appendix~\ref{sec:supp-pseudo}). The grid spanned
 $\epsilon \in [10^{-4},\, 2.5 \times 10^{-2}]$ and
 $\lambda \in [10,\, 160]$ with $200$ simulated paths per grid point,
@@ -102,10 +103,10 @@ Parameters estimated         &     0 &     2 &     2 &     3 & 37{,}954 &    18 
 \end{tabular}}
 \end{table}
 
-With the model calibrated, we benchmarked HMM-WJ against seven
-alternative generators on $1{,}000$ synthetic paths of $2{,}766$
-trading days each (Table~\ref{tab:model_comparison},
-Figure~\ref{fig:model_comparison}). Bootstrap resampling set the
+With the model calibrated, we benchmarked HMM-WJ
+(Algorithm~\ref{alg:hmmwj}) against seven alternative generators on
+$1{,}000$ synthetic paths of $2{,}766$ trading days each
+(Table~\ref{tab:model_comparison}, Figure~\ref{fig:model_comparison}). Bootstrap resampling set the
 non-parametric ceiling ($100\%$ KS, $100\%$ coverage), while the
 Gaussian i.i.d.\ baseline ($0\%$ KS) confirmed that thin-tailed
 models were inadequate. Between these anchors, every model excelled
