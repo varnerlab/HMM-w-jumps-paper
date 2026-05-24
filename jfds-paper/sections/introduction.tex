@@ -1,106 +1,109 @@
 % introduction.tex
-% Four-paragraph structure:
-% (1) practitioner motivation;
-% (2) the two gaps the paper closes (single-asset stylized facts; multi-asset
-%     factor structure with marginal preservation) + connective tissue;
-% (3) the two-stage contribution (HMM-WJ marginals + variance-corrected SIM);
-% (4) validation roadmap and pointer to the bias-correction caveat.
+% Three-paragraph structure (JDIQ-style narrative flow):
+% (1) synthetic data motivation, stylized facts, Fig 1;
+% (2) survey of generative approaches and their failure modes on the
+%     stylized facts;
+% (3) contribution: hybrid HMM-WJ on a 424-asset universe, validated
+%     against seven baselines, with the multi-asset extension folded
+%     in as one sentence and a closing contrast.
 
-Synthetic equity return paths are an input to many quantitative-finance
-workflows. Stress-testing a portfolio against plausible but unobserved
-market scenarios, validating a portfolio optimization algorithm under
-conditions the historical record does not contain, augmenting limited
-training sets for machine-learning pipelines, and backtesting an
-allocator across many independent draws all require synthetic data that
-behave statistically like real markets in the dimensions the downstream
-task cares about \cite{assefaEtAl2020, jordonEtAl2022}. Empirical equity
-excess growth rates exhibit three statistical regularities a faithful
-generative framework must reproduce together: a heavy-tailed
-(leptokurtic) marginal distribution, negligible linear autocorrelation
-of raw returns, and persistent volatility clustering, in which large
-changes are followed by large changes of either sign and small changes
-by small changes \cite{mandelbrot1963, cont2001, stengerEtAl2024}. These
+Generating synthetic financial time series that faithfully preserve
+the statistical properties of real market data is a central challenge
+in quantitative finance. Synthetic paths are used for stress testing
+risk models against plausible but unobserved market scenarios,
+validating portfolio optimization algorithms, augmenting limited
+training sets for machine-learning pipelines, and Monte Carlo
+backtesting of allocators across many independent draws
+\cite{assefaEtAl2020, jordonEtAl2022}. Empirical equity excess growth
+rates exhibit three statistical regularities a faithful generative
+framework must reproduce together: a heavy-tailed (leptokurtic)
+marginal distribution, negligible linear autocorrelation of raw
+returns, and persistent volatility clustering, in which large changes
+are followed by large changes of either sign and small changes by
+small changes \cite{mandelbrot1963, cont2001, stengerEtAl2024}. All
+three are visible in SPY daily excess growth rates over $2014$--$2024$
+(Fig.~\ref{fig:empirical_motivation}): the marginal density is
+sharply peaked with heavy tails that a Gaussian fit cannot reach, the
+quantile-quantile plot bends away from the Gaussian line at both
+ends, and the autocorrelation of absolute growth rates decays slowly
+while the autocorrelation of raw growth rates sits near zero. These
 regularities, called \emph{stylized facts}, are the benchmark for
 synthetic financial data.
 
-Two gaps in the literature leave practitioners without a drop-in
-solution. The first is the single-asset stylized-facts gap.
-Existing generative approaches each excel at one of the three
-regularities and miss others. Generalized autoregressive conditional
-heteroscedasticity (GARCH) models \cite{engle1982, bollerslev1986}
-capture conditional variance dynamics but do not represent discrete
-regimes; stochastic-volatility and jump-diffusion models
-\cite{heston1993, merton1976} enrich tail behavior but lack volatility
-persistence after jumps; deep generative models
-\cite{hochreiterSchmidhuber1997, fischerKrauss2018, takahashiEtAl2019,
-kwonLee2024, yoonEtAl2019timegan} can learn complex distributions but
-struggle to reproduce volatility clustering \cite{stengerEtAl2024}.
-Hidden Markov models (HMMs) offer a probabilistic regime-switching
-structure \cite{rabinerJuang1986}, yet standard HMMs revert too quickly
-to central regimes after extreme events and fail to dwell in
-high-volatility tail states long enough to reproduce the empirical
-volatility-clustering profile \cite{rydenTerasvirtaAsbrink1998,
-bullaBulla2006}. The second gap is the multi-asset factor-structure
-gap. A per-asset generator that reproduces single-asset stylized facts
-on a given equity says nothing about how that equity should co-move
-with the market index or with other equities on the same day. The
-standard recipe for adding such cross-sectional structure is a linear
-factor model, either Sharpe's one-factor single-index model (SIM)
-\cite{sharpe1963} or a multi-factor variant such as Ross's arbitrage
-pricing theory \cite{rossAPT1976} or the Fama-French construction
-\cite{famaFrench1993}. Applied naively to a per-asset full-return
-generator, however, the SIM recipe inflates the marginal variance of
-the composed series quadratically in the factor loading, defeating the
-purpose of fitting a heavy-tailed generator in the first place. The
-opposite failure mode, drawing the residual from a Gaussian with
-variance taken from the real ordinary least squares fit, recovers the
-SIM coefficients exactly but erases the marginal structure entirely.
-Neither naive option satisfies both the stylized-facts requirement and
-the factor-structure requirement at once.
+\begin{figure}[tbp]
+    \centering
+    \includegraphics[width=\textwidth]{figs/Fig1-Empirical-Motivation.pdf}
+    \caption{\textbf{Empirical stylized facts of SPY daily excess growth
+    rates ($2014$--$2024$).} Panel~(a) shows the leptokurtic marginal
+    density; the Laplace maximum-likelihood fit tracks the empirical
+    peak and tails while the Gaussian fit does not. Panel~(b) confirms
+    heavy tails through a normal quantile-quantile plot, with departure
+    from the diagonal at both extremes. Panel~(c) shows the
+    autocorrelation function of raw excess growth rates, which sits
+    near zero across all lags and is consistent with the efficient
+    markets hypothesis. Panel~(d) shows the autocorrelation function
+    of absolute excess growth rates, which decays slowly and signals
+    the persistent volatility clustering that the jump-duration
+    extension is designed to reproduce.}
+    \label{fig:empirical_motivation}
+\end{figure}
 
-In this study, we introduce a two-stage construction that closes
-both gaps. The first stage is a hybrid hidden Markov framework that
+Existing generative approaches each excel at one of these regularities
+but fail at others. The GARCH conditional-variance family
+\cite{engle1982, bollerslev1986} captures volatility clustering but
+leaves light-tailed marginals unless fed a fat-tailed innovation and
+represents neither discrete regimes nor sudden jumps
+\cite{dieboldInoue2001}. Stochastic-volatility and jump-diffusion
+models \cite{heston1993, merton1976, kou2002} enrich tail behavior
+but offer no mechanism for persistence after a jump. Deep generative
+models \cite{takahashiEtAl2019, yoonEtAl2019timegan, kwonLee2024} can
+learn complex marginals yet routinely miss the absolute-return
+autocorrelation that defines volatility clustering. Hidden Markov
+models \cite{rabinerJuang1986} offer a probabilistic regime-switching
+structure, yet standard HMMs revert too quickly to central regimes
+after extreme events and fail to dwell in high-volatility tail states
+long enough to reproduce the empirical clustering profile
+\cite{rydenTerasvirtaAsbrink1998, bullaBulla2006}. Bridging this gap
+requires a framework that preserves distributional fidelity and
+temporal structure together while remaining computationally scalable
+to large asset universes.
+
+In this study, we developed a hybrid hidden Markov framework that
 discretizes continuous excess growth rates into Laplace
 quantile-defined states and augments regime switching with a
 two-parameter Poisson jump-duration mechanism. The Laplace partition
-bypasses the iterative Baum-Welch algorithm
-\cite{baumPetrieSoulesWeiss1970, bilmes1998} via direct frequentist
-counting of regime transitions, scaling the framework to a $424$-asset
-pipeline. The Poisson override forces the chain to dwell in
-high-volatility tail states for empirically realistic durations,
-closing the volatility-clustering gap that standard HMMs leave open.
-The per-state emissions are Student-$t$ with $\nu = 5$ degrees of
-freedom, which matched the empirical kurtosis to within $1.3\%$ on SPY
-where Normal emissions would underestimate by approximately $29\%$.
-The second stage is a variance-corrected single-index composition that
-takes the per-asset hybrid HMM marginal as input and rescales it by a
-closed-form scalar so the composed series inherits the generator's
-marginal variance while recovering the calibrated factor loading. A
-sign-preserving clip handles high-leverage assets where the market
-loading would otherwise exceed the generator variance, and a separate
-$R^2$-driven branch handles index-tracking assets where the calibrated
-coefficient of determination, rather than the generator marginal, is
-the quantity worth preserving. The same construction generalizes to
-multi-factor variants without changes to its structure.
-
-We validated both stages on a $424$-ticker US equity and ETF universe
-calibrated against the $2014$--$2024$ SPY history, with $2025$ held
-out for out-of-sample evaluation. The single-asset stage was assessed
-in-sample and out-of-sample against seven baselines (bootstrap
-resampling, Gaussian, Laplace, GARCH(1,1), a hidden semi-Markov model
-\cite{bullaBulla2006}, a hidden Markov model without jumps, and a
-Gated Recurrent Unit \cite{choEtAl2014gru} neural baseline) on
-Kolmogorov-Smirnov, Anderson-Darling, Wasserstein-1, and Hellinger
-pass rates for distributional fidelity, alongside the autocorrelation
-function of $|g|$ as a measure of volatility clustering. The
-multi-asset stage was assessed against five composers (the naive
-composition, a Gaussian single-index residual, a JumpHMM fit directly
-to OLS residuals, a Politis-Romano stationary bootstrap of the real
-residual history \cite{politisRomano1994}, and a per-ticker
-GARCH(1,1)-$t$ fit \cite{bollerslev1986}) on factor-loading recovery,
-marginal fidelity, and a per-ticker one-day Value-at-Risk backtest
-assessed by Kupiec's unconditional-coverage test. We close with a
-documented downstream-use caveat, an iid-residual
-diversification-return artifact under daily rebalancing, addressed by
-a calibrated location-shift bias correction that preserves rank order,
-drawdown shape, and volatility envelope while shifting only the level.
+lets the transition matrix be estimated by direct frequentist
+counting, bypassing the iterative Baum-Welch algorithm
+\cite{baumPetrieSoulesWeiss1970, bilmes1998} and its sensitivity to
+initialization, and scales to a $424$-asset pipeline. The Poisson
+override forces the chain to dwell in high-volatility tail states for
+empirically realistic durations, closing the volatility-clustering
+gap that standard HMMs leave open. Within each state we used a
+Student-$t$ emission with $\nu = 5$ degrees of freedom, which matched
+the empirical kurtosis to within $1.3\%$ on SPY where Normal
+emissions underestimated by approximately $29\%$. We validated the
+framework on a $424$-ticker US equity and ETF universe calibrated
+against the $2014$--$2024$ SPY history, with $2025$ held out for
+out-of-sample evaluation, scoring synthetic paths against seven
+alternative generators (bootstrap, Gaussian, Laplace, GARCH(1,1), a
+hidden semi-Markov model \cite{bullaBulla2006}, a hidden Markov model
+without jumps, and a Gated Recurrent Unit \cite{choEtAl2014gru}
+neural baseline) on Kolmogorov-Smirnov, Anderson-Darling,
+Wasserstein-$1$, and Hellinger pass rates for distributional
+fidelity, together with the autocorrelation function of absolute
+growth rates for volatility clustering. Extending the framework to
+multi-asset workflows required addressing a known limitation of the
+naive single-index composition: drawing the residual from a per-asset
+generator inflates the composed marginal variance quadratically in
+the factor loading. We closed that limitation with a closed-form
+variance-correction scalar that lets the hybrid HMM marginal enter
+the factor pipeline while preserving its variance, and we evaluated
+the full pipeline through a per-ticker one-day Value-at-Risk backtest
+scored by Kupiec's unconditional-coverage test; an iid-residual
+diversification-return artifact under daily rebalancing was
+addressed through a calibrated location-shift bias correction. We
+found that no single alternative reproduced both quality dimensions
+simultaneously: GARCH reproduced volatility clustering but failed
+distributional tests, the standard HMM passed distributional tests
+but could not generate volatility clustering, and only the hybrid
+HMM with jumps avoided the failure mode of each alternative.

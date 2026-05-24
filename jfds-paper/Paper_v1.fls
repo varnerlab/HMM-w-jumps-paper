@@ -356,6 +356,11 @@ INPUT /usr/local/texlive/2025/texmf-dist/fonts/vf/adobe/times/ptmb8t.vf
 INPUT /usr/local/texlive/2025/texmf-dist/fonts/tfm/adobe/times/ptmb8r.tfm
 INPUT /usr/local/texlive/2025/texmf-dist/fonts/vf/adobe/times/ptmr8t.vf
 INPUT /usr/local/texlive/2025/texmf-dist/fonts/tfm/adobe/times/ptmr8r.tfm
+INPUT ./figs/Fig1-Empirical-Motivation.pdf
+INPUT ./figs/Fig1-Empirical-Motivation.pdf
+INPUT ./figs/Fig1-Empirical-Motivation.pdf
+INPUT ./figs/Fig1-Empirical-Motivation.pdf
+INPUT ./figs/Fig1-Empirical-Motivation.pdf
 INPUT /usr/local/texlive/2025/texmf-dist/fonts/vf/adobe/times/ptmri8t.vf
 INPUT /usr/local/texlive/2025/texmf-dist/fonts/tfm/adobe/times/ptmri8r.tfm
 INPUT ./sections/related.tex
@@ -397,13 +402,13 @@ INPUT /usr/local/texlive/2025/texmf-dist/fonts/tfm/public/cm/cmbx12.tfm
 INPUT /usr/local/texlive/2025/texmf-dist/fonts/tfm/public/cm/cmmib10.tfm
 INPUT /usr/local/texlive/2025/texmf-dist/fonts/tfm/public/cm/cmbsy10.tfm
 INPUT /usr/local/texlive/2025/texmf-dist/fonts/tfm/adobe/times/ptmri8t.tfm
-INPUT /usr/local/texlive/2025/texmf-dist/fonts/vf/adobe/times/ptmri8t.vf
-INPUT /usr/local/texlive/2025/texmf-dist/fonts/tfm/adobe/times/ptmri8r.tfm
 INPUT ./sections/method_sim.tex
 INPUT ./sections/method_sim.tex
 INPUT ./sections/method_sim.tex
 INPUT ./sections/method_sim.tex
 INPUT sections/method_sim.tex
+INPUT /usr/local/texlive/2025/texmf-dist/fonts/vf/adobe/times/ptmri8t.vf
+INPUT /usr/local/texlive/2025/texmf-dist/fonts/tfm/adobe/times/ptmri8r.tfm
 INPUT /usr/local/texlive/2025/texmf-dist/fonts/tfm/adobe/times/ptmr8t.tfm
 INPUT /usr/local/texlive/2025/texmf-dist/fonts/tfm/adobe/times/ptmr8t.tfm
 INPUT ./sections/results.tex
@@ -480,6 +485,11 @@ INPUT ./figs/Fig6-Statistical-Validation.pdf
 INPUT ./figs/Fig6-Statistical-Validation.pdf
 INPUT ./figs/Fig6-Statistical-Validation.pdf
 INPUT ./figs/Fig6-Statistical-Validation.pdf
+INPUT ./figs/Fig3-Model-Internals.pdf
+INPUT ./figs/Fig3-Model-Internals.pdf
+INPUT ./figs/Fig3-Model-Internals.pdf
+INPUT ./figs/Fig3-Model-Internals.pdf
+INPUT ./figs/Fig3-Model-Internals.pdf
 INPUT ./sections/tables/table2_by_branch.tex
 INPUT ./sections/tables/table2_by_branch.tex
 INPUT ./sections/tables/table2_by_branch.tex
@@ -510,6 +520,7 @@ INPUT Paper_v1.aux
 INPUT ./Paper_v1.out
 INPUT ./Paper_v1.out
 INPUT /usr/local/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx10.pfb
+INPUT /usr/local/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx9.pfb
 INPUT /usr/local/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/cm/cmex10.pfb
 INPUT /usr/local/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi10.pfb
 INPUT /usr/local/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi5.pfb

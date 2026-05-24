@@ -14,18 +14,10 @@ We first measured the empirical SPY data targets that any synthetic
 generator must reproduce. Descriptive statistics on the real SPY
 series confirmed all three stylized facts in both the in-sample
 ($2014$--$2024$, $T = 2{,}766$) and out-of-sample ($2025$,
-$T = 249$) windows (Table~\ref{tab:descriptive_stats}): excess kurtosis with
-Jarque-Bera rejection, persistent volatility clustering, and
-near-zero linear autocorrelation in raw returns
-\cite{famaEMH1970}. With these data targets in hand, we organized
-the remainder around three sequential questions: whether the hybrid
-hidden Markov framework, once calibrated to those targets,
-reproduced them in-sample and out-of-sample against six baseline
-generators; whether the variance-corrected single-index composer
-preserved the validated marginals when combined with a market factor
-across a $424$-ticker universe against five alternative composers;
-and whether the resulting paths supported a downstream
-Value-at-Risk backtest at industry-standard coverage levels.
+$T = 249$) windows (Table~\ref{tab:descriptive_stats}): excess
+kurtosis with Jarque-Bera rejection, persistent volatility
+clustering, and near-zero linear autocorrelation in raw returns
+\cite{famaEMH1970}.
 
 To meet those empirical targets, we calibrated the jump mechanism
 of the HMM-WJ simulator (Algorithm~\ref{alg:hmmwj}) via a
@@ -119,7 +111,11 @@ ACF-MAE gap but produced a $0.6\%$ KS pass rate. The hidden
 semi-Markov model (HSMM) \cite{bullaBulla2006} occupied a middle
 ground ($82\%$ KS) but its coarse $8$-state partition could not
 capture the full growth-rate distribution, as reflected by a $38\%$
-kurtosis gap and only $68.7\%$ quantile coverage. No single model
+kurtosis gap and only $68.7\%$ quantile coverage; a head-to-head
+isolation of the persistence mechanism (HMM-WJ vs HSMM) and the
+emission family (Gaussian vs Student-$t$) is given in
+Table~\ref{tab:emission_hsmm} of
+Sec.~\ref{sec:supp-emission-hsmm}. No single model
 captured both quality dimensions. Both HMM variants achieved the
 highest distributional fidelity among all parametric models, with
 HMM-WJ's pass rates $2$--$8$ percentage points below HMM-NJ's, a
@@ -175,11 +171,11 @@ Appendix~\ref{sec:supp-cross-asset}).
   \label{fig:model_comparison}
 \end{figure}
 
-Having validated the per-asset marginals on single-asset stylized
-facts in both windows, we turned to the multi-asset composition
-pipeline (Algorithm~\ref{alg:hybrid}) and asked whether those
-validated marginals plugged into a multi-asset construction without
-breaking either target. We evaluated six composers on a fixed set of
+With the per-asset marginals validated on single-asset stylized
+facts in both windows, we evaluated the multi-asset composition
+(Algorithm~\ref{alg:hybrid}) and asked whether those validated
+marginals composed into a multi-asset construction without breaking
+either target. We evaluated six composers on a fixed set of
 per-asset JumpHMM marginals calibrated against the real SPY
 growth-rate path. This
 isolated the effect of the composition rule from the effect of
@@ -322,11 +318,11 @@ $1.09\%$ respectively), and their Kupiec pass rates clustered
 between $72$ and $86\%$. Hybrid and JumpHMM-on-residuals were
 statistically indistinguishable on this test: the $25$
 percentage-point body-fidelity gap between them did not translate
-to a Value-at-Risk accuracy difference. Hybrid's standalone
-advantage is therefore scoped: it is the right rule when a
-full-return per-asset generator is the given input, and it
-delivers tail accuracy on par with a dedicated residual generator
-without requiring a separate fitting stage.
+to a Value-at-Risk accuracy difference. Hybrid's scope was
+therefore the case where the per-asset generator was specified in
+full-return units; in that case it delivered tail accuracy on par
+with a dedicated residual generator without requiring a separate
+fitting stage.
 
 \FloatBarrier
 % --- Table: VaR backtest ---
@@ -341,8 +337,8 @@ without requiring a separate fitting stage.
     of the exceedance rate, in percentage points. \textit{Kupiec pass}:
     fraction of tickers on which the Kupiec unconditional-coverage
     test $p$-value exceeds $0.05$. Hybrid and JumpHMM-on-residuals are statistically
-    indistinguishable at both coverage levels; both strawman composers
-    (naive, Gaussian SIM) fail coverage on a majority of the universe.}
+    indistinguishable at both coverage levels; the naive and
+    Gaussian SIM composers fail coverage on a majority of the universe.}
   \label{tab:var}
   \small
   \input{sections/tables/table5_var_backtest}

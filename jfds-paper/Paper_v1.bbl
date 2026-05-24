@@ -1,4 +1,4 @@
-\begin{thebibliography}{53}
+\begin{thebibliography}{57}
 \providecommand{\natexlab}[1]{#1}
 \providecommand{\url}[1]{\texttt{#1}}
 \expandafter\ifx\csname urlstyle\endcsname\relax
@@ -58,6 +58,13 @@ Tim Bollerslev.
   1986.
 \newblock \doi{10.1016/0304-4076(86)90063-1}.
 
+\bibitem[Diebold and Inoue(2001)]{dieboldInoue2001}
+Francis~X. Diebold and Atsushi Inoue.
+\newblock Long memory and regime switching.
+\newblock \emph{Journal of Econometrics}, 105\penalty0 (1--2):\penalty0
+  131--159, 2001.
+\newblock \doi{10.1016/S0304-4076(01)00073-2}.
+
 \bibitem[Heston(1993)]{heston1993}
 Steven~L. Heston.
 \newblock A closed-form solution for options with stochastic volatility with
@@ -73,19 +80,12 @@ Robert~C. Merton.
   125--144, 1976.
 \newblock \doi{10.1016/0304-405X(76)90022-2}.
 
-\bibitem[Hochreiter and Schmidhuber(1997)]{hochreiterSchmidhuber1997}
-Sepp Hochreiter and J\"{u}rgen Schmidhuber.
-\newblock Long short-term memory.
-\newblock \emph{Neural Computation}, 9\penalty0 (8):\penalty0 1735--1780, 1997.
-\newblock \doi{10.1162/neco.1997.9.8.1735}.
-
-\bibitem[Fischer and Krauss(2018)]{fischerKrauss2018}
-Thomas Fischer and Christopher Krauss.
-\newblock Deep learning with long short-term memory networks for financial
-  market predictions.
-\newblock \emph{European Journal of Operational Research}, 270\penalty0
-  (2):\penalty0 654--669, 2018.
-\newblock \doi{10.1016/j.ejor.2017.11.054}.
+\bibitem[Kou(2002)]{kou2002}
+S.~G. Kou.
+\newblock A jump-diffusion model for option pricing.
+\newblock \emph{Management Science}, 48\penalty0 (8):\penalty0 1086--1101,
+  2002.
+\newblock \doi{10.1287/mnsc.48.8.1086.166}.
 
 \bibitem[Takahashi et~al.(2019)Takahashi, Chen, and
   Tanaka-Ishii]{takahashiEtAl2019}
@@ -95,19 +95,19 @@ Shuntaro Takahashi, Yu~Chen, and Kumiko Tanaka-Ishii.
   527:\penalty0 121261, 2019.
 \newblock \doi{10.1016/j.physa.2019.121261}.
 
-\bibitem[Kwon and Lee(2024)]{kwonLee2024}
-Sohyeon Kwon and Yongjae Lee.
-\newblock Can {GANs} learn the stylized facts of financial time series?
-\newblock In \emph{Proceedings of the 5th {ACM} International Conference on AI
-  in Finance}, pages 126--133, 2024.
-\newblock \doi{10.1145/3677052.3698661}.
-
 \bibitem[Yoon et~al.(2019)Yoon, Jarrett, and van~der
   Schaar]{yoonEtAl2019timegan}
 Jinsung Yoon, Daniel Jarrett, and Mihaela van~der Schaar.
 \newblock Time-series generative adversarial networks.
 \newblock In \emph{Advances in Neural Information Processing Systems},
   volume~32, 2019.
+
+\bibitem[Kwon and Lee(2024)]{kwonLee2024}
+Sohyeon Kwon and Yongjae Lee.
+\newblock Can {GANs} learn the stylized facts of financial time series?
+\newblock In \emph{Proceedings of the 5th {ACM} International Conference on AI
+  in Finance}, pages 126--133, 2024.
+\newblock \doi{10.1145/3677052.3698661}.
 
 \bibitem[Rabiner and Juang(1986)]{rabinerJuang1986}
 L.~Rabiner and B.~Juang.
@@ -131,26 +131,6 @@ Jan Bulla and Ingo Bulla.
 \newblock \emph{Computational Statistics \& Data Analysis}, 51\penalty0
   (4):\penalty0 2192--2209, 2006.
 \newblock \doi{10.1016/j.csda.2006.07.021}.
-
-\bibitem[Sharpe(1963)]{sharpe1963}
-William~F. Sharpe.
-\newblock A simplified model for portfolio analysis.
-\newblock \emph{Management Science}, 9\penalty0 (2):\penalty0 277--293, 1963.
-\newblock \doi{10.1287/mnsc.9.2.277}.
-
-\bibitem[Ross(1976)]{rossAPT1976}
-Stephen~A. Ross.
-\newblock The arbitrage theory of capital asset pricing.
-\newblock \emph{Journal of Economic Theory}, 13\penalty0 (3):\penalty0
-  341--360, 1976.
-\newblock \doi{10.1016/0022-0531(76)90046-6}.
-
-\bibitem[Fama and French(1993)]{famaFrench1993}
-Eugene~F. Fama and Kenneth~R. French.
-\newblock Common risk factors in the returns on stocks and bonds.
-\newblock \emph{Journal of Financial Economics}, 33\penalty0 (1):\penalty0
-  3--56, 1993.
-\newblock \doi{10.1016/0304-405X(93)90023-5}.
 
 \bibitem[Baum et~al.(1970)Baum, Petrie, Soules, and
   Weiss]{baumPetrieSoulesWeiss1970}
@@ -176,12 +156,47 @@ Kyunghyun Cho, Bart van Merrienboer, Caglar Gulcehre, Dzmitry Bahdanau, Fethi
   statistical machine translation.
 \newblock \emph{arXiv preprint arXiv:1406.1078}, 2014.
 
-\bibitem[Politis and Romano(1994)]{politisRomano1994}
-Dimitris~N. Politis and Joseph~P. Romano.
-\newblock The stationary bootstrap.
-\newblock \emph{Journal of the American Statistical Association}, 89\penalty0
-  (428):\penalty0 1303--1313, 1994.
-\newblock \doi{10.1080/01621459.1994.10476870}.
+\bibitem[Lux and Marchesi(1999)]{luxMarchesi1999}
+Thomas Lux and Michele Marchesi.
+\newblock Scaling and criticality in a stochastic multi-agent model of a
+  financial market.
+\newblock \emph{Nature}, 397:\penalty0 498--500, 1999.
+\newblock \doi{10.1038/17290}.
+
+\bibitem[Cont and Bouchaud(2000)]{contBouchaud2000}
+Rama Cont and Jean-Philippe Bouchaud.
+\newblock Herd behavior and aggregate fluctuations in financial markets.
+\newblock \emph{Macroeconomic Dynamics}, 4\penalty0 (2):\penalty0 170--196,
+  2000.
+\newblock \doi{10.1017/S1365100500015029}.
+
+\bibitem[Farmer and Joshi(2002)]{farmerJoshi2002}
+J.~Doyne Farmer and Shareen Joshi.
+\newblock The price dynamics of common trading strategies.
+\newblock \emph{Journal of Economic Behavior \& Organization}, 49\penalty0
+  (2):\penalty0 149--171, 2002.
+\newblock \doi{10.1016/S0167-2681(02)00065-3}.
+
+\bibitem[LeBaron(2006)]{lebaron2006}
+Blake LeBaron.
+\newblock Agent-based computational finance.
+\newblock In Leigh Tesfatsion and Kenneth~L. Judd, editors, \emph{Handbook of
+  Computational Economics}, volume~2, pages 1187--1233. Elsevier, 2006.
+\newblock \doi{10.1016/S1574-0021(05)02024-1}.
+
+\bibitem[Arthur(2021)]{arthur2021}
+W.~Brian Arthur.
+\newblock Foundations of complexity economics.
+\newblock \emph{Nature Reviews Physics}, 3:\penalty0 136--145, 2021.
+\newblock \doi{10.1038/s42254-020-00273-3}.
+
+\bibitem[Farmer(2025)]{farmer2025}
+J.~Doyne Farmer.
+\newblock Quantitative agent-based models: A promising alternative for
+  macroeconomics.
+\newblock \emph{Oxford Review of Economic Policy}, 41\penalty0 (2):\penalty0
+  571--590, 2025.
+\newblock \doi{10.1093/oxrep/graf027}.
 
 \bibitem[Black and Scholes(1973)]{blackScholes1973}
 Fischer Black and Myron Scholes.
@@ -204,26 +219,12 @@ G.~William Schwert.
   1989.
 \newblock \doi{10.1111/j.1540-6261.1989.tb02647.x}.
 
-\bibitem[Diebold and Inoue(2001)]{dieboldInoue2001}
-Francis~X. Diebold and Atsushi Inoue.
-\newblock Long memory and regime switching.
-\newblock \emph{Journal of Econometrics}, 105\penalty0 (1--2):\penalty0
-  131--159, 2001.
-\newblock \doi{10.1016/S0304-4076(01)00073-2}.
-
 \bibitem[Stein and Stein(1991)]{steinStein1991}
 Elias~M. Stein and Jeremy~C. Stein.
 \newblock Stock price distributions with stochastic volatility: An analytic
   approach.
 \newblock \emph{The Review of Financial Studies}, 4\penalty0 (4):\penalty0
   727--752, 1991.
-
-\bibitem[Kou(2002)]{kou2002}
-S.~G. Kou.
-\newblock A jump-diffusion model for option pricing.
-\newblock \emph{Management Science}, 48\penalty0 (8):\penalty0 1086--1101,
-  2002.
-\newblock \doi{10.1287/mnsc.48.8.1086.166}.
 
 \bibitem[Au~Yeung et~al.(2020)Au~Yeung, Wei, Chan, Lau, and
   Yiu]{auYeungEtAl2020}
@@ -270,6 +271,26 @@ David Berghaus, Kostadin Cvejoski, Patrick Seifner, C\'{e}sar Ojeda, and
 \newblock Foundation inference models for {Markov} jump processes.
 \newblock In \emph{Proceedings of the 38th International Conference on Neural
   Information Processing Systems}, pages 129407--129442, 2024.
+
+\bibitem[Sharpe(1963)]{sharpe1963}
+William~F. Sharpe.
+\newblock A simplified model for portfolio analysis.
+\newblock \emph{Management Science}, 9\penalty0 (2):\penalty0 277--293, 1963.
+\newblock \doi{10.1287/mnsc.9.2.277}.
+
+\bibitem[Ross(1976)]{rossAPT1976}
+Stephen~A. Ross.
+\newblock The arbitrage theory of capital asset pricing.
+\newblock \emph{Journal of Economic Theory}, 13\penalty0 (3):\penalty0
+  341--360, 1976.
+\newblock \doi{10.1016/0022-0531(76)90046-6}.
+
+\bibitem[Fama and French(1993)]{famaFrench1993}
+Eugene~F. Fama and Kenneth~R. French.
+\newblock Common risk factors in the returns on stocks and bonds.
+\newblock \emph{Journal of Financial Economics}, 33\penalty0 (1):\penalty0
+  3--56, 1993.
+\newblock \doi{10.1016/0304-405X(93)90023-5}.
 
 \bibitem[Dias et~al.(2009)Dias, Vermunt, and Ramos]{diasVermuntRamos2010}
 José~G. Dias, Jeroen~K. Vermunt, and Sofia Ramos.
@@ -359,6 +380,13 @@ James~D. Hamilton.
 Charles~M. Grinstead and J.~Laurie Snell.
 \newblock \emph{Introduction to Probability}.
 \newblock American Mathematical Society, 1997.
+
+\bibitem[Politis and Romano(1994)]{politisRomano1994}
+Dimitris~N. Politis and Joseph~P. Romano.
+\newblock The stationary bootstrap.
+\newblock \emph{Journal of the American Statistical Association}, 89\penalty0
+  (428):\penalty0 1303--1313, 1994.
+\newblock \doi{10.1080/01621459.1994.10476870}.
 
 \bibitem[Bouchey et~al.(2012)Bouchey, Gunthorp, and
   Sutherland]{boucheyGunthorpSutherland2012}

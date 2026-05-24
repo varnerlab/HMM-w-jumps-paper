@@ -58,7 +58,11 @@ location and scale parameters. The value $\nu = 5$ was
 selected from a sensitivity analysis over
 $\nu \in \{3, 4, 5, 6, 7, 8, 10, 15, 30, \infty\}$ as the value that
 minimized the kurtosis gap without degrading distributional fidelity
-($\nu = \infty$ recovers the Normal baseline).
+($\nu = \infty$ recovers the Normal baseline); a head-to-head
+comparison of Gaussian and Student-$t$ emissions against the HSMM
+baseline of Bulla and Bulla \cite{bullaBulla2006} is given in
+Table~\ref{tab:emission_hsmm} of
+Sec.~\ref{sec:supp-emission-hsmm}.
 
 With the state space and emission family fixed, we estimated the
 transition matrix $\mathbf{T}$ through direct frequentist counting: the discrete state assignments allowed straightforward counting of
@@ -85,7 +89,10 @@ components were estimated directly from the data: the emission
 parameters $\mu_k$ and $\sigma_k$ were the sample mean and standard
 deviation of observations assigned to state $k$, and the empirical
 transition matrix exhibited a dominant near-diagonal band reflecting
-short-range regime persistence (Online Appendix~\ref{sec:supp-transitions}).
+short-range regime persistence, with natural residence times of
+$1$--$2$ steps in every state including the tails
+(Fig.~\ref{fig:model_internals} in Online
+Appendix~\ref{sec:supp-transitions}).
 The stationary distribution $\bar{\pi}$ satisfied
 $\bar{\pi} = \bar{\pi}\mathbf{T}$ and was estimated by matrix powering
 ($\mathbf{T}^{50}$) \cite{hamilton2018regime, grinsteadSnell1997}. An
@@ -205,7 +212,7 @@ Algorithm~\ref{alg:hmmwj}.
 \end{figure}
 
 \begin{algorithm}[t]
-\caption{HMM-WJ simulator (Stage 1).}
+\caption{HMM-WJ simulator.}
 \label{alg:hmmwj}
 \begin{algorithmic}[1]
   \REQUIRE Fitted parameters
@@ -269,8 +276,8 @@ $10^{-4}$ to $2.5 \times 10^{-2}$ and $\lambda$ from $10$ to $160$ in
 brute-force evaluation; further details of the grid search are in
 Online Appendix~\ref{sec:supp-pseudo}. The HMM-WJ framework produces a
 per-ticker marginal that reproduces heavy tails, regime persistence,
-and volatility clustering (validated empirically in Results);
-multi-asset workflows that consume these paths need a
-cross-sectional structure on top, which the variance-corrected
-single-index composition described next supplies via a closed-form
-rule.
+and volatility clustering (validated empirically in Results).
+Composing these per-ticker marginals into a multi-asset path under a
+single-index model requires a variance-correction scalar that
+prevents the naive composition from inflating the per-asset marginal
+variance.

@@ -483,22 +483,110 @@ and the objective averaged over the path ensemble.
 \section{Transition matrix internals and partition diagnostics}
 \label{sec:supp-transitions}
 
-The fitted SPY transition matrix exhibited a dominant near-diagonal
-band reflecting short-range regime persistence: row-sum entropy peaked
-at the central states, and most off-diagonal mass was concentrated
-within $\pm 5$ states of the diagonal. Tail-state exit probabilities
-were systematically lower than central-state exit probabilities by
-roughly an order of magnitude, which is what caused the volatility
-clustering loss flagged by Bulla and Bulla \cite{bullaBulla2006} and
-which the Poisson jump override addressed by re-injecting tail-state
-mass independently of the empirical transition kernel. Quantile-bin
-occupancy was approximately uniform over the in-sample window
-($N = 100$), consistent with the Laplace fit's calibration to the
-empirical CDF; the residual sample-size variation across bins was
-smaller than the within-bin emission variance, so all $100$ states
-received adequate statistical support. The full transition matrix and
-partition-occupancy histograms are available in the released
-\texttt{JumpHMM.jl/paper/} subdirectory.
+Figure~\ref{fig:model_internals} visualizes the three internal
+components of the fitted HMM-WJ on SPY with $N = 100$ states.
+Panel~(a) overlays the fitted Laplace cumulative distribution function
+on the empirical CDF, with the $99$ vertical lines marking the
+equal-probability quantile boundaries $Q_k$ that define the hidden
+states; close agreement confirms the Laplace fit is an accurate
+marginal model for the SPY excess growth-rate series and validates
+the partition rule of Eq.~\eqref{eq:growth_rate}. Panel~(b) displays
+the estimated transition matrix $\mathbf{T}$ in $\log_{10}$ color
+scale. The dominant near-diagonal band reflects short-range regime
+persistence, with most off-diagonal mass concentrated within $\pm 5$
+states of the diagonal. Panel~(c) plots the expected natural
+residence time $1/(1 - T_{kk})$ for each state on a $\log_{10}$
+scale, with the bottom tail set $\mathcal{S}_{-}$ (states $1$--$5$,
+red) and the top tail set $\mathcal{S}_{+}$ (states $96$--$100$,
+teal) highlighted. Under pure Markovian dynamics every state, including
+the tail states, exits within $1$--$2$ steps on average, far too
+quickly to reproduce empirical volatility clustering; the dashed line
+marks the grid-search mean jump duration $\lambda^{*} = 100$ steps and
+quantifies the two-order-of-magnitude gap between natural residence
+times and the Poisson jump override. Quantile-bin occupancy was
+approximately uniform over the in-sample window, consistent with the
+Laplace fit's calibration to the empirical CDF; the residual
+sample-size variation across bins was smaller than the within-bin
+emission variance, so all $100$ states received adequate statistical
+support.
+
+\begin{figure}[tbp]
+  \centering
+  \includegraphics[width=\textwidth]{figs/Fig3-Model-Internals.pdf}
+  \caption{\textbf{Fitted HMM-WJ internals for SPY with $N = 100$
+    states.} Panel~(a) overlays the fitted Laplace CDF on the empirical
+    CDF; the $99$ vertical lines mark the equal-probability quantile
+    boundaries $Q_k$ that define the hidden states. Panel~(b) displays
+    the estimated transition matrix $\mathbf{T}$ in $\log_{10}$ color
+    scale; the dominant near-diagonal band reflects short-range regime
+    persistence. Panel~(c) plots the expected natural residence time
+    $1/(1 - T_{kk})$ for each state on a $\log_{10}$ scale, with the
+    bottom tail set $\mathcal{S}_{-}$ (states $1$--$5$, red) and the
+    top tail set $\mathcal{S}_{+}$ (states $96$--$100$, teal)
+    highlighted. The dashed horizontal line marks the mean jump
+    duration $\lambda^{*} = 100$ steps at the grid-search optimum,
+    quantifying the two-order-of-magnitude gap between natural
+    residence times and the jump-duration override.}
+  \label{fig:model_internals}
+\end{figure}
+
+\section{Emission distribution and semi-Markov comparison}
+\label{sec:supp-emission-hsmm}
+
+Table~\ref{tab:emission_hsmm} isolates the contributions of the
+emission family and the persistence mechanism by comparing three
+variants on SPY: the HSMM baseline of Bulla and Bulla
+\cite{bullaBulla2006} ($K = 8$ states, negative-binomial dwell times,
+Student-$t$ emissions), HMM-WJ with the original Gaussian emissions
+($N = 100$), and HMM-WJ with Student-$t$ emissions ($N = 100$). HMM-WJ
+exceeded the HSMM on in-sample distributional fidelity by $15$
+percentage points on KS and $49$ percentage points on AD regardless of
+emission choice, isolating the contribution of the fine-grained
+quantile partition over the coarse $K = 8$ HSMM partition. Holding the
+HMM-WJ machinery fixed, the Student-$t$ ($\nu = 5$) upgrade over the
+Normal baseline closed the in-sample excess-kurtosis gap from a $5.5$
+value under Normal emissions to a $7.6$ value under Student-$t$
+emissions, against an observed $7.7$ value, while leaving KS, AD,
+ACF-MAE, Wasserstein-$1$, and Hellinger essentially unchanged. The
+out-of-sample column shows the same ordering on tail moments and a
+narrower spread on distributional pass rates, consistent with the
+single-year ($T = 249$) sample.
+
+\begin{table}[tbp]
+\centering
+\caption{\textbf{Three-way comparison isolating the emission
+    distribution and the persistence mechanism for SPY.} Standard
+    errors in parentheses; bold marks the best value per row. HSMM:
+    hidden semi-Markov model ($K = 8$ states, negative-binomial dwell
+    times, Student-$t$ emissions) \cite{bullaBulla2006}; HMM-WJ:
+    hybrid hidden Markov model with jump-duration override
+    ($N = 100$). All entries are computed from $1{,}000$ simulated
+    paths at significance level $\alpha = 0.05$.}
+\label{tab:emission_hsmm}
+\small
+\begin{tabular}{@{}lccc@{}}
+\toprule
+\textbf{Metric} & \textbf{HSMM} & \textbf{HMM-WJ} & \textbf{HMM-WJ} \\
+                & \textbf{(Student-$t$)} & \textbf{(Gaussian)} & \textbf{(Student-$t$)} \\ \midrule
+States              & $K = 8$ & $N = 100$ & $N = 100$ \\
+Parameters          & $18$    & $4$       & $4$ \\[4pt]
+\multicolumn{4}{l}{\textit{In-sample ($2{,}766$ trading days, $2014$--$2024$)}} \\[2pt]
+KS pass rate (\%)   &  $82.0$ ($1.2$)         &  $97.0$ ($0.5$)         & $\mathbf{97.6}$ ($0.5$) \\
+AD pass rate (\%)   &  $42.5$ ($1.6$)         &  $90.5$ ($0.9$)         & $\mathbf{91.3}$ ($0.9$) \\
+Excess kurtosis     &   $4.8$ ($0.08$)        &   $5.5$ ($0.03$)        & $\mathbf{7.6}$ ($0.14$) \\
+ACF-MAE             & $0.059$ ($<\!0.001$)    & $\mathbf{0.052}$ ($<\!0.001$) & $\mathbf{0.052}$ ($<\!0.001$) \\
+Wasserstein-$1$     & $0.176$ ($0.001$)       & $\mathbf{0.101}$ ($0.002$)    & $\mathbf{0.101}$ ($0.001$) \\
+Hellinger           & $0.113$ ($<\!0.001$)    & $0.076$ ($<\!0.001$)    & $\mathbf{0.075}$ ($<\!0.001$) \\[4pt]
+\multicolumn{4}{l}{\textit{Out-of-sample ($249$ trading days, $2025$)}} \\[2pt]
+KS pass rate (\%)   & $\mathbf{96.2}$ ($0.6$) &  $95.0$ ($0.7$)         &  $94.4$ ($0.7$) \\
+AD pass rate (\%)   & $\mathbf{96.7}$ ($0.6$) &  $95.9$ ($0.6$)         &  $95.1$ ($0.7$) \\
+Excess kurtosis     &   $4.1$ ($0.13$)        &   $4.9$ ($0.08$)        & $\mathbf{6.1}$ ($0.13$) \\
+ACF-MAE             & $0.042$ ($<\!0.001$)    & $0.040$ ($<\!0.001$)    & $\mathbf{0.039}$ ($<\!0.001$) \\
+Wasserstein-$1$     & $0.287$ ($0.002$)       & $\mathbf{0.275}$ ($0.005$) & $0.282$ ($0.006$) \\
+Hellinger           & $0.239$ ($0.001$)       & $0.212$ ($0.001$)       & $\mathbf{0.210}$ ($0.001$) \\
+\bottomrule
+\end{tabular}
+\end{table}
 
 % =============================================================================
 % S6 State-resolution sensitivity
@@ -547,7 +635,7 @@ as the operating point for all subsequent experiments.
   \caption{\textbf{Branch assignment in calibrated
     $(\beta, R^2_{\real})$ space.}
     The $R^2_{\mathrm{preserve}} = 0.80$ threshold (dashed line) separates
-    tracker assets from genuine single stocks. In this universe, only
+    tracker assets from single stocks. In this universe, only
     QQQ and SPYG exceed the threshold, and both are assigned to the
     $R^2$-preserving branch. The remaining $421$ tickers populate the
     variance-preserving branch; the clipped variance-preserving

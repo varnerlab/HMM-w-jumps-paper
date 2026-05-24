@@ -1,17 +1,21 @@
 % conclusion.tex
-% Three short paragraphs: contribution recap, validation summary,
-% future work.
+% Three short paragraphs: contribution recap (HMM-WJ headline,
+% multi-asset extension folded in), validation summary, future work.
 
-We presented a two-stage construction for synthetic equity path
-generation that closes two gaps in the literature: a hybrid hidden
-Markov framework that reproduces single-asset stylized facts via a
-Laplace quantile partition and a Poisson jump-duration override, and
-a closed-form variance-corrected single-index composer that places
-those validated marginals in a multi-asset factor structure without
-inflating the marginal variance. The construction is
-generator-agnostic on the composition side, in the sense that any
-per-asset full-return generator can plug into the variance correction
-and inherit the marginal it was built to deliver.
+In this study, we developed a hybrid hidden Markov framework for
+synthetic equity path generation that discretizes continuous excess
+growth rates into Laplace quantile-defined states and augments
+regime switching with a two-parameter Poisson jump-duration
+mechanism. The Laplace partition lets the transition matrix be
+estimated by direct frequentist counting, bypassing the Baum-Welch
+algorithm, and the Poisson override forces the chain to dwell in
+high-volatility tail states long enough to reproduce empirical
+clustering. Extending the framework to multi-asset workflows
+required addressing a known limitation of the naive single-index
+composition, which inflates the composed marginal variance
+quadratically in the factor loading; we closed that limitation with
+a closed-form variance-correction scalar that lets the hybrid HMM
+marginal enter the factor pipeline while preserving its variance.
 
 On the empirical side, the hybrid HMM marginals passed the
 Kolmogorov-Smirnov test against the real SPY univariate distribution
@@ -31,14 +35,14 @@ prior addresses the artifact as a per-path monotone transform that
 preserves rank order, drawdown shape, and volatility envelope while
 shifting only the level.
 
-Several extensions follow from the present work. The
+Several extensions follow from the present work. Per-ticker tuning
+of the jump parameters $(\epsilon, \lambda)$ would push the marginal
+pass rates upward at the cost of a calibration step per asset. The
 variance correction generalizes to multi-factor and lagged-factor
-single-index models without changing the algebra; we leave
-the empirical evaluation of these extensions to follow-up work.
-Per-ticker tuning of the jump parameters $(\epsilon, \lambda)$ would
-push the hybrid composer's marginal-fidelity pass rates upward at the
-cost of a calibration step per asset. The diversification-return
-artifact admits a structural fix via autoregressive or block-bootstrap
-residuals composed with the single-index factor; that fix requires
-restructuring the copula sampling step and is the most consequential
-follow-up for high-turnover downstream workflows.
+single-index forms without changing the algebra, and the empirical
+evaluation of those extensions is left to follow-up work. The
+diversification-return artifact admits a structural fix via
+autoregressive or block-bootstrap residuals composed with the
+single-index factor; that fix requires restructuring the copula
+sampling step and is the most consequential follow-up for
+high-turnover downstream workflows.

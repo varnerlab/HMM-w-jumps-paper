@@ -4,9 +4,19 @@
 % composition (full-return vs residual-fit) with the variance-correction
 % contribution; validation including the diversification-return concern.
 
-Equity-return generators have been studied since the geometric Brownian
-motion baseline of Black-Scholes-Merton \cite{blackScholes1973} failed
-on the empirical regularities that drive risk and pricing. Mandelbrot
+Approaches to reproducing the stylized facts of equity markets divide
+into bottom-up agent-based models, which derive return dynamics from
+simulated interactions of heterogeneous agents
+\cite{luxMarchesi1999, contBouchaud2000, farmerJoshi2002, lebaron2006,
+arthur2021, farmer2025}, and top-down data-driven models, which fit
+statistical structures directly to observed return series.
+Agent-based generators produce stylized facts as emergent properties
+but are demanding to calibrate to specific assets, so the data-driven
+branch is the focus here.
+Equity-return generators in that branch have been studied since the
+geometric Brownian motion baseline of Black-Scholes-Merton
+\cite{blackScholes1973} failed on the empirical regularities that
+drive risk and pricing. Mandelbrot
 \cite{mandelbrot1963} showed that price changes carry heavier tails
 than the Gaussian admits; Fama \cite{famaEMH1970} reviewed the
 evidence that raw returns have near-zero linear autocorrelation; and
@@ -14,8 +24,11 @@ Schwert \cite{schwert1989} documented the slow decay of absolute-return
 autocorrelation now known as volatility clustering. The ARCH and GARCH
 conditional-variance models of Engle \cite{engle1982} and Bollerslev
 \cite{bollerslev1986} reproduced the clustering but left light-tailed
-marginals unless fed a fat-tailed innovation, and represented neither
-discrete regimes nor sudden jumps \cite{dieboldInoue2001}.
+marginals unless fed a fat-tailed innovation, represented neither
+discrete regimes nor sudden jumps, and controlled persistence through
+a single decay parameter that cannot separate a calm market that
+slowly heats up from a sudden crash that lingers
+\cite{dieboldInoue2001}.
 Stochastic-volatility models \cite{steinStein1991, heston1993} treat
 volatility as a latent continuous process at the cost of heavy
 estimation. Jump-diffusion models \cite{merton1976, kou2002} inject
@@ -37,44 +50,47 @@ recovered the clustering with hidden semi-Markov models that allowed
 realistic dwell times in high-volatility states. Both rely on the
 Baum-Welch EM algorithm \cite{baumPetrieSoulesWeiss1970}, which is
 iterative and sensitive to initialization. Deep generative
-alternatives \cite{takahashiEtAl2019, yoonEtAl2019timegan, kwonLee2024}
-learn the marginal directly but routinely miss volatility clustering,
-and recent surveys \cite{assefaEtAl2020, jordonEtAl2022,
-stengerEtAl2024} agree that stylized-facts reproduction remains the
-primary quality criterion; a pretrained foundation-inference
-alternative for Markov jump processes \cite{berghausEtAl2025} has not
-yet been evaluated on financial data. The hybrid HMM of the present
+alternatives learn the marginal directly but routinely miss the
+volatility-clustering signature: Takahashi et al.\
+\cite{takahashiEtAl2019} found that standard GAN architectures
+produced return sequences that visually resembled financial data yet
+failed to reproduce the absolute-return autocorrelation function, and
+Kwon and Lee \cite{kwonLee2024} confirmed the same on TimeGAN
+\cite{yoonEtAl2019timegan}. Recent surveys
+\cite{assefaEtAl2020, jordonEtAl2022, stengerEtAl2024} agree that
+stylized-facts reproduction remains the primary quality criterion,
+and a pretrained foundation-inference alternative for Markov jump
+processes \cite{berghausEtAl2025} has not yet been evaluated on
+financial data. The hybrid HMM of the present
 paper picks the latent-state route: it discretizes returns through a
 Laplace quantile partition (so transitions can be counted directly
 without EM) and augments the chain with a Poisson jump-duration
 override that holds it in high-volatility states long enough to
 reproduce empirical clustering.
 
-Univariate generators still need a recipe for multi-asset composition.
-The single-index model (SIM) of Sharpe \cite{sharpe1963} provides one:
-each asset's growth rate decomposes into a market-loaded term plus an
-idiosyncratic residual, reducing the parameter count relative to a
-full multivariate fit. The construction generalizes to multi-factor
-variants \cite{rossAPT1976, famaFrench1993} without changing its form.
-Practitioners face two residual specifications. The \emph{full-return}
-specification fits a per-asset generator to the asset's own
-growth-rate history and plugs the draw in as the residual; it lets a
-generator calibrated for distributional interpretability or cached for
-other pipelines enter the factor stage unchanged, but it inflates the
-composed marginal variance quadratically in the factor loading. The
-\emph{residual-fit} specification fits the generator to the OLS
-residual series and composes with no further correction, recovering
-the factor exactly at the cost of the per-asset generator's
-distributional richness. Mixture hidden Markov models
-\cite{diasVermuntRamos2010} share latent state across assets but are
-demanding to estimate in high dimensions; copula approaches
-\cite{embrechtsMcNeilStraumann2002, cherubiniLucianoVecchiato2004,
-aasCzadoFrigessiBakken2009} separate marginals from dependence at the
-cost of copula-family selection. The variance-corrected composition
-developed here threads these constraints: a closed-form scalar lets a
-full-return generator enter the factor pipeline while preserving its
-marginal variance, with an auditable $R^2$-driven branch for
-index-tracking edge cases.
+Multi-asset composition layers a cross-sectional structure on top of
+a univariate generator. The single-index model (SIM) of Sharpe
+\cite{sharpe1963} decomposes each asset's growth rate into a
+market-loaded term plus an idiosyncratic residual, reducing the
+parameter count relative to a full multivariate fit, and generalizes
+to multi-factor variants \cite{rossAPT1976, famaFrench1993} without
+changing its form. Two residual specifications are common in
+practice. The full-return specification fits a per-asset generator
+to the asset's own growth-rate history and plugs the draw in as the
+residual; it inflates the composed marginal variance quadratically
+in the factor loading. The residual-fit specification fits the
+generator to the OLS residual series and composes with no further
+correction, recovering the factor exactly at the cost of the
+per-asset generator's distributional structure. Mixture hidden
+Markov models \cite{diasVermuntRamos2010} share latent state across
+assets but are demanding to estimate in high dimensions; copula
+approaches \cite{embrechtsMcNeilStraumann2002,
+cherubiniLucianoVecchiato2004, aasCzadoFrigessiBakken2009} separate
+marginals from dependence at the cost of copula-family selection.
+The variance-corrected composition described in Methods sits between
+the two residual specifications: a closed-form scalar lets a
+full-return generator enter the factor pipeline without inflating
+its marginal variance.
 
 Validation of synthetic financial data combines two families of tests:
 goodness-of-fit tests for distributional fidelity \cite{kolmogorov1933,
