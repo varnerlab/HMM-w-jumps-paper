@@ -290,12 +290,22 @@ paths. The location-shift correction extends that reliability to absolute
 Sharpe and CCGR levels under daily rebalancing, at the cost of an external
 prior.
 
-Two further extensions follow. Multi-factor SIM replaces
-the single market factor with $K$ factors, requiring $\rho_i$ to
-become the sum of factor contributions and the loading vector to be
-clipped rather than a scalar, though the branch logic is unchanged.
-A stress-test harness pairs the clipping rule with a constructed
-market scenario more volatile than history: enforcing a minimum
-idiosyncratic share guarantees that per-asset marginals remain
-heavy-tailed in precisely the regime where naive SIM composition
-breaks down most severely.
+Several extensions follow from the present work. Per-ticker tuning
+of the jump parameters $(\epsilon, \lambda)$ on each asset's own
+history would push the marginal pass rates upward at the cost of a
+calibration step per asset. Multi-factor and lagged-factor
+single-index variants replace the single market factor with $K$
+factors or with $K$ lags, requiring $\rho_i$ to become the sum of
+factor contributions and the loading vector to be clipped rather
+than a scalar, though the branch logic is unchanged; the variance
+correction generalizes to both forms without changing the algebra
+and the empirical evaluation is left to follow-up work. The
+diversification-return artifact admits a structural fix through
+autoregressive or block-bootstrap residuals composed with the
+single-index factor, which requires restructuring the copula
+sampling step and is the most consequential follow-up for
+high-turnover downstream workflows. A stress-test harness pairs
+the clipping rule with a constructed market scenario more volatile
+than history: enforcing a minimum idiosyncratic share guarantees
+that per-asset marginals remain heavy-tailed in precisely the
+regime where naive SIM composition breaks down most severely.

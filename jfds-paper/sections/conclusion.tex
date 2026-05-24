@@ -1,6 +1,8 @@
 % conclusion.tex
-% Three short paragraphs: contribution recap (HMM-WJ headline,
-% multi-asset extension folded in), validation summary, future work.
+% Two short paragraphs: contribution recap (HMM-WJ headline,
+% multi-asset extension folded in) and validation summary with the
+% bias-correction caveat. Extensions are consolidated in the
+% Discussion, not duplicated here.
 
 In this study, we developed a hybrid hidden Markov framework for
 synthetic equity path generation that discretizes continuous excess
@@ -35,14 +37,3 @@ prior addresses the artifact as a per-path monotone transform that
 preserves rank order, drawdown shape, and volatility envelope while
 shifting only the level.
 
-Several extensions follow from the present work. Per-ticker tuning
-of the jump parameters $(\epsilon, \lambda)$ would push the marginal
-pass rates upward at the cost of a calibration step per asset. The
-variance correction generalizes to multi-factor and lagged-factor
-single-index forms without changing the algebra, and the empirical
-evaluation of those extensions is left to follow-up work. The
-diversification-return artifact admits a structural fix via
-autoregressive or block-bootstrap residuals composed with the
-single-index factor; that fix requires restructuring the copula
-sampling step and is the most consequential follow-up for
-high-turnover downstream workflows.
