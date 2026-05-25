@@ -148,13 +148,16 @@ Jeff~A. Bilmes.
 \newblock Technical Report TR-97-021, International Computer Science Institute,
   1998.
 
-\bibitem[Cho et~al.(2014)Cho, van Merrienboer, Gulcehre, Bahdanau, Bougares,
+\bibitem[Cho et~al.(2014)Cho, van Merri\"enboer, Gulcehre, Bahdanau, Bougares,
   Schwenk, and Bengio]{choEtAl2014gru}
-Kyunghyun Cho, Bart van Merrienboer, Caglar Gulcehre, Dzmitry Bahdanau, Fethi
+Kyunghyun Cho, Bart van Merri\"enboer, Caglar Gulcehre, Dzmitry Bahdanau, Fethi
   Bougares, Holger Schwenk, and Yoshua Bengio.
 \newblock Learning phrase representations using {RNN} encoder-decoder for
   statistical machine translation.
-\newblock \emph{arXiv preprint arXiv:1406.1078}, 2014.
+\newblock In \emph{Proceedings of the 2014 Conference on Empirical Methods in
+  Natural Language Processing (EMNLP)}, pages 1724--1734. Association for
+  Computational Linguistics, 2014.
+\newblock \doi{10.3115/v1/D14-1179}.
 
 \bibitem[Lux and Marchesi(1999)]{luxMarchesi1999}
 Thomas Lux and Michele Marchesi.
@@ -265,12 +268,12 @@ Chang-Jin Kim and Charles~R. Nelson.
 \newblock \doi{10.1162/003465399558472}.
 
 \bibitem[Berghaus et~al.(2024)Berghaus, Cvejoski, Seifner, Ojeda, and
-  Sanchez]{berghausEtAl2025}
+  S\'{a}nchez]{berghausEtAl2025}
 David Berghaus, Kostadin Cvejoski, Patrick Seifner, C\'{e}sar Ojeda, and
-  Rams\'{e}s~J. Sanchez.
+  Rams\'{e}s~J. S\'{a}nchez.
 \newblock Foundation inference models for {Markov} jump processes.
-\newblock In \emph{Proceedings of the 38th International Conference on Neural
-  Information Processing Systems}, pages 129407--129442, 2024.
+\newblock In \emph{Advances in Neural Information Processing Systems 37
+  (NeurIPS 2024)}, 2024.
 
 \bibitem[Sharpe(1963)]{sharpe1963}
 William~F. Sharpe.
@@ -292,11 +295,11 @@ Eugene~F. Fama and Kenneth~R. French.
   3--56, 1993.
 \newblock \doi{10.1016/0304-405X(93)90023-5}.
 
-\bibitem[Dias et~al.(2009)Dias, Vermunt, and Ramos]{diasVermuntRamos2010}
+\bibitem[Dias et~al.(2010)Dias, Vermunt, and Ramos]{diasVermuntRamos2010}
 José~G. Dias, Jeroen~K. Vermunt, and Sofia Ramos.
 \newblock Mixture hidden {Markov} models in finance research.
 \newblock In \emph{Advances in Data Analysis, Data Handling and Business
-  Intelligence}, pages 451--459. Springer, 2009.
+  Intelligence}, pages 451--459. Springer, 2010.
 \newblock \doi{10.1007/978-3-642-01044-6_41}.
 
 \bibitem[Embrechts et~al.(2002)Embrechts, McNeil, and
@@ -388,12 +391,13 @@ Dimitris~N. Politis and Joseph~P. Romano.
   (428):\penalty0 1303--1313, 1994.
 \newblock \doi{10.1080/01621459.1994.10476870}.
 
-\bibitem[Bouchey et~al.(2012)Bouchey, Gunthorp, and
-  Sutherland]{boucheyGunthorpSutherland2012}
-Paul Bouchey, Duncan Gunthorp, and Matt Sutherland.
+\bibitem[Bouchey et~al.(2015)Bouchey, Nemtchinov, and
+  Wong]{boucheyNemtchinovWong2015}
+Paul Bouchey, Vassilii Nemtchinov, and Ting-Kam~Leonard Wong.
 \newblock Volatility harvesting in theory and practice.
-\newblock \emph{Journal of Wealth Management}, 15\penalty0 (2):\penalty0
-  89--100, 2012.
+\newblock \emph{Journal of Wealth Management}, 18\penalty0 (3):\penalty0
+  89--100, 2015.
+\newblock \doi{10.3905/jwm.2015.18.3.089}.
 
 \bibitem[Markowitz(1976)]{markowitz1976longRun}
 Harry~M. Markowitz.

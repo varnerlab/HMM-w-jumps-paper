@@ -46,8 +46,9 @@ and equity trading \cite{nguyen2018, kimNelson1999}. Ryden et al.\
 \cite{rydenTerasvirtaAsbrink1998} found that Gaussian-emission HMMs
 matched heavy tails and the absence of return autocorrelation but
 failed on volatility clustering; Bulla and Bulla \cite{bullaBulla2006}
-recovered the clustering with hidden semi-Markov models that allowed
-realistic dwell times in high-volatility states. Both rely on the
+recovered the clustering with hidden semi-Markov models that
+replaced the geometric dwell-time distribution of every state with a
+parametric (negative-binomial) alternative. Both rely on the
 Baum-Welch EM algorithm \cite{baumPetrieSoulesWeiss1970}, which is
 iterative and sensitive to initialization. Deep generative
 alternatives learn the marginal directly but routinely miss the
@@ -62,11 +63,17 @@ stylized-facts reproduction remains the primary quality criterion,
 and a pretrained foundation-inference alternative for Markov jump
 processes \cite{berghausEtAl2025} has not yet been evaluated on
 financial data. The hybrid HMM of the present
-paper picks the latent-state route: it discretizes returns through a
-Laplace quantile partition (so transitions can be counted directly
-without EM) and augments the chain with a Poisson jump-duration
-override that holds it in high-volatility states long enough to
-reproduce empirical clustering.
+paper picks the latent-state route but follows a different design
+principle than the HSMM. Rather than replace the dwell-time
+distribution of every state, it leaves the empirically counted
+transition matrix in place across the central states and adds an
+event-driven override that, on a sparse subset of time slices,
+forces the chain into the tail states for a Poisson-distributed
+duration. The result is a sparse intervention targeted at tail
+persistence, with the body of the chain carrying its empirical
+geometric dwell-time distribution unchanged; combined with a
+Laplace quantile partition, transitions can be counted directly
+without EM.
 
 Multi-asset composition layers a cross-sectional structure on top of
 a univariate generator. The single-index model (SIM) of Sharpe

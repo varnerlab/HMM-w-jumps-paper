@@ -67,13 +67,13 @@
 \citation{cont2001,rydenTerasvirtaAsbrink1998}
 \citation{schwert1989}
 \citation{mandelbrot1963}
-\@writefile{loa}{\contentsline {algorithm}{\numberline {1}{\ignorespaces HMM-WJ simulator.}}{5}{algorithm.1}\protected@file@percent }
-\newlabel{alg:hmmwj}{{1}{5}{HMM-WJ simulator}{algorithm.1}{}}
-\newlabel{eq:emission}{{2}{5}{Hybrid hidden Markov marginal generator}{equation.2}{}}
 \citation{glasserman2003}
+\newlabel{eq:emission}{{2}{5}{Hybrid hidden Markov marginal generator}{equation.2}{}}
+\newlabel{eq:grid_search}{{3}{5}{Hybrid hidden Markov marginal generator}{equation.3}{}}
 \@writefile{lof}{\contentsline {figure}{\numberline {2}{\ignorespaces \textbf  {Architecture of the hybrid hidden Markov model with jump-diffusion (HMM-WJ).} At each step the chain transitions according to the empirical transition matrix $\mathbf  {T}$ (probability $1 - \epsilon $, thin bidirectional arrows) or enters a Poisson jump episode (probability $\epsilon $, dashed upward arrow to the Poisson clock). During a jump episode the active state is forced to the bottom tail set $\mathcal  {S}_{-}$ (red, lowest-valued states) or the top tail set $\mathcal  {S}_{+}$ (blue, highest-valued states) for $K \sim \mathrm  {Poisson}(\lambda )$ consecutive steps before normal Markovian evolution resumes. Small bell curves above each state depict the state-conditional location-scale Student-$t$ ($\nu =5$) emission distribution. Tail sets are defined as the $N_{\rm  tail}$ lowest- and highest-quantile states under the Laplace quantile partition.}}{6}{figure.caption.3}\protected@file@percent }
 \newlabel{fig:model_architecture}{{2}{6}{\textbf {Architecture of the hybrid hidden Markov model with jump-diffusion (HMM-WJ).} At each step the chain transitions according to the empirical transition matrix $\mathbf {T}$ (probability $1 - \epsilon $, thin bidirectional arrows) or enters a Poisson jump episode (probability $\epsilon $, dashed upward arrow to the Poisson clock). During a jump episode the active state is forced to the bottom tail set $\mathcal {S}_{-}$ (red, lowest-valued states) or the top tail set $\mathcal {S}_{+}$ (blue, highest-valued states) for $K \sim \mathrm {Poisson}(\lambda )$ consecutive steps before normal Markovian evolution resumes. Small bell curves above each state depict the state-conditional location-scale Student-$t$ ($\nu =5$) emission distribution. Tail sets are defined as the $N_{\rm tail}$ lowest- and highest-quantile states under the Laplace quantile partition}{figure.caption.3}{}}
-\newlabel{eq:grid_search}{{3}{6}{Hybrid hidden Markov marginal generator}{equation.3}{}}
+\@writefile{loa}{\contentsline {algorithm}{\numberline {1}{\ignorespaces HMM-WJ simulator.}}{6}{algorithm.1}\protected@file@percent }
+\newlabel{alg:hmmwj}{{1}{6}{HMM-WJ simulator}{algorithm.1}{}}
 \@writefile{toc}{\contentsline {subsection}{\numberline {3.2}Variance-corrected single-index composition}{6}{subsection.3.2}\protected@file@percent }
 \newlabel{sec:method-sim}{{3.2}{6}{Variance-corrected single-index composition}{subsection.3.2}{}}
 \newlabel{eq:sim-composition}{{4}{6}{Variance-corrected single-index composition}{equation.4}{}}
@@ -99,8 +99,8 @@
 \newlabel{fig:model_comparison}{{3}{10}{\textbf {Head-to-head in-sample model comparison for SPY} ($N = 100$, $1{,}000$ simulated paths). \emph {Panel (a):} marginal density of excess growth rates with in-sample KS pass rates annotated. GARCH(1,1) fails the two-sample KS test on $95\%$ of paths, indicating a systematic shape mismatch with the empirical distribution; both HMM variants pass at rates $\ge 97\%$. \emph {Panel (b):} autocorrelation function of $|G_t|$ at lags $1$--$252$ (shaded bands: $10$th--$90$th percentile across paths). HMM-NJ is structurally incapable of producing persistent volatility clustering; HMM-WJ generates a mixture of two path families, approximately $76\%$ behaving like HMM-NJ and the remaining $\sim \!24\%$ containing at least one Poisson jump that sustains $\mathrm {ACF}(|G_t|)$ decay across all lags. \emph {Panel (c):} tail Q-Q plot at the $0.1$st--$99.9$th percentile region; HMM-WJ provides the closest mean quantile match in the extreme tails}{figure.caption.5}{}}
 \citation{politisRomano1994}
 \citation{bollerslev1986}
-\@writefile{lot}{\contentsline {table}{\numberline {2}{\ignorespaces \textbf  {Aggregate scorecard across $423$ non-market tickers and $100$ replications per ticker.} Median values per composer. $|\hat  \beta - \beta |$ and $|\hat  R^2 - R^2_{\mathrm  {real}}|$: absolute deviation between OLS recovery and calibration. KS pass and AD pass: fraction of replications whose two-sample test against the real marginal exceeds $p = 0.05$. $W_1$: Wasserstein-1 distance to the real marginal. $\kappa $: sample excess kurtosis. Hill: tail-index estimate on the upper $5\%$ of $|g|$. All three composers recover $\beta $ to the same precision; only the hybrid composer preserves the marginal distribution (KS pass $50.4\%$) while holding the variance close to the generator target.}}{12}{table.caption.6}\protected@file@percent }
-\newlabel{tab:aggregate}{{2}{12}{\textbf {Aggregate scorecard across $423$ non-market tickers and $100$ replications per ticker.} Median values per composer. $|\hat \beta - \beta |$ and $|\hat R^2 - R^2_{\real }|$: absolute deviation between OLS recovery and calibration. KS pass and AD pass: fraction of replications whose two-sample test against the real marginal exceeds $p = 0.05$. $W_1$: Wasserstein-1 distance to the real marginal. $\kappa $: sample excess kurtosis. Hill: tail-index estimate on the upper $5\%$ of $|g|$. All three composers recover $\beta $ to the same precision; only the hybrid composer preserves the marginal distribution (KS pass $50.4\%$) while holding the variance close to the generator target}{table.caption.6}{}}
+\@writefile{lot}{\contentsline {table}{\numberline {2}{\ignorespaces \textbf  {Aggregate scorecard across $423$ non-market tickers and $100$ replications per ticker.} Median values per composer. $|\hat  \beta - \beta |$ and $|\hat  R^2 - R^2_{\mathrm  {real}}|$: absolute deviation between OLS recovery and calibration. KS pass and AD pass: fraction of replications whose two-sample test against the real marginal exceeds $p = 0.05$. $W_1$: Wasserstein-1 distance to the real marginal. $\kappa $: sample excess kurtosis. Hill: tail-index estimate on the upper $5\%$ of $|g|$. All three composers recover $\beta $ to the same precision; only the hybrid composer preserves the marginal distribution (KS pass $50.4\%$) while holding the variance close to the generator target.}}{11}{table.caption.6}\protected@file@percent }
+\newlabel{tab:aggregate}{{2}{11}{\textbf {Aggregate scorecard across $423$ non-market tickers and $100$ replications per ticker.} Median values per composer. $|\hat \beta - \beta |$ and $|\hat R^2 - R^2_{\real }|$: absolute deviation between OLS recovery and calibration. KS pass and AD pass: fraction of replications whose two-sample test against the real marginal exceeds $p = 0.05$. $W_1$: Wasserstein-1 distance to the real marginal. $\kappa $: sample excess kurtosis. Hill: tail-index estimate on the upper $5\%$ of $|g|$. All three composers recover $\beta $ to the same precision; only the hybrid composer preserves the marginal distribution (KS pass $50.4\%$) while holding the variance close to the generator target}{table.caption.6}{}}
 \@writefile{lot}{\contentsline {table}{\numberline {3}{\ignorespaces \textbf  {Per-ticker one-day Value-at-Risk backtest across the six composers.} For each (ticker, replication) pair we estimate the VaR threshold at coverage level $\alpha $ from the composed path and count exceedances against the real $2014$--$2024$ growth-rate history. \textit  {rate}: mean exceedance rate across tickers (nominal: $1-\alpha $). \textit  {SD}: cross-ticker standard deviation of the exceedance rate, in percentage points. \textit  {Kupiec pass}: fraction of tickers on which the Kupiec unconditional-coverage test $p$-value exceeds $0.05$. Hybrid and JumpHMM-on-residuals are statistically indistinguishable at both coverage levels; the naive and Gaussian SIM composers fail coverage on a majority of the universe.}}{12}{table.caption.7}\protected@file@percent }
 \newlabel{tab:var}{{3}{12}{\textbf {Per-ticker one-day Value-at-Risk backtest across the six composers.} For each (ticker, replication) pair we estimate the VaR threshold at coverage level $\alpha $ from the composed path and count exceedances against the real $2014$--$2024$ growth-rate history. \textit {rate}: mean exceedance rate across tickers (nominal: $1-\alpha $). \textit {SD}: cross-ticker standard deviation of the exceedance rate, in percentage points. \textit {Kupiec pass}: fraction of tickers on which the Kupiec unconditional-coverage test $p$-value exceeds $0.05$. Hybrid and JumpHMM-on-residuals are statistically indistinguishable at both coverage levels; the naive and Gaussian SIM composers fail coverage on a majority of the universe}{table.caption.7}{}}
 \@writefile{lof}{\contentsline {figure}{\numberline {4}{\ignorespaces \textbf  {Hybrid's variance correction and its KS-pass-rate consequence, per ticker vs calibrated $\beta $.} Each point is a per-ticker median over $100$ replications; thick lines are binned medians. \emph  {Left (consequence):} Kolmogorov--Smirnov pass rate against the real marginal at $\alpha = 0.05$. The naive composer (blue) collapses past $\beta \approx 0.6$ as market loading inflates the composed marginal; the hybrid composer (orange) stays between $\sim 0.3$ and $\sim 0.9$ across the full $\beta $ range. \emph  {Right (mechanism):} variance ratio $\mathrm  {Var}(g)/\sigma ^2_{\mathrm  {gen}}$. The dotted curve is the theoretical naive inflation $1 + \rho $ evaluated at the universe-median $\sigma ^2_{\mathrm  {gen}}$; the naive scatter follows it, overshooting generator variance by $50$ to $75\%$ at high $\beta $. Hybrid sits on the unit line (dashed) by construction.}}{13}{figure.caption.8}\protected@file@percent }
@@ -110,22 +110,23 @@
 \@writefile{toc}{\contentsline {section}{\numberline {5}Discussion}{14}{section.5}\protected@file@percent }
 \newlabel{sec:discussion}{{5}{14}{Discussion}{section.5}{}}
 \citation{boothFama1992}
-\citation{boucheyGunthorpSutherland2012}
+\citation{boucheyNemtchinovWong2015}
 \citation{politisRomano1994}
 \citation{bollerslev1986}
-\citation{boothFama1992,boucheyGunthorpSutherland2012,markowitz1976longRun}
+\citation{loMacKinlay1990}
+\citation{boothFama1992,boucheyNemtchinovWong2015,markowitz1976longRun}
 \citation{damodaranERP,ibbotsonSBBI}
 \bibstyle{unsrtnat}
 \bibdata{References_v1}
 \bibcite{assefaEtAl2020}{{1}{2020}{{Assefa et~al.}}{{Assefa, Dervovic, Mahfouz, Tillman, Reddy, and Veloso}}}
+\bibcite{jordonEtAl2022}{{2}{2022}{{Jordon et~al.}}{{Jordon, Szpruch, Houssiau, Bottarelli, Cherubin, Maple, Cohen, and Weller}}}
+\bibcite{mandelbrot1963}{{3}{1963}{{Mandelbrot}}{{}}}
+\bibcite{cont2001}{{4}{2001}{{Cont}}{{}}}
 \@writefile{toc}{\contentsline {section}{\numberline {6}Conclusion}{17}{section.6}\protected@file@percent }
 \newlabel{sec:conclusion}{{6}{17}{Conclusion}{section.6}{}}
 \@writefile{toc}{\contentsline {paragraph}{Author contributions.}{17}{section*.10}\protected@file@percent }
 \@writefile{toc}{\contentsline {paragraph}{Competing interests.}{17}{section*.11}\protected@file@percent }
 \@writefile{toc}{\contentsline {paragraph}{Code and data availability.}{17}{section*.12}\protected@file@percent }
-\bibcite{jordonEtAl2022}{{2}{2022}{{Jordon et~al.}}{{Jordon, Szpruch, Houssiau, Bottarelli, Cherubin, Maple, Cohen, and Weller}}}
-\bibcite{mandelbrot1963}{{3}{1963}{{Mandelbrot}}{{}}}
-\bibcite{cont2001}{{4}{2001}{{Cont}}{{}}}
 \bibcite{stengerEtAl2024}{{5}{2024}{{Stenger et~al.}}{{Stenger, Bauer, Prantl, Leppich, Hudson, Chard, Foster, and Kounev}}}
 \bibcite{engle1982}{{6}{1982}{{Engle}}{{}}}
 \bibcite{bollerslev1986}{{7}{1986}{{Bollerslev}}{{}}}
@@ -141,7 +142,7 @@
 \bibcite{bullaBulla2006}{{17}{2006}{{Bulla and Bulla}}{{}}}
 \bibcite{baumPetrieSoulesWeiss1970}{{18}{1970}{{Baum et~al.}}{{Baum, Petrie, Soules, and Weiss}}}
 \bibcite{bilmes1998}{{19}{1998}{{Bilmes}}{{}}}
-\bibcite{choEtAl2014gru}{{20}{2014}{{Cho et~al.}}{{Cho, van Merrienboer, Gulcehre, Bahdanau, Bougares, Schwenk, and Bengio}}}
+\bibcite{choEtAl2014gru}{{20}{2014}{{Cho et~al.}}{{Cho, van Merri\"enboer, Gulcehre, Bahdanau, Bougares, Schwenk, and Bengio}}}
 \bibcite{luxMarchesi1999}{{21}{1999}{{Lux and Marchesi}}{{}}}
 \bibcite{contBouchaud2000}{{22}{2000}{{Cont and Bouchaud}}{{}}}
 \bibcite{farmerJoshi2002}{{23}{2002}{{Farmer and Joshi}}{{}}}
@@ -157,11 +158,11 @@
 \bibcite{rossiGallo2006}{{33}{2006}{{Rossi and Gallo}}{{}}}
 \bibcite{nguyen2018}{{34}{2018}{{Nguyen}}{{}}}
 \bibcite{kimNelson1999}{{35}{1999}{{Kim and Nelson}}{{}}}
-\bibcite{berghausEtAl2025}{{36}{2024}{{Berghaus et~al.}}{{Berghaus, Cvejoski, Seifner, Ojeda, and Sanchez}}}
+\bibcite{berghausEtAl2025}{{36}{2024}{{Berghaus et~al.}}{{Berghaus, Cvejoski, Seifner, Ojeda, and S\'{a}nchez}}}
 \bibcite{sharpe1963}{{37}{1963}{{Sharpe}}{{}}}
 \bibcite{rossAPT1976}{{38}{1976}{{Ross}}{{}}}
 \bibcite{famaFrench1993}{{39}{1993}{{Fama and French}}{{}}}
-\bibcite{diasVermuntRamos2010}{{40}{2009}{{Dias et~al.}}{{Dias, Vermunt, and Ramos}}}
+\bibcite{diasVermuntRamos2010}{{40}{2010}{{Dias et~al.}}{{Dias, Vermunt, and Ramos}}}
 \bibcite{embrechtsMcNeilStraumann2002}{{41}{2002}{{Embrechts et~al.}}{{Embrechts, McNeil, and Straumann}}}
 \bibcite{cherubiniLucianoVecchiato2004}{{42}{2004}{{Cherubini et~al.}}{{Cherubini, Luciano, and Vecchiato}}}
 \bibcite{aasCzadoFrigessiBakken2009}{{43}{2009}{{Aas et~al.}}{{Aas, Czado, Frigessi, and Bakken}}}
@@ -175,7 +176,7 @@
 \bibcite{hamilton2018regime}{{51}{2018}{{Hamilton}}{{}}}
 \bibcite{grinsteadSnell1997}{{52}{1997}{{Grinstead and Snell}}{{}}}
 \bibcite{politisRomano1994}{{53}{1994}{{Politis and Romano}}{{}}}
-\bibcite{boucheyGunthorpSutherland2012}{{54}{2012}{{Bouchey et~al.}}{{Bouchey, Gunthorp, and Sutherland}}}
+\bibcite{boucheyNemtchinovWong2015}{{54}{2015}{{Bouchey et~al.}}{{Bouchey, Nemtchinov, and Wong}}}
 \bibcite{markowitz1976longRun}{{55}{1976}{{Markowitz}}{{}}}
 \bibcite{damodaranERP}{{56}{2025}{{Damodaran}}{{}}}
 \bibcite{ibbotsonSBBI}{{57}{2024}{{Ibbotson and {Duff and Phelps}}}{{}}}
@@ -189,7 +190,7 @@
 \citation{boothFama1992,markowitz1976longRun}
 \citation{markowitz1976longRun}
 \citation{boothFama1992}
-\citation{boucheyGunthorpSutherland2012}
+\citation{boucheyNemtchinovWong2015}
 \newlabel{eq:rp-taylor}{{S2}{22}{Bias correction for daily-rebalanced backtests}{equation.2}{}}
 \newlabel{eq:booth-fama}{{S3}{22}{Bias correction for daily-rebalanced backtests}{equation.3}{}}
 \newlabel{eq:dr-pairwise}{{S4}{22}{Bias correction for daily-rebalanced backtests}{equation.4}{}}

@@ -84,14 +84,20 @@ produced higher Kolmogorov--Smirnov pass rates than hybrid on
 marginal body fidelity ($67$ to $76\%$ versus $50\%$,
 Table~\ref{tab:aggregate}), but matched hybrid on the $99\%$
 Value-at-Risk coverage test to within statistical tolerance
-(Table~\ref{tab:var}); the body-fidelity gap did not translate to
-a tail-accuracy gap. Hybrid's effective scope was the case where
-the per-asset generator was specified in full-return units, which
-is the natural setting when the generator is calibrated for
-distributional interpretability, cached for other pipelines, or
-chosen to retain regime-switching or jump structure; in that case
-hybrid delivered $99\%$ VaR accuracy on par with a dedicated
-residual generator without requiring a separate fitting stage. The
+(Table~\ref{tab:var}). The two findings together draw the
+tradeoff: residual-fit composers reach the body of the
+distribution more tightly by fitting a generator directly to the
+OLS residual series, at the cost of replacing the full-return
+JumpHMM marginal with a separately specified residual generator;
+for tail risk the tradeoff disappears, so the choice between the
+two approaches is driven by whether the regime-switching and jump
+structure of the full-return marginal is itself a desired
+property of the per-asset generator. When it is (for example,
+when the same generator feeds univariate and multivariate
+pipelines, or when distributional interpretability of the
+marginal matters downstream), hybrid delivers $99\%$ VaR
+accuracy on par with a dedicated residual generator without a
+separate fitting stage. The
 variance-inflation gap was large enough to matter in practice: at
 the high-$\beta$ end of the universe, naive composition inflated
 the marginal variance by over $70\%$ relative to the generator
@@ -103,16 +109,17 @@ trail.
 
 The evaluation isolated the composition rule by fixing the market
 path at the real SPY history and using the same per-ticker
-innovation draw across all three composers. This design yielded a
-paired comparison of composition rules at the per-ticker level but
-set aside two questions. The first concerns cross-sectional
-dependence: we skipped the optional rank-reorder step in
-Algorithm~\ref{alg:hybrid} so that per-ticker metrics reflected the
-composition rule alone. When the reorder is applied, the variance
-algebra is unchanged (rank-reordering preserves the marginal
-variance of $\eps_i$), so the marginal results here carry over;
-cross-sectional fidelity under different copula specifications is a
-separate evaluation, deferred to follow-up work. The second
+innovation draw across all three composers. This design yielded a paired comparison of composition rules at
+the per-ticker level but set aside two questions. The first
+concerns cross-sectional dependence: we skipped the optional
+rank-reorder step in Algorithm~\ref{alg:hybrid} so that
+per-ticker metrics reflected the composition rule alone.
+Rank-reordering preserves the marginal variance of $\eps_i$
+exactly, so the variance algebra and the per-ticker results here
+are unaffected by which copula family is layered on top; copula
+selection is therefore a validation question that is separable
+from the marginal evaluation reported here, and we defer it to
+follow-up work. The second
 concerns market-path uncertainty: the metrics reported here used
 the real SPY path, and under a simulated market path the composed
 marginal picks up additional variance from the sampling of
@@ -193,7 +200,7 @@ With iid residuals, a rebalancing rule collects the full
 diversification return of \cite{boothFama1992}, a compounding
 premium that scales with residual variance and rebalancing frequency
 and is largely absent in real markets, where daily residual
-autocorrelation is small but positive \cite{boucheyGunthorpSutherland2012}.
+autocorrelation is small but positive \cite{boucheyNemtchinovWong2015}.
 Two generator alternatives in Table~\ref{tab:aggregate} preserve
 temporal structure directly: the block-bootstrap composer resamples
 blocks of the empirical OLS residual series~\cite{politisRomano1994},
@@ -208,19 +215,25 @@ structure for the downstream task, the bootstrap or GARCH
 alternatives carry it directly, at the cost of dropping the
 full-return JumpHMM marginal.
 
-The diversification-return artifact is quantitatively large enough
-on standard rebalancing rules that absolute-return claims drawn
-from JumpHMM-corrected paths require an explicit correction or an
-explicit caveat. A $20$-asset target-weight allocator deployed
-against a hybrid-composed $2025$ universe produced a median
-synthetic continuously-compounded growth rate of
-$\sim\!30\%/\mathrm{yr}$, against $11.5\%/\mathrm{yr}$ when the same
-allocator was deployed against the real $2025$ growth-rate history;
-a static-to-daily-rebalance decomposition on the same paths isolated
-a $+27.7$ percentage-point jump driven by the rebalance step alone,
-attributing the $\sim\!22$\,pp synthetic-versus-real gap to the
-diversification return rather than to a calibration
-error~\cite{boothFama1992, boucheyGunthorpSutherland2012,
+The diversification-return artifact is a property of any SIM
+construction that draws residuals independently across time: real
+equity residuals carry a small positive serial autocorrelation
+\cite{loMacKinlay1990} that any iid sampler discards, including
+the JumpHMM marginal used here and the i.i.d.\ Gaussian and
+JumpHMM-on-residuals composers of Table~\ref{tab:aggregate}. The
+quantitative consequence under daily rebalancing is large enough
+that absolute-return claims drawn from any of these composers
+require an explicit correction or an explicit caveat. A
+$20$-asset target-weight allocator deployed against a
+hybrid-composed $2025$ universe produced a median synthetic
+continuously-compounded growth rate of $\sim\!30\%/\mathrm{yr}$,
+against $11.5\%/\mathrm{yr}$ when the same allocator was deployed
+against the real $2025$ growth-rate history; a
+static-to-daily-rebalance decomposition on the same paths isolated
+a $+27.7$ percentage-point jump driven by the rebalance step
+alone, attributing the $\sim\!22$\,pp synthetic-versus-real gap to
+the diversification return rather than to a calibration
+error~\cite{boothFama1992, boucheyNemtchinovWong2015,
 markowitz1976longRun} (Online Appendix~\ref{sec:supp-bias}). A
 uniform location-shift correction
 (Eq.~\eqref{eq:bias-correction}, Online
