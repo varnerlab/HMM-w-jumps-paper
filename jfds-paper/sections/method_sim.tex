@@ -11,8 +11,9 @@
 We work in continuously compounded annualized excess growth rates,
 matching the HMM-WJ convention. Throughout this subsection, $\bar{x}$,
 $\Var(x)$, and $\Cov(x, y)$ denote the sample mean, sample variance,
-and sample covariance of any length-$T$ real vectors $x, y \in \R^T$,
-computed over the $T$ time steps of the path. The construction
+and sample covariance of any length-$T$ real vectors
+$x, y \in \R^T$ (the space of $T$-dimensional vectors of real
+numbers), computed over the $T$ time steps of the path. The construction
 composes a synthetic per-asset growth-rate path $g_i$ under the
 single-index model (SIM):
 \begin{equation}
@@ -47,11 +48,11 @@ produced by the HMM-WJ model (Algorithm~\ref{alg:hmmwj}); the SIM
 composition is generator-agnostic, using only $\tg_i$ and
 $\sigma_{\gen,i}^2 = \Var(\tg_i)$ with no parametric form assumed
 for the marginal.
-Given these inputs, we want the synthetic composition
+Given these inputs, the synthetic composition
 $g_i = \alpha_i + \beta_i^{\eff}\, g_m + \eps_i$, with effective
 slope $\beta_i^{\eff}$ (equal to $\beta_i$ on the unclipped branch
-and the attenuated value of Eq.~\eqref{eq:clip} otherwise), to
-satisfy three properties in the large-$T$ limit: \emph{SIM
+and the attenuated value of Eq.~\eqref{eq:clip} otherwise), is
+required to satisfy three properties in the large-$T$ limit: \emph{SIM
 recovery}, where OLS of $g_i$ on $g_m$ returns
 $\hat\alpha_i = \alpha_i$ and $\hat\beta_i = \beta_i^{\eff}$ (with
 the attenuated $\beta_i^{\eff}$ persisted alongside $\beta_i$ when
@@ -117,12 +118,15 @@ piecewise rule is:
   \end{cases}
   \label{eq:clip}
 \end{equation}
-Sign preservation in \eqref{eq:clip} keeps defensive
-(negative-$\beta$) assets defensive even when clipped. The floor $f$
-is a tunable knob; in our experiments we use $f = 0.10$, which
-guarantees that at least $10\%$ of each asset's variance comes from
-idiosyncratic noise. When $\beta_i$ is clipped we log a warning and
-persist both $\beta_i$ and $\beta_i^{\eff}$ alongside the output.
+Here $\sign(\beta_i) \in \{-1, +1\}$ is the sign of the calibrated
+$\beta_i$, so the clipped slope inherits the calibrated direction;
+sign preservation keeps defensive (negative-$\beta$) assets
+defensive even when clipped. The floor $f$ is a free parameter of
+the construction; in our experiments we use $f = 0.10$, reserving at
+least $10\%$ of each asset's variance for idiosyncratic noise. When
+$\beta_i$ is clipped, both $\beta_i$ and $\beta_i^{\eff}$ are
+persisted alongside the output so the attenuation is recoverable
+without external metadata.
 
 The variance-preserving construction defined by
 Eq.~\eqref{eq:scale} targets $\Var(g_i) = \sigma_{\gen,i}^2$. For
@@ -194,8 +198,8 @@ algebra, including the tail behavior implied by the floor $f$, is
 laid out in Online Appendix~\ref{sec:supp-sim-derivations}. The
 construction injects \emph{contemporaneous} market dependence only;
 lagged dependence (lead-lag effects, market-driven volatility
-clustering) requires a richer construction, which we return to in
-the discussion.
+clustering) requires a richer factor structure beyond the scope
+here.
 
 \begin{algorithm}[t]
 \caption{Hybrid SIM composition with variance correction.}

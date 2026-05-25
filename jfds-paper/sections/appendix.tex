@@ -7,8 +7,8 @@
 \label{sec:supp-cov}
 
 The variance correction of Eq.~\eqref{eq:scale} rests on the
-assumption $\Cov[\tg_i, g_m] \approx 0$, which is what allows the
-derivation to drop the cross-term in the expansion of $\Var[g_i]$. Because the per-asset JumpHMM marginals are
+assumption $\Cov(\tg_i, g_m) \approx 0$, which is what allows the
+derivation to drop the cross-term in the expansion of $\Var(g_i)$. Because the per-asset JumpHMM marginals are
 fit to each asset's full growth-rate history, including its
 market-correlated component, the assumption is not automatic: a
 generator that picked up a residual market loading would invalidate
@@ -19,7 +19,7 @@ real SPY path:
 \begin{equation}
   \mathrm{cov}^{\mathrm{norm}}_i
   = \frac{1}{R} \sum_{r=1}^{R}
-    \frac{\Cov[\tg_i^{(r)},\, g_m]}{\sigma_{\gen,i}\, \sigma_m}.
+    \frac{\Cov(\tg_i^{(r)},\, g_m)}{\sigma_{\gen,i}\, \sigma_m}.
 \end{equation}
 Per-ticker values were plotted as histograms in
 Fig.~\ref{fig:cov_diag}. Across the $423$ tickers, the full-return
@@ -37,7 +37,7 @@ Eq.~\eqref{eq:scale} held in practice.
   \centering
   \includegraphics[width=0.85\textwidth]{figs/figS1_cov_diagnostic.pdf}
   \caption{\textbf{Empirical normalized cross-covariance
-    $\Cov[\tg_i, g_m] / (\sigma_{\gen,i}\, \sigma_m)$ across
+    $\Cov(\tg_i, g_m) / (\sigma_{\gen,i}\, \sigma_m)$ across
     the $423$-ticker universe.} Histograms were stacked per generator,
     with each per-ticker value averaged over $R = 100$ generator
     growth-rate paths. The full-return JumpHMM, residual-fit JumpHMM, and
@@ -76,7 +76,7 @@ process is $W_t = W_{t-1}\sum_i w_i \exp(g_i(t)\,\Delta t)$,
 and the per-step log return is $\log(W_t/W_{t-1}) = \log\sum_i w_i
 \exp(g_i(t)\,\Delta t)$. Second-order Taylor expansion of
 $\exp(g_i\,\Delta t)$ about zero, followed by second-order
-expansion of $\log(1+x)$ about zero, gives
+expansion of $\log(1+x)$ about zero, gives:
 \begin{equation}
   \log\!\frac{W_t}{W_{t-1}} \;=\;
   \Delta t \sum_{i} w_i\, g_i(t)
@@ -88,11 +88,11 @@ expansion of $\log(1+x)$ about zero, gives
 which, after dividing by $\Delta t$ to extract the annualized
 single-step rate $r_p(t) := \Delta t^{-1}\log(W_t/W_{t-1})$ and
 taking unconditional expectations under stationarity (using
-$\E[g_i^2] = \mu_i^2 + \sigma_i^2$ and $\E[(\sum_i w_i g_i)^2] =
+$\E(g_i^2) = \mu_i^2 + \sigma_i^2$ and $\E((\sum_i w_i g_i)^2) =
 (\sum_i w_i \mu_i)^2 + \sigma_p^2$ with $\sigma_p^2 = w^\top \Sigma w$
-the per-rate portfolio variance), becomes
+the per-rate portfolio variance), becomes:
 \begin{equation}
-  \E[r_p] \;=\; \sum_{i} w_i\, \mu_i
+  \E(r_p) \;=\; \sum_{i} w_i\, \mu_i
   \;+\; \underbrace{\tfrac{1}{2}\,\Delta t\!\left(\sum_{i} w_i\, \sigma_i^2
        - \sigma_p^2\right)}_{\displaystyle D}
   \;+\; \tfrac{1}{2}\,\Delta t\!\left(\sum_{i} w_i\, \mu_i^2
@@ -102,7 +102,7 @@ the per-rate portfolio variance), becomes
 \end{equation}
 the Booth-Fama identity for the daily-rebalanced portfolio in
 annualized growth-rate units \cite{boothFama1992,
-markowitz1976longRun}. The per-rate moments $\mu_i = \E[g_i(t)]$
+markowitz1976longRun}. The per-rate moments $\mu_i = \E(g_i(t))$
 and $\sigma_i^2 = \Var(g_i(t))$ carry units $\mathrm{yr}^{-1}$ and
 $\mathrm{yr}^{-2}$ respectively; the products $\Delta t\,\sigma_i^2$
 and $\Delta t\,\sigma_p^2$ in Eq.~\eqref{eq:booth-fama} are the
@@ -114,7 +114,7 @@ $\mu \sim 0.08~\mathrm{yr}^{-1}$ and negligible against the
 variance term $D \sim \Delta t\,\sigma^2 \sim 4\!\times\!10^{-2}~
 \mathrm{yr}^{-1}$; we drop it. The realized annualized compound
 growth rate $\bar g_p = (T\,\Delta t)^{-1}\log(W_T/W_0) =
-T^{-1}\sum_{t} r_p(t)$ converges to $\E[r_p]$ by the ergodic
+T^{-1}\sum_{t} r_p(t)$ converges to $\E(r_p)$ by the ergodic
 theorem under any stationary residual process, so the long-run
 limit is fixed by the one-time-slice unconditional joint
 distribution of $(g_i(t))_i$ and does not, in itself, depend on
@@ -125,7 +125,7 @@ diversification return. Expanding $\sigma_p^2 = \sum_i w_i^2
 \sigma_i^2 + 2 \sum_{i<j} w_i w_j \Sigma_{ij}$ and using the
 identity $\sum_i w_i (1 - w_i) \sigma_i^2 = \sum_{i<j} w_i w_j
 (\sigma_i^2 + \sigma_j^2)$ that holds for any weights summing to
-one,
+one:
 \begin{equation}
   D \;=\; \tfrac{1}{2}\,\Delta t\!\left(\sum_i w_i \sigma_i^2 - \sigma_p^2\right)
   \;=\; \tfrac{1}{2}\,\Delta t \sum_{i<j} w_i w_j \,\Var(g_i - g_j) \;\ge\; 0,
@@ -146,15 +146,15 @@ the long-run mean-variance allocation; Booth and Fama
 
 Substituting the single-index decomposition
 $g_i(t) = \alpha_i + \beta_i\, g_m(t) + \eps_i(t)$ with
-$\Cov[g_m, \eps_i] = 0$ (verified in
-Sec.~\ref{sec:supp-cov}) into Eq.~\eqref{eq:dr-pairwise} gives
+$\Cov(g_m, \eps_i) = 0$ (verified in
+Sec.~\ref{sec:supp-cov}) into Eq.~\eqref{eq:dr-pairwise} gives:
 \begin{equation}
   \Var(g_i - g_j) \;=\; (\beta_i - \beta_j)^2 \sigma_m^2
   \;+\; \Var(\eps_i - \eps_j),
 \end{equation}
 since $g_m$ and the residuals are uncorrelated, so the diversification
 return splits cleanly into a market-beta-dispersion component and an
-idiosyncratic component,
+idiosyncratic component:
 \begin{equation}
   D \;=\;
   \underbrace{\tfrac{1}{2}\,\Delta t\,\sigma_m^2 \sum_{i<j} w_i w_j (\beta_i - \beta_j)^2}_{D_{\mathrm{mkt}}}
@@ -193,7 +193,7 @@ $\Var(\eps_i) = \sigma_{\eta,i}^2 / (1 - \phi^2) = \sigma_{\eps,i}^2$.
 The AR(1) parameter $\phi$ leaves the unconditional joint
 distribution of $(g_i(t))_i$ at a single time slice unchanged,
 which by Eqs.~\eqref{eq:booth-fama}, \eqref{eq:dr-sim} means
-$\phi$ enters at zeroth order in $\E[r_p]$ and at first order
+$\phi$ enters at zeroth order in $\E(r_p)$ and at first order
 only in the long-run variance of the sample mean
 ($\Var(\bar g_p) \to T^{-1}\,\sigma_p^2 \,(1+\phi)/(1-\phi)$).
 The synthetic-ensemble median across $1{,}000$ paths therefore
@@ -288,9 +288,8 @@ residual draw differs.
     $\beta$ range; Gaussian SIM drops to $\sim 0.22$, indicating the
     shift toward a thinner-tailed distribution. The hybrid's median
     sitting below $\kappa_{\real}$ reflects the JumpHMM marginal's own
-    kurtosis rather than a composition-rule distortion; the panel's
-    point is that hybrid tracks naive (inheriting generator tails)
-    while Gaussian SIM does not.}
+    kurtosis rather than a composition-rule distortion: hybrid tracks
+    naive (inheriting generator tails) while Gaussian SIM does not.}
   \label{fig:tails}
 \end{figure}
 
@@ -302,7 +301,7 @@ order, the drawdown geometry, or the volatility envelope of the
 synthetic ensemble. Multiplying each path-$p$ wealth trajectory
 $W_{p,t}$ at integer step $t$ by a uniform exponential drag at rate
 $b$ that closes the gap between the engine's median annualized
-growth rate and an external long-run prior $\bar g^{\mathrm{prior}}$,
+growth rate and an external long-run prior $\bar g^{\mathrm{prior}}$:
 \begin{equation}
 \label{eq:bias-correction}
   W_{p,t}^{\mathrm{corr}} \;=\; W_{p,t}\cdot
@@ -359,10 +358,10 @@ year).
 
 Several alternative fixes were considered and rejected. A
 path-filtering rule that drops synthetic paths above a $\bar g_p$
-threshold turns the threshold itself into a target the audience
-will probe and removes only a subset of the artifact's consequences
-while leaving the structural artifact intact. Inflating per-trade transaction costs
-to absorb the bonus would require round-trip costs of
+threshold turns the threshold itself into a tuning target and
+removes only a subset of the artifact's consequences while leaving
+the structural artifact intact. Inflating per-trade transaction
+costs to absorb the bonus would require round-trip costs of
 $\sim\!70$~basis points versus the realistic $1$--$10$~basis points
 seen on liquid US equity, and transfers a misrepresentation from
 ``the engine is great'' to ``costs are huge''. Drifting the
@@ -389,20 +388,17 @@ anchor at $k$ chosen to match the prior but the rank correlation
 with the raw engine drops to $0.748$ (paths reorder under the
 correction) and the corrected drawdown distribution inherits
 static-allocation geometry (median drawdown jumps from $5\%$ to
-$9\%$, P95 from $13.5\%$ to $19\%$); we do not recommend it. The
-corrected ensemble remains reliable for the ensemble-shape
-analyses the paper validates: percentile diagnostics overlaying
-real outcomes against the synthetic distribution, drawdown
-distribution and tail-shape analysis, and relative ranking of
-strategies evaluated on the same corrected paths. It does not
-remove the underlying iid-residual limitation, so it does not
-support workflows where residual autocorrelation is itself the
-quantity of interest, where forward-prediction claims on absolute
-Sharpe at daily rebalancing frequency are decision-critical, or where
-the optimal rebalancing frequency is the question being asked;
-for those workflows the AR(1) or GARCH residual structure
-restructured around the copula reorder, listed as future work in
-the Conclusion, is the appropriate path.
+$9\%$, P95 from $13.5\%$ to $19\%$). The corrected ensemble carries
+the ensemble-shape information the paper validates: percentile
+diagnostics overlaying real outcomes against the synthetic
+distribution, drawdown distribution and tail-shape analysis, and
+relative ranking of strategies evaluated on the same corrected
+paths. It does not remove the underlying iid-residual limitation, so
+the residual autocorrelation structure itself, absolute Sharpe
+under daily rebalancing, and the choice of rebalancing frequency
+remain outside the scope of the correction; the structural fix for
+those targets is the AR(1) or GARCH residual structure
+restructured around the copula reorder, listed as future work.
 
 % =============================================================================
 % S3 Validation metric definitions (KS, AD, W1, Hellinger)
@@ -428,7 +424,7 @@ W_1 = \frac{1}{n} \sum_{i=1}^{n} \big| G_{\rm obs}^{(i)} - G_{\rm sim}^{(i)} \bi
 \label{eq:wasserstein}
 \end{equation}
 with $G^{(i)}$ the $i$th order statistic. The Hill upper-tail index is the classical
-order-statistic estimator
+order-statistic estimator:
 \begin{equation}
 \hat\xi = \frac{1}{k-1} \sum_{i=1}^{k-1}
   \log\!\left( \frac{X_{(i)}}{X_{(k)}} \right),
@@ -438,7 +434,7 @@ with $X_{(1)} \ge X_{(2)} \ge \dots$ the ordered upper-tail
 absolute returns; $k$ is set to the upper $5\%$ of the
 sample. For a Pareto-tailed distribution with shape $\alpha$,
 $\hat\xi \approx 1/\alpha$. The Hellinger distance between two
-density estimates $p$ and $q$ on a common bin grid is
+density estimates $p$ and $q$ on a common bin grid is:
 \begin{equation}
 H(p, q) = \frac{1}{\sqrt{2}} \, \Big\| \sqrt{p} - \sqrt{q} \Big\|_2
 \;\in\; [0, 1],
@@ -483,22 +479,23 @@ and the objective averaged over the path ensemble.
 \section{Transition matrix internals and partition diagnostics}
 \label{sec:supp-transitions}
 
-Figure~\ref{fig:model_internals} visualizes the three internal
-components of the fitted HMM-WJ on SPY with $N = 100$ states.
-Panel~(a) overlays the fitted Laplace cumulative distribution function
-on the empirical CDF, with the $99$ vertical lines marking the
+We inspected the three internal components of the fitted HMM-WJ
+on SPY with $N = 100$ states (Fig.~\ref{fig:model_internals}). The
+fitted Laplace cumulative distribution function overlays the
+empirical CDF closely, with the $99$ vertical lines marking the
 equal-probability quantile boundaries $Q_k$ that define the hidden
-states; close agreement confirms the Laplace fit is an accurate
-marginal model for the SPY excess growth-rate series and validates
-the partition rule of Eq.~\eqref{eq:growth_rate}. Panel~(b) displays
-the estimated transition matrix $\mathbf{T}$ in $\log_{10}$ color
-scale. The dominant near-diagonal band reflects short-range regime
-persistence, with most off-diagonal mass concentrated within $\pm 5$
-states of the diagonal. Panel~(c) plots the expected natural
-residence time $1/(1 - T_{kk})$ for each state on a $\log_{10}$
-scale, with the bottom tail set $\mathcal{S}_{-}$ (states $1$--$5$,
-red) and the top tail set $\mathcal{S}_{+}$ (states $96$--$100$,
-teal) highlighted. Under pure Markovian dynamics every state, including
+states, confirming the Laplace fit as an accurate marginal model
+for the SPY excess growth-rate series and validating the partition
+rule of Eq.~\eqref{eq:growth_rate}. The estimated transition matrix
+$\mathbf{T}$ in $\log_{10}$ color scale shows a dominant
+near-diagonal band reflecting short-range regime persistence, with
+most off-diagonal mass concentrated within $\pm 5$ states of the
+diagonal. The expected natural residence time
+$1/(1 - T_{kk})$ for each state on a $\log_{10}$ scale, with the
+bottom tail set $\mathcal{S}_{-}$ (states $1$--$5$, red) and the
+top tail set $\mathcal{S}_{+}$ (states $96$--$100$, teal)
+highlighted, makes the gap to the empirical clustering scale
+explicit. Under pure Markovian dynamics every state, including
 the tail states, exits within $1$--$2$ steps on average, far too
 quickly to reproduce empirical volatility clustering; the dashed line
 marks the grid-search mean jump duration $\lambda^{*} = 100$ steps and
@@ -533,16 +530,17 @@ support.
 \section{Emission distribution and semi-Markov comparison}
 \label{sec:supp-emission-hsmm}
 
-Table~\ref{tab:emission_hsmm} isolates the contributions of the
-emission family and the persistence mechanism by comparing three
-variants on SPY: the HSMM baseline of Bulla and Bulla
-\cite{bullaBulla2006} ($K = 8$ states, negative-binomial dwell times,
-Student-$t$ emissions), HMM-WJ with the original Gaussian emissions
-($N = 100$), and HMM-WJ with Student-$t$ emissions ($N = 100$). HMM-WJ
-exceeded the HSMM on in-sample distributional fidelity by $15$
-percentage points on KS and $49$ percentage points on AD regardless of
-emission choice, isolating the contribution of the fine-grained
-quantile partition over the coarse $K = 8$ HSMM partition. Holding the
+To isolate the contributions of the emission family and the
+persistence mechanism, we compared three variants on SPY
+(Table~\ref{tab:emission_hsmm}): the HSMM baseline of Bulla and
+Bulla \cite{bullaBulla2006} ($K = 8$ states, negative-binomial
+dwell times, Student-$t$ emissions), HMM-WJ with the original
+Gaussian emissions ($N = 100$), and HMM-WJ with Student-$t$
+emissions ($N = 100$). The HMM-WJ variants exceeded the HSMM on
+in-sample distributional fidelity by $15$ percentage points on KS
+and $49$ percentage points on AD regardless of emission choice,
+attributing that gap to the fine-grained quantile partition over
+the coarse $K = 8$ HSMM partition. Holding the
 HMM-WJ machinery fixed, the Student-$t$ ($\nu = 5$) upgrade over the
 Normal baseline closed the in-sample excess-kurtosis gap from a $5.5$
 value under Normal emissions to a $7.6$ value under Student-$t$
@@ -714,13 +712,13 @@ held on all three tickers.
 \section{SIM composition derivations and properties verification}
 \label{sec:supp-sim-derivations}
 
-The variance-corrected single-index composition of §3.2 states two
+The variance-corrected single-index composition states two
 closed-form results, the variance scale of Eq.~\eqref{eq:scale} and
-the residual-variance target of Eq.~\eqref{eq:r2-target}, and asserts
-that the composed series $g_i$ satisfies the three preservation
-criteria (SIM recovery, marginal fidelity, cross-sectional
-dependence) in the large-$T$ limit. This appendix gives the algebra
-behind the two boxed results and verifies the criteria.
+the residual-variance target of Eq.~\eqref{eq:r2-target}, and
+asserts that the composed series $g_i$ satisfies the three
+preservation criteria (SIM recovery, marginal fidelity,
+cross-sectional dependence) in the large-$T$ limit. The derivation
+follows.
 
 To derive Eq.~\eqref{eq:scale}, form the candidate residual
 $\eps_i = s_i\,\tg_i$ for some scalar $s_i \in (0, 1]$ and require

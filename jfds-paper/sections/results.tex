@@ -1,14 +1,16 @@
 % results.tex
 % Single Results section, no subsections, no paragraph headings.
-% Flowing narrative across 8 long paragraphs:
-%   (1) two-pass setup + stylized facts confirmation
+% Flowing narrative across 10 long paragraphs:
+%   (1) empirical SPY targets (stylized facts confirmation)
 %   (2) HMM-WJ jump calibration + state-resolution sweep
 %   (3) single-asset 8-generator benchmark, in-sample + out-of-sample + cross-asset
 %   (4) multi-asset universe, per-ticker fits, OLS calibration
-%   (5) six-composer protocol + metric families
-%   (6) aggregate composer results + downstream VaR
-%   (7) mechanism trace + branch behavior + clipping stress
-%   (8) robustness (hyperparameter grid + seed sweep)
+%   (5) six-composer protocol (paired innovation, three branches)
+%   (6) metric families and per-ticker aggregation
+%   (7) aggregate composer scorecard
+%   (8) downstream VaR backtest
+%   (9) mechanism trace + branch behavior + clipping stress
+%  (10) robustness (hyperparameter grid + seed sweep)
 
 We first measured the empirical SPY data targets that any synthetic
 generator must reproduce. Descriptive statistics on the real SPY
@@ -206,12 +208,12 @@ $\beta = 1.00$ and quartiles $(0.81, 1.00, 1.18)$, with $R^2_{i,\real}$
 ranging from $0.001$ to $0.933$
 (Fig.~\ref{fig:r2_distribution}).
 
-The composition rules used a \emph{paired innovation} protocol
-where applicable: for each ticker and each replication, a single
-innovation path drawn from the ticker's JumpHMM marginal was passed
-unchanged to the naive, Gaussian-residual-SIM, and hybrid composers,
-so that differences among those three reflected the composition rule
-alone, not generator stochasticity. The \emph{Naive} composer plugged
+For each ticker and each replication, a single innovation path
+drawn from the ticker's JumpHMM marginal was passed unchanged to
+the naive, Gaussian-residual-SIM, and hybrid composers (a paired
+innovation protocol), so that differences among those three
+isolated the composition rule from generator stochasticity. The
+\emph{Naive} composer plugged
 the JumpHMM draw into the SIM identity with no variance correction.
 The \emph{Gaussian SIM} baseline replaced the JumpHMM draw with
 i.i.d.\ Gaussian noise scaled to the calibrated residual variance,
@@ -287,9 +289,10 @@ tighter than the naive baseline but looser than the Gaussian
 baseline, reflecting that the variance-preserving branch targeted
 $\sigma_{\gen,i}^2$ rather than $R^2_{i,\real}$. The three
 residual-fit composers sidestepped the variance-inflation problem
-entirely by fitting a generator directly to $e_i$, which by
-construction has variance $\sigma_{\eps,\real,i}^2$ and no
-double-counted market component; their aggregate KS pass rates
+entirely by fitting a generator directly to the empirical OLS
+residual series $e_i$, whose sample variance
+$\sigma_{\eps,\real,i}^2$ excludes the market component by
+construction; their aggregate KS pass rates
 were $75.8\%$ (JumpHMM-on-residuals), $73.3\%$ (block bootstrap),
 and $66.9\%$ (GARCH(1,1)-$t$), each higher than hybrid's $50.4\%$.
 The advantage sat in the body of the
@@ -344,6 +347,27 @@ fitting stage.
   \input{sections/tables/table5_var_backtest}
 \end{table}
 
+% --- Figure: preservation mechanism ---
+\begin{figure}[tbp]
+  \centering
+  \includegraphics[width=\textwidth]{figs/fig1_preservation.pdf}
+  \caption{\textbf{Hybrid's variance correction and its KS-pass-rate
+    consequence, per ticker vs calibrated $\beta$.}
+    Each point is a per-ticker median over $100$ replications; thick
+    lines are binned medians. \emph{Left (consequence):} Kolmogorov--Smirnov
+    pass rate against the real marginal at $\alpha = 0.05$. The naive
+    composer (blue) collapses past $\beta \approx 0.6$ as market loading
+    inflates the composed marginal; the hybrid composer (orange) stays
+    between $\sim 0.3$ and $\sim 0.9$ across the full $\beta$ range.
+    \emph{Right (mechanism):} variance ratio
+    $\mathrm{Var}(g)/\sigma^2_{\mathrm{gen}}$. The dotted curve is the
+    theoretical naive inflation $1 + \rho$ evaluated at the universe-median
+    $\sigma^2_{\mathrm{gen}}$; the naive scatter follows it, overshooting
+    generator variance by $50$ to $75\%$ at high $\beta$. Hybrid sits on
+    the unit line (dashed) by construction.}
+  \label{fig:preservation}
+\end{figure}
+
 Having established that body-fidelity did not translate into VaR
 accuracy, we traced where the KS advantage over the naive baseline
 came from by plotting per-ticker KS pass rate and per-ticker
@@ -378,10 +402,11 @@ trackers' KS pass rate under hybrid composition was $99\%$,
 consistent with the $R^2$-preserving branch recovering both the
 calibrated $\beta$ and the calibrated $R^2$ by construction.
 Clipping did not trigger anywhere in the universe: the market
-loading ratio $\rho_i$ stayed below $1 - f = 0.90$ for every
-ticker, because the JumpHMM marginals carried enough variance
-that the market component never crowded out the $f = 0.10$
-idiosyncratic floor. Because the $R^2$-preserving branch had only two empirical
+loading ratio $\rho_i = \beta_i^2 \sigma_m^2 / \sigma_{\gen,i}^2$
+(Eq.~\eqref{eq:rho}) stayed below $1 - f = 0.90$ for every ticker,
+because the JumpHMM marginals carried enough variance that the
+market component never crowded out the $f = 0.10$ idiosyncratic
+floor. Because the $R^2$-preserving branch had only two empirical
 assignments, we validated it on synthetic trackers where the target
 $(\beta, R^2)$ was known by construction: across $15$ cells of
 $(\beta_{\mathrm{true}}, R^2_{\mathrm{true}}) \in
@@ -405,7 +430,7 @@ the main run, we re-ran the hybrid composer on the same universe
 with the market growth-rate path rescaled by
 $\gamma \in \{1, 2, 3\}$, holding the calibrated marginals fixed.
 At $\gamma = 1$ no ticker crossed the threshold and the hybrid KS
-pass rate matched the headline value ($50.3\%$); at $\gamma = 2$
+pass rate matched the unstressed value ($50.3\%$); at $\gamma = 2$
 and $\gamma = 3$ the clipping branch activated on $76.4\%$ and
 $95.2\%$ of tickers respectively, and the hybrid KS pass rate
 rose to $71.8\%$ and $77.3\%$. The clipping branch is therefore
@@ -413,25 +438,24 @@ not a degradation under stress but a mechanism that keeps the
 composed marginal near the generator target as the market loading
 inflates.
 
-Finally, we asked whether the headline results were robust to the
-two hyperparameter choices of Algorithm~\ref{alg:hybrid} and to
-the simulation seed. We re-ran the hybrid composer on the full
-$423$-ticker universe at every point of a $5 \times 5$ grid,
+Finally, we tested the aggregate hybrid KS pass rate of
+Table~\ref{tab:aggregate} against the two hyperparameter choices of
+Algorithm~\ref{alg:hybrid} and against the simulation seed
+(Fig.~\ref{fig:sensitivity}, Table~\ref{tab:seed_uncertainty}). We
+re-ran the hybrid composer on the full $423$-ticker universe at
+every point of a $5 \times 5$ grid,
 $R^2_{\mathrm{preserve}} \in \{0.70, 0.75, 0.80, 0.85, 0.90\}$
 and $f \in \{0.05, 0.10, 0.15, 0.20, 0.30\}$
-(Fig.~\ref{fig:sensitivity}); hybrid KS pass rate ranged from
+(Fig.~\ref{fig:sensitivity}); the hybrid KS pass rate ranged from
 $50.24\%$ to $50.38\%$ across the $25$ cells, a spread of $0.14$
 percentage points, with the $R^2$-preserve assignment stable at
-QQQ and SPYG for every threshold at or below $R^2 = 0.85$ and
-the floor $f$ not changing any branch assignment in the grid.
-The headline number was therefore invariant to the hyperparameter
-values within wide tolerances, and the operating point
-$(R^2_{\mathrm{preserve}} = 0.80,\, f = 0.10)$ reflects a
-principled choice of the $R^2$-branch threshold and a standard
-floor value rather than a data-peeked local optimum. We also
-quantified the contribution of generator stochasticity to the
-headline numbers by re-running the full six-composer protocol
-under $8$ random seeds (Table~\ref{tab:seed_uncertainty}). The
+QQQ and SPYG for every threshold at or below $R^2 = 0.85$ and the
+floor $f$ not changing any branch assignment in the grid. The
+aggregate pass rate was therefore invariant to the hyperparameter
+values within wide tolerances. We then quantified the contribution
+of generator stochasticity to the aggregate metrics by re-running
+the full six-composer protocol under $8$ random seeds
+(Table~\ref{tab:seed_uncertainty}). The
 per-composer KS pass rates held to within fractions of a
 percentage point: hybrid sat at $50.40 \pm 0.18\%$ across seeds,
 JumpHMM-on-residuals at $75.61 \pm 0.11\%$, block bootstrap at

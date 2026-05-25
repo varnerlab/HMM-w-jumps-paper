@@ -3,34 +3,32 @@
 
 Synthetic equity return paths underpin stress testing, portfolio
 validation, and training data for machine-learning pipelines, yet
-existing generators leave two gaps: single-asset stylized facts
-(heavy tails, regime persistence, volatility clustering) rarely appear
-together in one model, and the standard recipe for adding
-multi-asset factor structure on top of a per-asset generator distorts
-the marginal the generator was built to deliver. We closed both gaps
-with a two-stage construction. The first stage was a hybrid hidden
+parametric, neural, and semi-Markov generators rarely reproduce the
+single-asset stylized facts of heavy tails, regime persistence, and
+volatility clustering in one model. We developed a hybrid hidden
 Markov framework that discretized excess growth rates into states
-defined by quantiles of a fitted Laplace distribution and augmented
-regime switching with a Poisson jump-duration mechanism, enforcing
-realistic tail-state dwell times without iterative Baum-Welch
-optimization. The second stage was a closed-form variance-corrected
-single-index composer that rescaled the per-asset generator draw
-before insertion into the market factor, preserving the marginal
-variance while recovering the calibrated factor loading; a
-sign-preserving clip handled high-leverage assets and a
-coefficient-of-determination-driven branch handled index-tracking
-assets, with each composed series tagged by a persisted construction
-flag so downstream consumers could audit the chosen path. We evaluated
-both stages on a US equity and exchange-traded-fund universe
-calibrated against a decade of SPY history with a one-year hold-out,
-benchmarking against parametric, neural, semi-Markov, and residual-fit
-alternatives on distributional, tail, factor-recovery, and
-Value-at-Risk metrics. The hybrid marginals reproduced the stylized facts in-sample and
-out-of-sample, and the variance-corrected
-composer recovered the calibrated factor loading while preserving
-heavy-tailed character at tail-risk accuracy comparable to dedicated
-residual fits. We also documented one downstream-use caveat, an
-iid-residual diversification-return artifact under daily rebalancing,
-addressable via a uniform location-shift correction anchored to a
-documented long-run prior. All code and per-asset fitted marginals
-were released as part of the open-source \texttt{JumpHMM.jl} library.
+defined by quantiles of a fitted Laplace distribution, used a
+location-scale Student-$t$ emission within each state, and augmented
+regime switching with a Poisson jump-duration mechanism that
+enforced realistic tail-state dwell times without iterative
+Baum-Welch optimization. We evaluated the framework on a decade of
+SPY history with a one-year hold-out, benchmarking against
+bootstrap, Gaussian, Laplace, GARCH(1,1), a Gated Recurrent Unit, a
+hidden semi-Markov model, and a no-jump variant of the framework on
+distributional, tail, and temporal metrics. The hybrid marginals
+reproduced the stylized facts in-sample and out-of-sample, and the
+jump mechanism was the only addition that reduced absolute-growth
+autocorrelation meaningfully below the i.i.d.\ floor without
+sacrificing distributional fit. To extend the framework to
+multi-asset workflows, we composed per-asset paths under a
+single-index model using a closed-form variance correction that
+rescaled the per-asset generator draw before insertion into the
+market factor; the correction recovered the calibrated factor
+loading on a $424$-asset US equity and exchange-traded-fund
+universe while preserving heavy-tailed character at tail-risk
+accuracy comparable to dedicated residual fits. We also documented
+one downstream-use caveat, an iid-residual diversification-return
+artifact under daily rebalancing, addressable via a uniform
+location-shift correction anchored to a documented long-run prior.
+All code and per-asset fitted marginals were released alongside the
+paper.
