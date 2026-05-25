@@ -3,7 +3,10 @@
 
 The per-asset evaluation positioned HMM-WJ as the only generator in
 the eight-model comparison to make meaningful progress on
-distributional and temporal fidelity at once. Bootstrap resampling
+distributional and temporal fidelity at once
+(Table~\ref{tab:model_comparison};
+Table~\ref{tab:emission_hsmm} for the Gaussian-vs-Student-$t$
+emission decomposition). Bootstrap resampling
 set the non-parametric ceiling on marginal fit but inherited the
 historical realization wholesale and could not extrapolate beyond
 it. GARCH(1,1) carried the best temporal score (ACF-MAE $0.031$) yet
@@ -37,16 +40,18 @@ certain states received no support in the historical record; for
 assets with shorter trading histories or with thinner sampling at
 the extremes, the practical upper bound on state resolution will be
 lower, and the partition has to be re-sized rather than carried over
-directly from the SPY calibration. Second, the jump parameters
-$(\epsilon, \lambda)$ were tuned once against the in-sample SPY
-history and applied across the $424$-ticker universe; the
-cross-asset extension in Online Appendix~\ref{sec:supp-cross-asset}
-confirmed that the duration parameter $\lambda^{*}$ adapted
-automatically to each asset's clustering intensity at the optimum,
-but per-ticker tuning of $(\epsilon, \lambda)$ would tighten each
-marginal at the cost of a calibration step per asset, an exchange we
-made explicit by reporting universe-wide results under a shared
-optimum. Third, the Student-$t$ emission with $\nu = 5$ closed the
+directly from the SPY calibration. Second, the jump parameters $(\epsilon, \lambda)$ were tuned once
+against the in-sample SPY history and applied across the
+$424$-ticker universe; the cross-asset extension in Online
+Appendix~\ref{sec:supp-cross-asset} reports per-ticker tune outputs
+that produced strong in-sample fits on all three single-stock
+tickers (KS $\ge 98.9\%$). The composite tune objective has multiple
+near-equivalent local minima at finite Monte-Carlo budgets, so we
+do not draw asset-class conclusions from the specific argmin
+locations; what is reproducible is that the chosen operating point
+delivers a defensible per-ticker fit, and per-ticker tuning is
+available as a refinement at the cost of a calibration step per
+asset. Third, the Student-$t$ emission with $\nu = 5$ closed the
 kurtosis gap from $29\%$ under Normal emissions to within $1.3\%$
 of the observed value, an improvement that came from matching tail
 mass at the per-state innovation level. The negative skewness
