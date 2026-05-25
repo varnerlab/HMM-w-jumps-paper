@@ -1,5 +1,8 @@
 % discussion.tex
-% Discussion: stage-1 standing, stage-2 scope, caveats, and extensions.
+% Discussion: HMM-WJ standing in the eight-model comparison,
+% per-asset caveats, multi-asset composer findings and scope, the
+% diversification-return artifact and its bias correction, and the
+% open extensions.
 
 The per-asset evaluation positioned HMM-WJ as the only generator in
 the eight-model comparison to make meaningful progress on
@@ -65,9 +68,10 @@ adjustment to the quantile rule.
 We then evaluated the multi-asset extension. Per-asset growth-rate
 paths were composed under a single-index model (SIM) by drawing
 each asset's innovation from an independent JumpHMM generator fit
-to the asset's own full growth-rate history, then rescaling the
-draw by a closed-form scalar before inserting it into the SIM
-composition. Six composers were evaluated on a calibrated universe
+to the asset's own full growth-rate history (jumps disabled,
+$\epsilon = 0$, since the composer test is marginal-level), then
+rescaling the draw by a closed-form scalar before inserting it
+into the SIM composition. Six composers were evaluated on a calibrated universe
 of $424$ US equities and exchange-traded funds against the real SPY
 market path: the naive composition, a Gaussian-residual SIM
 baseline, the hybrid construction described here, and three

@@ -186,8 +186,9 @@ $1 - f$. Each asset is labelled with the branch
 that produced it ($R^2$-preserving, variance-preserving, or clipped
 variance-preserving), recorded alongside the output so the path
 taken per asset can be recovered without external bookkeeping. The
-optional rank reorder in line~14 accepts any joint dependence
-structure (empirical copula, t-copula, factor copula); reordering
+optional rank-reorder step in Algorithm~\ref{alg:hybrid} accepts
+any joint dependence structure (empirical copula, t-copula, factor
+copula); reordering
 preserves the marginal variance of $\eps_i$, so the variance algebra
 of Eq.~\eqref{eq:scale} is unaffected and whatever cross-sectional
 structure is applied to $\eps_i$ passes through to $g_i$ unchanged.

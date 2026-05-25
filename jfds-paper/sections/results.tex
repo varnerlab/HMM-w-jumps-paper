@@ -194,12 +194,17 @@ non-market assets. For each non-market ticker $i$ we fitted a
 JumpHMM marginal to the asset's own growth-rate history, using the
 default configuration ($N = 100$ Laplace-partition states,
 Student-$t$ emissions with $\nu = 5$, annualized excess growth rates
-with risk-free rate $r_f = 0$ and $\Delta t = 1/252$); jump
-parameters $(\epsilon, \lambda)$ were left at the package defaults
-rather than tuned per ticker, which would
-improve per-ticker marginal fit but was not required for a
-comparison that tests the effect of the composition rule on top of
-whatever marginal the generator produces. For each non-market ticker we
+with risk-free rate $r_f = 0$ and $\Delta t = 1/252$). The jump
+mechanism was disabled per ticker by holding the jump probability at
+$\epsilon = 0$, so the per-ticker generators reduced to the no-jump
+variant of the framework. The composer test is a marginal-level
+question (does the composition rule preserve or distort the per-asset
+marginal under the SIM identity?), and the jump mechanism's effect
+sits in the temporal-clustering channel rather than the
+marginal-shape channel; per-ticker tune of $(\epsilon, \lambda)$
+would tighten each marginal at the cost of a calibration step per
+asset, an exchange we made explicit by reporting universe-wide
+composer results under a shared, jumps-off configuration. For each non-market ticker we
 then ran OLS against the market path to obtain the calibrated SIM
 intercept, slope, coefficient of determination, and residual standard
 deviation. The universe spanned $\beta \in [0.01, 1.79]$ with median

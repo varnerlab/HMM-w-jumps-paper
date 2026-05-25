@@ -164,8 +164,8 @@ where the first term equals $\tfrac{1}{2}\,\Delta t\,\sigma_m^2 [\sum_i
 w_i \beta_i^2 - (\sum_i w_i \beta_i)^2]$, the weighted cross-sectional
 $\beta$ dispersion scaled by the annualized market variance
 $\Delta t\,\sigma_m^2$. Across the $423$-ticker universe the empirical
-$\beta$ distribution concentrates in $[0.5, 1.5]$
-(Sec.~\ref{sec:supp-cross-asset}) and the SPY annualized variance
+$\beta$ distribution spans $[0.01, 1.79]$ with interquartile range
+$[0.81, 1.18]$ and the SPY annualized variance
 $\Delta t\,\sigma_m^2 \approx 0.04~\mathrm{yr}^{-1}$, so
 $D_{\mathrm{mkt}}$ contributes at most a few percentage points per
 year for any diversified equity portfolio. The idiosyncratic
@@ -365,7 +365,7 @@ consistent with $2025$ being an above-typical equity year.
     $2014$--$2024$ window. The two tickers crossing the
     $R^2_{\mathrm{preserve}} = 0.80$ threshold (dashed line) are index
     ETFs (QQQ, SPYG); the highest-$R^2$ individual stock (BLK, $0.645$)
-    sits $\sim 0.22$ below the threshold. The $R^2$-preserving
+    sits $\sim 0.16$ below the threshold. The $R^2$-preserving
     branch's $n = 2$ occupancy is therefore a property of the
     single-factor SIM on S\&P 500 names against SPY, not a
     sample-size artifact or a data-peeked threshold.}
@@ -458,7 +458,7 @@ H(p, q) = \frac{1}{\sqrt{2}} \, \Big\| \sqrt{p} - \sqrt{q} \Big\|_2
 with $H = 0$ for identical densities and $H = 1$ for disjoint supports.
 
 % =============================================================================
-% S4 HMM-WJ simulator and grid-search pseudocode
+% S4 Jump-parameter grid-search procedure
 % =============================================================================
 
 % --- Figure: Statistical validation of HMM-WJ ---
@@ -512,10 +512,10 @@ top tail set $\mathcal{S}_{+}$ (states $96$--$100$, teal)
 highlighted, makes the gap to the empirical clustering scale
 explicit. Under pure Markovian dynamics every state, including
 the tail states, exits within $1$--$2$ steps on average, far too
-quickly to reproduce empirical volatility clustering; the dashed line
-marks the grid-search mean jump duration $\lambda^{*} = 100$ steps and
-quantifies the two-order-of-magnitude gap between natural residence
-times and the Poisson jump override. Quantile-bin occupancy was
+quickly to reproduce empirical volatility clustering; the dashed
+line marks the operating-point mean jump duration $\lambda = 100$
+steps and quantifies the two-order-of-magnitude gap between natural
+residence times and the Poisson jump override. Quantile-bin occupancy was
 approximately uniform over the in-sample window, consistent with the
 Laplace fit's calibration to the empirical CDF; the residual
 sample-size variation across bins was smaller than the within-bin
@@ -535,10 +535,10 @@ support.
     $1/(1 - T_{kk})$ for each state on a $\log_{10}$ scale, with the
     bottom tail set $\mathcal{S}_{-}$ (states $1$--$5$, red) and the
     top tail set $\mathcal{S}_{+}$ (states $96$--$100$, teal)
-    highlighted. The dashed horizontal line marks the mean jump
-    duration $\lambda^{*} = 100$ steps at the grid-search optimum,
-    quantifying the two-order-of-magnitude gap between natural
-    residence times and the jump-duration override.}
+    highlighted. The dashed horizontal line marks the operating-point
+    mean jump duration $\lambda = 100$ steps, quantifying the
+    two-order-of-magnitude gap between natural residence times and the
+    jump-duration override.}
   \label{fig:model_internals}
 \end{figure}
 
@@ -602,7 +602,7 @@ Hellinger           & $0.239$ ($0.001$)       & $0.212$ ($0.001$)       & $\math
 \end{table}
 
 % =============================================================================
-% S6 State-resolution sensitivity
+% S7 State-resolution sensitivity
 % =============================================================================
 
 % --- Table: Hybrid composer broken out by branch ---
@@ -638,7 +638,7 @@ upper bound on $N$ for the SPY in-sample window. We adopted $N = 100$
 as the operating point for all subsequent experiments.
 
 % =============================================================================
-% S7 Cross-asset generalization (NVDA, JNJ, JPM)
+% S8 Cross-asset generalization (NVDA, JNJ, JPM)
 % =============================================================================
 
 % --- Figure: Branch map in (beta, R^2) space ---

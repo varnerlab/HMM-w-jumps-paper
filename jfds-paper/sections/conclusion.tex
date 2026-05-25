@@ -22,9 +22,9 @@ marginal enter the factor pipeline while preserving its variance.
 On the empirical side, the hybrid HMM marginals passed the
 Kolmogorov-Smirnov test against the real SPY univariate distribution
 at $97.6\%$ in-sample and $94.4\%$ out-of-sample, outperforming
-Bootstrap, Gaussian, Laplace, GARCH, hidden semi-Markov, and Gated
-Recurrent Unit baselines on combined distributional and tail metrics
-(Table~\ref{tab:model_comparison}). The variance-corrected
+Bootstrap, Gaussian, Laplace, GARCH, hidden semi-Markov, no-jump HMM,
+and Gated Recurrent Unit baselines on combined distributional and
+tail metrics (Table~\ref{tab:model_comparison}). The variance-corrected
 single-index composer recovered the factor loading to a median
 absolute error of $0.018$ and matched the leading residual-fit
 alternatives on a per-ticker one-day $99\%$ Value-at-Risk backtest,

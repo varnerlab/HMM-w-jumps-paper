@@ -257,9 +257,12 @@ simulated market signatures. The objective targeted two stylized facts
 \cite{cont2001, rydenTerasvirtaAsbrink1998}: volatility clustering,
 measured as the squared error between the observed and simulated
 autocorrelation function (ACF) of absolute excess growth rates
-\cite{schwert1989} up to a lag of $L=252$ trading days (approximately
-one trading year), and leptokurtosis, captured by a penalty term on
-the global kurtosis \cite{mandelbrot1963}:
+\cite{schwert1989} up to a lag of $L = 25$ trading days (the
+short-horizon window in which the empirical ACF of $|G_t|$ carries
+most of its variation; post-fit evaluation in
+Fig.~\ref{fig:model_comparison} extends to lag $252$ for the
+visual ACF comparison), and leptokurtosis, captured by a penalty
+term on the global kurtosis \cite{mandelbrot1963}:
 \begin{equation}
     J(\epsilon, \lambda) =
     \sum_{\tau=1}^{L} \left( \mathrm{ACF}_{\rm obs}(\tau)

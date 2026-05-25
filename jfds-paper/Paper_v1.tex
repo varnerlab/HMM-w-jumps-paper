@@ -62,14 +62,13 @@
 
 \title{Hybrid Hidden Markov Model for Modeling Equity Excess Growth Rate Dynamics: A Discrete-State Approach with Jump-Diffusion}
 
-% TODO before submission: confirm Alswaidan email; current placeholder marked.
 \author{%
   Abdulrahman Alswaidan \\
   Robert Frederick Smith School of Chemical and Biomolecular Engineering \\
   Cornell University, Ithaca, NY 14850 \\
-  \texttt{aa@cornell.edu} \\
+  \texttt{aa2725@cornell.edu} \\
   \And
-  Jeffrey D.~Varner \\
+  Jeffrey D.~Varner\thanks{Corresponding author.} \\
   Robert Frederick Smith School of Chemical and Biomolecular Engineering \\
   Cornell University, Ithaca, NY 14850 \\
   \texttt{jdv27@cornell.edu} \\
@@ -131,12 +130,14 @@ released the code, and contributed to the manuscript.
 The authors declare no competing interests.
 
 \paragraph{Code and data availability.}
-All source code, experiment scripts, and fitted per-asset marginals are
-released as part of \texttt{JumpHMM.jl}
-(\url{https://github.com/varnerlab/JumpHMM.jl}); the paper-specific
-evaluation harness (six-composer benchmark, Value-at-Risk backtest,
-bias-correction utility) lives in the \texttt{paper/} subdirectory of
-that repository.
+The experiment scripts, evaluation harness (six-composer benchmark,
+Value-at-Risk backtest, bias-correction utility), and the fitted
+per-asset marginals are released in the paper repository
+(\url{https://github.com/varnerlab/HMM-w-jumps-paper}); the
+underlying model-fitting library is released separately as
+\texttt{JumpHMM.jl}
+(\url{https://github.com/varnerlab/JumpHMM.jl}), pinned as a
+dependency of the experiment code.
 
 \bibliographystyle{unsrtnat}
 \bibliography{References_v1}
