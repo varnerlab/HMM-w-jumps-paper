@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.27 (TeX Live 2025) (preloaded format=pdflatex 2025.3.8)  26 MAY 2026 09:10
+This is pdfTeX, Version 3.141592653-2.6-1.40.27 (TeX Live 2025) (preloaded format=pdflatex 2025.3.8)  26 MAY 2026 09:24
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -1016,9 +1016,6 @@ put line 218.
 )
 
 [5] (./sections/method_sim.tex
-Underfull \vbox (badness 2961) has occurred while \output is active []
-
-
 
 [6]
 
@@ -1034,12 +1031,12 @@ Package pdftex.def Info: figs/Fig4-Model-Comparison.pdf  used on input line 156
 .
 (pdftex.def)             Requested size: 397.48499pt x 123.66238pt.
 
-Underfull \vbox (badness 5460) has occurred while \output is active []
+Underfull \vbox (badness 10000) has occurred while \output is active []
 
 
 
 [10]
-Underfull \vbox (badness 10000) has occurred while \output is active []
+Underfull \vbox (badness 4084) has occurred while \output is active []
 
 
 
@@ -1049,26 +1046,26 @@ Overfull \hbox (14.65605pt too wide) in paragraph at lines 1--269
  [][] 
  []
 
-(./sections/tables/table5_var_backtest.tex)
+
+
+[12] (./sections/tables/table5_var_backtest.tex)
 Overfull \hbox (10.152pt too wide) in paragraph at lines 1--347
  [][] 
  []
 
-<figs/fig1_preservation.pdf, id=397, 1304.875pt x 451.6875pt>
+<figs/fig1_preservation.pdf, id=404, 1304.875pt x 451.6875pt>
 File: figs/fig1_preservation.pdf Graphic file (type pdf)
 <use figs/fig1_preservation.pdf>
 Package pdftex.def Info: figs/fig1_preservation.pdf  used on input line 352.
 (pdftex.def)             Requested size: 397.48499pt x 137.58873pt.
+)
+Underfull \vbox (badness 1062) has occurred while \output is active []
 
-Underfull \vbox (badness 7203) has occurred while \output is active []
 
 
+[13] (./sections/discussion.tex
 
-[12]
-
-[13 <./figs/fig1_preservation.pdf>]) (./sections/discussion.tex
-
-[14]
+[14 <./figs/fig1_preservation.pdf>]
 Underfull \vbox (badness 10000) has occurred while \output is active []
 
 
@@ -1079,6 +1076,9 @@ Underfull \vbox (badness 10000) has occurred while \output is active []
 
 
 [16]) (./sections/conclusion.tex)
+Underfull \vbox (badness 1237) has occurred while \output is active []
+
+
 
 [17] (./Paper_v1.bbl
 
@@ -1360,7 +1360,7 @@ Package rerunfilecheck Info: File `Paper_v1.out' has not changed.
 Here is how much of TeX's memory you used:
  28013 strings out of 473190
  522141 string characters out of 5715801
- 955356 words of memory out of 5000000
+ 951356 words of memory out of 5000000
  50232 multiletter control sequences out of 15000+600000
  624968 words of font info for 312 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
@@ -1389,7 +1389,7 @@ ist/fonts/type1/public/cm-super/sftt1000.pfb></usr/local/texlive/2025/texmf-dis
 t/fonts/type1/urw/times/utmb8a.pfb></usr/local/texlive/2025/texmf-dist/fonts/ty
 pe1/urw/times/utmr8a.pfb></usr/local/texlive/2025/texmf-dist/fonts/type1/urw/ti
 mes/utmri8a.pfb>
-Output written on Paper_v1.pdf (34 pages, 1513095 bytes).
+Output written on Paper_v1.pdf (34 pages, 1513538 bytes).
 PDF statistics:
  839 PDF objects out of 1000 (max. 8388607)
  705 compressed objects within 8 object streams

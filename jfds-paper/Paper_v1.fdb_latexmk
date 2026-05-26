@@ -1,13 +1,13 @@
 # Fdb version 4
-["bibtex Paper_v1"] 1779800780.93695 "Paper_v1.aux" "Paper_v1.bbl" "Paper_v1" 1779801034.09275 0
+["bibtex Paper_v1"] 1779801878.95382 "Paper_v1.aux" "Paper_v1.bbl" "Paper_v1" 1779801880.33552 0
   "./References_v1.bib" 1779724080.39514 29657 ab2890ebea9a2b8b5d01eee0030525cb ""
   "/usr/local/texlive/2025/texmf-dist/bibtex/bst/natbib/unsrtnat.bst" 1233624470 24550 a41a6405f4de768c43e871d9fbce2bc8 ""
-  "Paper_v1.aux" 1779801033.80451 46904 9468ebbb5da9fa7b1fc9a47a31650a6b "pdflatex"
+  "Paper_v1.aux" 1779801880.04423 46904 ef38ef34617573515f78bc7010f43429 "pdflatex"
   (generated)
   "Paper_v1.bbl"
   "Paper_v1.blg"
   (rewritten before read)
-["pdflatex"] 1779801032.8322 "Paper_v1.tex" "Paper_v1.pdf" "Paper_v1" 1779801034.09295 0
+["pdflatex"] 1779801879.06363 "Paper_v1.tex" "Paper_v1.pdf" "Paper_v1" 1779801880.3357 0
   "/usr/local/texlive/2025/texmf-dist/fonts/enc/dvips/base/8r.enc" 1165713224 4850 80dc9bab7f31fb78a000ccfed0e27cab ""
   "/usr/local/texlive/2025/texmf-dist/fonts/enc/dvips/cm-super/cm-super-t1.enc" 1136849721 2971 def0b6c1f0b107b3b936def894055589 ""
   "/usr/local/texlive/2025/texmf-dist/fonts/map/fontname/texfonts.map" 1577235249 3524 cb3e574dea2d1052e39280babc910dc8 ""
@@ -234,9 +234,9 @@
   "/usr/local/texlive/2025/texmf-var/fonts/map/pdftex/updmap/pdftex.map" 1747946047 5467155 19efa205003f9ecad95fbbaa6ff24da1 ""
   "/usr/local/texlive/2025/texmf-var/web2c/pdftex/pdflatex.fmt" 1741450574 3345740 46b66fdb0378f7bf5921b5eabf1762b8 ""
   "/usr/local/texlive/2025/texmf.cnf" 1741450484 577 418a7058ec8e006d8704f60ecd22c938 ""
-  "Paper_v1.aux" 1779801033.80451 46904 9468ebbb5da9fa7b1fc9a47a31650a6b "pdflatex"
-  "Paper_v1.bbl" 1779800781.03585 17179 257771537cb7f6d78b3d52fc1a7afb50 "bibtex Paper_v1"
-  "Paper_v1.out" 1779801033.80676 3330 a638248ef4d31ed919c9fc37418dfa22 "pdflatex"
+  "Paper_v1.aux" 1779801880.04423 46904 ef38ef34617573515f78bc7010f43429 "pdflatex"
+  "Paper_v1.bbl" 1779801879.06079 17179 257771537cb7f6d78b3d52fc1a7afb50 "bibtex Paper_v1"
+  "Paper_v1.out" 1779801880.04639 3330 a638248ef4d31ed919c9fc37418dfa22 "pdflatex"
   "Paper_v1.tex" 1779730088.41286 5269 3866493145077bc0da6095cd82327c82 ""
   "figs/Fig1-Empirical-Motivation.pdf" 1779626269.09578 217180 ea0553001673d1f54fc61a5422732d1f ""
   "figs/Fig3-Model-Internals.pdf" 1779626269.1054 85513 b06298a721242115421bba234fbb8aa7 ""
@@ -255,7 +255,7 @@
   "sections/discussion.tex" 1779729883.37999 17874 654245fdbcb2b3637888d427f3e8fc19 ""
   "sections/introduction.tex" 1779725602.73063 6575 b7e46ca0a65d90b9b9a7659c0247d961 ""
   "sections/method_hmm.tex" 1779801028.49387 15012 112a58a580f88cbbfd22df97e7b06b68 ""
-  "sections/method_sim.tex" 1779800775.55943 14144 8c1dabc2f5c98ae25e5b48b97eb50104 ""
+  "sections/method_sim.tex" 1779801873.74979 14704 de123ed6e441bf4c819c5149ad52fc1a ""
   "sections/related.tex" 1779723124.095 6960 683a26417030ae7281b83d3687e95d8c ""
   "sections/results.tex" 1779729816.85906 27282 e730566ec1439f3ffe11e9f2beed49e0 ""
   "sections/tables/table1_aggregate.tex" 1778087166.77367 605 f7212fa93a940744e364e30a96dc804c ""

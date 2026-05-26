@@ -8,14 +8,24 @@
 %   (5) algorithm intro + verification + contemporaneous-only caveat
 %       (closes with the Algorithm float)
 
+The HMM-WJ model produces a per-ticker marginal validated on SPY
+that reproduces heavy tails, regime persistence, and volatility
+clustering. Scaling that framework
+to a multi-asset universe of synthetic paths requires combining
+per-ticker generator output with a common market factor under a
+model that recovers each asset's OLS-calibrated coefficients against
+SPY and preserves the per-asset marginal. We do this with a
+single-index model (SIM) in which SPY's HMM-WJ growth-rate path
+serves as the market factor and the per-asset residual is chosen to
+satisfy both requirements.
+
 We work in continuously compounded annualized excess growth rates,
 matching the HMM-WJ convention. Throughout this subsection, $\bar{x}$,
 $\Var(x)$, and $\Cov(x, y)$ denote the sample mean, sample variance,
 and sample covariance of any length-$T$ real vectors
 $x, y \in \R^T$ (the space of $T$-dimensional vectors of real
 numbers), computed over the $T$ time steps of the path. The construction
-composes a synthetic per-asset growth-rate path $g_i$ under the
-single-index model (SIM):
+composes a synthetic per-asset growth-rate path $g_i$ under the SIM:
 \begin{equation}
   g_i(t) \;=\; \alpha_i \;+\; \beta_i\, g_m(t) \;+\; \eps_i(t),
   \qquad t = 1,\dots,T,
