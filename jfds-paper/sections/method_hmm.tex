@@ -267,17 +267,19 @@ term on the global kurtosis \cite{mandelbrot1963}:
     J(\epsilon, \lambda) =
     \sum_{\tau=1}^{L} \left( \mathrm{ACF}_{\rm obs}(\tau)
     - \overline{\mathrm{ACF}}_{\rm sim}(\tau) \right)^2
-    + w_K \left( K_{\rm obs} - \overline{K}_{\rm sim} \right)^2,
+    + w_\kappa \left( \kappa_{\rm obs} - \overline{\kappa}_{\rm sim} \right)^2,
     \label{eq:grid_search}
 \end{equation}
-where $\mathrm{ACF}_{\rm obs}(\tau)$ and $K_{\rm obs}$ are the
-empirical absolute-growth autocorrelation at lag $\tau$ and the global
-kurtosis, respectively, and the simulated counterparts
-$\overline{\mathrm{ACF}}_{\rm sim}(\tau)$ and $\overline{K}_{\rm sim}$
-were averaged across $200$ independent synthetic paths of $2{,}766$
-trading days per grid point \cite{glasserman2003}. We set the
-kurtosis-penalty weight to $w_K = 0.20$ to balance tail behavior
-against the temporal ACF term. The grid explored $\epsilon$ from
+where $\mathrm{ACF}_{\rm obs}(\tau)$ and $\kappa_{\rm obs}$ are the
+empirical absolute-growth autocorrelation at lag $\tau$ and the
+global kurtosis, respectively (kurtosis denoted $\kappa$ to avoid
+collision with the jump-duration variable $K$), and the simulated
+counterparts $\overline{\mathrm{ACF}}_{\rm sim}(\tau)$ and
+$\overline{\kappa}_{\rm sim}$ were averaged across $200$ independent
+synthetic paths of $2{,}766$ trading days per grid point
+\cite{glasserman2003}. We set the kurtosis-penalty weight to
+$w_\kappa = 0.20$ to balance tail behavior against the temporal ACF
+term. The grid explored $\epsilon$ from
 $10^{-4}$ to $2.5 \times 10^{-2}$ and $\lambda$ from $10$ to $160$ in
 brute-force evaluation; further details of the grid search are in
 Online Appendix~\ref{sec:supp-pseudo}. The HMM-WJ framework produces a

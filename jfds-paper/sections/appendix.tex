@@ -56,41 +56,158 @@ the derivation of Eq.~\eqref{eq:scale} held in practice.
 \section{Bias correction for daily-rebalanced backtests}
 \label{sec:supp-bias}
 
-The synthetic paths described in the main text reproduce per-asset
-marginals and single-factor cross-sectional dependence faithfully but
-discard temporal structure in the residual draw: at each trading day
-the per-asset residual $\eps_i(t)$ is sampled independently from the
-previous day. Real equity residuals carry a small but positive serial
-autocorrelation \cite{loMacKinlay1990}, typically $\rho \in [0.05,
-0.10]$ at the daily horizon, so the iid-residual generator family
-used here drops a real feature of the data. To make the consequences
-precise for daily-rebalanced backtests, consider a portfolio of $N$
+This appendix derives the bias correction of
+Eq.~\eqref{eq:bias-correction}, introduced to close a
+diversification-return artifact: under daily rebalancing of the
+SIM-composed synthetic universe, the engine-raw ensemble median
+sits approximately $22$~percentage points above the long-run prior.
+The variance correction of Eq.~\eqref{eq:scale} is a precondition:
+it pins the synthetic per-asset second moments to their empirical
+targets, so the formula value of the diversification return on
+synthetic paths equals the formula value on real data. The gap is
+therefore not a structural consequence of the iid-residual draw at
+the second-order level; it attaches to higher-order Taylor terms,
+calibration drift, and the documented attenuation of realized
+diversification returns~\cite{boucheyNemtchinovWong2015}, which the
+location-shift correction absorbs as a single empirical drag on
+log-wealth.
+
+The synthetic paths reproduce per-asset marginals and single-factor
+cross-sectional dependence faithfully but discard temporal structure
+in the residual draw: at each trading day the per-asset residual
+$\eps_i(t)$ is sampled independently from the previous day. Real
+equity residuals carry a small but positive serial autocorrelation
+\cite{loMacKinlay1990}, typically $\rho \in [0.05, 0.10]$ at the
+daily horizon, so the iid-residual generator family used here drops
+a real feature of the data. To make the consequences precise for
+daily-rebalanced backtests, consider a portfolio of $N$
 assets with constant target weights $w_i \ge 0$, $\sum_i w_i = 1$,
 reset to those weights at the start of each trading day. Throughout
 this derivation $g_i(t)$ is the annualized log-growth rate of
 Eq.~\eqref{eq:growth_rate}, so the per-period log return on asset
 $i$ is $g_i(t)\,\Delta t$ with $\Delta t = 1/252$~yr. The wealth
-process is $W_t = W_{t-1}\sum_i w_i \exp(g_i(t)\,\Delta t)$,
-and the per-step log return is $\log(W_t/W_{t-1}) = \log\sum_i w_i
-\exp(g_i(t)\,\Delta t)$. Second-order Taylor expansion of
-$\exp(g_i\,\Delta t)$ about zero, followed by second-order
-expansion of $\log(1+x)$ about zero, gives:
+process is:
 \begin{equation}
-  \log\!\frac{W_t}{W_{t-1}} \;=\;
-  \Delta t \sum_{i} w_i\, g_i(t)
-  \;+\; \tfrac{1}{2}(\Delta t)^2 \!\left(\sum_{i} w_i\, g_i(t)^2
-       \;-\; \Big(\sum_{i} w_i\, g_i(t)\Big)^{\!2}\right)
-  \;+\; O\!\big((g\,\Delta t)^3\big),
-  \label{eq:rp-taylor}
+  W_t \;=\; W_{t-1} \sum_{i} w_i \exp\!\big(g_i(t)\,\Delta t\big),
+  \label{eq:wealth-recursion}
 \end{equation}
-which, after dividing by $\Delta t$ to extract the annualized
-single-step rate $r_p(t) := \Delta t^{-1}\log(W_t/W_{t-1})$ and
-taking unconditional expectations under stationarity (using
-$\E(g_i^2) = \mu_i^2 + \sigma_i^2$ and $\E((\sum_i w_i g_i)^2) =
-(\sum_i w_i \mu_i)^2 + \sigma_p^2$ with $\sigma_p^2 = w^\top \Sigma w$
-the per-rate portfolio variance), becomes:
+so the per-step log return on the portfolio is
+$\log(W_t/W_{t-1}) = \log\!\sum_i w_i \exp(g_i(t)\,\Delta t)$. We
+expand this in two stages. A second-order Taylor expansion of the
+exponential about zero gives
+$\exp(g_i\,\Delta t) = 1 + g_i\,\Delta t + \tfrac{1}{2}(g_i\,\Delta t)^2
++ O((g\,\Delta t)^3)$. We suppress the time argument inside the
+derivation, writing $g_i$ for $g_i(t)$. Substituting the Taylor
+expansion into each summand of $\sum_i w_i \exp(g_i\,\Delta t)$,
+distributing $w_i$ across the bracketed terms, pulling the
+$i$-independent factors $\Delta t$ and $(\Delta t)^2$ outside the
+sums, and applying $\sum_i w_i = 1$:
+\begin{align}
+  \sum_{i} w_i \exp\!\big(g_i\,\Delta t\big)
+   &= \sum_{i} w_i \!\left[\,1 + g_i\,\Delta t
+        + \tfrac{1}{2}(g_i\,\Delta t)^2
+        + O\!\big((g\,\Delta t)^3\big)\right]
+       && \text{(Taylor)} \notag \\
+   &= \sum_{i} w_i
+        + \Delta t \sum_{i} w_i\, g_i
+        + \tfrac{1}{2}(\Delta t)^2 \sum_{i} w_i\, g_i^2
+        + O\!\big((g\,\Delta t)^3\big)
+       && \text{(distribute)} \notag \\
+   &= 1 + \Delta t \sum_{i} w_i\, g_i
+        + \tfrac{1}{2}(\Delta t)^2 \sum_{i} w_i\, g_i^2
+        + O\!\big((g\,\Delta t)^3\big).
+       && \text{(}\textstyle\sum_i w_i = 1\text{)}
+  \label{eq:exp-expand}
+\end{align}
+A second-order Taylor expansion of $\log(1+x)$ about $x=0$ gives
+$\log(1+x) = x - \tfrac{1}{2}x^2 + O(x^3)$. Identifying $1 + x$ with
+the right-hand side of Eq.~\eqref{eq:exp-expand}, the order-$\Delta t$
+correction is
+$x := \Delta t \sum_i w_i\, g_i + \tfrac{1}{2}(\Delta t)^2 \sum_i w_i\, g_i^2$,
+and squaring keeps only the leading $(\Delta t)^2$ term:
+$x^2 = (\Delta t)^2 (\sum_i w_i\, g_i)^2 + O((\Delta t)^3)$, since
+the cross term carries an extra $\Delta t$ factor. Substituting:
+\begin{align}
+  \log\!\frac{W_t}{W_{t-1}}
+   &= \log\!\Big(1 + x + O\!\big((g\,\Delta t)^3\big)\Big)
+       && \text{(by Eq.~\eqref{eq:exp-expand})} \notag \\
+   &= x - \tfrac{1}{2}\, x^2 + O\!\big(x^3\big)
+       && \text{(Taylor)} \notag \\
+   &= \Delta t \sum_{i} w_i\, g_i
+        + \tfrac{1}{2}(\Delta t)^2 \sum_{i} w_i\, g_i^2
+        - \tfrac{1}{2}(\Delta t)^2 \!\Big(\sum_{i} w_i\, g_i\Big)^{\!2}
+        + O\!\big((g\,\Delta t)^3\big)
+       && \text{(plug in)} \notag \\
+   &= \Delta t \sum_{i} w_i\, g_i
+        + \tfrac{1}{2}(\Delta t)^2 \!\left(\sum_{i} w_i\, g_i^2
+             - \Big(\sum_{i} w_i\, g_i\Big)^{\!2}\right)
+        + O\!\big((g\,\Delta t)^3\big).
+       && \text{(group)}
+  \label{eq:rp-taylor}
+\end{align}
+Dividing through by $\Delta t$ extracts the portfolio's annualized
+one-step log-growth rate $g_p(t) := \Delta t^{-1}\log(W_t/W_{t-1})$,
+the portfolio counterpart of the per-asset $g_i(t)$ (still
+suppressing the time argument):
 \begin{equation}
-  \E(r_p) \;=\; \sum_{i} w_i\, \mu_i
+  g_p \;=\; \sum_{i} w_i\, g_i
+   \;+\; \tfrac{1}{2}\,\Delta t \!\left(\sum_{i} w_i\, g_i^2
+        \;-\; \Big(\sum_{i} w_i\, g_i\Big)^{\!2}\right)
+   \;+\; O\!\big((\Delta t)^2\big).
+  \label{eq:gp-onestep}
+\end{equation}
+
+Restoring the time argument, we now take unconditional expectations
+of Eq.~\eqref{eq:gp-onestep} under stationarity. Define the
+per-asset annualized mean and variance:
+\begin{equation}
+  \mu_i \;:=\; \E\!\big(g_i(t)\big), \qquad
+  \sigma_i^2 \;:=\; \Var\!\big(g_i(t)\big),
+\end{equation}
+the per-rate covariance
+$\Sigma_{ij} := \Cov\!\big(g_i(t), g_j(t)\big)$, and the per-rate
+portfolio variance
+$\sigma_p^2 := \Var\!\big(\textstyle\sum_i w_i g_i(t)\big) =
+w^\top \Sigma w$. The $O(\Delta t)$ correction in
+Eq.~\eqref{eq:gp-onestep} contains two squared quantities,
+$\sum_i w_i\, g_i(t)^2$ and $(\sum_i w_i\, g_i(t))^2$. Both expand
+by the second-moment identity, which holds for any random variable
+$X$ with finite second moment:
+\begin{equation}
+  \E\!\big(X^2\big) \;=\; \E\!\big(X\big)^2 \;+\; \Var(X).
+  \label{eq:second-moment}
+\end{equation}
+Applied to $X = g_i(t)$, with $\E(g_i) = \mu_i$ and
+$\Var(g_i) = \sigma_i^2$, then summed against $w_i$ by linearity
+of expectation:
+\begin{align}
+  \E\!\Big(\sum_{i} w_i\, g_i(t)^2\Big)
+   &\;=\; \sum_{i} w_i\, \E\!\big(g_i(t)^2\big)
+       && \text{(linearity)} \notag \\
+   &\;=\; \sum_{i} w_i\!\left[\,\mu_i^2 + \sigma_i^2\,\right]
+       && \text{(by Eq.~\eqref{eq:second-moment})} \notag \\
+   &\;=\; \sum_{i} w_i\, \mu_i^2 \;+\; \sum_{i} w_i\, \sigma_i^2.
+   \label{eq:exp-gi2}
+\end{align}
+Applied to $X = \sum_i w_i g_i(t)$, with
+$\E(X) = \sum_i w_i\, \mu_i$ by linearity and
+$\Var(X) = w^\top \Sigma w = \sigma_p^2$ by definition of
+$\sigma_p^2$:
+\begin{align}
+  \E\!\Big(\Big(\textstyle\sum_{i} w_i g_i(t)\Big)^{\!2}\Big)
+   &\;=\; \E\!\Big(\textstyle\sum_{i} w_i g_i(t)\Big)^{\!2}
+       \;+\; \Var\!\Big(\textstyle\sum_{i} w_i g_i(t)\Big)
+       && \text{(by Eq.~\eqref{eq:second-moment})} \notag \\
+   &\;=\; \Big(\textstyle\sum_{i} w_i\, \mu_i\Big)^{\!2}
+       \;+\; \sigma_p^2.
+   \label{eq:exp-sum2}
+\end{align}
+Substituting Eqs.~\eqref{eq:exp-gi2}--\eqref{eq:exp-sum2} into the
+expectation of Eq.~\eqref{eq:gp-onestep} and grouping the
+$\sigma_i^2$ contributions separately from the $\mu_i$
+contributions:
+\begin{equation}
+  \E(g_p) \;=\; \sum_{i} w_i\, \mu_i
   \;+\; \underbrace{\tfrac{1}{2}\,\Delta t\!\left(\sum_{i} w_i\, \sigma_i^2
        - \sigma_p^2\right)}_{\displaystyle D}
   \;+\; \tfrac{1}{2}\,\Delta t\!\left(\sum_{i} w_i\, \mu_i^2
@@ -100,37 +217,40 @@ the per-rate portfolio variance), becomes:
 \end{equation}
 the Booth-Fama identity for the daily-rebalanced portfolio in
 annualized growth-rate units \cite{boothFama1992,
-markowitz1976longRun}. The per-rate moments $\mu_i = \E(g_i(t))$
-and $\sigma_i^2 = \Var(g_i(t))$ carry units $\mathrm{yr}^{-1}$ and
-$\mathrm{yr}^{-2}$ respectively; the products $\Delta t\,\sigma_i^2$
-and $\Delta t\,\sigma_p^2$ in Eq.~\eqref{eq:booth-fama} are the
-annualized variances ($\mathrm{yr}^{-1}$) that finance practice
-reports directly. The third bracket is the cross-sectional
+markowitz1976longRun}. The middle term, $D$, is the diversification
+return: the $O(\Delta t)$ correction equal to half the gap between
+the weighted-average per-asset variance $\sum_i w_i \sigma_i^2$ and
+the portfolio variance $\sigma_p^2$. The per-rate
+moments $\mu_i$ and $\sigma_i^2$
+carry units $\mathrm{yr}^{-1}$ and $\mathrm{yr}^{-2}$ respectively;
+the products $\Delta t\,\sigma_i^2$ and $\Delta t\,\sigma_p^2$ in
+Eq.~\eqref{eq:booth-fama} are the annualized variances
+($\mathrm{yr}^{-1}$) that finance practice reports directly. The
+third term in Eq.~\eqref{eq:booth-fama} is the cross-sectional
 dispersion of the per-asset annualized means, of order
 $\Delta t\,\mu^2 \sim 3\!\times\!10^{-5}~\mathrm{yr}^{-1}$ at
 $\mu \sim 0.08~\mathrm{yr}^{-1}$ and negligible against the
 variance term $D \sim \Delta t\,\sigma^2 \sim 4\!\times\!10^{-2}~
 \mathrm{yr}^{-1}$; we drop it. The realized annualized compound
 growth rate $\bar g_p = (T\,\Delta t)^{-1}\log(W_T/W_0) =
-T^{-1}\sum_{t} r_p(t)$ converges to $\E(r_p)$ by the ergodic
+T^{-1}\sum_{t} g_p(t)$ converges to $\E(g_p)$ by the ergodic
 theorem under any stationary residual process, so the long-run
 limit is fixed by the one-time-slice unconditional joint
 distribution of $(g_i(t))_i$ and does not, in itself, depend on
 the serial structure of the residual draw.
 
-The middle term $D$ in Eq.~\eqref{eq:booth-fama} is the
-diversification return. Expanding $\sigma_p^2 = \sum_i w_i^2
-\sigma_i^2 + 2 \sum_{i<j} w_i w_j \Sigma_{ij}$ and using the
-identity $\sum_i w_i (1 - w_i) \sigma_i^2 = \sum_{i<j} w_i w_j
-(\sigma_i^2 + \sigma_j^2)$ that holds for any weights summing to
-one:
+To rewrite $D$ in a form that makes its non-negativity manifest,
+expand $\sigma_p^2 = \sum_i w_i^2 \sigma_i^2 + 2 \sum_{i<j} w_i w_j
+\Sigma_{ij}$ and use the identity $\sum_i w_i (1 - w_i) \sigma_i^2 =
+\sum_{i<j} w_i w_j (\sigma_i^2 + \sigma_j^2)$ that holds for any
+weights summing to one:
 \begin{equation}
   D \;=\; \tfrac{1}{2}\,\Delta t\!\left(\sum_i w_i \sigma_i^2 - \sigma_p^2\right)
   \;=\; \tfrac{1}{2}\,\Delta t \sum_{i<j} w_i w_j \,\Var(g_i - g_j) \;\ge\; 0,
   \label{eq:dr-pairwise}
 \end{equation}
 so $D$ equals one-half the annualized weighted-average pairwise
-return-difference variance and is therefore non-negative, with equality only when every
+growth-rate-difference variance and is therefore non-negative, with equality only when every
 pair $(i,j)$ comoves perfectly ($\Var(g_i - g_j) = 0$) or all weight
 concentrates on a single asset. The mechanism is the rebalancing
 rule itself: weights drift between rebalances, the rebalancer sells
@@ -143,9 +263,11 @@ the long-run mean-variance allocation; Booth and Fama
 \cite{boothFama1992} called it the diversification return.
 
 Substituting the single-index decomposition
-$g_i(t) = \alpha_i + \beta_i\, g_m(t) + \eps_i(t)$ with
+$g_i(t) = \alpha_i + \beta_i\, g_m(t) + \eps_i(t)$, with market
+variance $\sigma_m^2 := \Var(g_m(t))$, per-asset residual variance
+$\sigma_{\eps,i}^2 := \Var(\eps_i(t))$, and
 $\Cov(g_m, \eps_i) = 0$ (verified in
-Sec.~\ref{sec:supp-cov}) into Eq.~\eqref{eq:dr-pairwise} gives:
+Sec.~\ref{sec:supp-cov}), into Eq.~\eqref{eq:dr-pairwise} gives:
 \begin{equation}
   \Var(g_i - g_j) \;=\; (\beta_i - \beta_j)^2 \sigma_m^2
   \;+\; \Var(\eps_i - \eps_j),
@@ -160,9 +282,10 @@ idiosyncratic component:
   \underbrace{\tfrac{1}{2}\,\Delta t \sum_{i<j} w_i w_j \,\Var(\eps_i - \eps_j)}_{D_\eps},
   \label{eq:dr-sim}
 \end{equation}
-where the first term equals $\tfrac{1}{2}\,\Delta t\,\sigma_m^2 [\sum_i
-w_i \beta_i^2 - (\sum_i w_i \beta_i)^2]$, the weighted cross-sectional
-$\beta$ dispersion scaled by the annualized market variance
+where the market-beta-dispersion component $D_\mathrm{mkt}$ equals
+$\tfrac{1}{2}\,\Delta t\,\sigma_m^2 [\sum_i w_i \beta_i^2 -
+(\sum_i w_i \beta_i)^2]$, the weighted cross-sectional $\beta$
+dispersion scaled by the annualized market variance
 $\Delta t\,\sigma_m^2$. Across the $423$-ticker universe the empirical
 $\beta$ distribution spans $[0.01, 1.79]$ with interquartile range
 $[0.81, 1.18]$ and the SPY annualized variance
@@ -191,7 +314,7 @@ $\Var(\eps_i) = \sigma_{\eta,i}^2 / (1 - \phi^2) = \sigma_{\eps,i}^2$.
 The AR(1) parameter $\phi$ leaves the unconditional joint
 distribution of $(g_i(t))_i$ at a single time slice unchanged,
 which by Eqs.~\eqref{eq:booth-fama}, \eqref{eq:dr-sim} means
-$\phi$ enters at zeroth order in $\E(r_p)$ and at first order
+$\phi$ enters at zeroth order in $\E(g_p)$ and at first order
 only in the long-run variance of the sample mean
 ($\Var(\bar g_p) \to T^{-1}\,\sigma_p^2 \,(1+\phi)/(1-\phi)$).
 The synthetic-ensemble median across $1{,}000$ paths therefore
@@ -245,7 +368,7 @@ $2014$--$2024$, deployment year $2025$, names with calibrated
 $(\alpha, \beta)$ and $\max\beta = 1.21$, $5$~basis-point round-trip
 cost) against the hybrid-composed universe of the main text and
 decomposed the realized path-mean annualized growth rate
-$\bar g_p \equiv (1/T_{\mathrm{yr}})\,\log(W_{p,T}/W_{p,0})$ into
+$\bar g_p \equiv (T\,\Delta t)^{-1}\,\log(W_{p,T}/W_{p,0})$ into
 static and rebalancing-driven components
 (Table~\ref{tab:allocator_decomp}). The static-to-daily-rebalance
 switch on the same target weights produced the $+27.73$ percentage-point
@@ -403,12 +526,16 @@ $W^{\mathrm{corr}} = W_{\mathrm{static}}\cdot
 anchor at $k$ chosen to match the prior, but its per-path rank
 correlation with the raw engine drops well below one and the
 corrected drawdown distribution inherits static-allocation geometry
-(drawdowns widen materially relative to the raw engine). The corrected ensemble carries
-the ensemble-shape information the paper validates: percentile
-diagnostics overlaying real outcomes against the synthetic
-distribution, drawdown distribution and tail-shape analysis, and
-relative ranking of strategies evaluated on the same corrected
-paths. It does not remove the underlying iid-residual limitation, so
+(drawdowns widen materially relative to the raw engine).
+
+The location-shift correction of Eq.~\eqref{eq:bias-correction}, by
+contrast, preserves these properties: the corrected ensemble
+carries the ensemble-shape information the paper validates,
+percentile diagnostics overlaying real outcomes against the
+synthetic distribution, drawdown distribution and tail-shape
+analysis, and relative ranking of strategies evaluated on the same
+corrected paths. It does not remove the underlying iid-residual
+limitation, so
 the residual autocorrelation structure itself, absolute Sharpe
 under daily rebalancing, and the choice of rebalancing frequency
 remain outside the scope of the correction; the structural fix for

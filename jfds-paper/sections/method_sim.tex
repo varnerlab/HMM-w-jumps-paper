@@ -18,69 +18,91 @@ composes a synthetic per-asset growth-rate path $g_i$ under the
 single-index model (SIM):
 \begin{equation}
   g_i(t) \;=\; \alpha_i \;+\; \beta_i\, g_m(t) \;+\; \eps_i(t),
-  \qquad t = 1,\dots,T.
+  \qquad t = 1,\dots,T,
   \label{eq:sim-composition}
 \end{equation}
-Here, $\tg_i$ is a length-$T$ growth-rate path produced by the
-per-asset generator (a tilde marks the path as a generator output,
-to distinguish it from the real or composed paths $g_i$ and $g_m$,
-which carry no tilde). The residual $\eps_i$ in the SIM is a scaled
-copy of $\tg_i$: $\eps_i(t) = s_i\,\tg_i(t)$, with $s_i \in (0, 1]$
-a scalar chosen so the composed path inherits one of two per-asset
-marginal targets while recovering the calibrated SIM coefficients
-$(\alpha_i, \beta_i)$ in ordinary least squares (OLS).
-
-The construction takes three inputs: a \emph{market growth-rate
-path} $g_m \in \R^T$ with sample mean $\mu_m$ and sample variance
-$\sigma_m^2 = \Var(g_m)$; for each of $N$ assets indexed by
-$i = 1, \dots, N$, a per-asset \emph{generator growth-rate path}
+where $g_m \in \R^T$ is the market growth-rate path with sample
+variance $\sigma_m^2 = \Var(g_m)$, the pair $(\alpha_i, \beta_i)$
+is the SIM intercept and slope for asset $i$, and $\eps_i$ is the
+per-asset residual that the construction must specify. The
+construction takes as further inputs, for each of $N$ assets indexed
+by $i = 1, \dots, N$, a per-asset \emph{generator growth-rate path}
 $\tg_i \in \R^T$ produced by a probabilistic model of the asset's
-growth-rate dynamics, with $\tg_i$ having sample mean zero (so any
-drift is absorbed by the SIM intercept $\alpha_i$) and approximately
-uncorrelated with the market, $\Cov(\tg_i, g_m) \approx 0$
-(automatic when the generator is fit and sampled in isolation;
-verified empirically across the universe in
-Fig.~\ref{fig:cov_diag}); and a per-asset \emph{calibration triple}
-$(\alpha_i, \beta_i, R^2_{i,\real})$ obtained by OLS of the asset's
-real excess growth-rate history on $g_m$. In our experiments, $g_m$
-is the SPY total-return excess growth-rate series and $\tg_i$ is
+growth-rate dynamics (the tilde marks the path as a generator
+output, to distinguish it from real or composed paths, which carry
+no tilde), with $\tg_i$ having sample mean zero so any drift is
+absorbed by $\alpha_i$ and sample variance
+$\sigma_{\gen,i}^2 = \Var(\tg_i)$; and a per-asset \emph{calibration
+triple} $(\alpha_i, \beta_i, R^2_{i,\real})$ obtained by ordinary
+least squares (OLS) of the asset's real excess growth-rate history
+on $g_m$. The generator is approximately uncorrelated with the
+market, $\Cov(\tg_i, g_m) \approx 0$ (automatic when the generator
+is fit and sampled in isolation; verified empirically across the
+universe in Fig.~\ref{fig:cov_diag}). In our experiments, $g_m$ is
+the SPY total-return excess growth-rate series and $\tg_i$ is
 produced by the HMM-WJ model (Algorithm~\ref{alg:hmmwj}); the SIM
 composition is generator-agnostic, using only $\tg_i$ and
-$\sigma_{\gen,i}^2 = \Var(\tg_i)$ with no parametric form assumed
-for the marginal.
-Given these inputs, the synthetic composition
-$g_i = \alpha_i + \beta_i^{\eff}\, g_m + \eps_i$, with effective
-slope $\beta_i^{\eff}$ (equal to $\beta_i$ on the unclipped branch
-and the attenuated value of Eq.~\eqref{eq:clip} otherwise), is
-required to satisfy three properties in the large-$T$ limit: \emph{SIM
-recovery}, where OLS of $g_i$ on $g_m$ returns
-$\hat\alpha_i = \alpha_i$ and $\hat\beta_i = \beta_i^{\eff}$ (with
-the attenuated $\beta_i^{\eff}$ persisted alongside $\beta_i$ when
-the clip triggers); \emph{marginal fidelity}, where each asset is
-assigned one of two per-asset targets based on $R^2_{i,\real}$,
-either the variance-preserving target $\Var(g_i) =
-\sigma_{\gen,i}^2$ (for assets where the synthetic path should
-inherit the generator's marginal, including its heavy tails, regime
-structure, and jumps) or the $R^2$-preserving target $R^2 =
-R^2_{i,\real}$ (for assets that track the market closely); and \emph{cross-sectional
-dependence}, where any joint dependence structure applied to
-$\{\eps_i\}_{i=1}^N$ (empirical copula, factor copula, t-copula)
-passes through unchanged to $\{g_i\}_{i=1}^N$ by the linearity of
-Eq.~\eqref{eq:sim-composition} in $\eps_i$. We report
-cross-sectional fidelity for the empirical-copula choice in
-Results. The naive composition
-$g_i = \alpha_i + \beta_i\, g_m + \tg_i$ satisfies SIM recovery and
-cross-sectional dependence but violates marginal fidelity: its
-marginal variance is $\sigma_{\gen,i}^2 + \beta_i^2 \sigma_m^2$, an
-inflation that grows quadratically in $\beta_i$.
+$\sigma_{\gen,i}^2$ with no parametric form assumed for the
+generator marginal.
 
-To fix the inflation, form the candidate residual
-$\eps_i = s_i\,\tg_i$ for some scalar $s_i \in (0, 1]$ and require
-that the composed series have the same variance as the generator
-path, $\Var(g_i) = \sigma_{\gen,i}^2$. Under the independence
-assumption $\Cov(\tg_i,\, g_m) \approx 0$, expanding
-$\Var(\beta_i\, g_m + s_i\,\tg_i)$ and solving for $s_i^2$ yields the
-variance scale (Online Appendix~\ref{sec:supp-sim-derivations}):
+The construction must choose $\eps_i$ so the composed $g_i$ recovers
+the calibrated $(\alpha_i, \beta_i)$ under OLS \emph{and} inherits
+the per-asset marginal that the HMM-WJ generator has been validated
+to reproduce: heavy tails, regime structure, and jumps. Two natural
+approaches each fail half of this requirement.
+
+The first natural approach, a \emph{Gaussian-residual composition},
+fits a Normal distribution to the OLS residuals of the asset's real
+history on $g_m$ and samples
+$\eps_i \sim N(0, \sigma_{\eps,i}^2)$ with
+$\sigma_{\eps,i}^2 = (1 - R^2_{i,\real})\,\sigma_i^2$. This recovers
+$(\alpha_i, \beta_i)$ and pins $\Var(g_i)$ to the empirical
+$\sigma_i^2$, but the composed marginal becomes a mixture of a
+Gaussian residual and a scaled market path. The asset's heavy tails,
+regime structure, and jumps, which the per-asset HMM-WJ generator
+was specifically built to reproduce, are absent from the resulting
+$g_i$. Any fixed parametric residual family (Laplace, Student-$t$)
+or empirical-bootstrap residual draw inherits the same limitation:
+pinning the residual to a separate distribution discards the
+per-asset marginal we already have.
+
+The second natural approach, a \emph{naive composition}
+$g_i = \alpha_i + \beta_i\, g_m + \tg_i$, plugs the generator path
+directly into the SIM as the residual. This is intuitive: $\tg_i$
+already has the empirical per-asset marginal with variance
+$\sigma_{\gen,i}^2 \approx \sigma_i^2$ calibrated to the asset, so
+its tails, regimes, and jumps are correct by construction. The
+naive composition recovers $(\alpha_i, \beta_i)$ under OLS by
+linearity, but it inflates the marginal variance. Taking the
+variance of both sides:
+\begin{align}
+  \Var(g_i)
+   &= \Var(\alpha_i + \beta_i\, g_m + \tg_i)
+       && (\text{naive composition}) \notag \\
+   &= \Var(\beta_i\, g_m + \tg_i)
+       && (\alpha_i \text{ is a constant}) \notag \\
+   &= \beta_i^2\, \Var(g_m)
+        + 2\beta_i\, \Cov(g_m,\, \tg_i)
+        + \Var(\tg_i)
+       && (\text{variance of a sum}) \notag \\
+   &= \beta_i^2\, \sigma_m^2 \;+\; \sigma_{\gen,i}^2,
+       && (\Cov(\tg_i, g_m) \approx 0)
+   \label{eq:naive-inflation}
+\end{align}
+which exceeds the per-asset target $\Var(g_i) = \sigma_{\gen,i}^2$
+by exactly $\beta_i^2 \sigma_m^2$, an inflation that grows
+quadratically in the calibrated beta. The mechanism is
+double-counting: $\tg_i$ was calibrated to carry the asset's full
+variance, so adding $\beta_i\, g_m$ on top introduces a second
+variance budget rather than splitting the existing one.
+
+To fix the inflation, deflate the generator draw before composing:
+form $\eps_i := s_i\,\tg_i$ for some scalar $s_i \in (0, 1]$ and
+require $\Var(g_i) = \sigma_{\gen,i}^2$. Under the same independence
+assumption $\Cov(\tg_i,\, g_m) \approx 0$,
+$\Var(\beta_i\, g_m + s_i\,\tg_i) = \beta_i^2\, \sigma_m^2 +
+s_i^2\, \sigma_{\gen,i}^2$; setting this equal to
+$\sigma_{\gen,i}^2$ and solving yields the variance scale:
 \begin{equation}
   \boxed{\;s_i^2 \;=\; 1 \;-\; \frac{\beta_i^2\, \sigma_m^2}{\sigma_{\gen,i}^2}\;}
   \label{eq:scale}
@@ -91,10 +113,9 @@ Define the \emph{market loading ratio}:
   \label{eq:rho}
 \end{equation}
 the share of the generator variance consumed by the market component;
-then $s_i^2 = 1 - \rho_i$, valid whenever $\rho_i < 1$. The naive
-composition $g_i = \alpha_i + \beta_i g_m + \tg_i$ corresponds to
-$s_i = 1$ and inflates $\Var(g_i)$ by exactly $\beta_i^2 \sigma_m^2$.
-Equation \eqref{eq:scale} breaks down when $\rho_i \ge 1$: the market
+then $s_i^2 = 1 - \rho_i$, valid whenever $\rho_i < 1$, with the
+naive composition recovered in the $s_i = 1$ limit. Equation
+\eqref{eq:scale} breaks down when $\rho_i \ge 1$: the market
 loading alone would account for more than the entire generator
 variance, leaving no room for idiosyncratic noise, a case that arises
 for high-$\beta_i$ assets paired with low-volatility generators or
@@ -192,9 +213,19 @@ copula); reordering
 preserves the marginal variance of $\eps_i$, so the variance algebra
 of Eq.~\eqref{eq:scale} is unaffected and whatever cross-sectional
 structure is applied to $\eps_i$ passes through to $g_i$ unchanged.
-By construction the composed $g_i$ then satisfies all three
-preservation criteria (SIM recovery, marginal fidelity,
-cross-sectional dependence) in the large-$T$ limit; the verification
+By construction the composed $g_i$ satisfies three preservation
+criteria in the large-$T$ limit: \emph{SIM recovery}, where OLS of
+$g_i$ on $g_m$ returns $\hat\alpha_i = \alpha_i$ and
+$\hat\beta_i = \beta_i^{\eff}$ (equal to $\beta_i$ on the unclipped
+branch, attenuated by Eq.~\eqref{eq:clip} otherwise);
+\emph{marginal fidelity}, where $\Var(g_i)$ matches the
+branch-selected target ($\sigma_{\gen,i}^2$ on the
+variance-preserving branch, or the value implied by the calibrated
+$R^2_{i,\real}$ on the $R^2$-preserving branch); and
+\emph{cross-sectional dependence}, where any joint dependence
+structure applied to $\{\eps_i\}_{i=1}^N$ passes through unchanged
+to $\{g_i\}_{i=1}^N$ by the linearity of
+Eq.~\eqref{eq:sim-composition} in $\eps_i$. The verification
 algebra, including the tail behavior implied by the floor $f$, is
 laid out in Online Appendix~\ref{sec:supp-sim-derivations}. The
 construction injects \emph{contemporaneous} market dependence only;
