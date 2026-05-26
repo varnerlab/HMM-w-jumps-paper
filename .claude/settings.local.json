@@ -54,7 +54,9 @@
       "Bash(latexmk -pdf -bibtex -interaction=nonstopmode -halt-on-error Paper_v1)",
       "Skill(superpowers:brainstorming)",
       "Bash(rm -f Paper_v1.pdf Paper_v1.aux Paper_v1.fls Paper_v1.fdb_latexmk)",
-      "Bash(make pdf *)"
+      "Bash(make pdf *)",
+      "Bash(rm -f Paper_v1.pdf Paper_v1.aux Paper_v1.bbl Paper_v1.log Paper_v1.fls Paper_v1.fdb_latexmk Paper_v1.blg Paper_v1.out)",
+      "Bash(pdflatex -interaction=nonstopmode Paper_v1.tex)"
     ]
   }
 }

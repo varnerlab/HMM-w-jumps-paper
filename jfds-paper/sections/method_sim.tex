@@ -1,5 +1,5 @@
 % method_sim.tex
-% Method §3.2: variance-corrected SIM composition.
+% Method: variance-corrected SIM composition.
 % Five paragraphs ending with the Algorithm float:
 %   (1) setup, SIM composition equation, and notation
 %   (2) inputs + preservation criteria + why naive composition fails
@@ -8,24 +8,7 @@
 %   (5) algorithm intro + verification + contemporaneous-only caveat
 %       (closes with the Algorithm float)
 
-The HMM-WJ model produces a per-ticker marginal validated on SPY
-that reproduces heavy tails, regime persistence, and volatility
-clustering. Scaling that framework
-to a multi-asset universe of synthetic paths requires combining
-per-ticker generator output with a common market factor under a
-model that recovers each asset's OLS-calibrated coefficients against
-SPY and preserves the per-asset marginal. We do this with a
-single-index model (SIM) in which SPY's HMM-WJ growth-rate path
-serves as the market factor and the per-asset residual is chosen to
-satisfy both requirements.
-
-We work in continuously compounded annualized excess growth rates,
-matching the HMM-WJ convention. Throughout this subsection, $\bar{x}$,
-$\Var(x)$, and $\Cov(x, y)$ denote the sample mean, sample variance,
-and sample covariance of any length-$T$ real vectors
-$x, y \in \R^T$ (the space of $T$-dimensional vectors of real
-numbers), computed over the $T$ time steps of the path. The construction
-composes a synthetic per-asset growth-rate path $g_i$ under the SIM:
+The HMM-WJ model produces a per-ticker marginal, but does not capture cross-asset dependence that is required for multi-asset applications. To generalize synthetic path generation beyond a single asset, we composed the per-ticker marginals into a single-index model (SIM) that captured the common market factor and the asset-specific residuals. The Single-Index Model (SIM) \cite{sharpe1963} decomposes each asset's excess growth rate as:
 \begin{equation}
   g_i(t) \;=\; \alpha_i \;+\; \beta_i\, g_m(t) \;+\; \eps_i(t),
   \qquad t = 1,\dots,T,
@@ -34,38 +17,20 @@ composes a synthetic per-asset growth-rate path $g_i$ under the SIM:
 where $g_m \in \R^T$ is the market growth-rate path with sample
 variance $\sigma_m^2 = \Var(g_m)$, the pair $(\alpha_i, \beta_i)$
 is the SIM intercept and slope for asset $i$, and $\eps_i$ is the
-per-asset residual that the construction must specify. The
-construction takes as further inputs, for each of $N$ assets indexed
-by $i = 1, \dots, N$, a per-asset \emph{generator growth-rate path}
-$\tg_i \in \R^T$ produced by a probabilistic model of the asset's
-growth-rate dynamics (the tilde marks the path as a generator
-output, to distinguish it from real or composed paths, which carry
-no tilde), with $\tg_i$ having sample mean zero so any drift is
-absorbed by $\alpha_i$ and sample variance
-$\sigma_{\gen,i}^2 = \Var(\tg_i)$; and a per-asset \emph{calibration
-triple} $(\alpha_i, \beta_i, R^2_{i,\real})$ obtained by ordinary
-least squares (OLS) of the asset's real excess growth-rate history
-on $g_m$. The generator is approximately uncorrelated with the
-market, $\Cov(\tg_i, g_m) \approx 0$ (automatic when the generator
-is fit and sampled in isolation; verified empirically across the
-universe in Fig.~\ref{fig:cov_diag}). In our experiments, $g_m$ is
-the SPY total-return excess growth-rate series and $\tg_i$ is
-produced by the HMM-WJ model (Algorithm~\ref{alg:hmmwj}); the SIM
-composition is generator-agnostic, using only $\tg_i$ and
-$\sigma_{\gen,i}^2$ with no parametric form assumed for the
-generator marginal.
+per-asset residual that the construction must specify. Two
+constraints govern the choice of $\eps_i$: the composed $g_i$ must
+recover the calibrated $(\alpha_i, \beta_i)$ under ordinary least
+squares (OLS), and it must inherit the per-asset marginal the HMM-WJ
+generator was validated to reproduce (heavy tails, regime structure,
+jumps).
 
-The construction must choose $\eps_i$ so the composed $g_i$ recovers
-the calibrated $(\alpha_i, \beta_i)$ under OLS \emph{and} inherits
-the per-asset marginal that the HMM-WJ generator has been validated
-to reproduce: heavy tails, regime structure, and jumps. Two natural
-approaches each fail half of this requirement.
-
-The first natural approach, a \emph{Gaussian-residual composition},
+The naive approach, a \emph{Gaussian-residual composition},
 fits a Normal distribution to the OLS residuals of the asset's real
-history on $g_m$ and samples
-$\eps_i \sim N(0, \sigma_{\eps,i}^2)$ with
-$\sigma_{\eps,i}^2 = (1 - R^2_{i,\real})\,\sigma_i^2$. This recovers
+history on $g_m$ and samples $\eps_i \sim N(0, \sigma_{\eps,i}^2)$ with
+$\sigma_{\eps,i}^2 = (1 - R^2_{i,\real})\,\sigma_i^2$, where
+$R^2_{i,\real}$ is the OLS coefficient of determination from
+regressing the asset's history on $g_m$ and $\sigma_i^2$ is the
+empirical variance of the asset's excess growth rates. This approach recovers
 $(\alpha_i, \beta_i)$ and pins $\Var(g_i)$ to the empirical
 $\sigma_i^2$, but the composed marginal becomes a mixture of a
 Gaussian residual and a scaled market path. The asset's heavy tails,
@@ -73,18 +38,14 @@ regime structure, and jumps, which the per-asset HMM-WJ generator
 was specifically built to reproduce, are absent from the resulting
 $g_i$. Any fixed parametric residual family (Laplace, Student-$t$)
 or empirical-bootstrap residual draw inherits the same limitation:
-pinning the residual to a separate distribution discards the
-per-asset marginal we already have.
+pinning the residual to a separate distribution discards the per-asset marginal we already have.
 
-The second natural approach, a \emph{naive composition}
-$g_i = \alpha_i + \beta_i\, g_m + \tg_i$, plugs the generator path
-directly into the SIM as the residual. This is intuitive: $\tg_i$
-already has the empirical per-asset marginal with variance
-$\sigma_{\gen,i}^2 \approx \sigma_i^2$ calibrated to the asset, so
-its tails, regimes, and jumps are correct by construction. The
-naive composition recovers $(\alpha_i, \beta_i)$ under OLS by
-linearity, but it inflates the marginal variance. Taking the
-variance of both sides:
+A second option uses the single-asset generator path $\tg_i$ (with sample variance $\sigma_{\gen,i}^2$) directly as the residual:
+\begin{equation}\label{eq:naive-composition}
+g_i = \alpha_i + \beta_i\, g_m + \tg_i
+\end{equation}
+This approach, which we call \emph{generator-residual composition}, captures the empirical per-asset marginal with variance
+$\sigma_{\gen,i}^2 \approx \sigma_i^2$ calibrated to the asset, so its tails, regimes, and jumps are correct by construction. However, this approach also inflates the marginal variance. To see this, take the variance of both sides of Eq.~\eqref{eq:naive-composition}:
 \begin{align}
   \Var(g_i)
    &= \Var(\alpha_i + \beta_i\, g_m + \tg_i)
@@ -95,18 +56,15 @@ variance of both sides:
         + 2\beta_i\, \Cov(g_m,\, \tg_i)
         + \Var(\tg_i)
        && (\text{variance of a sum}) \notag \\
-   &= \beta_i^2\, \sigma_m^2 \;+\; \sigma_{\gen,i}^2,
+   &= \underbrace{\beta_i^2\, \sigma_m^2}_{\text{market}} \;+\; \underbrace{\sigma_{\gen,i}^2}_{\text{idiosyncratic}},
        && (\Cov(\tg_i, g_m) \approx 0)
    \label{eq:naive-inflation}
 \end{align}
-which exceeds the per-asset target $\Var(g_i) = \sigma_{\gen,i}^2$
+Thus, the variance of $g_i$ exceeds the per-asset (idiosyncratic) target $\Var(g_i) = \sigma_{\gen,i}^2$
 by exactly $\beta_i^2 \sigma_m^2$, an inflation that grows
-quadratically in the calibrated beta. The mechanism is
-double-counting: $\tg_i$ was calibrated to carry the asset's full
-variance, so adding $\beta_i\, g_m$ on top introduces a second
-variance budget rather than splitting the existing one.
+quadratically in the calibrated beta. 
 
-To fix the inflation, deflate the generator draw before composing:
+To remove the inflation, we deflate the generator draw before composing:
 form $\eps_i := s_i\,\tg_i$ for some scalar $s_i \in (0, 1]$ and
 require $\Var(g_i) = \sigma_{\gen,i}^2$. Under the same independence
 assumption $\Cov(\tg_i,\, g_m) \approx 0$,
@@ -127,14 +85,14 @@ then $s_i^2 = 1 - \rho_i$, valid whenever $\rho_i < 1$, with the
 naive composition recovered in the $s_i = 1$ limit. Equation
 \eqref{eq:scale} breaks down when $\rho_i \ge 1$: the market
 loading alone would account for more than the entire generator
-variance, leaving no room for idiosyncratic noise, a case that arises
+variance, leaving the idiosyncratic share non-positive, a case that arises
 for high-$\beta_i$ assets paired with low-volatility generators or
 whenever the synthetic market $g_m$ is more volatile than the market
-on which $\beta_i$ was calibrated. To handle it, impose a floor
+on which $\beta_i$ was calibrated. To handle this case, we imposed a floor
 $f \in (0, 1)$ on the idiosyncratic share by requiring $s_i^2 \ge f$,
-and clip $\beta_i$ downward whenever the floor would be violated.
+and clipped $\beta_i$ downward whenever the floor was violated.
 Writing the clip threshold as $\rho_i^{\max} = 1 - f$, the
-piecewise rule is:
+piecewise clip rule is given by:
 \begin{equation}
   \beta_i^{\eff} \;=\;
   \begin{cases}
@@ -154,21 +112,24 @@ $\beta_i$, so the clipped slope inherits the calibrated direction;
 sign preservation keeps defensive (negative-$\beta$) assets
 defensive even when clipped. The floor $f$ is a free parameter of
 the construction; in our experiments we use $f = 0.10$, reserving at
-least $10\%$ of each asset's variance for idiosyncratic noise. When
-$\beta_i$ is clipped, both $\beta_i$ and $\beta_i^{\eff}$ are
-persisted alongside the output so the attenuation is recoverable
-without external metadata.
+least $10\%$ of each asset's variance for idiosyncratic noise. 
 
-The variance-preserving construction defined by
-Eq.~\eqref{eq:scale} targets $\Var(g_i) = \sigma_{\gen,i}^2$. For
-some assets the SIM relationship to the market is the target the
-construction should preserve rather than the generator marginal. Index ETFs are the standard
-example: SPY against itself has $\beta = 1$, $R^2 = 1$,
-$\sigma_\eps = 0$ exactly; QQQ against SPY has $R^2 \approx 0.84$,
-and SPYG against SPY has $R^2 \approx 0.86$. For these tickers we
-require $\hat\beta$ and $R^2$ to recover their calibrated values,
-neither inflated to one by dropping $\eps$ nor implied by unrelated
-marginal-variance bookkeeping. We branch on the real-data calibration
+% Implementation??
+% When $\beta_i$ is clipped, both $\beta_i$ and $\beta_i^{\eff}$ are
+% persisted alongside the output so the attenuation is recoverable
+% without external metadata.
+
+For a typical single stock the heavy tails, regime structure, and jumps live in the marginal that the HMM-WJ generator was built to reproduce. Thus, pinning $\Var(g_i)$ to $\sigma_{\gen,i}^2$ keeps the composition
+aligned with the per-asset calibration. However, index-tracking ETFs reverse
+the picture: what distinguishes a tracker is its OLS relationship to
+the market, not its marginal. SPY against itself has $\beta = 1$,
+$R^2 = 1$, and zero residual variance exactly; QQQ against SPY has
+$R^2 \approx 0.84$, and SPYG against SPY has $R^2 \approx 0.86$. A
+variance-preserving composition applied to a tracker supplies a
+residual whose variance bears no relation to the value
+$R^2_{i,\real}$ implies, so OLS on the composed path returns
+$\hat\beta$ and $\hat R^2$ that drift away from their calibrated
+values. We therefore branch on the real-data calibration
 $R^2_{i,\real}$: pick a threshold $R^2_{\mathrm{preserve}}$ that
 separates index-tracking assets from single stocks; in our universe
 the cumulative distribution sorts itself cleanly, with index ETFs
