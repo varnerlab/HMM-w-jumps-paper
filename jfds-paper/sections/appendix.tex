@@ -474,10 +474,10 @@ construction and would misrepresent typical years (in our
 deployment, the realized $2025$ was an above-typical equity year,
 so anchoring to its $11.5\%/\mathrm{yr}$ outcome would have
 suppressed the corrected ensemble below its appropriate long-run
-level). On a smoke test, the corrected ensemble matched the
-prior at its median by construction, and the real-$2025$ outcome
-landed at the $63$rd percentile of the corrected ensemble,
-consistent with $2025$ being an above-typical equity year.
+level). We verified the anchor on a smoke test: the corrected
+ensemble matched the prior at its median by construction, and the
+real-$2025$ outcome landed at the $63$rd percentile of the corrected
+ensemble, consistent with $2025$ being an above-typical equity year.
 
 % --- Figure: R^2 distribution across the universe ---
 \begin{figure}[tbp]
@@ -502,8 +502,8 @@ removes only a subset of the artifact's consequences while leaving
 the structural artifact intact. Inflating per-trade transaction
 costs to absorb the bonus would require round-trip costs of
 $\sim\!70$~basis points versus the realistic $1$--$10$~basis points
-seen on liquid US equity, and transfers a misrepresentation from
-``the engine is great'' to ``costs are huge''. Drifting the
+seen on liquid US equity, shifting the misrepresentation from the
+synthetic generator to its cost model. Drifting the
 calibrated parameters between calibration and deployment to widen
 the predictive envelope, with drift scale varied across
 $\{0, 1, 2, 3, 5\}$ multiples of the OLS standard error, moved the
@@ -584,10 +584,6 @@ H(p, q) = \frac{1}{\sqrt{2}} \, \Big\| \sqrt{p} - \sqrt{q} \Big\|_2
 \end{equation}
 with $H = 0$ for identical densities and $H = 1$ for disjoint supports.
 
-% =============================================================================
-% S4 Jump-parameter grid-search procedure
-% =============================================================================
-
 % --- Figure: Statistical validation of HMM-WJ ---
 \begin{figure}[tbp]
   \centering
@@ -603,17 +599,6 @@ with $H = 0$ for identical densities and $H = 1$ for disjoint supports.
   \label{fig:statistical_validation}
 \end{figure}
 
-\section{Jump-parameter grid-search procedure}
-\label{sec:supp-pseudo}
-
-The HMM-WJ simulator itself is stated as Algorithm~\ref{alg:hmmwj}
-in the main text. The grid-search procedure for the jump parameters
-$(\epsilon, \lambda)$ minimized the objective of
-Eq.~\eqref{eq:grid_search} by brute-force evaluation over
-$\{\epsilon_1, \ldots, \epsilon_K\} \times \{\lambda_1, \ldots,
-\lambda_L\}$, with $200$ independent simulated paths per grid point
-and the objective averaged over the path ensemble.
-
 % =============================================================================
 % S5 Transition matrix internals
 % =============================================================================
@@ -628,11 +613,11 @@ empirical CDF closely, with the $99$ vertical lines marking the
 equal-probability quantile boundaries $Q_k$ that define the hidden
 states, confirming the Laplace fit as an accurate marginal model
 for the SPY excess growth-rate series and validating the partition
-rule of Eq.~\eqref{eq:growth_rate}. The estimated transition matrix
-$\mathbf{T}$ in $\log_{10}$ color scale shows a dominant
-near-diagonal band reflecting short-range regime persistence, with
-most off-diagonal mass concentrated within $\pm 5$ states of the
-diagonal. The expected natural residence time
+rule of Eq.~\eqref{eq:growth_rate}. Plotting the estimated
+transition matrix $\mathbf{T}$ in $\log_{10}$ color scale, a
+dominant near-diagonal band reflects short-range regime persistence,
+with most off-diagonal mass concentrated within $\pm 5$ states of
+the diagonal. The expected natural residence time
 $1/(1 - T_{kk})$ for each state on a $\log_{10}$ scale, with the
 bottom tail set $\mathcal{S}_{-}$ (states $1$--$5$, red) and the
 top tail set $\mathcal{S}_{+}$ (states $96$--$100$, teal)
@@ -921,10 +906,8 @@ closed-form results, the variance scale of Eq.~\eqref{eq:scale} and
 the residual-variance target of Eq.~\eqref{eq:r2-target}, and
 asserts that the composed series $g_i$ satisfies the three
 preservation criteria (SIM recovery, marginal fidelity,
-cross-sectional dependence) in the large-$T$ limit. The derivation
-follows.
-
-To derive Eq.~\eqref{eq:scale}, form the candidate residual
+cross-sectional dependence) in the large-$T$ limit. To derive
+Eq.~\eqref{eq:scale}, form the candidate residual
 $\eps_i = s_i\,\tg_i$ for some scalar $s_i \in (0, 1]$ and require
 that the composed series have the same variance as the generator
 path:
@@ -956,7 +939,6 @@ identity for Eq.~\eqref{eq:sim-composition}:
 \end{equation}
 and invert for the residual variance that hits the calibrated $R^2$;
 the result is the boxed Eq.~\eqref{eq:r2-target}.
-
 By construction the composed series $g_i$ then satisfies the three
 preservation criteria in the large-$T$ limit. OLS of $g_i$ on $g_m$
 recovers $\hat\alpha_i \to \alpha_i$ and
