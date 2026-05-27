@@ -205,7 +205,7 @@ absent: each generator growth-rate path $\tg_i$ is sampled
 independently of the others, so any residual autocorrelation
 present in the real data is discarded by the composition. This matters most for
 workflows that evaluate portfolios rebalancing at high frequency.
-With iid residuals, a rebalancing rule collects the full
+With i.i.d.\ residuals, a rebalancing rule collects the full
 diversification return of \cite{boothFama1992}, a compounding
 premium that scales with residual variance and rebalancing frequency
 and is largely absent in real markets, where residual serial
@@ -228,7 +228,7 @@ full-return JumpHMM marginal.
 The diversification-return artifact is a property of any SIM
 construction that draws residuals independently across time: real
 equity residuals carry small but non-negligible short-horizon serial
-dependence \cite{cont2001} that any iid sampler discards, including
+dependence \cite{cont2001} that any i.i.d.\ sampler discards, including
 the JumpHMM marginal used here and the i.i.d.\ Gaussian and
 JumpHMM-on-residuals composers of Table~\ref{tab:aggregate}. The
 quantitative consequence under daily rebalancing is large enough
@@ -266,16 +266,17 @@ details the methodology, contrasts the location-shift correction
 with a multiplicative haircut alternative that scrambles per-path
 rank order and distorts the drawdown distribution, and discusses
 why several intuitive alternatives (parameter drift between
-calibration and deployment, transaction-cost inflation, AR(1) on
-residuals without restructuring the copula sampling, residual
-block-bootstrap) do not address the underlying mechanism within the
-iid-residual SIM framework. The synthetic data carries the
-ensemble-shape information the paper validates, percentile
-structure, drawdown distribution, and relative ranking of strategies
-on the same paths, both before and after correction; the
-location-shift correction extends that reliability to absolute
-Sharpe and CCGR levels under daily rebalancing, at the cost of an
-external prior.
+calibration and deployment, transaction-cost inflation, a
+first-order autoregressive (AR(1)) process on residuals without
+restructuring the copula sampling, residual block-bootstrap) do
+not address the underlying mechanism within the i.i.d.-residual
+SIM framework. The synthetic data carries the ensemble-shape
+information the paper validates, percentile structure, drawdown
+distribution, and relative ranking of strategies on the same
+paths, both before and after correction; the location-shift
+correction extends that reliability to absolute Sharpe and
+continuously compounded growth rate (CCGR) levels under daily
+rebalancing, at the cost of an external prior.
 
 Four extensions remain open. Per-ticker tuning of the jump
 parameters $(\epsilon, \lambda)$ on each asset's own history would

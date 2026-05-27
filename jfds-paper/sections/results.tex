@@ -51,8 +51,9 @@ practical upper bound on state resolution.
 \caption{\textbf{In-sample and out-of-sample model comparison for SPY}
     ($1{,}000$ simulated paths, significance level $\alpha = 0.05$).
     Bootstrap: i.i.d.\ resample of training data. Gaussian/Laplace:
-    i.i.d.\ draws from MLE-fitted distributions. GARCH: GARCH(1,1)
-    estimated by quasi-maximum likelihood. GRU: 2-layer gated recurrent
+    i.i.d.\ draws from distributions fitted by maximum likelihood
+    estimation (MLE). GARCH: GARCH(1,1) estimated by quasi-maximum
+    likelihood. GRU: 2-layer gated recurrent
     unit \cite{choEtAl2014gru} with Gaussian output head. HSMM: hidden
     semi-Markov model with $K = 8$ Laplace quantile states,
     negative-binomial dwell times, and Student-$t$ ($\nu = 5$) emissions
@@ -63,7 +64,7 @@ practical upper bound on state resolution.
     distance defined in Online Appendix~\ref{sec:supp-validation}.
     Coverage: fraction of $99$ empirical quantiles ($1$st--$99$th)
     falling within the $[5$th, $95$th$]$ percentile envelope of the
-    corresponding synthetic quantiles. Standard errors in parentheses:
+    corresponding synthetic quantiles. Standard errors (SE) in parentheses:
     binomial SE for pass rates, $\mathrm{std}/\sqrt{n}$ for kurtosis,
     Wasserstein-$1$, and Hellinger; bootstrap SE ($B = 500$) for
     ACF-MAE and coverage. Best value per row in bold.}

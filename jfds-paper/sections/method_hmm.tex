@@ -21,11 +21,13 @@ $P_{i,j}$ as:
 \end{equation}
 where $\Delta t = 1/252$ is the fraction of a trading year spanned by
 one trading day, and $r_f$ is a constant continuously compounded
-risk-free rate derived from STRIPS bond yields. The excess growth rate
+risk-free rate derived from Treasury STRIPS (Separate Trading of
+Registered Interest and Principal of Securities) bond yields. The excess growth rate
 has units of $\mathrm{year}^{-1}$ and is time-additive under
 continuous compounding.
 
-We defined the hybrid hidden Markov model as the tuple
+We defined the hybrid hidden Markov model with jump-diffusion
+(HMM-WJ) as the tuple
 $\mathcal{M} = (\mathcal{S}, \mathcal{O}, \mathbf{T}, \mathbf{E}, \bar{\pi})$
 \cite{rabinerJuang1986} (Figure~\ref{fig:model_architecture}), where
 the hidden state

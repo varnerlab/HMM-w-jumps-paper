@@ -65,7 +65,7 @@ The variance correction of Eq.~\eqref{eq:scale} is a precondition:
 it pins the synthetic per-asset second moments to their empirical
 targets, so the formula value of the diversification return on
 synthetic paths equals the formula value on real data. The gap is
-therefore not a structural consequence of the iid-residual draw at
+therefore not a structural consequence of the i.i.d.-residual draw at
 the second-order level; it attaches to higher-order Taylor terms,
 calibration drift, and the documented attenuation of realized
 diversification returns~\cite{boucheyNemtchinovWong2015}, which the
@@ -77,7 +77,7 @@ cross-sectional dependence faithfully but discard temporal structure
 in the residual draw: at each trading day the per-asset residual
 $\eps_i(t)$ is sampled independently from the previous day. Real
 equity residuals carry small but non-negligible serial dependence at
-sub-monthly horizons \cite{cont2001}, so the iid-residual generator
+sub-monthly horizons \cite{cont2001}, so the i.i.d.-residual generator
 family used here drops a real feature of the data. To make the consequences precise for
 daily-rebalanced backtests, consider a portfolio of $N$
 assets with constant target weights $w_i \ge 0$, $\sum_i w_i = 1$,
@@ -299,7 +299,7 @@ variance $\Delta t\,\sigma_{\eps,i}^2$ per name. Concentrated allocators on
 high-idiosyncratic-volatility names therefore inherit large formula
 values of $D_\eps$ structurally.
 
-The iid construction of the residual draw fixes both terms of
+The i.i.d.\ construction of the residual draw fixes both terms of
 Eq.~\eqref{eq:dr-sim}. The variance correction of
 Eq.~\eqref{eq:scale} pins the synthetic per-asset variance
 $\sigma_{\gen,i}^2 = \beta_i^2 \sigma_m^2 + \sigma_{\eps,i}^2$ to
@@ -308,7 +308,7 @@ $D = D_{\mathrm{mkt}} + D_\eps$ on synthetic paths equals the
 formula value under any alternative residual generator matched on
 the same unconditional second moments, including a stationary
 AR(1) residual generator $\eps_i(t) = \phi\, \eps_i(t-1) +
-\eta_i(t)$ with iid innovations $\eta_i$ tuned so that
+\eta_i(t)$ with i.i.d.\ innovations $\eta_i$ tuned so that
 $\Var(\eps_i) = \sigma_{\eta,i}^2 / (1 - \phi^2) = \sigma_{\eps,i}^2$.
 The AR(1) parameter $\phi$ leaves the unconditional joint
 distribution of $(g_i(t))_i$ at a single time slice unchanged,
@@ -318,12 +318,12 @@ only in the long-run variance of the sample mean
 ($\Var(\bar g_p) \to T^{-1}\,\sigma_p^2 \,(1+\phi)/(1-\phi)$).
 The synthetic-ensemble median across $1{,}000$ paths therefore
 converges to the same formula value whether the residuals are
-drawn iid or with positive serial autocorrelation: the iid versus
+drawn i.i.d.\ or with positive serial autocorrelation: the i.i.d.\ versus
 AR(1) distinction shows up in per-path sampling noise, not in the
 ensemble median itself. The empirical excess of the
 engine-raw median over an external long-run growth prior,
 $\sim\!22$~percentage points, is therefore not a structural artifact
-of the iid sampling at the level of the second-order formula. It is the
+of the i.i.d.\ sampling at the level of the second-order formula. It is the
 combined empirical magnitude of the higher-moment corrections to
 the Taylor expansion (heavy-tailed JumpHMM marginals carry
 non-trivial third and fourth cumulants), the time-varying
@@ -339,10 +339,10 @@ absorbed and is agnostic to its decomposition.
 \begin{table}[tbp]
 \centering
 \caption{\textbf{Descriptive statistics and stylized-facts tests for
-    SPY daily excess growth rates.} In-sample: $2014$--$2024$
-    ($T = 2{,}766$); out-of-sample: $2025$ ($T = 249$). Gaussian and
-    Laplace columns show maximum likelihood estimation (MLE) fits to the
-    in-sample data. JB: Jarque-Bera normality test. LB: Ljung-Box
+    SPY daily excess growth rates.} In-sample (IS): $2014$--$2024$
+    ($T = 2{,}766$); out-of-sample (OoS): $2025$ ($T = 249$).
+    Gaussian and Laplace columns show maximum likelihood estimation
+    (MLE) fits to the in-sample data. JB: Jarque-Bera normality test. LB: Ljung-Box
     autocorrelation test at lag $20$. $^{\ast}$ denotes rejection at
     $\alpha = 0.05$.}
 \label{tab:descriptive_stats}
@@ -378,7 +378,7 @@ compared with the rebalancing-driven bonus. The same allocator on
 the real $2025$ growth-rate history produced
 $11.5\%/\mathrm{yr}$, leaving the synthetic median running
 $\sim\!22$~percentage points above reality. The decomposition makes
-clear that the gap is a structural feature of the iid-residual
+clear that the gap is a structural feature of the i.i.d.-residual
 generator family rather than a calibration error: the allocator
 choice, the cost model, the marginal calibration, and the
 cross-sectional structure all behave on synthetic paths exactly as
@@ -533,7 +533,7 @@ carries the ensemble-shape information the paper validates,
 percentile diagnostics overlaying real outcomes against the
 synthetic distribution, drawdown distribution and tail-shape
 analysis, and relative ranking of strategies evaluated on the same
-corrected paths. It does not remove the underlying iid-residual
+corrected paths. It does not remove the underlying i.i.d.-residual
 limitation, so
 the residual autocorrelation structure itself, absolute Sharpe
 under daily rebalancing, and the choice of rebalancing frequency
@@ -550,8 +550,8 @@ restructured around the copula reorder, listed as future work.
 
 The distributional and tail metrics reported in the main results
 were defined as follows. The two-sample Kolmogorov-Smirnov statistic
-between the empirical CDFs of the observed and simulated growth-rate
-samples ($G_{\rm obs}$ of length $n$ and $G_{\rm sim}$ of length $m$)
+between the empirical cumulative distribution functions (CDFs) of
+the observed and simulated growth-rate samples ($G_{\rm obs}$ of length $n$ and $G_{\rm sim}$ of length $m$)
 is $D = \sup_x |F_n(x) - F_m(x)|$ \cite{kolmogorov1933, smirnov1948};
 the test rejects when $D$ exceeds the critical value at level
 $\alpha = 0.05$. The Anderson-Darling statistic places greater weight
@@ -885,7 +885,8 @@ JPM (financials)         & $10^{-4}$ & $80$ & $99.1$ ($0.3$) & $95.7$ ($0.6$) & 
 \begin{table}[tbp]
   \centering
   \caption{\textbf{Seed-uncertainty summary across $8$ random seeds.}
-    Each cell reports mean $\pm$ SD across the $8$ seeds in
+    Each cell reports mean $\pm$ standard deviation (SD) across the
+    $8$ seeds in
     $\{1234, 2345, 3456, 4567, 5678, 6789, 7890, 8910\}$, with each
     seed running the full $423$-ticker $\times\, 100$-replication
     protocol. Conditional-variance paths for GARCH(1,1)-$t$ are

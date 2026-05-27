@@ -4,38 +4,40 @@
 % composition (full-return vs residual-fit) with the variance-correction
 % contribution; validation including the diversification-return concern.
 
-Approaches to reproducing the stylized facts of equity markets divide
+Approaches to reproducing the stylized facts of equity markets can be divided
 into bottom-up agent-based models, which derive return dynamics from
 simulated interactions of heterogeneous agents
 \cite{luxMarchesi1999, contBouchaud2000, farmerJoshi2002, lebaron2006,
 arthur2021, farmer2025}, and top-down data-driven models, which fit
-statistical structures directly to observed return series.
+statistical structures directly to observed growth rate series.
 Agent-based generators produce stylized facts as emergent properties
-but are demanding to calibrate to specific assets, so the data-driven
-branch is the focus here.
-Equity-return generators in that branch have been studied since the
-geometric Brownian motion baseline of Black-Scholes-Merton
-\cite{blackScholes1973} failed on the empirical regularities that
-drive risk and pricing. Mandelbrot
-\cite{mandelbrot1963} showed that price changes carry heavier tails
+but are demanding to calibrate to specific assets, and potentially computationally expensive to simulate at scale. 
+On the other hand, top-down generators for asset prices go back at
+least to Bachelier's diffusion model \cite{bachelier1900}; Osborne
+\cite{osborne1959} and Samuelson \cite{samuelson1965} later
+formalized geometric Brownian motion, which Black-Scholes-Merton
+\cite{blackScholes1973} used as the price process for option
+pricing. These diffusion baselines are tractable but fail on the
+empirical regularities that drive risk and pricing. Mandelbrot
+\cite{mandelbrot1963} showed that returns carry heavier tails
 than the Gaussian admits; Fama \cite{famaEMH1970} reviewed the
 evidence that raw returns have near-zero linear autocorrelation; and
 Schwert \cite{schwert1989} documented persistence in monthly absolute
 residuals, an early form of what Cont \cite{cont2001} later codified
-as the volatility-clustering stylized fact. The ARCH and GARCH
-conditional-variance models of Engle \cite{engle1982} and Bollerslev
-\cite{bollerslev1986} reproduced the clustering but left light-tailed
-marginals unless fed a fat-tailed innovation, represented neither
-discrete regimes nor sudden jumps, and controlled persistence through
-a single decay parameter that cannot separate a calm market that
-slowly heats up from a sudden crash that lingers.
-Stochastic-volatility models \cite{steinStein1991, heston1993} treat
-volatility as a latent continuous process at the cost of heavy
-estimation. Jump-diffusion models \cite{merton1976, kou2002} inject
-Poisson events directly into the price path, producing heavy tails by
-construction and fitting equity markets where large discrete price
-moves are routinely observed \cite{auYeungEtAl2020}, but in standard
-form they offer no mechanism for the volatility persistence that
+as the volatility-clustering stylized fact. The autoregressive
+conditional heteroskedasticity (ARCH) and generalized ARCH (GARCH)
+models of Engle \cite{engle1982} and Bollerslev
+\cite{bollerslev1986} reproduced the clustering but left marginals
+light-tailed unless the noise term was itself heavy-tailed. They also offer no
+mechanism for discrete regimes or sudden jumps. Two later
+parametric families partially addressed these gaps.
+Stochastic-volatility models \cite{steinStein1991, heston1993}
+make volatility a latent process to capture clustering, but
+estimating that process requires filtering or Markov chain Monte
+Carlo (MCMC) methods \cite{kimShephardChib1998}.
+Jump-diffusion models \cite{merton1976, kou2002} inject Poisson
+events into the price path, producing heavy tails by construction
+but offering no mechanism for the volatility persistence that
 follows a jump.
 
 Hidden Markov models address this gap by embedding regime and jump
@@ -46,14 +48,15 @@ and equity trading \cite{nguyen2018}. Ryden et al.\
 \cite{rydenTerasvirtaAsbrink1998} found that Gaussian-emission HMMs
 matched heavy tails and the absence of return autocorrelation but
 failed on volatility clustering; Bulla and Bulla \cite{bullaBulla2006}
-recovered the clustering with hidden semi-Markov models that
-replaced the geometric dwell-time distribution of every state with a
-parametric (negative-binomial) alternative. Both rely on the
-Baum-Welch EM algorithm \cite{baumPetrieSoulesWeiss1970}, which is
-iterative and sensitive to initialization. Deep generative
-alternatives learn the marginal directly but routinely miss the
-volatility-clustering signature: Takahashi et al.\
-\cite{takahashiEtAl2019} found that standard GAN architectures
+recovered the clustering with hidden semi-Markov models (HSMMs)
+that replaced the geometric dwell-time distribution of every state
+with a parametric (negative-binomial) alternative. Both rely on
+the Baum-Welch expectation-maximization (EM) algorithm
+\cite{baumPetrieSoulesWeiss1970}, which is iterative and sensitive
+to initialization. Deep generative alternatives learn the marginal
+directly but routinely miss the volatility-clustering signature:
+Takahashi et al.\ \cite{takahashiEtAl2019} found that standard
+generative adversarial network (GAN) architectures
 produced return sequences that visually resembled financial data yet
 failed to reproduce the absolute-return autocorrelation function, and
 Kwon and Lee \cite{kwonLee2024} confirmed the same on TimeGAN
@@ -106,7 +109,7 @@ temporal structure \cite{cont2001}. Recent work has emphasized
 downstream-task validation as a complement: a synthetic dataset that
 passes distributional tests can still fail at the task it was
 generated for. Booth and Fama \cite{boothFama1992} formalized one such
-concern: a daily-rebalanced allocator on iid-residual paths extracts a
+concern: a daily-rebalanced allocator on i.i.d.-residual paths extracts a
 structural \emph{diversification return} that is largely absent in
 real markets, where residual serial dependence at short horizons is
 small but non-negligible \cite{cont2001}. We adopt the classical

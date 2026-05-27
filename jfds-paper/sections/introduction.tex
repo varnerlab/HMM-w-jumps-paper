@@ -48,7 +48,8 @@ synthetic financial data.
 \end{figure}
 
 Existing generative approaches typically capture some of these regularities
-but fail at others. For example, the GARCH conditional-variance family
+but fail at others. For example, the generalized autoregressive
+conditional heteroskedasticity (GARCH) family
 \cite{engle1982, bollerslev1986} captures volatility clustering but
 leaves light-tailed marginals unless fed a fat-tailed innovation. 
 Stochastic-volatility and jump-diffusion
@@ -57,8 +58,9 @@ but offer no mechanism for persistence after a jump. Deep generative
 models \cite{takahashiEtAl2019, yoonEtAl2019timegan, kwonLee2024} can
 learn complex marginals yet routinely miss the absolute-return
 autocorrelation that defines volatility clustering. Hidden Markov
-models \cite{rabinerJuang1986} offer a probabilistic regime-switching
-structure, yet standard HMMs revert too quickly to central regimes
+models (HMMs) \cite{rabinerJuang1986} offer a probabilistic
+regime-switching structure, yet standard HMMs revert too quickly
+to central regimes
 after extreme events and fail to dwell in high-volatility tail states
 long enough to reproduce the empirical clustering profile
 \cite{rydenTerasvirtaAsbrink1998, bullaBulla2006}. 
@@ -77,14 +79,15 @@ empirically realistic durations, closing the volatility-clustering
 gap that standard HMMs leave open. Within each state we used a
 Student-$t$ emission to accommodate the heavy tails that Normal
 emissions miss. We validated the
-framework on a $424$-ticker US equity and ETF universe calibrated
+framework on a $424$-ticker US equity and exchange-traded fund
+(ETF) universe calibrated
 against the $2014$--$2024$ SPY history, with $2025$ held out for
 out-of-sample evaluation, scoring synthetic paths against seven
 alternative generators (bootstrap, Gaussian, Laplace, GARCH(1,1), a
 hidden semi-Markov model \cite{bullaBulla2006}, a hidden Markov model
 without jumps, and a Gated Recurrent Unit \cite{choEtAl2014gru}
-neural baseline) on Kolmogorov-Smirnov, Anderson-Darling,
-Wasserstein-$1$, and Hellinger pass rates for distributional
+neural baseline) on Kolmogorov-Smirnov (KS), Anderson-Darling
+(AD), Wasserstein-$1$, and Hellinger pass rates for distributional
 fidelity, together with the autocorrelation function of absolute
 growth rates for volatility clustering. 
 
@@ -104,9 +107,9 @@ spurious portfolio gains on any synthetic series generated using
 this approach. We removed the bias with a calibrated
 location-shift on each ticker's drift. Finally, since tail-risk
 applications such as stress testing and risk-model validation rely
-on calibrated Value-at-Risk forecasts, for each ticker we asked
-the generator to forecast tomorrow's worst plausible loss, ran the
-forecast over a real holdout window, and checked whether the
-actual breach frequency matched what the model promised (a one-day
-Value-at-Risk backtest scored by Kupiec's unconditional-coverage
+on calibrated Value-at-Risk (VaR) forecasts, for each ticker we
+asked the generator to forecast tomorrow's worst plausible loss,
+ran the forecast over a real holdout window, and checked whether
+the actual breach frequency matched what the model promised (a
+one-day VaR backtest scored by Kupiec's unconditional-coverage
 test).

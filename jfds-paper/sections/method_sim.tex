@@ -8,7 +8,7 @@
 %   (5) algorithm intro + verification + contemporaneous-only caveat
 %       (closes with the Algorithm float)
 
-The HMM-WJ model produces a per-ticker marginal, but does not capture cross-asset dependence that is required for multi-asset applications. To generalize synthetic path generation beyond a single asset, we composed the per-ticker marginals into a single-index model (SIM) that captured the common market factor and the asset-specific residuals. The Single-Index Model (SIM) \cite{sharpe1963} decomposes each asset's excess growth rate as:
+The HMM-WJ model produces a per-ticker marginal, but does not capture cross-asset dependence that is required for multi-asset applications. To generalize synthetic path generation beyond a single asset, we composed the per-ticker marginals using the single-index model (SIM) of Sharpe \cite{sharpe1963}, which decomposes each asset's excess growth rate as:
 \begin{equation}
   g_i(t) \;=\; \alpha_i \;+\; \beta_i\, g_m(t) \;+\; \eps_i(t),
   \qquad t = 1,\dots,T,

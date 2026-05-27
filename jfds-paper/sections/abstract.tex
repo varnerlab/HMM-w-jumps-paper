@@ -12,13 +12,15 @@ location-scale Student-$t$ emission within each state, and augmented
 regime switching with a Poisson jump-duration mechanism that
 enforced realistic tail-state dwell times. We evaluated the
 framework on a decade of SPY history with a one-year hold-out,
-benchmarking against bootstrap, Gaussian, Laplace, GARCH(1,1), a
-Gated Recurrent Unit, a hidden semi-Markov model, and a no-jump
+benchmarking against bootstrap, Gaussian, Laplace, a generalized
+autoregressive conditional heteroskedasticity model (GARCH(1,1)),
+a Gated Recurrent Unit, a hidden semi-Markov model, and a no-jump
 variant of the framework on distributional, tail, and temporal
 metrics. The hybrid marginals reproduced the stylized facts
 in-sample and out-of-sample, and the jump mechanism was the only
 addition that reduced absolute-growth autocorrelation meaningfully
-below the i.i.d.\ floor without sacrificing distributional fit. To
+below the independent-and-identically-distributed (i.i.d.) floor
+without sacrificing distributional fit. To
 extend the framework to multi-asset workflows, we composed per-asset
 paths under a single-index model using a closed-form variance
 correction that rescaled the per-asset generator draw before
@@ -26,7 +28,7 @@ insertion into the market factor; the correction recovered the
 calibrated factor loading on a $424$-asset US equity and
 exchange-traded-fund universe while preserving heavy-tailed
 character at tail-risk accuracy comparable to dedicated residual
-fits. We also surfaced a daily-rebalancing artifact in which iid
+fits. We also surfaced a daily-rebalancing artifact in which i.i.d.\
 residuals inflate the diversification return, and corrected it with
 a uniform location shift anchored to a long-run prior. All code and
 per-asset fitted marginals were released alongside the paper.
