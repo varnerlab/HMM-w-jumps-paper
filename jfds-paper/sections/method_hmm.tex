@@ -27,7 +27,8 @@ continuous compounding.
 
 We defined the hybrid hidden Markov model as the tuple
 $\mathcal{M} = (\mathcal{S}, \mathcal{O}, \mathbf{T}, \mathbf{E}, \bar{\pi})$
-\cite{rabinerJuang1986}, where the hidden state
+\cite{rabinerJuang1986} (Figure~\ref{fig:model_architecture}), where
+the hidden state
 $S_t \in \mathcal{S} = \{1,\dots,N\}$ represented market regimes,
 the observation $G_t$ at step $t$ was the per-ticker growth rate
 $G_{i,j}$ of Eq.~\eqref{eq:growth_rate} with the asset index
@@ -43,7 +44,9 @@ function of the Laplace distribution with location $\mu_L$ and scale
 $b_L$ (both estimated from the in-sample growth-rate history by
 maximum likelihood), with the endpoints fixed at $Q_0 = -\infty$ and
 $Q_N = +\infty$. The Laplace was chosen for its sharper peak (better
-matching the concentration of small price movements
+matching the concentration of small price movements visible in
+the empirical marginal density of
+Fig.~\ref{fig:empirical_motivation}(a),
 \cite{kotzKozubowskiPodgorski2001, tothJones2019}) and its
 closed-form quantile function, which scaled to the $424$-ticker
 pipeline without iterative optimization \cite{bilmes1998}. An
@@ -255,13 +258,16 @@ while adopting an HSMM-style state-duration parameterization
 of those classical models, using a multi-objective grid search that
 minimized the discrepancy between historical and
 simulated market signatures. The objective targeted two stylized facts
-\cite{cont2001, rydenTerasvirtaAsbrink1998}: volatility clustering,
+\cite{cont2001, rydenTerasvirtaAsbrink1998}, both visible in the
+empirical SPY history of Fig.~\ref{fig:empirical_motivation}:
+volatility clustering (Fig.~\ref{fig:empirical_motivation}(d)),
 measured as the squared error between the observed and simulated
 autocorrelation function (ACF) of absolute excess growth rates
 \cite{cont2001} up to a lag of $L = 25$ trading days (the
 short-horizon window in which the empirical ACF of $|G_t|$ carries
 most of its variation; post-fit evaluation in Fig.~\ref{fig:model_comparison} extends to lag $252$ for the
-visual ACF comparison), and leptokurtosis, captured by a penalty
+visual ACF comparison), and leptokurtosis
+(Fig.~\ref{fig:empirical_motivation}(a, b)), captured by a penalty
 term on the global kurtosis \cite{mandelbrot1963}:
 \begin{equation}
     J(\epsilon, \lambda) =
