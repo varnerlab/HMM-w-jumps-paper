@@ -25,26 +25,26 @@ risk-free rate derived from STRIPS bond yields. The excess growth rate
 has units of $\mathrm{year}^{-1}$ and is time-additive under
 continuous compounding.
 
-We defined the hybrid hidden Markov model on this dataset as the tuple
+We defined the hybrid hidden Markov model as the tuple
 $\mathcal{M} = (\mathcal{S}, \mathcal{O}, \mathbf{T}, \mathbf{E}, \bar{\pi})$
 \cite{rabinerJuang1986}, where the hidden state
 $S_t \in \mathcal{S} = \{1,\dots,N\}$ represented market regimes,
 the observation $G_t$ at step $t$ was the per-ticker growth rate
 $G_{i,j}$ of Eq.~\eqref{eq:growth_rate} with the asset index
 suppressed when only one ticker is in play, the observation space
-$\mathcal{O} \subset \mathbb{R}$ consisted of continuous excess
+$\mathcal{O} \subset \mathbb{R}$ consisted of the observed continuous excess
 growth rate values, $\mathbf{T}$ governed
 regime-to-regime transitions, $\mathbf{E}$ specified the
 state-conditional emission model, and $\bar{\pi}$ denoted the
 stationary distribution. States were defined by quantile boundaries of a fitted Laplace
-distribution: $Q_k = F_L^{-1}(k/N;\, \mu_L, b_L)$, where
+cumulative distribution: $Q_k = F_L^{-1}(k/N;\, \mu_L, b_L)$, where
 $F_L^{-1}(\cdot;\, \mu_L, b_L)$ is the inverse cumulative distribution
 function of the Laplace distribution with location $\mu_L$ and scale
 $b_L$ (both estimated from the in-sample growth-rate history by
 maximum likelihood), with the endpoints fixed at $Q_0 = -\infty$ and
 $Q_N = +\infty$. The Laplace was chosen for its sharper peak (better
 matching the concentration of small price movements
-\cite{mandelbrot1963, cont2001, kotzKozubowskiPodgorski2001}) and its
+\cite{kotzKozubowskiPodgorski2001, tothJones2019}) and its
 closed-form quantile function, which scaled to the $424$-ticker
 pipeline without iterative optimization \cite{bilmes1998}. An
 observation was assigned to state $k$ when $Q_{k-1} < G_t \le Q_k$.
@@ -56,8 +56,10 @@ distribution:
     \label{eq:emission}
 \end{equation}
 where $t_\nu$ denotes a standard Student-$t$ random variable with
-$\nu$ degrees of freedom, and $\mu_k, \sigma_k$ are state-conditional
-location and scale parameters. The value $\nu = 5$ was
+$\nu$ degrees of freedom, and $\mu_k, \sigma_k$ are the state-conditional
+location and scale parameters, estimated as the sample mean and sample
+standard deviation of the in-sample observations assigned to state $k$
+under the Laplace-quantile partition. The value $\nu = 5$ was
 selected from a sensitivity analysis over
 $\nu \in \{3, 4, 5, 6, 7, 8, 10, 15, 30, \infty\}$ as the value that
 minimized the kurtosis gap without degrading distributional fidelity
@@ -74,7 +76,7 @@ sensitivity of expectation-maximization \cite{bilmes1998}. A consequence of dire
 transition matrices often had low probabilities for exiting central
 states into tail states, which caused models to lose the effect of
 volatility clustering too quickly \cite{bullaBulla2006}. We corrected
-this by adding two jump parameters, $\epsilon$ representing the
+this by adding two jump hyperparameters, $\epsilon$ representing the
 probability of a jump event and $\lambda$ representing the mean
 jump-event duration, along with a tail-state selection rule. Tail
 states were defined as $\mathcal{S}_{-} = \{1, \dots, N_{\rm tail}\}$
@@ -86,11 +88,7 @@ independent events in fixed intervals \cite{glasserman2003}. During
 these $K$ steps, the standard Markovian transitions were overridden to
 target tail states, with a user-configurable bias $p_{\rm neg}$
 (default $0.52$) that favored negative-tail states to reproduce
-gain/loss asymmetry (Figure~\ref{fig:model_architecture}). Given the
-state assignments and transition matrix, the remaining model
-components were estimated directly from the data: the emission
-parameters $\mu_k$ and $\sigma_k$ were the sample mean and standard
-deviation of observations assigned to state $k$, and the empirical
+gain/loss asymmetry (Figure~\ref{fig:model_architecture}). The empirical
 transition matrix exhibited a dominant near-diagonal band reflecting
 short-range regime persistence, with natural residence times of
 $1$--$2$ steps in every state including the tails
@@ -215,7 +213,7 @@ Algorithm~\ref{alg:hmmwj}.
 \end{figure}
 
 \begin{algorithm}[t]
-\caption{HMM-WJ simulator.}
+\caption{HMM-WJ single asset marginal generator.}
 \label{alg:hmmwj}
 \begin{algorithmic}[1]
   \REQUIRE Fitted parameters
@@ -249,18 +247,20 @@ Algorithm~\ref{alg:hmmwj}.
 \end{algorithmic}
 \end{algorithm}
 
-With the simulator (Algorithm~\ref{alg:hmmwj}) specified, we
-calibrated the two jump parameters,
-the jump probability $\epsilon$ and mean jump duration $\lambda$
-\cite{merton1976, kou2002}, via a multi-objective grid search that minimized the discrepancy between historical and
+We calibrated the two jump model hyperparameters,
+the jump probability $\epsilon$ and mean jump duration $\lambda$,
+drawing on the jump-diffusion tradition of \cite{merton1976, kou2002}
+while adopting an HSMM-style state-duration parameterization
+\cite{bullaBulla2006} in place of the instantaneous-jump formulation
+of those classical models, using a multi-objective grid search that
+minimized the discrepancy between historical and
 simulated market signatures. The objective targeted two stylized facts
 \cite{cont2001, rydenTerasvirtaAsbrink1998}: volatility clustering,
 measured as the squared error between the observed and simulated
 autocorrelation function (ACF) of absolute excess growth rates
-\cite{schwert1989} up to a lag of $L = 25$ trading days (the
+\cite{cont2001} up to a lag of $L = 25$ trading days (the
 short-horizon window in which the empirical ACF of $|G_t|$ carries
-most of its variation; post-fit evaluation in
-Fig.~\ref{fig:model_comparison} extends to lag $252$ for the
+most of its variation; post-fit evaluation in Fig.~\ref{fig:model_comparison} extends to lag $252$ for the
 visual ACF comparison), and leptokurtosis, captured by a penalty
 term on the global kurtosis \cite{mandelbrot1963}:
 \begin{equation}
@@ -281,10 +281,6 @@ synthetic paths of $2{,}766$ trading days per grid point
 $w_\kappa = 0.20$ to balance tail behavior against the temporal ACF
 term. The grid explored $\epsilon$ from
 $10^{-4}$ to $2.5 \times 10^{-2}$ and $\lambda$ from $10$ to $160$ in
-brute-force evaluation. The HMM-WJ framework produces a
+brute-force evaluation. The HMM-WJ framework produced a
 per-ticker marginal that reproduces heavy tails, regime persistence,
 and volatility clustering (validated empirically in Results).
-Composing these per-ticker marginals into a multi-asset path under a
-single-index model requires a variance-correction scalar that
-prevents the naive composition from inflating the per-asset marginal
-variance.

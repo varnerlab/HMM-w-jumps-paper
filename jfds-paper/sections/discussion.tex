@@ -208,8 +208,9 @@ workflows that evaluate portfolios rebalancing at high frequency.
 With iid residuals, a rebalancing rule collects the full
 diversification return of \cite{boothFama1992}, a compounding
 premium that scales with residual variance and rebalancing frequency
-and is largely absent in real markets, where daily residual
-autocorrelation is small but positive \cite{boucheyNemtchinovWong2015}.
+and is largely absent in real markets, where residual serial
+dependence at short horizons is small but non-negligible
+\cite{cont2001}.
 Two generator alternatives in Table~\ref{tab:aggregate} preserve
 temporal structure directly: the block-bootstrap composer resamples
 blocks of the empirical OLS residual series~\cite{politisRomano1994},
@@ -226,8 +227,8 @@ full-return JumpHMM marginal.
 
 The diversification-return artifact is a property of any SIM
 construction that draws residuals independently across time: real
-equity residuals carry a small positive serial autocorrelation
-\cite{loMacKinlay1990} that any iid sampler discards, including
+equity residuals carry small but non-negligible short-horizon serial
+dependence \cite{cont2001} that any iid sampler discards, including
 the JumpHMM marginal used here and the i.i.d.\ Gaussian and
 JumpHMM-on-residuals composers of Table~\ref{tab:aggregate}. The
 quantitative consequence under daily rebalancing is large enough

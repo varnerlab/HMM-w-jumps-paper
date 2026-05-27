@@ -76,10 +76,9 @@ The synthetic paths reproduce per-asset marginals and single-factor
 cross-sectional dependence faithfully but discard temporal structure
 in the residual draw: at each trading day the per-asset residual
 $\eps_i(t)$ is sampled independently from the previous day. Real
-equity residuals carry a small but positive serial autocorrelation
-\cite{loMacKinlay1990}, typically $\rho \in [0.05, 0.10]$ at the
-daily horizon, so the iid-residual generator family used here drops
-a real feature of the data. To make the consequences precise for
+equity residuals carry small but non-negligible serial dependence at
+sub-monthly horizons \cite{cont2001}, so the iid-residual generator
+family used here drops a real feature of the data. To make the consequences precise for
 daily-rebalanced backtests, consider a portfolio of $N$
 assets with constant target weights $w_i \ge 0$, $\sum_i w_i = 1$,
 reset to those weights at the start of each trading day. Throughout

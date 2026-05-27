@@ -20,29 +20,29 @@ drive risk and pricing. Mandelbrot
 \cite{mandelbrot1963} showed that price changes carry heavier tails
 than the Gaussian admits; Fama \cite{famaEMH1970} reviewed the
 evidence that raw returns have near-zero linear autocorrelation; and
-Schwert \cite{schwert1989} documented the slow decay of absolute-return
-autocorrelation now known as volatility clustering. The ARCH and GARCH
+Schwert \cite{schwert1989} documented persistence in monthly absolute
+residuals, an early form of what Cont \cite{cont2001} later codified
+as the volatility-clustering stylized fact. The ARCH and GARCH
 conditional-variance models of Engle \cite{engle1982} and Bollerslev
 \cite{bollerslev1986} reproduced the clustering but left light-tailed
 marginals unless fed a fat-tailed innovation, represented neither
 discrete regimes nor sudden jumps, and controlled persistence through
 a single decay parameter that cannot separate a calm market that
-slowly heats up from a sudden crash that lingers
-\cite{dieboldInoue2001}.
+slowly heats up from a sudden crash that lingers.
 Stochastic-volatility models \cite{steinStein1991, heston1993} treat
 volatility as a latent continuous process at the cost of heavy
 estimation. Jump-diffusion models \cite{merton1976, kou2002} inject
 Poisson events directly into the price path, producing heavy tails by
-construction and fitting equity markets where announcements and
-earnings surprises generate large discrete moves \cite{auYeungEtAl2020},
-but in standard form they offer no mechanism for the volatility
-persistence that follows a jump.
+construction and fitting equity markets where large discrete price
+moves are routinely observed \cite{auYeungEtAl2020}, but in standard
+form they offer no mechanism for the volatility persistence that
+follows a jump.
 
 Hidden Markov models address this gap by embedding regime and jump
 behavior in a latent discrete chain. Hamilton \cite{hamilton1989}
 introduced regime-switching to economics in a two-state form, and
 later work applied it to volatility forecasting \cite{rossiGallo2006}
-and equity trading \cite{nguyen2018, kimNelson1999}. Ryden et al.\
+and equity trading \cite{nguyen2018}. Ryden et al.\
 \cite{rydenTerasvirtaAsbrink1998} found that Gaussian-emission HMMs
 matched heavy tails and the absence of return autocorrelation but
 failed on volatility clustering; Bulla and Bulla \cite{bullaBulla2006}
@@ -108,8 +108,9 @@ passes distributional tests can still fail at the task it was
 generated for. Booth and Fama \cite{boothFama1992} formalized one such
 concern: a daily-rebalanced allocator on iid-residual paths extracts a
 structural \emph{diversification return} that is largely absent in
-real markets, where residual autocorrelation is small but positive
-\cite{loMacKinlay1990}. We adopt the classical distributional metrics
+real markets, where residual serial dependence at short horizons is
+small but non-negligible \cite{cont2001}. We adopt the classical
+distributional metrics
 together with a downstream Value-at-Risk backtest scored by Kupiec's
 unconditional-coverage test, and we address the
 diversification-return artifact through a documented bias correction.

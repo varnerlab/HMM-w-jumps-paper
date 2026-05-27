@@ -147,10 +147,13 @@ dependency of the experiment code.
 \appendix
 
 % Supplement uses S-prefixed numbering so readers can distinguish
-% supplementary floats from main-text floats at a glance.
+% supplementary sections and floats from main-text counterparts at a glance.
+\renewcommand{\thesection}{S\arabic{section}}
+\renewcommand{\thesubsection}{S\arabic{section}.\arabic{subsection}}
 \renewcommand{\thefigure}{S\arabic{figure}}
 \renewcommand{\thetable}{S\arabic{table}}
 \renewcommand{\theequation}{S\arabic{equation}}
+\setcounter{section}{0}
 \setcounter{figure}{0}
 \setcounter{table}{0}
 \setcounter{equation}{0}
