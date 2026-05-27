@@ -11,7 +11,7 @@ simulated interactions of heterogeneous agents
 arthur2021, farmer2025}, and top-down data-driven models, which fit
 statistical structures directly to observed growth rate series.
 Agent-based generators produce stylized facts as emergent properties
-but are demanding to calibrate to specific assets, and potentially computationally expensive to simulate at scale. 
+but are demanding to calibrate to specific assets, and computationally expensive to simulate at scale. 
 On the other hand, top-down generators for asset prices go back at
 least to Bachelier's diffusion model \cite{bachelier1900}; Osborne
 \cite{osborne1959} and Samuelson \cite{samuelson1965} later
@@ -65,55 +65,50 @@ Kwon and Lee \cite{kwonLee2024} confirmed the same on TimeGAN
 stylized-facts reproduction remains the primary quality criterion,
 and a pretrained foundation-inference alternative for Markov jump
 processes \cite{berghausEtAl2025} has not yet been evaluated on
-financial data. The hybrid HMM of the present
-paper picks the latent-state route but follows a different design
+financial data. The current study picks the latent-state route but follows a different design
 principle than the HSMM. Rather than replace the dwell-time
 distribution of every state, it leaves the empirically counted
 transition matrix in place across the central states and adds an
 event-driven override that, on a sparse subset of time slices,
 forces the chain into the tail states for a Poisson-distributed
-duration. The result is a sparse intervention targeted at tail
-persistence, with the body of the chain carrying its empirical
-geometric dwell-time distribution unchanged; combined with a
-Laplace quantile partition, transitions can be counted directly
-without EM.
+duration. The result is a sparse intervention: tail states receive a
+Poisson-distributed dwell time, while the body of the chain keeps
+the geometric (memoryless) dwell times of the empirical transition
+matrix.
 
-Multi-asset composition layers a cross-sectional structure on top of
-a univariate generator. The single-index model (SIM) of Sharpe
-\cite{sharpe1963} decomposes each asset's growth rate into a
-market-loaded term plus an idiosyncratic residual, reducing the
-parameter count relative to a full multivariate fit, and generalizes
-to multi-factor variants \cite{rossAPT1976, famaFrench1993} without
-changing its form. Two residual specifications are common in
-practice. The full-return specification fits a per-asset generator
-to the asset's own growth-rate history and plugs the draw in as the
-residual; it inflates the composed marginal variance quadratically
-in the factor loading. The residual-fit specification fits the
-generator to the OLS residual series and composes with no further
-correction, recovering the factor exactly at the cost of the
-per-asset generator's distributional structure. Mixture hidden
-Markov models \cite{diasVermuntRamos2010} share latent state across
-assets but are demanding to estimate in high dimensions; copula
-approaches \cite{embrechtsMcNeilStraumann2002,
-cherubiniLucianoVecchiato2004, aasCzadoFrigessiBakken2009} separate
-marginals from dependence at the cost of copula-family selection.
-The variance-corrected composition described in Methods sits between
-the two residual specifications: a closed-form scalar lets a
-full-return generator enter the factor pipeline without inflating
-its marginal variance.
+Multi-asset composition adds cross-asset dependence on top of a
+univariate generator. Several families address this: mixture
+hidden Markov models \cite{diasVermuntRamos2010} share latent
+state across assets at high estimation cost in high dimensions;
+copula approaches \cite{embrechtsMcNeilStraumann2002,
+cherubiniLucianoVecchiato2004, aasCzadoFrigessiBakken2009}
+separate marginals from cross-asset dependence at the cost of copula-family
+selection and, in their standard static form, treat successive
+time slices as independent. Alternatively, factor models reduce
+the dependence of a firm's growth rate to one or more shared
+factors \cite{rossAPT1976, famaFrench1993}. The single-index model (SIM) of Sharpe
+\cite{sharpe1963} is the simplest factor model, decomposing each
+asset's growth rate into a market-loaded term plus an idiosyncratic
+residual. The single-index model's linear structure also makes it
+computationally efficient and easy to interpret, and its
+single-factor form pairs with the SPY-based generator developed in
+Methods. 
+Within SIM, the choice of residual specification trades off the
+per-asset generator's distributional structure against the
+composed variance. Methods describes a closed-form variance
+correction that recovers both.
 
-Validation of synthetic financial data combines two families of tests:
+Validation of synthetic growth-rate paths combines two families of tests:
 goodness-of-fit tests for distributional fidelity \cite{kolmogorov1933,
 smirnov1948, andersonDarling1952} and autocorrelation diagnostics for
-temporal structure \cite{cont2001}. Recent work has emphasized
-downstream-task validation as a complement: a synthetic dataset that
-passes distributional tests can still fail at the task it was
-generated for. Booth and Fama \cite{boothFama1992} formalized one such
-concern: a daily-rebalanced allocator on i.i.d.-residual paths extracts a
+temporal structure \cite{cont2001}. Distributional and temporal tests are necessary but not
+sufficient: a synthetic dataset can pass them yet still mislead
+when fed into the task it was generated for. Booth and Fama \cite{boothFama1992} described one such failure: a
+daily-rebalanced allocator on i.i.d.-residual paths extracts a
 structural \emph{diversification return} that is largely absent in
 real markets, where residual serial dependence at short horizons is
 small but non-negligible \cite{cont2001}. We adopt the classical
-distributional metrics
-together with a downstream Value-at-Risk backtest scored by Kupiec's
-unconditional-coverage test, and we address the
-diversification-return artifact through a documented bias correction.
+distributional metrics together with a Value-at-Risk backtest
+scored by Kupiec's unconditional-coverage test, and we address the
+diversification-return artifact through a location-shift bias
+correction described in Methods.
