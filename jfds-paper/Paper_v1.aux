@@ -18,6 +18,9 @@
 \citation{bullaBulla2006}
 \citation{choEtAl2014gru}
 \citation{luxMarchesi1999,contBouchaud2000,farmerJoshi2002,lebaron2006,arthur2021,farmer2025}
+\citation{bachelier1900}
+\citation{osborne1959}
+\citation{samuelson1965}
 \citation{blackScholes1973}
 \citation{mandelbrot1963}
 \citation{famaEMH1970}
@@ -26,8 +29,8 @@
 \citation{engle1982}
 \citation{bollerslev1986}
 \citation{steinStein1991,heston1993}
+\citation{kimShephardChib1998}
 \citation{merton1976,kou2002}
-\citation{auYeungEtAl2020}
 \citation{hamilton1989}
 \citation{rossiGallo2006}
 \citation{nguyen2018}
@@ -41,22 +44,22 @@
 \citation{berghausEtAl2025}
 \@writefile{toc}{\contentsline {section}{\numberline {2}Related Work}{3}{section.2}\protected@file@percent }
 \newlabel{sec:related-work}{{2}{3}{Related Work}{section.2}{}}
-\citation{sharpe1963}
-\citation{rossAPT1976,famaFrench1993}
 \citation{diasVermuntRamos2010}
 \citation{embrechtsMcNeilStraumann2002,cherubiniLucianoVecchiato2004,aasCzadoFrigessiBakken2009}
+\citation{rossAPT1976,famaFrench1993}
+\citation{sharpe1963}
 \citation{kolmogorov1933,smirnov1948,andersonDarling1952}
 \citation{cont2001}
 \citation{boothFama1992}
 \citation{cont2001}
-\citation{rabinerJuang1986}
-\citation{kotzKozubowskiPodgorski2001,tothJones2019}
-\citation{bilmes1998}
 \@writefile{toc}{\contentsline {section}{\numberline {3}Methods}{4}{section.3}\protected@file@percent }
 \newlabel{sec:method}{{3}{4}{Methods}{section.3}{}}
 \@writefile{toc}{\contentsline {subsection}{\numberline {3.1}Hybrid hidden Markov marginal generator}{4}{subsection.3.1}\protected@file@percent }
 \newlabel{sec:method-hmm}{{3.1}{4}{Hybrid hidden Markov marginal generator}{subsection.3.1}{}}
-\newlabel{eq:growth_rate}{{1}{4}{Hybrid hidden Markov marginal generator}{equation.3.1}{}}
+\newlabel{eq:growth_rate}{{1}{4}{Hybrid hidden Markov marginal generator}{equation.1}{}}
+\citation{rabinerJuang1986}
+\citation{kotzKozubowskiPodgorski2001,tothJones2019}
+\citation{bilmes1998}
 \citation{bullaBulla2006}
 \citation{bilmes1998}
 \citation{bullaBulla2006}
@@ -67,25 +70,25 @@
 \citation{cont2001,rydenTerasvirtaAsbrink1998}
 \citation{cont2001}
 \citation{mandelbrot1963}
+\newlabel{eq:emission}{{2}{5}{Hybrid hidden Markov marginal generator}{equation.2}{}}
 \citation{glasserman2003}
-\newlabel{eq:emission}{{2}{5}{Hybrid hidden Markov marginal generator}{equation.3.2}{}}
-\newlabel{eq:grid_search}{{3}{5}{Hybrid hidden Markov marginal generator}{equation.3.3}{}}
 \citation{sharpe1963}
 \@writefile{lof}{\contentsline {figure}{\numberline {2}{\ignorespaces \textbf  {Architecture of the hybrid hidden Markov model with jump-diffusion (HMM-WJ).} At each step the chain transitions according to the empirical transition matrix $\mathbf  {T}$ (probability $1 - \epsilon $, thin bidirectional arrows) or enters a Poisson jump episode (probability $\epsilon $, dashed upward arrow to the Poisson clock). During a jump episode the active state is forced to the bottom tail set $\mathcal  {S}_{-}$ (red, lowest-valued states) or the top tail set $\mathcal  {S}_{+}$ (blue, highest-valued states) for $K \sim \mathrm  {Poisson}(\lambda )$ consecutive steps before normal Markovian evolution resumes. Small bell curves above each state depict the state-conditional location-scale Student-$t$ ($\nu =5$) emission distribution. Tail sets are defined as the $N_{\rm  tail}$ lowest- and highest-quantile states under the Laplace quantile partition.}}{6}{figure.caption.3}\protected@file@percent }
 \newlabel{fig:model_architecture}{{2}{6}{\textbf {Architecture of the hybrid hidden Markov model with jump-diffusion (HMM-WJ).} At each step the chain transitions according to the empirical transition matrix $\mathbf {T}$ (probability $1 - \epsilon $, thin bidirectional arrows) or enters a Poisson jump episode (probability $\epsilon $, dashed upward arrow to the Poisson clock). During a jump episode the active state is forced to the bottom tail set $\mathcal {S}_{-}$ (red, lowest-valued states) or the top tail set $\mathcal {S}_{+}$ (blue, highest-valued states) for $K \sim \mathrm {Poisson}(\lambda )$ consecutive steps before normal Markovian evolution resumes. Small bell curves above each state depict the state-conditional location-scale Student-$t$ ($\nu =5$) emission distribution. Tail sets are defined as the $N_{\rm tail}$ lowest- and highest-quantile states under the Laplace quantile partition}{figure.caption.3}{}}
 \@writefile{loa}{\contentsline {algorithm}{\numberline {1}{\ignorespaces HMM-WJ single asset marginal generator.}}{6}{algorithm.1}\protected@file@percent }
 \newlabel{alg:hmmwj}{{1}{6}{HMM-WJ single asset marginal generator}{algorithm.1}{}}
-\@writefile{toc}{\contentsline {subsection}{\numberline {3.2}Multi-asset extension}{6}{subsection.3.2}\protected@file@percent }
-\newlabel{sec:method-sim}{{3.2}{6}{Multi-asset extension}{subsection.3.2}{}}
-\newlabel{eq:sim-composition}{{4}{7}{Multi-asset extension}{equation.3.4}{}}
-\newlabel{eq:naive-composition}{{5}{7}{Multi-asset extension}{equation.3.5}{}}
-\newlabel{eq:naive-inflation}{{6}{7}{Multi-asset extension}{equation.3.6}{}}
-\newlabel{eq:scale}{{7}{7}{Multi-asset extension}{equation.3.7}{}}
-\newlabel{eq:rho}{{8}{7}{Multi-asset extension}{equation.3.8}{}}
-\newlabel{eq:clip}{{9}{7}{Multi-asset extension}{equation.3.9}{}}
+\newlabel{eq:grid_search}{{3}{6}{Hybrid hidden Markov marginal generator}{equation.3}{}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {3.2}Multi-asset extension}{7}{subsection.3.2}\protected@file@percent }
+\newlabel{sec:method-sim}{{3.2}{7}{Multi-asset extension}{subsection.3.2}{}}
+\newlabel{eq:sim-composition}{{4}{7}{Multi-asset extension}{equation.4}{}}
+\newlabel{eq:naive-composition}{{5}{7}{Multi-asset extension}{equation.5}{}}
+\newlabel{eq:naive-inflation}{{6}{7}{Multi-asset extension}{equation.6}{}}
+\newlabel{eq:scale}{{7}{7}{Multi-asset extension}{equation.7}{}}
+\newlabel{eq:rho}{{8}{7}{Multi-asset extension}{equation.8}{}}
+\newlabel{eq:clip}{{9}{8}{Multi-asset extension}{equation.9}{}}
+\newlabel{eq:r2-target}{{10}{8}{Multi-asset extension}{equation.10}{}}
+\newlabel{eq:r2-rescale}{{11}{8}{Multi-asset extension}{equation.11}{}}
 \citation{famaEMH1970}
-\newlabel{eq:r2-target}{{10}{8}{Multi-asset extension}{equation.3.10}{}}
-\newlabel{eq:r2-rescale}{{11}{8}{Multi-asset extension}{equation.3.11}{}}
 \citation{choEtAl2014gru}
 \citation{bullaBulla2006}
 \citation{choEtAl2014gru}
@@ -96,8 +99,8 @@
 \newlabel{alg:hybrid}{{2}{9}{Hybrid SIM composition with variance correction}{algorithm.2}{}}
 \@writefile{toc}{\contentsline {section}{\numberline {4}Results}{9}{section.4}\protected@file@percent }
 \newlabel{sec:results}{{4}{9}{Results}{section.4}{}}
-\@writefile{lot}{\contentsline {table}{\numberline {1}{\ignorespaces \textbf  {In-sample and out-of-sample model comparison for SPY} ($1{,}000$ simulated paths, significance level $\alpha = 0.05$). Bootstrap: i.i.d.\ resample of training data. Gaussian/Laplace: i.i.d.\ draws from MLE-fitted distributions. GARCH: GARCH(1,1) estimated by quasi-maximum likelihood. GRU: 2-layer gated recurrent unit \cite  {choEtAl2014gru} with Gaussian output head. HSMM: hidden semi-Markov model with $K = 8$ Laplace quantile states, negative-binomial dwell times, and Student-$t$ ($\nu = 5$) emissions \cite  {bullaBulla2006}. HMM-NJ: hidden Markov model ($N = 100$ states) without jumps. HMM-WJ: hybrid model with Poisson jump-duration extension. ACF-MAE: mean absolute error of the ACF of $|G_t|$ over lags $1$--$252$. Wasserstein-$1$ and Hellinger distance defined in Online Appendix~\ref {sec:supp-validation}. Coverage: fraction of $99$ empirical quantiles ($1$st--$99$th) falling within the $[5$th, $95$th$]$ percentile envelope of the corresponding synthetic quantiles. Standard errors in parentheses: binomial SE for pass rates, $\mathrm  {std}/\sqrt  {n}$ for kurtosis, Wasserstein-$1$, and Hellinger; bootstrap SE ($B = 500$) for ACF-MAE and coverage. Best value per row in bold.}}{10}{table.caption.4}\protected@file@percent }
-\newlabel{tab:model_comparison}{{1}{10}{\textbf {In-sample and out-of-sample model comparison for SPY} ($1{,}000$ simulated paths, significance level $\alpha = 0.05$). Bootstrap: i.i.d.\ resample of training data. Gaussian/Laplace: i.i.d.\ draws from MLE-fitted distributions. GARCH: GARCH(1,1) estimated by quasi-maximum likelihood. GRU: 2-layer gated recurrent unit \cite {choEtAl2014gru} with Gaussian output head. HSMM: hidden semi-Markov model with $K = 8$ Laplace quantile states, negative-binomial dwell times, and Student-$t$ ($\nu = 5$) emissions \cite {bullaBulla2006}. HMM-NJ: hidden Markov model ($N = 100$ states) without jumps. HMM-WJ: hybrid model with Poisson jump-duration extension. ACF-MAE: mean absolute error of the ACF of $|G_t|$ over lags $1$--$252$. Wasserstein-$1$ and Hellinger distance defined in Online Appendix~\ref {sec:supp-validation}. Coverage: fraction of $99$ empirical quantiles ($1$st--$99$th) falling within the $[5$th, $95$th$]$ percentile envelope of the corresponding synthetic quantiles. Standard errors in parentheses: binomial SE for pass rates, $\mathrm {std}/\sqrt {n}$ for kurtosis, Wasserstein-$1$, and Hellinger; bootstrap SE ($B = 500$) for ACF-MAE and coverage. Best value per row in bold}{table.caption.4}{}}
+\@writefile{lot}{\contentsline {table}{\numberline {1}{\ignorespaces \textbf  {In-sample and out-of-sample model comparison for SPY} ($1{,}000$ simulated paths, significance level $\alpha = 0.05$). Bootstrap: i.i.d.\ resample of training data. Gaussian/Laplace: i.i.d.\ draws from distributions fitted by maximum likelihood estimation (MLE). GARCH: GARCH(1,1) estimated by quasi-maximum likelihood. GRU: 2-layer gated recurrent unit \cite  {choEtAl2014gru} with Gaussian output head. HSMM: hidden semi-Markov model with $K = 8$ Laplace quantile states, negative-binomial dwell times, and Student-$t$ ($\nu = 5$) emissions \cite  {bullaBulla2006}. HMM-NJ: hidden Markov model ($N = 100$ states) without jumps. HMM-WJ: hybrid model with Poisson jump-duration extension. ACF-MAE: mean absolute error of the ACF of $|G_t|$ over lags $1$--$252$. Wasserstein-$1$ and Hellinger distance defined in Online Appendix~\ref {sec:supp-validation}. Coverage: fraction of $99$ empirical quantiles ($1$st--$99$th) falling within the $[5$th, $95$th$]$ percentile envelope of the corresponding synthetic quantiles. Standard errors (SE) in parentheses: binomial SE for pass rates, $\mathrm  {std}/\sqrt  {n}$ for kurtosis, Wasserstein-$1$, and Hellinger; bootstrap SE ($B = 500$) for ACF-MAE and coverage. Best value per row in bold.}}{10}{table.caption.4}\protected@file@percent }
+\newlabel{tab:model_comparison}{{1}{10}{\textbf {In-sample and out-of-sample model comparison for SPY} ($1{,}000$ simulated paths, significance level $\alpha = 0.05$). Bootstrap: i.i.d.\ resample of training data. Gaussian/Laplace: i.i.d.\ draws from distributions fitted by maximum likelihood estimation (MLE). GARCH: GARCH(1,1) estimated by quasi-maximum likelihood. GRU: 2-layer gated recurrent unit \cite {choEtAl2014gru} with Gaussian output head. HSMM: hidden semi-Markov model with $K = 8$ Laplace quantile states, negative-binomial dwell times, and Student-$t$ ($\nu = 5$) emissions \cite {bullaBulla2006}. HMM-NJ: hidden Markov model ($N = 100$ states) without jumps. HMM-WJ: hybrid model with Poisson jump-duration extension. ACF-MAE: mean absolute error of the ACF of $|G_t|$ over lags $1$--$252$. Wasserstein-$1$ and Hellinger distance defined in Online Appendix~\ref {sec:supp-validation}. Coverage: fraction of $99$ empirical quantiles ($1$st--$99$th) falling within the $[5$th, $95$th$]$ percentile envelope of the corresponding synthetic quantiles. Standard errors (SE) in parentheses: binomial SE for pass rates, $\mathrm {std}/\sqrt {n}$ for kurtosis, Wasserstein-$1$, and Hellinger; bootstrap SE ($B = 500$) for ACF-MAE and coverage. Best value per row in bold}{table.caption.4}{}}
 \citation{politisRomano1994}
 \citation{bollerslev1986}
 \@writefile{lof}{\contentsline {figure}{\numberline {3}{\ignorespaces \textbf  {Head-to-head in-sample model comparison for SPY} ($N = 100$, $1{,}000$ simulated paths). \emph  {Panel (a):} marginal density of excess growth rates with in-sample KS pass rates annotated. GARCH(1,1) fails the two-sample KS test on $95\%$ of paths, indicating a systematic shape mismatch with the empirical distribution; both HMM variants pass at rates $\ge 97\%$. \emph  {Panel (b):} autocorrelation function of $|G_t|$ at lags $1$--$252$ (shaded bands: $10$th--$90$th percentile across paths). HMM-NJ is structurally incapable of producing persistent volatility clustering; HMM-WJ generates a mixture of two path families, approximately $76\%$ behaving like HMM-NJ and the remaining $\sim \!24\%$ containing at least one Poisson jump that sustains $\mathrm  {ACF}(|G_t|)$ decay across all lags. \emph  {Panel (c):} tail Q-Q plot at the $0.1$st--$99.9$th percentile region; HMM-WJ provides the closest mean quantile match in the extreme tails.}}{11}{figure.caption.5}\protected@file@percent }
@@ -121,7 +124,6 @@
 \citation{damodaranERP,ibbotsonSBBI}
 \@writefile{toc}{\contentsline {section}{\numberline {6}Conclusion}{17}{section.6}\protected@file@percent }
 \newlabel{sec:conclusion}{{6}{17}{Conclusion}{section.6}{}}
-\@writefile{toc}{\contentsline {paragraph}{Author contributions.}{17}{section*.10}\protected@file@percent }
 \bibstyle{unsrtnat}
 \bibdata{References_v1}
 \bibcite{assefaEtAl2020}{{1}{2020}{{Assefa et~al.}}{{Assefa, Dervovic, Mahfouz, Tillman, Reddy, and Veloso}}}
@@ -136,11 +138,12 @@
 \bibcite{kou2002}{{10}{2002}{{Kou}}{{}}}
 \bibcite{takahashiEtAl2019}{{11}{2019}{{Takahashi et~al.}}{{Takahashi, Chen, and Tanaka-Ishii}}}
 \bibcite{yoonEtAl2019timegan}{{12}{2019}{{Yoon et~al.}}{{Yoon, Jarrett, and van~der Schaar}}}
+\@writefile{toc}{\contentsline {paragraph}{Author contributions.}{18}{section*.10}\protected@file@percent }
+\@writefile{toc}{\contentsline {paragraph}{Competing interests.}{18}{section*.11}\protected@file@percent }
+\@writefile{toc}{\contentsline {paragraph}{Code and data availability.}{18}{section*.12}\protected@file@percent }
 \bibcite{kwonLee2024}{{13}{2024}{{Kwon and Lee}}{{}}}
 \bibcite{rabinerJuang1986}{{14}{1986}{{Rabiner and Juang}}{{}}}
 \bibcite{rydenTerasvirtaAsbrink1998}{{15}{1998}{{Rydén et~al.}}{{Rydén, Teräsvirta, and Åsbrink}}}
-\@writefile{toc}{\contentsline {paragraph}{Competing interests.}{18}{section*.11}\protected@file@percent }
-\@writefile{toc}{\contentsline {paragraph}{Code and data availability.}{18}{section*.12}\protected@file@percent }
 \bibcite{bullaBulla2006}{{16}{2006}{{Bulla and Bulla}}{{}}}
 \bibcite{baumPetrieSoulesWeiss1970}{{17}{1970}{{Baum et~al.}}{{Baum, Petrie, Soules, and Weiss}}}
 \bibcite{bilmes1998}{{18}{1998}{{Bilmes}}{{}}}
@@ -151,36 +154,39 @@
 \bibcite{lebaron2006}{{23}{2006}{{LeBaron}}{{}}}
 \bibcite{arthur2021}{{24}{2021}{{Arthur}}{{}}}
 \bibcite{farmer2025}{{25}{2025}{{Farmer}}{{}}}
-\bibcite{blackScholes1973}{{26}{1973}{{Black and Scholes}}{{}}}
-\bibcite{famaEMH1970}{{27}{1970}{{Fama}}{{}}}
-\bibcite{schwert1989}{{28}{1989}{{Schwert}}{{}}}
-\bibcite{steinStein1991}{{29}{1991}{{Stein and Stein}}{{}}}
-\bibcite{auYeungEtAl2020}{{30}{2020}{{Au~Yeung et~al.}}{{Au~Yeung, Wei, Chan, Lau, and Yiu}}}
-\bibcite{hamilton1989}{{31}{1989}{{Hamilton}}{{}}}
-\bibcite{rossiGallo2006}{{32}{2006}{{Rossi and Gallo}}{{}}}
-\bibcite{nguyen2018}{{33}{2018}{{Nguyen}}{{}}}
-\bibcite{berghausEtAl2025}{{34}{2024}{{Berghaus et~al.}}{{Berghaus, Cvejoski, Seifner, Ojeda, and S\'{a}nchez}}}
-\bibcite{sharpe1963}{{35}{1963}{{Sharpe}}{{}}}
-\bibcite{rossAPT1976}{{36}{1976}{{Ross}}{{}}}
-\bibcite{famaFrench1993}{{37}{1993}{{Fama and French}}{{}}}
+\bibcite{bachelier1900}{{26}{1900}{{Bachelier}}{{}}}
+\bibcite{osborne1959}{{27}{1959}{{Osborne}}{{}}}
+\bibcite{samuelson1965}{{28}{1965}{{Samuelson}}{{}}}
+\bibcite{blackScholes1973}{{29}{1973}{{Black and Scholes}}{{}}}
+\bibcite{famaEMH1970}{{30}{1970}{{Fama}}{{}}}
+\bibcite{schwert1989}{{31}{1989}{{Schwert}}{{}}}
+\bibcite{steinStein1991}{{32}{1991}{{Stein and Stein}}{{}}}
+\bibcite{kimShephardChib1998}{{33}{1998}{{Kim et~al.}}{{Kim, Shephard, and Chib}}}
+\bibcite{hamilton1989}{{34}{1989}{{Hamilton}}{{}}}
+\bibcite{rossiGallo2006}{{35}{2006}{{Rossi and Gallo}}{{}}}
+\bibcite{nguyen2018}{{36}{2018}{{Nguyen}}{{}}}
+\bibcite{berghausEtAl2025}{{37}{2024}{{Berghaus et~al.}}{{Berghaus, Cvejoski, Seifner, Ojeda, and S\'{a}nchez}}}
 \bibcite{diasVermuntRamos2010}{{38}{2010}{{Dias et~al.}}{{Dias, Vermunt, and Ramos}}}
 \bibcite{embrechtsMcNeilStraumann2002}{{39}{2002}{{Embrechts et~al.}}{{Embrechts, McNeil, and Straumann}}}
 \bibcite{cherubiniLucianoVecchiato2004}{{40}{2004}{{Cherubini et~al.}}{{Cherubini, Luciano, and Vecchiato}}}
 \bibcite{aasCzadoFrigessiBakken2009}{{41}{2009}{{Aas et~al.}}{{Aas, Czado, Frigessi, and Bakken}}}
-\bibcite{kolmogorov1933}{{42}{1933}{{Kolmogorov}}{{}}}
-\bibcite{smirnov1948}{{43}{1948}{{Smirnov}}{{}}}
-\bibcite{andersonDarling1952}{{44}{1952}{{Anderson and Darling}}{{}}}
-\bibcite{boothFama1992}{{45}{1992}{{Booth and Fama}}{{}}}
-\bibcite{kotzKozubowskiPodgorski2001}{{46}{2001}{{Kotz et~al.}}{{Kotz, Kozubowski, and Podgórski}}}
-\bibcite{tothJones2019}{{47}{2019}{{Toth and Jones}}{{}}}
-\bibcite{glasserman2003}{{48}{2003}{{Glasserman}}{{}}}
-\bibcite{hamilton2018regime}{{49}{2018}{{Hamilton}}{{}}}
-\bibcite{grinsteadSnell1997}{{50}{1997}{{Grinstead and Snell}}{{}}}
-\bibcite{politisRomano1994}{{51}{1994}{{Politis and Romano}}{{}}}
-\bibcite{boucheyNemtchinovWong2015}{{52}{2015}{{Bouchey et~al.}}{{Bouchey, Nemtchinov, and Wong}}}
-\bibcite{markowitz1976longRun}{{53}{1976}{{Markowitz}}{{}}}
-\bibcite{damodaranERP}{{54}{2025}{{Damodaran}}{{}}}
-\bibcite{ibbotsonSBBI}{{55}{2024}{{Ibbotson and {Duff and Phelps}}}{{}}}
+\bibcite{rossAPT1976}{{42}{1976}{{Ross}}{{}}}
+\bibcite{famaFrench1993}{{43}{1993}{{Fama and French}}{{}}}
+\bibcite{sharpe1963}{{44}{1963}{{Sharpe}}{{}}}
+\bibcite{kolmogorov1933}{{45}{1933}{{Kolmogorov}}{{}}}
+\bibcite{smirnov1948}{{46}{1948}{{Smirnov}}{{}}}
+\bibcite{andersonDarling1952}{{47}{1952}{{Anderson and Darling}}{{}}}
+\bibcite{boothFama1992}{{48}{1992}{{Booth and Fama}}{{}}}
+\bibcite{kotzKozubowskiPodgorski2001}{{49}{2001}{{Kotz et~al.}}{{Kotz, Kozubowski, and Podgórski}}}
+\bibcite{tothJones2019}{{50}{2019}{{Toth and Jones}}{{}}}
+\bibcite{glasserman2003}{{51}{2003}{{Glasserman}}{{}}}
+\bibcite{hamilton2018regime}{{52}{2018}{{Hamilton}}{{}}}
+\bibcite{grinsteadSnell1997}{{53}{1997}{{Grinstead and Snell}}{{}}}
+\bibcite{politisRomano1994}{{54}{1994}{{Politis and Romano}}{{}}}
+\bibcite{boucheyNemtchinovWong2015}{{55}{2015}{{Bouchey et~al.}}{{Bouchey, Nemtchinov, and Wong}}}
+\bibcite{markowitz1976longRun}{{56}{1976}{{Markowitz}}{{}}}
+\bibcite{damodaranERP}{{57}{2025}{{Damodaran}}{{}}}
+\bibcite{ibbotsonSBBI}{{58}{2024}{{Ibbotson and {Duff and Phelps}}}{{}}}
 \citation{boucheyNemtchinovWong2015}
 \citation{cont2001}
 \@writefile{lof}{\contentsline {figure}{\numberline {S1}{\ignorespaces \textbf  {Empirical normalized cross-covariance $\operatorname  {Cov}(\tilde  {g}_i, g_m) / (\sigma _{\mathrm  {gen},i}\, \sigma _m)$ across the $423$-ticker universe.} Histograms were stacked per generator, with each per-ticker value averaged over $R = 100$ generator growth-rate paths. The full-return JumpHMM, residual-fit JumpHMM, and Gaussian generators all clustered at zero, validating the independence assumption used to derive Eq.~\eqref  {eq:scale}.}}{22}{figure.caption.14}\protected@file@percent }
@@ -189,28 +195,28 @@
 \newlabel{sec:supp-cov}{{S1}{22}{Empirical cross-term diagnostic}{appendix.A}{}}
 \@writefile{toc}{\contentsline {section}{\numberline {S2}Bias correction for daily-rebalanced backtests}{22}{appendix.B}\protected@file@percent }
 \newlabel{sec:supp-bias}{{S2}{22}{Bias correction for daily-rebalanced backtests}{appendix.B}{}}
-\newlabel{eq:wealth-recursion}{{S2}{23}{Bias correction for daily-rebalanced backtests}{equation.B.2}{}}
-\newlabel{eq:exp-expand}{{S3}{23}{Bias correction for daily-rebalanced backtests}{equation.B.3}{}}
-\newlabel{eq:rp-taylor}{{S4}{23}{Bias correction for daily-rebalanced backtests}{equation.B.4}{}}
-\newlabel{eq:gp-onestep}{{S5}{23}{Bias correction for daily-rebalanced backtests}{equation.B.5}{}}
-\newlabel{eq:second-moment}{{S7}{23}{Bias correction for daily-rebalanced backtests}{equation.B.7}{}}
+\newlabel{eq:wealth-recursion}{{S2}{23}{Bias correction for daily-rebalanced backtests}{equation.2}{}}
+\newlabel{eq:exp-expand}{{S3}{23}{Bias correction for daily-rebalanced backtests}{equation.3}{}}
+\newlabel{eq:rp-taylor}{{S4}{23}{Bias correction for daily-rebalanced backtests}{equation.4}{}}
+\newlabel{eq:gp-onestep}{{S5}{23}{Bias correction for daily-rebalanced backtests}{equation.5}{}}
+\newlabel{eq:second-moment}{{S7}{23}{Bias correction for daily-rebalanced backtests}{equation.7}{}}
 \citation{boothFama1992,markowitz1976longRun}
 \citation{markowitz1976longRun}
 \citation{boothFama1992}
-\newlabel{eq:exp-gi2}{{S8}{24}{Bias correction for daily-rebalanced backtests}{equation.B.8}{}}
-\newlabel{eq:exp-sum2}{{S9}{24}{Bias correction for daily-rebalanced backtests}{equation.B.9}{}}
-\newlabel{eq:booth-fama}{{S10}{24}{Bias correction for daily-rebalanced backtests}{equation.B.10}{}}
-\newlabel{eq:dr-pairwise}{{S11}{24}{Bias correction for daily-rebalanced backtests}{equation.B.11}{}}
+\newlabel{eq:exp-gi2}{{S8}{24}{Bias correction for daily-rebalanced backtests}{equation.8}{}}
+\newlabel{eq:exp-sum2}{{S9}{24}{Bias correction for daily-rebalanced backtests}{equation.9}{}}
+\newlabel{eq:booth-fama}{{S10}{24}{Bias correction for daily-rebalanced backtests}{equation.10}{}}
+\newlabel{eq:dr-pairwise}{{S11}{24}{Bias correction for daily-rebalanced backtests}{equation.11}{}}
 \citation{boucheyNemtchinovWong2015}
-\@writefile{lot}{\contentsline {table}{\numberline {S1}{\ignorespaces \textbf  {Descriptive statistics and stylized-facts tests for SPY daily excess growth rates.} In-sample: $2014$--$2024$ ($T = 2{,}766$); out-of-sample: $2025$ ($T = 249$). Gaussian and Laplace columns show maximum likelihood estimation (MLE) fits to the in-sample data. JB: Jarque-Bera normality test. LB: Ljung-Box autocorrelation test at lag $20$. $^{\ast }$ denotes rejection at $\alpha = 0.05$.}}{25}{table.caption.15}\protected@file@percent }
-\newlabel{tab:descriptive_stats}{{S1}{25}{\textbf {Descriptive statistics and stylized-facts tests for SPY daily excess growth rates.} In-sample: $2014$--$2024$ ($T = 2{,}766$); out-of-sample: $2025$ ($T = 249$). Gaussian and Laplace columns show maximum likelihood estimation (MLE) fits to the in-sample data. JB: Jarque-Bera normality test. LB: Ljung-Box autocorrelation test at lag $20$. $^{\ast }$ denotes rejection at $\alpha = 0.05$}{table.caption.15}{}}
-\newlabel{eq:dr-sim}{{S13}{25}{Bias correction for daily-rebalanced backtests}{equation.B.13}{}}
+\@writefile{lot}{\contentsline {table}{\numberline {S1}{\ignorespaces \textbf  {Descriptive statistics and stylized-facts tests for SPY daily excess growth rates.} In-sample (IS): $2014$--$2024$ ($T = 2{,}766$); out-of-sample (OoS): $2025$ ($T = 249$). Gaussian and Laplace columns show maximum likelihood estimation (MLE) fits to the in-sample data. JB: Jarque-Bera normality test. LB: Ljung-Box autocorrelation test at lag $20$. $^{\ast }$ denotes rejection at $\alpha = 0.05$.}}{25}{table.caption.15}\protected@file@percent }
+\newlabel{tab:descriptive_stats}{{S1}{25}{\textbf {Descriptive statistics and stylized-facts tests for SPY daily excess growth rates.} In-sample (IS): $2014$--$2024$ ($T = 2{,}766$); out-of-sample (OoS): $2025$ ($T = 249$). Gaussian and Laplace columns show maximum likelihood estimation (MLE) fits to the in-sample data. JB: Jarque-Bera normality test. LB: Ljung-Box autocorrelation test at lag $20$. $^{\ast }$ denotes rejection at $\alpha = 0.05$}{table.caption.15}{}}
+\newlabel{eq:dr-sim}{{S13}{25}{Bias correction for daily-rebalanced backtests}{equation.13}{}}
 \citation{damodaranERP,ibbotsonSBBI}
 \@writefile{lot}{\contentsline {table}{\numberline {S2}{\ignorespaces \textbf  {Diversification-return decomposition on a $20$-asset target-weight allocator deployed against the hybrid-composed $2025$ universe.} Median path-mean annualized growth rate $\bar  g_p$ across the synthetic ensemble. Equal-weight buy-and-hold serves as a passive baseline; the target-weight allocation is reported under static (no intra-year rebalance) and daily-rebalanced regimes, with and without a signal on top of the target weights. The static-to-daily jump of $+27.73$~pp on the same target weights isolates the diversification return of Eq.~\eqref  {eq:dr-sim}. The same allocator deployed against the real $2025$ growth-rate history is shown for comparison.}}{26}{table.caption.16}\protected@file@percent }
 \newlabel{tab:allocator_decomp}{{S2}{26}{\textbf {Diversification-return decomposition on a $20$-asset target-weight allocator deployed against the hybrid-composed $2025$ universe.} Median path-mean annualized growth rate $\bar g_p$ across the synthetic ensemble. Equal-weight buy-and-hold serves as a passive baseline; the target-weight allocation is reported under static (no intra-year rebalance) and daily-rebalanced regimes, with and without a signal on top of the target weights. The static-to-daily jump of $+27.73$~pp on the same target weights isolates the diversification return of Eq.~\eqref {eq:dr-sim}. The same allocator deployed against the real $2025$ growth-rate history is shown for comparison}{table.caption.16}{}}
 \@writefile{lof}{\contentsline {figure}{\numberline {S2}{\ignorespaces \textbf  {Heavy-tail preservation: excess kurtosis and Hill tail index vs calibrated $\beta $.} Each point is a per-ticker median over $100$ replications. \emph  {Left:} excess kurtosis, $y$-axis clipped to $[-2, 20]$ for readability. The dashed line marks the median real-data excess kurtosis across the universe ($\kappa _{\mathrm  {real}} \approx 13$); the hybrid and naive composers (orange and blue) track the generator's kurtosis, while Gaussian SIM collapses to $\kappa \approx 1$. \emph  {Right:} Hill tail-index estimator on the upper $5\%$ of $|g|$. The hybrid and naive medians sit near $0.37$ throughout the $\beta $ range; Gaussian SIM drops to $\sim 0.22$, indicating the shift toward a thinner-tailed distribution. The hybrid's median sitting below $\kappa _{\mathrm  {real}}$ reflects the JumpHMM marginal's own kurtosis rather than a composition-rule distortion: hybrid tracks naive (inheriting generator tails) while Gaussian SIM does not.}}{26}{figure.caption.17}\protected@file@percent }
 \newlabel{fig:tails}{{S2}{26}{\textbf {Heavy-tail preservation: excess kurtosis and Hill tail index vs calibrated $\beta $.} Each point is a per-ticker median over $100$ replications. \emph {Left:} excess kurtosis, $y$-axis clipped to $[-2, 20]$ for readability. The dashed line marks the median real-data excess kurtosis across the universe ($\kappa _{\real } \approx 13$); the hybrid and naive composers (orange and blue) track the generator's kurtosis, while Gaussian SIM collapses to $\kappa \approx 1$. \emph {Right:} Hill tail-index estimator on the upper $5\%$ of $|g|$. The hybrid and naive medians sit near $0.37$ throughout the $\beta $ range; Gaussian SIM drops to $\sim 0.22$, indicating the shift toward a thinner-tailed distribution. The hybrid's median sitting below $\kappa _{\real }$ reflects the JumpHMM marginal's own kurtosis rather than a composition-rule distortion: hybrid tracks naive (inheriting generator tails) while Gaussian SIM does not}{figure.caption.17}{}}
-\newlabel{eq:bias-correction}{{S14}{26}{Bias correction for daily-rebalanced backtests}{equation.B.14}{}}
+\newlabel{eq:bias-correction}{{S14}{26}{Bias correction for daily-rebalanced backtests}{equation.14}{}}
 \citation{politisRomano1994}
 \@writefile{lof}{\contentsline {figure}{\numberline {S3}{\ignorespaces \textbf  {Calibrated $R^2$ distribution across the $423$ non-SPY tickers.} Histogram of OLS $R^2$ against SPY over the $2014$--$2024$ window. The two tickers crossing the $R^2_{\mathrm  {preserve}} = 0.80$ threshold (dashed line) are index ETFs (QQQ, SPYG); the highest-$R^2$ individual stock (BLK, $0.645$) sits $\sim 0.16$ below the threshold. The $R^2$-preserving branch's $n = 2$ occupancy is therefore a property of the single-factor SIM on S\&P 500 names against SPY, not a sample-size artifact or a data-peeked threshold.}}{27}{figure.caption.18}\protected@file@percent }
 \newlabel{fig:r2_distribution}{{S3}{27}{\textbf {Calibrated $R^2$ distribution across the $423$ non-SPY tickers.} Histogram of OLS $R^2$ against SPY over the $2014$--$2024$ window. The two tickers crossing the $R^2_{\mathrm {preserve}} = 0.80$ threshold (dashed line) are index ETFs (QQQ, SPYG); the highest-$R^2$ individual stock (BLK, $0.645$) sits $\sim 0.16$ below the threshold. The $R^2$-preserving branch's $n = 2$ occupancy is therefore a property of the single-factor SIM on S\&P 500 names against SPY, not a sample-size artifact or a data-peeked threshold}{figure.caption.18}{}}
@@ -219,9 +225,9 @@
 \citation{bullaBulla2006}
 \@writefile{toc}{\contentsline {section}{\numberline {S3}Validation metric definitions}{28}{appendix.C}\protected@file@percent }
 \newlabel{sec:supp-validation}{{S3}{28}{Validation metric definitions}{appendix.C}{}}
-\newlabel{eq:wasserstein}{{S15}{28}{Validation metric definitions}{equation.C.15}{}}
-\newlabel{eq:hill}{{S16}{28}{Validation metric definitions}{equation.C.16}{}}
-\newlabel{eq:hellinger}{{S17}{28}{Validation metric definitions}{equation.C.17}{}}
+\newlabel{eq:wasserstein}{{S15}{28}{Validation metric definitions}{equation.15}{}}
+\newlabel{eq:hill}{{S16}{28}{Validation metric definitions}{equation.16}{}}
+\newlabel{eq:hellinger}{{S17}{28}{Validation metric definitions}{equation.17}{}}
 \@writefile{toc}{\contentsline {section}{\numberline {S4}Transition matrix internals and partition diagnostics}{28}{appendix.D}\protected@file@percent }
 \newlabel{sec:supp-transitions}{{S4}{28}{Transition matrix internals and partition diagnostics}{appendix.D}{}}
 \@writefile{toc}{\contentsline {section}{\numberline {S5}Emission distribution and semi-Markov comparison}{28}{appendix.E}\protected@file@percent }
@@ -250,8 +256,8 @@
 \newlabel{sec:supp-cross-asset}{{S7}{32}{Cross-asset generalization}{appendix.G}{}}
 \@writefile{lot}{\contentsline {table}{\numberline {S7}{\ignorespaces \textbf  {Cross-asset generalization of HMM-WJ across three single-stock tickers spanning sector and volatility regimes.} Per-ticker tune outputs $(\epsilon ^{*}, \lambda ^{*})$ at $n_{\mathrm  {paths}} = 200$ and $\mathrm  {seed} = 1234$, and the corresponding HMM-WJ pass rates on $1{,}000$ simulated paths at $\alpha = 0.05$ against each ticker's in-sample $(2014$--$2024)$ and out-of-sample $(2025)$ growth-rate history. Standard errors in parentheses (binomial SE for pass rates). The $(\epsilon ^{*}, \lambda ^{*})$ values are reproducible at the stated tune configuration but the composite objective has multiple near-equivalent local minima, so they are reported as the operating points used for the IS / OoS fit metrics rather than as canonical per-ticker optima.}}{33}{table.caption.27}\protected@file@percent }
 \newlabel{tab:cross_asset}{{S7}{33}{\textbf {Cross-asset generalization of HMM-WJ across three single-stock tickers spanning sector and volatility regimes.} Per-ticker tune outputs $(\epsilon ^{*}, \lambda ^{*})$ at $n_{\mathrm {paths}} = 200$ and $\mathrm {seed} = 1234$, and the corresponding HMM-WJ pass rates on $1{,}000$ simulated paths at $\alpha = 0.05$ against each ticker's in-sample $(2014$--$2024)$ and out-of-sample $(2025)$ growth-rate history. Standard errors in parentheses (binomial SE for pass rates). The $(\epsilon ^{*}, \lambda ^{*})$ values are reproducible at the stated tune configuration but the composite objective has multiple near-equivalent local minima, so they are reported as the operating points used for the IS / OoS fit metrics rather than as canonical per-ticker optima}{table.caption.27}{}}
-\@writefile{lot}{\contentsline {table}{\numberline {S8}{\ignorespaces \textbf  {Seed-uncertainty summary across $8$ random seeds.} Each cell reports mean $\pm $ SD across the $8$ seeds in $\{1234, 2345, 3456, 4567, 5678, 6789, 7890, 8910\}$, with each seed running the full $423$-ticker $\times \, 100$-replication protocol. Conditional-variance paths for GARCH(1,1)-$t$ are re-simulated at scoring time so its seed SD is informative. The between-composer differences in KS pass rate exceed the seed-induced SD by roughly two orders of magnitude (hybrid SD $0.18$ pp vs $25$ pp gap to JumpHMM-on-residuals).}}{33}{table.caption.28}\protected@file@percent }
-\newlabel{tab:seed_uncertainty}{{S8}{33}{\textbf {Seed-uncertainty summary across $8$ random seeds.} Each cell reports mean $\pm $ SD across the $8$ seeds in $\{1234, 2345, 3456, 4567, 5678, 6789, 7890, 8910\}$, with each seed running the full $423$-ticker $\times \, 100$-replication protocol. Conditional-variance paths for GARCH(1,1)-$t$ are re-simulated at scoring time so its seed SD is informative. The between-composer differences in KS pass rate exceed the seed-induced SD by roughly two orders of magnitude (hybrid SD $0.18$ pp vs $25$ pp gap to JumpHMM-on-residuals)}{table.caption.28}{}}
+\@writefile{lot}{\contentsline {table}{\numberline {S8}{\ignorespaces \textbf  {Seed-uncertainty summary across $8$ random seeds.} Each cell reports mean $\pm $ standard deviation (SD) across the $8$ seeds in $\{1234, 2345, 3456, 4567, 5678, 6789, 7890, 8910\}$, with each seed running the full $423$-ticker $\times \, 100$-replication protocol. Conditional-variance paths for GARCH(1,1)-$t$ are re-simulated at scoring time so its seed SD is informative. The between-composer differences in KS pass rate exceed the seed-induced SD by roughly two orders of magnitude (hybrid SD $0.18$ pp vs $25$ pp gap to JumpHMM-on-residuals).}}{33}{table.caption.28}\protected@file@percent }
+\newlabel{tab:seed_uncertainty}{{S8}{33}{\textbf {Seed-uncertainty summary across $8$ random seeds.} Each cell reports mean $\pm $ standard deviation (SD) across the $8$ seeds in $\{1234, 2345, 3456, 4567, 5678, 6789, 7890, 8910\}$, with each seed running the full $423$-ticker $\times \, 100$-replication protocol. Conditional-variance paths for GARCH(1,1)-$t$ are re-simulated at scoring time so its seed SD is informative. The between-composer differences in KS pass rate exceed the seed-induced SD by roughly two orders of magnitude (hybrid SD $0.18$ pp vs $25$ pp gap to JumpHMM-on-residuals)}{table.caption.28}{}}
 \@writefile{toc}{\contentsline {section}{\numberline {S8}SIM composition derivations and properties verification}{33}{appendix.H}\protected@file@percent }
 \newlabel{sec:supp-sim-derivations}{{S8}{33}{SIM composition derivations and properties verification}{appendix.H}{}}
 \gdef \@abspage@last{34}

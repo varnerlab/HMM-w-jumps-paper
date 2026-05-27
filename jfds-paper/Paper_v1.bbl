@@ -1,4 +1,4 @@
-\begin{thebibliography}{55}
+\begin{thebibliography}{58}
 \providecommand{\natexlab}[1]{#1}
 \providecommand{\url}[1]{\texttt{#1}}
 \expandafter\ifx\csname urlstyle\endcsname\relax
@@ -194,6 +194,23 @@ J.~Doyne Farmer.
   571--590, 2025.
 \newblock \doi{10.1093/oxrep/graf027}.
 
+\bibitem[Bachelier(1900)]{bachelier1900}
+Louis Bachelier.
+\newblock Th\'eorie de la sp\'eculation.
+\newblock \emph{Annales Scientifiques de l'\'Ecole Normale Sup\'erieure},
+  17:\penalty0 21--86, 1900.
+
+\bibitem[Osborne(1959)]{osborne1959}
+M.~F.~M. Osborne.
+\newblock Brownian motion in the stock market.
+\newblock \emph{Operations Research}, 7\penalty0 (2):\penalty0 145--173, 1959.
+
+\bibitem[Samuelson(1965)]{samuelson1965}
+Paul~A. Samuelson.
+\newblock Rational theory of warrant pricing.
+\newblock \emph{Industrial Management Review}, 6\penalty0 (2):\penalty0 13--32,
+  1965.
+
 \bibitem[Black and Scholes(1973)]{blackScholes1973}
 Fischer Black and Myron Scholes.
 \newblock The pricing of options and corporate liabilities.
@@ -222,14 +239,12 @@ Elias~M. Stein and Jeremy~C. Stein.
 \newblock \emph{The Review of Financial Studies}, 4\penalty0 (4):\penalty0
   727--752, 1991.
 
-\bibitem[Au~Yeung et~al.(2020)Au~Yeung, Wei, Chan, Lau, and
-  Yiu]{auYeungEtAl2020}
-Jay F.~K. Au~Yeung, Zi-kai Wei, Kit~Yan Chan, Henry Y.~K. Lau, and
-  Ka-Fai~Cedric Yiu.
-\newblock Jump detection in financial time series using machine learning
-  algorithms.
-\newblock \emph{Soft Computing}, 24\penalty0 (3):\penalty0 1789--1801, 2020.
-\newblock \doi{10.1007/s00500-019-04006-2}.
+\bibitem[Kim et~al.(1998)Kim, Shephard, and Chib]{kimShephardChib1998}
+Sangjoon Kim, Neil Shephard, and Siddhartha Chib.
+\newblock Stochastic volatility: Likelihood inference and comparison with
+  {ARCH} models.
+\newblock \emph{The Review of Economic Studies}, 65\penalty0 (3):\penalty0
+  361--393, 1998.
 
 \bibitem[Hamilton(1989)]{hamilton1989}
 James~D. Hamilton.
@@ -260,26 +275,6 @@ David Berghaus, Kostadin Cvejoski, Patrick Seifner, C\'{e}sar Ojeda, and
 \newblock In \emph{Advances in Neural Information Processing Systems 37
   (NeurIPS 2024)}, 2024.
 
-\bibitem[Sharpe(1963)]{sharpe1963}
-William~F. Sharpe.
-\newblock A simplified model for portfolio analysis.
-\newblock \emph{Management Science}, 9\penalty0 (2):\penalty0 277--293, 1963.
-\newblock \doi{10.1287/mnsc.9.2.277}.
-
-\bibitem[Ross(1976)]{rossAPT1976}
-Stephen~A. Ross.
-\newblock The arbitrage theory of capital asset pricing.
-\newblock \emph{Journal of Economic Theory}, 13\penalty0 (3):\penalty0
-  341--360, 1976.
-\newblock \doi{10.1016/0022-0531(76)90046-6}.
-
-\bibitem[Fama and French(1993)]{famaFrench1993}
-Eugene~F. Fama and Kenneth~R. French.
-\newblock Common risk factors in the returns on stocks and bonds.
-\newblock \emph{Journal of Financial Economics}, 33\penalty0 (1):\penalty0
-  3--56, 1993.
-\newblock \doi{10.1016/0304-405X(93)90023-5}.
-
 \bibitem[Dias et~al.(2010)Dias, Vermunt, and Ramos]{diasVermuntRamos2010}
 José~G. Dias, Jeroen~K. Vermunt, and Sofia Ramos.
 \newblock Mixture hidden {Markov} models in finance research.
@@ -309,6 +304,26 @@ Kjersti Aas, Claudia Czado, Arnoldo Frigessi, and Henrik Bakken.
 \newblock Pair-copula constructions of multiple dependence.
 \newblock \emph{Insurance: Mathematics and Economics}, 44\penalty0
   (2):\penalty0 182--198, 2009.
+
+\bibitem[Ross(1976)]{rossAPT1976}
+Stephen~A. Ross.
+\newblock The arbitrage theory of capital asset pricing.
+\newblock \emph{Journal of Economic Theory}, 13\penalty0 (3):\penalty0
+  341--360, 1976.
+\newblock \doi{10.1016/0022-0531(76)90046-6}.
+
+\bibitem[Fama and French(1993)]{famaFrench1993}
+Eugene~F. Fama and Kenneth~R. French.
+\newblock Common risk factors in the returns on stocks and bonds.
+\newblock \emph{Journal of Financial Economics}, 33\penalty0 (1):\penalty0
+  3--56, 1993.
+\newblock \doi{10.1016/0304-405X(93)90023-5}.
+
+\bibitem[Sharpe(1963)]{sharpe1963}
+William~F. Sharpe.
+\newblock A simplified model for portfolio analysis.
+\newblock \emph{Management Science}, 9\penalty0 (2):\penalty0 277--293, 1963.
+\newblock \doi{10.1287/mnsc.9.2.277}.
 
 \bibitem[Kolmogorov(1933)]{kolmogorov1933}
 A.~N. Kolmogorov.
