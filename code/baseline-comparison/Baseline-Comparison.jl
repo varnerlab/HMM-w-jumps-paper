@@ -441,4 +441,38 @@ let row = @sprintf("  %-24s", "Parameters estimated")
 end
 
 println("\n" * "="^140)
+
+# ── Formal volatility-clustering test: Ljung-Box on |G_t| at lag 20 ──────────
+# Companion to ACF-MAE (a distance, not a test). Observed row: single-series Q, p.
+# Generators: median Q across paths + reject rate at alpha = 0.05. chi^2_20(0.95) = 31.41.
+println("\n" * "="^140)
+println("  Volatility-clustering test: Ljung-Box on |G_t| at lag 20 (median Q across paths, reject% at alpha=0.05)")
+println("="^140)
+let LB_LAG = 20
+    _lb(x) = LjungBoxTest(abs.(x), LB_LAG)
+    obs_is = _lb(insample_obs); obs_oos = _lb(g_oos)
+    @printf("  %-12s IS  Q=%.1f  p=%.2e  |  OoS Q=%.1f  p=%.2e\n",
+            "Observed", obs_is.Q, pvalue(obs_is), obs_oos.Q, pvalue(obs_oos))
+    lb_gens = [("Bootstrap",  boot_is_paths,  boot_oos_paths),
+               ("GARCH(1,1)", garch_is_paths, garch_oos_paths),
+               ("HMM-NJ",     nj_is_paths,    nj_oos_paths),
+               ("HMM-WJ",     wj_is_paths,    wj_oos_paths)]
+    open(joinpath(@__DIR__, "ARCH-Clustering-Test-SPY.csv"), "w") do io
+        println(io, "generator,window,median_Q_absG,reject_pct")
+        @printf(io, "Observed,IS,%.4f,%.3e\n",  obs_is.Q,  pvalue(obs_is))
+        @printf(io, "Observed,OoS,%.4f,%.3e\n", obs_oos.Q, pvalue(obs_oos))
+        for (nm, MIS, MOOS) in lb_gens
+            for (w, M) in (("IS", MIS), ("OoS", MOOS))
+                stats = [_lb(M[:, i]) for i in 1:size(M, 2)]
+                medQ  = median([t.Q for t in stats])
+                rej   = 100 * count(t -> pvalue(t) < 0.05, stats) / length(stats)
+                @printf("  %-12s %-3s median Q=%.1f  reject %.1f%%\n", nm, w, medQ, rej)
+                @printf(io, "%s,%s,%.4f,%.1f\n", nm, w, medQ, rej)
+            end
+        end
+    end
+    println("  wrote ARCH-Clustering-Test-SPY.csv")
+end
+
+println("\n" * "="^140)
 @info "Done."
