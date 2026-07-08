@@ -59,17 +59,17 @@ table (tbl-p1-sim) reports **both** IS and OoS panels, but the figure only depic
 
 The out-of-sample companion figure is **Fig7S-Multi-Asset-SIM-OoS** (fig:multi_asset_oos), a full-width
 multipanel: panel (a) OoS SIM fit by sector, panel (b) OoS KS pass-rate distribution, panels (c1)-(c3)
-density fan charts for NVDA, JNJ, QQQ. It is present in the manuscript
-(`code/sim-experiment/figs/Fig7S-Multi-Asset-SIM-OoS.pdf`) but is **not** currently a deck asset (no
-PNG under `M-exam-presentation-preparation/figures/`).
+density fan charts for NVDA, JNJ, QQQ. Its source is
+`code/sim-experiment/figs/Fig7S-Multi-Asset-SIM-OoS.pdf`.
 
 Accuracy check (OoS figure vs the slide table): they agree exactly. Fig7S reports OoS KS median 91.8%,
 mean 82.1%; the tbl-p1-sim OoS row is mean 82.1, median 91.8; the manuscript matches. Unlike the IS
 case in section 2, the OoS numbers are consistent across the figure, the table, and the manuscript, so
 there is no reproducibility wrinkle out-of-sample.
 
-Recommendation: if the OoS figure is wanted in the deck, the clean home is a Project I backup slide
-(it is a supplemental, full-width 5-panel figure and would overcrowd the already-full scaling slide).
-Converting the source PDF to PNG (via the deck's pdf_to_png helper) and adding it as a single-figure
-backup mirrors the existing IS/OoS companion pattern. Alternatively it can be left out, since the
-slide table already carries the OoS numbers.
+Resolution: the OoS figure was **added to the deck** as a dedicated Project I backup slide
+("Out-of-sample SIM across 417 assets") rather than onto the already-full scaling slide, which shows
+the IS figure only. The source PDF was converted to `assets/Fig7S-Multi-Asset-SIM-OoS.png` and placed
+as a single-figure backup, mirroring the deck's existing IS/OoS companion pattern. This completes the
+OoS visual for Q&A while leaving the main scaling slide uncluttered; the scaling-slide table continues
+to carry both IS and OoS numeric rows.
