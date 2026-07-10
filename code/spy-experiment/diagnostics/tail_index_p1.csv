@@ -1,0 +1,4 @@
+variant,exkurt,alpha_2,alpha_5,alpha_10,alpha_loss_5,alpha_gain_5
+"Observed SPY",7.7073,3.5687,3.1419,2.7057,2.4746,3.0314
+"HMM-WJ (with jump)",7.4744,2.7076,2.8694,2.7185,2.4698,3.0530
+"HMM-NJ (no jump)",8.0525,2.5947,2.8381,2.6760,2.4292,3.0143
