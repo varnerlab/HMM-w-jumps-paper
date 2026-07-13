@@ -104,12 +104,12 @@ multi-asset artifact: drawing each asset's residual independently
 of the others exaggerates the daily cross-sectional spread among
 assets, and daily rebalancing converts that excess spread into
 spurious portfolio gains on any synthetic series generated using
-this approach. We removed the bias with a calibrated
-location-shift on each ticker's drift. Finally, since tail-risk
-applications such as stress testing and risk-model validation rely
-on calibrated Value-at-Risk (VaR) forecasts, for each ticker we
-asked the generator to forecast tomorrow's worst plausible loss,
-ran the forecast over a real holdout window, and checked whether
-the actual breach frequency matched what the model promised (a
-one-day VaR backtest scored by Kupiec's unconditional-coverage
-test).
+this approach. We corrected the resulting level inflation with a
+calibrated location-shift on each ticker's drift, anchored to a
+long-run prior. Finally, since tail-risk applications such as stress
+testing and risk-model validation rely on calibrated Value-at-Risk
+(VaR) thresholds, for each ticker we estimated a one-day VaR threshold
+from the composed path and checked whether its breach frequency
+against the real growth-rate history matched the nominal coverage
+level (a one-day VaR coverage check scored by Kupiec's
+unconditional-coverage test).

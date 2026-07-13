@@ -21,10 +21,13 @@ marginal enter the factor pipeline while preserving its variance.
 
 On the empirical side, the hybrid HMM marginals passed the
 Kolmogorov-Smirnov test against the real SPY univariate distribution
-at $97.6\%$ in-sample and $94.4\%$ out-of-sample, outperforming
-Bootstrap, Gaussian, Laplace, GARCH, hidden semi-Markov, no-jump HMM,
-and Gated Recurrent Unit baselines on combined distributional and
-tail metrics (Table~\ref{tab:model_comparison}). The variance-corrected
+at $97.6\%$ in-sample and $94.4\%$ out-of-sample; among the eight
+generators compared, it was the only non-GARCH, non-neural model to
+reduce absolute-return autocorrelation error meaningfully below the
+i.i.d.\ baseline while holding near-best distributional fidelity,
+trading a few percentage points of marginal-fit pass rate against the
+no-jump variant for improved temporal structure
+(Table~\ref{tab:model_comparison}). The variance-corrected
 single-index composer recovered the factor loading to a median
 absolute error of $0.018$ and matched the leading residual-fit
 alternatives on a per-ticker one-day $99\%$ Value-at-Risk backtest,
@@ -36,8 +39,9 @@ that inflates absolute return levels by roughly $22$ percentage
 points on a deployed $20$-asset target-weight allocator
 (Online Appendix~\ref{sec:supp-bias},
 Table~\ref{tab:allocator_decomp}). A uniform
-location-shift bias correction anchored to a documented long-run
-prior addresses the artifact as a per-path monotone transform that
-preserves rank order, drawdown shape, and volatility envelope while
-shifting only the level.
+location-shift correction anchored to a documented long-run prior
+offsets the artifact's level inflation as a per-path transform that
+preserves the terminal-wealth rank order and the volatility envelope;
+it recalibrates the ensemble level rather than repairing the
+underlying i.i.d.-residual mechanism.
 

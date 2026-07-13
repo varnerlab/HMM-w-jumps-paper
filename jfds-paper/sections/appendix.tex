@@ -323,14 +323,24 @@ AR(1) distinction shows up in per-path sampling noise, not in the
 ensemble median itself. The empirical excess of the
 engine-raw median over an external long-run growth prior,
 $\sim\!22$~percentage points, is therefore not a structural artifact
-of the i.i.d.\ sampling at the level of the second-order formula. It is the
-combined empirical magnitude of the higher-moment corrections to
-the Taylor expansion (heavy-tailed JumpHMM marginals carry
-non-trivial third and fourth cumulants), the time-varying
-volatility and correlation across the $2014$--$2024$ calibration
-window relative to a long-run prior, and the documented attenuation
-of realized diversification returns on real equity portfolios at
-all rebalancing horizons \cite{boucheyNemtchinovWong2015}. The
+of the i.i.d.\ sampling \emph{across time} at the level of the
+second-order formula; the AR(1)-versus-i.i.d.\ serial structure does
+not move it. The more direct structural contributor is contemporaneous:
+the split above assumes the residuals are orthogonal across assets at a
+given time slice, which holds for the per-asset i.i.d.\ generator but
+not for real residuals, where common sector and style factors correlate
+the $\eps_i$ and shrink the realized $\Var(\eps_i - \eps_j)$ below the
+$\sigma_{\eps,i}^2 + \sigma_{\eps,j}^2$ that the independent generator
+produces. Matching each asset's marginal variance does not restore that
+cross-asset covariance, so the synthetic $D_\eps$ is inflated relative
+to the market. The residual excess beyond this contemporaneous term is
+the combined empirical magnitude of the higher-moment corrections to
+the Taylor expansion (heavy-tailed JumpHMM marginals carry non-trivial
+third and fourth cumulants), the time-varying volatility and
+correlation across the $2014$--$2024$ calibration window relative to a
+long-run prior, and the documented attenuation of realized
+diversification returns on real equity portfolios at all rebalancing
+horizons \cite{boucheyNemtchinovWong2015}. The
 location-shift correction of Eq.~\eqref{eq:bias-correction} treats
 this composite shortfall as a single empirical drag $b$ to be
 absorbed and is agnostic to its decomposition.
@@ -435,15 +445,17 @@ Target-weight, daily rebalanced + signal           & $29.83$ \\ \midrule
   \label{fig:tails}
 \end{figure}
 
-Because the artifact acts as a uniform multiplicative drag on the
-path in log-wealth space rather than a distortion of the path's
-shape, a uniform location-shift correction in the same space
-restores the median absolute level without disturbing the rank
-order, the drawdown geometry, or the volatility envelope of the
-synthetic ensemble. Multiplying each path-$p$ wealth trajectory
-$W_{p,t}$ at integer step $t$ by a uniform exponential drag at rate
-$b$ that closes the gap between the engine's median annualized
-growth rate and an external long-run prior $\bar g^{\mathrm{prior}}$:
+The correction acts in log-wealth space by subtracting a constant
+drift from every path, chosen so the ensemble median annualized growth
+rate matches an external long-run prior $\bar g^{\mathrm{prior}}$. At
+any fixed step the transform is monotone in $W_{p,t}$, so it leaves the
+cross-path rank order by terminal wealth intact, and because it shifts
+every log-return increment by the same constant it leaves per-path
+increment variances (the volatility envelope) unchanged. Multiplying
+each path-$p$ wealth trajectory $W_{p,t}$ at integer step $t$ by a
+uniform exponential drag at rate $b$ that closes the gap between the
+engine's median annualized growth rate and the prior
+$\bar g^{\mathrm{prior}}$:
 \begin{equation}
 \label{eq:bias-correction}
   W_{p,t}^{\mathrm{corr}} \;=\; W_{p,t}\cdot
@@ -453,12 +465,14 @@ growth rate and an external long-run prior $\bar g^{\mathrm{prior}}$:
 \end{equation}
 with $\Delta t$ the integration step in years and $b$, $\bar g_p$,
 $\bar g^{\mathrm{prior}}$ all in the same per-year growth-rate units,
-accomplishes exactly this. Working in $\log$-space rather than additively keeps the
-correction multiplicative on wealth, which is the natural scale
-for compounding returns and preserves drawdown geometry
-period-by-period; the transform is monotone in $W_{p,t}$ for every
-path and every step, so per-path rank order on terminal wealth is
-preserved exactly. The prior $\bar g^{\mathrm{prior}}$ is set from
+accomplishes exactly this. Working in $\log$-space keeps the correction multiplicative on wealth,
+the natural scale for compounding returns. Because the drift subtracted
+per unit time is constant, the correction is a linear detrend in
+log-wealth: it does shift drawdown dates and depths within a path, so
+it is a level calibration rather than a drawdown-preserving transform.
+What it preserves is the cross-path terminal-wealth ordering and the
+per-path volatility envelope, the properties the downstream ranking and
+risk diagnostics rely on. The prior $\bar g^{\mathrm{prior}}$ is set from
 external long-run data and is typically near $8\%/\mathrm{yr}$ at
 the time of writing, decomposable into the
 prevailing risk-free rate (roughly $4.5\%/\mathrm{yr}$ on a
@@ -523,17 +537,20 @@ deviation,
 $W^{\mathrm{corr}} = W_{\mathrm{static}}\cdot
    (W_{\mathrm{engine}}/W_{\mathrm{static}})^{k}$, hits the same
 anchor at $k$ chosen to match the prior, but its per-path rank
-correlation with the raw engine drops well below one and the
-corrected drawdown distribution inherits static-allocation geometry
-(drawdowns widen materially relative to the raw engine).
+correlation with the raw engine drops well below one, so unlike the
+location shift it reorders which paths are best and worst; it also
+inherits static-allocation drawdown geometry (drawdowns widen
+materially relative to the raw engine).
 
 The location-shift correction of Eq.~\eqref{eq:bias-correction}, by
-contrast, preserves these properties: the corrected ensemble
-carries the ensemble-shape information the paper validates,
-percentile diagnostics overlaying real outcomes against the
-synthetic distribution, drawdown distribution and tail-shape
-analysis, and relative ranking of strategies evaluated on the same
-corrected paths. It does not remove the underlying i.i.d.-residual
+contrast, preserves the per-path rank order and the volatility
+envelope, so the corrected ensemble still supports the ensemble-shape
+diagnostics the paper validates: percentile overlays of real outcomes
+against the synthetic distribution, tail-shape analysis, and the
+relative ranking of strategies evaluated on the same corrected paths.
+The drawdown distribution does shift under the correction, as under any
+level recalibration, so drawdown-based diagnostics are read on the
+uncorrected ensemble. It does not remove the underlying i.i.d.-residual
 limitation, so
 the residual autocorrelation structure itself, absolute Sharpe
 under daily rebalancing, and the choice of rebalancing frequency

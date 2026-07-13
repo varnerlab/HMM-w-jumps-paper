@@ -67,7 +67,12 @@ practical upper bound on state resolution.
     corresponding synthetic quantiles. Standard errors (SE) in parentheses:
     binomial SE for pass rates, $\mathrm{std}/\sqrt{n}$ for kurtosis,
     Wasserstein-$1$, and Hellinger; bootstrap SE ($B = 500$) for
-    ACF-MAE and coverage. Best value per row in bold.}
+    ACF-MAE and coverage. Best value per row in bold. \emph{Free
+    parameters} counts grid-searched or optimizer-fit free parameters;
+    for the state-based models (HSMM, HMM-NJ, HMM-WJ) the
+    frequentist-counted transition matrix and per-state emission moments
+    are plug-in estimates and are not included, whereas the GRU entry is
+    its full trained weight vector.}
 \label{tab:model_comparison}
 \resizebox{\columnwidth}{!}{%
 \scriptsize
@@ -93,7 +98,7 @@ Coverage (\%) $\uparrow$                  & 100.0 ($<$0.1) &  36.4 (1.9) &  74.7
 Wasserstein-$1$ $\downarrow$              & 0.232 (0.002) & 0.452 (0.002) & 0.263 (0.002) & 0.507 (0.018) & 0.488 (0.005) & 0.287 (0.002) & \textbf{0.258} (0.002) & 0.282 (0.006) \\
 Hellinger dist $\downarrow$               & 0.205 (0.001) & 0.235 (0.001) & 0.211 (0.001) & 0.232 (0.001) & 0.240 (0.001) & 0.239 (0.001) & \textbf{0.207} (0.001) & 0.210 (0.001) \\[4pt]
 \midrule
-Parameters estimated         &     0 &     2 &     2 &     3 & 37{,}954 &    18 &     2 &     4 \\
+Free parameters              &     0 &     2 &     2 &     3 & 37{,}954 &    18 &     2 &     4 \\
 \bottomrule
 \end{tabular}}
 \end{table}
@@ -182,8 +187,11 @@ per-asset JumpHMM marginals calibrated against the real SPY
 growth-rate path. This
 isolated the effect of the composition rule from the effect of
 market-path randomness: all composers consumed the same real SPY
-history and the same per-ticker innovation draw, so metric
-differences across composers reflected the composition rule alone.
+history, and the distribution-preserving composers (naive and hybrid)
+reused a common per-ticker innovation draw, so differences between them
+reflected the composition rule alone; the Gaussian-residual baseline,
+by construction, drew its own i.i.d.\ Gaussian innovations at the same
+calibrated residual variance.
 The ticker universe was a $424$-asset US equity/ETF set drawn from
 Polygon.io daily-close histories, filtered to tickers with a
 complete in-sample trading history matching the reference length of
@@ -214,9 +222,11 @@ ranging from $0.001$ to $0.933$
 (Fig.~\ref{fig:r2_distribution}).
 
 A single innovation path drawn from the ticker's JumpHMM marginal
-was passed unchanged to the \emph{Naive}, \emph{Gaussian SIM}, and
-\emph{Hybrid} composers (paired innovation protocol), isolating
-the composition rule from generator stochasticity. Naive plugged
+was passed unchanged to the \emph{Naive} and \emph{Hybrid} composers
+(paired innovation protocol), isolating the composition rule from
+generator stochasticity; the \emph{Gaussian SIM} baseline instead
+drew fresh i.i.d.\ Gaussian innovations at the calibrated residual
+variance, as a Gaussian-residual composer must. Naive plugged
 the JumpHMM draw into the SIM identity with no correction;
 Gaussian SIM substituted i.i.d.\ Gaussian noise scaled to the
 calibrated residual variance, recovering $R^2$ exactly but
@@ -261,9 +271,10 @@ seed was fixed at $1234$.
     $p = 0.05$. $W_1$: Wasserstein-1 distance to the real marginal.
     $\kappa$: sample excess kurtosis. Hill: tail-index estimate on the
     upper $5\%$ of $|g|$. All three composers recover $\beta$ to the same
-    precision; only the hybrid composer preserves the marginal
-    distribution (KS pass $50.4\%$) while holding the variance close to
-    the generator target.}
+    precision; among them only the hybrid composer holds the marginal
+    variance close to the generator target and retains its heavy-tailed
+    character, though convolution with the market factor still shifts
+    the full marginal (KS pass $50.4\%$).}
   \label{tab:aggregate}
   \small
   \input{sections/tables/table1_aggregate}

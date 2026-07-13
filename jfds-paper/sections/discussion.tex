@@ -27,13 +27,21 @@ $38\%$ kurtosis gap. The jump variant paid a small distributional
 cost relative to the no-jump variant ($2$--$8$ percentage points
 lower on the KS and AD pass rates in-sample) in exchange for
 becoming the only non-GARCH non-neural model to reduce ACF-MAE
-meaningfully below the i.i.d.\ floor: approximately one path in four
+meaningfully below the i.i.d.\ baseline: approximately one path in four
 contained a Poisson jump that sustained $\mathrm{ACF}(|G_t|)$ decay
 across all lags, while the remaining $76\%$ behaved like the no-jump
 variant. Out-of-sample on the held-out $2025$ history the same model
 retained a KS pass rate of $94.4\%$ and excess kurtosis $6.1$
 against the observed $6.9$, with the relative ordering of the eight
-generators preserved.
+generators preserved. The pass-rate comparisons carry a statistical
+caveat: two-sample KS and AD $p$-values assume independent
+observations, which the HMM, HSMM, GARCH, and bootstrap generators
+violate, so their pass rates are not calibrated on a common footing
+across generators; we therefore weigh them alongside the
+distribution-level distances ($W_1$, Hellinger, and the Hill tail
+index), and treat the parenthetical standard errors as Monte-Carlo
+variation across replications at the fitted model rather than
+uncertainty about the fit itself.
 
 Three caveats applied to the per-asset construction. First, the state
 resolution was sized at $N = 100$ Laplace-partition states by a
@@ -200,19 +208,21 @@ $g_i(t) = \alpha_i + \sum_{k=0}^K \beta_{i,k}\, g_m(t - k) + \eps_i(t)$;
 the variance correction generalizes to that form by replacing
 $\beta_i^2 \sigma_m^2$ with the variance of the full market-factor
 component, though the empirical value of the extra parameters is
-beyond the scope here. Lagged idiosyncratic dependence is likewise
-absent: each generator growth-rate path $\tg_i$ is sampled
-independently of the others, so any residual autocorrelation
-present in the real data is discarded by the composition. This matters most for
+beyond the scope here. Cross-sectional residual dependence is likewise absent: each generator
+growth-rate path $\tg_i$ is sampled independently of the others, so the
+composed residuals carry no contemporaneous cross-asset covariance
+beyond what the shared market factor induces. This matters most for
 workflows that evaluate portfolios rebalancing at high frequency.
-With i.i.d.\ residuals, a rebalancing rule collects the full
-diversification return of \cite{boothFama1992}, a compounding
-premium that scales with residual variance and rebalancing frequency
-and is largely absent in real markets, where residual serial
-dependence at short horizons is small but non-negligible
-\cite{cont2001}.
-Two generator alternatives in Table~\ref{tab:aggregate} preserve
-temporal structure directly: the block-bootstrap composer resamples
+Independent residuals overstate the daily cross-sectional dispersion
+among assets, and as the diversification-return identity of Online
+Appendix~\ref{sec:supp-bias} makes explicit, that dispersion is exactly
+what a rebalancing rule compounds into the diversification return of
+\cite{boothFama1992}; real equity residuals share common sector and
+style factors that a per-asset i.i.d.\ generator omits, so the
+synthetic dispersion, and hence the compounded premium, is inflated
+relative to the market.
+Two generator alternatives in Table~\ref{tab:aggregate} restore
+residual dependence directly: the block-bootstrap composer resamples
 blocks of the empirical OLS residual series~\cite{politisRomano1994},
 inheriting whatever autocorrelation is present in the data, and the
 GARCH(1,1)-$t$ composer fits a conditional-variance model per
@@ -226,14 +236,17 @@ alternatives carry it directly, at the cost of dropping the
 full-return JumpHMM marginal.
 
 The diversification-return artifact is a property of any SIM
-construction that draws residuals independently across time: real
-equity residuals carry small but non-negligible short-horizon serial
-dependence \cite{cont2001} that any i.i.d.\ sampler discards, including
-the JumpHMM marginal used here and the i.i.d.\ Gaussian and
-JumpHMM-on-residuals composers of Table~\ref{tab:aggregate}. The
-quantitative consequence under daily rebalancing is large enough
-that absolute-return claims drawn from any of these composers
-require an explicit correction or an explicit caveat. A
+construction that draws residuals independently across assets:
+matching each asset's marginal variance does not restore the
+contemporaneous cross-asset residual covariance that common sector and
+style factors induce in real markets, so independent residuals
+overstate the daily cross-sectional dispersion that daily rebalancing
+compounds. This affects every i.i.d.-residual composer in
+Table~\ref{tab:aggregate}, including the JumpHMM marginal used here and
+the Gaussian and JumpHMM-on-residuals composers. The quantitative
+consequence under daily rebalancing is large enough that
+absolute-return claims drawn from any of these composers require an
+explicit correction or an explicit caveat. A
 $20$-asset target-weight allocator deployed against a
 hybrid-composed $2025$ universe produced a median synthetic
 continuously-compounded growth rate of $\sim\!30\%/\mathrm{yr}$,
@@ -252,9 +265,13 @@ by an exponential drag whose rate is set so the corrected median
 annualized growth rate matches an external long-run prior, set in
 our deployment from the prevailing risk-free rate plus an active
 premium net of frictions~\cite{damodaranERP, ibbotsonSBBI}. The
-correction is a per-path monotone transform: it preserves the rank
-order of paths by terminal wealth, the drawdown shape, and the
-volatility envelope; only the level shifts. Anchoring to a
+correction subtracts a constant drift in log-wealth from every path:
+it preserves the rank order of paths by terminal wealth and the
+volatility envelope (every log-return increment is shifted by the same
+constant, leaving increment variances unchanged). Because the drift is
+time-dependent in wealth space, it does move drawdown dates and depths,
+so it recalibrates the ensemble level rather than preserving drawdown
+shape. Anchoring to a
 documented prior rather than to the realized test-year outcome keeps
 the correction independent of the sample to which the synthetic
 ensemble is being compared and avoids circular calibration. The
@@ -263,17 +280,18 @@ percentile (in our deployment, real-$2025$ landed at the $63$rd
 percentile of the corrected ensemble, consistent with $2025$ being
 an above-typical equity year). Online Appendix~\ref{sec:supp-bias}
 details the methodology, contrasts the location-shift correction
-with a multiplicative haircut alternative that scrambles per-path
-rank order and distorts the drawdown distribution, and discusses
+with a multiplicative haircut alternative that additionally scrambles
+per-path rank order, and discusses
 why several intuitive alternatives (parameter drift between
 calibration and deployment, transaction-cost inflation, a
 first-order autoregressive (AR(1)) process on residuals without
 restructuring the copula sampling, residual block-bootstrap) do
 not address the underlying mechanism within the i.i.d.-residual
 SIM framework. The synthetic data carries the ensemble-shape
-information the paper validates, percentile structure, drawdown
-distribution, and relative ranking of strategies on the same
-paths, both before and after correction; the location-shift
+information the paper validates, percentile structure and relative
+ranking of strategies on the same paths, both before and after
+correction (the drawdown distribution is valid on the uncorrected
+ensemble, since the level shift moves it); the location-shift
 correction extends that reliability to absolute Sharpe and
 continuously compounded growth rate (CCGR) levels under daily
 rebalancing, at the cost of an external prior.
