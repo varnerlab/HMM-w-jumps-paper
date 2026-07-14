@@ -192,29 +192,38 @@ function write_frontier_csv(df::DataFrame)
     return path
 end
 
-function plot_frontier(df::DataFrame)
-    x = df.acf_mae
-    p = plot(x, df.kurt; marker = :circle, color = :steelblue, label = "kurtosis",
-             xlabel = "ACF-MAE(|g|), 252 lags   (lower = better vol clustering)",
-             ylabel = "excess kurtosis", legend = :topleft,
-             title = "Jump-mix enrichment frontier (curve parameterized by f)",
-             size = (800, 540), left_margin = 8Plots.mm,
-             right_margin = 16Plots.mm, bottom_margin = 8Plots.mm)
-    hline!(p, [OBS_KURT_TARGET]; ls = :dash, color = :steelblue, label = "obs kurtosis 7.71")
+# The Hill index is reported as xi (the raw upper-tail estimator, = 1/alpha),
+# matching the manuscript's Hill convention rather than the tail exponent alpha.
+function plot_frontier(df::DataFrame;
+                       outpath::AbstractString = joinpath(_PATH_TO_DIAG, "jump_mix_frontier.pdf"),
+                       title::AbstractString = "Jump-mix enrichment frontier (curve parameterized by f)")
+    x   = df.acf_mae
+    xi  = 1.0 ./ df.hill_alpha
+    oxi = 1.0 / OBS_HILL_ALPHA
+    top = isempty(title) ? 3Plots.mm : 8Plots.mm
+    p = plot(x, df.kurt; marker = :circle, ms = 5, color = :steelblue, lw = 1.6,
+             label = "excess kurtosis (left)",
+             xlabel = "ACF-MAE of |g|, 252 lags    (lower = stronger volatility clustering)",
+             ylabel = "excess kurtosis", legend = :bottomright,
+             title = title, titlefontsize = 11,
+             size = (760, 500), left_margin = 6Plots.mm, right_margin = 17Plots.mm,
+             bottom_margin = 6Plots.mm, top_margin = top,
+             tickfontsize = 9, guidefontsize = 10, ylims = (6.4, 8.15))
+    hline!(p, [OBS_KURT_TARGET]; ls = :dash, color = :steelblue, lw = 1,
+           label = "observed kurtosis")
     i25 = findfirst(==(F_MARK), df.f)
-    scatter!(p, [df.acf_mae[i25]], [df.kurt[i25]]; marker = :star5, ms = 10,
-             color = :black, label = "f=0.25 (shipped)")
-    for fv in (0.0, 1.0)
-        i = findfirst(==(fv), df.f)
-        annotate!(p, df.acf_mae[i], df.kurt[i] + 0.12, text("f=$fv", 7, :black))
-    end
+    scatter!(p, [x[i25]], [df.kurt[i25]]; marker = :star5, ms = 12, color = :black,
+             label = "f = 0.25 (operating point)")
+    i0 = findfirst(==(0.0), df.f); i1 = findfirst(==(1.0), df.f)
+    annotate!(p, x[i0], df.kurt[i0] - 0.30, text("f=0 (HMM-NJ)", 8, :black, :right))
+    annotate!(p, x[i1], df.kurt[i1] + 0.24, text("f=1 (all-jump)", 8, :black, :left))
     p2 = twinx(p)
-    plot!(p2, x, df.hill_alpha; marker = :square, color = :red, label = "Hill alpha",
-          ylabel = "Hill alpha (higher = thinner tail)", legend = :topright)
-    hline!(p2, [OBS_HILL_ALPHA]; ls = :dash, color = :red, label = "obs alpha 3.14")
-    path = joinpath(_PATH_TO_DIAG, "jump_mix_frontier.pdf")
-    savefig(p, path)
-    return path
+    plot!(p2, x, xi; marker = :square, ms = 4, color = :firebrick, lw = 1.6,
+          label = "Hill index xi (right)", ylabel = "Hill upper-tail index xi",
+          legend = :topleft, ylims = (0.26, 0.40), tickfontsize = 9, guidefontsize = 10)
+    hline!(p2, [oxi]; ls = :dash, color = :firebrick, lw = 1, label = "observed xi")
+    savefig(p, outpath)
+    return outpath
 end
 
 # ── main ─────────────────────────────────────────────────────────────────────
