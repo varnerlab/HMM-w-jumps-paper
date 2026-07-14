@@ -1,11 +1,18 @@
 # Code for the JFDS paper
 
 Reproducibility code for *Hybrid Hidden Markov Model for Modeling Equity Excess
-Growth Rate Dynamics: A Discrete-State Approach with Jump-Diffusion*
+Growth Rate Dynamics: A Discrete-State Approach with a Jump-Duration Mechanism*
 (Alswaidan & Varner). Each subdirectory is a self-contained Julia project with
 its own `Project.toml` / `Manifest.toml`; activate with `julia --project=.`
 from inside the directory or `julia --project=code/<subdir>` from the repo
 root.
+
+On a clean checkout, instantiate a subdirectory's pinned environment before
+running any of its scripts:
+
+```bash
+julia --project=code/<subdir> -e 'using Pkg; Pkg.instantiate()'
+```
 
 Every script starts with `include("Include.jl")`, which sets `Random.seed!(1234)`
 and installs `JumpHMM.jl` + `VLQuantitativeFinancePackage.jl` from GitHub on

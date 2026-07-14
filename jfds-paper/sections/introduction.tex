@@ -1,14 +1,10 @@
 % introduction.tex
-% Three-paragraph structure (language-audit pass, 2026-07-14; see
-% project_language_audit_2026-07-14 memory):
+% Narrative structure (reframed 2026-07-14):
 % (1) synthetic data motivation, stylized facts, Fig 1;
 % (2) survey of generative approaches and their failure modes on the
 %     stylized facts, compacted into one comparison sentence;
-% (3) single "In this study" contribution paragraph: hybrid HMM-WJ
-%     (exhaustive metric/baseline list moved to Methods) folded
-%     together with the multi-asset extension (variance correction +
-%     diversification-return caveat, two sentences); VaR check moved
-%     out (defined instead at its first true use in results.tex).
+% (3) HMM-WJ as the interpretable marginal component;
+% (4) variance-corrected multi-asset composition as the main result.
 
 Synthetic financial data often fail to reproduce the statistical
 properties of real returns. These paths are used to stress-test risk
@@ -31,61 +27,53 @@ data.
     \caption{\textbf{Empirical stylized facts of SPY daily excess growth
     rates ($2014$--$2024$).} Panel~(a) shows the leptokurtic marginal
     density; the Laplace maximum-likelihood fit tracks the empirical
-    peak and tails while the Gaussian fit does not. Panel~(b) confirms
-    heavy tails through a normal quantile-quantile plot, with departure
-    from the diagonal at both extremes. Panel~(c) shows the
+    peak and tails while the Gaussian fit does not. Panel~(b) shows
+    departure from the diagonal in a normal quantile-quantile plot
+    at both extremes. Panel~(c) shows the
     autocorrelation function of raw excess growth rates, which stays
     near zero across all lags and is consistent with the efficient
     markets hypothesis. Panel~(d) shows the autocorrelation function
-    of absolute excess growth rates, which decays slowly and signals
-    the persistent volatility clustering that the jump-duration
-    extension is designed to reproduce.}
+    of absolute excess growth rates, which decays slowly across the
+    reported lags.}
     \label{fig:empirical_motivation}
 \end{figure}
 
-Existing generative approaches typically reproduce some of these
-regularities but not others. The generalized autoregressive
+Existing generators typically reproduce some of these regularities
+but not others. The generalized autoregressive
 conditional heteroskedasticity (GARCH) family~\cite{engle1982,
-bollerslev1986} captures volatility clustering but needs a
-fat-tailed innovation to reproduce heavy tails; stochastic-volatility
+bollerslev1986} captures volatility clustering but requires
+fat-tailed innovations to reproduce heavy tails. Stochastic-volatility
 and jump-diffusion models~\cite{heston1993, merton1976, kou2002}
-enrich tail behavior but do not persist after a jump; deep generative
+produce heavy tails, but jump effects do not persist. Deep generative
 models~\cite{takahashiEtAl2019, yoonEtAl2019timegan, kwonLee2024}
-learn complex marginals but routinely miss the absolute-return
-autocorrelation that defines volatility clustering; and standard
-hidden Markov models (HMMs)~\cite{rabinerJuang1986} offer a
-regime-switching structure but revert to central regimes too quickly
+can learn complex marginals but often miss the absolute-return
+autocorrelation associated with volatility clustering. Standard
+hidden Markov models (HMMs)~\cite{rabinerJuang1986} provide a
+regime-switching structure but return to central regimes too quickly
 to dwell in tail states long enough to reproduce the empirical
 clustering profile~\cite{rydenTerasvirtaAsbrink1998, bullaBulla2006}.
-We therefore sought a model that retained distributional fit while
-improving volatility persistence and remaining practical for large
-asset universes.
+We therefore sought a model that retained distributional fit, reduced
+absolute-return autocorrelation error, and could be fitted separately
+across a large asset universe.
 
-In this study, we developed a hybrid hidden Markov model with a
-jump-duration mechanism (HMM-WJ) that pairs a Laplace-quantile state
-partition with a Student-$t$ emission and a Poisson-distributed
-jump-duration override. The Laplace partition lets the transition
-matrix be estimated by direct frequentist counting rather than the
-iterative Baum-Welch algorithm~\cite{baumPetrieSoulesWeiss1970,
-bilmes1998}, which scales to a $424$-asset universe. We fitted the
-model to a decade of SPY history, held out $2025$ for out-of-sample
-evaluation, and scored the synthetic paths against seven baseline
-generators on distributional and temporal fidelity. Relative to a
-no-jump variant, HMM-WJ retained high distributional fit while
-improving volatility-clustering fidelity, though GARCH remained the
-strongest baseline on that dimension; HMM-WJ is therefore a tradeoff
-between marginal and temporal fit rather than a uniformly better
-model. Extending the
-model to multi-asset applications required correcting
-a known limitation of single-index composition, in which drawing
-each asset's residual from a per-asset generator inflates the
-composed marginal's variance quadratically in the factor loading; we
-derived a closed-form scale correction that restores each ticker's
-target variance after factor composition, recovering each ticker's
-calibrated factor loading while retaining heavy-tailed returns.
-Independent per-asset
-residuals also exaggerate the daily cross-sectional spread among
-assets, so daily-rebalanced portfolios built from these paths can
-overstate diversification gains; we report this bias and a
-location-shift adjustment set to a long-run prior, but the
-adjustment does not restore the missing cross-asset dependence.
+In this study, we developed a two-part method for multi-asset equity
+simulation. The first part supplied the marginal model for each
+asset. It used a Laplace-quantile state
+partition, Student-$t$ emissions, and direct transition counting. A
+jump-duration variant (HMM-WJ) added Poisson-distributed tail-state
+episodes. On a decade of SPY data, HMM-WJ had a $97.6\%$ in-sample KS
+pass rate and reduced ACF-MAE from $0.059$ to $0.052$ relative to the
+no-jump variant; GARCH reached $0.031$. We selected the hidden Markov
+family as the per-asset marginal based on this tradeoff, not because
+HMM-WJ was uniformly better than the alternatives.
+
+The main contribution addressed multi-asset composition. Directly
+using a full per-asset generator draw as the residual in a
+single-index model adds the market variance twice. We derived a
+closed-form scale correction that preserved the target variance and
+recovered the calibrated factor loading across a $424$-asset
+universe. We also found that independent residuals exaggerated daily
+cross-sectional dispersion and could overstate diversification gains
+in daily-rebalanced portfolios. A location-shift adjustment set to a
+long-run prior reduced this return-level bias but did not restore the
+missing cross-asset dependence.

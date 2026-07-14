@@ -1,8 +1,8 @@
-# Hybrid Hidden Markov Model with Jump-Diffusion for Synthetic Equity Data Generation
+# Hybrid Hidden Markov Model with a Jump-Duration Mechanism for Synthetic Equity Data Generation
 
 This repository contains the code and paper for:
 
-> **Hybrid Hidden Markov Model for Modeling Equity Excess Growth Rate Dynamics: A Discrete-State Approach with Jump-Diffusion**
+> **Hybrid Hidden Markov Model for Modeling Equity Excess Growth Rate Dynamics: A Discrete-State Approach with a Jump-Duration Mechanism**
 > Abdulrahman Alswaidan and Jeffrey Varner, Cornell University
 
 The framework discretizes continuous excess growth rates into Laplace quantile-defined market states and augments the resulting hidden Markov process with a Poisson-driven jump-duration mechanism. This produces synthetic equity time series that simultaneously reproduce heavy-tailed distributions, negligible linear autocorrelation, and persistent volatility clustering.
@@ -161,7 +161,7 @@ If you use this code or framework in your research, please cite:
 
 ```bibtex
 @article{alswaidan2026hybrid,
-  title={Hybrid Hidden Markov Model for Modeling Equity Excess Growth Rate Dynamics: A Discrete-State Approach with Jump-Diffusion},
+  title={Hybrid Hidden Markov Model for Modeling Equity Excess Growth Rate Dynamics: A Discrete-State Approach with a Jump-Duration Mechanism},
   author={Alswaidan, Abdulrahman and Varner, Jeffrey},
   year={2026}
 }

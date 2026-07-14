@@ -60,7 +60,7 @@
 \newcommand{\real}{\mathrm{real}}
 \newcommand{\eff}{\mathrm{eff}}
 
-\title{Hybrid Hidden Markov Model for Modeling Equity Excess Growth Rate Dynamics: A Discrete-State Approach with a Jump-Duration Mechanism}
+\title{Variance-Corrected Multi-Asset Equity Simulation with Hybrid Hidden Markov Marginals}
 
 \author{%
   Abdulrahman Alswaidan \\
@@ -96,10 +96,13 @@
 
 \section{Methods}\label{sec:method}
 
-\subsection{Hybrid hidden Markov marginal generator}\label{sec:method-hmm}
+We fitted a marginal generator for each asset and then combined the
+generated paths with a variance-corrected single-index model.
+
+\subsection{Per-asset hidden Markov marginal generator}\label{sec:method-hmm}
 \input{sections/method_hmm}
 
-\subsection{Multi-asset extension}\label{sec:method-sim}
+\subsection{Variance-corrected multi-asset composition}\label{sec:method-sim}
 \input{sections/method_sim}
 
 \section{Results}\label{sec:results}

@@ -2,7 +2,7 @@
 
 Reproducibility code for the multi-composer downstream-evaluation results in
 *Hybrid Hidden Markov Model for Modeling Equity Excess Growth Rate Dynamics:
-A Discrete-State Approach with Jump-Diffusion* (Alswaidan & Varner). This
+A Discrete-State Approach with a Jump-Duration Mechanism* (Alswaidan & Varner). This
 directory produces the six-composer comparisons (naive, Gaussian SIM, hybrid,
 JumpHMM-on-residuals, block bootstrap, GARCH(1,1)-t), the per-ticker VaR
 backtest, the seed-uncertainty table, the stress and sensitivity sweeps, the
@@ -39,8 +39,14 @@ The 424-ticker universe is loaded via
 on top of the OHLC `.jld2` files committed under `data/`.
 
 First-time `include("Include.jl")` will `Pkg.add(url=...)` both packages from
-GitHub if `Manifest.toml` is absent; the pinned manifest is committed, so a
-normal run just instantiates the environment.
+GitHub if `Manifest.toml` is absent; the pinned manifest is committed, so on
+a clean checkout `Include.jl` alone does not install packages already listed
+in the manifest. Instantiate the pinned environment once before running any
+script:
+
+```bash
+julia --project=code/downstream-evaluation -e 'using Pkg; Pkg.instantiate()'
+```
 
 ## Reproduction
 

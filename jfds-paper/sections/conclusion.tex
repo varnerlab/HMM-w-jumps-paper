@@ -1,40 +1,38 @@
 % conclusion.tex
 % Language-audit pass, 2026-07-14 (see project_language_audit_2026-07-14
-% memory). Cut from ~336 to ~240 words per the audit's 180-230 target
-% (close but slightly over; every remaining sentence carries a
-% distinct fact). Two paragraphs: (1) what was developed + the main
-% single-asset tradeoff, (2) what the SIM correction achieved + the
-% main limitation, ending on the limitation rather than a separate
-% correction story. "framework"/"pipeline"/"artifact"/"anchored" cut;
-% "mechanism" kept only in the settled model name.
+% memory). Reframed 2026-07-14 so the multi-asset variance correction
+% leads and the HMM-WJ result supports the marginal component. The
+% conclusion ends on the missing cross-asset covariance limitation.
 
-In this study, we developed a hybrid hidden Markov model for
-synthetic equity path generation that discretizes excess growth
-rates into Laplace-quantile states with Student-$t$ emissions and a
-Poisson jump-duration override. We estimated the transition matrix
-by direct frequentist counting rather than the iterative Baum-Welch
-algorithm. For SPY, the jump-duration override reduced
+In this study, we developed a variance-corrected method for composing
+per-asset generators through a single-index model. The correction
+removed the variance inflation caused by inserting a full-return
+generator draw into the market factor. Across $423$ non-market assets,
+the median absolute factor-loading error was $0.018$. Its exceedance
+rate in the per-ticker one-day $99\%$ Value-at-Risk check was $0.95\%$,
+compared with $0.99$--$1.09\%$ for the residual-fit methods. Its median
+excess kurtosis and Hill index were $7.2$ and $0.365$.
+Residual models fitted directly to the OLS residual series had KS
+pass rates of $67$--$76\%$, compared with $50\%$ for the corrected
+method, but required a separate fit for each asset.
+
+The per-asset component was a hidden Markov marginal
+model with Laplace-quantile states, Student-$t$ emissions, and direct
+transition counting. On SPY, its jump-duration variant reduced
 absolute-return autocorrelation error from $0.059$ to $0.052$
-relative to the no-jump variant, the only non-GARCH, non-neural
-model to score below the shared i.i.d.\ value, while GARCH retained
-the lowest error at $0.031$. HMM-WJ is therefore a tradeoff between
-marginal and temporal fit, passing the Kolmogorov-Smirnov test
-against the real SPY distribution at $97.6\%$ in-sample and
-$94.4\%$ out-of-sample.
+relative to the no-jump variant; its KS and AD pass rates were $97.6\%$
+and $91.3\%$. GARCH had a lower autocorrelation error of $0.031$.
+The single-asset result was
+therefore a measured marginal--temporal tradeoff rather than a claim
+of uniform superiority.
 
-We also derived a closed-form scale correction for single-index
-composition that removes the variance inflation caused by inserting
-a per-asset generator draw into the market factor. The correction
-recovered each asset's calibrated factor loading to a median
-absolute error of $0.018$ across $423$ non-market assets and matched
-the leading residual-fit methods on a per-ticker one-day $99\%$
-Value-at-Risk coverage check, while retaining heavier tails than the
-residual-fit methods. The current multi-asset implementation does
-not model cross-asset residual covariance: in a deployed $20$-asset
-allocator, the synthetic median daily-rebalanced return ran about
-$22$ percentage points above the realized $2025$ return, consistent
-with a diversification-return effect from independent per-asset
-residuals. A location-shift correction set to a documented long-run
-prior offsets this gap without restoring the missing covariance, so
-a full joint residual model is needed before using these paths for
+The current multi-asset implementation does not model cross-asset
+residual covariance. In a $20$-asset allocator, the synthetic median
+daily-rebalanced return exceeded the realized $2025$ return by about
+$22$ percentage points. The static-to-daily-rebalance change accounted
+for $27.73$ percentage points, while adding the allocation signal
+changed the median by $0.13$ percentage points. A location-shift
+correction set to a documented long-run prior adjusted the return
+level without restoring the missing covariance. A full joint
+residual model is needed before using these paths for
 portfolio-level return forecasts.
