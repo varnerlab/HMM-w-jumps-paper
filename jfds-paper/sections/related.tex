@@ -1,114 +1,106 @@
 % related.tex
-% Four paragraphs: parametric / stylized-facts generators; latent-state
-% and deep generative approaches with the hybrid HMM contribution; SIM
-% composition (full-return vs residual-fit) with the variance-correction
-% contribution; validation including the diversification-return concern.
+% Four paragraphs, tightened in the language-audit pass (2026-07-14;
+% see project_language_audit_2026-07-14 memory): (1) parametric /
+% stylized-facts generators; (2) latent-state and deep generative
+% approaches with the hybrid HMM contribution; (3) SIM composition
+% (full-return vs residual-fit) with the variance-correction
+% contribution; (4) validation including the diversification-return
+% concern. Cut ~200 words of historical survey and repeated
+% "captures X but fails Y" phrasing; removed "Methods describes"/
+% "developed in Methods" section self-references (recast with "we").
 
-Approaches to reproducing the stylized facts of equity markets can be divided
-into bottom-up agent-based models, which derive return dynamics from
-simulated interactions of heterogeneous agents
-\cite{luxMarchesi1999, contBouchaud2000, farmerJoshi2002, lebaron2006,
-arthur2021, farmer2025}, and top-down data-driven models, which fit
-statistical structures directly to observed growth rate series.
-Agent-based generators produce stylized facts as emergent properties
-but are demanding to calibrate to specific assets, and computationally expensive to simulate at scale. 
-On the other hand, top-down generators for asset prices go back at
-least to Bachelier's diffusion model \cite{bachelier1900}; Osborne
-\cite{osborne1959} and Samuelson \cite{samuelson1965} later
-formalized geometric Brownian motion, which Black-Scholes-Merton
-\cite{blackScholes1973} used as the price process for option
-pricing. These diffusion baselines are tractable but fail on the
-empirical regularities that drive risk and pricing. Mandelbrot
-\cite{mandelbrot1963} showed that returns carry heavier tails
-than the Gaussian admits; Fama \cite{famaEMH1970} reviewed the
-evidence that raw returns have near-zero linear autocorrelation; and
-Schwert \cite{schwert1989} documented persistence in monthly absolute
-residuals, an early form of what Cont \cite{cont2001} later codified
-as the volatility-clustering stylized fact. The autoregressive
+Approaches to reproducing the stylized facts of equity markets
+divide into bottom-up agent-based models~\cite{luxMarchesi1999,
+contBouchaud2000, farmerJoshi2002, lebaron2006, arthur2021,
+farmer2025}, which derive return dynamics from simulated
+interactions of heterogeneous agents but are demanding to calibrate
+and expensive to simulate at scale, and top-down models, which fit
+statistical structures directly to observed growth-rate series.
+Top-down generators trace to Bachelier's diffusion model, later
+formalized as geometric Brownian motion and used by
+Black-Scholes-Merton for option
+pricing~\cite{bachelier1900, osborne1959, samuelson1965,
+blackScholes1973}; these diffusion baselines are tractable but fail
+on the empirical regularities that drive risk and pricing. Mandelbrot~\cite{mandelbrot1963}
+showed returns have heavier tails than the Gaussian admits;
+Fama~\cite{famaEMH1970} reviewed evidence that raw returns have
+near-zero autocorrelation; and Schwert~\cite{schwert1989} documented
+persistence in monthly absolute residuals, later codified by
+Cont~\cite{cont2001} as volatility clustering. The autoregressive
 conditional heteroskedasticity (ARCH) and generalized ARCH (GARCH)
-models of Engle \cite{engle1982} and Bollerslev
-\cite{bollerslev1986} reproduced the clustering but left marginals
-light-tailed unless the noise term was itself heavy-tailed. They also offer no
-mechanism for discrete regimes or sudden jumps. Two later
-parametric families partially addressed these gaps.
-Stochastic-volatility models \cite{steinStein1991, heston1993}
-make volatility a latent process to capture clustering, but
-estimating that process requires filtering or Markov chain Monte
-Carlo (MCMC) methods \cite{kimShephardChib1998}.
-Jump-diffusion models \cite{merton1976, kou2002} inject Poisson
-events into the price path, producing heavy tails by construction
-but offering no mechanism for the volatility persistence that
-follows a jump.
+models of Engle and Bollerslev~\cite{engle1982, bollerslev1986}
+reproduced the clustering but left marginals light-tailed unless the
+noise term was itself heavy-tailed, and neither models discrete
+regimes or sudden jumps. Stochastic-volatility
+models~\cite{steinStein1991, heston1993} make volatility a latent
+process to capture clustering, but estimating that process requires
+filtering or Markov chain Monte Carlo (MCMC)
+methods~\cite{kimShephardChib1998}; jump-diffusion
+models~\cite{merton1976, kou2002} inject Poisson events into the
+price path, producing heavy tails by construction, but volatility
+does not persist after the jump.
 
-Hidden Markov models address this gap by embedding regime and jump
-behavior in a latent discrete chain. Hamilton \cite{hamilton1989}
-introduced regime-switching to economics in a two-state form, and
-later work applied it to volatility forecasting \cite{rossiGallo2006}
-and equity trading \cite{nguyen2018}. Ryden et al.\
-\cite{rydenTerasvirtaAsbrink1998} found that Gaussian-emission HMMs
-matched heavy tails and the absence of return autocorrelation but
-failed on volatility clustering; Bulla and Bulla \cite{bullaBulla2006}
-recovered the clustering with hidden semi-Markov models (HSMMs)
-that replaced the geometric dwell-time distribution of every state
-with a parametric (negative-binomial) alternative. Both rely on
-the Baum-Welch expectation-maximization (EM) algorithm
-\cite{baumPetrieSoulesWeiss1970}, which is iterative and sensitive
-to initialization. Deep generative alternatives learn the marginal
-directly but routinely miss the volatility-clustering signature:
-Takahashi et al.\ \cite{takahashiEtAl2019} found that standard
-generative adversarial network (GAN) architectures
-produced return sequences that visually resembled financial data yet
-failed to reproduce the absolute-return autocorrelation function, and
-Kwon and Lee \cite{kwonLee2024} confirmed the same on TimeGAN
-\cite{yoonEtAl2019timegan}. Recent surveys
-\cite{assefaEtAl2020, jordonEtAl2022, stengerEtAl2024} agree that
-stylized-facts reproduction remains the primary quality criterion,
-and a pretrained foundation-inference alternative for Markov jump
-processes \cite{berghausEtAl2025} has not yet been evaluated on
-financial data. The current study picks the latent-state route but follows a different design
-principle than the HSMM. Rather than replace the dwell-time
-distribution of every state, it leaves the empirically counted
-transition matrix in place across the central states and adds an
-event-driven override that, on a sparse subset of time slices,
-forces the chain into the tail states for a Poisson-distributed
-duration. The result is a sparse intervention: tail states receive a
-Poisson-distributed dwell time, while the body of the chain keeps
-the geometric (memoryless) dwell times of the empirical transition
-matrix.
+Hidden Markov models embed regime and jump behavior directly in a
+latent discrete chain, following Hamilton's~\cite{hamilton1989}
+two-state regime-switching formulation, later applied to volatility
+forecasting~\cite{rossiGallo2006} and equity
+trading~\cite{nguyen2018}. Ryden et
+al.~\cite{rydenTerasvirtaAsbrink1998} found that Gaussian-emission
+HMMs matched heavy tails and the absence of return autocorrelation
+but failed on volatility clustering; Bulla and
+Bulla~\cite{bullaBulla2006} recovered the clustering with hidden
+semi-Markov models (HSMMs) that replaced the geometric dwell-time
+distribution of every state with a parametric (negative-binomial)
+alternative. Both rely on the Baum-Welch
+expectation-maximization (EM) algorithm~\cite{baumPetrieSoulesWeiss1970},
+which is iterative and sensitive to initialization. Deep generative
+alternatives learn the marginal directly but routinely miss the
+volatility-clustering signature: Takahashi et
+al.~\cite{takahashiEtAl2019} found that generative adversarial
+network (GAN) architectures produced return sequences that resembled
+financial data yet failed to reproduce the absolute-return
+autocorrelation function, and Kwon and Lee~\cite{kwonLee2024}
+confirmed the same on TimeGAN~\cite{yoonEtAl2019timegan}. Recent
+surveys~\cite{assefaEtAl2020, jordonEtAl2022, stengerEtAl2024} agree
+that stylized-facts reproduction remains the primary quality
+criterion. This model also uses a latent-state chain but follows a
+different design principle than the HSMM: rather than replace every
+state's dwell-time distribution, it keeps the empirically counted
+transition matrix for the central states and adds an event-driven
+override that forces the chain into the tail states for a
+Poisson-distributed duration on a subset of time steps.
 
 Multi-asset composition adds cross-asset dependence on top of a
-univariate generator. Several families address this: mixture
-hidden Markov models \cite{diasVermuntRamos2010} share latent
-state across assets at high estimation cost in high dimensions;
-copula approaches \cite{embrechtsMcNeilStraumann2002,
-cherubiniLucianoVecchiato2004, aasCzadoFrigessiBakken2009}
-separate marginals from cross-asset dependence at the cost of copula-family
-selection and, in their standard static form, treat successive
-time slices as independent. Alternatively, factor models reduce
-the dependence of a firm's growth rate to one or more shared
-factors \cite{rossAPT1976, famaFrench1993}. The single-index model (SIM) of Sharpe
-\cite{sharpe1963} is the simplest factor model, decomposing each
-asset's growth rate into a market-loaded term plus an idiosyncratic
-residual. The single-index model's linear structure also makes it
-computationally efficient and easy to interpret, and its
-single-factor form pairs with the SPY-based generator developed in
-Methods. 
-Within SIM, the choice of residual specification trades off the
-per-asset generator's distributional structure against the
-composed variance. Methods describes a closed-form variance
-correction that recovers both.
+univariate generator. Mixture hidden Markov
+models~\cite{diasVermuntRamos2010} share latent state across assets
+but are costly to estimate in high dimensions; copula
+approaches~\cite{embrechtsMcNeilStraumann2002,
+cherubiniLucianoVecchiato2004, aasCzadoFrigessiBakken2009} separate
+marginals from cross-asset dependence but require choosing a copula
+family and, in their standard static form, treat successive time
+slices as independent. Factor models instead reduce a firm's growth
+rate to one or more shared factors~\cite{rossAPT1976,
+famaFrench1993}; the single-index model (SIM) of
+Sharpe~\cite{sharpe1963} is the simplest, decomposing each asset's
+growth rate into a market-loaded term plus an idiosyncratic
+residual, a linear, easy-to-interpret structure that pairs naturally
+with a single-factor market generator. Within SIM, the choice of
+residual specification trades off the per-asset generator's
+distributional structure against the composed variance; we derive a
+closed-form variance correction that recovers both.
 
-Validation of synthetic growth-rate paths combines two families of tests:
-goodness-of-fit tests for distributional fidelity \cite{kolmogorov1933,
-smirnov1948, andersonDarling1952} and autocorrelation diagnostics for
-temporal structure \cite{cont2001}. Distributional and temporal tests are necessary but not
-sufficient: a synthetic dataset can pass them yet still mislead
-when fed into the task it was generated for. Booth and Fama \cite{boothFama1992} described one such failure: a
-daily-rebalanced allocator on paths whose residuals are drawn
-independently across assets extracts a structural
+Validation of synthetic growth-rate paths combines two families of
+tests: goodness-of-fit tests for distributional
+fidelity~\cite{kolmogorov1933, smirnov1948, andersonDarling1952} and
+autocorrelation diagnostics for temporal structure~\cite{cont2001}.
+These tests are necessary but not sufficient: a synthetic dataset
+can pass them yet still mislead when fed into the task it was
+generated for. Booth and Fama~\cite{boothFama1992} described one
+such failure: a daily-rebalanced allocator on paths whose residuals
+are drawn independently across assets extracts a structural
 \emph{diversification return} that is muted in real markets, where
-common sector and style factors correlate residuals across assets. We
-adopt the classical distributional metrics together with a
-Value-at-Risk coverage check scored by Kupiec's unconditional-coverage
-test, and we address the diversification-return artifact through a
-location-shift level correction described in Methods.
+common sector and style factors correlate residuals across assets.
+We adopt the classical distributional metrics together with a
+Value-at-Risk coverage check scored by Kupiec's
+unconditional-coverage test, and address this diversification-return
+bias with a location-shift correction.

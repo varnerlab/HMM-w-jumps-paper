@@ -2,6 +2,26 @@
 % Supplementary material: empirical validations of assumptions used in
 % the main-text derivations, plus material that is too dense for the
 % main body but useful for replication.
+%
+% Language-audit pass, 2026-07-14 (see project_language_audit_2026-07-14
+% memory; final section of the pass). Kept every algebra step (no
+% collapsed align blocks) but cut narrating prose around them ("we
+% expand this in two stages", "distributing", "pulling outside the
+% sums"). Killed generic terminology: "artifact" -> "bias" (matches
+% discussion.tex's "diversification-return bias"; the one surviving
+% "sample-size artifact" is a standard statistical idiom, kept
+% consistent with results.tex), "anchor"/"anchoring" -> literal
+% ("set from", "matching"), "engine"/"engine-raw" -> "raw" (was
+% implementation jargon for the uncorrected ensemble; also renamed the
+% $W_{\mathrm{engine}}$ subscript to $W_{\mathrm{raw}}$), "operating
+% point" -> "parameter values"/"fitted", "pipeline"/"framework" ->
+% "construction"/"procedure", generic "mechanism" -> literal (e.g. "the
+% persistence mechanism" -> "the duration model"), "downstream" cut,
+% "smoke test" cut (software-testing jargon), "composer" -> "composition
+% method" (last file needing this swap; done everywhere now), "sat/sits"
+% -> "clustered"/"remained near"/"falls". Table 3 caption's "Clipping is
+% a stability mechanism" rewritten to state the observed result
+% directly, per the audit's own suggested rewrite.
 
 \section{Empirical cross-term diagnostic}
 \label{sec:supp-cov}
@@ -23,13 +43,13 @@ real SPY path:
 \end{equation}
 Per-ticker values were plotted as histograms in
 Fig.~\ref{fig:cov_diag}. Across the $423$ tickers, the full-return
-JumpHMM generator (used by the hybrid and naive composers), the
-residual-fit JumpHMM generator (used by the
-JumpHMM-on-residuals composer), and the Gaussian baseline all sat
-tightly around zero, with no per-generator mean bias outside
-sampling tolerance (Fig.~\ref{fig:cov_diag}). The independence
-assumption was therefore satisfied for all three generators, and
-the derivation of Eq.~\eqref{eq:scale} held in practice.
+JumpHMM generator (used by the hybrid and naive composition
+methods), the residual-fit JumpHMM generator (used by the
+JumpHMM-on-residuals composition method), and the Gaussian baseline
+all clustered tightly around zero, with no per-generator mean bias
+outside sampling tolerance. The independence assumption was
+therefore satisfied for all three generators, and the derivation of
+Eq.~\eqref{eq:scale} held in practice.
 
 \begin{figure}[t]
   \centering
@@ -47,39 +67,38 @@ the derivation of Eq.~\eqref{eq:scale} held in practice.
 % =============================================================================
 % S2  Bias correction for daily-rebalanced backtests
 % Four flat paragraphs:
-%   (1) origin of the artifact (Booth-Fama identity + iid residuals)
+%   (1) origin of the bias (Booth-Fama identity + iid residuals)
 %   (2) empirical demonstration on a 20-asset allocator
-%   (3) the location-shift correction (formula, anchor, smoke test)
-%   (4) rejected alternatives + downstream-use guidance
+%   (3) the location-shift correction (formula, prior, validation check)
+%   (4) rejected alternatives
 % =============================================================================
 
 \section{Bias correction for daily-rebalanced backtests}
 \label{sec:supp-bias}
 
 This appendix derives the bias correction of
-Eq.~\eqref{eq:bias-correction}, introduced to close a
-diversification-return artifact: under daily rebalancing of the
-SIM-composed synthetic universe, the engine-raw ensemble median
-sits approximately $22$~percentage points above the long-run prior.
-The variance correction of Eq.~\eqref{eq:scale} is a precondition:
-it pins the synthetic per-asset second moments to their empirical
-targets, so the formula value of the diversification return on
-synthetic paths equals the formula value on real data. The gap is
-therefore not a structural consequence of the i.i.d.-residual draw at
-the second-order level; it attaches to higher-order Taylor terms,
-calibration drift, and the documented attenuation of realized
-diversification returns~\cite{boucheyNemtchinovWong2015}, which the
-location-shift correction absorbs as a single empirical drag on
-log-wealth.
+Eq.~\eqref{eq:bias-correction}. Under daily rebalancing of the
+SIM-composed synthetic universe, the raw ensemble median annualized
+growth rate runs approximately $22$~percentage points above the
+long-run prior. The variance correction of Eq.~\eqref{eq:scale} is a
+precondition: it pins the synthetic per-asset second moments to their
+empirical targets, so the formula value of the diversification return
+on synthetic paths equals the formula value on real data. This
+$22$-percentage-point difference is therefore not a structural
+consequence of the i.i.d.-residual draw at the second-order level; it
+comes from higher-order Taylor terms, calibration drift, and the
+documented attenuation of realized diversification
+returns~\cite{boucheyNemtchinovWong2015}, which the location-shift
+correction absorbs as a single empirical drag on log-wealth.
 
 The synthetic paths reproduce per-asset marginals and single-factor
-cross-sectional dependence faithfully but discard temporal structure
-in the residual draw: at each trading day the per-asset residual
+cross-sectional dependence but discard temporal structure in the
+residual draw: at each trading day the per-asset residual
 $\eps_i(t)$ is sampled independently from the previous day. Real
-equity residuals carry small but non-negligible serial dependence at
+equity residuals have small but non-negligible serial dependence at
 sub-monthly horizons \cite{cont2001}, so the i.i.d.-residual generator
-family used here drops a real feature of the data. To make the consequences precise for
-daily-rebalanced backtests, consider a portfolio of $N$
+family used here drops a real feature of the data. Consider a
+daily-rebalanced portfolio of $N$
 assets with constant target weights $w_i \ge 0$, $\sum_i w_i = 1$,
 reset to those weights at the start of each trading day. Throughout
 this derivation $g_i(t)$ is the annualized log-growth rate of
@@ -92,15 +111,11 @@ process is:
 \end{equation}
 so the per-step log return on the portfolio is
 $\log(W_t/W_{t-1}) = \log\!\sum_i w_i \exp(g_i(t)\,\Delta t)$. We
-expand this in two stages. A second-order Taylor expansion of the
-exponential about zero gives
+suppress the time argument, writing $g_i$ for $g_i(t)$. A
+second-order Taylor expansion of the exponential about zero,
 $\exp(g_i\,\Delta t) = 1 + g_i\,\Delta t + \tfrac{1}{2}(g_i\,\Delta t)^2
-+ O((g\,\Delta t)^3)$. We suppress the time argument inside the
-derivation, writing $g_i$ for $g_i(t)$. Substituting the Taylor
-expansion into each summand of $\sum_i w_i \exp(g_i\,\Delta t)$,
-distributing $w_i$ across the bracketed terms, pulling the
-$i$-independent factors $\Delta t$ and $(\Delta t)^2$ outside the
-sums, and applying $\sum_i w_i = 1$:
++ O((g\,\Delta t)^3)$, substituted into each summand of
+$\sum_i w_i \exp(g_i\,\Delta t)$ gives:
 \begin{align}
   \sum_{i} w_i \exp\!\big(g_i\,\Delta t\big)
    &= \sum_{i} w_i \!\left[\,1 + g_i\,\Delta t
@@ -125,7 +140,7 @@ correction is
 $x := \Delta t \sum_i w_i\, g_i + \tfrac{1}{2}(\Delta t)^2 \sum_i w_i\, g_i^2$,
 and squaring keeps only the leading $(\Delta t)^2$ term:
 $x^2 = (\Delta t)^2 (\sum_i w_i\, g_i)^2 + O((\Delta t)^3)$, since
-the cross term carries an extra $\Delta t$ factor. Substituting:
+the cross term has an extra $\Delta t$ factor. Substituting:
 \begin{align}
   \log\!\frac{W_t}{W_{t-1}}
    &= \log\!\Big(1 + x + O\!\big((g\,\Delta t)^3\big)\Big)
@@ -217,14 +232,14 @@ contributions:
 the Booth-Fama identity for the daily-rebalanced portfolio in
 annualized growth-rate units \cite{boothFama1992,
 markowitz1976longRun}. The middle term, $D$, is the diversification
-return: the $O(\Delta t)$ correction equal to half the gap between
-the weighted-average per-asset variance $\sum_i w_i \sigma_i^2$ and
-the portfolio variance $\sigma_p^2$. The per-rate
+return: the $O(\Delta t)$ correction equal to half the difference
+between the weighted-average per-asset variance $\sum_i w_i \sigma_i^2$
+and the portfolio variance $\sigma_p^2$. The per-rate
 moments $\mu_i$ and $\sigma_i^2$
-carry units $\mathrm{yr}^{-1}$ and $\mathrm{yr}^{-2}$ respectively;
+have units $\mathrm{yr}^{-1}$ and $\mathrm{yr}^{-2}$ respectively;
 the products $\Delta t\,\sigma_i^2$ and $\Delta t\,\sigma_p^2$ in
 Eq.~\eqref{eq:booth-fama} are the annualized variances
-($\mathrm{yr}^{-1}$) that finance practice reports directly. The
+($\mathrm{yr}^{-1}$). The
 third term in Eq.~\eqref{eq:booth-fama} is the cross-sectional
 dispersion of the per-asset annualized means, of order
 $\Delta t\,\mu^2 \sim 3\!\times\!10^{-5}~\mathrm{yr}^{-1}$ at
@@ -251,8 +266,8 @@ weights summing to one:
 so $D$ equals one-half the annualized weighted-average pairwise
 growth-rate-difference variance and is therefore non-negative, with equality only when every
 pair $(i,j)$ comoves perfectly ($\Var(g_i - g_j) = 0$) or all weight
-concentrates on a single asset. The mechanism is the rebalancing
-rule itself: weights drift between rebalances, the rebalancer sells
+concentrates on a single asset. The rebalancing rule itself produces
+this effect: weights drift between rebalances, the rebalancer sells
 whatever has outperformed (its weight rose above target) and buys
 whatever has underperformed (its weight fell below target), and the
 trade systematically converts period-by-period cross-sectional
@@ -272,7 +287,7 @@ Sec.~\ref{sec:supp-cov}), into Eq.~\eqref{eq:dr-pairwise} gives:
   \;+\; \Var(\eps_i - \eps_j),
 \end{equation}
 since $g_m$ and the residuals are uncorrelated, so the diversification
-return splits cleanly into a market-beta-dispersion component and an
+return splits into a market-beta-dispersion component and an
 idiosyncratic component:
 \begin{equation}
   D \;=\;
@@ -296,8 +311,8 @@ orthogonal across assets at the same time slice,
 $\Var(\eps_i - \eps_j) \approx \sigma_{\eps,i}^2 + \sigma_{\eps,j}^2$,
 and $D_\eps$ scales with the weighted-average annualized idiosyncratic
 variance $\Delta t\,\sigma_{\eps,i}^2$ per name. Concentrated allocators on
-high-idiosyncratic-volatility names therefore inherit large formula
-values of $D_\eps$ structurally.
+high-idiosyncratic-volatility names therefore have large formula
+values of $D_\eps$.
 
 The i.i.d.\ construction of the residual draw fixes both terms of
 Eq.~\eqref{eq:dr-sim}. The variance correction of
@@ -320,10 +335,9 @@ The synthetic-ensemble median across $1{,}000$ paths therefore
 converges to the same formula value whether the residuals are
 drawn i.i.d.\ or with positive serial autocorrelation: the i.i.d.\ versus
 AR(1) distinction shows up in per-path sampling noise, not in the
-ensemble median itself. The empirical excess of the
-engine-raw median over an external long-run growth prior,
-$\sim\!22$~percentage points, is therefore not a structural artifact
-of the i.i.d.\ sampling \emph{across time} at the level of the
+ensemble median itself. The raw median's $\sim\!22$-percentage-point
+excess over an external long-run growth prior is therefore not caused
+by i.i.d.\ sampling \emph{across time} at the level of the
 second-order formula; the AR(1)-versus-i.i.d.\ serial structure does
 not move it. The more direct structural contributor is contemporaneous:
 the split above assumes the residuals are orthogonal across assets at a
@@ -337,7 +351,7 @@ its real-market counterpart when the omitted residual covariance is
 positive; quantifying that contribution requires a joint-residual
 experiment we did not run. The residual excess beyond this contemporaneous term is
 the combined empirical magnitude of the higher-moment corrections to
-the Taylor expansion (heavy-tailed JumpHMM marginals carry non-trivial
+the Taylor expansion (heavy-tailed JumpHMM marginals have non-trivial
 third and fourth cumulants), the time-varying volatility and
 correlation across the $2014$--$2024$ calibration window relative to a
 long-run prior, and the documented attenuation of realized
@@ -373,7 +387,7 @@ LB test on $|G_t|$ (lag 20) & reject$^\ast$ ($p<0.001$) & reject$^\ast$ ($p<0.00
 \end{tabular}
 \end{table}
 
-To anchor the scale of the artifact, we deployed a $20$-asset
+To measure the scale of the bias, we deployed a $20$-asset
 long-only target-weight allocator (calibration window
 $2014$--$2024$, deployment year $2025$, names with calibrated
 $(\alpha, \beta)$ and $\max\beta = 1.21$, $5$~basis-point round-trip
@@ -382,15 +396,15 @@ decomposed the realized path-mean annualized growth rate
 $\bar g_p \equiv (T\,\Delta t)^{-1}\,\log(W_{p,T}/W_{p,0})$ into
 static and rebalancing-driven components
 (Table~\ref{tab:allocator_decomp}). The static-to-daily-rebalance
-switch on the same target weights produced the $+27.73$ percentage-point
-jump that isolates the diversification-return term of
+switch on the same target weights produced a $+27.73$ percentage-point
+increase that isolates the diversification-return term of
 Eq.~\eqref{eq:booth-fama}; adding a signal on top of the daily
-rebalance moved the median by a further $+0.13$~pp, immaterial
-compared with the rebalancing-driven bonus. The same allocator on
-the real $2025$ growth-rate history produced
+rebalance moved the median by a further $+0.13$~pp, negligible
+next to the rebalancing-driven diversification return. The same
+allocator on the real $2025$ growth-rate history produced
 $11.5\%/\mathrm{yr}$, leaving the synthetic median running
-$\sim\!22$~percentage points above reality. The decomposition makes
-clear that the gap is a structural feature of the i.i.d.-residual
+$\sim\!22$~percentage points above reality. The decomposition shows
+that this difference is a structural feature of the i.i.d.-residual
 generator family rather than a calibration error: the allocator
 choice, the cost model, the marginal calibration, and the
 cross-sectional structure all behave on synthetic paths exactly as
@@ -407,7 +421,7 @@ residual draw differs.
     buy-and-hold serves as a passive baseline; the target-weight
     allocation is reported under static (no intra-year rebalance) and
     daily-rebalanced regimes, with and without a signal on top of the
-    target weights. The static-to-daily jump of $+27.73$~pp on the
+    target weights. The static-to-daily increase of $+27.73$~pp on the
     same target weights isolates the diversification return of
     Eq.~\eqref{eq:dr-sim}. The same allocator deployed against the
     real $2025$ growth-rate history is shown for comparison.}
@@ -435,28 +449,28 @@ Target-weight, daily rebalanced + signal           & $29.83$ \\ \midrule
     \emph{Left:} excess kurtosis, $y$-axis clipped to $[-2, 20]$ for
     readability. The dashed line marks the median real-data excess
     kurtosis across the universe ($\kappa_{\real} \approx 13$); the
-    hybrid and naive composers (orange and blue) track the generator's
+    hybrid and naive composition methods (orange and blue) track the generator's
     kurtosis, while Gaussian SIM collapses to $\kappa \approx 1$.
     \emph{Right:} Hill tail-index estimator on the upper $5\%$ of
-    $|g|$. The hybrid and naive medians sit near $0.37$ throughout the
+    $|g|$. The hybrid and naive medians remain near $0.37$ throughout the
     $\beta$ range; Gaussian SIM drops to $\sim 0.22$, indicating the
     shift toward a thinner-tailed distribution. The hybrid's median
-    sitting below $\kappa_{\real}$ reflects the JumpHMM marginal's own
+    being below $\kappa_{\real}$ reflects the JumpHMM marginal's own
     kurtosis rather than a composition-rule distortion: hybrid tracks
-    naive (inheriting generator tails) while Gaussian SIM does not.}
+    naive (both retain the generator's tails) while Gaussian SIM does not.}
   \label{fig:tails}
 \end{figure}
 
-The correction acts in log-wealth space by subtracting a constant
-drift from every path, chosen so the ensemble median annualized growth
+The correction acts in log-wealth space, subtracting a constant
+drift from every path so that the ensemble median annualized growth
 rate matches an external long-run prior $\bar g^{\mathrm{prior}}$. At
 any fixed step the transform is monotone in $W_{p,t}$, so it leaves the
-cross-path rank order by terminal wealth intact, and because it shifts
-every log-return increment by the same constant it leaves per-path
-increment variances (the volatility envelope) unchanged. Multiplying
-each path-$p$ wealth trajectory $W_{p,t}$ at integer step $t$ by a
-uniform exponential drag at rate $b$ that closes the gap between the
-engine's median annualized growth rate and the prior
+cross-path rank order by terminal wealth intact; because it shifts
+every log-return increment by the same constant, it also leaves
+per-path increment variances (the volatility envelope) unchanged. Each
+path-$p$ wealth trajectory $W_{p,t}$ at integer step $t$ is multiplied
+by a uniform exponential drag at rate $b$, set to close the difference
+between the raw median annualized growth rate and the prior
 $\bar g^{\mathrm{prior}}$:
 \begin{equation}
 \label{eq:bias-correction}
@@ -466,30 +480,30 @@ $\bar g^{\mathrm{prior}}$:
   b \;=\; \operatorname*{median}_{p}\bar g_p \;-\; \bar g^{\mathrm{prior}},
 \end{equation}
 with $\Delta t$ the integration step in years and $b$, $\bar g_p$,
-$\bar g^{\mathrm{prior}}$ all in the same per-year growth-rate units,
-accomplishes exactly this. Working in $\log$-space keeps the correction multiplicative on wealth,
+$\bar g^{\mathrm{prior}}$ all in the same per-year growth-rate units.
+Working in $\log$-space keeps the correction multiplicative on wealth,
 the natural scale for compounding returns. Because the drift subtracted
 per unit time is constant, the correction is a linear detrend in
 log-wealth: it does shift drawdown dates and depths within a path, so
 it is a level calibration rather than a drawdown-preserving transform.
 What it preserves is the cross-path terminal-wealth ordering and the
-per-path volatility envelope, the properties the downstream ranking and
+per-path volatility envelope, the properties later ranking and
 risk diagnostics rely on. The prior $\bar g^{\mathrm{prior}}$ is set from
 external long-run data and is typically near $8\%/\mathrm{yr}$ at
-the time of writing, decomposable into the
+the time of writing: the
 prevailing risk-free rate (roughly $4.5\%/\mathrm{yr}$ on a
-five-year Treasury basis), the historical long-run equity premium
+five-year Treasury basis) plus the historical long-run equity premium
 of $4$--$6$~pp \cite{damodaranERP, ibbotsonSBBI}, less $1$--$2$~pp
 for fees, turnover, and market-impact frictions, leaving
-$\sim\!3.5$~pp of active premium net of costs. Anchoring to a
-documented prior rather than to the realized test-year outcome
-avoids circular calibration: anchoring to the realized year would
+$\sim\!3.5$~pp of active premium net of costs. Using a
+documented prior instead of the realized test-year outcome
+avoids circular calibration: matching the realized year would
 force the synthetic median to collapse onto the test sample by
-construction and would misrepresent typical years (in our
+construction and would misrepresent typical years. In our
 deployment, the realized $2025$ was an above-typical equity year,
-so anchoring to its $11.5\%/\mathrm{yr}$ outcome would have
+so matching its $11.5\%/\mathrm{yr}$ outcome would have
 suppressed the corrected ensemble below its appropriate long-run
-level). We verified the anchor on a smoke test: the corrected
+level. As a check, the corrected
 ensemble matched the prior at its median by construction, and the
 real-$2025$ outcome landed at the $63$rd percentile of the corrected
 ensemble, consistent with $2025$ being an above-typical equity year.
@@ -503,7 +517,7 @@ ensemble, consistent with $2025$ being an above-typical equity year.
     $2014$--$2024$ window. The two tickers crossing the
     $R^2_{\mathrm{preserve}} = 0.80$ threshold (dashed line) are index
     ETFs (QQQ, SPYG); the highest-$R^2$ individual stock (BLK, $0.645$)
-    sits $\sim 0.16$ below the threshold. The $R^2$-preserving
+    falls $\sim 0.16$ below the threshold. The $R^2$-preserving
     branch's $n = 2$ occupancy is therefore a property of the
     single-factor SIM on S\&P 500 names against SPY, not a
     sample-size artifact or a data-peeked threshold.}
@@ -513,37 +527,37 @@ ensemble, consistent with $2025$ being an above-typical equity year.
 Several alternative fixes were considered and rejected. A
 path-filtering rule that drops synthetic paths above a $\bar g_p$
 threshold turns the threshold itself into a tuning target and
-removes only a subset of the artifact's consequences while leaving
-the structural artifact intact. Inflating per-trade transaction
-costs to absorb the bonus would require round-trip costs of
-$\sim\!70$~basis points versus the realistic $1$--$10$~basis points
-seen on liquid US equity, shifting the misrepresentation from the
-synthetic generator to its cost model. Drifting the
+removes only a subset of the bias's consequences while leaving
+the underlying bias intact. Inflating per-trade transaction
+costs to absorb the diversification return would require round-trip
+costs of $\sim\!70$~basis points versus the realistic $1$--$10$~basis
+points seen on liquid US equity, shifting the misrepresentation from
+the synthetic generator to its cost model. Drifting the
 calibrated parameters between calibration and deployment to widen
 the predictive envelope, with drift scale varied across
 $\{0, 1, 2, 3, 5\}$ multiples of the OLS standard error, moved the
 median Sharpe ratio by less than $0.01$ across the sweep,
-confirming that $\beta$ is estimated too tightly for SE-scale
-drift to absorb the artifact. Imposing an AR(1) on the residual
-draw inside the existing pipeline would conflict with the copula
+confirming that $\beta$ is estimated too tightly for standard-error-scale
+drift to absorb the bias. Imposing an AR(1) on the residual
+draw inside the existing construction would conflict with the copula
 reorder step, which destroys temporal structure by construction;
 recovering the AR(1) requires a block-ordered copula sampler,
-which is a structural redesign rather than a downstream
-correction. The block bootstrap of empirical
+which is a structural redesign rather than a correction applied to
+already-composed paths. The block bootstrap of empirical
 residuals~\cite{politisRomano1994}, applied per ticker as here,
 preserves each ticker's own temporal residual structure but not the
 contemporaneous cross-asset covariance (a joint or aligned bootstrap,
 or a residual copula, would be required for that); it is a valid
-alternative generator pipeline, listed as a future-work item that
-replaces the JumpHMM marginal rather than correcting it. A multiplicative haircut on the engine-versus-static
+alternative generator, listed as a future-work item that
+replaces the JumpHMM marginal rather than correcting it. A multiplicative haircut on the raw-versus-static
 deviation,
 $W^{\mathrm{corr}} = W_{\mathrm{static}}\cdot
-   (W_{\mathrm{engine}}/W_{\mathrm{static}})^{k}$, hits the same
-anchor at $k$ chosen to match the prior, but its per-path rank
-correlation with the raw engine drops well below one, so unlike the
+   (W_{\mathrm{raw}}/W_{\mathrm{static}})^{k}$, hits the same
+target at $k$ chosen to match the prior, but its per-path rank
+correlation with the raw path drops well below one, so unlike the
 location shift it reorders which paths are best and worst; it also
-inherits static-allocation drawdown geometry (drawdowns widen
-materially relative to the raw engine).
+has static-allocation drawdown geometry, with drawdowns widening
+materially relative to the raw path.
 
 The location-shift correction of Eq.~\eqref{eq:bias-correction}, by
 contrast, preserves the per-path rank order and the volatility
@@ -557,9 +571,9 @@ uncorrected ensemble. It does not remove the underlying i.i.d.-residual
 limitation, so
 the residual autocorrelation structure itself, absolute Sharpe
 under daily rebalancing, and the choice of rebalancing frequency
-remain outside the scope of the correction; the structural fix for
-those targets is the AR(1) or GARCH residual structure
-restructured around the copula reorder, listed as future work.
+remain unaddressed by the correction; the structural fix for
+those targets requires redesigning the AR(1) or GARCH residual
+structure around the copula reorder step, listed as future work.
 
 % =============================================================================
 % S3 Validation metric definitions (KS, AD, W1, Hellinger)
@@ -632,21 +646,21 @@ empirical CDF closely, with the $99$ vertical lines marking the
 equal-probability quantile boundaries $Q_k$ that define the hidden
 states, confirming the Laplace fit as an accurate marginal model
 for the SPY excess growth-rate series and validating the partition
-rule of Eq.~\eqref{eq:growth_rate}. Plotting the estimated
-transition matrix $\mathbf{T}$ in $\log_{10}$ color scale, a
-dominant near-diagonal band reflects short-range regime persistence,
+rule of Eq.~\eqref{eq:growth_rate}. The estimated
+transition matrix $\mathbf{T}$, plotted in $\log_{10}$ color scale, shows a
+dominant near-diagonal band that reflects short-range regime persistence,
 with most off-diagonal mass concentrated within $\pm 5$ states of
 the diagonal. The expected natural residence time
-$1/(1 - T_{kk})$ for each state on a $\log_{10}$ scale, with the
+$1/(1 - T_{kk})$ for each state, plotted on a $\log_{10}$ scale, with the
 bottom tail set $\mathcal{S}_{-}$ (states $1$--$5$, red) and the
 top tail set $\mathcal{S}_{+}$ (states $96$--$100$, teal)
-highlighted, makes the gap to the empirical clustering scale
-explicit. Under pure Markovian dynamics every state, including
+highlighted, shows how far these residence times fall short of the
+empirical clustering scale. Under pure Markovian dynamics every state, including
 the tail states, exits within $1$--$2$ steps on average, far too
 quickly to reproduce empirical volatility clustering; the dashed
-line marks the operating-point mean jump duration $\lambda = 100$
+line marks the fitted mean jump duration $\lambda = 100$
 steps and quantifies the two-order-of-magnitude gap between natural
-residence times and the Poisson jump override. Quantile-bin occupancy was
+residence times and the jump-duration override. Quantile-bin occupancy was
 approximately uniform over the in-sample window, consistent with the
 Laplace fit's calibration to the empirical CDF; the residual
 sample-size variation across bins was smaller than the within-bin
@@ -666,7 +680,7 @@ support.
     $1/(1 - T_{kk})$ for each state on a $\log_{10}$ scale, with the
     bottom tail set $\mathcal{S}_{-}$ (states $1$--$5$, red) and the
     top tail set $\mathcal{S}_{+}$ (states $96$--$100$, teal)
-    highlighted. The dashed horizontal line marks the operating-point
+    highlighted. The dashed horizontal line marks the fitted
     mean jump duration $\lambda = 100$ steps, quantifying the
     two-order-of-magnitude gap between natural residence times and the
     jump-duration override.}
@@ -677,15 +691,15 @@ support.
 \label{sec:supp-emission-hsmm}
 
 To isolate the contributions of the emission family and the
-persistence mechanism, we compared three variants on SPY
+duration model, we compared three variants on SPY
 (Table~\ref{tab:emission_hsmm}): the HSMM baseline of Bulla and
 Bulla \cite{bullaBulla2006} ($K = 8$ states, negative-binomial
 dwell times, Student-$t$ emissions), HMM-WJ with the original
 Gaussian emissions ($N = 100$), and HMM-WJ with Student-$t$
 emissions ($N = 100$). The HMM-WJ variants exceeded the HSMM on
 in-sample distributional fidelity by $15$ percentage points on KS
-and $49$ percentage points on AD regardless of emission choice,
-attributing that gap to the fine-grained quantile partition over
+and $49$ percentage points on AD regardless of emission choice; we
+attribute this difference to the fine-grained quantile partition over
 the coarse $K = 8$ HSMM partition. Holding the
 HMM-WJ machinery fixed, the Student-$t$ ($\nu = 5$) upgrade over the
 Normal baseline closed the in-sample excess-kurtosis gap from a $5.5$
@@ -699,7 +713,7 @@ single-year ($T = 249$) sample.
 \begin{table}[tbp]
 \centering
 \caption{\textbf{Three-way comparison isolating the emission
-    distribution and the persistence mechanism for SPY.} Standard
+    distribution and the duration model for SPY.} Standard
     errors in parentheses; bold marks the best value per row. HSMM:
     hidden semi-Markov model ($K = 8$ states, negative-binomial dwell
     times, Student-$t$ emissions) \cite{bullaBulla2006}; HMM-WJ:
@@ -739,7 +753,7 @@ Hellinger           & $0.239$ ($0.001$)       & $0.212$ ($0.001$)       & $\math
 % --- Table: Hybrid composer broken out by branch ---
 \begin{table}[tbp]
   \centering
-  \caption{\textbf{Hybrid composer broken out by branch.}
+  \caption{\textbf{Hybrid composition method broken out by branch.}
     $N_{\mathrm{tickers}}$: number of tickers assigned to each branch by
     the $R^2_{\mathrm{preserve}} = 0.80$ threshold. The clipped
     variance-preserving branch does not trigger anywhere in the
@@ -766,7 +780,7 @@ reduced ability to track tail behavior. At $N = 350$ several quantile
 bins were never visited in the historical record, leaving the
 corresponding emission parameters undefined; this set the practical
 upper bound on $N$ for the SPY in-sample window. We adopted $N = 100$
-as the operating point for all subsequent experiments.
+for all subsequent experiments.
 
 % =============================================================================
 % S8 Cross-asset generalization (NVDA, JNJ, JPM)
@@ -792,13 +806,13 @@ as the operating point for all subsequent experiments.
 % --- Table: Per-beta-bucket breakdown ---
 \begin{table}[tbp]
   \centering
-  \caption{\textbf{Aggregate metrics by $\beta$ quartile, across composers.}
+  \caption{\textbf{Aggregate metrics by $\beta$ quartile, across composition methods.}
     Quartile cutoffs are computed from the calibrated $\beta$ distribution
     across the $423$-ticker universe. The hybrid KS pass rate declines
     gently from $67\%$ in Q1 to $44\%$ in Q4 as the market loading ratio
     $\rho_i$ grows, consistent with the tail-attenuation caveat noted
-    alongside Algorithm~\ref{alg:hybrid}; naive collapses from $16\%$
-    to under $1\%$ over the same range.}
+    alongside Algorithm~\ref{alg:hybrid}; the naive KS pass rate falls
+    from $16\%$ to under $1\%$ over the same range.}
   \label{tab:beta_bucket}
   \small
   \input{sections/tables/table3_by_beta_bucket}
@@ -810,10 +824,9 @@ as the operating point for all subsequent experiments.
 \caption{\textbf{Clipping-branch stress test under market-volatility
     scaling.} The market growth-rate path was rescaled by
     $\gamma \in \{1, 2, 3\}$ with the calibrated marginals held fixed,
-    and the full hybrid composer re-evaluated on the $423$-ticker
-    universe. Clipping is a stability mechanism: as $\gamma$ rises the
-    share of clipped tickers grows and the hybrid KS pass rate
-    increases rather than degrading.}
+    and the full hybrid composition method re-evaluated on the $423$-ticker
+    universe. As $\gamma$ rises, the share of clipped tickers grows and
+    the hybrid KS pass rate increases rather than falls.}
 \label{tab:stress}
 \small
 \begin{tabular}{@{}rrr@{}}
@@ -836,9 +849,9 @@ $3$ & $95.2$ & $77.3$ \\
     rows index the idiosyncratic floor $f \in \{0.05, 0.10, 0.15,
     0.20, 0.30\}$. Hybrid KS pass rate varies from $50.24\%$ to
     $50.38\%$ across the $25$ cells, a spread of $0.14$ percentage
-    points. The operating point $(0.80, 0.10)$ used throughout the
-    paper is indistinguishable from every other grid point within
-    sampling noise, indicating that the headline result is not a
+    points. The parameter values $(0.80, 0.10)$ used throughout the
+    paper are indistinguishable from every other grid point within
+    sampling noise, indicating that the main result is not a
     data-peeked local optimum.}
   \label{fig:sensitivity}
 \end{figure}
@@ -846,8 +859,8 @@ $3$ & $95.2$ & $77.3$ \\
 \section{Cross-asset generalization}
 \label{sec:supp-cross-asset}
 
-To verify that the hybrid HMM framework generalized beyond SPY, we
-re-ran the full fit-and-validate pipeline on three single-stock
+To verify that the hybrid HMM generalized beyond SPY, we
+re-ran the full fit-and-validate procedure on three single-stock
 tickers chosen to span sector and volatility regimes: NVDA
 (semiconductors, high volatility), JNJ (consumer staples, low
 volatility), and JPM (financials, moderate volatility). Per-ticker
@@ -861,7 +874,7 @@ $n_{\mathrm{paths}}$; the $(\epsilon^{*}, \lambda^{*})$ values in
 the table are reproducible at the stated configuration but should
 not be over-interpreted as canonical per-ticker optima. The
 quantities the tune procedure produces reliably are the resulting
-distributional metrics at the chosen operating point: in-sample
+distributional metrics at the chosen parameter values: in-sample
 HMM-WJ KS pass rates exceeded $98.9\%$ on all three tickers,
 indicating a close fit to each ticker's training-window
 distribution. Out-of-sample generalization on the $249$-day $2025$
@@ -885,7 +898,7 @@ the SPY series exhibited.
     $(\epsilon^{*}, \lambda^{*})$ values are reproducible at the
     stated tune configuration but the composite objective has
     multiple near-equivalent local minima, so they are reported as
-    the operating points used for the IS / OoS fit metrics rather
+    the parameter values used for the IS / OoS fit metrics rather
     than as canonical per-ticker optima.}
 \label{tab:cross_asset}
 \small
@@ -911,7 +924,7 @@ JPM (financials)         & $10^{-4}$ & $80$ & $99.1$ ($0.3$) & $95.7$ ($0.6$) & 
     seed running the full $423$-ticker $\times\, 100$-replication
     protocol. Conditional-variance paths for GARCH(1,1)-$t$ are
     re-simulated at scoring time so its seed SD is informative. The
-    between-composer differences in KS pass rate exceed the
+    between-composition-method differences in KS pass rate exceed the
     seed-induced SD by roughly two orders of magnitude (hybrid SD
     $0.18$ pp vs $25$ pp gap to JumpHMM-on-residuals).}
   \label{tab:seed_uncertainty}
@@ -957,7 +970,7 @@ identity for Eq.~\eqref{eq:sim-composition}:
 \begin{equation}
   R^2 \;=\; \frac{\beta_i^2\, \sigma_m^2}{\beta_i^2\, \sigma_m^2 + \sigma_{\eps,i}^2},
 \end{equation}
-and invert for the residual variance that hits the calibrated $R^2$;
+and invert for the residual variance that matches the calibrated $R^2$;
 the result is the boxed Eq.~\eqref{eq:r2-target}.
 By construction the composed series $g_i$ then satisfies the three
 preservation criteria in the large-$T$ limit. OLS of $g_i$ on $g_m$
@@ -974,7 +987,7 @@ $\beta_i^2 \sigma_m^2 / R^2_{i,\real}$, the value implied by the
 calibrated $(\beta_i, R^2_{i,\real})$ rather than by the generator
 marginal. Tail behavior on the variance-preserving branch follows
 from the floor: because at least $f\,\sigma_{\gen,i}^2$ of the
-variance is reserved for $\eps_i$, the tails inherited from $\tg_i$
+variance is reserved for $\eps_i$, the tails of $\tg_i$
 dominate whenever $(\beta_i^{\eff})^2 \sigma_m^2$ is small relative
 to those tails, while as $\beta_i$ grows the marginal of $g_i$
 tightens toward Gaussian along the market-driven axis, mildly for

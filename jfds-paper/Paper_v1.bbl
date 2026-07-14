@@ -1,4 +1,4 @@
-\begin{thebibliography}{58}
+\begin{thebibliography}{57}
 \providecommand{\natexlab}[1]{#1}
 \providecommand{\url}[1]{\texttt{#1}}
 \expandafter\ifx\csname urlstyle\endcsname\relax
@@ -141,17 +141,6 @@ Jeff~A. Bilmes.
 \newblock Technical Report TR-97-021, International Computer Science Institute,
   1998.
 
-\bibitem[Cho et~al.(2014)Cho, van Merri\"enboer, Gulcehre, Bahdanau, Bougares,
-  Schwenk, and Bengio]{choEtAl2014gru}
-Kyunghyun Cho, Bart van Merri\"enboer, Caglar Gulcehre, Dzmitry Bahdanau, Fethi
-  Bougares, Holger Schwenk, and Yoshua Bengio.
-\newblock Learning phrase representations using {RNN} encoder-decoder for
-  statistical machine translation.
-\newblock In \emph{Proceedings of the 2014 Conference on Empirical Methods in
-  Natural Language Processing (EMNLP)}, pages 1724--1734. Association for
-  Computational Linguistics, 2014.
-\newblock \doi{10.3115/v1/D14-1179}.
-
 \bibitem[Lux and Marchesi(1999)]{luxMarchesi1999}
 Thomas Lux and Michele Marchesi.
 \newblock Scaling and criticality in a stochastic multi-agent model of a
@@ -267,14 +256,6 @@ Nguyet Nguyen.
   (2):\penalty0 36, 2018.
 \newblock \doi{10.3390/ijfs6020036}.
 
-\bibitem[Berghaus et~al.(2024)Berghaus, Cvejoski, Seifner, Ojeda, and
-  S\'{a}nchez]{berghausEtAl2025}
-David Berghaus, Kostadin Cvejoski, Patrick Seifner, C\'{e}sar Ojeda, and
-  Rams\'{e}s~J. S\'{a}nchez.
-\newblock Foundation inference models for {Markov} jump processes.
-\newblock In \emph{Advances in Neural Information Processing Systems 37
-  (NeurIPS 2024)}, 2024.
-
 \bibitem[Dias et~al.(2010)Dias, Vermunt, and Ramos]{diasVermuntRamos2010}
 José~G. Dias, Jeroen~K. Vermunt, and Sofia Ramos.
 \newblock Mixture hidden {Markov} models in finance research.
@@ -389,6 +370,17 @@ Dimitris~N. Politis and Joseph~P. Romano.
 \newblock \emph{Journal of the American Statistical Association}, 89\penalty0
   (428):\penalty0 1303--1313, 1994.
 \newblock \doi{10.1080/01621459.1994.10476870}.
+
+\bibitem[Cho et~al.(2014)Cho, van Merri\"enboer, Gulcehre, Bahdanau, Bougares,
+  Schwenk, and Bengio]{choEtAl2014gru}
+Kyunghyun Cho, Bart van Merri\"enboer, Caglar Gulcehre, Dzmitry Bahdanau, Fethi
+  Bougares, Holger Schwenk, and Yoshua Bengio.
+\newblock Learning phrase representations using {RNN} encoder-decoder for
+  statistical machine translation.
+\newblock In \emph{Proceedings of the 2014 Conference on Empirical Methods in
+  Natural Language Processing (EMNLP)}, pages 1724--1734. Association for
+  Computational Linguistics, 2014.
+\newblock \doi{10.3115/v1/D14-1179}.
 
 \bibitem[Bouchey et~al.(2015)Bouchey, Nemtchinov, and
   Wong]{boucheyNemtchinovWong2015}

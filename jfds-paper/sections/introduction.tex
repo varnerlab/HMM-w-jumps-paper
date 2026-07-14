@@ -1,33 +1,29 @@
 % introduction.tex
-% Three-paragraph structure (JDIQ-style narrative flow):
+% Three-paragraph structure (language-audit pass, 2026-07-14; see
+% project_language_audit_2026-07-14 memory):
 % (1) synthetic data motivation, stylized facts, Fig 1;
 % (2) survey of generative approaches and their failure modes on the
-%     stylized facts;
-% (3) contribution: hybrid HMM-WJ on a 424-asset universe, validated
-%     against seven baselines, with the multi-asset extension folded
-%     in as one sentence and a closing contrast.
+%     stylized facts, compacted into one comparison sentence;
+% (3) single "In this study" contribution paragraph: hybrid HMM-WJ
+%     (exhaustive metric/baseline list moved to Methods) folded
+%     together with the multi-asset extension (variance correction +
+%     diversification-return caveat, two sentences); VaR check moved
+%     out (defined instead at its first true use in results.tex).
 
-Generating synthetic financial time series that faithfully preserve
-the statistical properties of real market data is a central challenge
-in quantitative finance. Synthetic paths are often used for stress testing
-risk models against plausible but unobserved market scenarios,
-validating portfolio optimization algorithms, augmenting limited
-training sets for machine-learning pipelines, and Monte Carlo
-backtesting of allocators across many independent scenarios
-\cite{assefaEtAl2020, jordonEtAl2022}. Empirical equity excess growth
-rates exhibit three statistical regularities a faithful generative
-framework must reproduce: a heavy-tailed (leptokurtic)
-marginal distribution, negligible linear autocorrelation of raw
-growth rates, and persistent volatility clustering, in which large changes in growth rates
-are followed by large changes of either sign and small changes by
-small changes \cite{mandelbrot1963, cont2001, stengerEtAl2024}. All
-three are visible in SPY daily excess growth rates over $2014$--$2024$
-(Fig.~\ref{fig:empirical_motivation}): the marginal density is
-sharply peaked with heavy tails that a Gaussian fit cannot reproduce, the
-quantile-quantile plot bends away from the Gaussian line at both tails, and the autocorrelation of absolute growth rates decays slowly
-while the autocorrelation of raw growth rates sits near zero. These
-regularities, called \emph{stylized facts}, are the benchmark for
-synthetic financial data.
+Synthetic financial data often fail to reproduce the statistical
+properties of real returns. These paths are used to stress-test risk
+models against unobserved market scenarios, validate portfolio
+optimization algorithms, and Monte Carlo backtest allocators across
+many independent scenarios~\cite{assefaEtAl2020, jordonEtAl2022}.
+Empirical equity excess growth rates exhibit three statistical
+regularities a generative model must reproduce: a heavy-tailed
+marginal distribution, weak autocorrelation of raw growth rates, and
+persistent volatility clustering, in which large changes are
+followed by large changes and small changes by small changes~\cite{mandelbrot1963, cont2001, stengerEtAl2024}. All three patterns
+are visible in SPY daily excess growth rates from $2014$--$2024$
+(Fig.~\ref{fig:empirical_motivation}). These regularities, called
+\emph{stylized facts}, are the benchmark for synthetic financial
+data.
 
 \begin{figure}[tbp]
     \centering
@@ -38,7 +34,7 @@ synthetic financial data.
     peak and tails while the Gaussian fit does not. Panel~(b) confirms
     heavy tails through a normal quantile-quantile plot, with departure
     from the diagonal at both extremes. Panel~(c) shows the
-    autocorrelation function of raw excess growth rates, which sits
+    autocorrelation function of raw excess growth rates, which stays
     near zero across all lags and is consistent with the efficient
     markets hypothesis. Panel~(d) shows the autocorrelation function
     of absolute excess growth rates, which decays slowly and signals
@@ -47,69 +43,42 @@ synthetic financial data.
     \label{fig:empirical_motivation}
 \end{figure}
 
-Existing generative approaches typically capture some of these regularities
-but fail at others. For example, the generalized autoregressive
-conditional heteroskedasticity (GARCH) family
-\cite{engle1982, bollerslev1986} captures volatility clustering but
-leaves light-tailed marginals unless fed a fat-tailed innovation. 
-Stochastic-volatility and jump-diffusion
-models \cite{heston1993, merton1976, kou2002} enrich tail behavior
-but offer no mechanism for persistence after a jump. Deep generative
-models \cite{takahashiEtAl2019, yoonEtAl2019timegan, kwonLee2024} can
-learn complex marginals yet routinely miss the absolute-return
-autocorrelation that defines volatility clustering. Hidden Markov
-models (HMMs) \cite{rabinerJuang1986} offer a probabilistic
-regime-switching structure, yet standard HMMs revert too quickly
-to central regimes
-after extreme events and fail to dwell in high-volatility tail states
-long enough to reproduce the empirical clustering profile
-\cite{rydenTerasvirtaAsbrink1998, bullaBulla2006}. 
-Bridging the gap between the stylized facts requires a framework that preserves both distributional fidelity and
-temporal structure while remaining computationally scalable
-to large asset universes.
+Existing generative approaches typically reproduce some of these
+regularities but not others. The generalized autoregressive
+conditional heteroskedasticity (GARCH) family~\cite{engle1982,
+bollerslev1986} captures volatility clustering but needs a
+fat-tailed innovation to reproduce heavy tails; stochastic-volatility
+and jump-diffusion models~\cite{heston1993, merton1976, kou2002}
+enrich tail behavior but do not persist after a jump; deep generative
+models~\cite{takahashiEtAl2019, yoonEtAl2019timegan, kwonLee2024}
+learn complex marginals but routinely miss the absolute-return
+autocorrelation that defines volatility clustering; and standard
+hidden Markov models (HMMs)~\cite{rabinerJuang1986} offer a
+regime-switching structure but revert to central regimes too quickly
+to dwell in tail states long enough to reproduce the empirical
+clustering profile~\cite{rydenTerasvirtaAsbrink1998, bullaBulla2006}.
+We therefore sought a model that retained distributional fit while
+improving volatility persistence and remaining practical for large
+asset universes.
 
-In this study, we developed a hybrid hidden Markov framework that
-pairs a Laplace-quantile state partition with a Poisson
-jump-duration mechanism to reproduce all three stylized facts. The Laplace partition
-lets the transition matrix be estimated by direct frequentist
-counting, bypassing the iterative Baum-Welch algorithm
-\cite{baumPetrieSoulesWeiss1970, bilmes1998}, and easily scales to a $424$-asset pipeline. 
-The Poisson override forces the chain to dwell in high-volatility tail states for
-empirically realistic durations, closing the volatility-clustering
-gap that standard HMMs leave open. Within each state we used a
-Student-$t$ emission to accommodate the heavy tails that Normal
-emissions miss. We validated the
-framework on a $424$-ticker US equity and exchange-traded fund
-(ETF) universe calibrated
-against the $2014$--$2024$ SPY history, with $2025$ held out for
-out-of-sample evaluation, scoring synthetic paths against seven
-alternative generators (bootstrap, Gaussian, Laplace, GARCH(1,1), a
-hidden semi-Markov model \cite{bullaBulla2006}, a hidden Markov model
-without jumps, and a Gated Recurrent Unit \cite{choEtAl2014gru}
-neural baseline) on Kolmogorov-Smirnov (KS), Anderson-Darling
-(AD), Wasserstein-$1$, and Hellinger pass rates for distributional
-fidelity, together with the autocorrelation function of absolute
-growth rates for volatility clustering. 
-
-Extending the framework to
-multi-asset workflows required addressing a known limitation of the
-naive single-index composition: drawing the residual from a per-asset
-generator inflates the composed marginal variance quadratically in
-the factor loading. We closed this limitation with a closed-form
-variance correction that restores each ticker's empirical variance
-after factor composition, so the composed marginal matches its
-calibration target rather than the inflated naive composition. 
-Next, allocator backtests run on synthetic data face a separate
-multi-asset artifact: drawing each asset's residual independently
-of the others exaggerates the daily cross-sectional spread among
-assets, and daily rebalancing converts that excess spread into
-spurious portfolio gains on any synthetic series generated using
-this approach. We corrected the resulting level inflation with a
-calibrated location-shift on each ticker's drift, anchored to a
-long-run prior. Finally, since tail-risk applications such as stress
-testing and risk-model validation rely on calibrated Value-at-Risk
-(VaR) thresholds, for each ticker we estimated a one-day VaR threshold
-from the composed path and checked whether its breach frequency
-against the real growth-rate history matched the nominal coverage
-level (a one-day VaR coverage check scored by Kupiec's
-unconditional-coverage test).
+In this study, we developed a hybrid hidden Markov model with a
+jump-duration mechanism (HMM-WJ) that pairs a Laplace-quantile state
+partition with a Student-$t$ emission and a Poisson-distributed
+jump-duration override. The Laplace partition lets the transition
+matrix be estimated by direct frequentist counting rather than the
+iterative Baum-Welch algorithm~\cite{baumPetrieSoulesWeiss1970,
+bilmes1998}, which scales to a $424$-asset universe. We fitted the
+model to a decade of SPY history, held out $2025$ for out-of-sample
+evaluation, and scored the synthetic paths against seven baseline
+generators on distributional and temporal fidelity. Extending the
+model to multi-asset applications required correcting
+a known limitation of single-index composition, in which drawing
+each asset's residual from a per-asset generator inflates the
+composed marginal's variance quadratically in the factor loading; we
+derived a closed-form scale correction that restores each ticker's
+target variance after factor composition. Independent per-asset
+residuals also exaggerate the daily cross-sectional spread among
+assets, so daily-rebalanced portfolios built from these paths can
+overstate diversification gains; we report this bias and a
+location-shift adjustment set to a long-run prior, but the
+adjustment does not restore the missing cross-asset dependence.

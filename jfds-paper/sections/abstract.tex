@@ -1,35 +1,32 @@
 % abstract.tex
-% Single dense paragraph, narrative, no results numbers.
+% Single dense paragraph, narrative. Order: problem, method, SPY result
+% and tradeoff (with numbers), multi-asset variance result, one-sentence
+% limitation, code availability. Target ~200-230 words (language-audit
+% pass, 2026-07-14; see project_language_audit_2026-07-14 memory).
 
-Synthetic equity return paths underpin stress testing, portfolio
-validation, and training data for machine-learning pipelines, yet
-parametric, neural, and semi-Markov generators rarely reproduce the
-single-asset stylized facts of heavy tails, regime persistence, and
-volatility clustering in a single generator. We developed a hybrid
-hidden Markov framework that discretized excess growth rates into
-states defined by quantiles of a fitted Laplace distribution, used a
-location-scale Student-$t$ emission within each state, and augmented
-regime switching with a Poisson jump-duration mechanism that
-enforced realistic tail-state dwell times. We evaluated the
-framework on a decade of SPY history with a one-year hold-out,
-benchmarking against bootstrap, Gaussian, Laplace, a generalized
-autoregressive conditional heteroskedasticity model (GARCH(1,1)),
-a Gated Recurrent Unit, a hidden semi-Markov model, and a no-jump
-variant of the framework on distributional, tail, and temporal
-metrics. The hybrid marginals reproduced the stylized facts
-in-sample and out-of-sample, and the jump mechanism was the only
-addition that reduced absolute-growth autocorrelation meaningfully
-below the independent-and-identically-distributed (i.i.d.) baseline
-without sacrificing distributional fit. To
-extend the framework to multi-asset workflows, we composed per-asset
-paths under a single-index model using a closed-form variance
-correction that rescaled the per-asset generator draw before
-insertion into the market factor; the correction recovered the
-calibrated factor loading on a $424$-asset US equity and
-exchange-traded-fund universe while preserving heavy-tailed
-character at tail-risk accuracy comparable to dedicated residual
-fits. We also surfaced a daily-rebalancing artifact in which residuals
-drawn independently across assets overstate the diversification
-return, and offset its level with a uniform location shift anchored
-to a long-run prior. All code and
-per-asset fitted marginals were released alongside the paper.
+Synthetic equity return paths support stress testing and portfolio
+validation and serve as training data for machine-learning models,
+but parametric, neural, and semi-Markov generators rarely reproduce
+heavy tails, regime persistence, and volatility clustering together.
+We developed a hybrid hidden Markov model with a jump-duration
+mechanism (HMM-WJ): excess growth rates are assigned to
+Laplace-quantile states, each with a location-scale Student-$t$
+emission, and Poisson-distributed jump episodes lengthen tail-state
+dwell times. We fitted HMM-WJ and a no-jump variant (HMM-NJ) to a
+decade of SPY history and evaluated both, in and out of sample,
+against a generalized autoregressive conditional heteroskedasticity
+model (GARCH(1,1)) and five parametric, semi-Markov, and neural
+baselines. Relative to HMM-NJ, HMM-WJ retained the same
+distributional fit and reduced absolute-growth autocorrelation error
+from $0.059$ to $0.052$, though GARCH still had the lowest error at
+$0.031$. To extend the model to multiple assets, we used a
+single-index model to compose paths for $423$ non-market tickers in
+a $424$-asset US equity and exchange-traded-fund universe. A
+closed-form scale correction removed the resulting variance
+inflation, recovering each ticker's calibrated factor loading while
+retaining heavy-tailed returns. Residual models fit directly to each
+ticker still matched the distribution's center more closely.
+Independent per-asset residuals can overstate diversification gains
+under daily rebalancing. A location-shift correction reduces this
+bias but does not restore the missing cross-asset dependence. Code
+and per-asset fitted marginals are released with the paper.

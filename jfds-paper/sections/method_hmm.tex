@@ -1,15 +1,20 @@
 % method_hmm.tex
-% Subsection 3.1 body. Flat prose, no subsubsections. Topic flow:
-%   dataset and growth-rate definition → state space + emissions →
-%   transition matrix and jump override → hyperparameter calibration.
-%   The bridge to the multi-asset composition lives at the top of
-%   method_sim.tex, not here (avoids restating the per-ticker-marginal
-%   summary twice across the subsection boundary).
+% Subsection 3.1 body. Flat prose, no subsubsections. Topic flow
+% (language-audit pass, 2026-07-14; see project_language_audit_2026-07-14
+% memory): dataset/return definition -> tuple definition -> state
+% partition -> emissions -> transition estimation + jump/tail override
+% -> hyperparameter calibration. Split the original single dense
+% tuple-plus-state-plus-emission paragraph into three, moved the
+% variance/sensitivity caveats out of the model-definition flow, and
+% cut a prose walk-through of the generator that duplicated Algorithm 1.
+% The bridge to the multi-asset composition lives at the top of
+% method_sim.tex, not here (avoids restating the per-ticker-marginal
+% summary twice across the subsection boundary).
 
 The dataset was $424$ United States-listed equities and
 exchange-traded funds spanning ten years ($2014$--$2024$). To validate
-the hybrid hidden Markov framework on a single representative asset,
-we focused the headline analysis on the SPDR S\&P 500 ETF (SPY), reserving the $2,766$ observations from January 3,
+the hybrid hidden Markov model on a single representative asset,
+we focused the main analysis on the SPDR S\&P 500 ETF (SPY), reserving the $2,766$ observations from January 3,
 $2014$ to December 31, $2024$ for in-sample fitting and the subsequent
 $249$ trading days of $2025$ for out-of-sample testing. The data
 consisted of daily open, high, low, and close prices and
@@ -31,29 +36,30 @@ continuous compounding.
 We defined the hybrid hidden Markov model with a jump-duration
 mechanism (HMM-WJ) as the tuple
 $\mathcal{M} = (\mathcal{S}, \mathcal{O}, \mathbf{T}, \mathbf{E}, \bar{\pi})$~\cite{rabinerJuang1986}
-(Figure~\ref{fig:model_architecture}), where
-the hidden state
-$S_t \in \mathcal{S} = \{1,\dots,N\}$ represented market regimes,
-the observation $G_t$ at step $t$ was the per-ticker growth rate
-$G_{i,j}$ of Eq.~\eqref{eq:growth_rate} with the asset index
-suppressed when only one ticker is in play, the observation space
-$\mathcal{O} \subset \mathbb{R}$ consisted of the observed continuous excess
-growth rate values, $\mathbf{T}$ governed
-regime-to-regime transitions, $\mathbf{E}$ specified the
-state-conditional emission model, and $\bar{\pi}$ denoted the
-stationary distribution. States were defined by quantile boundaries of a fitted Laplace
+(Figure~\ref{fig:model_architecture}). The hidden state
+$S_t \in \mathcal{S} = \{1,\dots,N\}$ represents a market regime, and
+the observation at step $t$ is the excess growth rate $G_t$ of
+Eq.~\eqref{eq:growth_rate}, drawn from the continuous observation
+space $\mathcal{O} \subset \mathbb{R}$ (we suppress the ticker index
+$i$ when only one asset is in play). The transition matrix
+$\mathbf{T}$ governs regime-to-regime transitions, $\mathbf{E}$ is the
+state-conditional emission model, and $\bar{\pi}$ is the stationary
+distribution.
+
+States were defined by quantile boundaries of a fitted Laplace
 cumulative distribution: $Q_k = F_L^{-1}(k/N;\, \mu_L, b_L)$, where
 $F_L^{-1}(\cdot;\, \mu_L, b_L)$ is the inverse cumulative distribution
 function of the Laplace distribution with location $\mu_L$ and scale
 $b_L$ (both estimated from the in-sample growth-rate history by
 maximum likelihood), with the endpoints fixed at $Q_0 = -\infty$ and
-$Q_N = +\infty$. The Laplace was chosen for its sharper peak (better
-matching the concentration of small price movements visible in
-the empirical marginal density of
-Fig.~\ref{fig:empirical_motivation}(a),~\cite{kotzKozubowskiPodgorski2001, tothJones2019}) and its
-closed-form quantile function, which scaled to the $424$-ticker
-pipeline without iterative optimization~\cite{bilmes1998}. An
-observation was assigned to state $k$ when $Q_{k-1} < G_t \le Q_k$.
+$Q_N = +\infty$. An observation was assigned to state $k$ when
+$Q_{k-1} < G_t \le Q_k$. We chose the Laplace distribution for its
+sharper peak, which better matches the concentration of small price
+movements in the empirical marginal density
+(Fig.~\ref{fig:empirical_motivation}(a))~\cite{kotzKozubowskiPodgorski2001, tothJones2019},
+and for its closed-form quantile function, which scales to the
+$424$-ticker universe without iterative optimization~\cite{bilmes1998}.
+
 The within-state emission followed a location-scale Student-$t$
 distribution:
 \begin{equation}
@@ -62,33 +68,28 @@ distribution:
     \label{eq:emission}
 \end{equation}
 where $t_\nu$ denotes a standard Student-$t$ random variable with
-$\nu$ degrees of freedom, $\mu_k$ is the state-conditional location set
-to the sample mean of the in-sample observations assigned to state $k$
-under the Laplace-quantile partition, and $\sigma_k$ is a scale
-parameter set to the sample standard deviation of those observations.
-Because a standard $t_\nu$ has variance $\nu/(\nu-2)$, the emission's
-state-conditional standard deviation is $\sigma_k\sqrt{\nu/(\nu-2)} =
-\sigma_k\sqrt{5/3}$ rather than $\sigma_k$; $\sigma_k$ is therefore a
-scale, not the conditional standard deviation. The degrees-of-freedom
-sweep that selects $\nu$ is run under this same parameterization, so
-the reported operating point already reflects the induced within-state
-variance. The value $\nu = 5$ was
-selected from a sensitivity analysis over
-$\nu \in \{3, 4, 5, 6, 7, 8, 10, 15, 30, \infty\}$ as the value that
-minimized the kurtosis gap without degrading distributional fidelity
-($\nu = \infty$ recovers the Normal baseline); a head-to-head
-comparison of Gaussian and Student-$t$ emissions against the HSMM
-baseline of Bulla and Bulla~\cite{bullaBulla2006} is given in
+$\nu$ degrees of freedom, $\mu_k$ is the sample mean of the in-sample
+observations assigned to state $k$, and $\sigma_k$ is their sample
+standard deviation; because a standard $t_\nu$ has variance
+$\nu/(\nu-2)$, $\sigma_k$ is a scale rather than the emission's actual
+standard deviation, which is $\sigma_k\sqrt{5/3}$ at $\nu = 5$. We
+selected $\nu = 5$ from a sensitivity sweep over
+$\nu \in \{3, 4, 5, 6, 7, 8, 10, 15, 30, \infty\}$
+($\nu = \infty$ recovers the Normal baseline) as the value that
+minimized the kurtosis gap without degrading distributional fidelity;
+the full comparison against a Gaussian-emission HSMM baseline of
+Bulla and Bulla~\cite{bullaBulla2006} is given in
 Table~\ref{tab:emission_hsmm} of
 Sec.~\ref{sec:supp-emission-hsmm}.
 
 With the state space and emission family fixed, we estimated the
-transition matrix $\mathbf{T}$ through direct frequentist counting: the discrete state assignments allowed straightforward counting of
-observed transitions between regimes, which avoided the initialization
-sensitivity of expectation-maximization~\cite{bilmes1998}. A consequence of direct counting was that empirical
-transition matrices often had low probabilities for exiting central
-states into tail states, which caused models to lose the effect of
-volatility clustering too quickly~\cite{bullaBulla2006}. We corrected
+transition matrix $\mathbf{T}$ by counting observed state-transition
+frequencies directly, avoiding the initialization sensitivity of
+iterative expectation-maximization~\cite{bilmes1998}. Direct
+counting, however, gives empirical transition matrices low
+probabilities for exiting central states into tail states, so models
+built this way lose the effect of volatility clustering too
+quickly~\cite{bullaBulla2006}. We corrected
 this by adding two jump hyperparameters, $\epsilon$ representing the
 probability of a jump event and $\lambda$ representing the mean
 jump-event duration, along with a tail-state selection rule. Tail
@@ -111,24 +112,20 @@ short-range regime persistence, with natural residence times of
 $1$--$2$ steps in every state including the tails
 (Fig.~\ref{fig:model_internals} in Online
 Appendix~\ref{sec:supp-transitions}).
-The stationary distribution $\bar{\pi}$ satisfied
+The stationary distribution $\bar{\pi}$ satisfies
 $\bar{\pi} = \bar{\pi}\mathbf{T}$ and was estimated by matrix powering
-($\mathbf{T}^{50}$)~\cite{hamilton2018regime, grinsteadSnell1997}. An
+($\mathbf{T}^{50}$)~\cite{hamilton2018regime, grinsteadSnell1997}; the
 initial state was drawn from $S_0 \sim \bar{\pi}$. Because $\bar{\pi}$
-is the invariant distribution of $\mathbf{T}$ alone, it approximates
-the invariant distribution of the jump-augmented process (whose state
-also carries jump status and remaining episode length). This
-introduces a small, unquantified transient rather than exact
-stationarity of the full generator. At each subsequent
-time step $t$ the chain either transitioned according to the empirical
-row $\mathbf{T}_{S_{t-1},\,\cdot}$ (probability $1-\epsilon$) or
-entered a Poisson jump episode (probability $\epsilon$) that forced
-the state into a tail set (drawn per step as $\mathcal{S}_{-}$ with
-probability $p_{\rm neg}$, else $\mathcal{S}_{+}$) for $K$
-consecutive steps before normal transitions resumed. In both cases
-an observation was sampled from the emission distribution
-$G_t \sim \mathbf{E}_{S_t}$. The full simulator is given in
-Algorithm~\ref{alg:hmmwj}.
+is the invariant distribution of $\mathbf{T}$ alone, it only
+approximates the invariant distribution of the jump-augmented process,
+whose state also includes jump status and remaining episode length;
+this introduces a small, unquantified transient rather than exact
+stationarity. Algorithm~\ref{alg:hmmwj} gives the full simulator: at
+each step the chain takes a standard transition with probability
+$1 - \epsilon$ or, otherwise, enters a Poisson jump episode that
+forces $K$ consecutive draws from a tail set before normal
+transitions resume, sampling an observation
+$G_t \sim \mathbf{E}_{S_t}$ at every step.
 
 % --- Architecture figure ----------------------------------------------------
 \begin{figure}[tp]
@@ -280,20 +277,18 @@ We calibrated the two jump hyperparameters,
 the jump probability $\epsilon$ and mean episode length $\lambda$,
 drawing on the jump-diffusion tradition of~\cite{merton1976, kou2002}
 while adopting an HSMM-style state-duration parameterization~\cite{bullaBulla2006} in place of the instantaneous-jump formulation
-of those classical models. We describe the mechanism as a
-\emph{jump-duration} override rather than jump-diffusion: it is a
-heavy-tailed tail-duration override layered on a discrete-state chain
-with Student-$t$ emissions, a Markov generator that
-carries no continuous-time diffusion component.
+of those classical models. As a discrete-time state model, HMM-WJ
+lengthens dwell time in tail states through the jump-duration
+override and includes no continuous-time diffusion component.
 Calibration used a multi-objective grid search that minimized the
-discrepancy between historical and simulated market signatures. The objective targeted two stylized facts~\cite{cont2001, rydenTerasvirtaAsbrink1998}, both visible in the
+discrepancy between historical and simulated market signatures,
+targeting two stylized facts~\cite{cont2001, rydenTerasvirtaAsbrink1998} visible in the
 empirical SPY history of Fig.~\ref{fig:empirical_motivation}:
 volatility clustering (Fig.~\ref{fig:empirical_motivation}(d)),
 measured as the squared error between the observed and simulated
-autocorrelation function (ACF) of absolute excess growth rates~\cite{cont2001} up to a lag of $L = 25$ trading days (the
-short-horizon window in which the empirical ACF of $|G_t|$ carries
-most of its variation; post-fit evaluation in Fig.~\ref{fig:model_comparison} extends to lag $252$ for the
-visual ACF comparison), and leptokurtosis
+autocorrelation function (ACF) of absolute excess growth rates~\cite{cont2001} up to a lag of $L = 25$ trading days, the range where
+most of the observed ACF variation occurs (post-fit evaluation in Fig.~\ref{fig:model_comparison} extends to lag $252$ for the
+visual comparison), and leptokurtosis
 (Fig.~\ref{fig:empirical_motivation}(a, b)), captured by a penalty
 term on the global kurtosis~\cite{mandelbrot1963}:
 \begin{equation}
@@ -311,12 +306,12 @@ counterparts $\overline{\mathrm{ACF}}_{\rm sim}(\tau)$ and
 $\overline{\kappa}_{\rm sim}$ were averaged over the jump-active paths
 among $200$ independent synthetic paths of $2{,}766$ trading days
 simulated per grid point: a path that fires no jump reduces to the
-no-jump generator and carries no information about
-$(\epsilon, \lambda)$, so the objective is conditioned on the paths in
-which the jump mechanism is active~\cite{glasserman2003}. We set the kurtosis-penalty weight to
+no-jump generator and provides no information about
+$(\epsilon, \lambda)$, so the objective is conditioned on paths where
+at least one jump occurred~\cite{glasserman2003}. We set the kurtosis-penalty weight to
 $w_\kappa = 0.20$ to balance tail behavior against the temporal ACF
 term. The grid explored $\epsilon$ from
 $10^{-4}$ to $2.5 \times 10^{-2}$ and $\lambda$ from $10$ to $160$ in
-brute-force evaluation. The HMM-WJ framework produced a
-per-ticker marginal that reproduces heavy tails, regime persistence,
-and volatility clustering.
+brute-force evaluation. The resulting model produced a per-ticker
+marginal that reproduces heavy tails, regime persistence, and
+volatility clustering.

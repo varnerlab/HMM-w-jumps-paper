@@ -1,323 +1,151 @@
 % discussion.tex
-% Discussion: HMM-WJ standing in the eight-model comparison,
-% per-asset caveats, multi-asset composer findings and scope, the
-% diversification-return artifact and its bias correction, and the
-% open extensions.
+% Discussion: language-audit pass, 2026-07-14 (see
+% project_language_audit_2026-07-14 memory). Cut from ~2,700 words to
+% ~1,000-1,100: replaced the full per-generator number replay with a
+% short synthesis per the audit's suggested text, compressed the
+% three per-asset caveats and the multi-asset deferred-questions
+% section, moved detail (rejected alternatives, percentile placement)
+% to Online Appendix S3, and removed "an honest percentile" and other
+% defensive language. No subsections (approved exception was Results
+% only); four clearly-separated paragraphs: single-asset result +
+% caveats, multi-asset result + caveats, diversification-return bias
+% + correction, open extensions. "composer" -> "composition method"
+% throughout (conclusion.tex still needs the same swap).
 
-The per-asset evaluation positioned HMM-WJ as the only generator in
-the eight-model comparison to make meaningful progress on
-distributional and temporal fidelity at once
-(Table~\ref{tab:model_comparison};
-Table~\ref{tab:emission_hsmm} for the Gaussian-vs-Student-$t$
-emission decomposition). Bootstrap resampling
-set the non-parametric ceiling on marginal fit but inherited the
-historical realization wholesale and could not extrapolate beyond
-it. GARCH(1,1) carried the best temporal score (ACF-MAE $0.031$) yet
-failed the KS test on $95\%$ of in-sample paths, indicating that
-conditional-variance dynamics on their own did not reproduce the
-empirical body; the same model's Wasserstein-$1$ distance to the
-real marginal deteriorated by $67\%$ from in-sample to
-out-of-sample, exposing a tail misspecification that binary pass
-rates had obscured. The Gated Recurrent Unit captured a comparable
-fraction of the temporal structure with $37{,}954$ estimated
-parameters but produced a $0.6\%$ KS pass rate. The hidden
-semi-Markov model passed KS at $82\%$, but its eight-state quantile
-partition could not span the full growth-rate range, leaving a
-$38\%$ kurtosis gap. The jump variant paid a small distributional
-cost relative to the no-jump variant ($2$--$8$ percentage points
-lower on the KS and AD pass rates in-sample) in exchange for
-becoming the only non-GARCH non-neural model to reduce ACF-MAE
-meaningfully below the i.i.d.\ baseline: approximately one path in four
-contained a Poisson jump that sustained $\mathrm{ACF}(|G_t|)$ decay
-across all lags, while the remaining $76\%$ behaved like the no-jump
-variant. Out-of-sample on the held-out $2025$ history the same model
-retained a KS pass rate of $94.4\%$ and excess kurtosis $6.1$
-against the observed $6.9$, with the relative ordering of the eight
-generators preserved. The pass-rate comparisons carry a statistical
-caveat: two-sample KS and AD $p$-values assume independent
-observations, which the HMM, HSMM, GARCH, and bootstrap generators
-violate, so their pass rates are not calibrated on a common footing
-across generators; we therefore weigh them alongside the
-distribution-level distances ($W_1$, Hellinger, and the Hill tail
-index), and treat the parenthetical standard errors as Monte-Carlo
-variation across replications at the fitted model rather than
-uncertainty about the fit itself.
+In this study, we found that HMM-WJ improved volatility persistence
+relative to HMM-NJ but slightly reduced marginal fit, with pass
+rates $2$--$8$ percentage points lower in-sample
+(Table~\ref{tab:model_comparison}). Among the alternatives, each
+excelled on one property and failed on another for a reason tied to
+its own structure: GARCH's conditional-variance dynamics reproduced
+temporal clustering but not the marginal's body; the neural baseline
+matched some of the temporal structure despite carrying tens of
+thousands of parameters, yet still missed the marginal; the
+semi-Markov baseline's coarse partition left it unable to span the
+full growth-rate range; and bootstrap resampling passed every
+distributional test by construction, since it resamples only
+observed returns rather than extrapolating beyond the historical
+record. Among these alternatives, HMM-WJ was the only non-GARCH,
+non-neural model to reduce
+the autocorrelation of absolute returns below the shared i.i.d.\
+level while retaining most of HMM-NJ's distributional fit, an
+ordering that held out-of-sample on the $2025$ evaluation. The model
+therefore offers a tradeoff rather than a uniformly better result.
+The pass-rate comparisons come with a statistical caveat: two-sample KS
+and AD $p$-values assume independent observations, an assumption
+the HMM, HSMM, GARCH, and bootstrap generators all violate, so we
+weigh pass rates alongside the distribution-level distances ($W_1$,
+Hellinger, and the Hill tail index) rather than treat them as
+calibrated on a common footing across generators. Three further
+caveats apply to the per-asset construction. The $N = 100$ state
+resolution, selected by a sensitivity sweep over
+$\{30, 60, 90, 100, 150, 200\}$, worked well for the $2{,}766$-day
+SPY sample, but shorter histories will support fewer states before
+empirical visits per state thin out. The jump parameters
+$(\epsilon, \lambda)$ were tuned once against SPY and applied across
+the universe; per-ticker tuning on the three cross-asset tickers
+produced strong in-sample fits (KS $\ge 98.9\%$, Online
+Appendix~\ref{sec:supp-cross-asset}), but is not guaranteed to
+transfer to assets with different jump behavior without its own
+calibration step. The Student-$t$ emission with $\nu = 5$ improved
+kurtosis fidelity over Normal emissions (Table~\ref{tab:emission_hsmm})
+but does not
+model skewness directly: the negative skewness both HMM variants
+reproduce comes from the asymmetric state-occupancy of the Laplace
+partition, so assets whose skew direction the partition cannot
+induce will not be matched without adjusting the quantile rule.
 
-Three caveats applied to the per-asset construction. First, the state
-resolution was sized at $N = 100$ Laplace-partition states by a
-sensitivity sweep over $\{30, 60, 90, 100, 150, 200\}$, beyond which
-the count of empirical visits per state thinned, and at $N = 350$
-certain states received no support in the historical record; for
-assets with shorter trading histories or with thinner sampling at
-the extremes, the practical upper bound on state resolution will be
-lower, and the partition has to be re-sized rather than carried over
-directly from the SPY calibration. Second, the jump parameters $(\epsilon, \lambda)$ were tuned once
-against the in-sample SPY history and applied across the
-$424$-ticker universe; the cross-asset extension in Online
-Appendix~\ref{sec:supp-cross-asset} reports per-ticker tune outputs
-that produced strong in-sample fits on all three single-stock
-tickers (KS $\ge 98.9\%$). The composite tune objective has multiple
-near-equivalent local minima at finite Monte-Carlo budgets, so we
-do not draw asset-class conclusions from the specific argmin
-locations; what is reproducible is that the chosen operating point
-delivers a defensible per-ticker fit, and per-ticker tuning is
-available as a refinement at the cost of a calibration step per
-asset. Third, the Student-$t$ emission with $\nu = 5$ closed the
-kurtosis gap from $29\%$ under Normal emissions to within $1.3\%$
-of the observed value, an improvement that came from matching tail
-mass at the per-state innovation level. The negative skewness
-reproduced by both HMM variants ($-0.75$ observed) came from the
-asymmetric state-occupancy of the Laplace partition rather than from
-any explicit skewness parameter, so assets whose growth-rate
-distribution is skewed in a direction the partition cannot induce
-will not be matched by this construction without a corresponding
-adjustment to the quantile rule.
+We then evaluated the multi-asset extension. The variance
+correction reduced the composed marginal's variance error and
+improved KS pass rates relative to naive composition, which
+inflates variance by $\beta_i^2 \sigma_m^2$, and relative to
+Gaussian SIM, which recovers $\beta$ exactly but strips the
+marginal entirely (Table~\ref{tab:aggregate}). The three
+residual-fit methods still had better marginal fit than hybrid
+($67$ to $76\%$ KS pass rate versus $50\%$), because fitting a
+generator directly to the OLS residual series avoids the
+variance-inflation problem rather than correcting for it after the
+fact; the choice between the two approaches is governed by whether
+the regime-switching and jump structure of the full-return marginal
+is itself a property the per-asset generator should have, for
+instance when the same generator is used for both single-asset and
+multi-asset purposes. On tail risk this tradeoff disappears: hybrid
+and the three residual-fit methods all matched on $99\%$ VaR
+coverage, differing by less than the cross-ticker spread
+(Table~\ref{tab:var}), so hybrid delivers tail accuracy on par with
+a dedicated residual generator without a separate fitting stage,
+even though its marginal body fit trails the residual-fit
+alternatives.
 
-We then evaluated the multi-asset extension. Per-asset growth-rate
-paths were composed under a single-index model (SIM) by drawing
-each asset's innovation from an independent JumpHMM generator fit
-to the asset's own full growth-rate history (jumps disabled,
-$\epsilon = 0$, since the composer test is marginal-level), then
-rescaling the draw by a closed-form scalar before inserting it
-into the SIM composition. Six composers were evaluated on a calibrated universe
-of $424$ US equities and exchange-traded funds against the real SPY
-market path: the naive composition, a Gaussian-residual SIM
-baseline, the hybrid construction described here, and three
-residual-fit alternatives (JumpHMM-on-residuals, Politis--Romano
-block bootstrap~\cite{politisRomano1994}, and a per-ticker
-GARCH(1,1)-$t$ fit~\cite{bollerslev1986}). The variance correction,
-together with the sign-preserving clip rule and the
-$R^2$-preserving branch, sits between two incomplete baselines:
-naive composition keeps the generator marginal in the residual
-draw but distorts it by $\beta^2 \sigma_m^2$, while
-Gaussian-residual SIM recovers $\beta$ exactly but strips the
-marginal. The hybrid construction sat between those baselines: it
-recovered $\beta$ to the same precision as either, held the
-generator marginal to its target variance in every ticker, and
-preserved the generator's tails at a level indistinguishable from
-the naive composition (Fig.~\ref{fig:preservation},
-Table~\ref{tab:aggregate}). The three residual-fit composers
-produced higher Kolmogorov--Smirnov pass rates than hybrid on
-marginal body fidelity ($67$ to $76\%$ versus $50\%$,
-Table~\ref{tab:aggregate}), but matched hybrid on the $99\%$
-Value-at-Risk coverage check, differing by less than the
-cross-ticker spread (Table~\ref{tab:var}). The two findings together draw the
-tradeoff: residual-fit composers reach the body of the
-distribution more tightly by fitting a generator directly to the
-OLS residual series, at the cost of replacing the full-return
-JumpHMM marginal with a separately specified residual generator;
-for tail risk the tradeoff disappears, so the choice between the
-two approaches is driven by whether the regime-switching and jump
-structure of the full-return marginal is itself a desired
-property of the per-asset generator. When it is (for example,
-when the same generator feeds univariate and multivariate
-pipelines, or when distributional interpretability of the
-marginal matters downstream), hybrid delivers $99\%$ VaR
-accuracy on par with a dedicated residual generator without a
-separate fitting stage. The
-variance-inflation gap was large enough to matter in practice: at
-the high-$\beta$ end of the universe, naive composition inflated
-the marginal variance by over $70\%$ relative to the generator
-target (Fig.~\ref{fig:preservation}). Branch selection was driven
-entirely by the calibrated $R^2$ and each asset carried a
-persisted construction flag, so the procedure ran uniformly across
-the ticker universe without external metadata and left an audit
-trail.
-
-The evaluation isolated the composition rule by fixing the market
-path at the real SPY history and using the same per-ticker
-innovation draw across all three composers. This design yielded a paired comparison of composition rules at
-the per-ticker level but set aside two questions. The first
-concerns cross-sectional dependence: we skipped the optional
-rank-reorder step in Algorithm~\ref{alg:hybrid} so that
-per-ticker metrics reflected the composition rule alone.
-Rank-reordering preserves the marginal variance of $\eps_i$
-exactly, so the variance algebra and the per-ticker results here
-are unaffected by which copula family is layered on top; copula
-selection is therefore a validation question that is separable
-from the marginal evaluation reported here, and we defer it to
-follow-up work. The second
-concerns market-path uncertainty: the metrics reported here used
-the real SPY path, and under a simulated market path the composed
-marginal picks up additional variance from the sampling of
-$g_m^{(r)}$, which for high-$R^2$ tickers becomes a noticeable
-effect. The two deferred questions compose: a
-reorder-plus-simulated-market pipeline would layer cross-sectional
-structure on top of per-ticker draws built against sampled market
-paths, with the variance correction of Eq.~\eqref{eq:scale} still
-providing the per-asset variance target on each realized
-$g_m^{(r)}$. A separate scope boundary concerns the downstream use
-case: the main metrics reported here characterize marginal and
-factor fidelity of the composition rule on per-ticker targets. To
-test whether that fidelity translates to a consequential downstream
-number, we also report a per-ticker one-day $95\%$ and $99\%$
-Value-at-Risk coverage check of the composed paths against the real
-2014--2024 growth-rate histories, with exceedance counts assessed by
-Kupiec's unconditional coverage test; the per-ticker framing keeps
-this validation inside the paper's scope, while portfolio-level VaR
-requires the cross-sectional copula reorder of
-Algorithm~\ref{alg:hybrid} (the optional step we did not run).
-High-turnover portfolio strategies remain a distinct scope boundary:
-the temporal structure of the residual draw matters in a way that
-contemporaneous composition does not capture.
-
-A related boundary on the construction was the clipping rule.
-Clipping did not trigger anywhere in the US-equity universe used
-here, because the JumpHMM marginals carried enough variance that
-$\rho_i = \beta_i^2 \sigma_m^2 / \sigma_{\gen,i}^2$ stayed below
-$0.90$ even for the highest-$\beta$ ticker. Clipping becomes
-relevant in two settings we did not evaluate: scenario-driven
-markets, where the synthetic $g_m$ is constructed to be much more
-volatile than the calibration market (e.g., stress tests), and
-universes that mix low-volatility single stocks with extreme betas
-(e.g., leveraged ETFs). In both settings Algorithm~\ref{alg:hybrid}
-persists the original and effective $\beta_i$ alongside the output,
-leaving an audit trail for the attenuation. A related attenuation
-appeared at the other end of the $\beta$ spectrum, even when
-clipping did not trigger: the hybrid KS pass rate fell from $67\%$
-at low $\beta$ to $44\%$ at high $\beta$
-(Table~\ref{tab:beta_bucket}), a mild attenuation that followed
-directly from the composition algebra. As
-$\beta_i^2 \sigma_m^2$ grows toward the idiosyncratic floor
-$(1 - f)\sigma_{\gen,i}^2$, the market-driven component carries an
+Several evaluation choices bound these results. We fixed the market
+path at the real SPY history, reused the same per-ticker innovation
+draw across methods, and skipped the optional cross-sectional rank
+reorder, so the comparison isolates the composition rule rather than
+validating a full joint market simulator; we also evaluated VaR per
+ticker rather than at the portfolio level, which the optional
+reorder would be needed to support. The variance correction assumes
+$\mathrm{Cov}(\tg_i, g_m) \approx 0$, which holds by construction
+here since the JumpHMM marginals are fit and sampled independently
+of the market path, but would need adjustment for a generator
+already correlated with the market (for example, a bootstrap from
+joint history). The construction also injects contemporaneous
+market dependence only: lagged effects such as lead-lag correlation
+or market-driven volatility clustering are not reproduced. Clipping
+did not trigger anywhere in this universe because the JumpHMM
+marginals had enough variance to keep every ticker's market loading
+below the idiosyncratic floor; it becomes relevant for
+scenario-driven markets more volatile than the calibration history,
+or for universes mixing low-volatility stocks with extreme-beta
+assets such as leveraged ETFs. A related, milder attenuation
+appeared even without clipping: the hybrid KS pass rate fell from
+$67\%$ at low $\beta$ to $44\%$ at high $\beta$
+(Table~\ref{tab:beta_bucket}), because as the market-driven
+component approaches the idiosyncratic floor it accounts for an
 increasing share of the marginal, and that component is only as
-heavy-tailed as $g_m$. The market's own heavy tails slow the
-attenuation (SPY growth rates are themselves heavy-tailed after
-JumpHMM fitting), but the effect is visible. Exact marginal
-fidelity at high $\beta$ can be recovered by lowering the floor $f$
-(at the cost of less conservative clipping behavior) or by
-pre-scaling the generator variance so that $\rho_i$ stays small.
+heavy-tailed as the market path itself.
 
-The variance correction $s_i^2 = 1 - \rho_i$ relies on
-$\mathrm{Cov}(\tg_i, g_m) \approx 0$. The JumpHMM marginals are fit
-in isolation and sampled independently of the market path, so this
-holds by construction; if the generator is already correlated with
-the market (for example, a bootstrap from joint history), the
-empirical covariance can be subtracted from $\beta_i$ before
-applying the correction, or $s_i^2$ can be estimated directly from
-the empirical variance of the composed series. The same warning
-applies to the $R^2$-preserving branch, whose variance identity
-assumes $\eps$ is uncorrelated with $g_m$ after any reorder. The
-construction also injects a contemporaneous market factor only:
-$g_i(t)$ depends on $g_m(t)$ and on $\tg_i(t)$ but not on
-$g_m(t-1), g_m(t-2), \dots$, so lagged market dependence (lead-lag
-effects, market-driven volatility clustering, asymmetric responses to
-drawdowns) is not reproduced by this recipe. The natural extension is
-a lagged-factor SIM,
-$g_i(t) = \alpha_i + \sum_{k=0}^K \beta_{i,k}\, g_m(t - k) + \eps_i(t)$;
-the variance correction generalizes to that form by replacing
-$\beta_i^2 \sigma_m^2$ with the variance of the full market-factor
-component, though the empirical value of the extra parameters is
-beyond the scope here. Cross-sectional residual dependence is likewise absent: each generator
-growth-rate path $\tg_i$ is sampled independently of the others, so the
-composed residuals carry no contemporaneous cross-asset covariance
-beyond what the shared market factor induces. This matters most for
-workflows that evaluate portfolios rebalancing at high frequency.
-Independent residuals overstate the daily cross-sectional dispersion
-among assets, and as the diversification-return identity of Online
-Appendix~\ref{sec:supp-bias} makes explicit, that dispersion is exactly
-what a rebalancing rule compounds into the diversification return of
-\cite{boothFama1992}; real equity residuals share common sector and
-style factors that a per-asset i.i.d.\ generator omits, so the
-synthetic dispersion, and hence the compounded premium, is expected
-to exceed its real-market level; how much of the observed gap this
-accounts for is not yet quantified.
-Two generator alternatives in Table~\ref{tab:aggregate} restore
-univariate temporal dependence directly: the block-bootstrap composer
-resamples blocks of the empirical OLS residual
-series~\cite{politisRomano1994}, inheriting whatever autocorrelation is
-present in the data, and the GARCH(1,1)-$t$ composer fits a
-conditional-variance model per ticker~\cite{bollerslev1986}. Because
-both are fit per ticker on that ticker's own residuals, they restore
-each series' own temporal structure but not the contemporaneous
-cross-asset covariance that drives the diversification-return artifact;
-a joint or aligned bootstrap, or a residual copula, would be required
-for that. Both recover marginal fidelity at the cost of committing the
-pipeline to a specific residual generator, whereas the variance
-correction of Eq.~\eqref{eq:scale} is generator-agnostic and
-accepts a full-return JumpHMM marginal (with its jump and regime
-structure) as input. When residual autocorrelation is the relevant
-structure for the downstream task, the bootstrap or GARCH
-alternatives carry it directly, at the cost of dropping the
-full-return JumpHMM marginal.
-
-The diversification-return artifact is a property of any SIM
-construction that draws residuals independently across assets:
-matching each asset's marginal variance does not restore the
-contemporaneous cross-asset residual covariance that common sector and
-style factors induce in real markets, so independent residuals
-overstate the daily cross-sectional dispersion that daily rebalancing
-compounds. This affects every i.i.d.-residual composer in
-Table~\ref{tab:aggregate}, including the JumpHMM marginal used here and
-the Gaussian and JumpHMM-on-residuals composers. The quantitative
-consequence under daily rebalancing is large enough that
-absolute-return claims drawn from any of these composers require an
-explicit correction or an explicit caveat. A
-$20$-asset target-weight allocator deployed against a
-hybrid-composed $2025$ universe produced a median synthetic
-continuously-compounded growth rate of $\sim\!30\%/\mathrm{yr}$,
-against $11.5\%/\mathrm{yr}$ when the same allocator was deployed
-against the real $2025$ growth-rate history; a
-static-to-daily-rebalance decomposition on the same paths isolated
-a $+27.7$ percentage-point jump driven by the rebalance step
-alone, attributing the $\sim\!22$\,pp synthetic-versus-real gap to
-the diversification return rather than to a calibration
+Independent residuals produce a diversification-return bias under
+daily rebalancing: matching each asset's marginal variance does not
+restore the contemporaneous cross-asset residual covariance that
+common sector and style factors induce in real
+markets~\cite{boothFama1992}, so independent residuals overstate the
+daily cross-sectional dispersion that rebalancing compounds into a
+spurious return premium. This affects every i.i.d.-residual
+composition method evaluated here, not only naive composition; block
+bootstrap and GARCH(1,1)-$t$ restore each ticker's own temporal
+structure but not the cross-asset covariance, so the bias remains
+even for the methods that best match each ticker's marginal. In a
+$20$-asset target-weight allocator example, the synthetic median
+annualized growth rate exceeded the real $2025$ return by about
+$22$ percentage points, with a static-versus-daily-rebalance
+decomposition attributing the difference to the diversification return
+rather than to a calibration
 error~\cite{boothFama1992, boucheyNemtchinovWong2015,
-markowitz1976longRun} (Online Appendix~\ref{sec:supp-bias}). A
-uniform location-shift correction
-(Eq.~\eqref{eq:bias-correction}, Online
-Appendix~\ref{sec:supp-bias}) rescales each synthetic wealth path
-by an exponential drag whose rate is set so the corrected median
-annualized growth rate matches an external long-run prior, set in
-our deployment from the prevailing risk-free rate plus an active
-premium net of frictions~\cite{damodaranERP, ibbotsonSBBI}. The
-correction subtracts a constant drift in log-wealth from every path:
-it preserves the rank order of paths by terminal wealth and the
-volatility envelope (every log-return increment is shifted by the same
-constant, leaving increment variances unchanged). Because the drift is
-time-dependent in wealth space, it does move drawdown dates and depths,
-so it recalibrates the ensemble level rather than preserving drawdown
-shape. Anchoring to a
-documented prior rather than to the realized test-year outcome keeps
-the correction independent of the sample to which the synthetic
-ensemble is being compared and avoids circular calibration. The
-realized year then lands inside the corrected ensemble at an honest
-percentile (in our deployment, real-$2025$ landed at the $63$rd
-percentile of the corrected ensemble, consistent with $2025$ being
-an above-typical equity year). Online Appendix~\ref{sec:supp-bias}
-details the methodology, contrasts the location-shift correction
-with a multiplicative haircut alternative that additionally scrambles
-per-path rank order, and discusses
-why several intuitive alternatives (parameter drift between
-calibration and deployment, transaction-cost inflation, a
-first-order autoregressive (AR(1)) process on residuals without
-restructuring the copula sampling, residual block-bootstrap) do
-not address the underlying mechanism within the i.i.d.-residual
-SIM framework. The synthetic data carries the ensemble-shape
-information the paper validates, percentile structure and relative
-ranking of strategies on the same paths, both before and after
-correction (the drawdown distribution is valid on the uncorrected
-ensemble, since the level shift moves it); the location-shift
-correction extends that reliability to absolute Sharpe and
-continuously compounded growth rate (CCGR) levels under daily
-rebalancing, at the cost of an external prior.
+markowitz1976longRun} (Online Appendix~\ref{sec:supp-bias}). We
+applied a location-shift correction that subtracts a constant drift
+in log-wealth from every path, calibrated to match an external
+long-run prior~\cite{damodaranERP, ibbotsonSBBI} rather than the
+realized test-year outcome. The correction preserves the rank order
+of paths and the volatility envelope, but because the drift is
+time-dependent in wealth space it does move drawdown dates and
+depths, so it recalibrates the ensemble level rather than restoring
+the missing cross-asset covariance. Full methodology, the rejected
+alternatives, and the percentile placement of the realized year are
+given in Online Appendix~\ref{sec:supp-bias}.
 
 Four extensions remain open. Per-ticker tuning of the jump
 parameters $(\epsilon, \lambda)$ on each asset's own history would
-push the marginal pass rates upward at the cost of a calibration
-step per asset. Multi-factor and lagged-factor single-index variants
-replace the single market factor with $K$ factors or with $K$ lags,
-requiring $\rho_i$ to become the sum of factor contributions and the
-loading vector to be clipped rather than a scalar, though the
-branch logic is unchanged; the variance correction generalizes to
-both forms without changing the algebra, and the empirical
-evaluation is left to follow-up work. The diversification-return
-artifact admits a structural fix through autoregressive or
-block-bootstrap residuals composed with the single-index factor,
-which requires restructuring the copula sampling step and is the
-most consequential follow-up for high-turnover downstream
-workflows. A stress-test harness pairs the clipping rule with a
-constructed market scenario more volatile than history: enforcing a
-minimum idiosyncratic share keeps per-asset marginals heavy-tailed
-in precisely the regime where naive SIM composition breaks down
-most severely.
+likely raise marginal pass rates at the cost of a calibration step
+per asset. Multi-factor and lagged-factor single-index variants
+would replace the single market factor with $K$ factors or lags,
+capturing the lagged market dependence the current construction
+omits; the variance correction generalizes to both without changing
+its algebra, though the empirical evaluation is left to follow-up
+work. Composing autoregressive or block-bootstrap residuals with the
+single-index factor, instead of independent per-asset draws, would
+restore cross-asset residual covariance and address the
+diversification-return bias directly. A stress-test harness that
+pairs the clipping rule with a market scenario more volatile than
+the calibration history would test whether the idiosyncratic floor
+keeps per-asset marginals heavy-tailed under exactly the conditions
+where naive SIM composition breaks down.
