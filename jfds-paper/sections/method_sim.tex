@@ -1,14 +1,15 @@
 % method_sim.tex
 % Method: variance-corrected SIM composition.
-% Five paragraphs ending with the Algorithm float:
+% Six paragraphs ending with the Algorithm float:
 %   (1) setup, SIM composition equation, and notation
-%   (2) inputs + preservation criteria + why naive composition fails
-%   (3) variance correction + degenerate case + clipping rule
-%   (4) R^2-preserving branch + SPY identity corollary
-%   (5) algorithm intro + verification + contemporaneous-only caveat
+%   (2) Gaussian-residual composition and why it fails
+%   (3) generator-residual (naive) composition and its variance inflation
+%   (4) variance correction + degenerate case + clipping rule
+%   (5) R^2-preserving branch + SPY identity corollary
+%   (6) algorithm intro + verification + contemporaneous-only caveat
 %       (closes with the Algorithm float)
 
-The HMM-WJ model produces a per-ticker marginal, but does not capture cross-asset dependence that is required for multi-asset applications. To generalize synthetic path generation beyond a single asset, we composed the per-ticker marginals using the single-index model (SIM) of Sharpe \cite{sharpe1963}, which decomposes each asset's excess growth rate as:
+The HMM-WJ model produces a per-ticker marginal, but does not capture cross-asset dependence that is required for multi-asset applications. To generalize synthetic path generation beyond a single asset, we composed the per-ticker marginals using the single-index model (SIM) of Sharpe~\cite{sharpe1963}, which decomposes each asset's excess growth rate as:
 \begin{equation}
   g_i(t) \;=\; \alpha_i \;+\; \beta_i\, g_m(t) \;+\; \eps_i(t),
   \qquad t = 1,\dots,T,
@@ -17,14 +18,15 @@ The HMM-WJ model produces a per-ticker marginal, but does not capture cross-asse
 where $g_m \in \R^T$ is the market growth-rate path with sample
 variance $\sigma_m^2 = \Var(g_m)$, the pair $(\alpha_i, \beta_i)$
 is the SIM intercept and slope for asset $i$, and $\eps_i$ is the
-per-asset residual that the construction must specify. Two
+per-asset residual that the construction must specify (unrelated to
+the jump probability $\epsilon$ of the marginal generator). Two
 constraints govern the choice of $\eps_i$: the composed $g_i$ must
 recover the calibrated $(\alpha_i, \beta_i)$ under ordinary least
 squares (OLS), and it must inherit the per-asset marginal the HMM-WJ
 generator was validated to reproduce (heavy tails, regime structure,
 jumps).
 
-The naive approach, a \emph{Gaussian-residual composition},
+A first option, \emph{Gaussian-residual composition},
 fits a Normal distribution to the OLS residuals of the asset's real
 history on $g_m$ and samples $\eps_i \sim N(0, \sigma_{\eps,i}^2)$ with
 $\sigma_{\eps,i}^2 = (1 - R^2_{i,\real})\,\sigma_i^2$, where
@@ -112,19 +114,15 @@ $\beta_i$, so the clipped slope inherits the calibrated direction;
 sign preservation keeps defensive (negative-$\beta$) assets
 defensive even when clipped. The floor $f$ is a free parameter of
 the construction; in our experiments we use $f = 0.10$, reserving at
-least $10\%$ of each asset's variance for idiosyncratic noise. 
+least $10\%$ of each asset's variance for idiosyncratic noise.
 
-% Implementation??
-% When $\beta_i$ is clipped, both $\beta_i$ and $\beta_i^{\eff}$ are
-% persisted alongside the output so the attenuation is recoverable
-% without external metadata.
-
+Which target variance is appropriate depends on what the asset represents.
 For a typical single stock the heavy tails, regime structure, and jumps live in the marginal that the HMM-WJ generator was built to reproduce. Thus, pinning $\Var(g_i)$ to $\sigma_{\gen,i}^2$ keeps the composition
 aligned with the per-asset calibration. However, index-tracking ETFs reverse
 the picture: what distinguishes a tracker is its OLS relationship to
-the market, not its marginal. SPY against itself has $\beta = 1$,
-$R^2 = 1$, and zero residual variance exactly; QQQ against SPY has
-$R^2 \approx 0.84$, and SPYG against SPY has $R^2 \approx 0.86$. A
+the market, not its marginal. Against itself, SPY has $\beta = 1$,
+$R^2 = 1$, and zero residual variance exactly; against SPY, QQQ has
+$R^2 \approx 0.84$ and SPYG has $R^2 \approx 0.86$. A
 variance-preserving composition applied to a tracker supplies a
 residual whose variance bears no relation to the value
 $R^2_{i,\real}$ implies, so OLS on the composed path returns
