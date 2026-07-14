@@ -332,8 +332,10 @@ not for real residuals, where common sector and style factors correlate
 the $\eps_i$ and shrink the realized $\Var(\eps_i - \eps_j)$ below the
 $\sigma_{\eps,i}^2 + \sigma_{\eps,j}^2$ that the independent generator
 produces. Matching each asset's marginal variance does not restore that
-cross-asset covariance, so the synthetic $D_\eps$ is inflated relative
-to the market. The residual excess beyond this contemporaneous term is
+cross-asset covariance, so the synthetic $D_\eps$ is expected to exceed
+its real-market counterpart when the omitted residual covariance is
+positive; quantifying that contribution requires a joint-residual
+experiment we did not run. The residual excess beyond this contemporaneous term is
 the combined empirical magnitude of the higher-moment corrections to
 the Taylor expansion (heavy-tailed JumpHMM marginals carry non-trivial
 third and fourth cumulants), the time-varying volatility and
@@ -528,11 +530,12 @@ reorder step, which destroys temporal structure by construction;
 recovering the AR(1) requires a block-ordered copula sampler,
 which is a structural redesign rather than a downstream
 correction. The block bootstrap of empirical
-residuals~\cite{politisRomano1994} preserves both temporal and
-cross-sectional structure of the residual series by construction
-and is a valid alternative generator pipeline, listed as a
-future-work item that replaces the JumpHMM marginal rather than
-correcting it. A multiplicative haircut on the engine-versus-static
+residuals~\cite{politisRomano1994}, applied per ticker as here,
+preserves each ticker's own temporal residual structure but not the
+contemporaneous cross-asset covariance (a joint or aligned bootstrap,
+or a residual copula, would be required for that); it is a valid
+alternative generator pipeline, listed as a future-work item that
+replaces the JumpHMM marginal rather than correcting it. A multiplicative haircut on the engine-versus-static
 deviation,
 $W^{\mathrm{corr}} = W_{\mathrm{static}}\cdot
    (W_{\mathrm{engine}}/W_{\mathrm{static}})^{k}$, hits the same

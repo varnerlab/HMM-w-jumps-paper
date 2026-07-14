@@ -26,8 +26,8 @@ Registered Interest and Principal of Securities) bond yields. The excess growth 
 has units of $\mathrm{year}^{-1}$ and is time-additive under
 continuous compounding.
 
-We defined the hybrid hidden Markov model with jump-diffusion
-(HMM-WJ) as the tuple
+We defined the hybrid hidden Markov model with a jump-duration
+mechanism (HMM-WJ) as the tuple
 $\mathcal{M} = (\mathcal{S}, \mathcal{O}, \mathbf{T}, \mathbf{E}, \bar{\pi})$
 \cite{rabinerJuang1986} (Figure~\ref{fig:model_architecture}), where
 the hidden state
@@ -100,9 +100,11 @@ Poisson support includes zero, a draw of $K = 0$ forces no tail steps
 and the chain takes an ordinary transition, so $\lambda$ sets the mean
 length of a triggered episode rather than a guaranteed minimum dwell.
 During the $K$ forced steps, the standard Markovian transitions were
-overridden to target tail states, with a user-configurable bias
-$p_{\rm neg}$ (default $0.52$) that favored negative-tail states to
-reproduce gain/loss asymmetry (Figure~\ref{fig:model_architecture}). The empirical
+overridden to target tail states: at each forced step the tail set was
+drawn as $\mathcal{S}_{-}$ with a user-configurable probability
+$p_{\rm neg}$ (default $0.52$) and as $\mathcal{S}_{+}$ otherwise, a
+bias toward negative-tail states that reproduced gain/loss asymmetry
+(Figure~\ref{fig:model_architecture}). The empirical
 transition matrix exhibited a dominant near-diagonal band reflecting
 short-range regime persistence, with natural residence times of
 $1$--$2$ steps in every state including the tails
@@ -114,13 +116,14 @@ $\bar{\pi} = \bar{\pi}\mathbf{T}$ and was estimated by matrix powering
 initial state was drawn from $S_0 \sim \bar{\pi}$. Because $\bar{\pi}$
 is the invariant distribution of $\mathbf{T}$ alone, it approximates
 the invariant distribution of the jump-augmented process (whose state
-also carries jump status and remaining episode length); the
-discrepancy affects only the first few steps of each path and is
-negligible at the $2{,}766$-day horizon. At each subsequent
+also carries jump status and remaining episode length); this
+introduces a small, unquantified transient rather than exact
+stationarity of the full generator. At each subsequent
 time step $t$ the chain either transitioned according to the empirical
 row $\mathbf{T}_{S_{t-1},\,\cdot}$ (probability $1-\epsilon$) or
 entered a Poisson jump episode (probability $\epsilon$) that forced
-the state into $\mathcal{S}_{-}$ or $\mathcal{S}_{+}$ for $K$
+the state into a tail set (drawn per step as $\mathcal{S}_{-}$ with
+probability $p_{\rm neg}$, else $\mathcal{S}_{+}$) for $K$
 consecutive steps before normal transitions resumed. In both cases
 an observation was sampled from the emission distribution
 $G_t \sim \mathbf{E}_{S_t}$. The full simulator is given in
@@ -214,16 +217,17 @@ Algorithm~\ref{alg:hmmwj}.
     {prob.~$1\!-\!\epsilon$};
 \end{tikzpicture}%
 }
-\caption{\textbf{Architecture of the hybrid hidden Markov model with
-    jump-diffusion (HMM-WJ).} At each step the chain transitions
+\caption{\textbf{Architecture of the hybrid hidden Markov model with a
+    jump-duration mechanism (HMM-WJ).} At each step the chain transitions
     according to the empirical transition matrix $\mathbf{T}$
     (probability $1 - \epsilon$, thin bidirectional arrows) or enters a
     Poisson jump episode (probability $\epsilon$, dashed upward arrow
-    to the Poisson clock). During a jump episode the active state is
-    forced to the bottom tail set $\mathcal{S}_{-}$ (red, lowest-valued
-    states) or the top tail set $\mathcal{S}_{+}$ (blue, highest-valued
-    states) for $K \sim \mathrm{Poisson}(\lambda)$ consecutive steps
-    before normal Markovian evolution resumes. Small bell curves above
+    to the Poisson clock). During a jump episode each of the
+    $K \sim \mathrm{Poisson}(\lambda)$ forced steps independently draws
+    the bottom tail set $\mathcal{S}_{-}$ (red, lowest-valued states)
+    with probability $p_{\rm neg}$ or the top tail set $\mathcal{S}_{+}$
+    (blue, highest-valued states) otherwise, before normal Markovian
+    evolution resumes. Small bell curves above
     each state depict the state-conditional location-scale Student-$t$
     ($\nu=5$) emission distribution. Tail sets are defined as the
     $N_{\rm tail}$ lowest- and highest-quantile states under the
@@ -242,13 +246,13 @@ Algorithm~\ref{alg:hmmwj}.
     $\mathcal{S}_{+} = \{N - N_{\rm tail} + 1, \dots, N\}$.
   \ENSURE State sequence $\{S_t\}_{t=0}^{T}$ and growth-rate path
     $\{G_t\}_{t=1}^{T}$.
-  \STATE Draw $S_0 \sim \bar{\pi}$;\quad
-    $k \gets 0$;\quad $\mathcal{J} \gets \emptyset$
-    \hfill \COMMENT{$k$: forced-step counter}
+  \STATE Draw $S_0 \sim \bar{\pi}$;\quad $k \gets 0$
+    \hfill \COMMENT{$k$: remaining forced-step counter}
   \FOR{$t = 1, \dots, T$}
     \IF{$k > 0$}
-      \STATE $S_t \sim \mathrm{Uniform}(\mathcal{J})$;\quad $k \gets k - 1$
-        \hfill \COMMENT{continue forced jump episode}
+      \STATE $\mathcal{J} \gets \mathcal{S}_{-}$ w.p.\ $p_{\rm neg}$, else $\mathcal{S}_{+}$;\quad
+        $S_t \sim \mathrm{Uniform}(\mathcal{J})$;\quad $k \gets k - 1$
+        \hfill \COMMENT{forced tail step; sign drawn per step}
     \ELSIF{$\mathrm{Uniform}(0,1) > \epsilon$}
       \STATE $S_t \sim \mathbf{T}_{S_{t-1}, \cdot}$
         \hfill \COMMENT{standard Markov transition}
@@ -259,11 +263,10 @@ Algorithm~\ref{alg:hmmwj}.
         \STATE $S_t \sim \mathbf{T}_{S_{t-1}, \cdot}$
           \hfill \COMMENT{$K = 0$: no forced steps, standard transition}
       \ELSE
-        \STATE With probability $p_{\rm neg}$ set $\mathcal{J} \gets \mathcal{S}_{-}$,
-          else $\mathcal{J} \gets \mathcal{S}_{+}$
-        \STATE $S_t \sim \mathrm{Uniform}(\mathcal{J})$;\quad
-          $k \gets \min(K, T - t) - 1$
-          \hfill \COMMENT{emit first forced step; $K$ steps in total}
+        \STATE $\mathcal{J} \gets \mathcal{S}_{-}$ w.p.\ $p_{\rm neg}$, else $\mathcal{S}_{+}$;\quad
+          $S_t \sim \mathrm{Uniform}(\mathcal{J})$;\quad
+          $k \gets \min(K - 1, T - t)$
+          \hfill \COMMENT{first forced step; $K$ steps total, sign per step}
       \ENDIF
     \ENDIF
     \STATE Draw $G_t \sim \mu_{S_t} + \sigma_{S_t}\, t_{5}$
@@ -277,10 +280,11 @@ the jump probability $\epsilon$ and mean episode length $\lambda$,
 drawing on the jump-diffusion tradition of \cite{merton1976, kou2002}
 while adopting an HSMM-style state-duration parameterization
 \cite{bullaBulla2006} in place of the instantaneous-jump formulation
-of those classical models. The label \emph{jump-diffusion} here refers
-to this heavy-tailed tail-duration override layered on a discrete-state
-chain with Student-$t$ emissions; the construction is a discrete-state
-Markov generator and carries no continuous-time diffusion component.
+of those classical models. We describe the mechanism as a
+\emph{jump-duration} override rather than jump-diffusion: it is a
+heavy-tailed tail-duration override layered on a discrete-state chain
+with Student-$t$ emissions, a discrete-state Markov generator that
+carries no continuous-time diffusion component.
 Calibration used a multi-objective grid search that minimized the
 discrepancy between historical and simulated market signatures. The objective targeted two stylized facts
 \cite{cont2001, rydenTerasvirtaAsbrink1998}, both visible in the

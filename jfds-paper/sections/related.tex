@@ -104,11 +104,11 @@ smirnov1948, andersonDarling1952} and autocorrelation diagnostics for
 temporal structure \cite{cont2001}. Distributional and temporal tests are necessary but not
 sufficient: a synthetic dataset can pass them yet still mislead
 when fed into the task it was generated for. Booth and Fama \cite{boothFama1992} described one such failure: a
-daily-rebalanced allocator on i.i.d.-residual paths extracts a
-structural \emph{diversification return} that is largely absent in
-real markets, where residual serial dependence at short horizons is
-small but non-negligible \cite{cont2001}. We adopt the classical
-distributional metrics together with a Value-at-Risk backtest
-scored by Kupiec's unconditional-coverage test, and we address the
-diversification-return artifact through a location-shift bias
-correction described in Methods.
+daily-rebalanced allocator on paths whose residuals are drawn
+independently across assets extracts a structural
+\emph{diversification return} that is muted in real markets, where
+common sector and style factors correlate residuals across assets. We
+adopt the classical distributional metrics together with a
+Value-at-Risk coverage check scored by Kupiec's unconditional-coverage
+test, and we address the diversification-return artifact through a
+location-shift level correction described in Methods.

@@ -8,7 +8,7 @@
 %   (5) six-composer protocol (paired innovation, three branches)
 %   (6) metric families and per-ticker aggregation
 %   (7) aggregate composer scorecard
-%   (8) downstream VaR backtest
+%   (8) downstream VaR coverage check
 %   (9) mechanism trace + branch behavior + clipping stress
 %  (10) robustness (hyperparameter grid + seed sweep)
 
@@ -67,12 +67,7 @@ practical upper bound on state resolution.
     corresponding synthetic quantiles. Standard errors (SE) in parentheses:
     binomial SE for pass rates, $\mathrm{std}/\sqrt{n}$ for kurtosis,
     Wasserstein-$1$, and Hellinger; bootstrap SE ($B = 500$) for
-    ACF-MAE and coverage. Best value per row in bold. \emph{Free
-    parameters} counts grid-searched or optimizer-fit free parameters;
-    for the state-based models (HSMM, HMM-NJ, HMM-WJ) the
-    frequentist-counted transition matrix and per-state emission moments
-    are plug-in estimates and are not included, whereas the GRU entry is
-    its full trained weight vector.}
+    ACF-MAE and coverage. Best value per row in bold.}
 \label{tab:model_comparison}
 \resizebox{\columnwidth}{!}{%
 \scriptsize
@@ -97,8 +92,6 @@ ACF-MAE $\downarrow$                       & 0.043 ($<$0.001) & 0.043 ($<$0.001)
 Coverage (\%) $\uparrow$                  & 100.0 ($<$0.1) &  36.4 (1.9) &  74.7 (1.0) &  96.0 (1.3) &  77.8 (2.9) & \textbf{100.0} (0.2) & \textbf{100.0} ($<$0.1) & \textbf{100.0} ($<$0.1) \\
 Wasserstein-$1$ $\downarrow$              & 0.232 (0.002) & 0.452 (0.002) & 0.263 (0.002) & 0.507 (0.018) & 0.488 (0.005) & 0.287 (0.002) & \textbf{0.258} (0.002) & 0.282 (0.006) \\
 Hellinger dist $\downarrow$               & 0.205 (0.001) & 0.235 (0.001) & 0.211 (0.001) & 0.232 (0.001) & 0.240 (0.001) & 0.239 (0.001) & \textbf{0.207} (0.001) & 0.210 (0.001) \\[4pt]
-\midrule
-Free parameters              &     0 &     2 &     2 &     3 & 37{,}954 &    18 &     2 &     4 \\
 \bottomrule
 \end{tabular}}
 \end{table}
@@ -319,7 +312,7 @@ lighter tails ($\kappa = 6.68$ and $6.04$; Hill $0.330$ and
 $0.318$) than either JumpHMM-based recipe.
 
 To test whether the body-fidelity gap propagated into Value-at-Risk
-accuracy, we ran a per-ticker one-day VaR backtest on the same
+accuracy, we ran a per-ticker one-day VaR coverage check on the same
 universe (Table~\ref{tab:var}). At $\alpha = 0.99$ the nominal
 exceedance rate is $1\%$; the naive composer under-breached at
 $0.67\%$ and the Gaussian baseline
@@ -329,30 +322,30 @@ rates), while the hybrid, JumpHMM-on-residuals, block bootstrap,
 and GARCH(1,1)-$t$ composers all hit coverage within one-tenth of
 a percentage point of nominal ($0.95$, $0.99$, $1.09$, and
 $1.09\%$ respectively), and their Kupiec pass rates clustered
-between $72$ and $86\%$. Hybrid and JumpHMM-on-residuals were
-statistically indistinguishable on this test: the $25$
+between $72$ and $86\%$. Hybrid and JumpHMM-on-residuals differed by
+less than the cross-ticker spread on this test: the $25$
 percentage-point body-fidelity gap between them did not translate
-to a Value-at-Risk accuracy difference. Hybrid's scope was
+into a material Value-at-Risk coverage difference. Hybrid's scope was
 therefore the case where the per-asset generator was specified in
 full-return units; in that case it delivered tail accuracy on par
 with a dedicated residual generator without requiring a separate
 fitting stage.
 
 \FloatBarrier
-% --- Table: VaR backtest ---
+% --- Table: VaR coverage check ---
 \begin{table}[tbp]
   \centering
-  \caption{\textbf{Per-ticker one-day Value-at-Risk backtest across the
-    six composers.} For each (ticker, replication) pair we estimate the
+  \caption{\textbf{Per-ticker one-day Value-at-Risk coverage check across
+    the six composers.} For each (ticker, replication) pair we estimate the
     VaR threshold at coverage level $\alpha$ from the composed path and
     count exceedances against the real $2014$--$2024$ growth-rate
     history. \textit{rate}: mean exceedance rate across tickers
     (nominal: $1-\alpha$). \textit{SD}: cross-ticker standard deviation
     of the exceedance rate, in percentage points. \textit{Kupiec pass}:
     fraction of tickers on which the Kupiec unconditional-coverage
-    test $p$-value exceeds $0.05$. Hybrid and JumpHMM-on-residuals are statistically
-    indistinguishable at both coverage levels; the naive and
-    Gaussian SIM composers fail coverage on a majority of the universe.}
+    test $p$-value exceeds $0.05$. Hybrid and JumpHMM-on-residuals differ
+    by less than the cross-ticker spread at both coverage levels; the naive
+    and Gaussian SIM composers fail coverage on a majority of the universe.}
   \label{tab:var}
   \small
   \input{sections/tables/table5_var_backtest}

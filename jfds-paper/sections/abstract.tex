@@ -19,7 +19,7 @@ variant of the framework on distributional, tail, and temporal
 metrics. The hybrid marginals reproduced the stylized facts
 in-sample and out-of-sample, and the jump mechanism was the only
 addition that reduced absolute-growth autocorrelation meaningfully
-below the independent-and-identically-distributed (i.i.d.) floor
+below the independent-and-identically-distributed (i.i.d.) baseline
 without sacrificing distributional fit. To
 extend the framework to multi-asset workflows, we composed per-asset
 paths under a single-index model using a closed-form variance
@@ -28,7 +28,8 @@ insertion into the market factor; the correction recovered the
 calibrated factor loading on a $424$-asset US equity and
 exchange-traded-fund universe while preserving heavy-tailed
 character at tail-risk accuracy comparable to dedicated residual
-fits. We also surfaced a daily-rebalancing artifact in which i.i.d.\
-residuals inflate the diversification return, and corrected it with
-a uniform location shift anchored to a long-run prior. All code and
+fits. We also surfaced a daily-rebalancing artifact in which residuals
+drawn independently across assets overstate the diversification
+return, and offset its level with a uniform location shift anchored
+to a long-run prior. All code and
 per-asset fitted marginals were released alongside the paper.

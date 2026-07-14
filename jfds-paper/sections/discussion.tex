@@ -100,8 +100,8 @@ Table~\ref{tab:aggregate}). The three residual-fit composers
 produced higher Kolmogorov--Smirnov pass rates than hybrid on
 marginal body fidelity ($67$ to $76\%$ versus $50\%$,
 Table~\ref{tab:aggregate}), but matched hybrid on the $99\%$
-Value-at-Risk coverage test to within statistical tolerance
-(Table~\ref{tab:var}). The two findings together draw the
+Value-at-Risk coverage check, differing by less than the
+cross-ticker spread (Table~\ref{tab:var}). The two findings together draw the
 tradeoff: residual-fit composers reach the body of the
 distribution more tightly by fitting a generator directly to the
 OLS residual series, at the cost of replacing the full-return
@@ -151,7 +151,7 @@ case: the main metrics reported here characterize marginal and
 factor fidelity of the composition rule on per-ticker targets. To
 test whether that fidelity translates to a consequential downstream
 number, we also report a per-ticker one-day $95\%$ and $99\%$
-Value-at-Risk backtest of the composed paths against the real
+Value-at-Risk coverage check of the composed paths against the real
 2014--2024 growth-rate histories, with exceedance counts assessed by
 Kupiec's unconditional coverage test; the per-ticker framing keeps
 this validation inside the paper's scope, while portfolio-level VaR
@@ -219,14 +219,20 @@ Appendix~\ref{sec:supp-bias} makes explicit, that dispersion is exactly
 what a rebalancing rule compounds into the diversification return of
 \cite{boothFama1992}; real equity residuals share common sector and
 style factors that a per-asset i.i.d.\ generator omits, so the
-synthetic dispersion, and hence the compounded premium, is inflated
-relative to the market.
+synthetic dispersion, and hence the compounded premium, is expected
+to exceed its real-market level; how much of the observed gap this
+accounts for is not yet quantified.
 Two generator alternatives in Table~\ref{tab:aggregate} restore
-residual dependence directly: the block-bootstrap composer resamples
-blocks of the empirical OLS residual series~\cite{politisRomano1994},
-inheriting whatever autocorrelation is present in the data, and the
-GARCH(1,1)-$t$ composer fits a conditional-variance model per
-ticker~\cite{bollerslev1986}. Both recover marginal fidelity at the cost of committing the
+univariate temporal dependence directly: the block-bootstrap composer
+resamples blocks of the empirical OLS residual
+series~\cite{politisRomano1994}, inheriting whatever autocorrelation is
+present in the data, and the GARCH(1,1)-$t$ composer fits a
+conditional-variance model per ticker~\cite{bollerslev1986}. Because
+both are fit per ticker on that ticker's own residuals, they restore
+each series' own temporal structure but not the contemporaneous
+cross-asset covariance that drives the diversification-return artifact;
+a joint or aligned bootstrap, or a residual copula, would be required
+for that. Both recover marginal fidelity at the cost of committing the
 pipeline to a specific residual generator, whereas the variance
 correction of Eq.~\eqref{eq:scale} is generator-agnostic and
 accepts a full-return JumpHMM marginal (with its jump and regime

@@ -60,7 +60,7 @@
 \newcommand{\real}{\mathrm{real}}
 \newcommand{\eff}{\mathrm{eff}}
 
-\title{Hybrid Hidden Markov Model for Modeling Equity Excess Growth Rate Dynamics: A Discrete-State Approach with Jump-Diffusion}
+\title{Hybrid Hidden Markov Model for Modeling Equity Excess Growth Rate Dynamics: A Discrete-State Approach with Jump-Duration Dynamics}
 
 \author{%
   Abdulrahman Alswaidan \\
@@ -86,7 +86,7 @@
 \end{abstract}
 
 \vspace{0.5em}
-\noindent\textbf{Keywords:} hidden Markov model; jump-diffusion; single-index model; synthetic financial data; variance correction; Value-at-Risk backtest; volatility clustering; heavy-tailed marginals.
+\noindent\textbf{Keywords:} hidden Markov model; jump-duration mechanism; single-index model; synthetic financial data; variance correction; Value-at-Risk coverage check; volatility clustering; heavy-tailed marginals.
 
 \section{Introduction}\label{sec:introduction}
 \input{sections/introduction}
@@ -131,7 +131,7 @@ The authors declare no competing interests.
 
 \paragraph{Code and data availability.}
 The experiment scripts, evaluation harness (six-composer benchmark,
-Value-at-Risk backtest, bias-correction utility), and the fitted
+Value-at-Risk coverage check, bias-correction utility), and the fitted
 per-asset marginals are released in the paper repository
 (\url{https://github.com/varnerlab/HMM-w-jumps-paper}); the
 underlying model-fitting library is released separately as
