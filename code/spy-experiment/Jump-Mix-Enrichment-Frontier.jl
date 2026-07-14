@@ -98,6 +98,93 @@ function hill_alpha_topk!(v::AbstractVector{<:Real}; tail_frac::Float64 = HILL_T
     return (k - 1) / s
 end
 
+# ── frontier: exact convex combination for per-path-mean metrics ─────────────
+function linear_frontier(summ, f::Real, field::Symbol)
+    mj = getfield(summ.jump, field)
+    mn = getfield(summ.nojump, field)
+    val = f * mj.mean + (1 - f) * mn.mean
+    se  = sqrt((f * mj.se)^2 + ((1 - f) * mn.se)^2)
+    return (val = val, se = se)
+end
+
+# ── ACF-MAE frontier: MAE of the linearly combined stratum-mean ACF curves ───
+acf_mae_frontier(summ, f::Real) =
+    mean(abs.(f .* summ.acf_jump .+ (1 - f) .* summ.acf_nojump .- summ.acf_obs))
+
+# ── column-major abs-observation matrix for one stratum ──────────────────────
+function abs_obs_matrix(pool, keep::Bool)
+    cols = [abs.(p.observations) for p in pool if is_jump_path(p) == keep]
+    T = length(cols[1])
+    M = Matrix{Float64}(undef, T, length(cols))
+    for (j, c) in enumerate(cols)
+        @views M[:, j] .= c
+    end
+    return M
+end
+
+# ── pooled Hill frontier via R resampled ensembles ───────────────────────────
+function hill_frontier(jump_mat::Matrix{Float64}, nojump_mat::Matrix{Float64}, f::Real;
+                       R::Int = R_HILL, n_ens::Int = N_ENSEMBLE, seed::Int = SEED)
+    Random.seed!(seed)
+    T      = size(jump_mat, 1)
+    nj_t   = round(Int, f * n_ens)
+    nn_t   = n_ens - nj_t
+    n_jcol = size(jump_mat, 2)
+    n_ncol = size(nojump_mat, 2)
+    buf    = Vector{Float64}(undef, n_ens * T)
+    alphas = Vector{Float64}(undef, R)
+    for r in 1:R
+        idx = 1
+        for _ in 1:nj_t
+            c = rand(1:n_jcol); @views buf[idx:idx + T - 1] .= jump_mat[:, c]; idx += T
+        end
+        for _ in 1:nn_t
+            c = rand(1:n_ncol); @views buf[idx:idx + T - 1] .= nojump_mat[:, c]; idx += T
+        end
+        alphas[r] = hill_alpha_topk!(buf)
+    end
+    return (mean = mean(alphas), sd = std(alphas))
+end
+
+# ── resampled mean of a precomputed per-path value (for the cross-check) ──────
+function resampled_field_mean(jvals::Vector{Float64}, nvals::Vector{Float64}, f::Real;
+                              R::Int = R_HILL, n_ens::Int = N_ENSEMBLE, seed::Int = SEED)
+    Random.seed!(seed)
+    nj_t = round(Int, f * n_ens)
+    nn_t = n_ens - nj_t
+    means = Vector{Float64}(undef, R)
+    for r in 1:R
+        s = 0.0
+        for _ in 1:nj_t; s += jvals[rand(1:length(jvals))]; end
+        for _ in 1:nn_t; s += nvals[rand(1:length(nvals))]; end
+        means[r] = s / n_ens
+    end
+    return (mean = mean(means), sd = std(means))
+end
+
+# ── assemble the frontier table over the f grid ──────────────────────────────
+function build_frontier_table(summ, jump_mat::Matrix{Float64}, nojump_mat::Matrix{Float64};
+                              R_hill::Int = R_HILL)
+    fs = sort(unique(vcat(F_GRID, F_MARK)))
+    df = DataFrame(f = Float64[], acf_mae = Float64[], kurt = Float64[],
+                   kurt_se = Float64[], ks_pass = Float64[], ad_pass = Float64[],
+                   w1 = Float64[], hell = Float64[], hill_alpha = Float64[],
+                   hill_sd = Float64[])
+    for f in fs
+        ku = linear_frontier(summ, f, :kurt)
+        hf = hill_frontier(jump_mat, nojump_mat, f; R = R_hill)
+        push!(df, (f,
+                   acf_mae_frontier(summ, f),
+                   ku.val, ku.se,
+                   linear_frontier(summ, f, :ks_pass).val,
+                   linear_frontier(summ, f, :ad_pass).val,
+                   linear_frontier(summ, f, :w1).val,
+                   linear_frontier(summ, f, :hell).val,
+                   hf.mean, hf.sd))
+    end
+    return df
+end
+
 # ── main (filled in later tasks) ─────────────────────────────────────────────
 function main()
     mkpath(_PATH_TO_DIAG)
