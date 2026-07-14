@@ -8,30 +8,28 @@ In this study, we developed a variance-corrected method for composing
 per-asset generators through a single-index model. The correction
 removed the variance inflation caused by inserting a full-return
 generator draw into the market factor. Across $423$ non-market assets,
-the median absolute factor-loading error was $0.018$. Its exceedance
-rate in the per-ticker one-day $99\%$ Value-at-Risk check was $0.95\%$,
-compared with $0.99$--$1.09\%$ for the residual-fit methods. Its median
-excess kurtosis and Hill index were $7.2$ and $0.365$.
-Residual models fitted directly to the OLS residual series had KS
-pass rates of $67$--$76\%$, compared with $50\%$ for the corrected
-method, but required a separate fit for each asset.
+it recovered the calibrated factor loading to a low median absolute
+error and produced heavy-tailed marginals whose per-ticker one-day
+$99\%$ Value-at-Risk exceedance rate sat near the $1\%$ nominal level,
+comparable to the residual-fit methods. Those residual models, fitted
+directly to the OLS residual series, reached higher KS pass rates than
+the corrected method but required a separate fit for each asset.
 
 The per-asset component was a hidden Markov marginal
 model with Laplace-quantile states, Student-$t$ emissions, and direct
 transition counting. On SPY, its jump-duration variant reduced
-absolute-return autocorrelation error from $0.059$ to $0.052$
-relative to the no-jump variant; its KS and AD pass rates were $97.6\%$
-and $91.3\%$. GARCH had a lower autocorrelation error of $0.031$.
-The single-asset result was
-therefore a measured marginal--temporal tradeoff rather than a claim
-of uniform superiority.
+absolute-return autocorrelation error relative to the no-jump variant
+while keeping high KS and AD pass rates; GARCH reached a lower
+autocorrelation error but failed the distributional tests. The
+single-asset result was therefore a measured marginal--temporal
+tradeoff rather than a claim of uniform superiority.
 
 The current multi-asset implementation does not model cross-asset
-residual covariance. In a $20$-asset allocator, the synthetic median
-daily-rebalanced return exceeded the realized $2025$ return by about
-$22$ percentage points. The static-to-daily-rebalance change accounted
-for $27.73$ percentage points, while adding the allocation signal
-changed the median by $0.13$ percentage points. A location-shift
+residual covariance. In a $20$-asset allocator, independent residuals
+inflated the synthetic median daily-rebalanced return well above the
+realized $2025$ outcome, almost entirely through the
+static-to-daily-rebalance diversification return rather than the
+allocation signal. A location-shift
 correction set to a documented long-run prior adjusted the return
 level without restoring the missing covariance. A full joint
 residual model is needed before using these paths for

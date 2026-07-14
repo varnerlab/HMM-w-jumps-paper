@@ -391,7 +391,7 @@ switch increased the median by $27.73$ percentage points. Adding a
 signal after daily rebalancing changed it by another $0.13$ percentage
 points. The same
 allocator on the real $2025$ growth-rate history produced
-$11.5\%/\mathrm{yr}$, about $22$ percentage points below the
+$11.5\%/\mathrm{yr}$, about $18$ percentage points below the
 synthetic median. The synthetic residuals were independent across
 tickers and therefore omitted the contemporaneous covariance present
 in real markets. Determining how much of the gap this omission caused
@@ -478,7 +478,7 @@ $\sim\!3.5$~pp of active premium net of costs. We used this documented
 prior rather than the realized test year to avoid circular
 calibration. Matching the realized year would force the synthetic
 median to equal the test sample. In this deployment, the real-$2025$
-outcome of $11.5\%/\mathrm{yr}$ was at the $63$rd percentile of the
+outcome of $11.5\%/\mathrm{yr}$ fell just above the median of the
 corrected ensemble.
 
 % --- Figure: R^2 distribution across the universe ---
@@ -506,8 +506,8 @@ range assumed for liquid US equity, shifting the misrepresentation from
 the synthetic generator to its cost model. Drifting the
 calibrated parameters between calibration and deployment to widen
 the predictive envelope, with drift scale varied across
-$\{0, 1, 2, 3, 5\}$ multiples of the OLS standard error, moved the
-median Sharpe ratio by less than $0.01$ across the sweep, so
+$\{0, 1, 2, 3, 5\}$ multiples of the OLS standard error, left the
+median Sharpe ratio essentially unchanged across the sweep, so
 standard-error-scale parameter drift did not absorb the bias. Imposing an AR(1) on the residual
 draw would conflict with the copula reorder step because reordering
 destroys temporal structure. Preserving both structures would require
@@ -711,8 +711,8 @@ Hellinger           & $0.239$ ($0.001$)       & $0.212$ ($0.001$)       & $\math
 We swept the partition resolution over
 $N \in \{30, 60, 90, 100, 150, 200, 350\}$ and re-evaluated the
 in-sample KS and AD pass rates for HMM-NJ and HMM-WJ. Pass rates varied
-by less than one percentage point across $N \in \{60, \ldots, 200\}$.
-At $N = 30$ both models lost approximately $5$ percentage
+little across $N \in \{60, \ldots, 200\}$.
+At $N = 30$ both models lost several percentage
 points on the AD test. At $N = 350$ several quantile
 bins were never visited in the historical record, leaving the
 corresponding emission parameters undefined. We adopted $N = 100$

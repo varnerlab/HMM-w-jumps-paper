@@ -159,8 +159,8 @@ that contain at least one jump. We varied $f$ from $0$, where all
 accepted paths reduce to HMM-NJ, to $1$, where every accepted path
 contains a jump. This procedure held the fitted model fixed and
 changed only the mixture of accepted paths. The absolute-return autocorrelation error fell monotonically
-from $0.059$ at $f = 0$ to $0.037$ at $f = 1$, moving from the shared
-i.i.d.\ value toward the GARCH value as the jump share rose. Over the
+from $0.059$ at $f = 0$ to $0.037$ at $f = 1$, moving from the no-jump
+value toward the GARCH value as the jump share rose. Over the
 same sweep, simulated excess kurtosis declined from $7.9$ to $6.7$.
 It matched the observed value near $f \approx 0.14$ and fell below it
 thereafter. The two-sample KS and AD pass rates also declined. The
@@ -172,7 +172,7 @@ distributional body for lower autocorrelation error without changing
 the tail index. The
 value $f \approx 0.25$ used throughout produced simulated kurtosis of
 $7.59$ against the observed $7.72$ and ACF-MAE of $0.053$ against the
-i.i.d.\ value of $0.059$.
+no-jump value of $0.059$.
 
 % --- Figure: jump-mix enrichment frontier ---
 \begin{figure}[tbp]

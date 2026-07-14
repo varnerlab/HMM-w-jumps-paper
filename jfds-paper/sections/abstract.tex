@@ -3,28 +3,28 @@
 % contribution; the HMM-WJ result is presented as validation of the
 % marginal component rather than as a uniformly superior generator.
 
-Synthetic multi-asset paths must preserve both per-asset return
-distributions and their relationship with the market. Directly
-inserting a full-return generator draw into a single-index model
-double counts market variance and distorts the composed marginal. We
-derived a closed-form scale correction for this problem and evaluated
-it on $423$ non-market tickers in a $424$-asset US equity and
-exchange-traded-fund universe. The correction recovered each ticker's
-calibrated factor loading to a median absolute error of $0.018$ while
-producing median excess kurtosis of $7.2$ and a Hill index of $0.365$.
-Residual models fitted directly to each ticker had KS pass rates of
-$67$--$76\%$, compared with $50\%$ for the corrected method. Their
-one-day $99\%$ VaR exceedance rates were $0.99$--$1.09\%$, compared
-with $0.95\%$ for the corrected method, which did not require a
-separate residual fit. The per-asset input was a hidden Markov model
-with Laplace-quantile states and Student-$t$ emissions. Its
-jump-duration variant (HMM-WJ) used Poisson episodes to lengthen
-tail-state visits. On SPY, HMM-WJ had a $97.6\%$
-in-sample KS pass rate and reduced absolute-growth autocorrelation
-error from $0.059$ to $0.052$ relative to the no-jump variant, while
-GARCH reached $0.031$. We selected HMM-WJ as the marginal component
-based on this tradeoff, not because it was uniformly superior. The
-multi-asset construction still omits cross-asset residual
-covariance, so independent residuals can overstate diversification
-gains under daily rebalancing. Code and per-asset fitted marginals are
+Synthetic multi-asset equity paths must preserve both the per-asset
+return distributions and their relationship with the market. A common
+construction inserts a full-return generator draw directly into a
+single-index model, but this double counts the market variance and
+distorts the composed marginal. We derived a closed-form scale
+correction for this problem and evaluated it on $423$ non-market
+assets in a $424$-asset US equity and exchange-traded-fund universe.
+The correction set each synthetic asset's second moment to its
+empirical target, recovered the calibrated factor loading with low
+error, and preserved heavy-tailed marginals, all without a separate
+fit to the regression residuals. Residual models fitted directly to
+each asset passed the marginal goodness-of-fit tests more often, but
+only at the cost of a per-asset calibration stage; both approaches
+held one-day Value-at-Risk exceedances near their nominal level. The
+per-asset input was a hidden Markov model with Laplace-quantile states
+and Student-t emissions, whose jump-duration variant used Poisson
+episodes to lengthen visits to the tail states. On a decade of daily
+SPY data, this variant lowered the absolute-return autocorrelation
+error relative to its no-jump counterpart while keeping strong
+distributional fit, a tradeoff we used to select it as the marginal
+component rather than a claim that it dominated every baseline. The
+multi-asset construction still omits cross-asset residual covariance,
+so independent residuals can overstate diversification gains under
+daily rebalancing. Code and the per-asset fitted marginals are
 released with the paper.

@@ -14,18 +14,17 @@
 
 The single-asset analysis supplied the marginal input for the
 multi-asset construction. Relative to HMM-NJ, HMM-WJ reduced ACF-MAE
-from $0.060$ to $0.052$, while its in-sample KS and AD pass rates were
-$2$--$8$ percentage points lower. GARCH had an ACF-MAE of $0.031$ and
-a KS pass rate of $5.5\%$. The corresponding GRU values were $0.036$
-and $0.6\%$. The HSMM reached $82\%$ KS but produced excess kurtosis
-of $4.8$ against the observed $7.7$. Bootstrap resampling reached
-$100\%$ KS by drawing only observed returns. HMM-WJ was the only
-non-GARCH, non-neural model with ACF-MAE below the shared i.i.d.\
-value of $0.060$. Its in-sample KS and AD pass rates were $97.6\%$ and
-$91.3\%$. The same ordering appeared in the $2025$ evaluation. We
-therefore treated HMM-WJ as a marginal generator that traded lower
-distributional pass rates for lower ACF-MAE, not as a uniformly
-better single-asset model.
+at the cost of somewhat lower in-sample KS and AD pass rates. GARCH
+reached the lowest ACF-MAE of any generator but failed the
+distributional tests, and the GRU behaved the same way. The HSMM
+passed the KS test but underproduced kurtosis relative to the observed
+data. Bootstrap resampling passed KS trivially by drawing only
+observed returns. Among the models that were neither GARCH nor neural,
+HMM-WJ was the only one with ACF-MAE below the i.i.d.\ baseline, and
+the same ordering held in the $2025$ evaluation. We therefore treated
+HMM-WJ as a marginal generator that traded lower distributional pass
+rates for lower ACF-MAE, not as a uniformly better single-asset
+model.
 
 The pass-rate comparisons have a statistical limitation. Two-sample
 KS and AD $p$-values assume independent observations, but the HMM,
@@ -34,35 +33,33 @@ We therefore considered the pass rates alongside $W_1$, Hellinger
 distance, and the Hill tail index rather than comparing their
 $p$-values on the same footing. The $N = 100$ state
 resolution, selected by a sensitivity sweep over
-$\{30, 60, 90, 100, 150, 200\}$, produced less than one percentage
-point of KS and AD variation from $N=60$ through $200$ on the
-$2{,}766$-day SPY sample. Shorter histories will support fewer states
+$\{30, 60, 90, 100, 150, 200\}$, produced little KS or AD variation
+across the middle of that range on the $2{,}766$-day SPY sample. Shorter histories will support fewer states
 because each state will receive fewer observations. The jump parameters
 $(\epsilon, \lambda)$ were tuned once against SPY and applied across
 the universe. Per-ticker tuning on the three cross-asset tickers
 produced in-sample KS pass rates of at least $98.9\%$ (Online
 Appendix~\ref{sec:supp-cross-asset}). These three cases do not show
 that the SPY calibration will transfer to assets with different jump
-behavior. The Student-$t$ emission with $\nu = 5$ produced
-kurtosis of $7.6$ against $5.5$ for Normal emissions and $7.7$ in the
-observed data, but it does not model skewness directly. The negative
+behavior. The Student-$t$ emission with $\nu = 5$ matched the observed
+kurtosis far more closely than Normal emissions, but it does not model
+skewness directly. The negative
 skewness in both HMM variants came from asymmetric occupancy of the
 Laplace states. Assets with a different skew direction may require a
 different quantile rule.
 
 The main result was the multi-asset variance correction. Naive
-composition inflated generator variance by $50$--$75\%$ at high
-$\beta$ and had a $4.5\%$ KS pass rate. Gaussian SIM had a $0.6\%$
-KS pass rate. The corrected method held the variance ratio at one
-and reached $50.4\%$ KS. The three
-residual-fit methods had higher KS pass rates than hybrid
-($67$--$76\%$ versus $50\%$). These methods fit the OLS residuals
+composition inflated generator variance at high $\beta$ and almost
+always failed the KS test, as did the Gaussian SIM. The corrected
+method held the variance ratio at one and passed the KS test about
+half the time. The three residual-fit methods had higher KS pass rates
+than the hybrid method. These methods fit the OLS residuals
 directly and therefore avoid the variance-inflation problem. The
 choice between the two approaches depends on whether the same
 full-return generator must serve both single-asset and multi-asset
-uses. Hybrid's $99\%$ VaR exceedance rate was $0.95\%$.
-The three residual-fit methods ranged from $0.99\%$ to $1.09\%$.
-Hybrid did not require their separate fitting stage, but its marginal
+uses. The hybrid method's one-day $99\%$ VaR exceedance rate sat near
+the $1\%$ nominal level, comparable to the residual-fit methods, and
+it did not require their separate fitting stage, though its marginal
 KS pass rate was lower.
 
 Several evaluation choices limit these results. We fixed the market
@@ -82,8 +79,8 @@ or market-driven volatility clustering are not reproduced. Clipping
 did not trigger because every ticker had $\rho_i<0.90$. It becomes relevant
 when the simulated market is more volatile than the calibration history
 or for universes mixing low-volatility stocks with extreme-beta
-assets such as leveraged ETFs. Even without clipping, the hybrid KS pass rate fell from
-$67\%$ in the lowest $\beta$ quartile to $44\%$ in the highest. As
+assets such as leveraged ETFs. Even without clipping, the hybrid KS pass rate declined from the
+lowest $\beta$ quartile to the highest. As
 $\beta$ increased, the market term accounted for more of the composed
 distribution, whose tails then depended more on the market path.
 
@@ -98,7 +95,7 @@ each ticker's temporal structure but not covariance between tickers.
 In a
 $20$-asset target-weight allocator example, the synthetic median
 annualized growth rate exceeded the real $2025$ return by about
-$22$ percentage points. The static-versus-daily-rebalance difference
+$18$ percentage points. The static-versus-daily-rebalance difference
 was $27.73$ percentage points, whereas adding the allocation signal
 changed the median by $0.13$ percentage points~\cite{boothFama1992,
 boucheyNemtchinovWong2015,
