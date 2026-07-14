@@ -284,7 +284,9 @@ rule from generator stochasticity; Gaussian SIM, by construction,
 drew its own i.i.d.\ Gaussian innovations at the calibrated residual
 variance. Three further methods drew innovations from residual
 generators fit directly to the OLS residual series: JumpHMM-on-residuals
-fitted a fresh JumpHMM marginal via pseudo-price inversion; block
+converted each ticker's residual series into a synthetic price path
+by cumulative compounding and fitted a fresh JumpHMM marginal to
+that path; block
 bootstrap~\cite{politisRomano1994} used Politis--Romano stationary
 bootstrap replicates with mean block length $\sqrt{T} \approx 50$;
 and GARCH(1,1)-$t$~\cite{bollerslev1986} fitted a conditional-variance

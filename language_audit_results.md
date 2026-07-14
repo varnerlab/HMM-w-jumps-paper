@@ -1044,3 +1044,206 @@ edit in this pass and again after the two follow-up fixes above.
 3. **Did not remove literal, non-metaphorical `gap`/`floor` usage**;
    we read the audit's rule 5 and terminology table as targeting
    metaphorical constructions specifically, not the bare words.
+
+---
+
+# Follow-up audit after the language revision — 2026-07-14
+
+The revision is substantially easier to read. The remaining problems
+are concentrated rather than manuscript-wide. The four items below
+should still be addressed before submission because they either
+overstate a result or describe the experimental design incorrectly.
+
+## 1. The Abstract overstates HMM-WJ's marginal fit
+
+In `jfds-paper/sections/abstract.tex`, the Abstract says that HMM-WJ
+"retained the same distributional fit" as HMM-NJ. The reported KS and
+AD pass rates are, however, 2--8 percentage points lower for HMM-WJ.
+The current wording conflicts with the Results and Discussion.
+
+Suggested change: replace "retained the same distributional fit" with
+"retained high distributional fit" or state directly that marginal
+fit decreased slightly while temporal fit improved.
+
+## 2. The Discussion incorrectly says that all methods shared an innovation draw
+
+In `jfds-paper/sections/discussion.tex`, the limitations paragraph
+says that the study "reused the same per-ticker innovation draw across
+methods." This is not the protocol described in
+`jfds-paper/sections/method_sim.tex`. Only Naive and Hybrid received
+the same JumpHMM innovation path. Gaussian SIM drew independent
+Gaussian innovations, and the three residual-fit methods drew from
+their separately fitted residual generators.
+
+Suggested change: say that Naive and Hybrid used paired JumpHMM
+innovations, while the remaining methods used innovations from their
+respective generators.
+
+## 3. The proposed residual extension would not restore cross-asset covariance
+
+The final Discussion paragraph says that composing autoregressive or
+block-bootstrap residuals with the single-index factor would restore
+cross-asset residual covariance. If these models are still fitted and
+sampled independently for each ticker, they restore per-asset temporal
+dependence only. They do not create contemporaneous dependence between
+assets.
+
+Suggested change: specify a genuinely joint construction, such as a
+synchronized multivariate block bootstrap, a multivariate residual
+model, a residual factor model, or a copula-based dependence model.
+An ordinary per-ticker AR or block-bootstrap model can be retained as
+a proposal for temporal dependence, but not as the solution to
+cross-asset covariance.
+
+## 4. The allocator analysis makes a stronger causal claim than the experiment supports
+
+The static-versus-daily-rebalance comparison shows that rebalancing
+creates a large return increment in the synthetic paths. It does not,
+by itself, prove that missing cross-asset residual covariance explains
+the entire roughly 22-percentage-point difference between the
+synthetic median and the realized 2025 return. The Appendix makes the
+claim stronger still by saying that "only the temporal structure of
+the residual draw differs." That statement conflicts with the paper's
+own proposed explanation, which concerns cross-sectional residual
+dependence.
+
+Suggested change: describe the result as "consistent with a
+diversification-return explanation" unless an ablation is added. A
+stronger causal conclusion would require introducing realistic
+cross-asset residual covariance while holding the marginals and
+allocator fixed, then showing that the return gap shrinks. In the
+Appendix, replace the claim that only temporal structure differs with
+a precise statement about the omitted cross-asset dependence.
+
+## Remaining language concentration
+
+These are not separate technical malfunctions, but they remain the
+main obstacles to the paper's desired simple and direct style:
+
+- The first Discussion paragraph is still roughly 400 words and
+  combines the main result, every baseline, a statistical caveat, and
+  three model limitations. Split it into shorter claim--evidence--
+  qualification paragraphs.
+- The first Sensitivity Analyses paragraph is similarly overloaded.
+  Separate the variance result, branch assignment, clipping stress
+  test, and beta-bucket result.
+- Both Conclusion paragraphs begin with long compound sentences.
+  Split each opening into two or three direct sentences.
+- In the Conclusion, replace "models fit directly to the residual
+  center" with "models fit directly to the residual series" or
+  "dedicated residual models." The current phrase is awkward and does
+  not accurately describe what was fitted.
+
+After these four substantive corrections and the concentrated
+sentence/paragraph cleanup, the remaining language issues are polish
+rather than major malfunctions.
+
+---
+
+# Author Response to the Follow-up Audit (2026-07-14, second pass)
+
+Verified all four substantive items against the live manuscript and,
+for item 2, against the SIM protocol in `method_sim.tex` before
+editing. All four were real, not audit false positives.
+
+1. **Abstract overstates marginal fit — DONE.** "retained the same
+   distributional fit" -> "retained high distributional fit"
+   (`abstract.tex`).
+2. **Innovation-draw claim — DONE.** Confirmed against
+   `method_sim.tex` (~lines 280-291): only Naive and Hybrid share a
+   paired JumpHMM innovation path; Gaussian SIM draws its own i.i.d.\
+   Gaussian innovations; the three residual-fit methods draw from
+   their own fitted generators. Discussion's evaluation-choices
+   sentence now scopes the shared-innovation claim to Naive/Hybrid
+   and names the other methods' source.
+3. **Residual-extension claim — DONE.** Reworded the closing
+   Discussion paragraph: the fix for cross-asset covariance is now a
+   genuinely joint construction (synchronized multivariate block
+   bootstrap, residual factor model, or copula-based dependence
+   model); an ordinary per-ticker AR or block-bootstrap residual
+   model is now described as improving only each asset's own
+   temporal dependence, not cross-asset dependence.
+4. **Allocator causal overclaim — DONE, both sites the audit
+   flagged, plus one it didn't.** Discussion's "attributing the
+   difference to the diversification return rather than a
+   calibration error" -> "consistent with a diversification-return
+   explanation rather than a calibration error." Appendix's "only the
+   temporal structure of the residual draw differs" replaced with a
+   precise statement of what is held fixed (allocator, cost model,
+   marginal calibration) versus what is omitted (cross-asset residual
+   covariance), plus a sentence naming the ablation that would
+   confirm the causal claim. Also propagated the same softening to
+   the Conclusion, which restated the $22$pp figure with the same
+   overclaim the audit didn't explicitly cite there; left as-is it
+   would have re-contradicted the hedged Discussion/Appendix wording.
+
+**Remaining language concentration:**
+
+- First Discussion paragraph (~400 words) split into claim+evidence
+  (the comparative tradeoff result) and qualification (the
+  statistical caveat plus three per-asset caveats) — DONE.
+- First Sensitivity Analyses paragraph split into four: the
+  variance-ratio/KS-pass-rate cause-consequence result; branch
+  assignment plus the clipping non-trigger and synthetic-tracker
+  validation; the beta-bucket result; the clipping stress test —
+  DONE.
+- Both Conclusion paragraphs' long opening compound sentences split
+  into two sentences each — DONE.
+- "models fit directly to the residual center" -> "the residual-fit
+  methods," matching the term already used in Results and Discussion
+  — DONE.
+
+**Build:** clean, 33pp (`latexmk -pdf`), 0 undefined refs, no
+overfull boxes above 20pt.
+
+---
+
+# Author-requested follow-ups (2026-07-14, same session)
+
+Two more requests came directly from the author, not from the
+external audit text above:
+
+1. **No fig/table refs in Discussion.** Discussion had five
+   `(Table~\ref{tab:...})` parenthetical citations
+   (`tab:model_comparison`, `tab:emission_hsmm`, `tab:aggregate`,
+   `tab:var`, `tab:beta_bucket`). All five removed; the prose reads
+   standalone without pointing back to a specific table. The
+   `Online Appendix~\ref{sec:supp-*}` cross-references were left in
+   place, consistent with the standing exception for appendix section
+   refs.
+2. **Full-manuscript pass for awkward phrasing / undefined jargon,**
+   prompted by "under-breached"/"over-breached" in the VaR-coverage
+   paragraph (results.tex), which the author flagged as making no
+   sense. Read all nine section files plus the appendix in full.
+   Fixed:
+   - `results.tex`: "naive composition under-breached at 0.67% and
+     Gaussian SIM over-breached at 1.40%" -> "naive composition's
+     empirical exceedance rate fell short of nominal at 0.67%, while
+     Gaussian SIM's exceeded it at 1.40%."
+   - `results.tex`: a dangling appositive ("...below HMM-NJ's, the
+     cost of jumps occasionally overweighting tail states") rewritten
+     as two clean sentences with an explicit "because."
+   - `method_sim.tex`: "fitted a fresh JumpHMM marginal via
+     pseudo-price inversion" -> stated in plain language what the
+     step does (convert the residual series into a synthetic price
+     path by cumulative compounding, then fit). Verified against the
+     actual implementation
+     (`code/downstream-evaluation/scripts/01b-Fit-Residual-Marginals.jl`)
+     before rewording, since the audit's own house rule requires
+     verifying claims against code before stating them.
+   - `method_hmm.tex`: "introduces a small, unquantified transient" ->
+     "introduces a small, unquantified deviation from exact
+     stationarity" (dynamical-systems jargon not standard in a
+     finance paper).
+   - `appendix.tex`: "has static-allocation drawdown geometry" ->
+     "inherits the static allocation's drawdown pattern."
+
+   Deliberately left alone: `idiosyncratic floor`, `market loading
+   ratio`, and other terms that are formally defined once and used
+   consistently thereafter (these are technical vocabulary, not
+   unexplained jargon); `leptokurtic`, `Kupiec unconditional coverage`,
+   and similar standard quant-finance/statistics terms appropriate for
+   the JFDS readership.
+
+**Build after these fixes:** clean, 32pp, 0 undefined refs, no
+overfull boxes above 20pt.

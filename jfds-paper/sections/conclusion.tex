@@ -11,29 +11,30 @@
 In this study, we developed a hybrid hidden Markov model for
 synthetic equity path generation that discretizes excess growth
 rates into Laplace-quantile states with Student-$t$ emissions and a
-Poisson jump-duration override, estimating the transition matrix by
-direct frequentist counting rather than the iterative Baum-Welch
+Poisson jump-duration override. We estimated the transition matrix
+by direct frequentist counting rather than the iterative Baum-Welch
 algorithm. For SPY, the jump-duration override reduced
 absolute-return autocorrelation error from $0.059$ to $0.052$
 relative to the no-jump variant, the only non-GARCH, non-neural
 model to score below the shared i.i.d.\ value, while GARCH retained
-the lowest error at $0.031$; HMM-WJ is therefore a tradeoff between
+the lowest error at $0.031$. HMM-WJ is therefore a tradeoff between
 marginal and temporal fit, passing the Kolmogorov-Smirnov test
 against the real SPY distribution at $97.6\%$ in-sample and
 $94.4\%$ out-of-sample.
 
 We also derived a closed-form scale correction for single-index
 composition that removes the variance inflation caused by inserting
-a per-asset generator draw into the market factor, recovering each
-asset's calibrated factor loading to a median absolute error of
-$0.018$ across $423$ non-market assets and matching the leading
-residual-fit alternatives on a per-ticker one-day $99\%$
-Value-at-Risk coverage check, while retaining heavier tails than
-models fit directly to the residual center. The current multi-asset
-implementation does not model cross-asset residual covariance:
-independent per-asset residuals inflated a deployed $20$-asset
-allocator's daily-rebalanced return level by about $22$ percentage
-points. A location-shift correction set to a documented long-run
-prior offsets this inflation without restoring the missing
-covariance, so a full joint residual model is needed before using
-these paths for portfolio-level return forecasts.
+a per-asset generator draw into the market factor. The correction
+recovered each asset's calibrated factor loading to a median
+absolute error of $0.018$ across $423$ non-market assets and matched
+the leading residual-fit methods on a per-ticker one-day $99\%$
+Value-at-Risk coverage check, while retaining heavier tails than the
+residual-fit methods. The current multi-asset implementation does
+not model cross-asset residual covariance: in a deployed $20$-asset
+allocator, the synthetic median daily-rebalanced return ran about
+$22$ percentage points above the realized $2025$ return, consistent
+with a diversification-return effect from independent per-asset
+residuals. A location-shift correction set to a documented long-run
+prior offsets this gap without restoring the missing covariance, so
+a full joint residual model is needed before using these paths for
+portfolio-level return forecasts.

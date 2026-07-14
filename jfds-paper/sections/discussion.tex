@@ -14,8 +14,7 @@
 
 In this study, we found that HMM-WJ improved volatility persistence
 relative to HMM-NJ but slightly reduced marginal fit, with pass
-rates $2$--$8$ percentage points lower in-sample
-(Table~\ref{tab:model_comparison}). Among the alternatives, each
+rates $2$--$8$ percentage points lower in-sample. Among the alternatives, each
 excelled on one property and failed on another for a reason tied to
 its own structure: GARCH's conditional-variance dynamics reproduced
 temporal clustering but not the marginal's body; the neural baseline
@@ -31,6 +30,7 @@ the autocorrelation of absolute returns below the shared i.i.d.\
 level while retaining most of HMM-NJ's distributional fit, an
 ordering that held out-of-sample on the $2025$ evaluation. The model
 therefore offers a tradeoff rather than a uniformly better result.
+
 The pass-rate comparisons come with a statistical caveat: two-sample KS
 and AD $p$-values assume independent observations, an assumption
 the HMM, HSMM, GARCH, and bootstrap generators all violate, so we
@@ -48,8 +48,7 @@ produced strong in-sample fits (KS $\ge 98.9\%$, Online
 Appendix~\ref{sec:supp-cross-asset}), but is not guaranteed to
 transfer to assets with different jump behavior without its own
 calibration step. The Student-$t$ emission with $\nu = 5$ improved
-kurtosis fidelity over Normal emissions (Table~\ref{tab:emission_hsmm})
-but does not
+kurtosis fidelity over Normal emissions but does not
 model skewness directly: the negative skewness both HMM variants
 reproduce comes from the asymmetric state-occupancy of the Laplace
 partition, so assets whose skew direction the partition cannot
@@ -60,7 +59,7 @@ correction reduced the composed marginal's variance error and
 improved KS pass rates relative to naive composition, which
 inflates variance by $\beta_i^2 \sigma_m^2$, and relative to
 Gaussian SIM, which recovers $\beta$ exactly but strips the
-marginal entirely (Table~\ref{tab:aggregate}). The three
+marginal entirely. The three
 residual-fit methods still had better marginal fit than hybrid
 ($67$ to $76\%$ KS pass rate versus $50\%$), because fitting a
 generator directly to the OLS residual series avoids the
@@ -71,17 +70,17 @@ is itself a property the per-asset generator should have, for
 instance when the same generator is used for both single-asset and
 multi-asset purposes. On tail risk this tradeoff disappears: hybrid
 and the three residual-fit methods all matched on $99\%$ VaR
-coverage, differing by less than the cross-ticker spread
-(Table~\ref{tab:var}), so hybrid delivers tail accuracy on par with
+coverage, differing by less than the cross-ticker spread, so hybrid delivers tail accuracy on par with
 a dedicated residual generator without a separate fitting stage,
 even though its marginal body fit trails the residual-fit
 alternatives.
 
 Several evaluation choices bound these results. We fixed the market
-path at the real SPY history, reused the same per-ticker innovation
-draw across methods, and skipped the optional cross-sectional rank
-reorder, so the comparison isolates the composition rule rather than
-validating a full joint market simulator; we also evaluated VaR per
+path at the real SPY history, paired Naive and Hybrid on the same
+per-ticker JumpHMM innovation path so the comparison isolates the
+composition rule (Gaussian SIM and the three residual-fit methods
+each drew from their own generators), and skipped the optional
+cross-sectional rank reorder; we also evaluated VaR per
 ticker rather than at the portfolio level, which the optional
 reorder would be needed to support. The variance correction assumes
 $\mathrm{Cov}(\tg_i, g_m) \approx 0$, which holds by construction
@@ -98,8 +97,7 @@ scenario-driven markets more volatile than the calibration history,
 or for universes mixing low-volatility stocks with extreme-beta
 assets such as leveraged ETFs. A related, milder attenuation
 appeared even without clipping: the hybrid KS pass rate fell from
-$67\%$ at low $\beta$ to $44\%$ at high $\beta$
-(Table~\ref{tab:beta_bucket}), because as the market-driven
+$67\%$ at low $\beta$ to $44\%$ at high $\beta$, because as the market-driven
 component approaches the idiosyncratic floor it accounts for an
 increasing share of the marginal, and that component is only as
 heavy-tailed as the market path itself.
@@ -118,8 +116,8 @@ even for the methods that best match each ticker's marginal. In a
 $20$-asset target-weight allocator example, the synthetic median
 annualized growth rate exceeded the real $2025$ return by about
 $22$ percentage points, with a static-versus-daily-rebalance
-decomposition attributing the difference to the diversification return
-rather than to a calibration
+decomposition consistent with a diversification-return explanation
+rather than a calibration
 error~\cite{boothFama1992, boucheyNemtchinovWong2015,
 markowitz1976longRun} (Online Appendix~\ref{sec:supp-bias}). We
 applied a location-shift correction that subtracts a constant drift
@@ -141,10 +139,15 @@ would replace the single market factor with $K$ factors or lags,
 capturing the lagged market dependence the current construction
 omits; the variance correction generalizes to both without changing
 its algebra, though the empirical evaluation is left to follow-up
-work. Composing autoregressive or block-bootstrap residuals with the
-single-index factor, instead of independent per-asset draws, would
-restore cross-asset residual covariance and address the
-diversification-return bias directly. A stress-test harness that
+work. A jointly specified residual model, such as a synchronized
+multivariate block bootstrap, a residual factor model, or a
+copula-based dependence model, composed with the single-index factor
+instead of independent per-asset draws, would restore cross-asset
+residual covariance and address the diversification-return bias
+directly; an ordinary per-ticker autoregressive or block-bootstrap
+residual model would still be fit and sampled independently for each
+ticker, so it would improve each asset's own temporal dependence
+without creating dependence between assets. A stress-test harness that
 pairs the clipping rule with a market scenario more volatile than
 the calibration history would test whether the idiosyncratic floor
 keeps per-asset marginals heavy-tailed under exactly the conditions

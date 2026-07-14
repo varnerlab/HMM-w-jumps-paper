@@ -403,13 +403,16 @@ rebalance moved the median by a further $+0.13$~pp, negligible
 next to the rebalancing-driven diversification return. The same
 allocator on the real $2025$ growth-rate history produced
 $11.5\%/\mathrm{yr}$, leaving the synthetic median running
-$\sim\!22$~percentage points above reality. The decomposition shows
-that this difference is a structural feature of the i.i.d.-residual
-generator family rather than a calibration error: the allocator
-choice, the cost model, the marginal calibration, and the
-cross-sectional structure all behave on synthetic paths exactly as
-they behave on real data; only the temporal structure of the
-residual draw differs.
+$\sim\!22$~percentage points above reality. The decomposition is
+consistent with a diversification-return explanation rather than a
+calibration error: the allocator choice, the cost model, and the
+marginal calibration match the real $2025$ deployment, and the
+residual draws are independent across tickers, omitting the
+contemporaneous cross-asset covariance real markets exhibit.
+Confirming that this omission accounts for the full
+$\sim\!22$~percentage-point gap would require an ablation that
+reintroduces realistic cross-asset residual covariance while holding
+the marginals and allocator fixed.
 
 % --- Table: 20-asset allocator decomposition ---
 \begin{table}[tbp]
@@ -556,8 +559,8 @@ $W^{\mathrm{corr}} = W_{\mathrm{static}}\cdot
 target at $k$ chosen to match the prior, but its per-path rank
 correlation with the raw path drops well below one, so unlike the
 location shift it reorders which paths are best and worst; it also
-has static-allocation drawdown geometry, with drawdowns widening
-materially relative to the raw path.
+inherits the static allocation's drawdown pattern, with drawdowns
+widening materially relative to the raw path.
 
 The location-shift correction of Eq.~\eqref{eq:bias-correction}, by
 contrast, preserves the per-path rank order and the volatility

@@ -119,7 +119,7 @@ initial state was drawn from $S_0 \sim \bar{\pi}$. Because $\bar{\pi}$
 is the invariant distribution of $\mathbf{T}$ alone, it only
 approximates the invariant distribution of the jump-augmented process,
 whose state also includes jump status and remaining episode length;
-this introduces a small, unquantified transient rather than exact
+this introduces a small, unquantified deviation from exact
 stationarity. Algorithm~\ref{alg:hmmwj} gives the full simulator: at
 each step the chain takes a standard transition with probability
 $1 - \epsilon$ or, otherwise, enters a Poisson jump episode that
