@@ -12,7 +12,9 @@
 
 - Seed: `1234` (set by `Include.jl`; re-set before each stochastic routine for determinism).
 - Window: IS only. `g_is = hub["insampledataset"]`, length 2766.
-- Metrics config: ACF lags `1:25`; GoF pass threshold `p > 0.05`; Hill `tail_frac = 0.05` on pooled upper `|G_t|`, reported as `alpha = 1/xi`.
+- Metrics config: ACF lags `1:252` (matches the paper's reported `_L_ACF`; ACF-MAE is the MAE of the ensemble-mean |g| autocorrelation curve, built from stratum-mean curves, not a per-path scalar); GoF pass threshold `p > 0.05`; Hill `tail_frac = 0.05` on pooled upper `|G_t|`, reported as `alpha = 1/xi`.
+
+> **Execution correction (2026-07-14):** the drafted Task 2/4 code below carried ACF-MAE as a per-path scalar over 25 lags. The f=0.25 anchor check exposed that as ~0.17 versus the paper's ~0.05. Root cause: every reported table computes ACF-MAE over **252** lags from the **ensemble-mean** ACF curve. Task 2 was implemented with `ACF_LAGS = 1:252`, ACF-MAE dropped from `_METRIC_FIELDS`, and `stratum_summary` now returns `acf_obs`/`acf_jump`/`acf_nojump` curves; Task 4 uses `acf_mae_frontier(summ, f) = mean(abs.(f.*acf_jump .+ (1-f).*acf_nojump .- acf_obs))`. The committed script is the source of truth where it differs from the code blocks below.
 - Sizes: pool `N_POOL = 4000`; enriched ensemble `N_ENSEMBLE = 1000`; Hill resampling `R_HILL = 200`; grid `F_GRID = 0.0:0.1:1.0` plus the marked point `0.25`.
 - Reuse the paper's exact estimators: `JumpHMM._wasserstein1`, `JumpHMM._hellinger` (module-qualified, confirmed reachable), `StatsBase.kurtosis` (excess), `autocor(abs.(.), lags)`.
 - Read-only w.r.t. `jfds-paper/` and the paper JLD2 data. The ONLY writes are `code/spy-experiment/diagnostics/jump_mix_frontier.csv` and `.../jump_mix_frontier.pdf`.

@@ -53,8 +53,13 @@ value at target jump-fraction f is exactly the convex combination
 where M_jump is the metric averaged over jump-paths and M_nojump over
 no-jump-paths. Consequences:
 
-1. For per-path-mean metrics the frontier is a determined straight line between
-   the two strata; no resampling is required to characterize it.
+1. For per-path-mean metrics (KS/AD pass, kurtosis, W1, Hellinger) the frontier
+   is a determined straight line between the two strata; no resampling is
+   required. ACF-MAE is the one non-scalar case: the paper reports the MAE over
+   252 lags of the ensemble-mean |g| autocorrelation curve, so it combines
+   through linear stratum-mean *curves* followed by a final MAE. That is still
+   analytic and exact from the two stratum curves, but non-linear (slightly
+   bowed) in f, not a straight line.
 2. HMM-NJ is the f = 0 endpoint and today's HMM-WJ is the f ~ 0.25 point on the
    same line, so the mix dial is literally "distance from HMM-NJ toward a
    pure-jump generator."
@@ -82,7 +87,11 @@ no-jump-paths. Consequences:
   consistent with the existing `Empirical-ACF-Check.jl` / `Empirical-Episode-
   Calibration.jl` scripts.
 - Estimators (reused so the numbers match the paper exactly):
-  - ACF-MAE: `mean(abs.(autocor(abs.(g), 1:25) - autocor(abs.(obs), 1:25)))`.
+  - ACF-MAE: MAE over lags 1:252 of the ensemble-mean |g| autocorrelation curve
+    against the empirical curve, matching the paper's reported `_L_ACF = 252`
+    convention (Table2-SEs.jl, Baseline-Comparison.jl). Computed from the two
+    stratum-mean ACF curves, not per-path scalars. (The tune objective uses 25
+    lags; the reported metric uses 252, which is what the frontier must match.)
   - kurtosis: `StatsBase.kurtosis` (excess).
   - KS / AD p-values: `pvalue(ApproximateTwoSampleKSTest(g_is, obs))`,
     `pvalue(KSampleADTest(g_is, obs))`; pass = p > 0.05.
