@@ -171,6 +171,50 @@ Online Appendix~\ref{sec:supp-cross-asset}).
   \label{fig:model_comparison}
 \end{figure}
 
+The head-to-head comparison traced HMM-WJ's temporal gain to the
+$\sim\!24\%$ of paths that carried at least one jump
+(Figure~\ref{fig:model_comparison}); because that share is governed by
+the jump probability $\epsilon$ rather than fixed, we resampled the
+fitted ensemble to a target jump-path fraction $f$, the share of
+accepted paths containing at least one jump, and measured the in-sample
+stylized facts as a function of the mix (Figure~\ref{fig:jump_mix}). We
+swept $f$ from $0$, where the accepted paths reduce to the no-jump
+generator HMM-NJ, to $1$, where every accepted path carries a jump,
+holding the fitted model fixed and reweighting only the accepted
+mixture. The absolute-return autocorrelation error fell monotonically
+from $0.059$ at $f = 0$ to $0.037$ at $f = 1$, sliding off the
+i.i.d.\ floor toward the GARCH ceiling as the jump share rose. Over the
+same sweep the simulated excess kurtosis declined from $7.9$ to $6.7$,
+matching the observed value near $f \approx 0.14$ and falling below it
+thereafter, and the two-sample KS and AD marginal pass rates declined
+in step. The Hill upper-tail index stayed flat ($\xi$ near $0.35$
+against an observed $0.32$) across the whole sweep: the Student-$t$
+($\nu = 5$) emission sets the tail exponent independently of jump
+content, so enriching the jump population trades volatility clustering
+against distributional body fidelity rather than tail weight. The
+operating point $f \approx 0.25$ used throughout sat where the
+simulated kurtosis remained close to the observed value while the
+autocorrelation error had already dropped below the i.i.d.\ level.
+
+% --- Figure: jump-mix enrichment frontier ---
+\begin{figure}[tbp]
+  \centering
+  \includegraphics[width=0.86\textwidth]{figs/Fig5-Jump-Mix-Frontier.pdf}
+  \caption{\textbf{Jump-mix enrichment frontier for SPY} (in-sample,
+    $N = 100$, pool of $4{,}000$ simulated paths). Resampling the fitted
+    HMM-WJ ensemble to a target jump-path fraction $f$ (the share of
+    accepted paths containing at least one jump) traces the
+    temporal-marginal tradeoff. Horizontal axis: absolute-return
+    autocorrelation error (ACF-MAE of $|G_t|$ over lags $1$--$252$).
+    Left axis (blue): simulated excess kurtosis. Right axis (red): Hill
+    upper-tail index $\xi$, the raw estimator equal to the reciprocal of
+    the tail exponent. Dashed lines mark the observed SPY values; the
+    star marks the $f \approx 0.25$ operating point used throughout.
+    Endpoints $f = 0$ and $f = 1$ correspond to the no-jump generator
+    and an all-jump ensemble.}
+  \label{fig:jump_mix}
+\end{figure}
+
 With the per-asset marginals validated on single-asset stylized
 facts in both windows, we evaluated the multi-asset composition
 (Algorithm~\ref{alg:hybrid}) and asked whether those validated
