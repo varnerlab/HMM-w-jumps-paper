@@ -70,13 +70,20 @@ iterative Baum-Welch algorithm~\cite{baumPetrieSoulesWeiss1970,
 bilmes1998}, which scales to a $424$-asset universe. We fitted the
 model to a decade of SPY history, held out $2025$ for out-of-sample
 evaluation, and scored the synthetic paths against seven baseline
-generators on distributional and temporal fidelity. Extending the
+generators on distributional and temporal fidelity. Relative to a
+no-jump variant, HMM-WJ retained high distributional fit while
+improving volatility-clustering fidelity, though GARCH remained the
+strongest baseline on that dimension; HMM-WJ is therefore a tradeoff
+between marginal and temporal fit rather than a uniformly better
+model. Extending the
 model to multi-asset applications required correcting
 a known limitation of single-index composition, in which drawing
 each asset's residual from a per-asset generator inflates the
 composed marginal's variance quadratically in the factor loading; we
 derived a closed-form scale correction that restores each ticker's
-target variance after factor composition. Independent per-asset
+target variance after factor composition, recovering each ticker's
+calibrated factor loading while retaining heavy-tailed returns.
+Independent per-asset
 residuals also exaggerate the daily cross-sectional spread among
 assets, so daily-rebalanced portfolios built from these paths can
 overstate diversification gains; we report this bias and a
