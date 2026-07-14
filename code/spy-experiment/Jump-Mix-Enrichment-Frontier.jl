@@ -185,14 +185,76 @@ function build_frontier_table(summ, jump_mat::Matrix{Float64}, nojump_mat::Matri
     return df
 end
 
-# ── main (filled in later tasks) ─────────────────────────────────────────────
+# ── outputs ──────────────────────────────────────────────────────────────────
+function write_frontier_csv(df::DataFrame)
+    path = joinpath(_PATH_TO_DIAG, "jump_mix_frontier.csv")
+    CSV.write(path, df)
+    return path
+end
+
+function plot_frontier(df::DataFrame)
+    x = df.acf_mae
+    p = plot(x, df.kurt; marker = :circle, color = :steelblue, label = "kurtosis",
+             xlabel = "ACF-MAE(|g|), 252 lags   (lower = better vol clustering)",
+             ylabel = "excess kurtosis", legend = :topleft,
+             title = "Jump-mix enrichment frontier (curve parameterized by f)",
+             size = (800, 540), left_margin = 8Plots.mm,
+             right_margin = 16Plots.mm, bottom_margin = 8Plots.mm)
+    hline!(p, [OBS_KURT_TARGET]; ls = :dash, color = :steelblue, label = "obs kurtosis 7.71")
+    i25 = findfirst(==(F_MARK), df.f)
+    scatter!(p, [df.acf_mae[i25]], [df.kurt[i25]]; marker = :star5, ms = 10,
+             color = :black, label = "f=0.25 (shipped)")
+    for fv in (0.0, 1.0)
+        i = findfirst(==(fv), df.f)
+        annotate!(p, df.acf_mae[i], df.kurt[i] + 0.12, text("f=$fv", 7, :black))
+    end
+    p2 = twinx(p)
+    plot!(p2, x, df.hill_alpha; marker = :square, color = :red, label = "Hill alpha",
+          ylabel = "Hill alpha (higher = thinner tail)", legend = :topright)
+    hline!(p2, [OBS_HILL_ALPHA]; ls = :dash, color = :red, label = "obs alpha 3.14")
+    path = joinpath(_PATH_TO_DIAG, "jump_mix_frontier.pdf")
+    savefig(p, path)
+    return path
+end
+
+# ── main ─────────────────────────────────────────────────────────────────────
 function main()
     mkpath(_PATH_TO_DIAG)
-    inp  = load_inputs()
+    inp = load_inputs()
+    @printf("Inputs: T=%d N=%d eps=%g lambda=%g\n",
+            length(inp.g_is), inp.N, inp.model_wj.jump.ϵ, inp.model_wj.jump.λ)
+
     pool = generate_pool(inp.model_wj, length(inp.g_is), N_POOL; seed = SEED)
     njp  = count(is_jump_path, pool)
     @printf("Pool: %d paths | jump-stratum %d (%.1f%%) | no-jump-stratum %d\n",
             length(pool), njp, 100 * njp / length(pool), length(pool) - njp)
+
+    summ = stratum_summary(pool, inp.g_is)
+    jm   = abs_obs_matrix(pool, true)
+    nm   = abs_obs_matrix(pool, false)
+    df   = build_frontier_table(summ, jm, nm)
+
+    println("\n── Frontier table ──")
+    show(df, allrows = true); println()
+
+    r0  = df[df.f .== 0.0, :][1, :]
+    r25 = df[df.f .== F_MARK, :][1, :]
+    jk  = [kurtosis(p.observations) for p in pool if is_jump_path(p)]
+    nk  = [kurtosis(p.observations) for p in pool if !is_jump_path(p)]
+    an  = linear_frontier(summ, 0.5, :kurt)
+    rs  = resampled_field_mean(jk, nk, 0.5)
+    println("\n── Correctness checks ──")
+    @printf("[f=0 ~ HMM-NJ]    kurt=%.2f (anchor 8.05)  alpha=%.2f (anchor 2.84)  acf=%.4f\n",
+            r0.kurt, r0.hill_alpha, r0.acf_mae)
+    @printf("[f=0.25 ~ HMM-WJ] kurt=%.2f (anchor 7.47)  acf=%.4f (anchor 0.052)  ks=%.3f (anchor 0.976)\n",
+            r25.kurt, r25.acf_mae, r25.ks_pass)
+    @printf("[xcheck f=0.5]    analytic kurt=%.3f  resampled=%.3f  within-3sd=%s\n",
+            an.val, rs.mean, abs(an.val - rs.mean) < 3 * rs.sd)
+
+    csv = write_frontier_csv(df)
+    pdf = plot_frontier(df)
+    println("\nWrote: $csv\n       $pdf")
+    return df
 end
 
 if abspath(PROGRAM_FILE) == @__FILE__
