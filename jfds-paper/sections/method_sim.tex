@@ -125,7 +125,8 @@ Here $\sign(\beta_i) \in \{-1, +1\}$ is the sign of the calibrated
 $\beta_i$, so the clipped slope inherits the calibrated direction;
 sign preservation keeps defensive (negative-$\beta$) assets
 defensive even when clipped. The floor $f$ is a free parameter of
-the construction; in our experiments we use $f = 0.10$, reserving at
+the construction (values in Table~\ref{tab:hyperparams}); in our
+experiments we use $f = 0.10$, reserving at
 least $10\%$ of each asset's variance for idiosyncratic noise.
 
 Which target variance is appropriate depends on what the asset represents.
@@ -147,7 +148,7 @@ separates index-tracking assets from single stocks: in our universe,
 index ETFs had $R^2_{i,\real}$ above $0.80$ and the most market-like
 single stocks had $R^2_{i,\real}$ below $0.65$
 (Fig.~\ref{fig:r2_distribution}), so we set
-$R^2_{\mathrm{preserve}} = 0.80$. For any asset with $R^2_{i,\real} \ge R^2_{\mathrm{preserve}}$,
+$R^2_{\mathrm{preserve}} = 0.80$ (Table~\ref{tab:hyperparams}). For any asset with $R^2_{i,\real} \ge R^2_{\mathrm{preserve}}$,
 inverting the population $R^2$ identity for
 Eq.~\eqref{eq:sim-composition} for the residual variance that hits
 the calibrated $R^2$ gives (Online
@@ -247,6 +248,38 @@ construction provides.
 \end{algorithmic}
 \end{algorithm}
 
+% --- Table: Hyperparameters ---
+\begin{table}[tbp]
+\centering
+\caption{\textbf{HMM-WJ and SIM composition hyperparameters.} Values
+    used for the main SPY analysis, with the sensitivity-sweep or
+    grid-search span and the location of the corresponding check
+    where one exists. The $423$-ticker SIM composition universe holds
+    $\epsilon = 0$ instead of the SPY value; per-ticker
+    $(\epsilon^{*}, \lambda^{*})$ for the NVDA, JNJ, and JPM
+    cross-asset validation are given in Table~\ref{tab:cross_asset}.}
+\label{tab:hyperparams}
+\small
+\begin{tabular}{@{}llll@{}}
+\toprule
+\textbf{Symbol} & \textbf{Description} & \textbf{SPY value} & \textbf{Explored range} \\ \midrule
+\multicolumn{4}{l}{\textit{State partition and emission}} \\[2pt]
+$N$            & Laplace-quantile states                      & $100$     & $\{30,\dots,350\}$, Online Appendix~\ref{sec:supp-sensitivity} \\
+$\nu$          & Student-$t$ emission degrees of freedom      & $5$       & $\{3,\dots,30,\infty\}$ \\[4pt]
+\multicolumn{4}{l}{\textit{Jump-duration override}} \\[2pt]
+$\epsilon$     & jump probability per step                    & $10^{-4}$ & $[10^{-4}, 2.5\times10^{-2}]$, Eq.~\eqref{eq:grid_search} \\
+$\lambda$      & mean jump-episode duration (steps)           & $100$     & $[10, 160]$, Eq.~\eqref{eq:grid_search} \\
+$p_{\rm neg}$  & probability a jump targets $\mathcal{S}_{-}$ & $0.52$    & fixed \\
+$N_{\rm tail}$ & quantile states per tail set                 & $5$       & fixed (at $N = 100$) \\
+$w_\kappa$     & kurtosis-penalty weight, Eq.~\eqref{eq:grid_search} & $0.20$ & fixed \\
+$L$            & ACF lag window, Eq.~\eqref{eq:grid_search}   & $25$ days & fixed \\[4pt]
+\multicolumn{4}{l}{\textit{SIM composition}} \\[2pt]
+$f$                        & idiosyncratic variance floor & $0.10$ & $\{0.05,\dots,0.30\}$, Fig.~\ref{fig:sensitivity} \\
+$R^2_{\mathrm{preserve}}$  & branch-selection threshold   & $0.80$ & $\{0.70,\dots,0.90\}$, Fig.~\ref{fig:sensitivity} \\
+\bottomrule
+\end{tabular}
+\end{table}
+
 We evaluated the composition on a $424$-asset US equity and
 exchange-traded-fund universe drawn from Polygon.io daily-close
 histories, filtered to tickers with a complete in-sample trading
@@ -256,11 +289,10 @@ the common length preserved $424$ tickers, of which the SPY
 total-return growth-rate series was taken as the market path $g_m$
 and the remaining $423$ tickers as non-market assets. For each
 non-market ticker $i$ we fitted a JumpHMM marginal to the asset's own
-growth-rate history using the default configuration ($N = 100$
-Laplace-partition states, Student-$t$ emissions with $\nu = 5$,
-annualized excess growth rates with risk-free rate $r_f = 0$ and
-$\Delta t = 1/252$), holding the jump probability at $\epsilon = 0$
-so each per-ticker generator reduced to the no-jump variant; this
+growth-rate history using the same state-partition and emission
+configuration as the SPY analysis (Table~\ref{tab:hyperparams};
+risk-free rate $r_f = 0$), holding the jump probability at
+$\epsilon = 0$ so each per-ticker generator reduced to the no-jump variant; this
 isolates the composition test from the temporal-clustering channel,
 which per-ticker jump tuning would otherwise add at the
 cost of a calibration step per asset. We then ran OLS for each
@@ -276,8 +308,8 @@ the JumpHMM draw directly into the SIM identity with no correction;
 Gaussian SIM substituted i.i.d.\ Gaussian noise scaled to the
 calibrated residual variance, recovering $R^2$ exactly but
 discarding marginal structure; Hybrid applied
-Algorithm~\ref{alg:hybrid} with floor $f = 0.10$ and threshold
-$R^2_{\mathrm{preserve}} = 0.80$. A single innovation path drawn from
+Algorithm~\ref{alg:hybrid} at the values in Table~\ref{tab:hyperparams}.
+A single innovation path drawn from
 each ticker's JumpHMM marginal was passed unchanged to Naive and
 Hybrid, a paired-innovation protocol that isolates the composition
 rule from generator stochasticity; Gaussian SIM, by construction,

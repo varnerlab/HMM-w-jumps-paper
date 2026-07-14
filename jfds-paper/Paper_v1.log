@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.27 (TeX Live 2025) (preloaded format=pdflatex 2025.3.8)  14 JUL 2026 13:58
+This is pdfTeX, Version 3.141592653-2.6-1.40.27 (TeX Live 2025) (preloaded format=pdflatex 2025.3.8)  14 JUL 2026 14:29
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -1009,89 +1009,85 @@ Underfull \vbox (badness 8113) has occurred while \output is active []
 
 [4]
 Package hyperref Info: bookmark level for unknown algorithm defaults to 0 on in
-put line 237.
-)
+put line 239.
 
-[5] (./sections/method_sim.tex
+Underfull \vbox (badness 10000) has occurred while \output is active []
+
+
+
+[5]) (./sections/method_sim.tex
 
 [6]
 
 [7]
-Underfull \vbox (badness 1755) has occurred while \output is active []
+
+[8])
+Underfull \vbox (badness 10000) has occurred while \output is active []
 
 
 
-[8]) (./sections/results.tex
-Underfull \vbox (badness 1590) has occurred while \output is active []
+[9] (./sections/results.tex
 
-
-
-[9]
-<figs/Fig4-Model-Comparison.pdf, id=387, 1806.75pt x 562.1pt>
+[10]
+<figs/Fig4-Model-Comparison.pdf, id=416, 1806.75pt x 562.1pt>
 File: figs/Fig4-Model-Comparison.pdf Graphic file (type pdf)
 <use figs/Fig4-Model-Comparison.pdf>
 Package pdftex.def Info: figs/Fig4-Model-Comparison.pdf  used on input line 158
 .
 (pdftex.def)             Requested size: 397.48499pt x 123.66238pt.
 
-Underfull \vbox (badness 10000) has occurred while \output is active []
 
-
-
-[10]
-<figs/Fig5-Jump-Mix-Frontier.pdf, id=396, 762.85pt x 501.875pt>
+[11 <./figs/Fig4-Model-Comparison.pdf>]
+<figs/Fig5-Jump-Mix-Frontier.pdf, id=425, 762.85pt x 501.875pt>
 File: figs/Fig5-Jump-Mix-Frontier.pdf Graphic file (type pdf)
 <use figs/Fig5-Jump-Mix-Frontier.pdf>
 Package pdftex.def Info: figs/Fig5-Jump-Mix-Frontier.pdf  used on input line 19
-9.
+8.
 (pdftex.def)             Requested size: 341.83733pt x 224.89206pt.
  (./sections/tables/table1_aggregate.tex)
-Overfull \hbox (14.65605pt too wide) in paragraph at lines 1--238
+Overfull \hbox (14.65605pt too wide) in paragraph at lines 1--236
  [][] 
  []
 
 
-Underfull \vbox (badness 1406) has occurred while \output is active []
-
-
-
-[11 <./figs/Fig4-Model-Comparison.pdf>]
 
 [12 <./figs/Fig5-Jump-Mix-Frontier.pdf>]
 (./sections/tables/table5_var_backtest.tex)
-Overfull \hbox (10.152pt too wide) in paragraph at lines 1--317
+Overfull \hbox (10.152pt too wide) in paragraph at lines 1--314
  [][] 
  []
 
-<figs/fig1_preservation.pdf, id=418, 1304.875pt x 451.6875pt>
+<figs/fig1_preservation.pdf, id=437, 1304.875pt x 451.6875pt>
 File: figs/fig1_preservation.pdf Graphic file (type pdf)
 <use figs/fig1_preservation.pdf>
-Package pdftex.def Info: figs/fig1_preservation.pdf  used on input line 324.
+Package pdftex.def Info: figs/fig1_preservation.pdf  used on input line 321.
 (pdftex.def)             Requested size: 397.48499pt x 137.58873pt.
-)
-Underfull \vbox (badness 1412) has occurred while \output is active []
 
 
-
-[13] (./sections/discussion.tex
-
-[14 <./figs/fig1_preservation.pdf>])
+[13]) (./sections/discussion.tex
 Underfull \vbox (badness 10000) has occurred while \output is active []
 
 
 
-[15] (./sections/conclusion.tex) (./Paper_v1.bbl
-Underfull \vbox (badness 1558) has occurred while \output is active []
+[14 <./figs/fig1_preservation.pdf>]
+Underfull \vbox (badness 10000) has occurred while \output is active []
 
 
 
-[16]
+[15]) (./sections/conclusion.tex)
+Underfull \vbox (badness 10000) has occurred while \output is active []
+
+
+
+[16] (./Paper_v1.bbl
 
 [17]
 
-[18])
+[18]
 
-[19] (./sections/appendix.tex
+[19])
+
+[20] (./sections/appendix.tex
 pdfTeX warning (ext4): destination with the same identifier (name{equation.1}) 
 has been already used, duplicate ignored
 <to be read again> 
@@ -1116,14 +1112,14 @@ has been already used, duplicate ignored
                    \relax 
 l.39 \begin{equation}
                      
-<figs/figS1_cov_diagnostic.pdf, id=506, 762.85pt x 441.65pt>
+<figs/figS1_cov_diagnostic.pdf, id=529, 762.85pt x 441.65pt>
 File: figs/figS1_cov_diagnostic.pdf Graphic file (type pdf)
 <use figs/figS1_cov_diagnostic.pdf>
 Package pdftex.def Info: figs/figS1_cov_diagnostic.pdf  used on input line 56.
 (pdftex.def)             Requested size: 337.86465pt x 195.60027pt.
 
 
-[20
+[21
 
  <./figs/figS1_cov_diagnostic.pdf>]
 pdfTeX warning (ext4): destination with the same identifier (name{equation.2}) 
@@ -1246,7 +1242,7 @@ has been already used, duplicate ignored
 l.205 \end{align}
                  
 
-[21]
+[22]
 pdfTeX warning (ext4): destination with the same identifier (name{equation.9}) 
 has been already used, duplicate ignored
 <to be read again> 
@@ -1310,21 +1306,21 @@ pdfTeX warning (ext4): destination with the same identifier (name{equation.11})
 l.261 \begin{equation}
                       
 
-[22]
+[23]
 Underfull \vbox (badness 2310) has occurred while \output is active []
 
 
 
-[23]
-<figs/fig2_tails.pdf, id=583, 1204.5pt x 451.6875pt>
+[24]
+<figs/fig2_tails.pdf, id=606, 1204.5pt x 451.6875pt>
 File: figs/fig2_tails.pdf Graphic file (type pdf)
 <use figs/fig2_tails.pdf>
 Package pdftex.def Info: figs/fig2_tails.pdf  used on input line 448.
 (pdftex.def)             Requested size: 397.48499pt x 149.05733pt.
 
 
-[24 <./figs/fig2_tails.pdf>]
-<figs/fig7_r2_distribution.pdf, id=592, 762.85pt x 441.65pt>
+[25 <./figs/fig2_tails.pdf>]
+<figs/fig7_r2_distribution.pdf, id=616, 762.85pt x 441.65pt>
 File: figs/fig7_r2_distribution.pdf Graphic file (type pdf)
 <use figs/fig7_r2_distribution.pdf>
 Package pdftex.def Info: figs/fig7_r2_distribution.pdf  used on input line 517.
@@ -1332,8 +1328,8 @@ Package pdftex.def Info: figs/fig7_r2_distribution.pdf  used on input line 517.
 (pdftex.def)             Requested size: 337.86465pt x 195.60027pt.
 
 
-[25 <./figs/fig7_r2_distribution.pdf>]
-<figs/Fig6-Statistical-Validation.pdf, id=604, 1204.5pt x 903.375pt>
+[26 <./figs/fig7_r2_distribution.pdf>]
+<figs/Fig6-Statistical-Validation.pdf, id=627, 1204.5pt x 903.375pt>
 File: figs/Fig6-Statistical-Validation.pdf Graphic file (type pdf)
 <use figs/Fig6-Statistical-Validation.pdf>
 Package pdftex.def Info: figs/Fig6-Statistical-Validation.pdf  used on input li
@@ -1341,8 +1337,8 @@ ne 626.
 (pdftex.def)             Requested size: 397.48499pt x 298.11467pt.
 
 
-[26]
-<figs/Fig3-Model-Internals.pdf, id=614, 1606.0pt x 521.95pt>
+[27]
+<figs/Fig3-Model-Internals.pdf, id=638, 1606.0pt x 521.95pt>
 File: figs/Fig3-Model-Internals.pdf Graphic file (type pdf)
 <use figs/Fig3-Model-Internals.pdf>
 Package pdftex.def Info: figs/Fig3-Model-Internals.pdf  used on input line 675.
@@ -1350,17 +1346,17 @@ Package pdftex.def Info: figs/Fig3-Model-Internals.pdf  used on input line 675.
 (pdftex.def)             Requested size: 397.48499pt x 129.18103pt.
  (./sections/tables/table2_by_branch.tex)
 
-[27 <./figs/Fig6-Statistical-Validation.pdf>]
+[28 <./figs/Fig6-Statistical-Validation.pdf>]
 
-[28 <./figs/Fig3-Model-Internals.pdf>]
-<figs/fig3_branch_map.pdf, id=633, 903.375pt x 501.875pt>
+[29 <./figs/Fig3-Model-Internals.pdf>]
+<figs/fig3_branch_map.pdf, id=657, 903.375pt x 501.875pt>
 File: figs/fig3_branch_map.pdf Graphic file (type pdf)
 <use figs/fig3_branch_map.pdf>
 Package pdftex.def Info: figs/fig3_branch_map.pdf  used on input line 795.
 (pdftex.def)             Requested size: 337.86465pt x 187.70488pt.
 
 (./sections/tables/table3_by_beta_bucket.tex)
-<figs/fig5_sensitivity.pdf, id=636, 642.4pt x 481.8pt>
+<figs/fig5_sensitivity.pdf, id=660, 642.4pt x 481.8pt>
 File: figs/fig5_sensitivity.pdf Graphic file (type pdf)
 <use figs/fig5_sensitivity.pdf>
 Package pdftex.def Info: figs/fig5_sensitivity.pdf  used on input line 848.
@@ -1368,13 +1364,13 @@ Package pdftex.def Info: figs/fig5_sensitivity.pdf  used on input line 848.
 
 (./sections/tables/table4_seed_uncertainty.tex)
 
-[29 <./figs/fig3_branch_map.pdf>]
+[30 <./figs/fig3_branch_map.pdf>]
 
-[30])
+[31])
 
-[31 <./figs/fig5_sensitivity.pdf>]
+[32 <./figs/fig5_sensitivity.pdf>]
 
-[32] (./Paper_v1.aux)
+[33] (./Paper_v1.aux)
  ***********
 LaTeX2e <2024-11-01> patch level 2
 L3 programming layer <2025-01-18>
@@ -1383,10 +1379,10 @@ Package rerunfilecheck Info: File `Paper_v1.out' has not changed.
 (rerunfilecheck)             Checksum: 8B655B03A9C0B484FD38B37503035587;3709.
  ) 
 Here is how much of TeX's memory you used:
- 28029 strings out of 473190
- 522556 string characters out of 5715801
- 950462 words of memory out of 5000000
- 50243 multiletter control sequences out of 15000+600000
+ 28032 strings out of 473190
+ 522596 string characters out of 5715801
+ 951030 words of memory out of 5000000
+ 50244 multiletter control sequences out of 15000+600000
  624674 words of font info for 312 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
  84i,16n,87p,1399b,941s stack positions out of 10000i,1000n,20000p,200000b,200000s
@@ -1414,10 +1410,10 @@ ist/fonts/type1/public/cm-super/sftt1000.pfb></usr/local/texlive/2025/texmf-dis
 t/fonts/type1/urw/times/utmb8a.pfb></usr/local/texlive/2025/texmf-dist/fonts/ty
 pe1/urw/times/utmr8a.pfb></usr/local/texlive/2025/texmf-dist/fonts/type1/urw/ti
 mes/utmri8a.pfb>
-Output written on Paper_v1.pdf (32 pages, 1534638 bytes).
+Output written on Paper_v1.pdf (33 pages, 1539806 bytes).
 PDF statistics:
- 815 PDF objects out of 1000 (max. 8388607)
- 683 compressed objects within 7 object streams
- 195 named destinations out of 1000 (max. 500000)
+ 839 PDF objects out of 1000 (max. 8388607)
+ 704 compressed objects within 8 object streams
+ 197 named destinations out of 1000 (max. 500000)
  60644 words of extra memory for PDF output out of 61914 (max. 10000000)
 
