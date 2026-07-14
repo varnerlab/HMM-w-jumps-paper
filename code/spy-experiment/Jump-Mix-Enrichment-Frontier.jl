@@ -81,6 +81,23 @@ function stratum_summary(pool, g_is::AbstractVector{<:Real})
             n_jump = length(jm), n_nojump = length(nj), fields = _METRIC_FIELDS)
 end
 
+# ── Hill tail index (pooled upper |G_t|), reported as alpha = 1/xi ────────────
+# Matches the convention in code/downstream-evaluation/src/Metrics.jl
+# (hill_index there returns xi; we report alpha). Mutates v to avoid allocating
+# a fresh sort on every resample.
+function hill_alpha_topk!(v::AbstractVector{<:Real}; tail_frac::Float64 = HILL_TAIL_FRAC)
+    n = length(v)
+    k = max(2, floor(Int, tail_frac * n))
+    partialsort!(v, 1:k; rev = true)   # v[1:k] become the k largest, sorted desc
+    xk = v[k]
+    xk > 0.0 || error("Hill: k-th order statistic not positive")
+    s = 0.0
+    @inbounds for i in 1:(k - 1)
+        s += log(v[i] / xk)
+    end
+    return (k - 1) / s
+end
+
 # ── main (filled in later tasks) ─────────────────────────────────────────────
 function main()
     mkpath(_PATH_TO_DIAG)
