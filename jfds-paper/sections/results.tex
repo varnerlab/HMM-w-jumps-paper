@@ -177,17 +177,18 @@ no-jump value of $0.059$.
 % --- Figure: jump-mix enrichment frontier ---
 \begin{figure}[tbp]
   \centering
-  \includegraphics[width=0.86\textwidth]{figs/Fig5-Jump-Mix-Frontier.pdf}
+  \includegraphics[width=\textwidth]{figs/Fig5-Jump-Mix-Frontier.pdf}
   \caption{\textbf{Jump-mix enrichment frontier for SPY} (in-sample,
     $N = 100$, pool of $4{,}000$ simulated paths). Resampling the fitted
     HMM-WJ ensemble to a target jump-path fraction $f$ (the share of
     accepted paths containing at least one jump) traces the
-    temporal-marginal tradeoff. Horizontal axis: absolute-return
-    autocorrelation error (ACF-MAE of $|G_t|$ over lags $1$--$252$).
-    Left axis (blue): simulated excess kurtosis. Right axis (red): Hill
-    upper-tail index $\xi$, the raw estimator equal to the reciprocal of
-    the tail exponent. Dashed lines mark the observed SPY values; the
-    star marks the $f \approx 0.25$ value used throughout.
+    temporal-marginal tradeoff. Both panels share the horizontal axis:
+    absolute-return autocorrelation error (ACF-MAE of $|G_t|$ over lags
+    $1$--$252$); lower values indicate stronger volatility clustering.
+    Panel (a): simulated excess kurtosis. Panel (b): Hill upper-tail
+    index $\xi$, the raw estimator equal to the reciprocal of the tail
+    exponent. Red dashed lines mark the observed SPY values; the star
+    marks the $f \approx 0.25$ value used throughout.
     Endpoints $f = 0$ and $f = 1$ correspond to the no-jump generator
     and an all-jump ensemble.}
   \label{fig:jump_mix}

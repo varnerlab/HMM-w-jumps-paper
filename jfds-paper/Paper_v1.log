@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.27 (TeX Live 2025) (preloaded format=pdflatex 2025.3.8)  15 JUL 2026 09:28
+This is pdfTeX, Version 3.141592653-2.6-1.40.27 (TeX Live 2025) (preloaded format=pdflatex 2025.3.8)  15 JUL 2026 09:59
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -1037,12 +1037,12 @@ Underfull \vbox (badness 2088) has occurred while \output is active []
 
 
 [9]
-<figs/Fig5-Jump-Mix-Frontier.pdf, id=404, 762.85pt x 501.875pt>
+<figs/Fig5-Jump-Mix-Frontier.pdf, id=404, 1204.5pt x 562.1pt>
 File: figs/Fig5-Jump-Mix-Frontier.pdf Graphic file (type pdf)
 <use figs/Fig5-Jump-Mix-Frontier.pdf>
 Package pdftex.def Info: figs/Fig5-Jump-Mix-Frontier.pdf  used on input line 18
 0.
-(pdftex.def)             Requested size: 341.83733pt x 224.89206pt.
+(pdftex.def)             Requested size: 397.48499pt x 185.49358pt.
 
 Underfull \vbox (badness 7814) has occurred while \output is active []
 
@@ -1050,7 +1050,7 @@ Underfull \vbox (badness 7814) has occurred while \output is active []
 
 [10 <./figs/Fig4-Model-Comparison.pdf>] (./sections/tables/table1_aggregate.tex
 )
-Overfull \hbox (14.65605pt too wide) in paragraph at lines 1--218
+Overfull \hbox (14.65605pt too wide) in paragraph at lines 1--219
  [][] 
  []
 
@@ -1058,14 +1058,14 @@ Overfull \hbox (14.65605pt too wide) in paragraph at lines 1--218
 
 [11 <./figs/Fig5-Jump-Mix-Frontier.pdf>]
 (./sections/tables/table5_var_backtest.tex)
-Overfull \hbox (10.152pt too wide) in paragraph at lines 1--281
+Overfull \hbox (10.152pt too wide) in paragraph at lines 1--282
  [][] 
  []
 
 <figs/fig1_preservation.pdf, id=421, 1304.875pt x 451.6875pt>
 File: figs/fig1_preservation.pdf Graphic file (type pdf)
 <use figs/fig1_preservation.pdf>
-Package pdftex.def Info: figs/fig1_preservation.pdf  used on input line 288.
+Package pdftex.def Info: figs/fig1_preservation.pdf  used on input line 289.
 (pdftex.def)             Requested size: 397.48499pt x 137.58873pt.
 
 
@@ -1378,7 +1378,7 @@ Package rerunfilecheck Info: File `Paper_v1.out' has not changed.
 Here is how much of TeX's memory you used:
  28022 strings out of 473190
  522513 string characters out of 5715801
- 956458 words of memory out of 5000000
+ 956524 words of memory out of 5000000
  50244 multiletter control sequences out of 15000+600000
  623872 words of font info for 304 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
@@ -1407,7 +1407,7 @@ ist/fonts/type1/public/cm-super/sftt1000.pfb></usr/local/texlive/2025/texmf-dis
 t/fonts/type1/urw/times/utmb8a.pfb></usr/local/texlive/2025/texmf-dist/fonts/ty
 pe1/urw/times/utmr8a.pfb></usr/local/texlive/2025/texmf-dist/fonts/type1/urw/ti
 mes/utmri8a.pfb>
-Output written on Paper_v1.pdf (30 pages, 1521615 bytes).
+Output written on Paper_v1.pdf (30 pages, 1522496 bytes).
 PDF statistics:
  806 PDF objects out of 1000 (max. 8388607)
  677 compressed objects within 7 object streams

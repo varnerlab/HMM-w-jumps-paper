@@ -194,36 +194,71 @@ end
 
 # The Hill index is reported as xi (the raw upper-tail estimator, = 1/alpha),
 # matching the manuscript's Hill convention rather than the tail exponent alpha.
+# Layout and style match Fig4-Replot-SPY.jl (the paper's model-comparison
+# figure): one row of lettered panels, grey97 background, house colors
+# (navy #1d3557 = HMM-WJ family, red #e63946 dashed = observed SPY).
+const _COL_SIM = "#1d3557"
+const _COL_OBS = "#e63946"
+const _COL_INK = "#3d3d3d"
+
+const _BASESTYLE = (bg                       = "grey97",
+                    background_color_outside = "white",
+                    framestyle               = :box,
+                    fg_legend                = :transparent,
+                    xguidefontsize           = 15,
+                    yguidefontsize           = 15,
+                    titlefontsize            = 15,
+                    xtickfontsize            = 11,
+                    ytickfontsize            = 11,
+                    bottom_margin            = 12Plots.mm,
+                    left_margin              = 14Plots.mm)
+
 function plot_frontier(df::DataFrame;
-                       outpath::AbstractString = joinpath(_PATH_TO_DIAG, "jump_mix_frontier.pdf"),
-                       title::AbstractString = "Jump-mix enrichment frontier (curve parameterized by f)")
+                       outpath::AbstractString = joinpath(_PATH_TO_DIAG, "jump_mix_frontier.pdf"))
     x   = df.acf_mae
     xi  = 1.0 ./ df.hill_alpha
     oxi = 1.0 / OBS_HILL_ALPHA
-    top = isempty(title) ? 3Plots.mm : 8Plots.mm
-    p = plot(x, df.kurt; marker = :circle, ms = 5, color = :steelblue, lw = 1.6,
-             label = "excess kurtosis (left)",
-             xlabel = "ACF-MAE of |g|, 252 lags    (lower = stronger volatility clustering)",
-             ylabel = "excess kurtosis", legend = :bottomright,
-             title = title, titlefontsize = 11,
-             size = (760, 500), left_margin = 6Plots.mm, right_margin = 17Plots.mm,
-             bottom_margin = 6Plots.mm, top_margin = top,
-             tickfontsize = 9, guidefontsize = 10, ylims = (6.4, 8.15))
-    hline!(p, [OBS_KURT_TARGET]; ls = :dash, color = :steelblue, lw = 1,
-           label = "observed kurtosis")
     i25 = findfirst(==(F_MARK), df.f)
-    scatter!(p, [x[i25]], [df.kurt[i25]]; marker = :star5, ms = 12, color = :black,
-             label = "f = 0.25 (operating point)")
-    i0 = findfirst(==(0.0), df.f); i1 = findfirst(==(1.0), df.f)
-    annotate!(p, x[i0], df.kurt[i0] - 0.30, text("f=0 (HMM-NJ)", 8, :black, :right))
-    annotate!(p, x[i1], df.kurt[i1] + 0.24, text("f=1 (all-jump)", 8, :black, :left))
-    p2 = twinx(p)
-    plot!(p2, x, xi; marker = :square, ms = 4, color = :firebrick, lw = 1.6,
-          label = "Hill index xi (right)", ylabel = "Hill upper-tail index xi",
-          legend = :topleft, ylims = (0.26, 0.40), tickfontsize = 9, guidefontsize = 10)
-    hline!(p2, [oxi]; ls = :dash, color = :firebrick, lw = 1, label = "observed xi")
+    i0  = findfirst(==(0.0), df.f)
+    i1  = findfirst(==(1.0), df.f)
+    xl  = (minimum(x) - 0.0012, maximum(x) + 0.0014)
+
+    pa = plot(; legend = :topleft, legendfontsize = 10, _BASESTYLE...)
+    plot!(pa, x, df.kurt; marker = :circle, ms = 8, msw = 0, c = _COL_SIM,
+          lw = 3.5, label = "Jump-mix frontier")
+    hline!(pa, [OBS_KURT_TARGET]; lw = 3.5, ls = :dash, c = _COL_OBS,
+           label = "SPY Observed")
+    scatter!(pa, [x[i25]], [df.kurt[i25]]; marker = :star5, ms = 16,
+             mc = :black, msw = 0, label = "f = 0.25 (HMM-WJ)")
+    annotate!(pa, [
+        (x[i0] + 0.0006, df.kurt[i0] + 0.13, text("f = 0 (HMM-NJ)", 12, _COL_INK, :right)),
+        (x[i1] + 0.0006, df.kurt[i1], text("f = 1 (all-jump)", 12, _COL_INK, :left)),
+    ])
+    xlabel!(pa, "ACF-MAE of |Gₜ| (252 lags)")
+    ylabel!(pa, "Excess Kurtosis")
+    xlims!(pa, xl); ylims!(pa, (6.45, 8.20)); yticks!(pa, 6.5:0.5:8.0)
+    title!(pa, "(a) Distribution Body")
+
+    pb = plot(; legend = false, _BASESTYLE...)
+    plot!(pb, x, xi; marker = :circle, ms = 8, msw = 0, c = _COL_SIM, lw = 3.5)
+    hline!(pb, [oxi]; lw = 3.5, ls = :dash, c = _COL_OBS)
+    scatter!(pb, [x[i25]], [xi[i25]]; marker = :star5, ms = 16, mc = :black, msw = 0)
+    xlabel!(pb, "ACF-MAE of |Gₜ| (252 lags)")
+    ylabel!(pb, "Hill Upper-Tail Index ξ")
+    xlims!(pb, xl); ylims!(pb, (0.300, 0.365)); yticks!(pb, 0.30:0.02:0.36)
+    title!(pb, "(b) Extreme Upper Tail")
+
+    p = plot(pa, pb; layout = (1, 2), size = (1200, 560), dpi = 150,
+             right_margin = 6Plots.mm)
     savefig(p, outpath)
     return outpath
+end
+
+# Rebuild the figure from the saved CSV without rerunning the sweep:
+#   julia --project=. -e 'include("Jump-Mix-Enrichment-Frontier.jl"); replot_from_csv()'
+function replot_from_csv(; csvpath::AbstractString = joinpath(_PATH_TO_DIAG, "jump_mix_frontier.csv"),
+                         outpath::AbstractString = joinpath(_PATH_TO_DIAG, "jump_mix_frontier.pdf"))
+    return plot_frontier(CSV.read(csvpath, DataFrame); outpath = outpath)
 end
 
 # ── main ─────────────────────────────────────────────────────────────────────
