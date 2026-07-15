@@ -29,9 +29,7 @@ SPY series using the grid search in Eq.~\eqref{eq:grid_search}
 (Algorithm~\ref{alg:hmmwj}; search range in
 Table~\ref{tab:hyperparams}). The selected values were
 $(\epsilon, \lambda) = (10^{-4}, 100)$, although nearby grid points
-gave similar objective values. At this setting, HMM-WJ had a $97.6\%$ KS pass rate, a
-$91.3\%$ AD pass rate, and an ACF-MAE of $0.052$
-(Table~\ref{tab:model_comparison}). The primary analysis used $N = 100$
+gave similar objective values. The primary analysis used $N = 100$
 states. Across $N=60$ to $200$, the KS and AD pass rates varied by
 less than one percentage point for both HMM-NJ and HMM-WJ. At
 $N = 350$, some states were never visited and their emission
@@ -97,49 +95,45 @@ With the model calibrated, we benchmarked HMM-WJ
 (Algorithm~\ref{alg:hmmwj}) against seven alternative generators on
 $1{,}000$ synthetic paths of $2{,}766$ trading days each
 (Table~\ref{tab:model_comparison},
-Figure~\ref{fig:model_comparison}). Bootstrap resampling had $100\%$
-KS and $100\%$ coverage, while Gaussian sampling had $0\%$ KS.
-GARCH(1,1) had the lowest ACF-MAE
-($0.031$) and a $5.5\%$ KS pass rate. The Gated Recurrent Unit (GRU)~\cite{choEtAl2014gru} achieved an ACF-MAE of $0.036$ but a
-$0.6\%$ KS pass rate. The hidden semi-Markov model (HSMM)~\cite{bullaBulla2006} reached $82\%$ KS. Its $8$-state
-partition produced simulated kurtosis of $4.8$ against the observed
-$7.7$, with $68.7\%$ quantile coverage. A comparison of persistence specifications (HMM-WJ vs
+Figure~\ref{fig:model_comparison}). Bootstrap resampling passed every marginal test but shared the
+i.i.d.\ autocorrelation error, while Gaussian sampling passed none.
+GARCH(1,1) had the lowest ACF-MAE ($0.031$) but rarely passed the
+marginal tests, and the Gated Recurrent Unit
+(GRU)~\cite{choEtAl2014gru} behaved similarly, with competitive
+temporal error and near-zero marginal pass rates. The hidden
+semi-Markov model (HSMM)~\cite{bullaBulla2006} reached $82\%$ KS but
+underestimated kurtosis by more than a third. A comparison of persistence specifications (HMM-WJ vs
 HSMM) and emission families (Gaussian vs Student-$t$) is given in
 Table~\ref{tab:emission_hsmm}
-(Sec.~\ref{sec:supp-emission-hsmm}). HMM-NJ and HMM-WJ had KS pass
-rates of $99.7\%$ and $97.6\%$, respectively, and AD pass rates of
-$99.1\%$ and $91.3\%$.
+(Online Appendix~\ref{sec:supp-emission-hsmm}). HMM-NJ and HMM-WJ had
+KS pass rates of $99.7\%$ and $97.6\%$, respectively;
 HMM-WJ's pass rates ran $2$--$8$ percentage points below HMM-NJ's
 because jumps occasionally overweight tail states relative to their
 empirical frequency. The
 Student-$t$ ($\nu = 5$) emission produced simulated kurtosis of
-$7.6$ against the observed $7.7$, while Normal
-emissions underestimated it by $\sim\!29\%$ (Table~\ref{tab:emission_hsmm}).
+$7.6$ against the observed $7.7$ (Fig.~\ref{fig:model_comparison}c),
+while Normal emissions underestimated it by $\sim\!29\%$
+(Table~\ref{tab:emission_hsmm}).
 Both HMM variants reproduced the observed negative skewness of
-$-0.75$ (Table~\ref{tab:descriptive_stats}). This skewness came from
-asymmetric occupancy of the Laplace states, not an explicit skewness
-parameter. The symmetric-innovation models (GARCH, Gaussian, and
-Laplace) produced near-zero skewness by construction. For temporal
-dependence, HMM-WJ reduced ACF-MAE from $0.059$ for HMM-NJ to $0.052$.
-GARCH still had the lowest
-ACF-MAE at $0.031$, and only HMM-WJ, among the non-GARCH, non-neural
-models, scored below the shared i.i.d.\ value of $0.060$, driven by the
-$\sim\!24\%$ of paths that contained at
-least one Poisson jump and sustained $\mathrm{ACF}(|G_t|)$ decay
-across all lags. The jump override was inactive in the remaining
-$76\%$, for which HMM-WJ reduces to HMM-NJ. On the held-out $249$
-days of $2025$, HMM-NJ and HMM-WJ
-achieved $96.7\%$ and $94.4\%$ KS with simulated kurtosis of $6.4$
-and $6.1$ against an observed $6.9$, while GARCH's $W_1$ rose by
-$67\%$ from its in-sample value
-(Table~\ref{tab:model_comparison};
-Figure~\ref{fig:statistical_validation}). The tail Q--Q plot
-for all eight generators is shown in Fig.~\ref{fig:model_comparison}c.
+$-0.75$ (Table~\ref{tab:descriptive_stats}), which came from
+asymmetric occupancy of the Laplace states rather than an explicit
+skewness parameter; the symmetric-innovation models (GARCH, Gaussian,
+and Laplace) produced near-zero skewness by construction. For temporal
+dependence, HMM-WJ reduced ACF-MAE from $0.059$ for HMM-NJ to $0.052$,
+and only HMM-WJ, among the non-GARCH, non-neural models, scored below
+the value shared by the i.i.d.\ samplers, driven by the $\sim\!24\%$ of
+paths that contained at least one Poisson jump and sustained
+$\mathrm{ACF}(|G_t|)$ decay across all lags; the jump override was
+inactive in the remaining paths, for which HMM-WJ reduces to HMM-NJ.
+On the held-out $249$ days of $2025$, HMM-NJ and HMM-WJ achieved
+$96.7\%$ and $94.4\%$ KS with simulated kurtosis close to the
+observed value, while GARCH's $W_1$ rose by $67\%$ from its in-sample
+value (Table~\ref{tab:model_comparison};
+Figure~\ref{fig:statistical_validation}).
 Cross-asset evaluation on NVDA, JNJ, and JPM produced HMM-WJ
-in-sample KS pass rates of at least $98.9\%$ on all three. The
-out-of-sample pass rates were $97.7\%$ for NVDA, $74.0\%$ for JNJ,
-and $79.2\%$ for JPM (Table~\ref{tab:cross_asset},
-Online Appendix~\ref{sec:supp-cross-asset}).
+in-sample KS pass rates of at least $98.9\%$ on all three, with
+out-of-sample rates of $97.7\%$, $74.0\%$, and $79.2\%$, respectively
+(Table~\ref{tab:cross_asset}, Online Appendix~\ref{sec:supp-cross-asset}).
 
 % --- Figure: head-to-head model comparison ---
 \begin{figure}[tbp]
@@ -166,18 +160,18 @@ contains a jump. This procedure held the fitted model fixed and
 changed only the mixture of accepted paths. The absolute-return autocorrelation error fell monotonically
 from $0.059$ at $f = 0$ to $0.037$ at $f = 1$, moving from the no-jump
 value toward the GARCH value as the jump share rose. Over the
-same sweep, simulated excess kurtosis declined from $7.9$ to $6.7$.
-It matched the observed value near $f \approx 0.14$ and fell below it
-thereafter. The two-sample KS and AD pass rates also declined. The
+same sweep, simulated excess kurtosis declined from $7.9$ to $6.7$,
+matching the observed value near $f \approx 0.14$ and falling below
+it thereafter. The two-sample KS and AD pass rates also declined. The
 Hill upper-tail index stayed near $0.35$, against an observed $0.32$,
-across the whole sweep. The Student-$t$
-($\nu = 5$) emission sets the tail exponent independently of jump
-content. Increasing the jump share therefore traded fit to the
-distributional body for lower autocorrelation error without changing
-the tail index. The
-value $f \approx 0.25$ used throughout produced simulated kurtosis of
-$7.59$ against the observed $7.72$ and ACF-MAE of $0.053$ against the
-no-jump value of $0.059$.
+across the whole sweep because the Student-$t$ ($\nu = 5$) emission
+sets the tail exponent independently of jump content. Increasing the
+jump share therefore traded fit to the distributional body for lower
+autocorrelation error without changing the tail index. The value
+$f \approx 0.25$ used throughout kept simulated kurtosis within
+$2\%$ of the observed value and lowered the autocorrelation error
+about a quarter of the way from the no-jump value toward the
+all-jump endpoint.
 
 % --- Figure: jump-mix enrichment frontier ---
 \begin{figure}[tbp]
@@ -204,8 +198,8 @@ no-jump value of $0.059$.
 The single-asset results defined the tradeoff in the marginal
 generator. We then tested whether the variance-corrected SIM preserved
 each asset's variance and factor loading across the $423$-ticker
-universe. We compared the six methods in
-Table~\ref{tab:aggregate}.
+universe, comparing the six composition methods on the aggregate
+scorecard (Table~\ref{tab:aggregate}).
 % --- Table: Aggregate scorecard across composition methods ---
 \begin{table}[H]
   \centering
@@ -223,55 +217,48 @@ Table~\ref{tab:aggregate}.
   \input{sections/tables/table1_aggregate}
 \end{table}
 The median absolute $\beta$ error ranged from $0.018$ to $0.022$
-across methods. The methods differed more in $R^2$
-recovery, marginal fit, and tail behavior. Gaussian SIM had the
-lowest median $R^2$ error ($0.008$) because it targets $R^2$ by
-construction. Its KS pass rate was $0.6\%$, its AD pass rate was
-$0.5\%$, and its excess
-kurtosis $1.4$ (real data, $\sim 13$), Hill tail index $0.22$
-(versus $\sim 0.37$ on the generator; Fig.~\ref{fig:tails}). Naive
-composition retained the generator marginal but inflated its
-variance by $\beta_i^2 \sigma_m^2$, so its KS and AD pass rates
-were $4.5\%$ and $2.7\%$. The hybrid method had a $50.4\%$ KS pass
-rate, a $47.6\%$ AD pass rate, kurtosis of $7.2$, and a Hill index of
-$0.36$. Its median $R^2$ error was $0.021$, between the errors for
-naive composition and Gaussian SIM, because the variance-preserving
-branch targets $\sigma_{\gen,i}^2$ rather than $R^2_{i,\real}$. The three
-residual-fit methods sidestepped the variance-inflation problem
-entirely by fitting a generator directly to the empirical OLS
-residual series $e_i$. The residual-series variance
-$\sigma_{\eps,\real,i}^2$ excludes the market component by
-construction. Their aggregate KS pass rates
-were $75.8\%$ (JumpHMM-on-residuals), $73.3\%$ (block bootstrap),
-and $66.9\%$ (GARCH(1,1)-$t$), each higher than hybrid's $50.4\%$.
-The residual-fit methods also had lower Wasserstein distances
-($0.232$--$0.267$) than hybrid ($0.272$). Hybrid's median excess
-kurtosis and Hill upper-tail index were
-$7.17$ and $0.365$. The corresponding values for
-JumpHMM-on-residuals were $7.26$ and $0.365$. Block
-bootstrap and GARCH, by fitting their own residual generators,
-produced lighter tails ($\kappa = 6.68$ and $6.04$; Hill $0.330$ and
-$0.318$) than either JumpHMM-based method.
+across methods (Table~\ref{tab:aggregate}); the methods differed more
+in $R^2$ recovery, marginal fit, and tail behavior. Gaussian SIM had
+the lowest median $R^2$ error because it targets $R^2$ by
+construction, but it almost never passed the marginal tests and
+produced the lightest tails of the six methods, with excess kurtosis
+an order of magnitude below the real data (Fig.~\ref{fig:tails}).
+Naive composition retained the generator marginal but inflated its
+variance by $\beta_i^2 \sigma_m^2$, so it too failed nearly all
+marginal tests. The hybrid method passed $50.4\%$ of KS replications
+and preserved the generator's tail behavior, with median excess
+kurtosis of $7.2$ and a Hill index of $0.36$; its median $R^2$ error
+sat between the naive and Gaussian extremes because the
+variance-preserving branch targets $\sigma_{\gen,i}^2$ rather than
+$R^2_{i,\real}$. The three residual-fit methods sidestepped the
+variance-inflation problem entirely by fitting a generator directly
+to the empirical OLS residual series, whose variance excludes the
+market component by construction. Their KS pass rates ran from
+$66.9\%$ (GARCH(1,1)-$t$) to $75.8\%$ (JumpHMM-on-residuals), higher
+than the hybrid's, with correspondingly lower Wasserstein distances.
+JumpHMM-on-residuals matched the hybrid's kurtosis and Hill index
+almost exactly, while block bootstrap and GARCH, by fitting their own
+residual generators, produced lighter tails than either JumpHMM-based
+method.
 
 The same ordering largely persisted when the fitted models and SIM
 parameters were frozen and evaluated against $416$ complete asset
 histories from $2025$ (Table~\ref{tab:oos_composition}). The hybrid
-method reached an $84.1\%$ mean cross-ticker KS pass rate and a
-$76.4\%$ AD pass rate, compared with $78.8\%$ and $67.1\%$ for naive
-composition. Its median composed-to-observed variance ratio was
-$0.97$, whereas naive composition remained inflated at $1.29$.
-JumpHMM-on-residuals retained the strongest marginal fit, with
-$86.2\%$ KS and $80.1\%$ AD pass rates and a median $W_1$ of $0.708$,
-compared with $0.741$ for the hybrid. Matched-length training blocks
-produced lower non-rejection rates for every method, showing that the
-higher $2025$ pass rates did not arise solely from comparing samples
-of $249$ rather than $2{,}766$ observations. Figure~\ref{fig:oos_composition}
-shows that these averages nevertheless conceal substantial cross-ticker
-heterogeneity. Most ticker-level pass rates were concentrated near the
-upper end of the range, but every method retained a lower tail of weak
-fits. For the hybrid method, many tickers improved relative to their
-matched-length training blocks, while a subset deteriorated substantially
-out of sample.
+method reached an $84.1\%$ mean cross-ticker KS pass rate, against
+$78.8\%$ for naive composition, and its median composed-to-observed
+variance ratio was $0.97$, whereas naive composition remained
+inflated at $1.29$. JumpHMM-on-residuals retained the strongest
+marginal fit, with an $86.2\%$ KS pass rate and a slightly lower
+median $W_1$ than the hybrid. Matched-length training blocks produced
+lower non-rejection rates for every method, showing that the higher
+$2025$ pass rates did not arise solely from comparing samples of
+$249$ rather than $2{,}766$ observations. These averages nevertheless
+concealed cross-ticker heterogeneity
+(Figure~\ref{fig:oos_composition}): most ticker-level pass rates
+concentrated near the upper end of the range, but every method
+retained a lower tail of weak fits, and for the hybrid method many
+tickers improved relative to their matched-length training blocks
+while a subset deteriorated out of sample.
 
 \begin{table}[H]
   \centering
@@ -361,17 +348,16 @@ plotted each ticker's KS pass rate and variance ratio
 $\mathrm{Var}(g)/\sigma_{\gen}^2$ against its calibrated $\beta$
 (Fig.~\ref{fig:preservation}). Under naive composition, the variance
 ratio followed $1+\rho_i$ and exceeded generator variance by
-$50$--$75\%$ at high $\beta$. The hybrid method held the ratio at one.
-Over the same range, the naive KS pass rate fell from about $0.25$ at
-$\beta\approx0.3$ to below $0.01$ above $\beta\approx0.7$, while the
-hybrid rate remained between $0.3$ and $0.9$. The branch-selection
+$50$--$75\%$ at high $\beta$, and the naive KS pass rate fell toward
+zero above $\beta \approx 0.7$; the hybrid method held the ratio at
+one and kept per-ticker pass rates between $0.3$ and $0.9$ across the
+$\beta$ range. The branch-selection
 rule assigned $421$ tickers to the variance-preserving branch, two
 trackers to the $R^2$-preserving branch, and none to the clipped
-branch (Fig.~\ref{fig:branch_map}, Table~\ref{tab:branch}). QQQ
-($R^2 = 0.861$) and SPYG ($R^2 = 0.933$) were the two
-$R^2$-preserving assignments, and both had a $99\%$ KS pass rate. The
-highest-$R^2$ individual stock was BLK at $0.645$, about $0.16$ below
-the $R^2_{\mathrm{preserve}}=0.80$ threshold. Clipping did not occur
+branch (Fig.~\ref{fig:branch_map}, Table~\ref{tab:branch}). The two
+$R^2$-preserving assignments were QQQ and SPYG, and both had a $99\%$
+KS pass rate; the highest-$R^2$ individual stock, BLK, fell about
+$0.16$ below the $R^2_{\mathrm{preserve}}=0.80$ threshold. Clipping did not occur
 in the universe: $\rho_i = \beta_i^2 \sigma_m^2 / \sigma_{\gen,i}^2$
 (Eq.~\eqref{eq:rho}) stayed below $1 - f = 0.90$ for every ticker.
 Because the $R^2$-preserving branch contained only two tickers, we
@@ -397,8 +383,8 @@ Algorithm~\ref{alg:hybrid} (Table~\ref{tab:hyperparams}), re-running
 hybrid on the full
 $423$-ticker universe at every point of the $R^2_{\mathrm{preserve}}
 \times f$ grid in Fig.~\ref{fig:sensitivity}. The hybrid KS pass rate
-ranged from $50.24\%$ to $50.38\%$ across the $25$ grid cells, a
-spread of $0.14$ percentage points. QQQ and SPYG remained in the
+varied by $0.14$ percentage points across the $25$ grid cells. The
+two index trackers remained in the
 $R^2$-preserving branch for every threshold at or below $0.85$, and
 the floor $f$ did not change any branch assignment. We then measured
 the contribution of generator stochasticity to

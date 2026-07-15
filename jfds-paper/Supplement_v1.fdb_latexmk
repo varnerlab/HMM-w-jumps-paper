@@ -1,13 +1,13 @@
 # Fdb version 4
-["bibtex Supplement_v1"] 1784141187.92688 "Supplement_v1.aux" "Supplement_v1.bbl" "Supplement_v1" 1784141188.97219 0
+["bibtex Supplement_v1"] 1784141187.92688 "Supplement_v1.aux" "Supplement_v1.bbl" "Supplement_v1" 1784142581.14423 0
   "./References_v1.bib" 1779901732.53104 30661 131c1e812d06d55319d4ef31d0a831ae ""
   "/usr/local/texlive/2025/texmf-dist/bibtex/bst/natbib/unsrtnat.bst" 1233624470 24550 a41a6405f4de768c43e871d9fbce2bc8 ""
-  "Supplement_v1.aux" 1784141188.69522 23366 b71ac20b3392f59137154b4b6eba4f84 "pdflatex"
+  "Supplement_v1.aux" 1784142580.86054 23366 b71ac20b3392f59137154b4b6eba4f84 "pdflatex"
   (generated)
   "Supplement_v1.bbl"
   "Supplement_v1.blg"
   (rewritten before read)
-["pdflatex"] 1784141188.03058 "Supplement_v1.tex" "Supplement_v1.pdf" "Supplement_v1" 1784141188.97234 0
+["pdflatex"] 1784142580.1925 "Supplement_v1.tex" "Supplement_v1.pdf" "Supplement_v1" 1784142581.14438 0
   "/usr/local/texlive/2025/texmf-dist/fonts/enc/dvips/base/8r.enc" 1165713224 4850 80dc9bab7f31fb78a000ccfed0e27cab ""
   "/usr/local/texlive/2025/texmf-dist/fonts/enc/dvips/cm-super/cm-super-t1.enc" 1136849721 2971 def0b6c1f0b107b3b936def894055589 ""
   "/usr/local/texlive/2025/texmf-dist/fonts/map/fontname/texfonts.map" 1577235249 3524 cb3e574dea2d1052e39280babc910dc8 ""
@@ -229,11 +229,11 @@
   "/usr/local/texlive/2025/texmf-var/fonts/map/pdftex/updmap/pdftex.map" 1747946047 5467155 19efa205003f9ecad95fbbaa6ff24da1 ""
   "/usr/local/texlive/2025/texmf-var/web2c/pdftex/pdflatex.fmt" 1741450574 3345740 46b66fdb0378f7bf5921b5eabf1762b8 ""
   "/usr/local/texlive/2025/texmf.cnf" 1741450484 577 418a7058ec8e006d8704f60ecd22c938 ""
-  "Paper_v1.aux" 1784141185.51421 24725 4d36b40ca913ef808c34e27a87ddf6c2 ""
+  "Paper_v1.aux" 1784142579.77737 24725 ebe85034e2ffc385a7f28f7e0874117d ""
   "Paper_v1.tex" 1784137513.19686 6645 1536b4db54f248df63fe76c3b5411ce3 ""
-  "Supplement_v1.aux" 1784141188.69522 23366 b71ac20b3392f59137154b4b6eba4f84 "pdflatex"
+  "Supplement_v1.aux" 1784142580.86054 23366 b71ac20b3392f59137154b4b6eba4f84 "pdflatex"
   "Supplement_v1.bbl" 1784141188.02746 3265 bdff435ae4f3cd9caa17677f92d3e19f "bibtex Supplement_v1"
-  "Supplement_v1.out" 1784141188.69677 2004 4268932c825aaed412512055b3884138 "pdflatex"
+  "Supplement_v1.out" 1784142580.86188 2004 4268932c825aaed412512055b3884138 "pdflatex"
   "Supplement_v1.tex" 1784136982.65103 2384 41e31c5ecbc9647da32fe3eefd92a01e ""
   "figs/supplement/FigS01-Cross-Covariance.pdf" 1778087166.76727 36485 8e76797536ec7343872f8c90fcef95ac ""
   "figs/supplement/FigS02-Tail-Preservation.pdf" 1784135794.78328 141299 865957fb7e65dbabdfa0841fda489a9f ""
