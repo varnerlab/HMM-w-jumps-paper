@@ -20,9 +20,8 @@ strongly asset $i$ moves with the market, and $\eps_i$ is the part
 specific to that asset. The symbol $\eps_i$ denotes a residual path;
 it is unrelated to the jump probability $\epsilon$ used by the
 single-asset model. We estimated $(\alpha_i,\beta_i)$ from real data by
-ordinary least squares (OLS).
-
-The main difficulty is choosing $\eps_i$. A standard SIM uses
+ordinary least squares (OLS). The remaining modeling choice is
+$\eps_i$. A standard SIM uses
 Gaussian residuals with the variance implied by the real-data
 regression. This preserves the fitted market relationship, but it
 removes much of the tail and regime behavior produced by the
@@ -67,9 +66,7 @@ For clarity, define the \emph{market loading ratio}
   \label{eq:rho}
 \end{equation}
 which is the fraction of the variance budget used by the market. The
-residual receives the remaining fraction, so $s_i^2=1-\rho_i$.
-
-This correction is impossible when $\rho_i\geq 1$ because the market
+residual receives the remaining fraction, so $s_i^2=1-\rho_i$. This correction is impossible when $\rho_i\geq 1$ because the market
 term alone uses the entire variance budget. This case can occur when $\beta_i$ is
 large, the per-asset generator has low variance, or the synthetic
 market is more volatile than the calibration market. In that case we
@@ -100,9 +97,8 @@ index-tracking ETF, the fitted relationship with the market is more
 important. For example, SPY regressed on itself has $\beta=1$,
 $R^2=1$, and no residual variance. QQQ and SPYG also have high
 $R^2$ against SPY. Applying the ordinary-stock rule to these trackers
-can preserve total variance while changing the fitted $R^2$.
-
-We therefore used a separate branch when the real-data value
+can preserve total variance while changing the fitted $R^2$. We
+therefore used a separate branch when the real-data value
 $R^2_{i,\real}$ is at least $R^2_{\mathrm{preserve}}$. In our
 universe, $0.80$ separated the index trackers from individual stocks
 (Fig.~\ref{fig:r2_distribution}). On this branch, the residual
