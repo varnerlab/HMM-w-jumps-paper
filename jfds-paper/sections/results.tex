@@ -202,7 +202,7 @@ each asset's variance and factor loading across the $423$-ticker
 universe. We compared the six methods in
 Table~\ref{tab:aggregate}.
 % --- Table: Aggregate scorecard across composition methods ---
-\begin{table}[tbp]
+\begin{table}[H]
   \centering
   \caption{\textbf{Aggregate scorecard across $423$ non-market tickers and
     $100$ replications per ticker.} Median values per composition
@@ -248,37 +248,84 @@ bootstrap and GARCH, by fitting their own residual generators,
 produced lighter tails ($\kappa = 6.68$ and $6.04$; Hill $0.330$ and
 $0.318$) than either JumpHMM-based method.
 
+The same ordering largely persisted when the fitted models and SIM
+parameters were frozen and evaluated against $416$ complete asset
+histories from $2025$ (Table~\ref{tab:oos_composition}). The hybrid
+method reached an $84.1\%$ mean cross-ticker KS pass rate and a
+$76.4\%$ AD pass rate, compared with $78.8\%$ and $67.1\%$ for naive
+composition. Its median composed-to-observed variance ratio was
+$0.97$, whereas naive composition remained inflated at $1.29$.
+JumpHMM-on-residuals retained the strongest marginal fit, with
+$86.2\%$ KS and $80.1\%$ AD pass rates and a median $W_1$ of $0.708$,
+compared with $0.741$ for the hybrid. Matched-length training blocks
+produced lower non-rejection rates for every method, showing that the
+higher $2025$ pass rates did not arise solely from comparing samples
+of $249$ rather than $2{,}766$ observations. The ticker-level
+distributions remained heterogeneous, however, and a subset of
+assets deteriorated substantially out of sample
+(Fig.~\ref{fig:oos_composition}).
+
+\begin{table}[H]
+  \centering
+  \caption{\textbf{Frozen-parameter multi-asset evaluation on the
+    $2025$ holdout.} Results cover $416$ non-market tickers and $100$
+    replications per ticker; GARCH covers $386$ tickers. Pass rates
+    are first averaged within ticker and then across tickers.
+    \textit{matched IS} compares each synthetic path with a randomly
+    selected contiguous $249$-day block from the $2014$--$2024$
+    training history, matching the holdout sample length. $W_1$ and
+    the variance ratio are medians across ticker-level medians; the
+    variance ratio is synthetic variance divided by observed $2025$
+    variance.}
+  \label{tab:oos_composition}
+  \small
+  \input{sections/tables/table6_oos_scorecard}
+\end{table}
+
+\begin{figure}[tbp]
+  \centering
+  \includegraphics[width=\textwidth]{figs/Fig-OoS-Composition.pdf}
+  \caption{\textbf{Cross-ticker distribution of frozen-parameter
+    out-of-sample marginal fit.} Panel~(a) shows the distribution of
+    per-ticker $2025$ KS pass rates across $100$ replications; the
+    dashed line marks $95\%$. Panel~(b) compares each ticker's hybrid
+    KS pass rate against a matched-length training block with its
+    pass rate against the $2025$ holdout. The diagonal denotes equal
+    performance.}
+  \label{fig:oos_composition}
+\end{figure}
+\FloatBarrier
+
 \subsection{VaR coverage}
 
-We tested the six methods with a per-ticker, one-day Value-at-Risk
-(VaR) coverage check (Table~\ref{tab:var}). At $\alpha = 0.99$, the
-nominal exceedance rate is $1\%$. The empirical rates were $0.67\%$
-for naive composition and $1.40\%$ for Gaussian SIM. Their Kupiec
-pass rates were $45\%$ and $47\%$, respectively. The hybrid,
-JumpHMM-on-residuals, block-bootstrap, and GARCH(1,1)-$t$ methods had
-exceedance rates of $0.95\%$, $0.99\%$, $1.09\%$, and $1.09\%$, with
-Kupiec pass rates between $72\%$ and $86\%$. Hybrid and
-JumpHMM-on-residuals differed by $0.04$ percentage points, with
-cross-ticker SDs of $0.27$ and $0.26$ percentage points.
+We used the frozen synthetic paths to estimate per-ticker one-day
+Value-at-Risk (VaR) thresholds and counted exceedances on the real
+$2025$ histories (Table~\ref{tab:var}). At $\alpha=0.95$, the hybrid
+and JumpHMM-on-residuals methods produced mean exceedance rates of
+$6.13\%$ and $6.07\%$, respectively, against the $5\%$ nominal rate.
+At $\alpha=0.99$, their rates were $1.71\%$ and $1.67\%$, against the
+$1\%$ nominal rate. Naive composition was closest at the $99\%$
+level ($1.24\%$), while Gaussian SIM had the largest exceedance rate
+($2.03\%$). The short holdout contains only about $2$--$3$ expected
+$99\%$ exceedances per ticker, so we interpret the corresponding
+Kupiec pass rates and cross-ticker dispersion as low-power checks
+rather than precise rankings.
 
-\FloatBarrier
 % --- Table: VaR coverage check ---
-\begin{table}[tbp]
+\begin{table}[H]
   \centering
-  \caption{\textbf{Per-ticker one-day Value-at-Risk coverage check across
-    the six composition methods.} For each (ticker, replication) pair we estimated the
-    VaR threshold at coverage level $\alpha$ from the composed path and
-    counted exceedances against the real $2014$--$2024$ growth-rate
-    history. \textit{rate}: mean exceedance rate across tickers
-    (nominal: $1-\alpha$). \textit{SD}: cross-ticker standard deviation
-    of the exceedance rate, in percentage points. \textit{Kupiec pass}:
-    fraction of tickers on which the Kupiec unconditional-coverage
-    test $p$-value exceeds $0.05$. Hybrid and JumpHMM-on-residuals differ
-    by less than the cross-ticker spread at both coverage levels; naive
-    composition and Gaussian SIM fail coverage on a majority of the universe.}
+  \caption{\textbf{Out-of-sample per-ticker one-day Value-at-Risk
+    coverage across the six composition methods.} VaR thresholds at
+    coverage level $\alpha$ were estimated from frozen-parameter
+    synthetic paths and exceedances were counted against the real
+    $2025$ growth-rate history. \textit{rate}: mean of the per-ticker
+    mean exceedance rates (nominal: $1-\alpha$). \textit{SD}:
+    cross-ticker standard deviation, in percentage points.
+    \textit{Kupiec pass}: mean within-ticker fraction of replications
+    whose unconditional-coverage test $p$-value exceeds $0.05$.}
   \label{tab:var}
   \small
-  \input{sections/tables/table5_var_backtest}
+  \input{sections/tables/table5_var_backtest_oos}
 \end{table}
 
 \subsection{Sensitivity analyses}
@@ -301,7 +348,7 @@ cross-ticker SDs of $0.27$ and $0.26$ percentage points.
   \label{fig:preservation}
 \end{figure}
 
-The KS differences did not carry over to the VaR results. We therefore
+To isolate how the variance correction changed marginal fit, we
 plotted each ticker's KS pass rate and variance ratio
 $\mathrm{Var}(g)/\sigma_{\gen}^2$ against its calibrated $\beta$
 (Fig.~\ref{fig:preservation}). Under naive composition, the variance

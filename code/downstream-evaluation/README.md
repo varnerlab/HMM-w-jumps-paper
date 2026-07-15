@@ -69,6 +69,8 @@ julia --project=. scripts/04b-VaR-Table.jl                 # T5 var-backtest .te
 julia --project=. scripts/07-Cov-Diagnostic.jl             # cross-term covariance check
 julia --project=. scripts/08-Synthetic-Tracker-Eval.jl     # R²-preserve branch check
 julia --project=. scripts/09-Extra-Figures.jl              # revision figures
+julia --project=. scripts/10-OoS-Evaluation.jl             # frozen-fit 2025 six-composer evaluation
+julia --project=. scripts/10b-OoS-Table.jl                 # OoS manuscript tables and figure
 ```
 
 Each script is idempotent: if its primary output JLD2 already exists in
@@ -95,6 +97,14 @@ cached artifact to force a refit.
 `results-seed-*.jld2`, `results-stress.jld2`, `results-thresh-*.jld2`,
 `var-backtest.jld2`, `synth-tracker.jld2`. These intermediates exceed the
 small-summary threshold; rebuild them by running the pipeline.
+
+`results-oos.jld2` and `results-oos.csv` contain the per-path 2025 holdout
+evaluation. They are reproducible caches and are ignored by Git; the compact
+`results-oos-summary.csv` and `var-backtest-oos-summary.csv` outputs are the
+versioned sources for the manuscript tables. The evaluator also compares
+every synthetic path with a random contiguous 249-day block from the training
+period so that KS/AD rejection rates can be interpreted at a matched sample
+length.
 
 ## Output destinations
 

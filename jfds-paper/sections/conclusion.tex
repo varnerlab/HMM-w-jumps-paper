@@ -9,11 +9,15 @@ per-asset generators through a single-index model. The correction
 removed the variance inflation caused by inserting a full-return
 generator draw into the market factor. Across $423$ non-market assets,
 it recovered the calibrated factor loading to a low median absolute
-error and produced heavy-tailed marginals whose per-ticker one-day
-$99\%$ Value-at-Risk exceedance rate sat near the $1\%$ nominal level,
-comparable to the residual-fit methods. Those residual models, fitted
-directly to the OLS residual series, reached higher KS pass rates than
-the corrected method but required a separate fit for each asset.
+error and produced heavy-tailed marginals. On $416$ complete held-out
+asset histories from $2025$, it improved the mean cross-ticker KS
+pass rate from $78.8\%$ under naive composition to $84.1\%$ and held
+the median variance ratio at $0.97$. Its one-day $99\%$ Value-at-Risk
+exceedance rate was $1.71\%$, compared with $1.67\%$ for
+JumpHMM-on-residuals and a $1\%$ nominal rate. Those residual models,
+fitted directly to the OLS residual series, reached higher KS pass
+rates than the corrected method but required a separate fit for each
+asset.
 
 The per-asset component was a hidden Markov marginal
 model with Laplace-quantile states, Student-$t$ emissions, and direct

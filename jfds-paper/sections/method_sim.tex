@@ -253,3 +253,20 @@ and the ratio of composed to generator variance. Definitions are in
 Online Appendix~\ref{sec:supp-validation}. We ran $100$ replications
 per ticker with seed $1234$, producing $42{,}300$ series per method.
 Pass rates used $\alpha=0.05$.
+
+We then froze all marginal fits, residual models, and SIM parameters
+estimated from $2014$--$2024$ and evaluated the methods against the
+$249$ growth rates observed in $2025$. Of the $423$ non-market
+training assets, $416$ had complete holdout histories; GARCH results
+covered $386$ because its thirty non-stationary training fits remained
+excluded. For each replication, we generated a $249$-day SPY path
+from the training-period SPY marginal and used that common simulated
+market path in all asset compositions. Observed $2025$ SPY and asset
+returns were used only for scoring. We repeated the KS, AD,
+Wasserstein-1, variance, kurtosis, and one-day VaR evaluations with
+$100$ paths per ticker. Because goodness-of-fit tests have less power
+on $249$ observations than on $2{,}766$, we also compared each
+synthetic path with a randomly selected contiguous $249$-day block
+from the training history. We first averaged replication-level
+results within ticker and then summarized across tickers so each
+asset received equal weight.

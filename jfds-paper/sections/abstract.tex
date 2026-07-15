@@ -15,8 +15,11 @@ empirical target, recovered the calibrated factor loading with low
 error, and preserved heavy-tailed marginals, all without a separate
 fit to the regression residuals. Residual models fitted directly to
 each asset passed the marginal goodness-of-fit tests more often, but
-only at the cost of a per-asset calibration stage; both approaches
-held one-day Value-at-Risk exceedances near their nominal level. The
+only at the cost of a per-asset calibration stage. On $416$ complete
+asset histories held out from $2025$, the correction raised the mean
+cross-ticker KS pass rate from $78.8\%$ to $84.1\%$ and reduced the
+median variance ratio from $1.29$ to $0.97$; its $99\%$ one-day
+Value-at-Risk exceedance rate was $1.71\%$. The
 per-asset input was a hidden Markov model with Laplace-quantile states
 and Student-t emissions, whose jump-duration variant used Poisson
 episodes to lengthen visits to the tail states. On a decade of daily

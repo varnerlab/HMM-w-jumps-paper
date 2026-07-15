@@ -52,20 +52,27 @@ The main result was the multi-asset variance correction. Naive
 composition inflated generator variance at high $\beta$ and almost
 always failed the KS test, as did the Gaussian SIM. The corrected
 method held the variance ratio at one and passed the KS test about
-half the time. The three residual-fit methods had higher KS pass rates
-than the hybrid method. These methods fit the OLS residuals
+half the time in the full-length training comparison. With all fits
+frozen for $2025$, it retained a median variance ratio of $0.97$ and
+improved the mean cross-ticker KS pass rate from $78.8\%$ under naive
+composition to $84.1\%$. The residual-fit methods had higher KS pass rates
+than the hybrid method in both windows. These methods fit the OLS residuals
 directly and therefore avoid the variance-inflation problem. The
 choice between the two approaches depends on whether the same
 full-return generator must serve both single-asset and multi-asset
-uses. The hybrid method's one-day $99\%$ VaR exceedance rate sat near
-the $1\%$ nominal level, comparable to the residual-fit methods, and
-it did not require their separate fitting stage, though its marginal
-KS pass rate was lower.
+uses. The hybrid method's held-out one-day $99\%$ VaR exceedance rate
+was $1.71\%$, comparable to $1.67\%$ for JumpHMM-on-residuals but
+above the $1\%$ nominal level. It did not require the residual
+method's separate fitting stage, though its marginal KS pass rate was
+lower.
 
-Several evaluation choices limit these results. We fixed the market
-path at the real SPY history. The naive and hybrid methods used the
-same JumpHMM draw for each ticker, while the other methods drew from
-their own generators. We also omitted the optional cross-sectional
+Several evaluation choices limit these results. The in-sample
+composition experiment fixed the market path at the real SPY history;
+the holdout experiment instead generated SPY from its frozen
+training-period marginal and reserved observed $2025$ SPY for
+scoring. The naive and hybrid methods used the same JumpHMM draw for
+each ticker, while the other methods drew from their own generators.
+We also omitted the optional cross-sectional
 rank reorder and evaluated VaR per ticker rather than at the portfolio
 level. Portfolio-level VaR would require a model of cross-asset
 dependence. The variance correction assumes
@@ -83,6 +90,11 @@ assets such as leveraged ETFs. Even without clipping, the hybrid KS pass rate de
 lowest $\beta$ quartile to the highest. As
 $\beta$ increased, the market term accounted for more of the composed
 distribution, whose tails then depended more on the market path.
+The $249$-day holdout also has substantially less power than the
+$2{,}766$-day training comparison. Matched-length training blocks
+partly address this difference, but neither non-rejection rates nor
+$99\%$ VaR counts from a single year should be interpreted as precise
+model rankings.
 
 Independent residuals produced a diversification-return bias under
 daily rebalancing. Matching each asset's marginal variance did not

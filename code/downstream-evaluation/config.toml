@@ -8,6 +8,8 @@ min_obs_required  = 2766          # IS window length, matches JDIQ paper
 [window]
 in_sample_start   = "2014-01-03"
 in_sample_end     = "2024-12-31"
+out_of_sample_start = "2025-01-02"
+out_of_sample_end   = "2025-12-31"
 
 [hmm]
 N                 = 100             # number of states
