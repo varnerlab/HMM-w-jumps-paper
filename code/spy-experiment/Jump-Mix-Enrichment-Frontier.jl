@@ -6,8 +6,9 @@
 # volatility clustering (ACF-MAE of |g|) vs marginal fidelity (kurtosis, Hill
 # tail index, KS/AD pass rates, W1, Hellinger). Per-path-mean metrics use the
 # exact convex-combination frontier M(f)=f*M_jump+(1-f)*M_nojump; the pooled
-# Hill index uses R resampled ensembles. Writes a table, CSV, and figure to
-# code/spy-experiment/diagnostics/. Touches nothing under jfds-paper/.
+# Hill index uses R resampled ensembles. Writes its table and CSV to
+# code/spy-experiment/diagnostics/ and the cited figure to
+# jfds-paper/figs/main/Fig04-Jump-Mix-Frontier.pdf.
 #
 # Spec: docs/superpowers/specs/2026-07-14-jump-mix-enrichment-design.md
 # =============================================================================
@@ -26,6 +27,8 @@ const SEED            = 1234
 const OBS_KURT_TARGET = 7.71
 const OBS_HILL_ALPHA  = 3.14
 const _PATH_TO_DIAG   = joinpath(_ROOT, "diagnostics")
+const _PATH_TO_JFDS_FIG = joinpath(_ROOT, "..", "..", "jfds-paper", "figs",
+                                    "main", "Fig04-Jump-Mix-Frontier.pdf")
 const _HUB_FILE       = joinpath(_PATH_TO_DATA, "HMM-WJ-SPY-N-100-daily-aggregate.jld2")
 
 # ── inputs ───────────────────────────────────────────────────────────────────
@@ -214,7 +217,7 @@ const _BASESTYLE = (bg                       = "grey97",
                     left_margin              = 14Plots.mm)
 
 function plot_frontier(df::DataFrame;
-                       outpath::AbstractString = joinpath(_PATH_TO_DIAG, "jump_mix_frontier.pdf"))
+                       outpath::AbstractString = _PATH_TO_JFDS_FIG)
     x   = df.acf_mae
     xi  = 1.0 ./ df.hill_alpha
     oxi = 1.0 / OBS_HILL_ALPHA
@@ -257,13 +260,14 @@ end
 # Rebuild the figure from the saved CSV without rerunning the sweep:
 #   julia --project=. -e 'include("Jump-Mix-Enrichment-Frontier.jl"); replot_from_csv()'
 function replot_from_csv(; csvpath::AbstractString = joinpath(_PATH_TO_DIAG, "jump_mix_frontier.csv"),
-                         outpath::AbstractString = joinpath(_PATH_TO_DIAG, "jump_mix_frontier.pdf"))
+                         outpath::AbstractString = _PATH_TO_JFDS_FIG)
     return plot_frontier(CSV.read(csvpath, DataFrame); outpath = outpath)
 end
 
 # ── main ─────────────────────────────────────────────────────────────────────
 function main()
     mkpath(_PATH_TO_DIAG)
+    mkpath(dirname(_PATH_TO_JFDS_FIG))
     inp = load_inputs()
     @printf("Inputs: T=%d N=%d eps=%g lambda=%g\n",
             length(inp.g_is), inp.N, inp.model_wj.jump.ϵ, inp.model_wj.jump.λ)

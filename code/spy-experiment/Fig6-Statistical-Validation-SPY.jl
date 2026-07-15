@@ -179,11 +179,16 @@ out_figs       = joinpath(_PATH_TO_FIGS, "Fig6-Statistical-Validation.pdf")
 paper_figs_dir = abspath(joinpath(_ROOT, "..", "..", "paper", "sections", "figs"))
 mkpath(paper_figs_dir)
 paper_figs = joinpath(paper_figs_dir, "Fig6-Statistical-Validation.pdf")
+jfds_figs  = abspath(joinpath(_ROOT, "..", "..", "jfds-paper", "figs", "supplement",
+                              "FigS04-Statistical-Validation.pdf"))
 
 savefig(fig6, out_figs)
 @info "Saved  → $out_figs"
 cp(out_figs, paper_figs; force = true)
 @info "Copied → $paper_figs"
+mkpath(dirname(jfds_figs))
+cp(out_figs, jfds_figs; force = true)
+@info "Copied JFDS FigS04 → $jfds_figs"
 
 # ── 13. Supplemental figure: IS ACF comparison (all paths vs jump paths) ────
 @info "Building supplemental ACF comparison..."

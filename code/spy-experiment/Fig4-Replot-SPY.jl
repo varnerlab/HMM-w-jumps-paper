@@ -210,9 +210,14 @@ out_figs       = joinpath(_PATH_TO_FIGS, "Fig4-Model-Comparison.pdf")
 paper_figs_dir = abspath(joinpath(_ROOT, "..", "..", "paper", "sections", "figs"))
 mkpath(paper_figs_dir)
 paper_figs = joinpath(paper_figs_dir, "Fig4-Model-Comparison.pdf")
+jfds_figs  = abspath(joinpath(_ROOT, "..", "..", "jfds-paper", "figs", "main",
+                              "Fig03-Model-Comparison.pdf"))
 
 savefig(fig4, out_figs)
 @info "Saved  → $out_figs"
 cp(out_figs, paper_figs; force = true)
 @info "Copied → $paper_figs"
+mkpath(dirname(jfds_figs))
+cp(out_figs, jfds_figs; force = true)
+@info "Copied JFDS Fig03 → $jfds_figs"
 @info "Done — Figure 4 complete."

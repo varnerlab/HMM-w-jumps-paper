@@ -55,9 +55,17 @@ method held the variance ratio at one and passed the KS test about
 half the time in the full-length training comparison. With all fits
 frozen for $2025$, it retained a median variance ratio of $0.97$ and
 improved the mean cross-ticker KS pass rate from $78.8\%$ under naive
-composition to $84.1\%$. The residual-fit methods had higher KS pass rates
-than the hybrid method in both windows. These methods fit the OLS residuals
-directly and therefore avoid the variance-inflation problem. The
+composition to $84.1\%$. This improvement was not uniform across assets:
+Figure~\ref{fig:oos_composition} shows generally strong ticker-level pass
+rates alongside a lower tail of weak fits, with some hybrid tickers
+deteriorating relative to matched-length training blocks. The correction
+therefore improved typical marginal fit and variance calibration without
+eliminating asset-specific distribution shift. This heterogeneity makes
+ticker-level diagnostics important; a universe-wide average pass rate
+should not be interpreted as a deployment guarantee for every asset. The
+residual-fit methods had higher KS pass rates than the hybrid method in both
+windows. These methods fit the OLS residuals directly and therefore avoid
+the variance-inflation problem. The
 choice between the two approaches depends on whether the same
 full-return generator must serve both single-asset and multi-asset
 uses. The hybrid method's held-out one-day $99\%$ VaR exceedance rate

@@ -23,8 +23,9 @@ first run.
 - **`spy-experiment/`** — single-asset SPY pipeline. Fits HMM-WJ and HMM-NJ on
   2014-2024 SPY, validates IS/OoS on 2025, produces descriptive stats,
   Student-t emissions table, parameter sweeps, OoS validation. Feeds:
-  `jfds-paper/figs/Fig3-Model-Internals.pdf`, `Fig4-Model-Comparison.pdf`,
-  `Fig5-Parameter-Sweep.pdf`, `Fig6-Statistical-Validation.pdf`, plus
+  `jfds-paper/figs/main/Fig03-Model-Comparison.pdf` and supplemental
+  figures `FigS04-Statistical-Validation.pdf` and
+  `FigS05-Model-Internals.pdf`, plus
   Table 1 (descriptive stats) and Table 2 (Student-t emissions).
 - **`sim-experiment/`** — multi-asset SIM extension (424 tickers). Computes
   per-ticker KS pass rates and R² for the hybrid SIM composer using the fitted
@@ -57,10 +58,13 @@ julia --project=code/sim-experiment       code/sim-experiment/SIM-Multi-Asset-KS
 cd code/downstream-evaluation && julia --project=. scripts/01-Fit-Marginals.jl   # ... through 09
 ```
 
-Output `.tex` table fragments land in `jfds-paper/sections/tables/`; output
-PDF figures land in `jfds-paper/figs/`. Re-running a script overwrites its
-outputs in place, after which `cd jfds-paper && pdflatex Paper_v1` rebuilds
-the manuscript with the recomputed numbers.
+Output `.tex` table fragments land in `jfds-paper/sections/tables/`. Cited
+PDF figures are separated into `jfds-paper/figs/main/` (`Fig01`--`Fig06`)
+and `jfds-paper/figs/supplement/` (`FigS01`--`FigS07`); uncited diagnostics
+belong in `jfds-paper/figs/diagnostics/`. Figure 2 is drawn inline in TikZ,
+so there is no `Fig02` PDF. Re-running a script overwrites its output in
+place, after which `cd jfds-paper && pdflatex Paper_v1` rebuilds the
+manuscript with the recomputed numbers.
 
 ## Note on Table 5 (VaR backtest)
 

@@ -6,7 +6,7 @@ BIB     := References_v1
 TEX     := $(PAPER).tex
 PDF     := $(PAPER).pdf
 SECTIONS := $(wildcard sections/*.tex) $(wildcard sections/tables/*.tex)
-FIGS     := $(wildcard figs/*)
+FIGS     := $(shell find figs -type f)
 
 LATEXMK := latexmk
 LATEXMK_FLAGS := -pdf -bibtex -interaction=nonstopmode -halt-on-error

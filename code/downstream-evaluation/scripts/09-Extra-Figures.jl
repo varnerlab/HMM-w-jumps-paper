@@ -5,21 +5,20 @@
 # is conditional on its input cache existing, so the script runs cleanly at
 # any stage of the experimental pipeline.
 #
-# Outputs (paper/figs/):
-#   fig4_baseline_panel.pdf    KS pass and Hill index by composer (all 6)
-#   fig5_sensitivity.pdf       R² threshold × floor f heatmap (hybrid KS pass)
-#   fig6_stress.pdf            clipping incidence + KS pass vs gm_factor
-#   fig7_r2_distribution.pdf   R² histogram on 423-ticker universe
-#   fig8_var_backtest.pdf      VaR 99%/95% exceedance rates by composer
-#   fig9_synth_tracker.pdf     synthetic-tracker R² recovery
-#   figS1_cov_diagnostic.pdf   Cov(ε̃, g_m) / (σ_ε σ_m) histograms
+# Cited outputs:
+#   supplement/FigS01-Cross-Covariance.pdf
+#   supplement/FigS03-R2-Distribution.pdf
+#   supplement/FigS07-Sensitivity.pdf
+# Uncited diagnostic outputs are kept in figs/diagnostics/.
 # =============================================================================
 
 include(joinpath(@__DIR__, "..", "Include.jl"))
 
 const _PAPER_ROOT    = abspath(joinpath(_ROOT, "..", "..", "jfds-paper"))
-const _PATH_TO_PFIGS = joinpath(_PAPER_ROOT, "figs")
-isdir(_PATH_TO_PFIGS) || mkpath(_PATH_TO_PFIGS)
+const _PATH_TO_SUPP_FIGS = joinpath(_PAPER_ROOT, "figs", "supplement")
+const _PATH_TO_DIAG_FIGS = joinpath(_PAPER_ROOT, "figs", "diagnostics")
+mkpath(_PATH_TO_SUPP_FIGS)
+mkpath(_PATH_TO_DIAG_FIGS)
 
 default(
     fontfamily     = "Computer Modern",
@@ -85,8 +84,8 @@ if isfile(results_file)
 
     fig4 = plot(p4a, p4b; layout = (1, 2), size = (1200, 460),
                 left_margin = 7Plots.mm, bottom_margin = 9Plots.mm)
-    savefig(fig4, joinpath(_PATH_TO_PFIGS, "fig4_baseline_panel.pdf"))
-    @info "Wrote fig4_baseline_panel.pdf"
+    savefig(fig4, joinpath(_PATH_TO_DIAG_FIGS, "Baseline-Panel.pdf"))
+    @info "Wrote diagnostics/Baseline-Panel.pdf"
 else
     @info "results.jld2 missing — skipping Figure 4."
 end
@@ -110,8 +109,8 @@ if have_sensitivity
                  title = "Hybrid KS pass rate (%)",
                  color = :viridis, colorbar_title = "KS pass (%)",
                  size = (640, 480), left_margin = 6Plots.mm)
-    savefig(p5, joinpath(_PATH_TO_PFIGS, "fig5_sensitivity.pdf"))
-    @info "Wrote fig5_sensitivity.pdf"
+    savefig(p5, joinpath(_PATH_TO_SUPP_FIGS, "FigS07-Sensitivity.pdf"))
+    @info "Wrote supplement/FigS07-Sensitivity.pdf"
 else
     @info "Sensitivity grid incomplete — skipping Figure 5."
 end
@@ -143,8 +142,8 @@ if isfile(stress_file)
 
     fig6 = plot(p6a, p6b; layout = (1, 2), size = (1100, 420),
                 left_margin = 6Plots.mm, bottom_margin = 5Plots.mm)
-    savefig(fig6, joinpath(_PATH_TO_PFIGS, "fig6_stress.pdf"))
-    @info "Wrote fig6_stress.pdf"
+    savefig(fig6, joinpath(_PATH_TO_DIAG_FIGS, "Clipping-Stress.pdf"))
+    @info "Wrote diagnostics/Clipping-Stress.pdf"
 else
     @info "results-stress.jld2 missing — skipping Figure 6."
 end
@@ -165,8 +164,8 @@ for i in 1:2
     annotate!(p7, sorted.r2_real[i] + 0.005, 5 + 4 * i,
               text(sorted.ticker[i], OI_GREEN, 9, :left))
 end
-savefig(p7, joinpath(_PATH_TO_PFIGS, "fig7_r2_distribution.pdf"))
-@info "Wrote fig7_r2_distribution.pdf"
+savefig(p7, joinpath(_PATH_TO_SUPP_FIGS, "FigS03-R2-Distribution.pdf"))
+@info "Wrote supplement/FigS03-R2-Distribution.pdf"
 
 # ── Figure 8: VaR backtest ───────────────────────────────────────────────────
 var_file = joinpath(_PATH_TO_DATA, "var-backtest.jld2")
@@ -203,8 +202,8 @@ if isfile(var_file)
 
     fig8 = plot(p8a, p8b; layout = (1, 2), size = (1200, 460),
                 left_margin = 7Plots.mm, bottom_margin = 9Plots.mm)
-    savefig(fig8, joinpath(_PATH_TO_PFIGS, "fig8_var_backtest.pdf"))
-    @info "Wrote fig8_var_backtest.pdf"
+    savefig(fig8, joinpath(_PATH_TO_DIAG_FIGS, "VaR-Backtest.pdf"))
+    @info "Wrote diagnostics/VaR-Backtest.pdf"
 else
     @info "var-backtest.jld2 missing — skipping Figure 8."
 end
@@ -231,8 +230,8 @@ if isfile(synth_file)
 
     fig9 = plot(p9a, p9b; layout = (1, 2), size = (1150, 460),
                 left_margin = 6Plots.mm, bottom_margin = 5Plots.mm)
-    savefig(fig9, joinpath(_PATH_TO_PFIGS, "fig9_synth_tracker.pdf"))
-    @info "Wrote fig9_synth_tracker.pdf"
+    savefig(fig9, joinpath(_PATH_TO_DIAG_FIGS, "Synthetic-Tracker.pdf"))
+    @info "Wrote diagnostics/Synthetic-Tracker.pdf"
 else
     @info "synth-tracker.jld2 missing — skipping Figure 9."
 end
@@ -252,10 +251,10 @@ if isfile(cov_file)
         histogram!(p10, sub.cov_norm_mean; bins = 35, alpha = 0.5,
                    label = name, normalize = false)
     end
-    savefig(p10, joinpath(_PATH_TO_PFIGS, "figS1_cov_diagnostic.pdf"))
-    @info "Wrote figS1_cov_diagnostic.pdf"
+    savefig(p10, joinpath(_PATH_TO_SUPP_FIGS, "FigS01-Cross-Covariance.pdf"))
+    @info "Wrote supplement/FigS01-Cross-Covariance.pdf"
 else
     @info "cov-diagnostic.csv missing — skipping Figure S1."
 end
 
-@info "All available new figures written to $_PATH_TO_PFIGS"
+@info "All available figures written to $_PAPER_ROOT/figs/{supplement,diagnostics}"

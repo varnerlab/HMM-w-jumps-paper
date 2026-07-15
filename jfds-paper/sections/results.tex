@@ -139,7 +139,7 @@ Online Appendix~\ref{sec:supp-cross-asset}).
 % --- Figure: head-to-head model comparison ---
 \begin{figure}[tbp]
   \centering
-  \includegraphics[width=\textwidth]{figs/Fig4-Model-Comparison.pdf}
+  \includegraphics[width=\textwidth]{figs/main/Fig03-Model-Comparison.pdf}
   \caption{\textbf{Head-to-head in-sample model comparison for SPY}
     ($N = 100$, $1{,}000$ simulated paths). \emph{Panel (a):} marginal
     density of excess growth rates with in-sample KS pass rates
@@ -177,7 +177,7 @@ no-jump value of $0.059$.
 % --- Figure: jump-mix enrichment frontier ---
 \begin{figure}[tbp]
   \centering
-  \includegraphics[width=\textwidth]{figs/Fig5-Jump-Mix-Frontier.pdf}
+  \includegraphics[width=\textwidth]{figs/main/Fig04-Jump-Mix-Frontier.pdf}
   \caption{\textbf{Jump-mix enrichment frontier for SPY} (in-sample,
     $N = 100$, pool of $4{,}000$ simulated paths). Resampling the fitted
     HMM-WJ ensemble to a target jump-path fraction $f$ (the share of
@@ -260,10 +260,13 @@ $86.2\%$ KS and $80.1\%$ AD pass rates and a median $W_1$ of $0.708$,
 compared with $0.741$ for the hybrid. Matched-length training blocks
 produced lower non-rejection rates for every method, showing that the
 higher $2025$ pass rates did not arise solely from comparing samples
-of $249$ rather than $2{,}766$ observations. The ticker-level
-distributions remained heterogeneous, however, and a subset of
-assets deteriorated substantially out of sample
-(Fig.~\ref{fig:oos_composition}).
+of $249$ rather than $2{,}766$ observations. Figure~\ref{fig:oos_composition}
+shows that these averages nevertheless conceal substantial cross-ticker
+heterogeneity. Most ticker-level pass rates were concentrated near the
+upper end of the range, but every method retained a lower tail of weak
+fits. For the hybrid method, many tickers improved relative to their
+matched-length training blocks, while a subset deteriorated substantially
+out of sample.
 
 \begin{table}[H]
   \centering
@@ -284,7 +287,7 @@ assets deteriorated substantially out of sample
 
 \begin{figure}[tbp]
   \centering
-  \includegraphics[width=\textwidth]{figs/Fig-OoS-Composition.pdf}
+  \includegraphics[width=\textwidth]{figs/main/Fig05-OoS-Composition.pdf}
   \caption{\textbf{Cross-ticker distribution of frozen-parameter
     out-of-sample marginal fit.} Panel~(a) shows the distribution of
     per-ticker $2025$ KS pass rates across $100$ replications; the
@@ -333,7 +336,7 @@ rather than precise rankings.
 % --- Figure: preservation mechanism ---
 \begin{figure}[tbp]
   \centering
-  \includegraphics[width=\textwidth]{figs/fig1_preservation.pdf}
+  \includegraphics[width=\textwidth]{figs/main/Fig06-Variance-Preservation.pdf}
   \caption{\textbf{Hybrid's variance correction and its KS-pass-rate
     consequence, per ticker vs calibrated $\beta$.}
     Each point is a per-ticker median over $100$ replications; thick

@@ -9,7 +9,7 @@ include(joinpath(@__DIR__, "..", "Include.jl"))
 
 const _PAPER_ROOT = abspath(joinpath(_ROOT, "..", "..", "jfds-paper"))
 const _TABLE_DIR  = joinpath(_PAPER_ROOT, "sections", "tables")
-const _FIG_DIR    = joinpath(_PAPER_ROOT, "figs")
+const _FIG_DIR    = joinpath(_PAPER_ROOT, "figs", "main")
 mkpath(_TABLE_DIR)
 mkpath(_FIG_DIR)
 
@@ -136,23 +136,37 @@ end
 plot_df = copy(per_ticker)
 plot_df.method = [COMPOSER_SHORT[c] for c in plot_df.composer]
 
+# Match the visual system established by Fig01-Empirical-Motivation:
+# light-gray panels, boxed axes, sans-serif type, and the red/navy palette.
+const FIG_BG   = colorant"#f2f2f2"
+const FIG_RED  = colorant"#e63946"
+const FIG_NAVY = colorant"#1d3557"
+
 p1 = @df plot_df boxplot(:method, :ks_oos;
-    legend=false, outliers=false, color=:steelblue,
-    ylabel="2025 KS pass rate (%)", xlabel="", ylims=(0, 102),
-    xrotation=25, title="(a) Cross-ticker holdout distribution")
+    legend=false, outliers=false, color=FIG_NAVY, fillalpha=0.62,
+    linecolor=FIG_NAVY, linewidth=1.25,
+    ylabel="2025 KS Pass Rate (%)", xlabel="", ylims=(0, 102),
+    xrotation=25, title="(a) Cross-Ticker Holdout Distribution",
+    bg=FIG_BG, background_color_outside=:white, framestyle=:box,
+    fontfamily="sans-serif", titlefontsize=13, guidefontsize=14,
+    tickfontsize=10, bottom_margin=12Plots.mm, left_margin=12Plots.mm)
 hline!(p1, [95.0]; color=:black, linestyle=:dash, linewidth=1.5, label="")
 
 hyb = filter(row -> row.composer == "hybrid", per_ticker)
 p2 = scatter(hyb.ks_is_matched, hyb.ks_oos;
-    markercolor=:darkorange, markerstrokewidth=0, markersize=3.5,
+    markercolor=FIG_RED, markerstrokewidth=0, markersize=3.5,
     alpha=0.65, legend=false, xlims=(0, 102), ylims=(0, 102),
-    xlabel="Matched-length IS KS pass rate (%)",
-    ylabel="2025 KS pass rate (%)",
-    title="(b) Hybrid: matched IS vs holdout")
+    xlabel="Matched-Length IS KS Pass Rate (%)",
+    ylabel="2025 KS Pass Rate (%)",
+    title="(b) Hybrid: Matched IS vs. Holdout",
+    bg=FIG_BG, background_color_outside=:white, framestyle=:box,
+    fontfamily="sans-serif", titlefontsize=13, guidefontsize=14,
+    tickfontsize=10, bottom_margin=12Plots.mm, left_margin=12Plots.mm)
 plot!(p2, [0, 100], [0, 100]; color=:black, linestyle=:dash, linewidth=1.5)
 
-fig = plot(p1, p2; layout=(1, 2), size=(1100, 430), margin=5Plots.mm)
-fig_path = joinpath(_FIG_DIR, "Fig-OoS-Composition.pdf")
+fig = plot(p1, p2; layout=(1, 2), size=(1200, 450),
+           right_margin=3Plots.mm, top_margin=3Plots.mm)
+fig_path = joinpath(_FIG_DIR, "Fig05-OoS-Composition.pdf")
 savefig(fig, fig_path)
 
 @info "OoS artifacts written" scorecard=scorecard_path var_table=var_table_path figure=fig_path

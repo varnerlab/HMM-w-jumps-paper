@@ -108,8 +108,11 @@ length.
 
 ## Output destinations
 
-Scripts 04, 04b, 05, 09 write directly into `jfds-paper/sections/tables/`
-and `jfds-paper/figs/`, overwriting the static `.tex` and `.pdf` files there.
+Scripts 04 and 04b write into `jfds-paper/sections/tables/`. Figure scripts
+write cited assets into `jfds-paper/figs/main/` or
+`jfds-paper/figs/supplement/`; uncited diagnostics go to
+`jfds-paper/figs/diagnostics/`. Re-running them overwrites the corresponding
+static `.tex` and `.pdf` files.
 Re-running the pipeline therefore refreshes the manuscript inputs in place;
 the next `pdflatex` rebuild picks up the new numbers.
 
@@ -118,5 +121,5 @@ script 04b (`04b-VaR-Table.jl`) reformats that CSV into
 `table5_var_backtest.tex`. The split exists because 06 is the slow
 downstream step and 04b is a pure formatter.
 
-Figure 8 (`fig8_var_backtest.pdf`) is no longer cited in the JFDS
-manuscript but is still produced by script 09 for historical comparison.
+The uncited VaR plot is retained as `figs/diagnostics/VaR-Backtest.pdf` for
+historical comparison.

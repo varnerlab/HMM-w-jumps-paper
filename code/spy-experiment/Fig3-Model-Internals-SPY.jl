@@ -174,6 +174,8 @@ fig3 = plot(pa, pb, pc;
 out_figs   = joinpath(_PATH_TO_FIGS, "Fig3-Model-Internals.pdf")
 paper_figs = joinpath(_ROOT, "..", "..", "paper", "sections", "figs",
                       "Fig3-Model-Internals.pdf")
+jfds_figs  = joinpath(_ROOT, "..", "..", "jfds-paper", "figs", "supplement",
+                      "FigS05-Model-Internals.pdf")
 
 savefig(fig3, out_figs)
 @info "Saved  Fig3 → $out_figs"
@@ -181,5 +183,8 @@ savefig(fig3, out_figs)
 mkpath(dirname(paper_figs))
 cp(out_figs, paper_figs; force = true)
 @info "Copied Fig3 → $paper_figs"
+mkpath(dirname(jfds_figs))
+cp(out_figs, jfds_figs; force = true)
+@info "Copied JFDS FigS05 → $jfds_figs"
 
 @info "Done."
