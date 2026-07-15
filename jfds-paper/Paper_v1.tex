@@ -97,7 +97,28 @@
 \section{Methods}\label{sec:method}
 
 We fitted a marginal generator for each asset and then combined the
-generated paths with a variance-corrected single-index model.
+generated paths with a variance-corrected single-index model. 
+The dataset contained $424$ United States-listed equities and
+exchange-traded funds observed from $2014$ through $2024$. The
+single-asset analysis focused on the SPDR S\&P 500 ETF (SPY). We used
+$2{,}766$ observations from January 3, $2014$, through December 31,
+$2024$, for fitting and the next $249$ trading days of $2025$ for
+out-of-sample testing. The data included daily open, high, low, and
+close prices and volume-weighted average prices. We computed the
+excess growth rate $G_{i,j}$ for ticker $i$ between
+trading days $j-1$ and $j$ from the equity price series
+$P_{i,j}$ as
+\begin{equation}
+    G_{i,j} \;\equiv\; \left(\frac{1}{\Delta t}\right)\,
+    \ln\!\left( \frac{P_{i,j}}{P_{i,j-1}} \right) \;-\; r_f,
+    \label{eq:growth_rate}
+\end{equation}
+where $\Delta t = 1/252$ is the fraction of a trading year spanned by
+one trading day, and $r_f$ is a constant continuously compounded
+risk-free rate derived from Treasury STRIPS (Separate Trading of
+Registered Interest and Principal of Securities) bond yields. The excess growth rate
+has units of $\mathrm{year}^{-1}$ and is time-additive under
+continuous compounding.
 
 \subsection{Per-asset hidden Markov marginal generator}\label{sec:method-hmm}
 \input{sections/method_hmm}

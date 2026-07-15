@@ -17,9 +17,17 @@ marginal distribution, weak autocorrelation of raw growth rates, and
 persistent volatility clustering, in which large changes are
 followed by large changes and small changes by small changes~\cite{mandelbrot1963, cont2001, stengerEtAl2024}. All three patterns
 are visible in SPY daily excess growth rates from $2014$--$2024$
-(Fig.~\ref{fig:empirical_motivation}). These regularities, called
-\emph{stylized facts}, are the benchmark for synthetic financial
-data.
+(Fig.~\ref{fig:empirical_motivation}). The empirical density is sharply
+concentrated near zero but places substantially more probability in
+the tails than a Gaussian model, as shown by the density and
+quantile-quantile comparisons~(Fig.~\ref{fig:empirical_motivation}a and Fig.~\ref{fig:empirical_motivation}b). 
+Raw growth rates have little serial correlation (Fig.~\ref{fig:empirical_motivation}c), 
+whereas the positive, slowly decaying autocorrelation of their absolute values (Fig.~\ref{fig:empirical_motivation}d)
+shows that their magnitudes remain temporally dependent. These
+regularities, called \emph{stylized facts}, demonstrate why matching
+the marginal distribution alone is insufficient: synthetic financial
+data must also preserve the distinct dependence structures of return
+levels and return magnitudes.
 
 \begin{figure}[tbp]
     \centering
@@ -56,24 +64,26 @@ We therefore sought a model that retained distributional fit, reduced
 absolute-return autocorrelation error, and could be fitted separately
 across a large asset universe.
 
-In this study, we developed a two-part method for multi-asset equity
-simulation. The first part supplied the marginal model for each
-asset. It used a Laplace-quantile state
-partition, Student-$t$ emissions, and direct transition counting. A
-jump-duration variant (HMM-WJ) added Poisson-distributed tail-state
-episodes. On a decade of SPY data, HMM-WJ had a $97.6\%$ in-sample KS
-pass rate and reduced ACF-MAE from $0.059$ to $0.052$ relative to the
-no-jump variant; GARCH reached $0.031$. We selected the hidden Markov
-family as the per-asset marginal based on this tradeoff, not because
-HMM-WJ was uniformly better than the alternatives.
-
-The main contribution addressed multi-asset composition. Directly
-using a full per-asset generator draw as the residual in a
-single-index model adds the market variance twice. We derived a
-closed-form scale correction that preserved the target variance and
-recovered the calibrated factor loading across a $424$-asset
-universe. We also found that independent residuals exaggerated daily
-cross-sectional dispersion and could overstate diversification gains
-in daily-rebalanced portfolios. A location-shift adjustment set to a
-long-run prior reduced this return-level bias but did not restore the
-missing cross-asset dependence.
+In this study, we developed a multi-asset equity simulation framework
+that combines separately fitted hidden Markov marginals with a
+variance-corrected single-index composition. Each marginal model used
+a Laplace-quantile state partition, Student-$t$ emissions, and direct
+transition counting, while the jump-duration variant (HMM-WJ) added
+Poisson-distributed tail-state episodes. On a decade of SPY data,
+HMM-WJ had a $97.6\%$ in-sample KS pass rate and reduced ACF-MAE from
+$0.059$ to $0.052$ relative to the no-jump variant, although GARCH
+reached $0.031$. This tradeoff motivated our use of the hidden Markov
+family as the per-asset marginal rather than establishing HMM-WJ as
+uniformly superior. For multi-asset composition, we showed that using
+a full per-asset generator draw as the residual in a single-index
+model adds the market variance twice, and we derived a closed-form
+scale correction that preserved target variance and recovered the
+calibrated factor loading across a $424$-asset universe. Independent
+residuals nevertheless exaggerated daily cross-sectional dispersion
+and could overstate diversification gains in daily-rebalanced
+portfolios; setting a location-shift adjustment to a long-run prior
+reduced this return-level bias but did not restore the missing
+cross-asset dependence. By clarifying how marginal fidelity, variance
+preservation, and dependence interact, this framework can support the
+generation of more reliable multi-asset synthetic financial data for
+large-scale stress testing and portfolio evaluation.
