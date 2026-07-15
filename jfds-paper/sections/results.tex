@@ -39,7 +39,10 @@ parameters could not be estimated
 (Online Appendix~\ref{sec:supp-sensitivity}).
 
 % --- Table: Single-asset model comparison (KS, AD, kurtosis, ACF-MAE, etc.) ---
-\begin{table}[tbp]
+% The original metric-by-model landscape layout is retained below for provenance
+% but excluded from the manuscript; the transposed portrait version follows it.
+\iffalse
+\begin{landscapetable}
 \centering
 \caption{\textbf{In-sample and out-of-sample model comparison for SPY}
     ($1{,}000$ simulated paths, significance level $\alpha = 0.05$).
@@ -61,7 +64,7 @@ parameters could not be estimated
     Wasserstein-$1$, and Hellinger; bootstrap SE ($B = 500$) for
     ACF-MAE and coverage. Best value per row in bold.}
 \label{tab:model_comparison}
-\resizebox{\columnwidth}{!}{%
+\resizebox{0.96\linewidth}{!}{%
 \scriptsize
 \begin{tabular}{@{}lcccccccc@{}}
 \toprule
@@ -86,7 +89,9 @@ Wasserstein-$1$ $\downarrow$              & 0.232 (0.002) & 0.452 (0.002) & 0.26
 Hellinger dist $\downarrow$               & 0.205 (0.001) & 0.235 (0.001) & 0.211 (0.001) & 0.232 (0.001) & 0.240 (0.001) & 0.239 (0.001) & \textbf{0.207} (0.001) & 0.210 (0.001) \\[4pt]
 \bottomrule
 \end{tabular}}
-\end{table}
+\end{landscapetable}
+\fi
+\input{sections/tables/table2_model_comparison}
 
 With the model calibrated, we benchmarked HMM-WJ
 (Algorithm~\ref{alg:hmmwj}) against seven alternative generators on

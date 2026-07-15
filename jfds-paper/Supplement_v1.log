@@ -1,9 +1,9 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.27 (TeX Live 2025) (preloaded format=pdflatex 2025.3.8)  15 JUL 2026 13:46
+This is pdfTeX, Version 3.141592653-2.6-1.40.27 (TeX Live 2025) (preloaded format=pdflatex 2025.3.8)  15 JUL 2026 13:52
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
-**Paper_v1.tex
-(./Paper_v1.tex
+**Supplement_v1.tex
+(./Supplement_v1.tex
 LaTeX2e <2024-11-01> patch level 2
 L3 programming layer <2025-01-18>
 (/usr/local/texlive/2025/texmf-dist/tex/latex/base/article.cls
@@ -813,45 +813,35 @@ File: tikzlibrarypositioning.code.tex 2023-01-15 v3.1.10 (3.1.10)
 (/usr/local/texlive/2025/texmf-dist/tex/latex/placeins/placeins.sty
 Package: placeins 2005/04/18  v 2.2
 )
-(/usr/local/texlive/2025/texmf-dist/tex/latex/endfloat/endfloat.sty
-Package: endfloat 2019/04/15 v2.7 LaTeX2e package puts figures and tables at en
-d (jdm)
-\c@posttable=\count345
-\efloat@postttt=\write4
-\@ef@tttopen=\count346
-\c@postfigure=\count347
-\efloat@postfff=\write5
-\@ef@fffopen=\count348
-)
-\c@theorem=\count349
-Package xr Info: IMPORTING LABELS FROM Supplement_v1.aux on input line 70.
+\c@theorem=\count345
+Package xr Info: IMPORTING LABELS FROM Paper_v1.aux on input line 55.
 
 (/usr/local/texlive/2025/texmf-dist/tex/latex/l3backend/l3backend-pdftex.def
 File: l3backend-pdftex.def 2024-05-08 L3 backend support: PDF output (pdfTeX)
-\l__color_backend_stack_int=\count350
+\l__color_backend_stack_int=\count346
 \l__pdf_internal_box=\box70
 )
-(./Paper_v1.aux)
-\openout1 = `Paper_v1.aux'.
+(./Supplement_v1.aux)
+\openout1 = `Supplement_v1.aux'.
 
-LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 85.
-LaTeX Font Info:    ... okay on input line 85.
-LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 85.
-LaTeX Font Info:    ... okay on input line 85.
-LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 85.
-LaTeX Font Info:    ... okay on input line 85.
-LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 85.
-LaTeX Font Info:    ... okay on input line 85.
-LaTeX Font Info:    Checking defaults for TS1/cmr/m/n on input line 85.
-LaTeX Font Info:    ... okay on input line 85.
-LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 85.
-LaTeX Font Info:    ... okay on input line 85.
-LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 85.
-LaTeX Font Info:    ... okay on input line 85.
-LaTeX Font Info:    Checking defaults for PD1/pdf/m/n on input line 85.
-LaTeX Font Info:    ... okay on input line 85.
-LaTeX Font Info:    Checking defaults for PU/pdf/m/n on input line 85.
-LaTeX Font Info:    ... okay on input line 85.
+LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 67.
+LaTeX Font Info:    ... okay on input line 67.
+LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 67.
+LaTeX Font Info:    ... okay on input line 67.
+LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 67.
+LaTeX Font Info:    ... okay on input line 67.
+LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 67.
+LaTeX Font Info:    ... okay on input line 67.
+LaTeX Font Info:    Checking defaults for TS1/cmr/m/n on input line 67.
+LaTeX Font Info:    ... okay on input line 67.
+LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 67.
+LaTeX Font Info:    ... okay on input line 67.
+LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 67.
+LaTeX Font Info:    ... okay on input line 67.
+LaTeX Font Info:    Checking defaults for PD1/pdf/m/n on input line 67.
+LaTeX Font Info:    ... okay on input line 67.
+LaTeX Font Info:    Checking defaults for PU/pdf/m/n on input line 67.
+LaTeX Font Info:    ... okay on input line 67.
 
 *geometry* driver: auto-detecting
 *geometry* detected driver: pdftex
@@ -919,25 +909,25 @@ LaTeX Font Info:    ... okay on input line 85.
 * \@reversemarginfalse
 * (1in=72.27pt=25.4mm, 1cm=28.453pt)
 
-Package hyperref Info: Link coloring ON on input line 85.
-(./Paper_v1.out) (./Paper_v1.out)
-\@outlinefile=\write6
-\openout6 = `Paper_v1.out'.
+Package hyperref Info: Link coloring ON on input line 67.
+(./Supplement_v1.out) (./Supplement_v1.out)
+\@outlinefile=\write4
+\openout4 = `Supplement_v1.out'.
 
-LaTeX Info: Redefining \microtypecontext on input line 85.
-Package microtype Info: Applying patch `item' on input line 85.
-Package microtype Info: Applying patch `toc' on input line 85.
-Package microtype Info: Applying patch `eqnum' on input line 85.
-Package microtype Info: Applying patch `footnote' on input line 85.
-Package microtype Info: Applying patch `verbatim' on input line 85.
-LaTeX Info: Redefining \microtypesetup on input line 85.
+LaTeX Info: Redefining \microtypecontext on input line 67.
+Package microtype Info: Applying patch `item' on input line 67.
+Package microtype Info: Applying patch `toc' on input line 67.
+Package microtype Info: Applying patch `eqnum' on input line 67.
+Package microtype Info: Applying patch `footnote' on input line 67.
+Package microtype Info: Applying patch `verbatim' on input line 67.
+LaTeX Info: Redefining \microtypesetup on input line 67.
 Package microtype Info: Generating PDF output.
 Package microtype Info: Character protrusion enabled (level 2).
 Package microtype Info: Using default protrusion set `alltext'.
 Package microtype Info: Automatic font expansion enabled (level 2),
 (microtype)             stretch: 20, shrink: 20, step: 1, non-selected.
 Package microtype Info: Using default expansion set `alltext-nott'.
-LaTeX Info: Redefining \showhyphens on input line 85.
+LaTeX Info: Redefining \showhyphens on input line 67.
 Package microtype Info: No adjustment of tracking.
 Package microtype Info: No adjustment of interword spacing.
 Package microtype Info: No adjustment of character kerning.
@@ -947,29 +937,21 @@ File: mt-ptm.cfg 2006/04/20 v1.7 microtype config. file: Times (RS)
 )
 (/usr/local/texlive/2025/texmf-dist/tex/context/base/mkii/supp-pdf.mkii
 [Loading MPS to PDF converter (version 2006.09.02).]
-\scratchcounter=\count351
+\scratchcounter=\count347
 \scratchdimen=\dimen310
 \scratchbox=\box71
-\nofMPsegments=\count352
-\nofMParguments=\count353
+\nofMPsegments=\count348
+\nofMParguments=\count349
 \everyMPshowfont=\toks52
-\MPscratchCnt=\count354
+\MPscratchCnt=\count350
 \MPscratchDim=\dimen311
-\MPnumerator=\count355
-\makeMPintoPDFobject=\count356
+\MPnumerator=\count351
+\makeMPintoPDFobject=\count352
 \everyMPtoPDFconversion=\toks53
 ) (/usr/local/texlive/2025/texmf-dist/tex/latex/epstopdf-pkg/epstopdf-base.sty
 Package: epstopdf-base 2020-01-24 v2.11 Base part for package epstopdf
-
-(/usr/local/texlive/2025/texmf-dist/tex/latex/grfext/grfext.sty
-Package: grfext 2019/12/03 v1.3 Manage graphics extensions (HO)
-)
 Package epstopdf-base Info: Redefining graphics rule for `.eps' on input line 4
 85.
-Package grfext Info: Graphics extension search list:
-(grfext)             [.pdf,.png,.jpg,.mps,.jpeg,.jbig2,.jb2,.PDF,.PNG,.JPG,.JPE
-G,.JBIG2,.JB2,.eps]
-(grfext)             \AppendGraphicsExtensions on input line 504.
 
 (/usr/local/texlive/2025/texmf-dist/tex/latex/latexconfig/epstopdf-sys.cfg
 File: epstopdf-sys.cfg 2010/07/13 v1.3 Configuration of (r)epstopdf for TeX Liv
@@ -983,7 +965,7 @@ Package caption Info: End \AtBeginDocument code.
 File: mt-cmr.cfg 2013/05/19 v2.2 microtype config. file: Computer Modern Roman 
 (RS)
 )
-LaTeX Font Info:    Trying to load font information for U+msa on input line 91.
+LaTeX Font Info:    Trying to load font information for U+msa on input line 69.
 
 
 (/usr/local/texlive/2025/texmf-dist/tex/latex/amsfonts/umsa.fd
@@ -992,7 +974,7 @@ File: umsa.fd 2013/01/14 v3.01 AMS symbols A
 (/usr/local/texlive/2025/texmf-dist/tex/latex/microtype/mt-msa.cfg
 File: mt-msa.cfg 2006/02/04 v1.1 microtype config. file: AMS symbols (a) (RS)
 )
-LaTeX Font Info:    Trying to load font information for U+msb on input line 91.
+LaTeX Font Info:    Trying to load font information for U+msb on input line 69.
 
 
 (/usr/local/texlive/2025/texmf-dist/tex/latex/amsfonts/umsb.fd
@@ -1001,182 +983,154 @@ File: umsb.fd 2013/01/14 v3.01 AMS symbols B
 (/usr/local/texlive/2025/texmf-dist/tex/latex/microtype/mt-msb.cfg
 File: mt-msb.cfg 2005/06/01 v1.0 microtype config. file: AMS symbols (b) (RS)
 )
-Package microtype Info: Loading generic protrusion settings for font family
-(microtype)             `cmtt' (encoding: T1).
-(microtype)             For optimal results, create family-specific settings.
-(microtype)             See the microtype manual for details.
+(./sections/appendix.tex
+<figs/supplement/FigS01-Cross-Covariance.pdf, id=42, 762.85pt x 441.65pt>
+File: figs/supplement/FigS01-Cross-Covariance.pdf Graphic file (type pdf)
+<use figs/supplement/FigS01-Cross-Covariance.pdf>
+Package pdftex.def Info: figs/supplement/FigS01-Cross-Covariance.pdf  used on i
+nput line 56.
+(pdftex.def)             Requested size: 337.86465pt x 195.60027pt.
 
-(./sections/abstract.tex) (./sections/introduction.tex
 
 [1
 
 
 {/usr/local/texlive/2025/texmf-var/fonts/map/pdftex/updmap/pdftex.map}{/usr/loc
-al/texlive/2025/texmf-dist/fonts/enc/dvips/base/8r.enc}{/usr/local/texlive/2025
-/texmf-dist/fonts/enc/dvips/cm-super/cm-super-t1.enc}]
-\openout5 = `Paper_v1.fff'.
-
- (Paper_v1.fff))
-(./sections/related.tex
-Underfull \vbox (badness 10000) has occurred while \output is active []
+al/texlive/2025/texmf-dist/fonts/enc/dvips/base/8r.enc}]
+Overfull \hbox (2.07433pt too wide) detected at line 159
+[]
+ []
 
 
 
-[2]) (./sections/method_hmm.tex
+[2 <./figs/supplement/FigS01-Cross-Covariance.pdf>]
+Overfull \hbox (5.53915pt too wide) detected at line 229
+[][][]\U/msb/m/n/10 E\OT1/cmr/m/n/10 (\OML/cmm/m/it/10 g[]\OT1/cmr/m/n/10 )  = 
+ [] \OML/cmm/m/it/10 w[] ^^V[]  \OT1/cmr/m/n/10 +  []  + [] ^^A\OML/cmm/m/it/10
+ t  []  \OT1/cmr/m/n/10 +  \OML/cmm/m/it/10 O []\OT1/cmr/m/n/10 (^^A\OML/cmm/m/
+it/10 t\OT1/cmr/m/n/10 )[][]\OML/cmm/m/it/10 ;
+ []
+
+
 
 [3]
-Package hyperref Info: bookmark level for unknown algorithm defaults to 0 on in
-put line 213.
-)
 
-[4] (./sections/method_sim.tex
+[4]
+<figs/supplement/FigS02-Tail-Preservation.pdf, id=146, 1204.5pt x 451.6875pt>
+File: figs/supplement/FigS02-Tail-Preservation.pdf Graphic file (type pdf)
+<use figs/supplement/FigS02-Tail-Preservation.pdf>
+Package pdftex.def Info: figs/supplement/FigS02-Tail-Preservation.pdf  used on 
+input line 432.
+(pdftex.def)             Requested size: 397.48499pt x 149.05733pt.
+<figs/supplement/FigS03-R2-Distribution.pdf, id=149, 762.85pt x 441.65pt>
+File: figs/supplement/FigS03-R2-Distribution.pdf Graphic file (type pdf)
+<use figs/supplement/FigS03-R2-Distribution.pdf>
+Package pdftex.def Info: figs/supplement/FigS03-R2-Distribution.pdf  used on in
+put line 487.
+(pdftex.def)             Requested size: 337.86465pt x 195.60027pt.
+
 
 [5]
-\openout4 = `Paper_v1.ttt'.
 
- (Paper_v1.ttt)
+[6 <./figs/supplement/FigS02-Tail-Preservation.pdf> <./figs/supplement/FigS03-R
+2-Distribution.pdf>]
+<figs/supplement/FigS04-Statistical-Validation.pdf, id=174, 1204.5pt x 903.375p
+t>
+File: figs/supplement/FigS04-Statistical-Validation.pdf Graphic file (type pdf)
 
-[6])
+<use figs/supplement/FigS04-Statistical-Validation.pdf>
+Package pdftex.def Info: figs/supplement/FigS04-Statistical-Validation.pdf  use
+d on input line 582.
+(pdftex.def)             Requested size: 397.48499pt x 298.11467pt.
+<figs/supplement/FigS05-Model-Internals.pdf, id=176, 1606.0pt x 521.95pt>
+File: figs/supplement/FigS05-Model-Internals.pdf Graphic file (type pdf)
+<use figs/supplement/FigS05-Model-Internals.pdf>
+Package pdftex.def Info: figs/supplement/FigS05-Model-Internals.pdf  used on in
+put line 613.
+(pdftex.def)             Requested size: 397.48499pt x 129.18103pt.
 
-[7] (./sections/results.tex (./sections/tables/table2_model_comparison.tex)
 
-[8]
+[7]
 
-[9]) (./sections/discussion.tex
+[8 <./figs/supplement/FigS04-Statistical-Validation.pdf> <./figs/supplement/Fig
+S05-Model-Internals.pdf>] (./sections/tables/table2_by_branch.tex
+Package microtype Info: Loading generic protrusion settings for font family
+(microtype)             `cmtt' (encoding: T1).
+(microtype)             For optimal results, create family-specific settings.
+(microtype)             See the microtype manual for details.
+)
+<figs/supplement/FigS06-Branch-Map.pdf, id=207, 903.375pt x 501.875pt>
+File: figs/supplement/FigS06-Branch-Map.pdf Graphic file (type pdf)
+<use figs/supplement/FigS06-Branch-Map.pdf>
+Package pdftex.def Info: figs/supplement/FigS06-Branch-Map.pdf  used on input l
+ine 728.
+(pdftex.def)             Requested size: 337.86465pt x 187.70488pt.
 
-[10]) (./sections/conclusion.tex
+(./sections/tables/table3_by_beta_bucket.tex)
+<figs/supplement/FigS07-Sensitivity.pdf, id=208, 642.4pt x 481.8pt>
+File: figs/supplement/FigS07-Sensitivity.pdf Graphic file (type pdf)
+<use figs/supplement/FigS07-Sensitivity.pdf>
+Package pdftex.def Info: figs/supplement/FigS07-Sensitivity.pdf  used on input 
+line 780.
+(pdftex.def)             Requested size: 337.86465pt x 253.40459pt.
+
 Underfull \vbox (badness 10000) has occurred while \output is active []
 
 
 
-[11]) (./Paper_v1.bbl
+[9{/usr/local/texlive/2025/texmf-dist/fonts/enc/dvips/cm-super/cm-super-t1.enc}
+]
 
-[12]
+[10 <./figs/supplement/FigS06-Branch-Map.pdf>]
+(./sections/tables/table4_seed_uncertainty.tex)
 
-[13]
+[11 <./figs/supplement/FigS07-Sensitivity.pdf>]) (./Supplement_v1.bbl
 
-[14]) AED endfloat: Processing end Figures and Tables
+[12])
 
-[15] (./Paper_v1.ttt
-
-[16]
-
-[17] (./sections/tables/table1_aggregate.tex)
-Overfull \hbox (14.65605pt too wide) in paragraph at lines 1--97
- [][] 
- []
-
-
-
-[18
-
-
-
-
-] (./sections/tables/table6_oos_scorecard.tex)
-
-[19
-
-] (./sections/tables/table5_var_backtest_oos.tex)
-Overfull \hbox (10.152pt too wide) in paragraph at lines 1--132
- [][] 
- []
-
-)
-
-[20
-
-] (./Paper_v1.fff
-<figs/main/Fig01-Empirical-Motivation.pdf, id=461, 1204.5pt x 903.375pt>
-File: figs/main/Fig01-Empirical-Motivation.pdf Graphic file (type pdf)
-<use figs/main/Fig01-Empirical-Motivation.pdf>
-Package pdftex.def Info: figs/main/Fig01-Empirical-Motivation.pdf  used on inpu
-t line 3.
-(pdftex.def)             Requested size: 397.48499pt x 298.11467pt.
-
-
-[21 <./figs/main/Fig01-Empirical-Motivation.pdf>]
-
-[22]
-<figs/main/Fig03-Model-Comparison.pdf, id=471, 1806.75pt x 562.1pt>
-File: figs/main/Fig03-Model-Comparison.pdf Graphic file (type pdf)
-<use figs/main/Fig03-Model-Comparison.pdf>
-Package pdftex.def Info: figs/main/Fig03-Model-Comparison.pdf  used on input li
-ne 127.
-(pdftex.def)             Requested size: 397.48499pt x 123.66238pt.
-
-
-[23 <./figs/main/Fig03-Model-Comparison.pdf>]
-<figs/main/Fig04-Jump-Mix-Frontier.pdf, id=477, 1204.5pt x 562.1pt>
-File: figs/main/Fig04-Jump-Mix-Frontier.pdf Graphic file (type pdf)
-<use figs/main/Fig04-Jump-Mix-Frontier.pdf>
-Package pdftex.def Info: figs/main/Fig04-Jump-Mix-Frontier.pdf  used on input l
-ine 143.
-(pdftex.def)             Requested size: 397.48499pt x 185.49358pt.
-
-
-[24 <./figs/main/Fig04-Jump-Mix-Frontier.pdf>]
-<figs/main/Fig05-OoS-Composition.pdf, id=484, 1204.5pt x 451.6875pt>
-File: figs/main/Fig05-OoS-Composition.pdf Graphic file (type pdf)
-<use figs/main/Fig05-OoS-Composition.pdf>
-Package pdftex.def Info: figs/main/Fig05-OoS-Composition.pdf  used on input lin
-e 163.
-(pdftex.def)             Requested size: 397.48499pt x 149.05733pt.
-
-
-[25 <./figs/main/Fig05-OoS-Composition.pdf>]
-<figs/main/Fig06-Variance-Preservation.pdf, id=491, 1204.5pt x 451.6875pt>
-File: figs/main/Fig06-Variance-Preservation.pdf Graphic file (type pdf)
-<use figs/main/Fig06-Variance-Preservation.pdf>
-Package pdftex.def Info: figs/main/Fig06-Variance-Preservation.pdf  used on inp
-ut line 177.
-(pdftex.def)             Requested size: 397.48499pt x 149.05733pt.
-)
-
-[26 <./figs/main/Fig06-Variance-Preservation.pdf>] (./Paper_v1.aux)
+[13] (./Supplement_v1.aux)
  ***********
 LaTeX2e <2024-11-01> patch level 2
 L3 programming layer <2025-01-18>
  ***********
-Package rerunfilecheck Info: File `Paper_v1.out' has not changed.
-(rerunfilecheck)             Checksum: ECBB26CE542CC84B7048A12A01049365;1864.
+Package rerunfilecheck Info: File `Supplement_v1.out' has not changed.
+(rerunfilecheck)             Checksum: 4268932C825AAED412512055B3884138;2004.
  ) 
 Here is how much of TeX's memory you used:
- 28205 strings out of 473190
- 525284 string characters out of 5715801
- 944980 words of memory out of 5000000
- 50472 multiletter control sequences out of 15000+600000
- 617054 words of font info for 287 fonts, out of 8000000 for 9000
+ 27083 strings out of 473190
+ 504318 string characters out of 5715801
+ 930308 words of memory out of 5000000
+ 49555 multiletter control sequences out of 15000+600000
+ 607782 words of font info for 232 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
- 84i,11n,87p,1082b,992s stack positions out of 10000i,1000n,20000p,200000b,200000s
+ 84i,13n,87p,1077b,578s stack positions out of 10000i,1000n,20000p,200000b,200000s
 </usr/local/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx10.pfb
-></usr/local/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx6.pfb><
+></usr/local/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx9.pfb><
 /usr/local/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/cm/cmex10.pfb></
 usr/local/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi10.pfb></u
 sr/local/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi5.pfb></usr
 /local/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi6.pfb></usr/l
 ocal/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi7.pfb></usr/loc
 al/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi9.pfb></usr/local
-/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/cmextra/cmmib9.pfb></usr/l
-ocal/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/cm/cmr10.pfb></usr/loc
-al/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/cm/cmr5.pfb></usr/local/
-texlive/2025/texmf-dist/fonts/type1/public/amsfonts/cm/cmr6.pfb></usr/local/tex
-live/2025/texmf-dist/fonts/type1/public/amsfonts/cm/cmr7.pfb></usr/local/texliv
-e/2025/texmf-dist/fonts/type1/public/amsfonts/cm/cmr9.pfb></usr/local/texlive/2
-025/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy10.pfb></usr/local/texlive/20
-25/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy5.pfb></usr/local/texlive/2025
-/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy6.pfb></usr/local/texlive/2025/t
-exmf-dist/fonts/type1/public/amsfonts/cm/cmsy7.pfb></usr/local/texlive/2025/tex
-mf-dist/fonts/type1/public/amsfonts/cm/cmsy9.pfb></usr/local/texlive/2025/texmf
--dist/fonts/type1/public/amsfonts/symbols/msbm10.pfb></usr/local/texlive/2025/t
-exmf-dist/fonts/type1/public/cm-super/sftt1000.pfb></usr/local/texlive/2025/tex
-mf-dist/fonts/type1/urw/times/utmb8a.pfb></usr/local/texlive/2025/texmf-dist/fo
-nts/type1/urw/times/utmr8a.pfb></usr/local/texlive/2025/texmf-dist/fonts/type1/
-urw/times/utmri8a.pfb>
-Output written on Paper_v1.pdf (26 pages, 959276 bytes).
+/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/cm/cmr10.pfb></usr/local/t
+exlive/2025/texmf-dist/fonts/type1/public/amsfonts/cm/cmr5.pfb></usr/local/texl
+ive/2025/texmf-dist/fonts/type1/public/amsfonts/cm/cmr6.pfb></usr/local/texlive
+/2025/texmf-dist/fonts/type1/public/amsfonts/cm/cmr7.pfb></usr/local/texlive/20
+25/texmf-dist/fonts/type1/public/amsfonts/cm/cmr9.pfb></usr/local/texlive/2025/
+texmf-dist/fonts/type1/public/amsfonts/cm/cmsy10.pfb></usr/local/texlive/2025/t
+exmf-dist/fonts/type1/public/amsfonts/cm/cmsy6.pfb></usr/local/texlive/2025/tex
+mf-dist/fonts/type1/public/amsfonts/cm/cmsy7.pfb></usr/local/texlive/2025/texmf
+-dist/fonts/type1/public/amsfonts/cm/cmsy9.pfb></usr/local/texlive/2025/texmf-d
+ist/fonts/type1/public/amsfonts/symbols/msbm10.pfb></usr/local/texlive/2025/tex
+mf-dist/fonts/type1/public/cm-super/sftt0900.pfb></usr/local/texlive/2025/texmf
+-dist/fonts/type1/public/cm-super/sftt1000.pfb></usr/local/texlive/2025/texmf-d
+ist/fonts/type1/urw/times/utmb8a.pfb></usr/local/texlive/2025/texmf-dist/fonts/
+type1/urw/times/utmr8a.pfb></usr/local/texlive/2025/texmf-dist/fonts/type1/urw/
+times/utmri8a.pfb>
+Output written on Supplement_v1.pdf (13 pages, 870528 bytes).
 PDF statistics:
- 635 PDF objects out of 1000 (max. 8388607)
- 546 compressed objects within 6 object streams
- 165 named destinations out of 1000 (max. 500000)
- 51846 words of extra memory for PDF output out of 61914 (max. 10000000)
+ 377 PDF objects out of 1000 (max. 8388607)
+ 279 compressed objects within 3 object streams
+ 70 named destinations out of 1000 (max. 500000)
+ 47216 words of extra memory for PDF output out of 51595 (max. 10000000)
 

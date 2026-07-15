@@ -5,6 +5,7 @@
 % --- standard packages ---
 \usepackage[utf8]{inputenc}
 \usepackage[T1]{fontenc}
+\usepackage{xr-hyper}
 \usepackage[colorlinks=true,linkcolor=blue!70!black,citecolor=blue!70!black,urlcolor=blue!70!black]{hyperref}
 \usepackage{url}
 \usepackage{booktabs}
@@ -37,6 +38,8 @@
 \renewcommand{\textfraction}{0.10}
 \renewcommand{\floatpagefraction}{0.75}
 \usepackage{placeins} % \FloatBarrier
+\usepackage[tablesfirst,nomarkers,nolists]{endfloat}
+\renewcommand{\efloatseparator}{\clearpage}
 
 % --- theorem environments ---
 \newtheorem{theorem}{Theorem}
@@ -59,6 +62,11 @@
 \newcommand{\gen}{\mathrm{gen}}
 \newcommand{\real}{\mathrm{real}}
 \newcommand{\eff}{\mathrm{eff}}
+
+% Resolve references to sections, tables, and figures in the separately
+% compiled supplementary manuscript. A first clean build may warn until
+% Supplement_v1.aux has been generated; the Makefile resolves both directions.
+\externaldocument[][nocite]{Supplement_v1}
 
 \title{Variance-Corrected Multi-Asset Equity Simulation with Hybrid Hidden Markov Marginals}
 
@@ -167,23 +175,5 @@ dependency of the experiment code.
 
 \bibliographystyle{unsrtnat}
 \bibliography{References_v1}
-
-% --- SI Appendix ---
-\clearpage
-\appendix
-
-% Supplement uses S-prefixed numbering so readers can distinguish
-% supplementary sections and floats from main-text counterparts at a glance.
-\renewcommand{\thesection}{S\arabic{section}}
-\renewcommand{\thesubsection}{S\arabic{section}.\arabic{subsection}}
-\renewcommand{\thefigure}{S\arabic{figure}}
-\renewcommand{\thetable}{S\arabic{table}}
-\renewcommand{\theequation}{S\arabic{equation}}
-\setcounter{section}{0}
-\setcounter{figure}{0}
-\setcounter{table}{0}
-\setcounter{equation}{0}
-
-\input{sections/appendix}
 
 \end{document}

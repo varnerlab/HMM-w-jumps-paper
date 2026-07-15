@@ -1,0 +1,86 @@
+\documentclass{article}
+\PassOptionsToPackage{numbers, compress}{natbib}
+\usepackage[preprint]{neurips_2026}
+
+% --- standard packages ---
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{xr-hyper}
+\usepackage[colorlinks=true,linkcolor=blue!70!black,citecolor=blue!70!black,urlcolor=blue!70!black]{hyperref}
+\usepackage{url}
+\usepackage{booktabs}
+\usepackage{amsfonts}
+\usepackage{nicefrac}
+\usepackage{microtype}
+\usepackage{xcolor}
+\usepackage{graphicx}
+\usepackage{subcaption}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{amsthm}
+\usepackage{algorithm}
+\usepackage{algorithmic}
+\usepackage{bm}
+\usepackage{multirow}
+\usepackage{lineno}
+\usepackage{tikz}
+\usetikzlibrary{arrows.meta, decorations.pathreplacing, positioning}
+\usepackage{placeins}
+
+% --- theorem environments ---
+\newtheorem{theorem}{Theorem}
+\newtheorem{lemma}[theorem]{Lemma}
+\newtheorem{proposition}[theorem]{Proposition}
+\newtheorem{corollary}[theorem]{Corollary}
+\theoremstyle{definition}
+\newtheorem{definition}[theorem]{Definition}
+\theoremstyle{remark}
+\newtheorem{remark}[theorem]{Remark}
+
+% --- custom commands shared with the main manuscript ---
+\newcommand{\R}{\mathbb{R}}
+\newcommand{\E}{\mathbb{E}}
+\newcommand{\Var}{\operatorname{Var}}
+\newcommand{\Cov}{\operatorname{Cov}}
+\newcommand{\sign}{\operatorname{sign}}
+\newcommand{\eps}{\varepsilon}
+\newcommand{\tg}{\tilde{g}}
+\newcommand{\gen}{\mathrm{gen}}
+\newcommand{\real}{\mathrm{real}}
+\newcommand{\eff}{\mathrm{eff}}
+
+% Import main-manuscript equation and section labels. The Makefile compiles
+% both documents in sequence so these references remain resolved.
+\externaldocument[][nocite]{Paper_v1}
+
+\title{Supplementary Material for\\
+Variance-Corrected Multi-Asset Equity Simulation with Hybrid Hidden Markov Marginals}
+
+\author{%
+  Abdulrahman Alswaidan \\
+  Cornell University \\
+  \And
+  Jeffrey D.~Varner \\
+  Cornell University \\
+}
+
+\begin{document}
+\maketitle
+
+\appendix
+\renewcommand{\thesection}{S\arabic{section}}
+\renewcommand{\thesubsection}{S\arabic{section}.\arabic{subsection}}
+\renewcommand{\thefigure}{S\arabic{figure}}
+\renewcommand{\thetable}{S\arabic{table}}
+\renewcommand{\theequation}{S\arabic{equation}}
+\setcounter{section}{0}
+\setcounter{figure}{0}
+\setcounter{table}{0}
+\setcounter{equation}{0}
+
+\input{sections/appendix}
+
+\bibliographystyle{unsrtnat}
+\bibliography{References_v1}
+
+\end{document}
