@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.27 (TeX Live 2025) (preloaded format=pdflatex 2025.3.8)  15 JUL 2026 15:13
+This is pdfTeX, Version 3.141592653-2.6-1.40.27 (TeX Live 2025) (preloaded format=pdflatex 2025.3.8)  15 JUL 2026 16:12
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -1026,7 +1026,7 @@ Underfull \vbox (badness 1237) has occurred while \output is active []
 
 [3]
 Package hyperref Info: bookmark level for unknown algorithm defaults to 0 on in
-put line 213.
+put line 215.
 )
 
 [4] (./sections/method_sim.tex
@@ -1037,42 +1037,53 @@ put line 213.
  (Paper_v1.ttt)
 
 [6])
+Underfull \vbox (badness 10000) has occurred while \output is active []
+
+
 
 [7] (./sections/results.tex (./sections/tables/table2_model_comparison.tex)
 
 [8]
+Underfull \vbox (badness 2781) has occurred while \output is active []
+
+
 
 [9]) (./sections/discussion.tex
 
-[10]) (./sections/conclusion.tex
+[10]
+Underfull \vbox (badness 10000) has occurred while \output is active []
 
-[11]) (./Paper_v1.bbl
 
-[12]
+
+[11]) (./sections/conclusion.tex)
+
+[12] (./Paper_v1.bbl
 
 [13]
 
-[14]) AED endfloat: Processing end Figures and Tables
+[14]
 
-[15] (./Paper_v1.ttt
+[15]) AED endfloat: Processing end Figures and Tables
 
-[16]
+[16] (./Paper_v1.ttt
 
-[17] (./sections/tables/table1_aggregate.tex)
+[17]
+
+[18] (./sections/tables/table1_aggregate.tex)
 Overfull \hbox (14.65605pt too wide) in paragraph at lines 1--97
  [][] 
  []
 
 
 
-[18
+[19
 
 
 
 
 ] (./sections/tables/table6_oos_scorecard.tex)
 
-[19
+[20
 
 ] (./sections/tables/table5_var_backtest_oos.tex)
 Overfull \hbox (10.152pt too wide) in paragraph at lines 1--132
@@ -1081,10 +1092,10 @@ Overfull \hbox (10.152pt too wide) in paragraph at lines 1--132
 
 )
 
-[20
+[21
 
 ] (./Paper_v1.fff
-<figs/main/Fig01-Empirical-Motivation.pdf, id=461, 1204.5pt x 903.375pt>
+<figs/main/Fig01-Empirical-Motivation.pdf, id=465, 1204.5pt x 903.375pt>
 File: figs/main/Fig01-Empirical-Motivation.pdf Graphic file (type pdf)
 <use figs/main/Fig01-Empirical-Motivation.pdf>
 Package pdftex.def Info: figs/main/Fig01-Empirical-Motivation.pdf  used on inpu
@@ -1092,10 +1103,10 @@ t line 3.
 (pdftex.def)             Requested size: 397.48499pt x 298.11467pt.
 
 
-[21 <./figs/main/Fig01-Empirical-Motivation.pdf>]
+[22 <./figs/main/Fig01-Empirical-Motivation.pdf>]
 
-[22]
-<figs/main/Fig03-Model-Comparison.pdf, id=471, 1806.75pt x 562.1pt>
+[23]
+<figs/main/Fig03-Model-Comparison.pdf, id=475, 1806.75pt x 562.1pt>
 File: figs/main/Fig03-Model-Comparison.pdf Graphic file (type pdf)
 <use figs/main/Fig03-Model-Comparison.pdf>
 Package pdftex.def Info: figs/main/Fig03-Model-Comparison.pdf  used on input li
@@ -1103,8 +1114,8 @@ ne 127.
 (pdftex.def)             Requested size: 397.48499pt x 123.66238pt.
 
 
-[23 <./figs/main/Fig03-Model-Comparison.pdf>]
-<figs/main/Fig04-Jump-Mix-Frontier.pdf, id=477, 1204.5pt x 562.1pt>
+[24 <./figs/main/Fig03-Model-Comparison.pdf>]
+<figs/main/Fig04-Jump-Mix-Frontier.pdf, id=482, 1204.5pt x 562.1pt>
 File: figs/main/Fig04-Jump-Mix-Frontier.pdf Graphic file (type pdf)
 <use figs/main/Fig04-Jump-Mix-Frontier.pdf>
 Package pdftex.def Info: figs/main/Fig04-Jump-Mix-Frontier.pdf  used on input l
@@ -1112,8 +1123,8 @@ ine 143.
 (pdftex.def)             Requested size: 397.48499pt x 185.49358pt.
 
 
-[24 <./figs/main/Fig04-Jump-Mix-Frontier.pdf>]
-<figs/main/Fig05-OoS-Composition.pdf, id=484, 1204.5pt x 451.6875pt>
+[25 <./figs/main/Fig04-Jump-Mix-Frontier.pdf>]
+<figs/main/Fig05-OoS-Composition.pdf, id=489, 1204.5pt x 451.6875pt>
 File: figs/main/Fig05-OoS-Composition.pdf Graphic file (type pdf)
 <use figs/main/Fig05-OoS-Composition.pdf>
 Package pdftex.def Info: figs/main/Fig05-OoS-Composition.pdf  used on input lin
@@ -1121,8 +1132,8 @@ e 163.
 (pdftex.def)             Requested size: 397.48499pt x 149.05733pt.
 
 
-[25 <./figs/main/Fig05-OoS-Composition.pdf>]
-<figs/main/Fig06-Variance-Preservation.pdf, id=491, 1204.5pt x 451.6875pt>
+[26 <./figs/main/Fig05-OoS-Composition.pdf>]
+<figs/main/Fig06-Variance-Preservation.pdf, id=495, 1204.5pt x 451.6875pt>
 File: figs/main/Fig06-Variance-Preservation.pdf Graphic file (type pdf)
 <use figs/main/Fig06-Variance-Preservation.pdf>
 Package pdftex.def Info: figs/main/Fig06-Variance-Preservation.pdf  used on inp
@@ -1130,7 +1141,7 @@ ut line 177.
 (pdftex.def)             Requested size: 397.48499pt x 149.05733pt.
 )
 
-[26 <./figs/main/Fig06-Variance-Preservation.pdf>] (./Paper_v1.aux)
+[27 <./figs/main/Fig06-Variance-Preservation.pdf>] (./Paper_v1.aux)
  ***********
 LaTeX2e <2024-11-01> patch level 2
 L3 programming layer <2025-01-18>
@@ -1139,11 +1150,11 @@ Package rerunfilecheck Info: File `Paper_v1.out' has not changed.
 (rerunfilecheck)             Checksum: ECBB26CE542CC84B7048A12A01049365;1864.
  ) 
 Here is how much of TeX's memory you used:
- 28205 strings out of 473190
- 525284 string characters out of 5715801
+ 28209 strings out of 473190
+ 525315 string characters out of 5715801
  944980 words of memory out of 5000000
  50472 multiletter control sequences out of 15000+600000
- 617054 words of font info for 287 fonts, out of 8000000 for 9000
+ 617181 words of font info for 289 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
  84i,11n,87p,1082b,992s stack positions out of 10000i,1000n,20000p,200000b,200000s
 </usr/local/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx10.pfb
@@ -1170,10 +1181,10 @@ exmf-dist/fonts/type1/public/cm-super/sftt1000.pfb></usr/local/texlive/2025/tex
 mf-dist/fonts/type1/urw/times/utmb8a.pfb></usr/local/texlive/2025/texmf-dist/fo
 nts/type1/urw/times/utmr8a.pfb></usr/local/texlive/2025/texmf-dist/fonts/type1/
 urw/times/utmri8a.pfb>
-Output written on Paper_v1.pdf (26 pages, 957603 bytes).
+Output written on Paper_v1.pdf (27 pages, 961723 bytes).
 PDF statistics:
- 635 PDF objects out of 1000 (max. 8388607)
- 546 compressed objects within 6 object streams
- 165 named destinations out of 1000 (max. 500000)
+ 639 PDF objects out of 1000 (max. 8388607)
+ 549 compressed objects within 6 object streams
+ 166 named destinations out of 1000 (max. 500000)
  51846 words of extra memory for PDF output out of 61914 (max. 10000000)
 

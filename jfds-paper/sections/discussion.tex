@@ -45,6 +45,10 @@ skewness directly. The negative
 skewness in both HMM variants came from asymmetric occupancy of the
 Laplace states. Assets with a different skew direction may require a
 different quantile rule.
+Thus, the single-asset evidence supports HMM-WJ as a flexible marginal
+input rather than a universally transferable calibration, making its
+value in the multi-asset setting depend on how those marginals are
+composed.
 
 The main result was the multi-asset variance correction. Naive
 composition inflated generator variance at high $\beta$ and almost
@@ -71,6 +75,9 @@ was $1.71\%$, comparable to $1.67\%$ for JumpHMM-on-residuals but
 above the $1\%$ nominal level. It did not require the residual
 method's separate fitting stage, though its marginal KS pass rate was
 lower.
+Taken together, these results position the hybrid method as a reusable
+full-return construction, while residual-specific fitting remains
+preferable when marginal fidelity is the sole objective.
 
 Several evaluation choices limit these results. The in-sample
 composition experiment fixed the market path at the real SPY history;
@@ -101,6 +108,10 @@ $2{,}766$-day training comparison. Matched-length training blocks
 partly address this difference, but neither non-rejection rates nor
 $99\%$ VaR counts from a single year should be interpreted as precise
 model rankings.
+Taken together, these limitations bound the main claim to per-asset
+variance correction and marginal evaluation; they do not establish
+portfolio-level dependence fidelity, whose consequences become
+visible under rebalancing.
 
 Independent residuals produced a diversification-return bias under
 daily rebalancing. Matching each asset's marginal variance did not
@@ -127,6 +138,9 @@ time in wealth space. It recalibrated the return level but did not
 restore cross-asset covariance. The full method, the rejected
 alternatives, and the percentile placement of the realized year are
 given in Online Appendix~\ref{sec:supp-bias}.
+Thus, the location shift is a return-level calibration rather than a
+substitute for modeling residual dependence, which remains the central
+requirement for portfolio applications.
 
 Several extensions remain open. Per-ticker tuning of the jump
 parameters $(\epsilon, \lambda)$ on each asset's own history would
@@ -144,3 +158,7 @@ volatile than
 the calibration history would test whether the idiosyncratic floor
 keeps per-asset marginals heavy-tailed under exactly the conditions
 where naive SIM composition breaks down.
+Taken together, these extensions move the next stage of the work from
+separate marginal generation toward joint residual and factor dynamics,
+with the variance correction serving as a constraint within a fuller
+dependence model.

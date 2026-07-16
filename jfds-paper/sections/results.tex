@@ -35,6 +35,9 @@ less than one percentage point for both HMM-NJ and HMM-WJ. At
 $N = 350$, some states were never visited and their emission
 parameters could not be estimated
 (Online Appendix~\ref{sec:supp-sensitivity}).
+Taken together, the calibration was stable across a broad range of
+state resolutions, providing a fixed specification for the generator
+benchmark that followed.
 
 % --- Table: Single-asset model comparison (KS, AD, kurtosis, ACF-MAE, etc.) ---
 % The original metric-by-model landscape layout is retained below for provenance
@@ -134,6 +137,10 @@ Cross-asset evaluation on NVDA, JNJ, and JPM produced HMM-WJ
 in-sample KS pass rates of at least $98.9\%$ on all three, with
 out-of-sample rates of $97.7\%$, $74.0\%$, and $79.2\%$, respectively
 (Table~\ref{tab:cross_asset}, Online Appendix~\ref{sec:supp-cross-asset}).
+Taken together, these comparisons placed HMM-WJ near the top on
+marginal fit while exposing a residual tradeoff between temporal
+persistence and distributional accuracy, which we examined by varying
+the share of jump-active paths.
 
 % --- Figure: head-to-head model comparison ---
 \begin{figure}[tbp]
@@ -172,6 +179,9 @@ $f \approx 0.25$ used throughout kept simulated kurtosis within
 $2\%$ of the observed value and lowered the autocorrelation error
 about a quarter of the way from the no-jump value toward the
 all-jump endpoint.
+Thus, the selected mixture provided a compromise between marginal and
+temporal fit before the fitted marginals were carried into the
+multi-asset composition experiment.
 
 % --- Figure: jump-mix enrichment frontier ---
 \begin{figure}[tbp]
@@ -240,6 +250,10 @@ JumpHMM-on-residuals matched the hybrid's kurtosis and Hill index
 almost exactly, while block bootstrap and GARCH, by fitting their own
 residual generators, produced lighter tails than either JumpHMM-based
 method.
+Taken together, the correction substantially improved on naive
+composition without matching the marginal pass rates of methods fitted
+directly to residuals, making frozen-parameter evaluation the next
+test of whether this ordering generalized beyond the training window.
 
 The same ordering largely persisted when the fitted models and SIM
 parameters were frozen and evaluated against $416$ complete asset
@@ -259,6 +273,9 @@ concentrated near the upper end of the range, but every method
 retained a lower tail of weak fits, and for the hybrid method many
 tickers improved relative to their matched-length training blocks
 while a subset deteriorated out of sample.
+Thus, the held-out marginal improvement was broad but not uniform
+across assets, motivating a separate check of whether the resulting
+synthetic tails produced reliable risk thresholds.
 
 \begin{table}[H]
   \centering
@@ -305,6 +322,9 @@ level ($1.24\%$), while Gaussian SIM had the largest exceedance rate
 $99\%$ exceedances per ticker, so we interpret the corresponding
 Kupiec pass rates and cross-ticker dispersion as low-power checks
 rather than precise rankings.
+Taken together, the VaR results showed that stronger marginal fit did
+not automatically imply nominal tail coverage, motivating a closer
+look at where the variance correction was most stable.
 
 % --- Table: VaR coverage check ---
 \begin{table}[H]
@@ -364,6 +384,9 @@ Because the $R^2$-preserving branch contained only two tickers, we
 tested it on a synthetic-tracker grid spanning
 $(\beta_{\mathrm{true}}, R^2_{\mathrm{true}}) \in \{0.8, 1.0, 1.2\}
 \times \{0.80, 0.85, 0.90, 0.95, 0.99\}$. Every cell passed KS.
+Thus, the correction removed the observed beta-related variance
+inflation, while the rarely activated clipping branch still required a
+direct stress test.
 
 Bucketing the universe by $\beta$ quartile, the hybrid KS pass rate
 fell from $67\%$ in the lowest quartile to $44\%$ in the highest
@@ -376,6 +399,10 @@ $\gamma \in \{1, 2, 3\}$, holding the calibrated marginals fixed
 threshold, and the hybrid KS pass rate was $50.3\%$. At
 $\gamma=2$ and $3$, clipping applied to $76.4\%$ and $95.2\%$ of
 tickers, and the KS pass rate rose to $71.8\%$ and $77.3\%$.
+Taken together, clipping was unnecessary under observed market
+variance but stabilized marginal fit when market volatility was
+artificially increased, leaving parameter and simulation uncertainty
+as the final robustness checks.
 
 Finally, we tested the aggregate hybrid KS pass rate of
 Table~\ref{tab:aggregate} against the two hyperparameter choices of
@@ -395,3 +422,7 @@ seeds, and the seed sweep reproduced the relative ordering of the
 methods without inversions. For example, the $25$ percentage-point
 KS difference between hybrid and JumpHMM-on-residuals exceeded
 hybrid's across-seed SD of $0.18$ percentage points.
+Taken together, the aggregate ordering was insensitive to both the
+branch hyperparameters and generator randomness, so the remaining
+distinctions among methods concern their modeling and deployment
+tradeoffs rather than numerical instability.

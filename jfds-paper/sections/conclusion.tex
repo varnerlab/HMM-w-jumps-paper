@@ -26,6 +26,11 @@ while keeping high KS and AD pass rates; GARCH reached a lower
 autocorrelation error but failed the distributional tests. The
 single-asset result was therefore a measured marginal--temporal
 tradeoff rather than a claim of uniform superiority.
+Taken together, these results separate two tasks that are easily
+conflated when synthesizing multi-asset market data: the marginal
+generator governs each asset's distributional and temporal behavior,
+whereas the variance correction prevents the common market factor from
+double counting the generator's total variance.
 
 The current multi-asset implementation does not model cross-asset
 residual covariance. In a $20$-asset allocator, independent residuals
@@ -36,4 +41,7 @@ allocation signal. A location-shift
 correction set to a documented long-run prior adjusted the return
 level without restoring the missing covariance. A full joint
 residual model is needed before using these paths for
-portfolio-level return forecasts.
+portfolio-level return forecasts. Thus, the variance correction is a
+necessary compositional constraint rather than a complete dependence
+model; combining it with joint residual dynamics is the next step
+toward portfolio-level synthetic market data.
