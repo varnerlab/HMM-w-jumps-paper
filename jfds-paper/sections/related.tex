@@ -21,14 +21,14 @@ formalized as geometric Brownian motion and used by
 Black-Scholes-Merton for option
 pricing~\cite{bachelier1900, osborne1959, samuelson1965,
 blackScholes1973}; these diffusion baselines are tractable but fail
-on the empirical regularities that drive risk and pricing. Mandelbrot~\cite{mandelbrot1963}
+on the empirical regularities that drive risk and pricing. \citet{mandelbrot1963}
 showed returns have heavier tails than the Gaussian admits;
-Fama~\cite{famaEMH1970} reviewed evidence that raw returns have
-near-zero autocorrelation; and Schwert~\cite{schwert1989} documented
+\citet{famaEMH1970} reviewed evidence that raw returns have
+near-zero autocorrelation; and \citet{schwert1989} documented
 persistence in monthly absolute residuals, later codified by
-Cont~\cite{cont2001} as volatility clustering. The autoregressive
+\citet{cont2001} as volatility clustering. The autoregressive
 conditional heteroskedasticity (ARCH) and generalized ARCH (GARCH)
-models of Engle and Bollerslev~\cite{engle1982, bollerslev1986}
+models of \citet{engle1982} and \citet{bollerslev1986}
 reproduced clustering but required a heavy-tailed noise term to
 produce heavy-tailed marginals. Neither model includes discrete
 regimes or sudden jumps. Stochastic-volatility
@@ -41,24 +41,23 @@ price path, producing heavy tails by construction, but volatility
 does not persist after the jump.
 
 Hidden Markov models embed regime and jump behavior directly in a
-latent discrete chain, following Hamilton's~\cite{hamilton1989}
-two-state regime-switching formulation, later applied to volatility
+latent discrete chain, following the two-state regime-switching
+formulation of \citet{hamilton1989}, later applied to volatility
 forecasting~\cite{rossiGallo2006} and equity
-trading~\cite{nguyen2018}. Ryden et
-al.~\cite{rydenTerasvirtaAsbrink1998} found that Gaussian-emission
+trading~\cite{nguyen2018}. \citet{rydenTerasvirtaAsbrink1998} found that Gaussian-emission
 HMMs matched heavy tails and the absence of return autocorrelation
-but did not reproduce volatility clustering; Bulla and
-Bulla~\cite{bullaBulla2006} modeled clustering with hidden
+but did not reproduce volatility clustering; \citet{bullaBulla2006}
+modeled clustering with hidden
 semi-Markov models (HSMMs) that replaced the geometric dwell-time
 distribution of every state with a parametric (negative-binomial)
 alternative. Both rely on the Baum-Welch
 expectation-maximization (EM) algorithm~\cite{baumPetrieSoulesWeiss1970},
 which is iterative and sensitive to initialization. Deep generative
 alternatives learn the marginal directly but routinely miss the
-volatility-clustering signature: Takahashi et
-al.~\cite{takahashiEtAl2019} found that generative adversarial
+volatility-clustering signature: \citet{takahashiEtAl2019}
+found that generative adversarial
 network (GAN) architectures failed to reproduce the absolute-return
-autocorrelation function, and Kwon and Lee~\cite{kwonLee2024}
+autocorrelation function, and \citet{kwonLee2024}
 reported the same failure for TimeGAN~\cite{yoonEtAl2019timegan}. Recent
 surveys~\cite{assefaEtAl2020, jordonEtAl2022, stengerEtAl2024} agree
 that stylized-facts reproduction remains the primary quality
@@ -79,7 +78,7 @@ family and, in their standard static form, treat successive time
 slices as independent. Factor models instead reduce a firm's growth
 rate to one or more shared factors~\cite{rossAPT1976,
 famaFrench1993}. The single-index model (SIM) of
-Sharpe~\cite{sharpe1963} uses one shared factor and decomposes each
+\citet{sharpe1963} uses one shared factor and decomposes each
 asset's growth rate into a market term and an idiosyncratic residual.
 This structure can use a single-factor market generator directly. We
 derived a closed-form correction that preserves the generator
@@ -89,7 +88,7 @@ distribution~\cite{kolmogorov1933, smirnov1948, andersonDarling1952}
 with autocorrelation diagnostics for temporal structure~\cite{cont2001}.
 These tests are necessary but not sufficient: a synthetic dataset
 can pass them yet still mislead when fed into the task it was
-generated for. Booth and Fama~\cite{boothFama1992} described one
+generated for. \citet{boothFama1992} described one
 such failure: a daily-rebalanced allocator on paths whose residuals
 are drawn independently across assets extracts a structural
 \emph{diversification return} that is muted in real markets, where

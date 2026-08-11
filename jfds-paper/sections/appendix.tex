@@ -27,7 +27,7 @@
 \label{sec:supp-cov}
 
 The variance correction of Eq.~\eqref{eq:scale} assumes
-$\Cov(\tg_i,g_m)\approx0$, allowing the variance derivation to omit
+$\Cov(\tg_i^{\mathrm c},g_m)\approx0$, allowing the variance derivation to omit
 the cross-term. This assumption does not follow automatically from
 the fitting procedure because each JumpHMM uses the asset's full
 growth-rate history, including its market-correlated component. A
@@ -39,8 +39,10 @@ real SPY path:
 \begin{equation}
   \mathrm{cov}^{\mathrm{norm}}_i
   = \frac{1}{R} \sum_{r=1}^{R}
-    \frac{\Cov(\tg_i^{(r)},\, g_m)}{\sigma_{\gen,i}\, \sigma_m}.
+    \frac{\Cov((\tg_i^{(r)})^{\mathrm c},\, g_m)}{\sigma_{\gen,i}\, \sigma_m}.
 \end{equation}
+Centering does not change covariance, so these values are numerically
+identical to those obtained from the raw draws.
 Per-ticker values were plotted as histograms in
 Fig.~\ref{fig:cov_diag}. Across the $423$ tickers, the full-return
 JumpHMM generator (used by the hybrid and naive composition
@@ -55,7 +57,7 @@ quantify the cross-term omitted in Eq.~\eqref{eq:scale}.
   \centering
   \includegraphics[width=0.85\textwidth]{figs/supplement/FigS01-Cross-Covariance.pdf}
   \caption{\textbf{Empirical normalized cross-covariance
-    $\Cov(\tg_i, g_m) / (\sigma_{\gen,i}\, \sigma_m)$ across
+    $\Cov(\tg_i^{\mathrm c}, g_m) / (\sigma_{\gen,i}\, \sigma_m)$ across
     the $423$-ticker universe.} Histograms were stacked per generator,
     with each per-ticker value averaged over $R = 100$ generator
     growth-rate paths. Universe means were $1.53\times10^{-4}$,
@@ -107,28 +109,31 @@ process is:
   W_t \;=\; W_{t-1} \sum_{i} w_i \exp\!\big(g_i(t)\,\Delta t\big),
   \label{eq:wealth-recursion}
 \end{equation}
-so the per-step log return on the portfolio is
-$\log(W_t/W_{t-1}) = \log\!\sum_i w_i \exp(g_i(t)\,\Delta t)$. We
-suppress the time argument, writing $g_i$ for $g_i(t)$. A
-second-order Taylor expansion of the exponential about zero,
-$\exp(g_i\,\Delta t) = 1 + g_i\,\Delta t + \tfrac{1}{2}(g_i\,\Delta t)^2
-+ O((g\,\Delta t)^3)$, substituted into each summand of
-$\sum_i w_i \exp(g_i\,\Delta t)$ gives:
+so the per-step log return on the portfolio is:
+\begin{equation*}
+  \log\!\left(\frac{W_t}{W_{t-1}}\right)
+  = \log\!\left[\sum_i w_i \exp\!\big(g_i(t)\,\Delta t\big)\right].
+\end{equation*}
+We suppress the time argument, writing $g_i$ for $g_i(t)$. A
+second-order Taylor expansion of the exponential about zero gives:
+\begin{equation*}
+  \exp(g_i\,\Delta t)
+  = 1 + g_i\,\Delta t + \tfrac{1}{2}(g_i\,\Delta t)^2
+  + O\!\left((g\,\Delta t)^3\right).
+\end{equation*}
+Substituting this expansion into each summand gives:
 \begin{align}
   \sum_{i} w_i \exp\!\big(g_i\,\Delta t\big)
-   &= \sum_{i} w_i \!\left[\,1 + g_i\,\Delta t
-        + \tfrac{1}{2}(g_i\,\Delta t)^2
-        + O\!\big((g\,\Delta t)^3\big)\right]
-       && \text{(Taylor)} \notag \\
+   &= \sum_{i} w_i \!\left[1 + g_i\,\Delta t
+        + \tfrac{1}{2}(g_i\,\Delta t)^2\right. \notag \\
+   &\hspace{7em}\left.{}+ O\!\big((g\,\Delta t)^3\big)\right] \notag \\
    &= \sum_{i} w_i
         + \Delta t \sum_{i} w_i\, g_i
         + \tfrac{1}{2}(\Delta t)^2 \sum_{i} w_i\, g_i^2
-        + O\!\big((g\,\Delta t)^3\big)
-       && \text{(distribute)} \notag \\
+        + O\!\big((g\,\Delta t)^3\big) \notag \\
    &= 1 + \Delta t \sum_{i} w_i\, g_i
         + \tfrac{1}{2}(\Delta t)^2 \sum_{i} w_i\, g_i^2
         + O\!\big((g\,\Delta t)^3\big).
-       && \text{(}\textstyle\sum_i w_i = 1\text{)}
   \label{eq:exp-expand}
 \end{align}
 A second-order Taylor expansion of $\log(1+x)$ about $x=0$ gives
@@ -141,20 +146,19 @@ $x^2 = (\Delta t)^2 (\sum_i w_i\, g_i)^2 + O((\Delta t)^3)$, since
 the cross term has an extra $\Delta t$ factor. Substituting:
 \begin{align}
   \log\!\frac{W_t}{W_{t-1}}
-   &= \log\!\Big(1 + x + O\!\big((g\,\Delta t)^3\big)\Big)
-       && \text{(by Eq.~\eqref{eq:exp-expand})} \notag \\
-   &= x - \tfrac{1}{2}\, x^2 + O\!\big(x^3\big)
-       && \text{(Taylor)} \notag \\
+   &= \log\!\Big(1 + x + O\!\big((g\,\Delta t)^3\big)\Big) \notag \\
+   &= x - \tfrac{1}{2}\, x^2 + O\!\big(x^3\big) \notag \\
    &= \Delta t \sum_{i} w_i\, g_i
         + \tfrac{1}{2}(\Delta t)^2 \sum_{i} w_i\, g_i^2
-        - \tfrac{1}{2}(\Delta t)^2 \!\Big(\sum_{i} w_i\, g_i\Big)^{\!2}
-        + O\!\big((g\,\Delta t)^3\big)
-       && \text{(plug in)} \notag \\
+        \notag \\
+   &\quad - \tfrac{1}{2}(\Delta t)^2
+        \!\Big(\sum_{i} w_i\, g_i\Big)^{\!2}
+        + O\!\big((g\,\Delta t)^3\big) \notag \\
    &= \Delta t \sum_{i} w_i\, g_i
-        + \tfrac{1}{2}(\Delta t)^2 \!\left(\sum_{i} w_i\, g_i^2
-             - \Big(\sum_{i} w_i\, g_i\Big)^{\!2}\right)
+        + \tfrac{1}{2}(\Delta t)^2 \!\left[\sum_{i} w_i\, g_i^2
+        \right. \notag \\
+   &\hspace{8em}\left.{}- \Big(\sum_{i} w_i\, g_i\Big)^{\!2}\right]
         + O\!\big((g\,\Delta t)^3\big).
-       && \text{(group)}
   \label{eq:rp-taylor}
 \end{align}
 Dividing through by $\Delta t$ extracts the portfolio's annualized
@@ -219,12 +223,14 @@ expectation of Eq.~\eqref{eq:gp-onestep} and grouping the
 $\sigma_i^2$ contributions separately from the $\mu_i$
 contributions:
 \begin{equation}
-  \E(g_p) \;=\; \sum_{i} w_i\, \mu_i
-  \;+\; \underbrace{\tfrac{1}{2}\,\Delta t\!\left(\sum_{i} w_i\, \sigma_i^2
-       - \sigma_p^2\right)}_{\displaystyle D}
-  \;+\; \tfrac{1}{2}\,\Delta t\!\left(\sum_{i} w_i\, \mu_i^2
-       - \Big(\sum_{i} w_i\, \mu_i\Big)^{\!2}\right)
-  \;+\; O\!\big((\Delta t)^2\big),
+\begin{aligned}
+  \E(g_p) \;={}& \sum_{i} w_i\, \mu_i
+  + \underbrace{\tfrac{1}{2}\,\Delta t\!\left(\sum_{i} w_i\, \sigma_i^2
+       - \sigma_p^2\right)}_{\displaystyle D} \\
+  &+ \tfrac{1}{2}\,\Delta t\!\left[\sum_{i} w_i\, \mu_i^2
+       - \Big(\sum_{i} w_i\, \mu_i\Big)^{\!2}\right]
+  + O\!\big((\Delta t)^2\big),
+\end{aligned}
   \label{eq:booth-fama}
 \end{equation}
 the Booth-Fama identity for the daily-rebalanced portfolio in
@@ -269,10 +275,9 @@ this effect: weights drift between rebalances, the rebalancer sells
 whatever has outperformed (its weight rose above target) and buys
 whatever has underperformed (its weight fell below target), and the
 trade systematically converts period-by-period cross-sectional
-dispersion into compounded growth. Markowitz
-\cite{markowitz1976longRun} described this as the variance bonus of
-the long-run mean-variance allocation; Booth and Fama
-\cite{boothFama1992} called it the diversification return.
+dispersion into compounded growth. \citet{markowitz1976longRun}
+described this as the variance bonus of the long-run mean-variance
+allocation; \citet{boothFama1992} called it the diversification return.
 
 Substituting the single-index decomposition
 $g_i(t) = \alpha_i + \beta_i\, g_m(t) + \eps_i(t)$, with market
@@ -364,6 +369,7 @@ absorbed and is agnostic to its decomposition.
     $\alpha = 0.05$.}
 \label{tab:descriptive_stats}
 \small
+\resizebox{\textwidth}{!}{%
 \begin{tabular}{@{}lcccc@{}}
 \toprule
 \textbf{Statistic} & \textbf{IS Observed} & \textbf{OoS Observed} & \textbf{Gaussian} & \textbf{Laplace} \\ \midrule
@@ -375,7 +381,8 @@ JB normality test           & reject$^\ast$ ($p<0.001$) & reject$^\ast$ ($p<0.00
 LB test on $G_t$ (lag 20)   & reject$^\ast$ ($p<0.001$) & reject$^\ast$ ($p=0.019$) & n/a   & n/a   \\
 LB test on $|G_t|$ (lag 20) & reject$^\ast$ ($p<0.001$) & reject$^\ast$ ($p<0.001$) & n/a   & n/a   \\
 \bottomrule
-\end{tabular}
+\end{tabular}%
+}
 \end{table}
 
 To measure the bias, we applied a $20$-asset, long-only target-weight
@@ -633,8 +640,8 @@ observation.
 
 To compare the emission and duration specifications, we evaluated
 three variants on SPY
-(Table~\ref{tab:emission_hsmm}): the HSMM baseline of Bulla and
-Bulla \cite{bullaBulla2006} ($K = 8$ states, negative-binomial
+(Table~\ref{tab:emission_hsmm}): the HSMM baseline of
+\citet{bullaBulla2006} ($K = 8$ states, negative-binomial
 dwell times, Student-$t$ emissions), HMM-WJ with the original
 Gaussian emissions ($N = 100$), and HMM-WJ with Student-$t$
 emissions ($N = 100$). The HMM-WJ variants exceeded the HSMM's
@@ -699,10 +706,10 @@ Hellinger           & $0.239$ ($0.001$)       & $0.212$ ($0.001$)       & $\math
     universe ($\rho_i < 0.90$ for all tickers) and is omitted. The
     two trackers in the $R^2$-preserving branch (QQQ and SPYG) had
     median absolute errors of $0.005$ for $\beta$ and $0.001$ for
-    $R^2$, with a KS pass rate of $99\%$.}
+    $R^2$, with a KS pass rate of $100\%$.}
   \label{tab:branch}
   \small
-  \input{sections/tables/table2_by_branch}
+  \resizebox{\textwidth}{!}{\input{sections/tables/table2_by_branch}}
 \end{table}
 
 \section{State-resolution sensitivity}
@@ -745,12 +752,12 @@ for all subsequent experiments.
   \caption{\textbf{Aggregate metrics by $\beta$ quartile, across composition methods.}
     Quartile cutoffs are computed from the calibrated $\beta$ distribution
     across the $423$-ticker universe. The hybrid KS pass rate declines
-    from $67\%$ in Q1 to $44\%$ in Q4 as the market loading ratio
+    from $87.6\%$ in Q1 to $65.9\%$ in Q4 as the market loading ratio
     $\rho_i$ grows; the naive KS pass rate falls
-    from $16\%$ to under $1\%$ over the same range.}
+    from $24.6\%$ to $1.3\%$ over the same range.}
   \label{tab:beta_bucket}
   \small
-  \input{sections/tables/table3_by_beta_bucket}
+  \resizebox{\textwidth}{!}{\input{sections/tables/table3_by_beta_bucket}}
 \end{table}
 
 % --- Table: Clipping-branch stress test ---
@@ -760,34 +767,18 @@ for all subsequent experiments.
     scaling.} The market growth-rate path was rescaled by
     $\gamma \in \{1, 2, 3\}$ with the calibrated marginals held fixed,
     and the full hybrid composition method re-evaluated on the $423$-ticker
-    universe. As $\gamma$ rises, the share of clipped tickers grows and
-    the hybrid KS pass rate increases rather than falls.}
+    universe. As $\gamma$ rises, the share of clipped tickers grows.}
 \label{tab:stress}
 \small
-\begin{tabular}{@{}rrr@{}}
+\begin{tabular}{@{}rr@{}}
 \toprule
-\textbf{$\gamma$} & \textbf{Clipped (\%)} & \textbf{Hybrid KS (\%)} \\ \midrule
-$1$ & $0.0$  & $50.3$ \\
-$2$ & $76.4$ & $71.8$ \\
-$3$ & $95.2$ & $77.3$ \\
+\textbf{$\gamma$} & \textbf{Clipped (\%)} \\ \midrule
+$1$ & $0.0$  \\
+$2$ & $76.4$ \\
+$3$ & $95.2$ \\
 \bottomrule
 \end{tabular}
 \end{table}
-
-% --- Figure: Hyperparameter sensitivity heatmap ---
-\begin{figure}[tbp]
-  \centering
-  \includegraphics[width=0.85\textwidth]{figs/supplement/FigS07-Sensitivity.pdf}
-  \caption{\textbf{Hybrid KS pass rate across a $5 \times 5$
-    hyperparameter grid.} Columns index the $R^2$-preserve threshold
-    $R^2_{\mathrm{preserve}} \in \{0.70, 0.75, 0.80, 0.85, 0.90\}$;
-    rows index the idiosyncratic floor $f \in \{0.05, 0.10, 0.15,
-    0.20, 0.30\}$. Hybrid KS pass rate varies from $50.24\%$ to
-    $50.38\%$ across the $25$ cells, a spread of $0.14$ percentage
-    points. The parameter values $(0.80, 0.10)$ used throughout the
-    paper produced a KS pass rate within this range.}
-  \label{fig:sensitivity}
-\end{figure}
 
 \section{Cross-asset generalization}
 \label{sec:supp-cross-asset}
@@ -824,6 +815,7 @@ $97.7\%$, $74.0\%$, and $79.2\%$, respectively.
     per-ticker optima.}
 \label{tab:cross_asset}
 \small
+\resizebox{\textwidth}{!}{%
 \begin{tabular}{@{}lcccccc@{}}
 \toprule
 \textbf{Ticker} & \textbf{$\epsilon^{*}$} & \textbf{$\lambda^{*}$}
@@ -833,24 +825,8 @@ NVDA (semiconductors)    & $10^{-4}$ & $70$ & $98.9$ ($0.3$) & $96.7$ ($0.6$) & 
 JNJ (consumer staples)   & $10^{-4}$ & $70$ & $99.4$ ($0.2$) & $96.3$ ($0.6$) & $74.0$ ($1.4$) & $61.3$ ($1.5$) \\
 JPM (financials)         & $10^{-4}$ & $80$ & $99.1$ ($0.3$) & $95.7$ ($0.6$) & $79.2$ ($1.3$) & $77.7$ ($1.3$) \\
 \bottomrule
-\end{tabular}
-\end{table}
-
-% --- Table: Seed-uncertainty summary ---
-\begin{table}[tbp]
-  \centering
-  \caption{\textbf{Seed-uncertainty summary across $8$ random seeds.}
-    Each cell reports mean $\pm$ standard deviation (SD) across the
-    $8$ seeds in
-    $\{1234, 2345, 3456, 4567, 5678, 6789, 7890, 8910\}$, with each
-    seed running the full $423$-ticker $\times\, 100$-replication
-    protocol. Conditional-variance paths for GARCH(1,1)-$t$ are
-    re-simulated at scoring time so its seed SD is informative. The
-    hybrid--JumpHMM-on-residuals difference in KS pass rate is $25$
-    percentage points, compared with hybrid's across-seed SD of
-    $0.18$ percentage points.}
-  \label{tab:seed_uncertainty}
-  \resizebox{\textwidth}{!}{\input{sections/tables/table4_seed_uncertainty}}
+\end{tabular}%
+}
 \end{table}
 
 \section{SIM composition derivations and properties verification}
@@ -860,8 +836,9 @@ The variance-corrected single-index composition states two
 closed-form results, the variance scale of Eq.~\eqref{eq:scale} and
 the residual-variance target of Eq.~\eqref{eq:r2-target}. The
 derivation below gives the large-$T$ OLS coefficients and composed
-variance. To derive Eq.~\eqref{eq:scale}, set
-$\eps_i=s_i\tg_i$ for $s_i\in(0,1]$ and require
+variance. To derive Eq.~\eqref{eq:scale}, first center the full-return
+draw as in Eq.~\eqref{eq:center-generator}, then set
+$\eps_i=s_i\tg_i^{\mathrm c}$ for $s_i\in(0,1]$ and require
 that the composed series have the same variance as the generator
 path:
 \begin{equation}
@@ -870,16 +847,22 @@ path:
             \;=\; \sigma_{\gen,i}^2,
 \end{equation}
 where $\alpha_i$ drops out because it is constant. Expanding the sum
-gives
+gives:
 \begin{equation}
-  \Var(\beta_i\, g_m + \eps_i) \;=\; \beta_i^2\, \Var(g_m)
-  \;+\; 2 \beta_i\, \Cov(g_m,\, \eps_i)
-  \;+\; \Var(\eps_i).
+\begin{aligned}
+  \Var(\beta_i\, g_m + \eps_i)
+  \;={}& \beta_i^2\, \Var(g_m)
+  + 2 \beta_i\, \Cov(g_m,\, \eps_i) \\
+  &+ \Var(\eps_i).
+\end{aligned}
 \end{equation}
-Substituting $\eps_i = s_i\,\tg_i$ gives
-$\Var(\eps_i) = s_i^2\,\sigma_{\gen,i}^2$ and
-$\Cov(g_m,\, \eps_i) = s_i\,\Cov(g_m,\, \tg_i)$. Under the
-assumption $\Cov(\tg_i,\,g_m)\approx0$, the cross term vanishes and
+Substituting $\eps_i = s_i\,\tg_i^{\mathrm c}$ gives the two moments:
+\begin{align*}
+  \Var(\eps_i) &= s_i^2\,\sigma_{\gen,i}^2, \\
+  \Cov(g_m,\, \eps_i) &= s_i\,\Cov(g_m,\, \tg_i^{\mathrm c}).
+\end{align*}
+Under the
+assumption $\Cov(\tg_i^{\mathrm c},\,g_m)\approx0$, the cross term vanishes and
 the variance condition becomes
 $\beta_i^2\, \sigma_m^2 + s_i^2\, \sigma_{\gen,i}^2 =
 \sigma_{\gen,i}^2$. Solving for $s_i^2$ gives Eq.~\eqref{eq:scale}.
@@ -891,8 +874,17 @@ identity for Eq.~\eqref{eq:sim-composition}:
 \end{equation}
 Solving this identity for the residual variance gives
 Eq.~\eqref{eq:r2-target}.
-In the large-$T$ limit, OLS of $g_i$ on $g_m$ gives
-$\hat\alpha_i \to \alpha_i$ and
+Because $\overline{\eps}_i=0$ after centering and scaling, the sample
+mean of a composed path obeys
+$\overline{g}_i=\alpha_i+\beta_i^{\eff}\overline{g}_m$. Hence the
+finite-sample OLS intercept is
+\begin{equation}
+  \hat\alpha_i
+  = \overline{g}_i-\hat\beta_i\overline{g}_m
+  = \alpha_i-(\hat\beta_i-\beta_i^{\eff})\overline{g}_m.
+\end{equation}
+Under the zero-cross-covariance assumption, in the large-$T$ limit OLS
+therefore gives $\hat\alpha_i \to \alpha_i$ and
 $\hat\beta_i \to \beta_i^{\eff}$. Here
 $\beta_i^{\eff}=\beta_i$ unless Eq.~\eqref{eq:clip} clips the market
 loading. On the variance-preserving branch, the composed variance is
@@ -906,5 +898,5 @@ calibrated $(\beta_i, R^2_{i,\real})$ rather than by the generator
 marginal. The floor guarantees only that
 $\Var(\eps_i)\geq f\,\sigma_{\gen,i}^2$; it does not guarantee that
 adding the market term preserves the generator's tail distribution.
-In Table~\ref{tab:beta_bucket}, the KS pass rate fell from $67\%$ in
-the lowest-beta quartile to $44\%$ in the highest-beta quartile.
+In Table~\ref{tab:beta_bucket}, the KS pass rate fell from $87.6\%$ in
+the lowest-beta quartile to $65.9\%$ in the highest-beta quartile.

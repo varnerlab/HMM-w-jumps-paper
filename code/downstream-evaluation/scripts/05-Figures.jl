@@ -33,9 +33,10 @@ default(
 
 # ── 1. Load artifacts ───────────────────────────────────────────────────────
 @info "Loading results + calibration..."
-r   = load(joinpath(_PATH_TO_DATA, "results.jld2"))["results"]
-cal = load(joinpath(_PATH_TO_DATA, "sim-calibration.jld2"))["calibration"]
-uni = load(joinpath(_PATH_TO_DATA, "universe.jld2"))
+results_filename = get(ENV, "HMM_PAPER_RESULTS_FILE", "results.jld2")
+r   = load(resolve_data_artifact(results_filename))["results"]
+cal = load(resolve_data_artifact("sim-calibration.jld2"))["calibration"]
+uni = load(resolve_data_artifact("universe.jld2"))
 
 G    = uni["growth_rates"]
 tks  = uni["tickers"]

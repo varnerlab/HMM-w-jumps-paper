@@ -1,46 +1,47 @@
 This is BibTeX, Version 0.99d (TeX Live 2025)
 Capacity: max_strings=200000, hash_size=200000, hash_prime=170003
 The top-level auxiliary file: Supplement_v1.aux
-The style file: unsrtnat.bst
+The style file: elsarticle-harv.bst
 Database file #1: References_v1.bib
+Reallocated singl_function (elt_size=4) to 100 items from 50.
 You've used 11 entries,
-            2481 wiz_defined-function locations,
-            639 strings with 6394 characters,
-and the built_in function-call counts, 4076 in all, are:
-= -- 388
-> -- 131
+            2990 wiz_defined-function locations,
+            714 strings with 7050 characters,
+and the built_in function-call counts, 6605 in all, are:
+= -- 547
+> -- 166
 < -- 10
-+ -- 58
-- -- 36
-* -- 301
-:= -- 633
++ -- 67
+- -- 54
+* -- 668
+:= -- 956
 add.period$ -- 40
 call.type$ -- 11
-change.case$ -- 22
+change.case$ -- 74
 chr.to.int$ -- 11
 cite$ -- 11
-duplicate$ -- 204
-empty$ -- 403
-format.name$ -- 57
-if$ -- 868
+duplicate$ -- 511
+empty$ -- 531
+format.name$ -- 87
+if$ -- 1242
 int.to.chr$ -- 1
-int.to.str$ -- 12
-missing$ -- 11
-newline$ -- 70
-num.names$ -- 33
-pop$ -- 80
+int.to.str$ -- 1
+missing$ -- 93
+newline$ -- 77
+num.names$ -- 44
+pop$ -- 164
 preamble$ -- 1
-purify$ -- 11
+purify$ -- 62
 quote$ -- 0
-skip$ -- 124
+skip$ -- 154
 stack$ -- 0
-substring$ -- 250
-swap$ -- 22
+substring$ -- 353
+swap$ -- 341
 text.length$ -- 0
 text.prefix$ -- 0
 top$ -- 0
-type$ -- 74
+type$ -- 96
 warning$ -- 0
-while$ -- 40
+while$ -- 51
 width$ -- 0
-write$ -- 163
+write$ -- 181

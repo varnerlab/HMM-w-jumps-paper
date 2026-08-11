@@ -1,411 +1,476 @@
 \begin{thebibliography}{57}
-\providecommand{\natexlab}[1]{#1}
+\expandafter\ifx\csname natexlab\endcsname\relax\def\natexlab#1{#1}\fi
 \providecommand{\url}[1]{\texttt{#1}}
-\expandafter\ifx\csname urlstyle\endcsname\relax
-  \providecommand{\doi}[1]{doi: #1}\else
-  \providecommand{\doi}{doi: \begingroup \urlstyle{rm}\Url}\fi
-
-\bibitem[Assefa et~al.(2020)Assefa, Dervovic, Mahfouz, Tillman, Reddy, and
-  Veloso]{assefaEtAl2020}
-Samuel~A. Assefa, Danial Dervovic, Mahmoud Mahfouz, Robert~E. Tillman, Prashant
-  Reddy, and Manuela Veloso.
-\newblock Generating synthetic data in finance: Opportunities, challenges and
-  pitfalls.
-\newblock In \emph{Proceedings of the First {ACM} International Conference on
-  AI in Finance}, pages 1--8, 2020.
-\newblock \doi{10.1145/3383455.3422554}.
-
-\bibitem[Jordon et~al.(2022)Jordon, Szpruch, Houssiau, Bottarelli, Cherubin,
-  Maple, Cohen, and Weller]{jordonEtAl2022}
-James Jordon, Lukasz Szpruch, Florimond Houssiau, Mirko Bottarelli, Giovanni
-  Cherubin, Carsten Maple, Samuel~N. Cohen, and Adrian Weller.
-\newblock Synthetic data: What, why and how?
-\newblock \emph{arXiv preprint arXiv:2205.03257}, 2022.
-
-\bibitem[Mandelbrot(1963)]{mandelbrot1963}
-Benoit Mandelbrot.
-\newblock The variation of certain speculative prices.
-\newblock \emph{The Journal of Business}, 36\penalty0 (4):\penalty0 394--419,
-  1963.
-
-\bibitem[Cont(2001)]{cont2001}
-R.~Cont.
-\newblock Empirical properties of asset returns: Stylized facts and statistical
-  issues.
-\newblock \emph{Quantitative Finance}, 1\penalty0 (2):\penalty0 223--236, 2001.
-\newblock \doi{10.1080/713665670}.
-
-\bibitem[Stenger et~al.(2024)Stenger, Bauer, Prantl, Leppich, Hudson, Chard,
-  Foster, and Kounev]{stengerEtAl2024}
-Michael Stenger, Andr\'{e} Bauer, Thomas Prantl, Robert Leppich, Nathaniel
-  Hudson, Kyle Chard, Ian Foster, and Samuel Kounev.
-\newblock Thinking in categories: A survey on assessing the quality for time
-  series synthesis.
-\newblock \emph{Journal of Data and Information Quality}, 16\penalty0
-  (2):\penalty0 1--32, 2024.
-\newblock \doi{10.1145/3666006}.
-
-\bibitem[Engle(1982)]{engle1982}
-Robert~F. Engle.
-\newblock Autoregressive conditional heteroscedasticity with estimates of the
-  variance of {United Kingdom} inflation.
-\newblock \emph{Econometrica}, 50\penalty0 (4):\penalty0 987--1007, 1982.
-
-\bibitem[Bollerslev(1986)]{bollerslev1986}
-Tim Bollerslev.
-\newblock Generalized autoregressive conditional heteroskedasticity.
-\newblock \emph{Journal of Econometrics}, 31\penalty0 (3):\penalty0 307--327,
-  1986.
-\newblock \doi{10.1016/0304-4076(86)90063-1}.
-
-\bibitem[Heston(1993)]{heston1993}
-Steven~L. Heston.
-\newblock A closed-form solution for options with stochastic volatility with
-  applications to bond and currency options.
-\newblock \emph{The Review of Financial Studies}, 6\penalty0 (2):\penalty0
-  327--343, 1993.
-\newblock \doi{10.1093/rfs/6.2.327}.
-
-\bibitem[Merton(1976)]{merton1976}
-Robert~C. Merton.
-\newblock Option pricing when underlying stock returns are discontinuous.
-\newblock \emph{Journal of Financial Economics}, 3\penalty0 (1-2):\penalty0
-  125--144, 1976.
-\newblock \doi{10.1016/0304-405X(76)90022-2}.
-
-\bibitem[Kou(2002)]{kou2002}
-S.~G. Kou.
-\newblock A jump-diffusion model for option pricing.
-\newblock \emph{Management Science}, 48\penalty0 (8):\penalty0 1086--1101,
-  2002.
-\newblock \doi{10.1287/mnsc.48.8.1086.166}.
-
-\bibitem[Takahashi et~al.(2019)Takahashi, Chen, and
-  Tanaka-Ishii]{takahashiEtAl2019}
-Shuntaro Takahashi, Yu~Chen, and Kumiko Tanaka-Ishii.
-\newblock Modeling financial time-series with generative adversarial networks.
-\newblock \emph{Physica A: Statistical Mechanics and Its Applications},
-  527:\penalty0 121261, 2019.
-\newblock \doi{10.1016/j.physa.2019.121261}.
-
-\bibitem[Yoon et~al.(2019)Yoon, Jarrett, and van~der
-  Schaar]{yoonEtAl2019timegan}
-Jinsung Yoon, Daniel Jarrett, and Mihaela van~der Schaar.
-\newblock Time-series generative adversarial networks.
-\newblock In \emph{Advances in Neural Information Processing Systems},
-  volume~32, 2019.
-
-\bibitem[Kwon and Lee(2024)]{kwonLee2024}
-Sohyeon Kwon and Yongjae Lee.
-\newblock Can {GANs} learn the stylized facts of financial time series?
-\newblock In \emph{Proceedings of the 5th {ACM} International Conference on AI
-  in Finance}, pages 126--133, 2024.
-\newblock \doi{10.1145/3677052.3698661}.
-
-\bibitem[Rabiner and Juang(1986)]{rabinerJuang1986}
-L.~Rabiner and B.~Juang.
-\newblock An introduction to hidden {Markov} models.
-\newblock \emph{IEEE ASSP Magazine}, 3\penalty0 (1):\penalty0 4--16, 1986.
-\newblock \doi{10.1109/MASSP.1986.1165342}.
-
-\bibitem[Rydén et~al.(1998)Rydén, Teräsvirta, and
-  Åsbrink]{rydenTerasvirtaAsbrink1998}
-Tobias Rydén, Timo Teräsvirta, and Stefan Åsbrink.
-\newblock Stylized facts of daily return series and the hidden {Markov} model.
-\newblock \emph{Journal of Applied Econometrics}, 13\penalty0 (3):\penalty0
-  217--244, 1998.
+\providecommand{\href}[2]{#2}
+\providecommand{\path}[1]{#1}
+\providecommand{\DOIprefix}{doi:}
+\providecommand{\ArXivprefix}{arXiv:}
+\providecommand{\URLprefix}{URL: }
+\providecommand{\Pubmedprefix}{pmid:}
+\providecommand{\doi}[1]{\href{http://dx.doi.org/#1}{\path{#1}}}
+\providecommand{\Pubmed}[1]{\href{pmid:#1}{\path{#1}}}
+\providecommand{\bibinfo}[2]{#2}
+\ifx\xfnm\relax \def\xfnm[#1]{\unskip,\space#1}\fi
+%Type = Article
+\bibitem[{Aas et~al.(2009)Aas, Czado, Frigessi and
+  Bakken}]{aasCzadoFrigessiBakken2009}
+\bibinfo{author}{Aas, K.}, \bibinfo{author}{Czado, C.},
+  \bibinfo{author}{Frigessi, A.}, \bibinfo{author}{Bakken, H.},
+  \bibinfo{year}{2009}.
+\newblock \bibinfo{title}{Pair-copula constructions of multiple dependence}.
+\newblock \bibinfo{journal}{Insurance: Mathematics and Economics}
+  \bibinfo{volume}{44}, \bibinfo{pages}{182--198}.
+%Type = Article
+\bibitem[{Anderson and Darling(1952)}]{andersonDarling1952}
+\bibinfo{author}{Anderson, T.W.}, \bibinfo{author}{Darling, D.A.},
+  \bibinfo{year}{1952}.
+\newblock \bibinfo{title}{Asymptotic theory of certain ``goodness of fit''
+  criteria based on stochastic processes}.
+\newblock \bibinfo{journal}{The Annals of Mathematical Statistics}
+  \bibinfo{volume}{23}, \bibinfo{pages}{193--212}.
+%Type = Article
+\bibitem[{Arthur(2021)}]{arthur2021}
+\bibinfo{author}{Arthur, W.B.}, \bibinfo{year}{2021}.
+\newblock \bibinfo{title}{Foundations of complexity economics}.
+\newblock \bibinfo{journal}{Nature Reviews Physics} \bibinfo{volume}{3},
+  \bibinfo{pages}{136--145}.
+\newblock \DOIprefix\doi{10.1038/s42254-020-00273-3}.
+%Type = Inproceedings
+\bibitem[{Assefa et~al.(2020)Assefa, Dervovic, Mahfouz, Tillman, Reddy and
+  Veloso}]{assefaEtAl2020}
+\bibinfo{author}{Assefa, S.A.}, \bibinfo{author}{Dervovic, D.},
+  \bibinfo{author}{Mahfouz, M.}, \bibinfo{author}{Tillman, R.E.},
+  \bibinfo{author}{Reddy, P.}, \bibinfo{author}{Veloso, M.},
+  \bibinfo{year}{2020}.
+\newblock \bibinfo{title}{Generating synthetic data in finance: Opportunities,
+  challenges and pitfalls}, in: \bibinfo{booktitle}{Proceedings of the First
+  {ACM} International Conference on AI in Finance}, pp. \bibinfo{pages}{1--8}.
+\newblock \DOIprefix\doi{10.1145/3383455.3422554}.
+%Type = Article
+\bibitem[{Bachelier(1900)}]{bachelier1900}
+\bibinfo{author}{Bachelier, L.}, \bibinfo{year}{1900}.
+\newblock \bibinfo{title}{Th\'eorie de la sp\'eculation}.
+\newblock \bibinfo{journal}{Annales Scientifiques de l'\'Ecole Normale
+  Sup\'erieure} \bibinfo{volume}{17}, \bibinfo{pages}{21--86}.
+%Type = Article
+\bibitem[{Baum et~al.(1970)Baum, Petrie, Soules and
+  Weiss}]{baumPetrieSoulesWeiss1970}
+\bibinfo{author}{Baum, L.E.}, \bibinfo{author}{Petrie, T.},
+  \bibinfo{author}{Soules, G.}, \bibinfo{author}{Weiss, N.},
+  \bibinfo{year}{1970}.
+\newblock \bibinfo{title}{A maximization technique occurring in the statistical
+  analysis of probabilistic functions of {Markov} chains}.
+\newblock \bibinfo{journal}{The Annals of Mathematical Statistics}
+  \bibinfo{volume}{41}, \bibinfo{pages}{164--171}.
+\newblock \DOIprefix\doi{10.1214/aoms/1177697196}.
+%Type = Techreport
+\bibitem[{Bilmes(1998)}]{bilmes1998}
+\bibinfo{author}{Bilmes, J.A.}, \bibinfo{year}{1998}.
+\newblock \bibinfo{title}{A Gentle Tutorial of the {EM} Algorithm and Its
+  Application to Parameter Estimation for {Gaussian} Mixture and Hidden
+  {Markov} Models}.
+\newblock \bibinfo{type}{Technical Report} \bibinfo{number}{TR-97-021}.
+  International Computer Science Institute.
+%Type = Article
+\bibitem[{Black and Scholes(1973)}]{blackScholes1973}
+\bibinfo{author}{Black, F.}, \bibinfo{author}{Scholes, M.},
+  \bibinfo{year}{1973}.
+\newblock \bibinfo{title}{The pricing of options and corporate liabilities}.
+\newblock \bibinfo{journal}{Journal of Political Economy} \bibinfo{volume}{81},
+  \bibinfo{pages}{637--654}.
+\newblock \DOIprefix\doi{10.1086/260062}.
+%Type = Article
+\bibitem[{Bollerslev(1986)}]{bollerslev1986}
+\bibinfo{author}{Bollerslev, T.}, \bibinfo{year}{1986}.
+\newblock \bibinfo{title}{Generalized autoregressive conditional
+  heteroskedasticity}.
+\newblock \bibinfo{journal}{Journal of Econometrics} \bibinfo{volume}{31},
+  \bibinfo{pages}{307--327}.
+\newblock \DOIprefix\doi{10.1016/0304-4076(86)90063-1}.
+%Type = Article
+\bibitem[{Booth and Fama(1992)}]{boothFama1992}
+\bibinfo{author}{Booth, D.G.}, \bibinfo{author}{Fama, E.F.},
+  \bibinfo{year}{1992}.
+\newblock \bibinfo{title}{Diversification returns and asset contributions}.
+\newblock \bibinfo{journal}{Financial Analysts Journal} \bibinfo{volume}{48},
+  \bibinfo{pages}{26--32}.
+\newblock \DOIprefix\doi{10.2469/faj.v48.n3.26}.
+%Type = Article
+\bibitem[{Bouchey et~al.(2015)Bouchey, Nemtchinov and
+  Wong}]{boucheyNemtchinovWong2015}
+\bibinfo{author}{Bouchey, P.}, \bibinfo{author}{Nemtchinov, V.},
+  \bibinfo{author}{Wong, T.K.L.}, \bibinfo{year}{2015}.
+\newblock \bibinfo{title}{Volatility harvesting in theory and practice}.
+\newblock \bibinfo{journal}{Journal of Wealth Management} \bibinfo{volume}{18},
+  \bibinfo{pages}{89--100}.
+\newblock \DOIprefix\doi{10.3905/jwm.2015.18.3.089}.
+%Type = Article
+\bibitem[{Bulla and Bulla(2006)}]{bullaBulla2006}
+\bibinfo{author}{Bulla, J.}, \bibinfo{author}{Bulla, I.}, \bibinfo{year}{2006}.
+\newblock \bibinfo{title}{Stylized facts of financial time series and hidden
+  semi-{Markov} models}.
+\newblock \bibinfo{journal}{Computational Statistics \& Data Analysis}
+  \bibinfo{volume}{51}, \bibinfo{pages}{2192--2209}.
+\newblock \DOIprefix\doi{10.1016/j.csda.2006.07.021}.
+%Type = Book
+\bibitem[{Cherubini et~al.(2004)Cherubini, Luciano and
+  Vecchiato}]{cherubiniLucianoVecchiato2004}
+\bibinfo{author}{Cherubini, U.}, \bibinfo{author}{Luciano, E.},
+  \bibinfo{author}{Vecchiato, W.}, \bibinfo{year}{2004}.
+\newblock \bibinfo{title}{Copula Methods in Finance}.
+\newblock \bibinfo{publisher}{John Wiley \& Sons}.
+%Type = Inproceedings
+\bibitem[{Cho et~al.(2014)Cho, van Merri\"enboer, Gulcehre, Bahdanau, Bougares,
+  Schwenk and Bengio}]{choEtAl2014gru}
+\bibinfo{author}{Cho, K.}, \bibinfo{author}{van Merri\"enboer, B.},
+  \bibinfo{author}{Gulcehre, C.}, \bibinfo{author}{Bahdanau, D.},
+  \bibinfo{author}{Bougares, F.}, \bibinfo{author}{Schwenk, H.},
+  \bibinfo{author}{Bengio, Y.}, \bibinfo{year}{2014}.
+\newblock \bibinfo{title}{Learning phrase representations using {RNN}
+  encoder-decoder for statistical machine translation}, in:
+  \bibinfo{booktitle}{Proceedings of the 2014 Conference on Empirical Methods
+  in Natural Language Processing (EMNLP)}, \bibinfo{publisher}{Association for
+  Computational Linguistics}. pp. \bibinfo{pages}{1724--1734}.
+\newblock \DOIprefix\doi{10.3115/v1/D14-1179}.
+%Type = Article
+\bibitem[{Cont(2001)}]{cont2001}
+\bibinfo{author}{Cont, R.}, \bibinfo{year}{2001}.
+\newblock \bibinfo{title}{Empirical properties of asset returns: Stylized facts
+  and statistical issues}.
+\newblock \bibinfo{journal}{Quantitative Finance} \bibinfo{volume}{1},
+  \bibinfo{pages}{223--236}.
+\newblock \DOIprefix\doi{10.1080/713665670}.
+%Type = Article
+\bibitem[{Cont and Bouchaud(2000)}]{contBouchaud2000}
+\bibinfo{author}{Cont, R.}, \bibinfo{author}{Bouchaud, J.P.},
+  \bibinfo{year}{2000}.
+\newblock \bibinfo{title}{Herd behavior and aggregate fluctuations in financial
+  markets}.
+\newblock \bibinfo{journal}{Macroeconomic Dynamics} \bibinfo{volume}{4},
+  \bibinfo{pages}{170--196}.
+\newblock \DOIprefix\doi{10.1017/S1365100500015029}.
+%Type = Misc
+\bibitem[{Damodaran(2025)}]{damodaranERP}
+\bibinfo{author}{Damodaran, A.}, \bibinfo{year}{2025}.
+\newblock \bibinfo{title}{Equity risk premiums: Determinants, estimation and
+  implications}.
+\newblock \bibinfo{howpublished}{NYU Stern School of Business working paper,
+  updated annually}.
+\newblock \bibinfo{note}{\url{https://pages.stern.nyu.edu/~adamodar/}}.
+%Type = Inproceedings
+\bibitem[{Dias et~al.(2010)Dias, Vermunt and Ramos}]{diasVermuntRamos2010}
+\bibinfo{author}{Dias, J.G.}, \bibinfo{author}{Vermunt, J.K.},
+  \bibinfo{author}{Ramos, S.}, \bibinfo{year}{2010}.
+\newblock \bibinfo{title}{Mixture hidden {Markov} models in finance research},
+  in: \bibinfo{booktitle}{Advances in Data Analysis, Data Handling and Business
+  Intelligence}, \bibinfo{publisher}{Springer}. pp. \bibinfo{pages}{451--459}.
+\newblock \DOIprefix\doi{10.1007/978-3-642-01044-6_41}.
+%Type = Incollection
+\bibitem[{Embrechts et~al.(2002)Embrechts, McNeil and
+  Straumann}]{embrechtsMcNeilStraumann2002}
+\bibinfo{author}{Embrechts, P.}, \bibinfo{author}{McNeil, A.J.},
+  \bibinfo{author}{Straumann, D.}, \bibinfo{year}{2002}.
+\newblock \bibinfo{title}{Correlation and dependence in risk management:
+  Properties and pitfalls}, in: \bibinfo{booktitle}{Risk Management: Value at
+  Risk and Beyond}. \bibinfo{publisher}{Cambridge University Press}, pp.
+  \bibinfo{pages}{176--223}.
+\newblock \DOIprefix\doi{10.1017/CBO9780511615337.008}.
+%Type = Article
+\bibitem[{Engle(1982)}]{engle1982}
+\bibinfo{author}{Engle, R.F.}, \bibinfo{year}{1982}.
+\newblock \bibinfo{title}{Autoregressive conditional heteroscedasticity with
+  estimates of the variance of {United Kingdom} inflation}.
+\newblock \bibinfo{journal}{Econometrica} \bibinfo{volume}{50},
+  \bibinfo{pages}{987--1007}.
+%Type = Article
+\bibitem[{Fama(1970)}]{famaEMH1970}
+\bibinfo{author}{Fama, E.F.}, \bibinfo{year}{1970}.
+\newblock \bibinfo{title}{Efficient capital markets: A review of theory and
+  empirical work}.
+\newblock \bibinfo{journal}{The Journal of Finance} \bibinfo{volume}{25},
+  \bibinfo{pages}{383--417}.
+\newblock \DOIprefix\doi{10.2307/2325486}.
+%Type = Article
+\bibitem[{Fama and French(1993)}]{famaFrench1993}
+\bibinfo{author}{Fama, E.F.}, \bibinfo{author}{French, K.R.},
+  \bibinfo{year}{1993}.
+\newblock \bibinfo{title}{Common risk factors in the returns on stocks and
+  bonds}.
+\newblock \bibinfo{journal}{Journal of Financial Economics}
+  \bibinfo{volume}{33}, \bibinfo{pages}{3--56}.
+\newblock \DOIprefix\doi{10.1016/0304-405X(93)90023-5}.
+%Type = Article
+\bibitem[{Farmer(2025)}]{farmer2025}
+\bibinfo{author}{Farmer, J.D.}, \bibinfo{year}{2025}.
+\newblock \bibinfo{title}{Quantitative agent-based models: A promising
+  alternative for macroeconomics}.
+\newblock \bibinfo{journal}{Oxford Review of Economic Policy}
+  \bibinfo{volume}{41}, \bibinfo{pages}{571--590}.
+\newblock \DOIprefix\doi{10.1093/oxrep/graf027}.
+%Type = Article
+\bibitem[{Farmer and Joshi(2002)}]{farmerJoshi2002}
+\bibinfo{author}{Farmer, J.D.}, \bibinfo{author}{Joshi, S.},
+  \bibinfo{year}{2002}.
+\newblock \bibinfo{title}{The price dynamics of common trading strategies}.
+\newblock \bibinfo{journal}{Journal of Economic Behavior \& Organization}
+  \bibinfo{volume}{49}, \bibinfo{pages}{149--171}.
+\newblock \DOIprefix\doi{10.1016/S0167-2681(02)00065-3}.
+%Type = Book
+\bibitem[{Glasserman(2003)}]{glasserman2003}
+\bibinfo{author}{Glasserman, P.}, \bibinfo{year}{2003}.
+\newblock \bibinfo{title}{Monte {Carlo} Methods in Financial Engineering}.
+\newblock \bibinfo{publisher}{Springer}.
+\newblock \DOIprefix\doi{10.1007/978-0-387-21617-1}.
+%Type = Book
+\bibitem[{Grinstead and Snell(1997)}]{grinsteadSnell1997}
+\bibinfo{author}{Grinstead, C.M.}, \bibinfo{author}{Snell, J.L.},
+  \bibinfo{year}{1997}.
+\newblock \bibinfo{title}{Introduction to Probability}.
+\newblock \bibinfo{publisher}{American Mathematical Society}.
+%Type = Article
+\bibitem[{Hamilton(1989)}]{hamilton1989}
+\bibinfo{author}{Hamilton, J.D.}, \bibinfo{year}{1989}.
+\newblock \bibinfo{title}{A new approach to the economic analysis of
+  nonstationary time series and the business cycle}.
+\newblock \bibinfo{journal}{Econometrica} \bibinfo{volume}{57},
+  \bibinfo{pages}{357--384}.
+\newblock \DOIprefix\doi{10.2307/1912559}.
+%Type = Article
+\bibitem[{Hamilton(2018)}]{hamilton2018regime}
+\bibinfo{author}{Hamilton, J.D.}, \bibinfo{year}{2018}.
+\newblock \bibinfo{title}{Regime switching models}.
+\newblock \bibinfo{journal}{The New Palgrave Dictionary of Economics} ,
+  \bibinfo{pages}{11421--11426}\DOIprefix\doi{10.1057/978-1-349-95189-5_2459}.
+%Type = Article
+\bibitem[{Heston(1993)}]{heston1993}
+\bibinfo{author}{Heston, S.L.}, \bibinfo{year}{1993}.
+\newblock \bibinfo{title}{A closed-form solution for options with stochastic
+  volatility with applications to bond and currency options}.
+\newblock \bibinfo{journal}{The Review of Financial Studies}
+  \bibinfo{volume}{6}, \bibinfo{pages}{327--343}.
+\newblock \DOIprefix\doi{10.1093/rfs/6.2.327}.
+%Type = Book
+\bibitem[{Ibbotson and {Duff and Phelps}(2024)}]{ibbotsonSBBI}
+\bibinfo{author}{Ibbotson, R.G.}, \bibinfo{author}{{Duff and Phelps}},
+  \bibinfo{year}{2024}.
+\newblock \bibinfo{title}{{SBBI Yearbook: Stocks, Bonds, Bills, and
+  Inflation}}.
+\newblock \bibinfo{edition}{Annual} ed., \bibinfo{publisher}{Duff and Phelps /
+  Kroll}.
+%Type = Article
+\bibitem[{Jordon et~al.(2022)Jordon, Szpruch, Houssiau, Bottarelli, Cherubin,
+  Maple, Cohen and Weller}]{jordonEtAl2022}
+\bibinfo{author}{Jordon, J.}, \bibinfo{author}{Szpruch, L.},
+  \bibinfo{author}{Houssiau, F.}, \bibinfo{author}{Bottarelli, M.},
+  \bibinfo{author}{Cherubin, G.}, \bibinfo{author}{Maple, C.},
+  \bibinfo{author}{Cohen, S.N.}, \bibinfo{author}{Weller, A.},
+  \bibinfo{year}{2022}.
+\newblock \bibinfo{title}{Synthetic data: What, why and how?}
+\newblock \bibinfo{journal}{arXiv preprint arXiv:2205.03257} .
+%Type = Article
+\bibitem[{Kim et~al.(1998)Kim, Shephard and Chib}]{kimShephardChib1998}
+\bibinfo{author}{Kim, S.}, \bibinfo{author}{Shephard, N.},
+  \bibinfo{author}{Chib, S.}, \bibinfo{year}{1998}.
+\newblock \bibinfo{title}{Stochastic volatility: Likelihood inference and
+  comparison with {ARCH} models}.
+\newblock \bibinfo{journal}{The Review of Economic Studies}
+  \bibinfo{volume}{65}, \bibinfo{pages}{361--393}.
+%Type = Article
+\bibitem[{Kolmogorov(1933)}]{kolmogorov1933}
+\bibinfo{author}{Kolmogorov, A.N.}, \bibinfo{year}{1933}.
+\newblock \bibinfo{title}{Sulla determinazione empirica di una legge di
+  distribuzione}.
+\newblock \bibinfo{journal}{Giornale dell'Istituto Italiano degli Attuari}
+  \bibinfo{volume}{4}, \bibinfo{pages}{83--91}.
+%Type = Book
+\bibitem[{Kotz et~al.(2001)Kotz, Kozubowski and
+  Podgórski}]{kotzKozubowskiPodgorski2001}
+\bibinfo{author}{Kotz, S.}, \bibinfo{author}{Kozubowski, T.J.},
+  \bibinfo{author}{Podgórski, K.}, \bibinfo{year}{2001}.
+\newblock \bibinfo{title}{The {Laplace} Distribution and Generalizations: A
+  Revisit with Applications to Communications, Economics, Engineering, and
+  Finance}.
+\newblock \bibinfo{publisher}{Birkhauser}.
+%Type = Article
+\bibitem[{Kou(2002)}]{kou2002}
+\bibinfo{author}{Kou, S.G.}, \bibinfo{year}{2002}.
+\newblock \bibinfo{title}{A jump-diffusion model for option pricing}.
+\newblock \bibinfo{journal}{Management Science} \bibinfo{volume}{48},
+  \bibinfo{pages}{1086--1101}.
+\newblock \DOIprefix\doi{10.1287/mnsc.48.8.1086.166}.
+%Type = Inproceedings
+\bibitem[{Kwon and Lee(2024)}]{kwonLee2024}
+\bibinfo{author}{Kwon, S.}, \bibinfo{author}{Lee, Y.}, \bibinfo{year}{2024}.
+\newblock \bibinfo{title}{Can {GANs} learn the stylized facts of financial time
+  series?}, in: \bibinfo{booktitle}{Proceedings of the 5th {ACM} International
+  Conference on AI in Finance}, pp. \bibinfo{pages}{126--133}.
+\newblock \DOIprefix\doi{10.1145/3677052.3698661}.
+%Type = Incollection
+\bibitem[{LeBaron(2006)}]{lebaron2006}
+\bibinfo{author}{LeBaron, B.}, \bibinfo{year}{2006}.
+\newblock \bibinfo{title}{Agent-based computational finance}, in:
+  \bibinfo{editor}{Tesfatsion, L.}, \bibinfo{editor}{Judd, K.L.} (Eds.),
+  \bibinfo{booktitle}{Handbook of Computational Economics}.
+  \bibinfo{publisher}{Elsevier}. volume~\bibinfo{volume}{2}, pp.
+  \bibinfo{pages}{1187--1233}.
+\newblock \DOIprefix\doi{10.1016/S1574-0021(05)02024-1}.
+%Type = Article
+\bibitem[{Lux and Marchesi(1999)}]{luxMarchesi1999}
+\bibinfo{author}{Lux, T.}, \bibinfo{author}{Marchesi, M.},
+  \bibinfo{year}{1999}.
+\newblock \bibinfo{title}{Scaling and criticality in a stochastic multi-agent
+  model of a financial market}.
+\newblock \bibinfo{journal}{Nature} \bibinfo{volume}{397},
+  \bibinfo{pages}{498--500}.
+\newblock \DOIprefix\doi{10.1038/17290}.
+%Type = Article
+\bibitem[{Mandelbrot(1963)}]{mandelbrot1963}
+\bibinfo{author}{Mandelbrot, B.}, \bibinfo{year}{1963}.
+\newblock \bibinfo{title}{The variation of certain speculative prices}.
+\newblock \bibinfo{journal}{The Journal of Business} \bibinfo{volume}{36},
+  \bibinfo{pages}{394--419}.
+%Type = Article
+\bibitem[{Markowitz(1976)}]{markowitz1976longRun}
+\bibinfo{author}{Markowitz, H.M.}, \bibinfo{year}{1976}.
+\newblock \bibinfo{title}{Investment for the long run: New evidence for an old
+  rule}.
+\newblock \bibinfo{journal}{Journal of Finance} \bibinfo{volume}{31},
+  \bibinfo{pages}{1273--1286}.
+\newblock \DOIprefix\doi{10.1111/j.1540-6261.1976.tb03213.x}.
+%Type = Article
+\bibitem[{Merton(1976)}]{merton1976}
+\bibinfo{author}{Merton, R.C.}, \bibinfo{year}{1976}.
+\newblock \bibinfo{title}{Option pricing when underlying stock returns are
+  discontinuous}.
+\newblock \bibinfo{journal}{Journal of Financial Economics}
+  \bibinfo{volume}{3}, \bibinfo{pages}{125--144}.
+\newblock \DOIprefix\doi{10.1016/0304-405X(76)90022-2}.
+%Type = Article
+\bibitem[{Nguyen(2018)}]{nguyen2018}
+\bibinfo{author}{Nguyen, N.}, \bibinfo{year}{2018}.
+\newblock \bibinfo{title}{Hidden {Markov} model for stock trading}.
+\newblock \bibinfo{journal}{International Journal of Financial Studies}
+  \bibinfo{volume}{6}, \bibinfo{pages}{36}.
+\newblock \DOIprefix\doi{10.3390/ijfs6020036}.
+%Type = Article
+\bibitem[{Osborne(1959)}]{osborne1959}
+\bibinfo{author}{Osborne, M.F.M.}, \bibinfo{year}{1959}.
+\newblock \bibinfo{title}{Brownian motion in the stock market}.
+\newblock \bibinfo{journal}{Operations Research} \bibinfo{volume}{7},
+  \bibinfo{pages}{145--173}.
+%Type = Article
+\bibitem[{Politis and Romano(1994)}]{politisRomano1994}
+\bibinfo{author}{Politis, D.N.}, \bibinfo{author}{Romano, J.P.},
+  \bibinfo{year}{1994}.
+\newblock \bibinfo{title}{The stationary bootstrap}.
+\newblock \bibinfo{journal}{Journal of the American Statistical Association}
+  \bibinfo{volume}{89}, \bibinfo{pages}{1303--1313}.
+\newblock \DOIprefix\doi{10.1080/01621459.1994.10476870}.
+%Type = Article
+\bibitem[{Rabiner and Juang(1986)}]{rabinerJuang1986}
+\bibinfo{author}{Rabiner, L.}, \bibinfo{author}{Juang, B.},
+  \bibinfo{year}{1986}.
+\newblock \bibinfo{title}{An introduction to hidden {Markov} models}.
+\newblock \bibinfo{journal}{IEEE ASSP Magazine} \bibinfo{volume}{3},
+  \bibinfo{pages}{4--16}.
+\newblock \DOIprefix\doi{10.1109/MASSP.1986.1165342}.
+%Type = Article
+\bibitem[{Ross(1976)}]{rossAPT1976}
+\bibinfo{author}{Ross, S.A.}, \bibinfo{year}{1976}.
+\newblock \bibinfo{title}{The arbitrage theory of capital asset pricing}.
+\newblock \bibinfo{journal}{Journal of Economic Theory} \bibinfo{volume}{13},
+  \bibinfo{pages}{341--360}.
+\newblock \DOIprefix\doi{10.1016/0022-0531(76)90046-6}.
+%Type = Article
+\bibitem[{Rossi and Gallo(2006)}]{rossiGallo2006}
+\bibinfo{author}{Rossi, A.}, \bibinfo{author}{Gallo, G.M.},
+  \bibinfo{year}{2006}.
+\newblock \bibinfo{title}{Volatility estimation via hidden {Markov} models}.
+\newblock \bibinfo{journal}{Journal of Empirical Finance} \bibinfo{volume}{13},
+  \bibinfo{pages}{203--230}.
+\newblock \DOIprefix\doi{10.1016/j.jempfin.2005.09.003}.
+%Type = Article
+\bibitem[{Rydén et~al.(1998)Rydén, Teräsvirta and
+  Åsbrink}]{rydenTerasvirtaAsbrink1998}
+\bibinfo{author}{Rydén, T.}, \bibinfo{author}{Teräsvirta, T.},
+  \bibinfo{author}{Åsbrink, S.}, \bibinfo{year}{1998}.
+\newblock \bibinfo{title}{Stylized facts of daily return series and the hidden
+  {Markov} model}.
+\newblock \bibinfo{journal}{Journal of Applied Econometrics}
+  \bibinfo{volume}{13}, \bibinfo{pages}{217--244}.
 \newblock
-  \doi{10.1002/(SICI)1099-1255(199805/06)13:3<217::AID-JAE476>3.0.CO;2-V}.
-
-\bibitem[Bulla and Bulla(2006)]{bullaBulla2006}
-Jan Bulla and Ingo Bulla.
-\newblock Stylized facts of financial time series and hidden semi-{Markov}
-  models.
-\newblock \emph{Computational Statistics \& Data Analysis}, 51\penalty0
-  (4):\penalty0 2192--2209, 2006.
-\newblock \doi{10.1016/j.csda.2006.07.021}.
-
-\bibitem[Lux and Marchesi(1999)]{luxMarchesi1999}
-Thomas Lux and Michele Marchesi.
-\newblock Scaling and criticality in a stochastic multi-agent model of a
-  financial market.
-\newblock \emph{Nature}, 397:\penalty0 498--500, 1999.
-\newblock \doi{10.1038/17290}.
-
-\bibitem[Cont and Bouchaud(2000)]{contBouchaud2000}
-Rama Cont and Jean-Philippe Bouchaud.
-\newblock Herd behavior and aggregate fluctuations in financial markets.
-\newblock \emph{Macroeconomic Dynamics}, 4\penalty0 (2):\penalty0 170--196,
-  2000.
-\newblock \doi{10.1017/S1365100500015029}.
-
-\bibitem[Farmer and Joshi(2002)]{farmerJoshi2002}
-J.~Doyne Farmer and Shareen Joshi.
-\newblock The price dynamics of common trading strategies.
-\newblock \emph{Journal of Economic Behavior \& Organization}, 49\penalty0
-  (2):\penalty0 149--171, 2002.
-\newblock \doi{10.1016/S0167-2681(02)00065-3}.
-
-\bibitem[LeBaron(2006)]{lebaron2006}
-Blake LeBaron.
-\newblock Agent-based computational finance.
-\newblock In Leigh Tesfatsion and Kenneth~L. Judd, editors, \emph{Handbook of
-  Computational Economics}, volume~2, pages 1187--1233. Elsevier, 2006.
-\newblock \doi{10.1016/S1574-0021(05)02024-1}.
-
-\bibitem[Arthur(2021)]{arthur2021}
-W.~Brian Arthur.
-\newblock Foundations of complexity economics.
-\newblock \emph{Nature Reviews Physics}, 3:\penalty0 136--145, 2021.
-\newblock \doi{10.1038/s42254-020-00273-3}.
-
-\bibitem[Farmer(2025)]{farmer2025}
-J.~Doyne Farmer.
-\newblock Quantitative agent-based models: A promising alternative for
-  macroeconomics.
-\newblock \emph{Oxford Review of Economic Policy}, 41\penalty0 (2):\penalty0
-  571--590, 2025.
-\newblock \doi{10.1093/oxrep/graf027}.
-
-\bibitem[Bachelier(1900)]{bachelier1900}
-Louis Bachelier.
-\newblock Th\'eorie de la sp\'eculation.
-\newblock \emph{Annales Scientifiques de l'\'Ecole Normale Sup\'erieure},
-  17:\penalty0 21--86, 1900.
-
-\bibitem[Osborne(1959)]{osborne1959}
-M.~F.~M. Osborne.
-\newblock Brownian motion in the stock market.
-\newblock \emph{Operations Research}, 7\penalty0 (2):\penalty0 145--173, 1959.
-
-\bibitem[Samuelson(1965)]{samuelson1965}
-Paul~A. Samuelson.
-\newblock Rational theory of warrant pricing.
-\newblock \emph{Industrial Management Review}, 6\penalty0 (2):\penalty0 13--32,
-  1965.
-
-\bibitem[Black and Scholes(1973)]{blackScholes1973}
-Fischer Black and Myron Scholes.
-\newblock The pricing of options and corporate liabilities.
-\newblock \emph{Journal of Political Economy}, 81\penalty0 (3):\penalty0
-  637--654, 1973.
-\newblock \doi{10.1086/260062}.
-
-\bibitem[Fama(1970)]{famaEMH1970}
-Eugene~F. Fama.
-\newblock Efficient capital markets: A review of theory and empirical work.
-\newblock \emph{The Journal of Finance}, 25\penalty0 (2):\penalty0 383--417,
-  1970.
-\newblock \doi{10.2307/2325486}.
-
-\bibitem[Schwert(1989)]{schwert1989}
-G.~William Schwert.
-\newblock Why does stock market volatility change over time?
-\newblock \emph{The Journal of Finance}, 44\penalty0 (5):\penalty0 1115--1153,
-  1989.
-\newblock \doi{10.1111/j.1540-6261.1989.tb02647.x}.
-
-\bibitem[Stein and Stein(1991)]{steinStein1991}
-Elias~M. Stein and Jeremy~C. Stein.
-\newblock Stock price distributions with stochastic volatility: An analytic
-  approach.
-\newblock \emph{The Review of Financial Studies}, 4\penalty0 (4):\penalty0
-  727--752, 1991.
-
-\bibitem[Kim et~al.(1998)Kim, Shephard, and Chib]{kimShephardChib1998}
-Sangjoon Kim, Neil Shephard, and Siddhartha Chib.
-\newblock Stochastic volatility: Likelihood inference and comparison with
-  {ARCH} models.
-\newblock \emph{The Review of Economic Studies}, 65\penalty0 (3):\penalty0
-  361--393, 1998.
-
-\bibitem[Hamilton(1989)]{hamilton1989}
-James~D. Hamilton.
-\newblock A new approach to the economic analysis of nonstationary time series
-  and the business cycle.
-\newblock \emph{Econometrica}, 57\penalty0 (2):\penalty0 357--384, 1989.
-\newblock \doi{10.2307/1912559}.
-
-\bibitem[Rossi and Gallo(2006)]{rossiGallo2006}
-Alessandro Rossi and Giampiero~M. Gallo.
-\newblock Volatility estimation via hidden {Markov} models.
-\newblock \emph{Journal of Empirical Finance}, 13\penalty0 (2):\penalty0
-  203--230, 2006.
-\newblock \doi{10.1016/j.jempfin.2005.09.003}.
-
-\bibitem[Nguyen(2018)]{nguyen2018}
-Nguyet Nguyen.
-\newblock Hidden {Markov} model for stock trading.
-\newblock \emph{International Journal of Financial Studies}, 6\penalty0
-  (2):\penalty0 36, 2018.
-\newblock \doi{10.3390/ijfs6020036}.
-
-\bibitem[Baum et~al.(1970)Baum, Petrie, Soules, and
-  Weiss]{baumPetrieSoulesWeiss1970}
-Leonard~E. Baum, Ted Petrie, George Soules, and Norman Weiss.
-\newblock A maximization technique occurring in the statistical analysis of
-  probabilistic functions of {Markov} chains.
-\newblock \emph{The Annals of Mathematical Statistics}, 41\penalty0
-  (1):\penalty0 164--171, 1970.
-\newblock \doi{10.1214/aoms/1177697196}.
-
-\bibitem[Dias et~al.(2010)Dias, Vermunt, and Ramos]{diasVermuntRamos2010}
-José~G. Dias, Jeroen~K. Vermunt, and Sofia Ramos.
-\newblock Mixture hidden {Markov} models in finance research.
-\newblock In \emph{Advances in Data Analysis, Data Handling and Business
-  Intelligence}, pages 451--459. Springer, 2010.
-\newblock \doi{10.1007/978-3-642-01044-6_41}.
-
-\bibitem[Embrechts et~al.(2002)Embrechts, McNeil, and
-  Straumann]{embrechtsMcNeilStraumann2002}
-Paul Embrechts, Alexander~J. McNeil, and Daniel Straumann.
-\newblock Correlation and dependence in risk management: Properties and
-  pitfalls.
-\newblock In \emph{Risk Management: Value at Risk and Beyond}, pages 176--223.
-  Cambridge University Press, 2002.
-\newblock \doi{10.1017/CBO9780511615337.008}.
-
-\bibitem[Cherubini et~al.(2004)Cherubini, Luciano, and
-  Vecchiato]{cherubiniLucianoVecchiato2004}
-Umberto Cherubini, Elisa Luciano, and Walter Vecchiato.
-\newblock \emph{Copula Methods in Finance}.
-\newblock John Wiley \& Sons, 2004.
-\newblock ISBN 9780470863459.
-
-\bibitem[Aas et~al.(2009)Aas, Czado, Frigessi, and
-  Bakken]{aasCzadoFrigessiBakken2009}
-Kjersti Aas, Claudia Czado, Arnoldo Frigessi, and Henrik Bakken.
-\newblock Pair-copula constructions of multiple dependence.
-\newblock \emph{Insurance: Mathematics and Economics}, 44\penalty0
-  (2):\penalty0 182--198, 2009.
-
-\bibitem[Ross(1976)]{rossAPT1976}
-Stephen~A. Ross.
-\newblock The arbitrage theory of capital asset pricing.
-\newblock \emph{Journal of Economic Theory}, 13\penalty0 (3):\penalty0
-  341--360, 1976.
-\newblock \doi{10.1016/0022-0531(76)90046-6}.
-
-\bibitem[Fama and French(1993)]{famaFrench1993}
-Eugene~F. Fama and Kenneth~R. French.
-\newblock Common risk factors in the returns on stocks and bonds.
-\newblock \emph{Journal of Financial Economics}, 33\penalty0 (1):\penalty0
-  3--56, 1993.
-\newblock \doi{10.1016/0304-405X(93)90023-5}.
-
-\bibitem[Sharpe(1963)]{sharpe1963}
-William~F. Sharpe.
-\newblock A simplified model for portfolio analysis.
-\newblock \emph{Management Science}, 9\penalty0 (2):\penalty0 277--293, 1963.
-\newblock \doi{10.1287/mnsc.9.2.277}.
-
-\bibitem[Kolmogorov(1933)]{kolmogorov1933}
-A.~N. Kolmogorov.
-\newblock Sulla determinazione empirica di una legge di distribuzione.
-\newblock \emph{Giornale dell'Istituto Italiano degli Attuari}, 4:\penalty0
-  83--91, 1933.
-
-\bibitem[Smirnov(1948)]{smirnov1948}
-N.~Smirnov.
-\newblock Table for estimating the goodness of fit of empirical distributions.
-\newblock \emph{The Annals of Mathematical Statistics}, 19\penalty0
-  (2):\penalty0 279--281, 1948.
-
-\bibitem[Anderson and Darling(1952)]{andersonDarling1952}
-Theodore~W. Anderson and Donald~A. Darling.
-\newblock Asymptotic theory of certain ``goodness of fit'' criteria based on
-  stochastic processes.
-\newblock \emph{The Annals of Mathematical Statistics}, 23\penalty0
-  (2):\penalty0 193--212, 1952.
-
-\bibitem[Booth and Fama(1992)]{boothFama1992}
-David~G. Booth and Eugene~F. Fama.
-\newblock Diversification returns and asset contributions.
-\newblock \emph{Financial Analysts Journal}, 48\penalty0 (3):\penalty0 26--32,
-  1992.
-\newblock \doi{10.2469/faj.v48.n3.26}.
-
-\bibitem[Kotz et~al.(2001)Kotz, Kozubowski, and
-  Podgórski]{kotzKozubowskiPodgorski2001}
-Samuel Kotz, Tomasz~J. Kozubowski, and Krzysztof Podgórski.
-\newblock \emph{The {Laplace} Distribution and Generalizations: A Revisit with
-  Applications to Communications, Economics, Engineering, and Finance}.
-\newblock Birkhauser, 2001.
-\newblock ISBN 9780817641665.
-
-\bibitem[Toth and Jones(2019)]{tothJones2019}
-David Toth and Bruce Jones.
-\newblock Against the norm: Modeling daily stock returns with the {Laplace}
-  distribution.
-\newblock \emph{arXiv preprint arXiv:1906.10325}, 2019.
-
-\bibitem[Bilmes(1998)]{bilmes1998}
-Jeff~A. Bilmes.
-\newblock A gentle tutorial of the {EM} algorithm and its application to
-  parameter estimation for {Gaussian} mixture and hidden {Markov} models.
-\newblock Technical Report TR-97-021, International Computer Science Institute,
-  1998.
-
-\bibitem[Glasserman(2003)]{glasserman2003}
-Paul Glasserman.
-\newblock \emph{Monte {Carlo} Methods in Financial Engineering}.
-\newblock Springer, 2003.
-\newblock \doi{10.1007/978-0-387-21617-1}.
-
-\bibitem[Hamilton(2018)]{hamilton2018regime}
-James~D. Hamilton.
-\newblock Regime switching models.
-\newblock \emph{The New Palgrave Dictionary of Economics}, pages 11421--11426,
-  2018.
-\newblock \doi{10.1057/978-1-349-95189-5_2459}.
-
-\bibitem[Grinstead and Snell(1997)]{grinsteadSnell1997}
-Charles~M. Grinstead and J.~Laurie Snell.
-\newblock \emph{Introduction to Probability}.
-\newblock American Mathematical Society, 1997.
-
-\bibitem[Politis and Romano(1994)]{politisRomano1994}
-Dimitris~N. Politis and Joseph~P. Romano.
-\newblock The stationary bootstrap.
-\newblock \emph{Journal of the American Statistical Association}, 89\penalty0
-  (428):\penalty0 1303--1313, 1994.
-\newblock \doi{10.1080/01621459.1994.10476870}.
-
-\bibitem[Cho et~al.(2014)Cho, van Merri\"enboer, Gulcehre, Bahdanau, Bougares,
-  Schwenk, and Bengio]{choEtAl2014gru}
-Kyunghyun Cho, Bart van Merri\"enboer, Caglar Gulcehre, Dzmitry Bahdanau, Fethi
-  Bougares, Holger Schwenk, and Yoshua Bengio.
-\newblock Learning phrase representations using {RNN} encoder-decoder for
-  statistical machine translation.
-\newblock In \emph{Proceedings of the 2014 Conference on Empirical Methods in
-  Natural Language Processing (EMNLP)}, pages 1724--1734. Association for
-  Computational Linguistics, 2014.
-\newblock \doi{10.3115/v1/D14-1179}.
-
-\bibitem[Bouchey et~al.(2015)Bouchey, Nemtchinov, and
-  Wong]{boucheyNemtchinovWong2015}
-Paul Bouchey, Vassilii Nemtchinov, and Ting-Kam~Leonard Wong.
-\newblock Volatility harvesting in theory and practice.
-\newblock \emph{Journal of Wealth Management}, 18\penalty0 (3):\penalty0
-  89--100, 2015.
-\newblock \doi{10.3905/jwm.2015.18.3.089}.
-
-\bibitem[Markowitz(1976)]{markowitz1976longRun}
-Harry~M. Markowitz.
-\newblock Investment for the long run: New evidence for an old rule.
-\newblock \emph{Journal of Finance}, 31\penalty0 (5):\penalty0 1273--1286,
-  1976.
-\newblock \doi{10.1111/j.1540-6261.1976.tb03213.x}.
-
-\bibitem[Damodaran(2025)]{damodaranERP}
-Aswath Damodaran.
-\newblock Equity risk premiums: Determinants, estimation and implications.
-\newblock NYU Stern School of Business working paper, updated annually, 2025.
-\newblock \url{https://pages.stern.nyu.edu/~adamodar/}.
-
-\bibitem[Ibbotson and {Duff and Phelps}(2024)]{ibbotsonSBBI}
-Roger~G. Ibbotson and {Duff and Phelps}.
-\newblock \emph{{SBBI Yearbook: Stocks, Bonds, Bills, and Inflation}}.
-\newblock Duff and Phelps / Kroll, annual edition, 2024.
+  \DOIprefix\doi{10.1002/(SICI)1099-1255(199805/06)13:3<217::AID-JAE476>3.0.CO;2-V}.
+%Type = Article
+\bibitem[{Samuelson(1965)}]{samuelson1965}
+\bibinfo{author}{Samuelson, P.A.}, \bibinfo{year}{1965}.
+\newblock \bibinfo{title}{Rational theory of warrant pricing}.
+\newblock \bibinfo{journal}{Industrial Management Review} \bibinfo{volume}{6},
+  \bibinfo{pages}{13--32}.
+%Type = Article
+\bibitem[{Schwert(1989)}]{schwert1989}
+\bibinfo{author}{Schwert, G.W.}, \bibinfo{year}{1989}.
+\newblock \bibinfo{title}{Why does stock market volatility change over time?}
+\newblock \bibinfo{journal}{The Journal of Finance} \bibinfo{volume}{44},
+  \bibinfo{pages}{1115--1153}.
+\newblock \DOIprefix\doi{10.1111/j.1540-6261.1989.tb02647.x}.
+%Type = Article
+\bibitem[{Sharpe(1963)}]{sharpe1963}
+\bibinfo{author}{Sharpe, W.F.}, \bibinfo{year}{1963}.
+\newblock \bibinfo{title}{A simplified model for portfolio analysis}.
+\newblock \bibinfo{journal}{Management Science} \bibinfo{volume}{9},
+  \bibinfo{pages}{277--293}.
+\newblock \DOIprefix\doi{10.1287/mnsc.9.2.277}.
+%Type = Article
+\bibitem[{Smirnov(1948)}]{smirnov1948}
+\bibinfo{author}{Smirnov, N.}, \bibinfo{year}{1948}.
+\newblock \bibinfo{title}{Table for estimating the goodness of fit of empirical
+  distributions}.
+\newblock \bibinfo{journal}{The Annals of Mathematical Statistics}
+  \bibinfo{volume}{19}, \bibinfo{pages}{279--281}.
+%Type = Article
+\bibitem[{Stein and Stein(1991)}]{steinStein1991}
+\bibinfo{author}{Stein, E.M.}, \bibinfo{author}{Stein, J.C.},
+  \bibinfo{year}{1991}.
+\newblock \bibinfo{title}{Stock price distributions with stochastic volatility:
+  An analytic approach}.
+\newblock \bibinfo{journal}{The Review of Financial Studies}
+  \bibinfo{volume}{4}, \bibinfo{pages}{727--752}.
+%Type = Article
+\bibitem[{Stenger et~al.(2024)Stenger, Bauer, Prantl, Leppich, Hudson, Chard,
+  Foster and Kounev}]{stengerEtAl2024}
+\bibinfo{author}{Stenger, M.}, \bibinfo{author}{Bauer, A.},
+  \bibinfo{author}{Prantl, T.}, \bibinfo{author}{Leppich, R.},
+  \bibinfo{author}{Hudson, N.}, \bibinfo{author}{Chard, K.},
+  \bibinfo{author}{Foster, I.}, \bibinfo{author}{Kounev, S.},
+  \bibinfo{year}{2024}.
+\newblock \bibinfo{title}{Thinking in categories: A survey on assessing the
+  quality for time series synthesis}.
+\newblock \bibinfo{journal}{Journal of Data and Information Quality}
+  \bibinfo{volume}{16}, \bibinfo{pages}{1--32}.
+\newblock \DOIprefix\doi{10.1145/3666006}.
+%Type = Article
+\bibitem[{Takahashi et~al.(2019)Takahashi, Chen and
+  Tanaka-Ishii}]{takahashiEtAl2019}
+\bibinfo{author}{Takahashi, S.}, \bibinfo{author}{Chen, Y.},
+  \bibinfo{author}{Tanaka-Ishii, K.}, \bibinfo{year}{2019}.
+\newblock \bibinfo{title}{Modeling financial time-series with generative
+  adversarial networks}.
+\newblock \bibinfo{journal}{Physica A: Statistical Mechanics and Its
+  Applications} \bibinfo{volume}{527}, \bibinfo{pages}{121261}.
+\newblock \DOIprefix\doi{10.1016/j.physa.2019.121261}.
+%Type = Article
+\bibitem[{Toth and Jones(2019)}]{tothJones2019}
+\bibinfo{author}{Toth, D.}, \bibinfo{author}{Jones, B.}, \bibinfo{year}{2019}.
+\newblock \bibinfo{title}{Against the norm: Modeling daily stock returns with
+  the {Laplace} distribution}.
+\newblock \bibinfo{journal}{arXiv preprint arXiv:1906.10325} .
+%Type = Inproceedings
+\bibitem[{Yoon et~al.(2019)Yoon, Jarrett and van~der
+  Schaar}]{yoonEtAl2019timegan}
+\bibinfo{author}{Yoon, J.}, \bibinfo{author}{Jarrett, D.},
+  \bibinfo{author}{van~der Schaar, M.}, \bibinfo{year}{2019}.
+\newblock \bibinfo{title}{Time-series generative adversarial networks}, in:
+  \bibinfo{booktitle}{Advances in Neural Information Processing Systems}, pp.
+  \bibinfo{pages}{5509--5519}.
 
 \end{thebibliography}

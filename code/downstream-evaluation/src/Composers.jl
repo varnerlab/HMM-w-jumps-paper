@@ -1,9 +1,24 @@
 # =============================================================================
 # Composers.jl
-# Three composers for SIM construction over a per-asset generator draw ε̃.
-# All three accept the same ε̃ vector so that the comparison across composers
-# is paired (same idiosyncratic shock, different composition rule).
+# SIM composers over a per-asset generator draw ε̃. Full-return generator
+# draws are centered before they are used as residuals; otherwise their level is
+# counted once by the calibrated SIM intercept and a second time by the draw.
+# The paired methods accept the same ε̃ vector so that comparisons use the
+# same centered shock under different composition rules.
 # =============================================================================
+
+"""
+    center_generator_draw(ε̃) → ε̃ᶜ
+
+Center a full-return generator path before using it as a SIM residual. The
+operation removes the draw's sample location while leaving its sample variance
+and its covariance with the market path unchanged. This prevents the generator
+mean from being added on top of the calibrated SIM intercept.
+"""
+function center_generator_draw(ε̃::AbstractVector{<:Real})
+    isempty(ε̃) && throw(ArgumentError("generator draw must be non-empty"))
+    return ε̃ .- mean(ε̃)
+end
 
 """
     ConstructionFlag
@@ -24,12 +39,16 @@ Per-ticker tag identifying which branch of the hybrid construction was used.
 """
     compose_naive(α, β, gm, ε̃) → g
 
-Naive composition: `g = α + β * gm + ε̃`. No variance correction; the marginal
-variance of `g` overshoots the generator variance by `β² * Var[gm]`.
+Naive composition: `g = α + β * gm + center(ε̃)`. Centering is required
+because `ε̃` is a full-return draw rather than a zero-mean residual. There is
+still no variance correction, so the marginal variance of `g` overshoots the
+generator variance by `β² * Var[gm]` when the market and draw are uncorrelated.
 """
 function compose_naive(α::Float64, β::Float64,
                        gm::AbstractVector{<:Real}, ε̃::AbstractVector{<:Real})
-    return α .+ β .* gm .+ ε̃
+    @assert length(gm) == length(ε̃) "market and generator paths must have the same length"
+    ε̃ᶜ = center_generator_draw(ε̃)
+    return α .+ β .* gm .+ ε̃ᶜ
 end
 
 """
@@ -50,7 +69,9 @@ end
     compose_hybrid(α, β, R²_real, gm, ε̃, σ²_m, σ²_gen;
                    f=0.10, R²_threshold=0.80) → (g, β_eff, flag)
 
-Hybrid SIM composition. Branch selection is driven by `R²_real`:
+Hybrid SIM composition. The full-return draw `ε̃` is first centered so it
+can serve as a zero-mean SIM residual without double counting its location.
+Branch selection is then driven by `R²_real`:
 
 * If `R²_real ≥ R²_threshold`, use the `R²`-preserving branch
   (Eq. 8 of the paper): set `σ²_ε_target = β² σ²_m (1 - R²_real)/R²_real` and
@@ -72,6 +93,9 @@ function compose_hybrid(α::Float64, β::Float64, R²_real::Float64,
     @assert 0.0 < f < 1.0           "idiosyncratic floor must lie in (0, 1)"
     @assert 0.0 < R²_threshold ≤ 1.0 "R² threshold must lie in (0, 1]"
     @assert σ²_m > 0.0              "market variance must be positive"
+    @assert length(gm) == length(ε̃) "market and generator paths must have the same length"
+
+    ε̃ᶜ = center_generator_draw(ε̃)
 
     if R²_real ≥ R²_threshold
         # R²-preserving branch
@@ -79,7 +103,7 @@ function compose_hybrid(α::Float64, β::Float64, R²_real::Float64,
                       β^2 * σ²_m * (1.0 - R²_real) / R²_real
         scale = (σ²_gen > 0.0 && σ²_ε_target > 0.0) ?
                 sqrt(σ²_ε_target / σ²_gen) : 0.0
-        ε     = scale .* ε̃
+        ε     = scale .* ε̃ᶜ
         β_eff = β
         flag  = R2_PRESERVE
     else
@@ -94,7 +118,7 @@ function compose_hybrid(α::Float64, β::Float64, R²_real::Float64,
             s²    = 1.0 - ρ
             flag  = HYBRID
         end
-        ε = sqrt(s²) .* ε̃
+        ε = sqrt(s²) .* ε̃ᶜ
     end
 
     g = α .+ β_eff .* gm .+ ε
@@ -110,9 +134,11 @@ return series. A draw `ε̃_resid` from that residual-fit generator is already
 idiosyncratic by construction, so composition proceeds without variance
 correction: `g = α + β · gm + ε̃_resid`.
 
-Functionally identical to `compose_naive`; the distinction is upstream (where
-the generator was fit). We keep it as a separate entry point so the caller's
-intent and the construction flag are unambiguous in the output scoreboard.
+Unlike `compose_naive`, this method does not path-center its draw: the fitted
+residual distribution is already zero-mean in population, and its finite-path
+sample-mean variation is part of residual sampling. We keep it as a separate
+entry point so the caller's intent and the construction flag are unambiguous
+in the output scoreboard.
 """
 function compose_residual_jumphmm(α::Float64, β::Float64,
                                    gm::AbstractVector{<:Real},

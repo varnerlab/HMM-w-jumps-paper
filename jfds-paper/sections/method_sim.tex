@@ -9,7 +9,7 @@
 The single-asset model describes each ticker separately. It does not
 say how several tickers should move together. For the multi-asset
 extension, we added one common source of movement: a market path. We used
-the single-index model (SIM) of Sharpe~\cite{sharpe1963}:
+the single-index model (SIM) of \citet{sharpe1963}:
 \begin{equation}
   g_i(t) \;=\; \alpha_i \;+\; \beta_i\, g_m(t) \;+\; \eps_i(t),
   \qquad t = 1,\dots,T,
@@ -36,8 +36,31 @@ $\tg_i$ from the single-asset generator as the residual:
 \begin{equation}\label{eq:naive-composition}
 g_i = \alpha_i + \beta_i\, g_m + \tg_i.
 \end{equation}
+This raw substitution double counts location as well as variance. The
+calibrated intercept already fixes the conditional location of asset $i$,
+whereas the full-return draw generally has
+$\E[\tg_i]\ne 0$. Equation~\eqref{eq:naive-composition} therefore has
+conditional mean $\alpha_i+\E[\tg_i]+\beta_i g_m$, not
+$\alpha_i+\beta_i g_m$.
+
+All full-return constructions in our comparison first remove the realized
+path mean. Define
+\begin{equation}
+  \overline{\tg}_i \equiv \frac{1}{T}\sum_{t=1}^{T}\tg_i(t),
+  \qquad
+  \tg_i^{\mathrm c}(t) \equiv \tg_i(t)-\overline{\tg}_i.
+  \label{eq:center-generator}
+\end{equation}
+Thus $T^{-1}\sum_t\tg_i^{\mathrm c}(t)=0$ exactly. Subtracting a
+constant leaves both the sample variance and the sample covariance with
+$g_m$ unchanged. We therefore used the centered direct construction
+$g_i=\alpha_i+\beta_i g_m+\tg_i^{\mathrm c}$ as the \emph{naive}
+variance comparator. Centering isolates the variance-composition question:
+the naive method has the correct residual location but no variance
+correction.
+
 The variance of this generator path for asset $i$ is
-$\sigma_{\gen,i}^2=\Var(\tg_i)$, which we call the \emph{generator
+$\sigma_{\gen,i}^2=\Var(\tg_i)=\Var(\tg_i^{\mathrm c})$, which we call the \emph{generator
 variance}. We called this the
 \emph{naive} construction. Its problem is double counting. The draw
 $\tg_i$ already has the total variance of asset $i$. Adding the market
@@ -46,7 +69,7 @@ independently of $g_m$,
 \begin{equation}
   \Var(g_i)
   = \beta_i^2\sigma_m^2 + \sigma_{\gen,i}^2,
-  \qquad \Cov(\tg_i,g_m)\approx 0,
+  \qquad \Cov(\tg_i^{\mathrm c},g_m)\approx 0,
   \label{eq:naive-inflation}
 \end{equation}
 where $\sigma_m^2=\Var(g_m)$ is the variance of the market path. The
@@ -60,8 +83,8 @@ $\sigma_{\gen,i}^2$, as the total variance budget for the composed
 asset. The market term uses part of that budget. We scaled the
 single-asset draw so that it uses only the part that remains. We
 defined $s_i$ as the asset-specific residual scale factor, set
-$\eps_i=s_i\tg_i$, and required
-$\Var(\beta_i g_m+s_i\tg_i)=\sigma_{\gen,i}^2$. Solving for $s_i$
+$\eps_i=s_i\tg_i^{\mathrm c}$, and required
+$\Var(\beta_i g_m+s_i\tg_i^{\mathrm c})=\sigma_{\gen,i}^2$. Solving for $s_i$
 gives
 \begin{equation}
   \boxed{\;s_i^2 \;=\; 1 \;-\; \frac{\beta_i^2\, \sigma_m^2}{\sigma_{\gen,i}^2}\;}
@@ -83,17 +106,19 @@ the asset-specific draw and reduced the effective market loading
 $\beta_i^{\eff}$. Equivalently, the maximum allowable market loading
 ratio is $\rho_i^{\max}=1-f$. The rule is
 \begin{equation}
-  \beta_i^{\eff} \;=\;
-  \begin{cases}
-    \beta_i & \text{if } \rho_i \le \rho_i^{\max} \\[4pt]
-    \sign(\beta_i)\,\sqrt{(1 - f)\,\dfrac{\sigma_{\gen,i}^2}{\sigma_m^2}} & \text{if } \rho_i > \rho_i^{\max}
-  \end{cases}
-  \qquad
-  s_i^2 \;=\;
-  \begin{cases}
-    1 - \rho_i & \text{if } \rho_i \le \rho_i^{\max} \\[4pt]
-    f          & \text{if } \rho_i > \rho_i^{\max}
-  \end{cases}
+  \begin{aligned}
+  \beta_i^{\eff} \;&=\;
+    \begin{cases}
+      \beta_i & \text{if } \rho_i \le \rho_i^{\max}, \\[4pt]
+      \sign(\beta_i)\,\sqrt{(1 - f)\,\dfrac{\sigma_{\gen,i}^2}{\sigma_m^2}}
+        & \text{if } \rho_i > \rho_i^{\max},
+    \end{cases} \\[6pt]
+  s_i^2 \;&=\;
+    \begin{cases}
+      1 - \rho_i & \text{if } \rho_i \le \rho_i^{\max}, \\[4pt]
+      f          & \text{if } \rho_i > \rho_i^{\max}.
+    \end{cases}
+  \end{aligned}
   \label{eq:clip}
 \end{equation}
 The sign of the calibrated market loading $\beta_i$ is retained. We
@@ -123,7 +148,7 @@ calibrated $R^2$ is
 \end{equation}
 We rescaled the generator draw to this target:
 \begin{equation}
-  \eps_i \;=\; \left(\sqrt{\frac{\sigma_{\eps,\mathrm{target}}^2}{\sigma_{\gen,i}^2}}\,\right)\tg_i,
+  \eps_i \;=\; \left(\sqrt{\frac{\sigma_{\eps,\mathrm{target}}^2}{\sigma_{\gen,i}^2}}\,\right)\tg_i^{\mathrm c},
   \label{eq:r2-rescale}
 \end{equation}
 When $R^2_{i,\real}=1$, the target residual variance is zero, as it
@@ -141,8 +166,12 @@ term would leave too little asset-specific variance. It then adds the
 scaled asset draw to the market term. An optional rank reorder can add
 dependence among the residual draws without changing their individual
 variances.
-For long paths, OLS on the composed series recovers the intercept
-$\alpha_i$ and effective market loading $\beta_i^{\eff}$. The
+For every composed path, centering gives
+$\overline{g}_i=\alpha_i+\beta_i^{\eff}\overline{g}_m$. The fitted
+OLS intercept satisfies
+$\hat\alpha_i=\alpha_i-(\hat\beta_i-\beta_i^{\eff})\overline{g}_m$.
+Consequently, under the zero-cross-covariance assumption, OLS recovers
+$\beta_i^{\eff}$ and $\alpha_i$ as the path length grows. The
 composed variance matches the target selected by
 the branch. These are variance and factor-loading guarantees; they do
 not guarantee that the complete marginal distribution is unchanged.
@@ -164,10 +193,12 @@ market-driven volatility clustering.
   \ENSURE Composed paths $g_i \in \R^T$ and per-asset construction flags.
   \FOR{each asset $i = 1,\dots,N$}
     \STATE Compute generator variance $\sigma_{\gen,i}^2 \gets \Var(\tg_i)$.
+    \STATE Center the full-return draw:
+      $\tg_i^{\mathrm c} \gets \tg_i - T^{-1}\sum_{t=1}^{T}\tg_i(t)$.
     \IF{$R^2_{i,\real} \ge R^2_{\mathrm{preserve}}$}
       \STATE $\sigma_{\eps,\mathrm{target}}^2 \gets \beta_i^2 \sigma_m^2 (1 - R^2_{i,\real})/R^2_{i,\real}$
         \hfill \COMMENT{Eq.~\eqref{eq:r2-target}}
-      \STATE $\eps_i \gets \left(\sqrt{\sigma_{\eps,\mathrm{target}}^2 / \sigma_{\gen,i}^2}\,\right)\tg_i$
+      \STATE $\eps_i \gets \left(\sqrt{\sigma_{\eps,\mathrm{target}}^2 / \sigma_{\gen,i}^2}\,\right)\tg_i^{\mathrm c}$
       \STATE $\beta_i^{\eff} \gets \beta_i$;\quad branch $\gets$ $R^2$-preserving
     \ELSE
       \STATE $\rho_i \gets \beta_i^2 \sigma_m^2 / \sigma_{\gen,i}^2$
@@ -179,7 +210,7 @@ market-driven volatility clustering.
           $\beta_i^{\eff} \gets \sign(\beta_i)\sqrt{(1-f)\,\sigma_{\gen,i}^2/\sigma_m^2}$;\quad
           branch $\gets$ clipped variance-preserving
       \ENDIF
-      \STATE $\eps_i \gets s_i\,\tg_i$
+      \STATE $\eps_i \gets s_i\,\tg_i^{\mathrm c}$
     \ENDIF
     \STATE \textit{(Optional)} apply cross-sectional rank reorder to $\eps_i$.
     \STATE $g_i \gets \alpha_i + \beta_i^{\eff}\, g_m + \eps_i$
@@ -200,6 +231,7 @@ market-driven volatility clustering.
     cross-asset validation are given in Table~\ref{tab:cross_asset}.}
 \label{tab:hyperparams}
 \small
+\resizebox{\textwidth}{!}{%
 \begin{tabular}{@{}llll@{}}
 \toprule
 \textbf{Symbol} & \textbf{Description} & \textbf{SPY value} & \textbf{Explored range} \\ \midrule
@@ -214,10 +246,11 @@ $N_{\rm tail}$ & quantile states per tail set                 & $5$       & fixe
 $w_\kappa$     & kurtosis-penalty weight, Eq.~\eqref{eq:grid_search} & $0.20$ & fixed \\
 $L$            & ACF lag window, Eq.~\eqref{eq:grid_search}   & $25$ days & fixed \\[4pt]
 \multicolumn{4}{l}{\textit{SIM composition}} \\[2pt]
-$f$                        & idiosyncratic variance floor & $0.10$ & $\{0.05,\dots,0.30\}$, Fig.~\ref{fig:sensitivity} \\
-$R^2_{\mathrm{preserve}}$  & branch-selection threshold   & $0.80$ & $\{0.70,\dots,0.90\}$, Fig.~\ref{fig:sensitivity} \\
+$f$                        & idiosyncratic variance floor & $0.10$ & $\{0.05,\dots,0.30\}$ \\
+$R^2_{\mathrm{preserve}}$  & branch-selection threshold   & $0.80$ & $\{0.70,\dots,0.90\}$ \\
 \bottomrule
-\end{tabular}
+\end{tabular}%
+}
 \end{table}
 \FloatBarrier
 

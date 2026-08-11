@@ -1,3 +1,8 @@
 # Large reproducible per-path holdout caches. Commit the compact summaries.
 results-oos.jld2
 results-oos.csv
+results-centered*.jld2
+results-centered*.csv
+results-oos-centered*.jld2
+results-oos-centered*.csv
+synth-tracker.jld2

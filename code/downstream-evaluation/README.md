@@ -31,8 +31,13 @@ downstream-evaluation/
 The hybrid composer is implemented in
 [`JumpHMM.jl`](https://github.com/varnerlab/JumpHMM.jl) as
 `HybridSingleIndexModel`. This pipeline uses `JumpHMM.jl` for per-ticker
-marginal fits and re-implements the six composers locally so they share the
-same per-ticker generator draw `ε̃` (paired comparison).
+marginal fits and implements the six paper comparison methods locally so they
+share the same per-ticker generator draw `ε̃` (paired comparison). Before a
+full-return draw enters the naive or hybrid composition, its realized path
+mean is removed; this prevents the draw's location from being counted again
+on top of the calibrated SIM intercept. The pinned `JumpHMM.jl` release
+provides the marginal generator, while `src/Composers.jl` is the authoritative
+implementation of the paper's centered multi-asset construction.
 
 The 424-ticker universe is loaded via
 [`VLQuantitativeFinancePackage.jl`](https://github.com/varnerlab/VLQuantitativeFinancePackage.jl)

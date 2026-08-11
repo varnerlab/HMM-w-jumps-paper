@@ -1,0 +1,190 @@
+\documentclass{article}
+\PassOptionsToPackage{numbers, compress}{natbib}
+\usepackage[preprint]{neurips_2026}
+
+% --- standard packages ---
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage[colorlinks=true,linkcolor=blue!70!black,citecolor=blue!70!black,urlcolor=blue!70!black]{hyperref}
+\usepackage{url}
+\usepackage{booktabs}
+\usepackage{amsfonts}
+\usepackage{nicefrac}
+\usepackage{microtype}
+\usepackage{xcolor}
+\usepackage{graphicx}
+\usepackage{subcaption}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{amsthm}
+\usepackage{algorithm}
+\usepackage{algorithmic}
+\usepackage{bm}
+\usepackage{multirow}
+\usepackage{lineno}
+\usepackage{tikz}
+\usetikzlibrary{arrows.meta, decorations.pathreplacing, positioning}
+
+% --- figure/table placement ---
+% Allow up to 2 floats at top/bottom; let large floats consume up to 85%
+% of the textheight so a wide table or panel figure can sit on the same
+% page as the surrounding prose rather than being deferred to a float page.
+\setcounter{topnumber}{2}
+\setcounter{bottomnumber}{1}
+\setcounter{totalnumber}{3}
+\renewcommand{\topfraction}{0.85}
+\renewcommand{\bottomfraction}{0.5}
+\renewcommand{\textfraction}{0.10}
+\renewcommand{\floatpagefraction}{0.75}
+\usepackage[section]{placeins} % keep arXiv floats within their source section
+\usepackage{flafter} % never place a float before its source location
+
+% --- theorem environments ---
+\newtheorem{theorem}{Theorem}
+\newtheorem{lemma}[theorem]{Lemma}
+\newtheorem{proposition}[theorem]{Proposition}
+\newtheorem{corollary}[theorem]{Corollary}
+\theoremstyle{definition}
+\newtheorem{definition}[theorem]{Definition}
+\theoremstyle{remark}
+\newtheorem{remark}[theorem]{Remark}
+
+% --- custom commands ---
+\newcommand{\R}{\mathbb{R}}
+\newcommand{\E}{\mathbb{E}}
+\newcommand{\Var}{\operatorname{Var}}
+\newcommand{\Cov}{\operatorname{Cov}}
+\newcommand{\sign}{\operatorname{sign}}
+\newcommand{\eps}{\varepsilon}
+\newcommand{\tg}{\tilde{g}}
+\newcommand{\gen}{\mathrm{gen}}
+\newcommand{\real}{\mathrm{real}}
+\newcommand{\eff}{\mathrm{eff}}
+
+\title{Variance-Corrected Multi-Asset Equity Simulation with Hybrid Hidden Markov Marginals}
+
+\author{%
+  Abdulrahman Alswaidan \\
+  Robert Frederick Smith School of Chemical and Biomolecular Engineering \\
+  Cornell University, Ithaca, NY 14850 \\
+  \texttt{aa2725@cornell.edu} \\
+  \And
+  Jeffrey D.~Varner\thanks{Corresponding author.} \\
+  Robert Frederick Smith School of Chemical and Biomolecular Engineering \\
+  Cornell University, Ithaca, NY 14850 \\
+  \texttt{jdv27@cornell.edu} \\
+}
+
+\begin{document}
+\raggedbottom
+
+\maketitle
+
+\begin{abstract}
+\input{sections/abstract}
+\end{abstract}
+
+\vspace{0.5em}
+\noindent\textbf{Keywords:} hidden Markov model; jump-duration mechanism; single-index model; synthetic financial data; variance correction; Value-at-Risk coverage check; volatility clustering; heavy-tailed marginals.
+
+\section{Introduction}\label{sec:introduction}
+\input{sections/introduction}
+
+\section{Related Work}\label{sec:related-work}
+\input{sections/related}
+
+\section{Methods}\label{sec:method}
+
+We fitted a marginal generator for each asset and then combined the
+generated paths with a variance-corrected single-index model. 
+The dataset contained $424$ United States-listed equities and
+exchange-traded funds observed from $2014$ through $2024$. The
+single-asset analysis focused on the SPDR S\&P 500 ETF (SPY). We used
+$2{,}766$ observations from January 3, $2014$, through December 31,
+$2024$, for fitting and the next $249$ trading days of $2025$ for
+out-of-sample testing. Of the $423$ non-market assets in the training
+universe, $416$ had complete $2025$ histories and entered the
+multi-asset holdout evaluation. The data included daily open, high, low, and
+close prices and volume-weighted average prices. We computed the
+excess growth rate $G_{i,j}$ for ticker $i$ between
+trading days $j-1$ and $j$ from the equity price series
+$P_{i,j}$ as
+\begin{equation}
+    G_{i,j} \;\equiv\; \left(\frac{1}{\Delta t}\right)\,
+    \ln\!\left( \frac{P_{i,j}}{P_{i,j-1}} \right) \;-\; r_f,
+    \label{eq:growth_rate}
+\end{equation}
+where $\Delta t = 1/252$ is the fraction of a trading year spanned by
+one trading day, and $r_f$ is a constant continuously compounded
+risk-free rate derived from Treasury STRIPS (Separate Trading of
+Registered Interest and Principal of Securities) bond yields. The excess growth rate
+has units of $\mathrm{year}^{-1}$ and is time-additive under
+continuous compounding.
+
+\subsection{Per-asset hidden Markov marginal generator}\label{sec:method-hmm}
+\input{sections/method_hmm}
+
+\subsection{Variance-corrected multi-asset composition}\label{sec:method-sim}
+\input{sections/method_sim}
+
+\section{Results}\label{sec:results}
+\input{sections/results}
+
+\section{Discussion}\label{sec:discussion}
+\input{sections/discussion}
+
+\section{Conclusion}\label{sec:conclusion}
+\input{sections/conclusion}
+
+\section*{Acknowledgments}
+The authors thank the eCornell AI in Finance program participants for
+discussions that motivated the downstream-use bias-correction analysis,
+and Polygon.io for access to the 2014 to 2024 US equity and ETF daily
+price histories used in the experiments. Computations were run on a
+single laptop; no shared-resource allocation was required.
+
+\paragraph{Author contributions.}
+A.A.\ designed the hybrid hidden Markov marginal generator, performed the
+single-asset experiments and validation framework, and contributed to the
+manuscript. J.D.V.\ designed the variance-corrected single-index
+composition, performed the multi-asset experiments and downstream
+Value-at-Risk validation, developed the bias-correction methodology,
+released the code, and contributed to the manuscript.
+
+\paragraph{Competing interests.}
+The authors declare no competing interests.
+
+\paragraph{Code and data availability.}
+The experiment scripts, evaluation harness (six-composer benchmark,
+Value-at-Risk coverage check, bias-correction utility), and the fitted
+per-asset marginals are released in the paper repository
+(\url{https://github.com/varnerlab/HMM-w-jumps-paper}); the
+underlying model-fitting library is released separately as
+\texttt{JumpHMM.jl}
+(\url{https://github.com/varnerlab/JumpHMM.jl}), pinned as a
+dependency of the experiment code.
+
+\clearpage
+\appendix
+\section*{Online Appendix}
+\renewcommand{\thesection}{S\arabic{section}}
+\renewcommand{\thesubsection}{S\arabic{section}.\arabic{subsection}}
+\renewcommand{\thefigure}{S\arabic{figure}}
+\renewcommand{\thetable}{S\arabic{table}}
+\renewcommand{\theequation}{S\arabic{equation}}
+\renewcommand{\theHsection}{supp.\arabic{section}}
+\renewcommand{\theHsubsection}{supp.\arabic{section}.\arabic{subsection}}
+\renewcommand{\theHfigure}{supp.\arabic{figure}}
+\renewcommand{\theHtable}{supp.\arabic{table}}
+\renewcommand{\theHequation}{supp.\arabic{equation}}
+\setcounter{section}{0}
+\setcounter{figure}{0}
+\setcounter{table}{0}
+\setcounter{equation}{0}
+
+\input{sections/appendix}
+
+\bibliographystyle{unsrtnat}
+\bibliography{References_v1}
+
+\end{document}

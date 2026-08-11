@@ -11,10 +11,10 @@ We have:
 
 - A market growth-rate path $g_m(t)$, $t = 1,\dots,T$, with sample variance
   $\sigma_m^2 = \mathrm{Var}[g_m]$.
-- For each asset $i$, a draw $\tilde{\varepsilon}_i(t)$ from a generator that
+- For each asset $i$, a full-return draw $\tilde{g}_i(t)$ from a generator that
   produces growth rates with the *correct* marginal distribution (heavy tails,
   regime switching, jumps, whatever the application requires). Call its variance
-  $\sigma_{\text{gen},i}^2 = \mathrm{Var}[\tilde{\varepsilon}_i]$.
+  $\sigma_{\text{gen},i}^2 = \mathrm{Var}[\tilde{g}_i]$.
 - Target SIM parameters $(\alpha_i, \beta_i)$ for each asset, calibrated from
   some external source (real data, an analyst view, a benchmark).
 
@@ -29,27 +29,32 @@ such that:
 1. **SIM is recoverable.** Regressing $g_i$ on $g_m$ via OLS recovers
    $\hat{\beta}_i \approx \beta_i$ and $\hat{\alpha}_i \approx \alpha_i$.
 2. **Marginals are preserved.** $\mathrm{Var}[g_i] \approx \sigma_{\text{gen},i}^2$,
-   and the heavy-tail / regime structure encoded in $\tilde{\varepsilon}_i$ is
+   and the heavy-tail / regime structure encoded in $\tilde{g}_i$ is
    substantially intact.
 3. **Cross-sectional dependence is preserved.** If the original generators came
-   with a joint dependence structure (e.g. a copula on the $\tilde{\varepsilon}_i$),
+   with a joint dependence structure (e.g. a copula on the $\tilde{g}_i$),
    that structure carries through.
 
-The naïve composition $g_i = \alpha_i + \beta_i g_m + \tilde{\varepsilon}_i$
-satisfies (1) and (3) but inflates the variance of $g_i$ by exactly
-$\beta_i^2 \sigma_m^2$, breaking (2). For high-$\beta$ assets this is large and
-visibly distorts the marginal.
+The raw composition $g_i = \alpha_i + \beta_i g_m + \tilde{g}_i$ double counts
+the draw's location because the SIM intercept already sets conditional
+location. Define the centered path
+$\tilde{g}_i^{\mathrm c}=\tilde{g}_i-T^{-1}\sum_t\tilde{g}_i(t)$.
+The naïve variance comparator uses
+$g_i = \alpha_i + \beta_i g_m + \tilde{g}_i^{\mathrm c}$. It has the correct
+residual location and satisfies (1) and (3), but it inflates the variance of
+$g_i$ by exactly $\beta_i^2 \sigma_m^2$, breaking (2). For high-$\beta$ assets
+this is large and visibly distorts the marginal.
 
 ## The variance correction
 
-Replace $\tilde{\varepsilon}_i$ with a *scaled* version $\varepsilon_i = s_i\,\tilde{\varepsilon}_i$
+Use a *scaled centered draw* $\varepsilon_i = s_i\,\tilde{g}_i^{\mathrm c}$
 where the scalar $s_i \in (0, 1]$ is chosen so that
 
 $$
 \mathrm{Var}[\beta_i\, g_m + \varepsilon_i] \;=\; \sigma_{\text{gen},i}^2.
 $$
 
-Assuming $\tilde{\varepsilon}_i$ is uncorrelated with $g_m$ (true by construction
+Assuming $\tilde{g}_i^{\mathrm c}$ is uncorrelated with $g_m$ (true by construction
 when the generators are independent draws, and true after a copula rank-reorder
 when the copula is sampled independently of $g_m$), the cross term vanishes and
 
@@ -113,12 +118,13 @@ $\beta$ so users can spot the assets whose loadings were attenuated.
 
 For each asset $i$:
 
-1. Draw $\tilde{\varepsilon}_i(t)$, $t=1,\dots,T$, from its generator. Compute
-   $\sigma_{\text{gen},i}^2 = \mathrm{Var}[\tilde{\varepsilon}_i]$.
+1. Draw $\tilde{g}_i(t)$, $t=1,\dots,T$, from its generator. Compute
+   $\sigma_{\text{gen},i}^2 = \mathrm{Var}[\tilde{g}_i]$ and center the draw as
+   $\tilde{g}_i^{\mathrm c}=\tilde{g}_i-T^{-1}\sum_t\tilde{g}_i(t)$.
 2. Look up the calibrated $(\alpha_i, \beta_i)$.
 3. Compute $\rho_i$ and apply the clipping rule above to get
    $\beta_i^{\text{eff}}$ and $s_i^2$.
-4. Scale: $\varepsilon_i = \sqrt{s_i^2}\,\tilde{\varepsilon}_i$.
+4. Scale: $\varepsilon_i = \sqrt{s_i^2}\,\tilde{g}_i^{\mathrm c}$.
 5. (Optional) Apply any cross-sectional rearrangement / copula reorder to the
    scaled $\varepsilon_i$. Reordering preserves the marginal variance, so it
    does not affect the variance correction.
@@ -149,10 +155,10 @@ The resulting $g_i$ has:
   Persisting both values in the output table avoids surprises.
 - **The independence assumption matters.** The variance algebra above
   ($\mathrm{Var}[\beta g_m + \varepsilon] = \beta^2 \sigma_m^2 + s^2 \sigma_{\text{gen}}^2$)
-  requires $\mathrm{Cov}[\tilde{\varepsilon}_i, g_m] \approx 0$. This holds when
+  requires $\mathrm{Cov}[\tilde{g}_i^{\mathrm c}, g_m] \approx 0$. This holds when
   the generator and the market path are independent draws. If you're injecting
   SIM into generators that *already* have some market correlation, subtract the
-  empirical $\mathrm{Cov}[\tilde{\varepsilon}_i, g_m]/\sigma_m^2$ from $\beta_i$
+  empirical $\mathrm{Cov}[\tilde{g}_i^{\mathrm c}, g_m]/\sigma_m^2$ from $\beta_i$
   before applying the correction, or estimate $s_i^2$ directly from the
   empirical variance after composition.
 - **Time-series dependence on the market is not free.** This recipe injects
@@ -197,10 +203,10 @@ $$
 \boxed{\;\sigma_{\varepsilon,\text{target}}^2 \;=\; \beta_i^2\, \sigma_m^2 \cdot \frac{1 - R^2_{i,\text{real}}}{R^2_{i,\text{real}}}\;}
 $$
 
-Then draw $\tilde{\varepsilon}_i$ from the ticker's generator and rescale:
+Then center a draw $\tilde{g}_i$ from the ticker's generator and rescale:
 
 $$
-\varepsilon_i \;=\; \sqrt{\frac{\sigma_{\varepsilon,\text{target}}^2}{\sigma_{\text{gen},i}^2}} \cdot \tilde{\varepsilon}_i.
+\varepsilon_i \;=\; \sqrt{\frac{\sigma_{\varepsilon,\text{target}}^2}{\sigma_{\text{gen},i}^2}} \cdot \tilde{g}_i^{\mathrm c}.
 $$
 
 (If $\sigma_{\text{gen},i}^2$ or $\sigma_{\varepsilon,\text{target}}^2$ is zero,

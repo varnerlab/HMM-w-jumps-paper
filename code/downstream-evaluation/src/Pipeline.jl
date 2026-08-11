@@ -72,13 +72,13 @@ function load_test_universe(min_obs::Int)
 end
 
 """
-    resolve_data_artifact(filename) → path
+    find_data_artifact(filename) → Union{String,Nothing}
 
-Resolve a cached pipeline artifact. In this checkout the large fitted-model
+Find a cached pipeline artifact. In this checkout the large fitted-model
 artifacts may live beside the target of the tracked `universe.jld2` symlink;
 that directory is searched after the local data directory.
 """
-function resolve_data_artifact(filename::AbstractString)
+function find_data_artifact(filename::AbstractString)
     local_path = joinpath(_PATH_TO_DATA, filename)
     isfile(local_path) && return local_path
 
@@ -88,6 +88,17 @@ function resolve_data_artifact(filename::AbstractString)
         isfile(sibling) && return sibling
     end
 
+    return nothing
+end
+
+"""
+    resolve_data_artifact(filename) → path
+
+Resolve a cached pipeline artifact or fail with a descriptive error.
+"""
+function resolve_data_artifact(filename::AbstractString)
+    path = find_data_artifact(filename)
+    path !== nothing && return path
     error("required pipeline artifact not found: $filename")
 end
 
@@ -216,9 +227,9 @@ function run_composer_experiment(cfg::Dict;
     block_length  = Float64(get(get(cfg, "bootstrap", Dict()),
                                 "mean_block_length", 50))
 
-    ud = load(joinpath(_PATH_TO_DATA, "universe.jld2"))
-    md = load(joinpath(_PATH_TO_DATA, "marginals.jld2"))
-    cd = load(joinpath(_PATH_TO_DATA, "sim-calibration.jld2"))
+    ud = load(resolve_data_artifact("universe.jld2"))
+    md = load(resolve_data_artifact("marginals.jld2"))
+    cd = load(resolve_data_artifact("sim-calibration.jld2"))
 
     tickers   = ud["tickers"]
     G         = ud["growth_rates"]
@@ -231,12 +242,12 @@ function run_composer_experiment(cfg::Dict;
     σ²_m       = var(G_m)
     T_eff      = length(G_m)
 
-    residual_cache = joinpath(_PATH_TO_DATA, "marginals-residuals.jld2")
-    marginals_resid = ("residual_jumphmm" in include_composers && isfile(residual_cache)) ?
+    residual_cache = find_data_artifact("marginals-residuals.jld2")
+    marginals_resid = ("residual_jumphmm" in include_composers && residual_cache !== nothing) ?
         load(residual_cache)["marginals"] : nothing
 
-    garch_cache = joinpath(_PATH_TO_DATA, "garch-t-models.jld2")
-    garch_models = ("garch_t" in include_composers && isfile(garch_cache)) ?
+    garch_cache = find_data_artifact("garch-t-models.jld2")
+    garch_models = ("garch_t" in include_composers && garch_cache !== nothing) ?
         load(garch_cache)["models"] : nothing
 
     @info "run_composer_experiment" seed=seed f=f R²_threshold=R²_threshold gm_factor=gm_factor composers=collect(include_composers) suffix=output_suffix
@@ -257,6 +268,10 @@ function run_composer_experiment(cfg::Dict;
         α, β   = row.alpha, row.beta
         R²     = row.r2_real
         σ_εr   = row.sigma_eps_real
+
+        if i == 1 || i % 25 == 0
+            @info "Composer ticker $i / $(nrow(calib)): $ticker"
+        end
 
         asset_idx = findfirst(==(ticker), tickers)
         G_real    = G[:, asset_idx]  # real per-asset growth rates stay the same
@@ -324,9 +339,9 @@ function run_composer_experiment(cfg::Dict;
 end
 
 """
-    run_oos_composer_experiment(cfg; persist=true) → DataFrame
+    run_oos_composer_experiment(cfg; persist=true, include_composers=..., output_suffix="") → DataFrame
 
-Evaluate all available composition methods on the frozen 2014--2024 fits
+Evaluate selected composition methods on the frozen 2014--2024 fits
 against the 249-growth-rate 2025 holdout. The market and asset paths are
 generated from the training-period models; observed 2025 SPY is used only to
 estimate the realized holdout factor loading used for scoring.
@@ -336,7 +351,11 @@ random contiguous training block of the same length. These matched-length
 metrics separate genuine distribution shift from the lower power of KS/AD
 tests on a 249-observation sample.
 """
-function run_oos_composer_experiment(cfg::Dict; persist::Bool = true)
+function run_oos_composer_experiment(cfg::Dict;
+        persist::Bool = true,
+        include_composers::Set = Set(["naive", "gaussian", "hybrid",
+                                      "residual_jumphmm", "block_bootstrap", "garch_t"]),
+        output_suffix::AbstractString = "")
     market_ticker = cfg["universe"]["market_ticker"]
     n_paths       = Int(cfg["simulation"]["n_paths"])
     seed          = Int(cfg["simulation"]["seed"])
@@ -371,10 +390,12 @@ function run_oos_composer_experiment(cfg::Dict; persist::Bool = true)
     G_m_train = G_train[:, market_train_idx]
     σ²_m_train = var(G_m_train)
 
-    residual_path = resolve_data_artifact("marginals-residuals.jld2")
-    garch_path    = resolve_data_artifact("garch-t-models.jld2")
-    marginals_resid = load(residual_path)["marginals"]
-    garch_models    = load(garch_path)["models"]
+    residual_path = find_data_artifact("marginals-residuals.jld2")
+    garch_path    = find_data_artifact("garch-t-models.jld2")
+    marginals_resid = ("residual_jumphmm" in include_composers && residual_path !== nothing) ?
+        load(residual_path)["marginals"] : nothing
+    garch_models = ("garch_t" in include_composers && garch_path !== nothing) ?
+        load(garch_path)["models"] : nothing
 
     market_sim = simulate(marginals[market_ticker], T_oos;
                           n_paths = n_paths, seed = seed + 9_000_000)
@@ -385,7 +406,7 @@ function run_oos_composer_experiment(cfg::Dict; persist::Bool = true)
     block_rng = MersenneTwister(seed + 8_000_000)
     matched_starts = rand(block_rng, 1:max_start, n_paths)
 
-    @info "OoS composer evaluation" n_tickers=nrow(keep_calib) T_oos=T_oos n_paths=n_paths
+    @info "OoS composer evaluation" n_tickers=nrow(keep_calib) T_oos=T_oos n_paths=n_paths composers=collect(include_composers) suffix=output_suffix
     rows = NamedTuple[]
 
     function record_oos!(ticker, composer, rep, β_eff, flag, g, G_real,
@@ -417,7 +438,7 @@ function run_oos_composer_experiment(cfg::Dict; persist::Bool = true)
 
         sim_full = simulate(marginals[ticker], T_oos;
                             n_paths = n_paths, seed = seed + i)
-        sim_resid = haskey(marginals_resid, ticker) ?
+        sim_resid = (marginals_resid !== nothing && haskey(marginals_resid, ticker)) ?
             simulate(marginals_resid[ticker], T_oos;
                      n_paths = n_paths, seed = seed + i + 1_000_000) : nothing
 
@@ -432,22 +453,28 @@ function run_oos_composer_experiment(cfg::Dict; persist::Bool = true)
             ε̃ = Float64.(sim_full.paths[rep].observations)
             σ²_g = var(ε̃)
 
-            g = compose_naive(α, β, G_m_sim, ε̃)
-            record_oos!(ticker, "naive", rep, β, string(NAIVE), g,
-                         G_real, G_train_block, G_m_sim, β_oos, R²_oos)
+            if "naive" in include_composers
+                g = compose_naive(α, β, G_m_sim, ε̃)
+                record_oos!(ticker, "naive", rep, β, string(NAIVE), g,
+                             G_real, G_train_block, G_m_sim, β_oos, R²_oos)
+            end
 
-            rng_g = MersenneTwister(seed + i * 2_000_000 + rep * 2_000 + 1)
-            g = compose_gaussian_sim(α, β, σ_εr, G_m_sim, rng_g)
-            record_oos!(ticker, "gaussian", rep, β, string(GAUSSIAN_SIM), g,
-                         G_real, G_train_block, G_m_sim, β_oos, R²_oos)
+            if "gaussian" in include_composers
+                rng_g = MersenneTwister(seed + i * 2_000_000 + rep * 2_000 + 1)
+                g = compose_gaussian_sim(α, β, σ_εr, G_m_sim, rng_g)
+                record_oos!(ticker, "gaussian", rep, β, string(GAUSSIAN_SIM), g,
+                             G_real, G_train_block, G_m_sim, β_oos, R²_oos)
+            end
 
-            g, β_eff, flag = compose_hybrid(α, β, R², G_m_sim, ε̃,
-                                             σ²_m_train, σ²_g;
-                                             f = f, R²_threshold = R²_threshold)
-            record_oos!(ticker, "hybrid", rep, β_eff, string(flag), g,
-                         G_real, G_train_block, G_m_sim, β_oos, R²_oos)
+            if "hybrid" in include_composers
+                g, β_eff, flag = compose_hybrid(α, β, R², G_m_sim, ε̃,
+                                                 σ²_m_train, σ²_g;
+                                                 f = f, R²_threshold = R²_threshold)
+                record_oos!(ticker, "hybrid", rep, β_eff, string(flag), g,
+                             G_real, G_train_block, G_m_sim, β_oos, R²_oos)
+            end
 
-            if sim_resid !== nothing
+            if "residual_jumphmm" in include_composers && sim_resid !== nothing
                 ε̃_r = Float64.(sim_resid.paths[rep].observations)
                 g = compose_residual_jumphmm(α, β, G_m_sim, ε̃_r)
                 record_oos!(ticker, "residual_jumphmm", rep, β,
@@ -455,14 +482,16 @@ function run_oos_composer_experiment(cfg::Dict; persist::Bool = true)
                              G_train_block, G_m_sim, β_oos, R²_oos)
             end
 
-            rng_b = MersenneTwister(seed + i * 3_000_000 + rep * 3_000 + 1)
-            g = compose_block_bootstrap(α, β, G_m_sim, real_residuals,
-                                        block_length, rng_b)
-            record_oos!(ticker, "block_bootstrap", rep, β,
-                         string(BLOCK_BOOTSTRAP), g, G_real,
-                         G_train_block, G_m_sim, β_oos, R²_oos)
+            if "block_bootstrap" in include_composers
+                rng_b = MersenneTwister(seed + i * 3_000_000 + rep * 3_000 + 1)
+                g = compose_block_bootstrap(α, β, G_m_sim, real_residuals,
+                                            block_length, rng_b)
+                record_oos!(ticker, "block_bootstrap", rep, β,
+                             string(BLOCK_BOOTSTRAP), g, G_real,
+                             G_train_block, G_m_sim, β_oos, R²_oos)
+            end
 
-            if haskey(garch_models, ticker)
+            if "garch_t" in include_composers && garch_models !== nothing && haskey(garch_models, ticker)
                 Random.seed!(seed + i * 4_000_000 + rep * 4_000 + 1)
                 ε̃_g = Float64.(ARCHModels.simulate(garch_models[ticker], T_oos).data)
                 g = compose_garch_t(α, β, G_m_sim, ε̃_g)
@@ -474,8 +503,8 @@ function run_oos_composer_experiment(cfg::Dict; persist::Bool = true)
 
     results = DataFrame(rows)
     if persist
-        out_jld = joinpath(_PATH_TO_DATA, "results-oos.jld2")
-        out_csv = joinpath(_PATH_TO_DATA, "results-oos.csv")
+        out_jld = joinpath(_PATH_TO_DATA, "results-oos$(output_suffix).jld2")
+        out_csv = joinpath(_PATH_TO_DATA, "results-oos$(output_suffix).csv")
         jldsave(out_jld; results=results, config=cfg, T_oos=T_oos,
                 tickers=unique(results.ticker), matched_starts=matched_starts)
         CSV.write(out_csv, results)

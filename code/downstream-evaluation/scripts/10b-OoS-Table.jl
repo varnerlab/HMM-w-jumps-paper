@@ -13,7 +13,8 @@ const _FIG_DIR    = joinpath(_PAPER_ROOT, "figs", "main")
 mkpath(_TABLE_DIR)
 mkpath(_FIG_DIR)
 
-result_path = joinpath(_PATH_TO_DATA, "results-oos.jld2")
+results_filename = get(ENV, "HMM_PAPER_OOS_RESULTS_FILE", "results-oos.jld2")
+result_path = joinpath(_PATH_TO_DATA, results_filename)
 isfile(result_path) || error("missing $result_path — run 10-OoS-Evaluation.jl first")
 r = load(result_path)["results"]
 

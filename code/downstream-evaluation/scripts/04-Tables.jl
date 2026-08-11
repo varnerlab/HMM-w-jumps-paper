@@ -21,12 +21,15 @@ isdir(_PATH_TO_TABLES) || mkpath(_PATH_TO_TABLES)
 
 # ── 1. Load artifacts ───────────────────────────────────────────────────────
 @info "Loading results + calibration..."
-r   = load(joinpath(_PATH_TO_DATA, "results.jld2"))["results"]
-cal = load(joinpath(_PATH_TO_DATA, "sim-calibration.jld2"))["calibration"]
+results_filename = get(ENV, "HMM_PAPER_RESULTS_FILE", "results.jld2")
+r   = load(resolve_data_artifact(results_filename))["results"]
+cal = load(resolve_data_artifact("sim-calibration.jld2"))["calibration"]
 
-cmap = Dict(zip(cal.ticker, zip(cal.beta, cal.r2_real)))
-r.beta_cal = [cmap[t][1] for t in r.ticker]
-r.r2_cal   = [cmap[t][2] for t in r.ticker]
+cmap = Dict(zip(cal.ticker, zip(cal.alpha, cal.beta, cal.r2_real)))
+r.alpha_cal = [cmap[t][1] for t in r.ticker]
+r.beta_cal  = [cmap[t][2] for t in r.ticker]
+r.r2_cal    = [cmap[t][3] for t in r.ticker]
+r.dα       = abs.(r.α_hat .- r.alpha_cal)
 r.dβ       = abs.(r.β_hat .- r.beta_cal)
 r.dR²      = abs.(r.R²_hat .- r.r2_cal)
 
@@ -64,6 +67,7 @@ end
 
 # ── 2. Table 1: aggregate scorecard ─────────────────────────────────────────
 tbl1 = combine(groupby(r, :composer),
+    :dα      => median => :dα,
     :dβ      => median => :dβ,
     :dR²     => median => :dR²,
     :ks_p    => (p -> 100 * mean(p .> 0.05)) => :ks_pct,
@@ -77,11 +81,11 @@ tbl1 = tbl1[[findfirst(==(c), tbl1.composer) for c in composer_order], :]
 println("\n=== Table 1: Aggregate scorecard by composer ===")
 show(tbl1, allcols = true, allrows = true); println()
 
-header1 = ["Composer", "\$|\\hat\\beta-\\beta|\$", "\$|\\hat R^2 - R^2_{\\real}|\$",
+header1 = ["Composer", "\$|\\hat\\alpha-\\alpha|\$", "\$|\\hat\\beta-\\beta|\$", "\$|\\hat R^2 - R^2_{\\real}|\$",
            "KS pass (\\%)", "AD pass (\\%)", "\$W_1\$", "\$\\kappa\$", "Hill"]
 rows1 = [
     [composer_display[tbl1.composer[i]],
-     fmt3(tbl1.dβ[i]), fmt3(tbl1.dR²[i]),
+     fmt3(tbl1.dα[i]), fmt3(tbl1.dβ[i]), fmt3(tbl1.dR²[i]),
      fmt1(tbl1.ks_pct[i]), fmt1(tbl1.ad_pct[i]),
      fmt3(tbl1.w1[i]), fmt3(tbl1.kurt[i]), fmt3(tbl1.hill[i])]
     for i in 1:nrow(tbl1)
@@ -179,11 +183,14 @@ function aggregate_seeds(seed_files, _data_dir, cmap)
     for f in seed_files
         seed_id = parse(Int, match(r"results-seed-(\d+)\.jld2", f).captures[1])
         rs = load(joinpath(_data_dir, f))["results"]
-        rs.beta_cal = [cmap[t][1] for t in rs.ticker]
-        rs.r2_cal   = [cmap[t][2] for t in rs.ticker]
+        rs.alpha_cal = [cmap[t][1] for t in rs.ticker]
+        rs.beta_cal  = [cmap[t][2] for t in rs.ticker]
+        rs.r2_cal    = [cmap[t][3] for t in rs.ticker]
+        rs.dα       = abs.(rs.α_hat .- rs.alpha_cal)
         rs.dβ       = abs.(rs.β_hat .- rs.beta_cal)
         rs.dR²      = abs.(rs.R²_hat .- rs.r2_cal)
         ag = combine(groupby(rs, :composer),
+            :dα      => median => :dα,
             :dβ      => median => :dβ,
             :dR²     => median => :dR²,
             :ks_p    => (p -> 100 * mean(p .> 0.05)) => :ks_pct,
@@ -204,6 +211,7 @@ if length(seed_files) ≥ 2
     seed_summary = combine(groupby(per_seed, :composer),
         :ks_pct => mean => :ks_mean,  :ks_pct => std => :ks_sd,
         :ad_pct => mean => :ad_mean,  :ad_pct => std => :ad_sd,
+        :dα     => mean => :dα_mean,  :dα     => std => :dα_sd,
         :dβ     => mean => :dβ_mean,  :dβ     => std => :dβ_sd,
         :dR²    => mean => :dR_mean,  :dR²    => std => :dR_sd,
         :hill   => mean => :hill_mean, :hill  => std => :hill_sd,
@@ -218,10 +226,11 @@ if length(seed_files) ≥ 2
     pm(m, s) = @sprintf("%.2f \\pm %.2f", m, s)
     pm3(m, s) = @sprintf("%.3f \\pm %.3f", m, s)
 
-    header4 = ["Composer", "\$|\\hat\\beta-\\beta|\$", "\$|\\hat R^2 - R^2_{\\real}|\$",
+    header4 = ["Composer", "\$|\\hat\\alpha-\\alpha|\$", "\$|\\hat\\beta-\\beta|\$", "\$|\\hat R^2 - R^2_{\\real}|\$",
                "KS pass (\\%)", "AD pass (\\%)", "\$\\kappa\$", "Hill"]
     rows4 = [
         [composer_display[seed_summary.composer[i]],
+         "\$" * pm3(seed_summary.dα_mean[i],   seed_summary.dα_sd[i])   * "\$",
          "\$" * pm3(seed_summary.dβ_mean[i],   seed_summary.dβ_sd[i])   * "\$",
          "\$" * pm3(seed_summary.dR_mean[i],   seed_summary.dR_sd[i])   * "\$",
          "\$" * pm(seed_summary.ks_mean[i],    seed_summary.ks_sd[i])   * "\$",

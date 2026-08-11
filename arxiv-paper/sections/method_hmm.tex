@@ -1,0 +1,293 @@
+% method_hmm.tex
+% Subsection 3.1 body. Flat prose, no subsubsections. Topic flow
+% (language-audit pass, 2026-07-14; see project_language_audit_2026-07-14
+% memory): dataset/return definition -> tuple definition -> state
+% partition -> emissions -> transition estimation + jump/tail override
+% -> hyperparameter calibration. Split the original single dense
+% tuple-plus-state-plus-emission paragraph into three, moved the
+% variance/sensitivity caveats out of the model-definition flow, and
+% cut a prose walk-through of the generator that duplicated Algorithm 1.
+% The bridge to the multi-asset composition lives at the top of
+% method_sim.tex, not here (avoids restating the per-ticker-marginal
+% summary twice across the subsection boundary).
+
+
+We defined the hybrid hidden Markov model with a jump-duration
+mechanism (HMM-WJ) as the tuple
+$\mathcal{M} = (\mathcal{S}, \mathcal{O}, \mathbf{T}, \mathbf{E}, \bar{\pi})$~\cite{rabinerJuang1986}
+(Figure~\ref{fig:model_architecture}). The hidden state
+$S_t \in \mathcal{S} = \{1,\dots,N\}$ represents a market regime, and
+the integer $N$ is the number of regimes. The observation at step $t$
+is the excess growth rate $G_t$ of
+Eq.~\eqref{eq:growth_rate}, drawn from the continuous observation
+space $\mathcal{O} \subset \mathbb{R}$ (we suppress the ticker index
+$i$ when only one asset is in play). The transition matrix
+$\mathbf{T}$ governs regime-to-regime transitions, $\mathbf{E}$ is the
+state-conditional emission model, and $\bar{\pi}$ is the stationary
+distribution. We defined the states using quantile boundaries from a fitted Laplace
+cumulative distribution: $Q_k = F_L^{-1}(k/N;\, \mu_L, b_L)$, where
+$F_L^{-1}(\cdot;\, \mu_L, b_L)$ is the inverse cumulative distribution
+function of the Laplace distribution with location $\mu_L$ and scale
+$b_L$. We estimated both parameters from the in-sample growth-rate
+history by maximum likelihood and fixed the endpoints at
+$Q_0 = -\infty$ and $Q_N = +\infty$. We assigned an observation to
+state $k$ when
+$Q_{k-1} < G_t \le Q_k$. We chose the Laplace distribution because
+its sharp central peak follows the concentration of small price
+movements in the empirical marginal density
+(Fig.~\ref{fig:empirical_motivation}(a))~\cite{kotzKozubowskiPodgorski2001, tothJones2019},
+while its closed-form quantile function avoids iterative optimization
+across the $424$-ticker universe~\cite{bilmes1998}.
+
+The within-state emission followed a location-scale Student-$t$
+distribution:
+\begin{equation}
+    G_t \mid S_t = k \;\sim\; \mu_k + \sigma_k \cdot t_{\nu},
+    \qquad \nu = 5,
+    \label{eq:emission}
+\end{equation}
+where $t_\nu$ denotes a standard Student-$t$ random variable with
+$\nu$ degrees of freedom. For observations assigned to state $k$,
+$\mu_k$ is the sample mean and $\sigma_k$ is the sample standard
+deviation. A standard $t_\nu$ has variance $\nu/(\nu-2)$, so
+$\sigma_k$ is a scale parameter rather than the emission standard
+deviation. At $\nu=5$, that standard deviation is
+$\sigma_k\sqrt{5/3}$. We
+selected $\nu = 5$ from a sensitivity sweep
+($\nu = \infty$ recovers the Normal baseline; explored range in
+Table~\ref{tab:hyperparams}). At $\nu=5$, simulated kurtosis was $7.6$
+against the observed $7.7$, compared with $5.5$ under Normal
+emissions; the corresponding KS pass rates were $97.6\%$ and $97.0\%$.
+The full comparison against a Gaussian-emission HSMM baseline of
+Bulla and Bulla~\cite{bullaBulla2006} is given in
+Table~\ref{tab:emission_hsmm} of
+Sec.~\ref{sec:supp-emission-hsmm}.
+
+With the state space and emission family fixed, we estimated the
+transition matrix $\mathbf{T}$ by counting observed transitions. This
+avoided the initialization sensitivity of iterative
+expectation-maximization~\cite{bilmes1998}. Direct counting assigns
+low probabilities to moves from central states into tail states, so
+the resulting model loses volatility clustering too
+quickly~\cite{bullaBulla2006}. We added a jump mechanism to extend
+tail-state visits. Its two hyperparameters were the jump probability
+$\epsilon$ and the mean episode length $\lambda$. Tail
+states were defined as $\mathcal{S}_{-} = \{1, \dots, N_{\rm tail}\}$
+and $\mathcal{S}_{+} = \{N - N_{\rm tail} + 1, \dots, N\}$, where
+$N_{\rm tail}$ denotes the user-configurable number of quantile states
+assigned to each tail (value in Table~\ref{tab:hyperparams}).
+When a jump occurred, we sampled its length as
+$K \sim \mathrm{Poisson}(\lambda)$~\cite{glasserman2003}. Because the
+Poisson distribution includes zero, $K=0$ produced no forced tail
+steps and the chain made an ordinary transition. Thus, $\lambda$ set
+the mean episode length, not a minimum dwell time. During the $K$
+forced steps, the jump mechanism replaced the standard transitions
+with draws from a tail set. It selected $\mathcal{S}_{-}$ with
+probability $p_{\rm neg}$ and $\mathcal{S}_{+}$ otherwise (values in
+Table~\ref{tab:hyperparams}). The negative-tail bias reproduced the
+gain/loss asymmetry shown in Figure~\ref{fig:model_architecture}. The empirical
+transition matrix exhibited a dominant near-diagonal band reflecting
+short-range regime persistence, with natural residence times of
+$1$--$2$ steps in every state including the tails
+(Fig.~\ref{fig:model_internals} in Online
+Appendix~\ref{sec:supp-transitions}).
+The stationary distribution $\bar{\pi}$ satisfies
+$\bar{\pi} = \bar{\pi}\mathbf{T}$ and was estimated by matrix powering
+($\mathbf{T}^{50}$)~\cite{hamilton2018regime, grinsteadSnell1997}. We
+drew the initial state from $S_0 \sim \bar{\pi}$. Because $\bar{\pi}$
+is the invariant distribution of $\mathbf{T}$ alone, it only
+approximates the invariant distribution of the jump-augmented process,
+whose state also includes jump status and remaining episode length;
+this introduces a small, unquantified deviation from exact
+stationarity. Algorithm~\ref{alg:hmmwj} gives the full simulator. At
+each step, the chain either made a standard transition with
+probability $1-\epsilon$ or entered a Poisson jump episode. A jump
+forced $K$ draws from a tail set before standard transitions resumed.
+The model sampled $G_t \sim \mathbf{E}_{S_t}$ after each transition.
+
+% --- Architecture figure ----------------------------------------------------
+\begin{figure}[tp]
+\centering
+\resizebox{\textwidth}{!}{%
+\begin{tikzpicture}[
+  state/.style    = {circle, draw=black, very thick, minimum size=1.1cm,
+                     inner sep=0pt, font=\small},
+  tailbot/.style  = {state, fill=red!25,  draw=red!70!black},
+  tailtop/.style  = {state, fill=blue!25, draw=blue!70!black},
+  midstate/.style = {state, fill=white,   draw=black!70},
+  markov/.style   = {<->, >=Stealth, thin, gray!80},
+  trigger/.style  = {->, >=Stealth, thick, dashed, black!80},
+  jumparc/.style  = {->, >=Stealth, very thick},
+]
+  \node[tailbot]              (s1)   at ( 0.0, 0) {$1$};
+  \node[tailbot]              (s2)   at ( 2.0, 0) {$2$};
+  \node[font=\Large]          (ld)   at ( 4.0, 0) {$\cdots$};
+  \node[midstate]             (sk)   at ( 6.0, 0) {$k$};
+  \node[font=\Large]          (rd)   at ( 8.0, 0) {$\cdots$};
+  \node[tailtop]              (sNm1) at (10.0, 0) {$N\!-\!1$};
+  \node[tailtop]              (sN)   at (12.0, 0) {$N$};
+  \draw[markov] (s1)  -- (s2);
+  \draw[markov] (s2)  -- (ld);
+  \draw[markov] (ld)  -- (sk);
+  \draw[markov] (sk)  -- (rd);
+  \draw[markov] (rd)  -- (sNm1);
+  \draw[markov] (sNm1)-- (sN);
+  \draw[red!75!black, thick]
+    plot[domain=-0.42:0.42, samples=40, smooth, variable=\t]
+    ({ 0.0+\t}, {1.45 + 0.72*exp(-\t*\t/0.024)});
+  \draw[red!25, thin] (-0.42,1.45) -- (0.42,1.45);
+  \draw[red!75!black, thick]
+    plot[domain=-0.42:0.42, samples=40, smooth, variable=\t]
+    ({ 2.0+\t}, {1.45 + 0.72*exp(-\t*\t/0.024)});
+  \draw[red!25, thin] (1.58,1.45) -- (2.42,1.45);
+  \draw[black!55, thick]
+    plot[domain=-0.42:0.42, samples=40, smooth, variable=\t]
+    ({ 6.0+\t}, {1.45 + 0.72*exp(-\t*\t/0.024)});
+  \draw[gray!40, thin] (5.58,1.45) -- (6.42,1.45);
+  \draw[blue!75!black, thick]
+    plot[domain=-0.42:0.42, samples=40, smooth, variable=\t]
+    ({10.0+\t}, {1.45 + 0.72*exp(-\t*\t/0.024)});
+  \draw[blue!25, thin] (9.58,1.45) -- (10.42,1.45);
+  \draw[blue!75!black, thick]
+    plot[domain=-0.42:0.42, samples=40, smooth, variable=\t]
+    ({12.0+\t}, {1.45 + 0.72*exp(-\t*\t/0.024)});
+  \draw[blue!25, thin] (11.58,1.45) -- (12.42,1.45);
+  \node[font=\footnotesize\itshape, text=black!55]
+    at (6.0, 2.7) {$\mu_k\!+\!\sigma_k\cdot t_5$ emission};
+  \node[draw, rounded corners=5pt, fill=yellow!20, very thick,
+        minimum width=2.8cm, minimum height=1.1cm,
+        align=center, font=\small] (clock) at (6.0, 5.0)
+        {Poisson clock\\[1pt]prob.~$\epsilon$};
+  \draw[trigger] (sk.north) -- (clock.south)
+    node[midway, right=3pt, font=\footnotesize] {jump triggered};
+  \draw[jumparc, red!70!black]
+    (clock.west)
+    to[out=180, in=100]
+    node[above, sloped, font=\footnotesize, red!80!black,
+         pos=0.45, yshift=2pt]
+      {$K\!\sim\!\mathrm{Pois}(\lambda)$ forced steps}
+    (s1.north);
+  \draw[jumparc, blue!70!black]
+    (clock.east)
+    to[out=0, in=80]
+    node[above, sloped, font=\footnotesize, blue!80!black,
+         pos=0.45, yshift=2pt]
+      {$K\!\sim\!\mathrm{Pois}(\lambda)$ forced steps}
+    (sN.north);
+  \draw[decorate,
+        decoration={brace, amplitude=6pt, mirror},
+        red!70!black, thick]
+    (-0.6, -0.65) -- (2.6, -0.65)
+    node[midway, below=7pt, red!80!black, font=\small]
+      {$\mathcal{S}_{-}$\ (bottom tail)};
+  \draw[decorate,
+        decoration={brace, amplitude=6pt, mirror},
+        blue!70!black, thick]
+    (9.4, -0.65) -- (12.6, -0.65)
+    node[midway, below=7pt, blue!80!black, font=\small]
+      {$\mathcal{S}_{+}$\ (top tail)};
+  \draw[->, >=Stealth, gray!70, thin]
+    (-1.0, -0.5) -- (13.2, -0.5)
+    node[right, font=\small, text=black!70] {state index};
+  \node[font=\footnotesize, text=gray!80, above right=2pt and 4pt of sk]
+    {prob.~$1\!-\!\epsilon$};
+\end{tikzpicture}%
+}
+\caption{\textbf{Architecture of the hybrid hidden Markov model with a
+    jump-duration mechanism (HMM-WJ).} At each step the chain transitions
+    according to the empirical transition matrix $\mathbf{T}$
+    (probability $1 - \epsilon$, thin bidirectional arrows) or enters a
+    Poisson jump episode (probability $\epsilon$, dashed upward arrow
+    to the Poisson clock). During a jump episode each of the
+    $K \sim \mathrm{Poisson}(\lambda)$ forced steps independently draws
+    the bottom tail set $\mathcal{S}_{-}$ (red, lowest-valued states)
+    with probability $p_{\rm neg}$ or the top tail set $\mathcal{S}_{+}$
+    (blue, highest-valued states) otherwise, before normal Markovian
+    evolution resumes. Small bell curves above
+    each state depict the state-conditional location-scale Student-$t$
+    ($\nu=5$) emission distribution. Tail sets are defined as the
+    $N_{\rm tail}$ lowest- and highest-quantile states under the
+    Laplace quantile partition.}
+\label{fig:model_architecture}
+\end{figure}
+
+\begin{algorithm}[t]
+\caption{HMM-WJ single asset marginal generator.}
+\label{alg:hmmwj}
+\begin{algorithmic}[1]
+  \REQUIRE Fitted parameters
+    $(\mathbf{T}, \mathbf{E}, \bar{\pi}, \epsilon, \lambda,
+    p_{\rm neg}, N_{\rm tail})$; horizon $T$;
+    tail sets $\mathcal{S}_{-} = \{1, \dots, N_{\rm tail}\}$ and
+    $\mathcal{S}_{+} = \{N - N_{\rm tail} + 1, \dots, N\}$.
+  \ENSURE State sequence $\{S_t\}_{t=0}^{T}$ and growth-rate path
+    $\{G_t\}_{t=1}^{T}$.
+  \STATE Draw $S_0 \sim \bar{\pi}$;\quad $k \gets 0$
+    \hfill \COMMENT{$k$: remaining forced-step counter}
+  \FOR{$t = 1, \dots, T$}
+    \IF{$k > 0$}
+      \STATE $\mathcal{J} \gets \mathcal{S}_{-}$ w.p.\ $p_{\rm neg}$, else $\mathcal{S}_{+}$;\quad
+        $S_t \sim \mathrm{Uniform}(\mathcal{J})$;\quad $k \gets k - 1$
+        \hfill \COMMENT{forced tail step; sign drawn per step}
+    \ELSIF{$\mathrm{Uniform}(0,1) > \epsilon$}
+      \STATE $S_t \sim \mathbf{T}_{S_{t-1}, \cdot}$
+        \hfill \COMMENT{standard Markov transition}
+    \ELSE
+      \STATE $K \sim \mathrm{Poisson}(\lambda)$
+        \hfill \COMMENT{trigger jump; $K$ is the episode length}
+      \IF{$K = 0$}
+        \STATE $S_t \sim \mathbf{T}_{S_{t-1}, \cdot}$
+          \hfill \COMMENT{$K = 0$: no forced steps, standard transition}
+      \ELSE
+        \STATE $\mathcal{J} \gets \mathcal{S}_{-}$ w.p.\ $p_{\rm neg}$, else $\mathcal{S}_{+}$;\quad
+          $S_t \sim \mathrm{Uniform}(\mathcal{J})$;\quad
+          $k \gets \min(K - 1, T - t)$
+          \hfill \COMMENT{first forced step; $K$ steps total, sign per step}
+      \ENDIF
+    \ENDIF
+    \STATE Draw $G_t \sim \mu_{S_t} + \sigma_{S_t}\, t_{5}$
+      \hfill \COMMENT{Eq.~\eqref{eq:emission}}
+  \ENDFOR
+\end{algorithmic}
+\end{algorithm}
+
+We calibrated the jump probability $\epsilon$ and mean episode length
+$\lambda$. The mechanism followed the jump-event tradition
+of~\cite{merton1976, kou2002}, but replaced instantaneous jumps with
+an HSMM-style duration~\cite{bullaBulla2006}. HMM-WJ is a
+discrete-time state model: the override extends visits to tail states
+but adds no continuous-time diffusion component. We selected the
+jump-parameter pair $(\epsilon,\lambda)$ by grid search against two
+features of the SPY
+history in Fig.~\ref{fig:empirical_motivation}: volatility clustering
+and kurtosis~\cite{mandelbrot1963, cont2001,
+rydenTerasvirtaAsbrink1998}. The first term of the calibration
+objective $J(\epsilon,\lambda)$ measured
+the squared error between the observed and simulated ACF of absolute
+excess growth rates through the maximum calibration lag $L$. The
+second penalized the
+difference in global kurtosis. Most observed ACF variation occurred
+within the calibration window listed in Table~\ref{tab:hyperparams};
+the final comparison in Fig.~\ref{fig:model_comparison} extends to lag
+$252$:
+\begin{equation}
+    J(\epsilon, \lambda) =
+    \sum_{\tau=1}^{L} \left( \mathrm{ACF}_{\rm obs}(\tau)
+    - \overline{\mathrm{ACF}}_{\rm sim}(\tau) \right)^2
+    + w_\kappa \left( \kappa_{\rm obs} - \overline{\kappa}_{\rm sim} \right)^2,
+    \label{eq:grid_search}
+\end{equation}
+where $\mathrm{ACF}_{\rm obs}(\tau)$ and $\kappa_{\rm obs}$ are the
+empirical absolute-growth autocorrelation at lag $\tau$ and the
+global kurtosis, respectively (kurtosis denoted $\kappa$ to avoid
+collision with the jump-duration variable $K$), and the simulated
+counterparts $\overline{\mathrm{ACF}}_{\rm sim}(\tau)$ and
+$\overline{\kappa}_{\rm sim}$ were averages over jump-active paths.
+We simulated $200$ independent paths of $2{,}766$ trading days at
+each grid point. A path with no jump reduces to HMM-NJ and contains no
+information about $(\epsilon,\lambda)$, so the objective included only
+paths with at least one jump~\cite{glasserman2003}. The kurtosis
+weight $w_\kappa$ balanced the kurtosis and ACF terms. The search ranges,
+$w_\kappa$, $L$, and the remaining HMM-WJ and SIM hyperparameters are
+reported in Table~\ref{tab:hyperparams}. The fitted model was evaluated against
+the marginal and temporal statistics reported in Section~\ref{sec:results}.

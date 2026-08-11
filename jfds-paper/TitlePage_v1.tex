@@ -1,0 +1,67 @@
+\documentclass[preprint,authoryear]{elsarticle}
+\usepackage[utf8]{inputenc}
+\usepackage[colorlinks=true,urlcolor=blue!70!black]{hyperref}
+\usepackage{microtype}
+\journal{The Journal of Finance and Data Science}
+
+\begin{document}
+\begin{frontmatter}
+
+\title{Variance-Corrected Multi-Asset Equity Simulation with Hybrid Hidden Markov Marginals}
+
+\author[smith]{Abdulrahman Alswaidan}
+\ead{aa2725@cornell.edu}
+
+\author[smith]{Jeffrey D. Varner}
+\ead{jdv27@cornell.edu}
+
+\affiliation[smith]{
+  organization={Robert Frederick Smith School of Chemical and Biomolecular Engineering, Cornell University},
+  city={Ithaca},
+  state={New York},
+  postcode={14850},
+  country={United States}
+}
+
+\end{frontmatter}
+
+\section*{Corresponding author}
+Jeffrey D. Varner\\
+Robert Frederick Smith School of Chemical and Biomolecular Engineering\\
+Cornell University, Ithaca, New York 14850, United States\\
+Email: \href{mailto:jdv27@cornell.edu}{jdv27@cornell.edu}
+
+\section*{Acknowledgments}
+The authors thank the eCornell AI in Finance program participants for
+discussions that motivated the downstream-use bias-correction analysis,
+and Polygon.io for access to the 2014 to 2024 United States equity and
+exchange-traded-fund daily price histories used in the experiments.
+Computations were run on a single laptop; no shared-resource allocation
+was required.
+
+\section*{CRediT authorship contribution statement}
+\textbf{Abdulrahman Alswaidan:} Conceptualization, Methodology,
+Software, Investigation, Validation, Writing - original draft, Writing
+- review and editing. \textbf{Jeffrey D. Varner:} Conceptualization,
+Methodology, Software, Investigation, Validation, Writing - original
+draft, Writing - review and editing.
+
+\section*{Declaration of competing interest}
+The authors declare that they have no known competing financial
+interests or personal relationships that could have appeared to
+influence the work reported in this paper.
+
+\section*{Code and data availability}
+The experiment scripts, evaluation harness (six-composer benchmark,
+Value-at-Risk coverage check, and bias-correction utility), and fitted
+per-asset marginals are available in the
+\href{https://github.com/varnerlab/HMM-w-jumps-paper}{paper repository}.
+The underlying model-fitting library is available in the
+\href{https://github.com/varnerlab/JumpHMM.jl}{JumpHMM.jl repository}
+and is pinned as a dependency of the experiment code.
+
+\section*{Color reproduction}
+All figures should be reproduced in color in both the online and print
+versions of the article.
+
+\end{document}

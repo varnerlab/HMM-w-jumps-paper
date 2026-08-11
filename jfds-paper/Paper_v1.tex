@@ -1,30 +1,6 @@
-\documentclass{article}
-\PassOptionsToPackage{numbers, compress}{natbib}
-\usepackage[preprint]{neurips_2026}
-
-% --- standard packages ---
-\usepackage[utf8]{inputenc}
-\usepackage[T1]{fontenc}
-\usepackage{xr-hyper}
-\usepackage[colorlinks=true,linkcolor=blue!70!black,citecolor=blue!70!black,urlcolor=blue!70!black]{hyperref}
-\usepackage{url}
-\usepackage{booktabs}
-\usepackage{amsfonts}
-\usepackage{nicefrac}
-\usepackage{microtype}
-\usepackage{xcolor}
-\usepackage{graphicx}
-\usepackage{subcaption}
-\usepackage{amsmath}
-\usepackage{amssymb}
-\usepackage{amsthm}
-\usepackage{algorithm}
-\usepackage{algorithmic}
-\usepackage{bm}
-\usepackage{multirow}
-\usepackage{lineno}
-\usepackage{tikz}
-\usetikzlibrary{arrows.meta, decorations.pathreplacing, positioning}
+\documentclass[preprint,authoryear,doubleblind]{elsarticle}
+\input{elsarticle-preamble}
+\journal{The Journal of Finance and Data Science}
 
 % --- figure/table placement ---
 % Allow up to 2 floats at top/bottom; let large floats consume up to 85%
@@ -37,64 +13,25 @@
 \renewcommand{\bottomfraction}{0.5}
 \renewcommand{\textfraction}{0.10}
 \renewcommand{\floatpagefraction}{0.75}
-\usepackage{placeins} % \FloatBarrier
-\usepackage[tablesfirst,nomarkers,nolists]{endfloat}
-\renewcommand{\efloatseparator}{\clearpage}
-
-% --- theorem environments ---
-\newtheorem{theorem}{Theorem}
-\newtheorem{lemma}[theorem]{Lemma}
-\newtheorem{proposition}[theorem]{Proposition}
-\newtheorem{corollary}[theorem]{Corollary}
-\theoremstyle{definition}
-\newtheorem{definition}[theorem]{Definition}
-\theoremstyle{remark}
-\newtheorem{remark}[theorem]{Remark}
-
-% --- custom commands ---
-\newcommand{\R}{\mathbb{R}}
-\newcommand{\E}{\mathbb{E}}
-\newcommand{\Var}{\operatorname{Var}}
-\newcommand{\Cov}{\operatorname{Cov}}
-\newcommand{\sign}{\operatorname{sign}}
-\newcommand{\eps}{\varepsilon}
-\newcommand{\tg}{\tilde{g}}
-\newcommand{\gen}{\mathrm{gen}}
-\newcommand{\real}{\mathrm{real}}
-\newcommand{\eff}{\mathrm{eff}}
 
 % Resolve references to sections, tables, and figures in the separately
 % compiled supplementary manuscript. A first clean build may warn until
 % Supplement_v1.aux has been generated; the Makefile resolves both directions.
 \externaldocument[][nocite]{Supplement_v1}
 
-\title{Variance-Corrected Multi-Asset Equity Simulation with Hybrid Hidden Markov Marginals}
-
-\author{%
-  Abdulrahman Alswaidan \\
-  Robert Frederick Smith School of Chemical and Biomolecular Engineering \\
-  Cornell University, Ithaca, NY 14850 \\
-  \texttt{aa2725@cornell.edu} \\
-  \And
-  Jeffrey D.~Varner\thanks{Corresponding author.} \\
-  Robert Frederick Smith School of Chemical and Biomolecular Engineering \\
-  Cornell University, Ithaca, NY 14850 \\
-  \texttt{jdv27@cornell.edu} \\
-}
-
 \begin{document}
-
-% Uncomment for journal submission; keep commented for arXiv.
-% \linenumbers
-
-\maketitle
-
+\begin{frontmatter}
+\title{Variance-Corrected Multi-Asset Equity Simulation with Hybrid Hidden Markov Marginals}
 \begin{abstract}
 \input{sections/abstract}
 \end{abstract}
-
-\vspace{0.5em}
-\noindent\textbf{Keywords:} hidden Markov model; jump-duration mechanism; single-index model; synthetic financial data; variance correction; Value-at-Risk coverage check; volatility clustering; heavy-tailed marginals.
+\begin{keyword}
+hidden Markov model \sep jump-duration mechanism \sep single-index model
+\sep synthetic financial data \sep variance correction
+\sep Value-at-Risk coverage check \sep volatility clustering
+\sep heavy-tailed marginals
+\end{keyword}
+\end{frontmatter}
 
 \section{Introduction}\label{sec:introduction}
 \input{sections/introduction}
@@ -145,35 +82,19 @@ continuous compounding.
 \section{Conclusion}\label{sec:conclusion}
 \input{sections/conclusion}
 
-\section*{Acknowledgments}
-The authors thank the eCornell AI in Finance program participants for
-discussions that motivated the downstream-use bias-correction analysis,
-and Polygon.io for access to the 2014 to 2024 US equity and ETF daily
-price histories used in the experiments. Computations were run on a
-single laptop; no shared-resource allocation was required.
+\section*{Code and data availability}
+The experiment scripts, evaluation harness, and fitted per-asset
+marginals are publicly available. Identifying repository links have
+been withheld from this manuscript for double-anonymized review and
+are provided to the editorial office on the separate title page.
 
-\paragraph{Author contributions.}
-A.A.\ designed the hybrid hidden Markov marginal generator, performed the
-single-asset experiments and validation framework, and contributed to the
-manuscript. J.D.V.\ designed the variance-corrected single-index
-composition, performed the multi-asset experiments and downstream
-Value-at-Risk validation, developed the bias-correction methodology,
-released the code, and contributed to the manuscript.
+\section*{Declaration of generative AI and AI-assisted technologies in the writing process}
+During the preparation of this work, the authors used OpenAI Codex to
+assist with language editing, consistency checks, and LaTeX formatting.
+The authors reviewed and edited all output and take full responsibility
+for the content of the publication.
 
-\paragraph{Competing interests.}
-The authors declare no competing interests.
-
-\paragraph{Code and data availability.}
-The experiment scripts, evaluation harness (six-composer benchmark,
-Value-at-Risk coverage check, bias-correction utility), and the fitted
-per-asset marginals are released in the paper repository
-(\url{https://github.com/varnerlab/HMM-w-jumps-paper}); the
-underlying model-fitting library is released separately as
-\texttt{JumpHMM.jl}
-(\url{https://github.com/varnerlab/JumpHMM.jl}), pinned as a
-dependency of the experiment code.
-
-\bibliographystyle{unsrtnat}
+\bibliographystyle{elsarticle-harv}
 \bibliography{References_v1}
 
 \end{document}

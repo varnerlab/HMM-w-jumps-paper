@@ -43,9 +43,9 @@ block_length   = Float64(get(get(cfg, "bootstrap", Dict()), "mean_block_length",
 
 # ── 1. Load artifacts ───────────────────────────────────────────────────────
 @info "Loading universe / marginals / calibration for VaR backtest..."
-ud = load(joinpath(_PATH_TO_DATA, "universe.jld2"))
-md = load(joinpath(_PATH_TO_DATA, "marginals.jld2"))
-cd = load(joinpath(_PATH_TO_DATA, "sim-calibration.jld2"))
+ud = load(resolve_data_artifact("universe.jld2"))
+md = load(resolve_data_artifact("marginals.jld2"))
+cd = load(resolve_data_artifact("sim-calibration.jld2"))
 
 tickers   = ud["tickers"]
 G         = ud["growth_rates"]
@@ -57,11 +57,11 @@ G_m        = G[:, market_idx]
 σ²_m       = var(G_m)
 T          = length(G_m)
 
-residual_cache = joinpath(_PATH_TO_DATA, "marginals-residuals.jld2")
-marginals_resid = isfile(residual_cache) ? load(residual_cache)["marginals"] : nothing
+residual_cache = find_data_artifact("marginals-residuals.jld2")
+marginals_resid = residual_cache === nothing ? nothing : load(residual_cache)["marginals"]
 
-garch_cache = joinpath(_PATH_TO_DATA, "garch-t-sims.jld2")
-garch_sims = isfile(garch_cache) ? load(garch_cache)["sims"] : nothing
+garch_cache = find_data_artifact("garch-t-sims.jld2")
+garch_sims = garch_cache === nothing ? nothing : load(garch_cache)["sims"]
 
 @info "VaR backtest setup" T = T α_levels = α_levels residual = (marginals_resid !== nothing) garch = (garch_sims !== nothing)
 

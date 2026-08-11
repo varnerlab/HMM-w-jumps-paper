@@ -1,0 +1,49 @@
+% Shared preamble for the JFDS manuscript and supplementary material.
+% The elsarticle class loads natbib and the standard Elsevier front matter.
+
+\usepackage[utf8]{inputenc}
+\usepackage{xr}
+\usepackage{url}
+\usepackage{booktabs}
+\usepackage{amsfonts}
+\usepackage{microtype}
+\usepackage{xcolor}
+\usepackage{graphicx}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{amsthm}
+\usepackage{algorithm}
+\usepackage{algorithmic}
+\usepackage{bm}
+\usepackage{lineno}
+\usepackage{tikz}
+\usetikzlibrary{arrows.meta, decorations.pathreplacing, positioning}
+\usepackage{placeins}
+\usepackage{chngcntr}
+
+% The legacy source used \cite for parenthetical numeric citations.
+% Preserve that semantic intent under JFDS's author--year reference style.
+\let\cite\citep
+\biboptions{round,semicolon}
+
+% --- theorem environments ---
+\newtheorem{theorem}{Theorem}
+\newtheorem{lemma}[theorem]{Lemma}
+\newtheorem{proposition}[theorem]{Proposition}
+\newtheorem{corollary}[theorem]{Corollary}
+\theoremstyle{definition}
+\newtheorem{definition}[theorem]{Definition}
+\theoremstyle{remark}
+\newtheorem{remark}[theorem]{Remark}
+
+% --- custom commands ---
+\newcommand{\R}{\mathbb{R}}
+\newcommand{\E}{\mathbb{E}}
+\newcommand{\Var}{\operatorname{Var}}
+\newcommand{\Cov}{\operatorname{Cov}}
+\newcommand{\sign}{\operatorname{sign}}
+\newcommand{\eps}{\varepsilon}
+\newcommand{\tg}{\tilde{g}}
+\newcommand{\gen}{\mathrm{gen}}
+\newcommand{\real}{\mathrm{real}}
+\newcommand{\eff}{\mathrm{eff}}
