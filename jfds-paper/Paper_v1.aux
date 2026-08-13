@@ -8,7 +8,7 @@
 \citation{takahashiEtAl2019,yoonEtAl2019timegan,kwonLee2024}
 \citation{rabinerJuang1986}
 \citation{rydenTerasvirtaAsbrink1998,bullaBulla2006}
-\@writefile{lof}{\contentsline {figure}{\numberline {1}{\ignorespaces \textbf  {Empirical stylized facts of SPY daily excess growth rates ($2014$--$2024$).} Panel~(a) shows the leptokurtic marginal density; the Laplace maximum-likelihood fit tracks the empirical peak and tails while the Gaussian fit does not. Panel~(b) shows departure from the diagonal in a normal quantile-quantile plot at both extremes. Panel~(c) shows the autocorrelation function of raw excess growth rates, which stays near zero across all lags and is consistent with the efficient markets hypothesis. Panel~(d) shows the autocorrelation function of absolute excess growth rates, which decays slowly across the reported lags.}}{2}{}\protected@file@percent }
+\@writefile{lof}{\contentsline {figure}{\numberline {1}{\ignorespaces \textbf  {Empirical stylized facts of SPY daily excess growth rates ($2014$--$2024$).} Panel~(a) shows the heavy-tailed return density; the Laplace maximum-likelihood fit tracks the empirical peak and tails while the Gaussian fit does not. Panel~(b) shows departure from the diagonal in a normal quantile-quantile plot at both extremes. Panel~(c) shows the autocorrelation function of raw excess growth rates, which stays near zero across all lags and is consistent with the efficient markets hypothesis. Panel~(d) shows the autocorrelation function of absolute excess growth rates, which decays slowly across the reported lags.}}{2}{}\protected@file@percent }
 \newlabel{fig:empirical_motivation}{{1}{2}{}{figure.1}{}}
 \citation{luxMarchesi1999,contBouchaud2000,farmerJoshi2002,lebaron2006,arthur2021,farmer2025}
 \citation{bachelier1900,osborne1959,samuelson1965,blackScholes1973}
@@ -41,22 +41,21 @@
 \citation{cont2001}
 \citation{boothFama1992}
 \citation{rabinerJuang1986}
-\citation{kotzKozubowskiPodgorski2001,tothJones2019}
-\citation{bilmes1998}
 \@writefile{toc}{\contentsline {section}{\numberline {3}Methods}{5}{}\protected@file@percent }
 \newlabel{sec:method}{{3}{5}{}{section.3}{}}
 \newlabel{eq:growth_rate}{{1}{5}{}{equation.1}{}}
 \@writefile{toc}{\contentsline {subsection}{\numberline {3.1}Per-asset hidden Markov marginal generator}{5}{}\protected@file@percent }
 \newlabel{sec:method-hmm}{{3.1}{5}{}{subsection.3.1}{}}
+\citation{kotzKozubowskiPodgorski2001,tothJones2019}
+\citation{bilmes1998}
 \citation{bullaBulla2006}
 \citation{bilmes1998}
 \citation{bullaBulla2006}
 \citation{glasserman2003}
 \citation{hamilton2018regime,grinsteadSnell1997}
 \newlabel{eq:emission}{{2}{6}{}{equation.2}{}}
-\citation{merton1976,kou2002}
-\citation{bullaBulla2006}
 \citation{mandelbrot1963,cont2001,rydenTerasvirtaAsbrink1998}
+\citation{merton1976,kou2002}
 \citation{glasserman2003}
 \@writefile{lof}{\contentsline {figure}{\numberline {2}{\ignorespaces \textbf  {Architecture of the hybrid hidden Markov model with a jump-duration mechanism (HMM-WJ).} At each step the chain transitions according to the empirical transition matrix $\mathbf  {T}$ (probability $1 - \epsilon $, thin bidirectional arrows) or enters a Poisson jump episode (probability $\epsilon $, dashed upward arrow to the Poisson clock). During a jump episode each of the $K \sim \mathrm  {Poisson}(\lambda )$ forced steps independently draws the bottom tail set $\mathcal  {S}_{-}$ (red, lowest-valued states) with probability $p_{\rm  neg}$ or the top tail set $\mathcal  {S}_{+}$ (blue, highest-valued states) otherwise, before normal Markovian evolution resumes. Small bell curves above each state depict the state-conditional location-scale Student-$t$ ($\nu =5$) emission distribution. Tail sets are defined as the $N_{\rm  tail}$ lowest- and highest-quantile states under the Laplace quantile partition.}}{7}{}\protected@file@percent }
 \newlabel{fig:model_architecture}{{2}{7}{}{figure.2}{}}
@@ -73,7 +72,7 @@
 \newlabel{eq:naive-inflation}{{7}{9}{}{equation.7}{}}
 \@writefile{toc}{\contentsline {paragraph}{Variance-preserving correction.}{9}{}\protected@file@percent }
 \newlabel{eq:scale}{{8}{9}{}{equation.8}{}}
-\newlabel{eq:rho}{{9}{10}{}{equation.9}{}}
+\newlabel{eq:rho}{{9}{9}{}{equation.9}{}}
 \newlabel{eq:clip}{{10}{10}{}{equation.10}{}}
 \@writefile{toc}{\contentsline {paragraph}{High-$R^2$ index trackers.}{10}{}\protected@file@percent }
 \newlabel{eq:r2-target}{{11}{10}{}{equation.11}{}}
@@ -91,7 +90,7 @@
 \citation{bullaBulla2006}
 \@writefile{toc}{\contentsline {section}{\numberline {4}Results}{13}{}\protected@file@percent }
 \newlabel{sec:results}{{4}{13}{}{section.4}{}}
-\@writefile{toc}{\contentsline {subsection}{\numberline {4.1}Marginal-generator validation}{13}{}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {4.1}Single-asset generator validation}{13}{}\protected@file@percent }
 \@writefile{lot}{\contentsline {table}{\numberline {2}{\ignorespaces \textbf  {In-sample and out-of-sample model comparison for SPY.} Results summarize $1{,}000$ simulated paths. Values in parentheses are standard errors, and bold entries are best within each panel. Metric definitions and standard-error calculations are given in Online Appendix~\ref {sec:supp-validation}.}}{14}{}\protected@file@percent }
 \newlabel{tab:model_comparison}{{2}{14}{}{table.2}{}}
 \@writefile{lof}{\contentsline {figure}{\numberline {3}{\ignorespaces \textbf  {Head-to-head in-sample model comparison for SPY} ($N = 100$, $1{,}000$ simulated paths). \emph  {Panel (a):} marginal density of excess growth rates with in-sample KS pass rates annotated per generator. \emph  {Panel (b):} autocorrelation function of $|G_t|$ at lags $1$--$252$ (shaded bands: $10$th--$90$th percentile across paths) per generator. \emph  {Panel (c):} tail Q-Q plot at the $0.1$st--$99.9$th percentile region per generator.}}{15}{}\protected@file@percent }
@@ -116,8 +115,8 @@
 \citation{boothFama1992}
 \citation{boothFama1992,boucheyNemtchinovWong2015,markowitz1976longRun}
 \citation{damodaranERP,ibbotsonSBBI}
-\@writefile{toc}{\contentsline {section}{\numberline {6}Conclusion}{23}{}\protected@file@percent }
-\newlabel{sec:conclusion}{{6}{23}{}{section.6}{}}
+\@writefile{toc}{\contentsline {section}{\numberline {6}Conclusion}{22}{}\protected@file@percent }
+\newlabel{sec:conclusion}{{6}{22}{}{section.6}{}}
 \bibstyle{elsarticle-harv}
 \bibdata{References_v1}
 \bibcite{aasCzadoFrigessiBakken2009}{{1}{2009}{{Aas et~al.}}{{Aas, Czado, Frigessi and Bakken}}}
@@ -177,4 +176,4 @@
 \bibcite{takahashiEtAl2019}{{55}{2019}{{Takahashi et~al.}}{{Takahashi, Chen and Tanaka-Ishii}}}
 \bibcite{tothJones2019}{{56}{2019}{{Toth and Jones}}{{}}}
 \bibcite{yoonEtAl2019timegan}{{57}{2019}{{Yoon et~al.}}{{Yoon, Jarrett and van~der Schaar}}}
-\gdef \@abspage@last{28}
+\gdef \@abspage@last{27}

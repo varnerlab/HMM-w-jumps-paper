@@ -9,8 +9,8 @@
 Synthetic financial data often fail to reproduce the statistical
 properties of real returns. These paths are used to stress-test risk
 models against unobserved market scenarios, validate portfolio
-optimization algorithms, and Monte Carlo backtest allocators across
-many independent scenarios~\cite{assefaEtAl2020, jordonEtAl2022}.
+optimization algorithms, and evaluate allocation strategies across
+many simulated scenarios~\cite{assefaEtAl2020, jordonEtAl2022}.
 Empirical equity excess growth rates exhibit three statistical
 regularities a generative model must reproduce: a heavy-tailed
 marginal distribution, weak autocorrelation of raw growth rates, and
@@ -24,16 +24,16 @@ quantile-quantile comparisons~(Fig.~\ref{fig:empirical_motivation}a and Fig.~\re
 Raw growth rates have little serial correlation (Fig.~\ref{fig:empirical_motivation}c), 
 whereas the positive, slowly decaying autocorrelation of their absolute values (Fig.~\ref{fig:empirical_motivation}d)
 shows that their magnitudes remain temporally dependent. These
-regularities, called \emph{stylized facts}, demonstrate why matching
-the marginal distribution alone is insufficient: synthetic financial
-data must also preserve the distinct dependence structures of return
-levels and return magnitudes.
+regularities are often called \emph{stylized facts}. They show why
+matching the distribution of individual returns is not enough: raw
+returns should remain nearly uncorrelated, while the sizes of those
+returns should remain correlated over time.
 
 \begin{figure}[tbp]
     \centering
     \includegraphics[width=\textwidth]{figs/main/Fig01-Empirical-Motivation.pdf}
     \caption{\textbf{Empirical stylized facts of SPY daily excess growth
-    rates ($2014$--$2024$).} Panel~(a) shows the leptokurtic marginal
+    rates ($2014$--$2024$).} Panel~(a) shows the heavy-tailed return
     density; the Laplace maximum-likelihood fit tracks the empirical
     peak and tails while the Gaussian fit does not. Panel~(b) shows
     departure from the diagonal in a normal quantile-quantile plot
@@ -64,30 +64,31 @@ We therefore sought a model that retained distributional fit, reduced
 absolute-return autocorrelation error, and could be fitted separately
 across a large asset universe.
 
-In this study, we developed a multi-asset equity simulation framework
-that combines separately fitted hidden Markov marginals with a
-variance-corrected single-index composition. Each marginal model used
-a Laplace-quantile state partition, Student-$t$ emissions, and direct
-transition counting, while the jump-duration variant (HMM-WJ) added
-Poisson-distributed tail-state episodes. On a decade of SPY data,
-HMM-WJ had a $97.6\%$ in-sample KS pass rate and reduced ACF-MAE from
-$0.059$ to $0.052$ relative to the no-jump variant, although GARCH
-reached $0.031$. This tradeoff motivated our use of the hidden Markov
-family as the per-asset marginal rather than establishing HMM-WJ as
-uniformly superior. For multi-asset composition, we showed that using
-a raw full-return draw as a single-index residual double counts its
-location and adds the market variance twice. We centered each draw and
-derived a closed-form scale correction that preserved target variance and recovered the
-calibrated factor loading across a $424$-asset universe. When the
-$2014$--$2024$ fits were frozen and evaluated on $416$
-complete asset histories from $2025$, the correction raised the mean
-cross-ticker KS pass rate from $83.5\%$ to $87.0\%$ and reduced the
-median variance ratio from $1.29$ to $0.97$. Independent
-residuals nevertheless exaggerated daily cross-sectional dispersion
-and could overstate diversification gains in daily-rebalanced
-portfolios; setting a location-shift adjustment to a long-run prior
-reduced this return-level bias but did not restore the missing
-cross-asset dependence. By clarifying how marginal fidelity, variance
-preservation, and dependence interact, this framework can support the
-generation of more reliable multi-asset synthetic financial data for
-large-scale stress testing and portfolio evaluation.
+We addressed the problem in two stages. First, we built a per-asset
+generator based on a hidden Markov model. It divided returns into
+Laplace-quantile states, used Student-$t$ draws within each state, and
+estimated transitions by direct counting. Its jump-duration variant
+(HMM-WJ) added temporary episodes in the extreme-return states. On a
+decade of SPY data, HMM-WJ reduced the error in absolute-return
+autocorrelation from $0.059$ to $0.052$ relative to the no-jump model
+while retaining a $97.6\%$ in-sample Kolmogorov--Smirnov pass rate.
+GARCH achieved a lower autocorrelation error of $0.031$ but did not
+match the return distribution. We therefore used HMM-WJ as a practical
+per-asset generator, not as a uniformly superior model.
+
+Our main contribution concerns the second stage: combining those
+per-asset paths with a shared market path. Treating a full synthetic
+return path as a single-index residual creates an unintended mean
+shift and counts market variance twice. We removed the path mean and derived a closed-form
+scale correction that preserved target variance and recovered the
+calibrated market loading across a $424$-asset universe. With all
+$2014$--$2024$ parameters held fixed, the correction increased the
+mean Kolmogorov--Smirnov pass rate from $83.5\%$ to $87.0\%$ on $416$
+complete asset histories from $2025$ and reduced the median variance
+ratio from $1.29$ to $0.97$. The method does not, however, reproduce
+residual dependence between assets. Independent residuals created too
+much cross-sectional dispersion and could overstate the return from
+daily rebalancing. A location adjustment corrected the average return
+level but could not restore the missing dependence. This distinction
+between per-asset fit, variance preservation, and cross-asset
+dependence defines both the contribution and the limit of the method.

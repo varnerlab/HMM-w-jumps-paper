@@ -459,8 +459,8 @@ ensemble median annualized growth rate matches an external prior
 $\bar g^{\mathrm{prior}}$. At each time $t$, it multiplies every path
 by the same factor and therefore preserves cross-path wealth ranks.
 It also shifts every log-return increment by the same constant, which
-leaves the variance of those increments unchanged. For path $p$, the
-correction is
+leaves the variance of those increments unchanged. For path $p$, we
+applied the following correction:
 \begin{equation}
 \label{eq:bias-correction}
   W_{p,t}^{\mathrm{corr}} \;=\; W_{p,t}\cdot
@@ -876,8 +876,8 @@ Solving this identity for the residual variance gives
 Eq.~\eqref{eq:r2-target}.
 Because $\overline{\eps}_i=0$ after centering and scaling, the sample
 mean of a composed path obeys
-$\overline{g}_i=\alpha_i+\beta_i^{\eff}\overline{g}_m$. Hence the
-finite-sample OLS intercept is
+$\overline{g}_i=\alpha_i+\beta_i^{\eff}\overline{g}_m$. Hence, the
+finite-sample OLS intercept was:
 \begin{equation}
   \hat\alpha_i
   = \overline{g}_i-\hat\beta_i\overline{g}_m

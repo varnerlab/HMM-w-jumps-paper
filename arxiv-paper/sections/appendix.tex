@@ -143,20 +143,19 @@ $x^2 = (\Delta t)^2 (\sum_i w_i\, g_i)^2 + O((\Delta t)^3)$, since
 the cross term has an extra $\Delta t$ factor. Substituting:
 \begin{align}
   \log\!\frac{W_t}{W_{t-1}}
-   &= \log\!\Big(1 + x + O\!\big((g\,\Delta t)^3\big)\Big)
-       && \text{(by Eq.~\eqref{eq:exp-expand})} \notag \\
-   &= x - \tfrac{1}{2}\, x^2 + O\!\big(x^3\big)
-       && \text{(Taylor)} \notag \\
+   &= \log\!\Big(1 + x + O\!\big((g\,\Delta t)^3\big)\Big) \notag \\
+   &= x - \tfrac{1}{2}\, x^2 + O\!\big(x^3\big) \notag \\
    &= \Delta t \sum_{i} w_i\, g_i
         + \tfrac{1}{2}(\Delta t)^2 \sum_{i} w_i\, g_i^2
-        - \tfrac{1}{2}(\Delta t)^2 \!\Big(\sum_{i} w_i\, g_i\Big)^{\!2}
-        + O\!\big((g\,\Delta t)^3\big)
-       && \text{(plug in)} \notag \\
+        \notag \\
+   &\quad - \tfrac{1}{2}(\Delta t)^2
+        \!\Big(\sum_{i} w_i\, g_i\Big)^{\!2}
+        + O\!\big((g\,\Delta t)^3\big) \notag \\
    &= \Delta t \sum_{i} w_i\, g_i
-        + \tfrac{1}{2}(\Delta t)^2 \!\left(\sum_{i} w_i\, g_i^2
-             - \Big(\sum_{i} w_i\, g_i\Big)^{\!2}\right)
+        + \tfrac{1}{2}(\Delta t)^2 \!\left[\sum_{i} w_i\, g_i^2
+        \right. \notag \\
+   &\hspace{8em}\left.{}- \Big(\sum_{i} w_i\, g_i\Big)^{\!2}\right]
         + O\!\big((g\,\Delta t)^3\big).
-       && \text{(group)}
   \label{eq:rp-taylor}
 \end{align}
 Dividing through by $\Delta t$ extracts the portfolio's annualized
@@ -221,12 +220,14 @@ expectation of Eq.~\eqref{eq:gp-onestep} and grouping the
 $\sigma_i^2$ contributions separately from the $\mu_i$
 contributions:
 \begin{equation}
-  \E(g_p) \;=\; \sum_{i} w_i\, \mu_i
-  \;+\; \underbrace{\tfrac{1}{2}\,\Delta t\!\left(\sum_{i} w_i\, \sigma_i^2
-       - \sigma_p^2\right)}_{\displaystyle D}
-  \;+\; \tfrac{1}{2}\,\Delta t\!\left(\sum_{i} w_i\, \mu_i^2
-       - \Big(\sum_{i} w_i\, \mu_i\Big)^{\!2}\right)
-  \;+\; O\!\big((\Delta t)^2\big),
+\begin{aligned}
+  \E(g_p) \;={}& \sum_{i} w_i\, \mu_i
+  + \underbrace{\tfrac{1}{2}\,\Delta t\!\left(\sum_{i} w_i\, \sigma_i^2
+       - \sigma_p^2\right)}_{\displaystyle D} \\
+  &+ \tfrac{1}{2}\,\Delta t\!\left[\sum_{i} w_i\, \mu_i^2
+       - \Big(\sum_{i} w_i\, \mu_i\Big)^{\!2}\right]
+  + O\!\big((\Delta t)^2\big),
+\end{aligned}
   \label{eq:booth-fama}
 \end{equation}
 the Booth-Fama identity for the daily-rebalanced portfolio in
@@ -454,8 +455,8 @@ ensemble median annualized growth rate matches an external prior
 $\bar g^{\mathrm{prior}}$. At each time $t$, it multiplies every path
 by the same factor and therefore preserves cross-path wealth ranks.
 It also shifts every log-return increment by the same constant, which
-leaves the variance of those increments unchanged. For path $p$, the
-correction is
+leaves the variance of those increments unchanged. For path $p$, we
+applied the following correction:
 \begin{equation}
 \label{eq:bias-correction}
   W_{p,t}^{\mathrm{corr}} \;=\; W_{p,t}\cdot
@@ -863,8 +864,8 @@ Solving this identity for the residual variance gives
 Eq.~\eqref{eq:r2-target}.
 Because $\overline{\eps}_i=0$ after centering and scaling, the sample
 mean of a composed path obeys
-$\overline{g}_i=\alpha_i+\beta_i^{\eff}\overline{g}_m$. Hence the
-finite-sample OLS intercept is
+$\overline{g}_i=\alpha_i+\beta_i^{\eff}\overline{g}_m$. Hence, the
+finite-sample OLS intercept was:
 \begin{equation}
   \hat\alpha_i
   = \overline{g}_i-\hat\beta_i\overline{g}_m

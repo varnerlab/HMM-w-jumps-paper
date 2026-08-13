@@ -54,7 +54,7 @@ multi-asset holdout evaluation. The data included daily open, high, low, and
 close prices and volume-weighted average prices. We computed the
 excess growth rate $G_{i,j}$ for ticker $i$ between
 trading days $j-1$ and $j$ from the equity price series
-$P_{i,j}$ as
+$P_{i,j}$ with the following expression:
 \begin{equation}
     G_{i,j} \;\equiv\; \left(\frac{1}{\Delta t}\right)\,
     \ln\!\left( \frac{P_{i,j}}{P_{i,j-1}} \right) \;-\; r_f,

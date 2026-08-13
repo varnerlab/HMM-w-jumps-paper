@@ -1,164 +1,122 @@
 % discussion.tex
-% Discussion: language-audit pass, 2026-07-14 (see
-% project_language_audit_2026-07-14 memory). Cut from ~2,700 words to
-% ~1,000-1,100: replaced the full per-generator number replay with a
-% short synthesis per the audit's suggested text, compressed the
-% three per-asset caveats and the multi-asset deferred-questions
-% section, moved detail (rejected alternatives, percentile placement)
-% to Online Appendix S3, and removed "an honest percentile" and other
-% defensive language. No subsections (approved exception was Results
-% only); four clearly-separated paragraphs: single-asset result +
-% caveats, multi-asset result + caveats, diversification-return bias
-% + correction, open extensions. "composer" -> "composition method"
-% throughout (conclusion.tex still needs the same swap).
 
-The single-asset analysis supplied the marginal input for the
-multi-asset construction. Relative to HMM-NJ, HMM-WJ reduced ACF-MAE
-at the cost of somewhat lower in-sample KS and AD pass rates. GARCH
-reached the lowest ACF-MAE of any generator but failed the
-distributional tests, and the GRU behaved the same way. The HSMM
-passed the KS test but underproduced kurtosis relative to the observed
-data. Bootstrap resampling passed KS trivially by drawing only
-observed returns. Among the models that were neither GARCH nor neural,
-HMM-WJ was the only one with ACF-MAE below the i.i.d.\ baseline, and
-the same ordering held in the $2025$ evaluation. We therefore treated
-HMM-WJ as a marginal generator that traded lower distributional pass
-rates for lower ACF-MAE, not as a uniformly better single-asset
-model. These pass-rate comparisons have a statistical limitation. Two-sample
-KS and AD $p$-values assume independent observations, but the HMM,
-HSMM, GARCH, and bootstrap generators produce dependent observations.
-We therefore considered the pass rates alongside $W_1$, Hellinger
-distance, and the Hill tail index rather than comparing their
-$p$-values on the same footing. The $N = 100$ state
-resolution, selected by a sensitivity sweep over
-$\{30, 60, 90, 100, 150, 200\}$, produced little KS or AD variation
-across the middle of that range on the $2{,}766$-day SPY sample. Shorter histories will support fewer states
-because each state will receive fewer observations. The jump parameters
-$(\epsilon, \lambda)$ were tuned once against SPY and applied across
-the universe. Per-ticker tuning on the three cross-asset tickers
-produced in-sample KS pass rates of at least $98.9\%$ (Online
-Appendix~\ref{sec:supp-cross-asset}). These three cases do not show
-that the SPY calibration will transfer to assets with different jump
-behavior. The Student-$t$ emission with $\nu = 5$ matched the observed
-kurtosis far more closely than Normal emissions, but it does not model
-skewness directly. The negative
-skewness in both HMM variants came from asymmetric occupancy of the
-Laplace states. Assets with a different skew direction may require a
-different quantile rule.
-Thus, the single-asset evidence supports HMM-WJ as a flexible marginal
-input rather than a universally transferable calibration, making its
-value in the multi-asset setting depend on how those marginals are
-composed.
+The single-asset analysis supplied the return generator used in the
+multi-asset construction. Relative to HMM-NJ, HMM-WJ reduced the
+autocorrelation error for absolute returns, although its in-sample KS
+and AD pass rates were slightly lower. GARCH achieved the lowest
+autocorrelation error of any generator but rarely passed the
+distributional tests, and the GRU showed a similar tradeoff. The HSMM
+passed the KS test more often but produced too little kurtosis.
+Bootstrap resampling passed the distributional tests by drawing
+directly from the observed returns, but it did not reproduce
+volatility clustering. We therefore interpret HMM-WJ as a compromise
+between distributional and temporal fit, not as a uniformly better
+single-asset model.
 
-The main result was the multi-asset variance correction. Naive
-composition inflated generator variance at high $\beta$ and almost
-always failed the KS test, as did the Gaussian SIM. The corrected
-method held the variance ratio at one and passed the KS test in
-$73.6\%$ of full-length training comparisons. With all fits frozen
-for $2025$, it retained a median variance ratio of $0.97$ and improved
-the mean cross-ticker KS pass rate from $83.5\%$ under centered naive
-composition to $87.0\%$. This improvement was not uniform across assets:
-Figure~\ref{fig:oos_composition} shows generally strong ticker-level pass
-rates alongside a lower tail of weak fits, with some hybrid tickers
-deteriorating relative to matched-length training blocks. The correction
-therefore improved typical marginal fit and variance calibration without
-eliminating asset-specific distribution shift. This heterogeneity makes
-ticker-level diagnostics important; a universe-wide average pass rate
-should not be interpreted as a deployment guarantee for every asset. The
-best residual-fit method had a slightly higher KS pass rate in sample,
-whereas the hybrid method had the highest rate in the holdout. Residual-fit
-methods model the OLS residuals directly and therefore avoid
-the variance-inflation problem. The
-choice between the two approaches depends on whether the same
-full-return generator must serve both single-asset and multi-asset
-uses. The hybrid method's held-out one-day $99\%$ VaR exceedance rate
-was $1.67\%$, the same rounded rate as JumpHMM-on-residuals but
-above the $1\%$ nominal level. It did not require the residual
-method's separate fitting stage.
-Taken together, these results position the hybrid method as a reusable
-full-return construction, while residual-specific fitting remains a
-competitive alternative when a separate calibration stage is acceptable.
+The distributional pass rates also need cautious interpretation. The
+two-sample KS and AD tests assume independent observations, whereas
+the HMM, HSMM, GARCH, and block-bootstrap paths contain dependence.
+For that reason, we considered the tests alongside Wasserstein and
+Hellinger distances and the Hill tail index. Model resolution creates
+a second qualification. A sensitivity sweep over
+$N\in\{30,60,90,100,150,200\}$ showed little change across the middle
+of this range for the $2{,}766$-day SPY sample, but shorter histories
+will support fewer well-populated states. We also tuned the jump
+parameters $(\epsilon,\lambda)$ on SPY and then applied them across
+the asset universe. Separate fits for NVDA, JNJ, and JPM achieved
+in-sample KS pass rates of at least $98.9\%$, but three assets cannot
+establish that one jump calibration transfers to every return series.
+Finally, the Student-$t$ emissions model heavy tails but not skewness
+directly. The fitted skewness instead came from unequal time spent in
+negative and positive states, so assets with different asymmetry may
+need a different state partition.
 
-Several evaluation choices limit these results. The in-sample
-composition experiment fixed the market path at the real SPY history;
-the holdout experiment instead generated SPY from its frozen
-training-period marginal and reserved observed $2025$ SPY for
-scoring. The naive and hybrid methods used the same JumpHMM draw for
-each ticker, while the other methods drew from their own generators.
-We also omitted the optional cross-sectional
-rank reorder and evaluated VaR per ticker rather than at the portfolio
-level. Portfolio-level VaR would require a model of cross-asset
-dependence. The variance correction assumes
-$\mathrm{Cov}(\tg_i^{\mathrm c}, g_m) \approx 0$, which holds by construction
-here because the JumpHMM marginals were fitted and sampled independently
-of the market path. The correction would need adjustment for a generator
-already correlated with the market (for example, a bootstrap from
-joint history). The construction also injects contemporaneous
-market dependence only: lagged effects such as lead-lag correlation
-or market-driven volatility clustering are not reproduced. Clipping
-did not trigger because every ticker had $\rho_i<0.90$. It becomes relevant
-when the simulated market is more volatile than the calibration history
-or for universes mixing low-volatility stocks with extreme-beta
-assets such as leveraged ETFs. Even without clipping, the hybrid KS pass rate declined from the
-lowest $\beta$ quartile to the highest. As
-$\beta$ increased, the market term accounted for more of the composed
-distribution, whose tails then depended more on the market path.
-The $249$-day holdout also has substantially less power than the
-$2{,}766$-day training comparison. Matched-length training blocks
-partly address this difference, but neither non-rejection rates nor
-$99\%$ VaR counts from a single year should be interpreted as precise
-model rankings.
-Taken together, these limitations bound the main claim to per-asset
-variance correction and marginal evaluation; they do not establish
-portfolio-level dependence fidelity, whose consequences become
-visible under rebalancing.
+The main multi-asset result was the variance correction. Naive
+composition added market variance to a draw that already represented
+the asset's total variance. The correction removed that double count
+and passed $73.6\%$ of the full-length in-sample KS comparisons. After
+all fits were frozen, it raised the mean cross-ticker KS pass rate from
+$83.5\%$ under centered naive composition to $87.0\%$ on the $2025$
+holdout and kept the median variance ratio at $0.97$. The improvement
+was broad but not uniform: every method retained a lower tail of
+tickers with weak fits, and some hybrid fits deteriorated relative to
+matched-length training blocks. A high average pass rate is therefore
+not a guarantee for every asset.
 
-Independent residuals produced a diversification-return bias under
-daily rebalancing. Matching each asset's marginal variance did not
-restore the residual covariance created by common sector and style
-factors~\cite{boothFama1992}. The resulting excess cross-sectional
-dispersion became a spurious return premium under rebalancing. This
-problem affected every method that drew residuals independently, not
-only naive composition. The block-bootstrap and GARCH methods restored
-each ticker's temporal structure but not covariance between tickers.
-In a
-$20$-asset target-weight allocator example, the synthetic median
-annualized growth rate exceeded the real $2025$ return by about
-$18$ percentage points. The static-versus-daily-rebalance difference
-was $27.73$ percentage points, whereas adding the allocation signal
-changed the median by $0.13$ percentage points~\cite{boothFama1992,
-boucheyNemtchinovWong2015,
-markowitz1976longRun} (Online Appendix~\ref{sec:supp-bias}). We
-applied a location-shift correction that subtracts a constant drift
-in log-wealth from every path, calibrated to match an external
-long-run prior~\cite{damodaranERP, ibbotsonSBBI} rather than the
-realized test-year outcome. The correction preserved path ranks but
-changed drawdown dates and depths because the adjustment varies over
-time in wealth space. It recalibrated the return level but did not
-restore cross-asset covariance. The full method, the rejected
-alternatives, and the percentile placement of the realized year are
-given in Online Appendix~\ref{sec:supp-bias}.
-Thus, the location shift is a return-level calibration rather than a
-substitute for modeling residual dependence, which remains the central
-requirement for portfolio applications.
+Fitting the return generator directly to OLS residuals is a
+competitive alternative. Residual-fit methods avoid double counting
+because the market component has already been removed. The best such
+method, JumpHMM-on-residuals, had a slightly higher KS pass rate in
+sample, while the hybrid method had the higher rate in the holdout.
+The practical difference is reuse: the hybrid construction can use a
+generator already fitted to full returns, whereas the residual method
+requires another fit for each asset. Neither approach achieved nominal
+tail coverage in the short holdout. The hybrid method's one-day $99\%$
+VaR exceedance rate was $1.67\%$, the same rounded rate as
+JumpHMM-on-residuals and above the $1\%$ nominal rate.
 
-Several extensions remain open. Per-ticker tuning of the jump
-parameters $(\epsilon, \lambda)$ on each asset's own history would
-require a separate calibration for every asset. Multi-factor or
-lagged-factor variants could add the dependence omitted by the current
-single-factor construction. The same variance correction extends to
-either case, but we did not evaluate those extensions. A joint
-residual model, such as a synchronized multivariate block bootstrap,
-a residual factor model, or a copula, could restore cross-asset
-residual covariance. In contrast,
-separate autoregressive or block-bootstrap models would improve each
-asset's temporal dependence without creating dependence between
-assets. A stress test that pairs the clipping rule with a market more
-volatile than
-the calibration history would test whether the idiosyncratic floor
-keeps per-asset marginals heavy-tailed under exactly the conditions
-where naive SIM composition breaks down.
-Taken together, these extensions move the next stage of the work from
-separate marginal generation toward joint residual and factor dynamics,
-with the variance correction serving as a constraint within a fuller
-dependence model.
+Several design choices narrow this comparison. In sample, we used the
+observed SPY history as the market path. In the holdout experiment, we
+generated SPY from its frozen training-period model and reserved the
+observed $2025$ path for scoring. The naive and hybrid methods shared
+the same JumpHMM draw for each ticker, while the residual methods used
+draws from their own fitted generators. We omitted the optional
+cross-sectional rank reorder and evaluated VaR for each ticker rather
+than for a portfolio. The variance correction also assumes
+$\operatorname{Cov}(\tg_i^{\mathrm c},g_m)\approx0$, which holds here
+because the asset and market paths were generated independently. A
+generator sampled from joint market history would require a covariance
+adjustment. In addition, the present construction adds only
+contemporaneous market dependence; it does not reproduce lead-lag
+effects or market-driven volatility clustering.
+
+The sensitivity results mark the boundary of the observed evidence.
+Hybrid KS pass rates declined from $87.6\%$ in the lowest $\beta$
+quartile to $65.9\%$ in the highest because the market path determined
+more of the composed distribution as $\beta$ increased. The clipping
+rule did not activate in the observed universe, where every ticker had
+$\rho_i<0.90$, but it activated for most tickers after market
+volatility was doubled or tripled. Only two tracker assets used the
+$R^2$-preserving branch. The $249$-day holdout also had much less power
+than the $2{,}766$-day training comparison. Matched-length training
+blocks partly address that difference, but one year of test data cannot
+provide a precise ranking from either pass rates or $99\%$ VaR counts.
+The evidence therefore supports per-asset variance correction and
+distributional evaluation, not portfolio-level dependence fidelity.
+
+The portfolio experiment shows why that distinction matters.
+Independent residual draws removed the sector and style covariance
+present in real assets~\cite{boothFama1992}. Daily rebalancing then
+converted the excess cross-sectional dispersion into a spurious return
+premium. This problem affected every method that generated residuals
+independently, including the block-bootstrap and GARCH variants. In a
+$20$-asset target-weight example, the synthetic median annualized
+growth rate exceeded the realized $2025$ return by about $18$
+percentage points. Moving from static weights to daily rebalancing
+changed the median by $27.73$ percentage points, whereas adding the
+allocation signal changed it by only $0.13$ percentage points
+\cite{boothFama1992,boucheyNemtchinovWong2015,
+markowitz1976longRun}. The apparent allocation gain was therefore
+almost entirely a diversification-return artifact.
+
+A joint residual model is the clearest next extension. A synchronized
+multivariate block bootstrap, residual factor model, or copula could
+restore cross-asset residual covariance. Multi-factor or lagged-factor
+versions could also capture dependence omitted by the current
+single-factor construction, with the variance correction retained as
+a compositional constraint. Per-asset jump calibration and stress
+tests involving highly volatile markets or leveraged assets would test
+the other transfer limits identified here. Separate univariate
+autoregressive or block-bootstrap models would not be enough: they can
+improve temporal behavior within each asset without creating
+dependence between assets.
+
+The current location adjustment does not resolve this central
+limitation. We calibrated a constant shift in log-wealth to an external
+long-run return prior~\cite{damodaranERP,ibbotsonSBBI}, not to the
+realized test-year result. The shift preserved path ranks and adjusted
+the return level, although it changed drawdown timing and depth as
+wealth accumulated. It did not restore the missing residual covariance.
+The variance correction is therefore necessary for combining
+full-return generators with a market factor, but it is not a complete
+dependence model. Portfolio-level use requires joint residual dynamics.

@@ -108,7 +108,7 @@ multi-asset holdout evaluation. The data included daily open, high, low, and
 close prices and volume-weighted average prices. We computed the
 excess growth rate $G_{i,j}$ for ticker $i$ between
 trading days $j-1$ and $j$ from the equity price series
-$P_{i,j}$ as
+$P_{i,j}$ with the following expression:
 \begin{equation}
     G_{i,j} \;\equiv\; \left(\frac{1}{\Delta t}\right)\,
     \ln\!\left( \frac{P_{i,j}}{P_{i,j-1}} \right) \;-\; r_f,
@@ -155,7 +155,7 @@ released the code, and contributed to the manuscript.
 The authors declare no competing interests.
 
 \paragraph{Code and data availability.}
-The experiment scripts, evaluation harness (six-composer benchmark,
+The experiment scripts, evaluation harness (six-method comparison,
 Value-at-Risk coverage check, bias-correction utility), and the fitted
 per-asset marginals are released in the paper repository
 (\url{https://github.com/varnerlab/HMM-w-jumps-paper}); the

@@ -3,33 +3,29 @@
 % contribution; the HMM-WJ result is presented as validation of the
 % marginal component rather than as a uniformly superior generator.
 
-Synthetic multi-asset equity paths must preserve both the per-asset
-return distributions and their relationship with the market. A common
-construction inserts a full-return generator draw directly into a
-single-index model, but this double counts both the draw's location and
-the market variance. We centered each full-return draw to recover the
-residual location, derived a closed-form variance-scale correction,
-and evaluated the construction on $423$ non-market
-assets in a $424$-asset US equity and exchange-traded-fund universe.
-The correction set each synthetic asset's variance to its
-empirical target, recovered the calibrated factor loading with low
-error, and preserved heavy-tailed marginals, all without a separate
-fit to the regression residuals. The best residual-fit comparator had
-a similar marginal pass rate but required an additional per-asset
-calibration stage. On $416$ complete
-asset histories held out from $2025$, the correction raised the
-cross-ticker pass rate on the same marginal tests, brought the median
-ratio of synthetic to empirical variance close to one, and produced
-one-day $99\%$ Value-at-Risk exceedances comparable to the
-residual-fit counterpart, though above the nominal rate. The
-per-asset input was a hidden Markov model with Laplace-quantile states
-and Student-t emissions, whose jump-duration variant used Poisson
-episodes to lengthen visits to the tail states. On a decade of daily
-SPY data, this variant lowered the absolute-return autocorrelation
-error relative to its no-jump counterpart while keeping strong
-distributional fit, and we selected it as the marginal component on
-this tradeoff, not because it dominated every baseline. The
-multi-asset construction still omits cross-asset residual covariance,
-so independent residuals can overstate diversification gains under
-daily rebalancing. Code and the per-asset fitted marginals are
+Synthetic multi-asset equity data must reproduce each asset's return
+distribution and its relationship with the market. A common approach
+adds a synthetic full-return path to a market factor as though the
+synthetic path were a residual. Because that path already contains the
+asset's total variance, the construction adds market variance a second
+time. We derived a correction that centers and rescales each synthetic
+path before adding the market factor. We tested the method on $423$
+non-market assets in a $424$-asset US equity and exchange-traded-fund
+universe. The correction preserved each generator's target variance,
+recovered its calibrated market loading with low error, and retained
+heavy-tailed return distributions without fitting a second model to
+the regression residuals. On $416$ complete asset histories held out
+from $2025$, it increased the mean Kolmogorov--Smirnov pass rate from
+$83.5\%$ to $87.0\%$ and reduced the median ratio of synthetic to
+observed variance from $1.29$ to $0.97$. Its one-day $99\%$
+Value-at-Risk exceedance rate was similar to that of the best
+residual-fit method, although both exceeded the nominal rate. We
+generated the per-asset paths with a hidden Markov model whose
+jump-duration variant lengthened visits to extreme-return states. On
+a decade of daily SPY data, this variant improved the match to
+volatility clustering relative to the no-jump model while maintaining
+strong distributional fit. We selected it as a practical compromise,
+not because it outperformed every baseline. The multi-asset method
+still omits residual dependence between assets, which can overstate
+the benefit of daily rebalancing. Code and fitted per-asset models are
 released with the paper.

@@ -20,13 +20,13 @@ Top-down generators trace to Bachelier's diffusion model, later
 formalized as geometric Brownian motion and used by
 Black-Scholes-Merton for option
 pricing~\cite{bachelier1900, osborne1959, samuelson1965,
-blackScholes1973}; these diffusion baselines are tractable but fail
-on the empirical regularities that drive risk and pricing. Mandelbrot~\cite{mandelbrot1963}
-showed returns have heavier tails than the Gaussian admits;
-Fama~\cite{famaEMH1970} reviewed evidence that raw returns have
-near-zero autocorrelation; and Schwert~\cite{schwert1989} documented
-persistence in monthly absolute residuals, later codified by
-Cont~\cite{cont2001} as volatility clustering. The autoregressive
+blackScholes1973}. These diffusion baselines are tractable but fail
+on the empirical regularities that drive risk and pricing.
+Mandelbrot~\cite{mandelbrot1963} showed that returns have heavier tails
+than a Gaussian model allows. Fama~\cite{famaEMH1970} reviewed evidence
+that raw returns have near-zero autocorrelation. Schwert~\cite{schwert1989}
+documented persistence in monthly absolute residuals, a pattern later
+described by Cont~\cite{cont2001} as volatility clustering. The autoregressive
 conditional heteroskedasticity (ARCH) and generalized ARCH (GARCH)
 models of Engle and Bollerslev~\cite{engle1982, bollerslev1986}
 reproduced clustering but required a heavy-tailed noise term to
@@ -41,13 +41,13 @@ price path, producing heavy tails by construction, but volatility
 does not persist after the jump.
 
 Hidden Markov models embed regime and jump behavior directly in a
-latent discrete chain, following Hamilton's~\cite{hamilton1989}
-two-state regime-switching formulation, later applied to volatility
+latent discrete chain. This approach follows Hamilton's~\cite{hamilton1989}
+two-state regime-switching model, later applied to volatility
 forecasting~\cite{rossiGallo2006} and equity
 trading~\cite{nguyen2018}. Ryden et
 al.~\cite{rydenTerasvirtaAsbrink1998} found that Gaussian-emission
 HMMs matched heavy tails and the absence of return autocorrelation
-but did not reproduce volatility clustering; Bulla and
+but did not reproduce volatility clustering. Bulla and
 Bulla~\cite{bullaBulla2006} modeled clustering with hidden
 semi-Markov models (HSMMs) that replaced the geometric dwell-time
 distribution of every state with a parametric (negative-binomial)
@@ -68,8 +68,8 @@ matrix for the central states and added an event-driven
 override that forces the chain into the tail states for a
 Poisson-distributed duration on a subset of time steps.
 
-Multi-asset composition adds cross-asset dependence on top of a
-univariate generator. Mixture hidden Markov
+Building a multi-asset path requires a dependence model in addition
+to the separate single-asset generators. Mixture hidden Markov
 models~\cite{diasVermuntRamos2010} share latent state across assets
 but are costly to estimate in high dimensions. Copula
 approaches~\cite{embrechtsMcNeilStraumann2002,
@@ -83,18 +83,20 @@ Sharpe~\cite{sharpe1963} uses one shared factor and decomposes each
 asset's growth rate into a market term and an idiosyncratic residual.
 This structure can use a single-factor market generator directly. We
 derived a closed-form correction that preserves the generator
-variance while recovering the calibrated market loading. To evaluate
-the resulting paths, we combined goodness-of-fit tests for the return
+variance while recovering the calibrated market loading.
+
+A statistical match does not guarantee that synthetic paths will be
+useful in a downstream financial task. We therefore combined
+goodness-of-fit tests for the return
 distribution~\cite{kolmogorov1933, smirnov1948, andersonDarling1952}
 with autocorrelation diagnostics for temporal structure~\cite{cont2001}.
-These tests are necessary but not sufficient: a synthetic dataset
-can pass them yet still mislead when fed into the task it was
-generated for. Booth and Fama~\cite{boothFama1992} described one
-such failure: a daily-rebalanced allocator on paths whose residuals
-are drawn independently across assets extracts a structural
+We also evaluated Value-at-Risk coverage and a daily-rebalanced
+allocation example. Booth and Fama~\cite{boothFama1992} described the
+problem that arises in the latter setting: paths whose residuals are
+drawn independently across assets can create a
 \emph{diversification return} that is muted in real markets, where
 common sector and style factors correlate residuals across assets.
-We adopted the classical distributional metrics together with a
-Value-at-Risk coverage check scored by Kupiec's
-unconditional-coverage test, and addressed this diversification-return
-bias with a location-shift correction.
+We measured Value-at-Risk performance with Kupiec's
+unconditional-coverage test and used a location adjustment to measure,
+but not solve, the return-level effect of the missing residual
+dependence.
