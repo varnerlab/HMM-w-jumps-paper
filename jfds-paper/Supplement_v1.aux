@@ -1,6 +1,5 @@
 \relax 
 \citation{boucheyNemtchinovWong2015}
-\citation{cont2001}
 \@writefile{toc}{\let\numberline\tmptocnumberline}
 \@writefile{toc}{\contentsline {section}{\numberline {S1}Empirical cross-term diagnostic}{1}{}\protected@file@percent }
 \newlabel{sec:supp-cov}{{S1}{1}{}{section.1}{}}
@@ -22,7 +21,7 @@
 \newlabel{eq:dr-pairwise}{{S11}{5}{}{equation.2.11}{}}
 \newlabel{eq:dr-sim}{{S13}{5}{}{equation.2.13}{}}
 \citation{boucheyNemtchinovWong2015}
-\@writefile{lot}{\contentsline {table}{\numberline {S1}{\ignorespaces \textbf  {Descriptive statistics and stylized-facts tests for SPY daily excess growth rates.} In-sample (IS): $2014$--$2024$ ($T = 2{,}766$); out-of-sample (OoS): $2025$ ($T = 249$). Gaussian and Laplace columns show maximum likelihood estimation (MLE) fits to the in-sample data. JB: Jarque-Bera normality test. LB: Ljung-Box autocorrelation test at lag $20$. $^{\ast }$ denotes rejection at $\alpha = 0.05$.}}{6}{}\protected@file@percent }
+\@writefile{lot}{\contentsline {table}{\numberline {S1}{\ignorespaces \textbf  {Descriptive statistics and stylized-facts tests for SPY daily excess growth rates.} In-sample (IS): $2014$--$2024$ ($T = 2{,}766$); out-of-sample (OoS): $2025$ ($T = 249$). Gaussian and Laplace columns show maximum likelihood estimation (MLE) fits to the in-sample data. We used the Jarque--Bera (JB) normality test and the Ljung--Box (LB) autocorrelation test at lag $20$. $^{\ast }$ denotes rejection at $\alpha = 0.05$.}}{6}{}\protected@file@percent }
 \newlabel{tab:descriptive_stats}{{S1}{6}{}{table.1}{}}
 \citation{damodaranERP,ibbotsonSBBI}
 \citation{politisRomano1994}
@@ -38,48 +37,47 @@
 \@writefile{toc}{\contentsline {section}{\numberline {S3}Validation metric definitions}{9}{}\protected@file@percent }
 \newlabel{sec:supp-validation}{{S3}{9}{}{section.3}{}}
 \newlabel{eq:wasserstein}{{S15}{9}{}{equation.3.15}{}}
+\newlabel{eq:hill}{{S16}{9}{}{equation.3.16}{}}
+\citation{bullaBulla2006}
 \@writefile{lof}{\contentsline {figure}{\numberline {S4}{\ignorespaces \textbf  {Statistical validation of HMM-WJ} ($N = 100$, $\alpha = 0.05$). Panels (a) and (d) condition on the $\sim \!24\%$ of in-sample paths containing jump events. (a)~In-sample KS $p$-values for $239$ jump paths (pass rate $93.7\%$). (b)~Out-of-sample KS $p$-values for all $1{,}000$ paths (pass rate $95.4\%$). (c)~Out-of-sample density fan chart; the observed density falls within the simulation envelope. (d)~Observed and mean simulated in-sample ACF of $|G_t|$ for jump paths.}}{10}{}\protected@file@percent }
 \newlabel{fig:statistical_validation}{{S4}{10}{}{figure.4}{}}
-\newlabel{eq:hill}{{S16}{10}{}{equation.3.16}{}}
 \newlabel{eq:hellinger}{{S17}{10}{}{equation.3.17}{}}
 \@writefile{toc}{\contentsline {section}{\numberline {S4}Transition matrix internals and partition diagnostics}{10}{}\protected@file@percent }
 \newlabel{sec:supp-transitions}{{S4}{10}{}{section.4}{}}
 \citation{bullaBulla2006}
 \citation{bullaBulla2006}
-\citation{bullaBulla2006}
-\@writefile{lof}{\contentsline {figure}{\numberline {S5}{\ignorespaces \textbf  {Fitted HMM-WJ internals for SPY with $N = 100$ states.} Panel~(a) overlays the fitted Laplace CDF on the empirical CDF; the $99$ vertical lines mark the equal-probability quantile boundaries $Q_k$ that define the hidden states. Panel~(b) displays the estimated transition matrix $\mathbf  {T}$ in $\log _{10}$ color scale; the dominant near-diagonal band reflects short-range regime persistence. Panel~(c) plots the expected natural residence time $1/(1 - T_{kk})$ for each state on a $\log _{10}$ scale, with the bottom tail set $\mathcal  {S}_{-}$ (states $1$--$5$, red) and the top tail set $\mathcal  {S}_{+}$ (states $96$--$100$, teal) highlighted. The dashed horizontal line marks the fitted mean jump duration $\lambda = 100$ steps, quantifying the two-order-of-magnitude gap between natural residence times and the jump-duration override.}}{11}{}\protected@file@percent }
+\@writefile{lof}{\contentsline {figure}{\numberline {S5}{\ignorespaces \textbf  {Fitted HMM-WJ internals for SPY with $N = 100$ states.} Panel~(a) overlays the fitted Laplace CDF on the empirical CDF; the $99$ vertical lines mark the equal-probability quantile boundaries $Q_k$ that define the hidden states. Panel~(b) displays the estimated transition matrix $\mathbf  {T}$ in $\log _{10}$ color scale; the dominant near-diagonal band reflects short-range regime persistence. Panel~(c) plots the expected natural residence time $1/(1 - T_{kk})$ for each state on a $\log _{10}$ scale, with the bottom tail set $\mathcal  {S}_{-}$ (states $1$--$5$, red) and the top tail set $\mathcal  {S}_{+}$ (states $96$--$100$, teal) highlighted. The dashed horizontal line marks the fitted mean jump duration $\lambda = 90$ steps, quantifying the two-order-of-magnitude gap between natural residence times and the jump-duration override.}}{11}{}\protected@file@percent }
 \newlabel{fig:model_internals}{{S5}{11}{}{figure.5}{}}
 \@writefile{toc}{\contentsline {section}{\numberline {S5}Emission distribution and semi-Markov comparison}{11}{}\protected@file@percent }
 \newlabel{sec:supp-emission-hsmm}{{S5}{11}{}{section.5}{}}
 \@writefile{toc}{\contentsline {section}{\numberline {S6}State-resolution sensitivity}{11}{}\protected@file@percent }
 \newlabel{sec:supp-sensitivity}{{S6}{11}{}{section.6}{}}
-\@writefile{lot}{\contentsline {table}{\numberline {S3}{\ignorespaces \textbf  {Three-way comparison of emission distributions and duration specifications for SPY.} Standard errors in parentheses; bold marks the best value per row. HSMM: hidden semi-Markov model ($K = 8$ states, negative-binomial dwell times, Student-$t$ emissions) \citep  {bullaBulla2006}; HMM-WJ: hybrid hidden Markov model with jump-duration override ($N = 100$). All entries are computed from $1{,}000$ simulated paths at significance level $\alpha = 0.05$.}}{12}{}\protected@file@percent }
+\@writefile{lot}{\contentsline {table}{\numberline {S3}{\ignorespaces \textbf  {Three-way comparison of emission distributions and duration specifications for SPY.} Standard errors in parentheses; bold marks the best value per row. The HSMM is a hidden semi-Markov-style model adapted from \citet  {bullaBulla2006} ($K = 8$ states, negative-binomial dwell times with a geometric fallback, and Student-$t$ emissions); HMM-WJ: hybrid hidden Markov model with jump-duration override ($N = 100$). All entries are computed from $1{,}000$ simulated paths at significance level $\alpha = 0.05$.}}{12}{}\protected@file@percent }
 \newlabel{tab:emission_hsmm}{{S3}{12}{}{table.3}{}}
 \@writefile{lot}{\contentsline {table}{\numberline {S4}{\ignorespaces \textbf  {Hybrid composition method broken out by branch.} $N_{\mathrm  {tickers}}$: number of tickers assigned to each branch by the $R^2_{\mathrm  {preserve}} = 0.80$ threshold. The clipped variance-preserving branch does not trigger anywhere in the universe ($\rho _i < 0.90$ for all tickers) and is omitted. The two trackers in the $R^2$-preserving branch (QQQ and SPYG) had median absolute errors of $0.005$ for $\beta $ and $0.001$ for $R^2$, with a KS pass rate of $100\%$.}}{12}{}\protected@file@percent }
 \newlabel{tab:branch}{{S4}{12}{}{table.4}{}}
 \@writefile{lof}{\contentsline {figure}{\numberline {S6}{\ignorespaces \textbf  {Branch assignment in calibrated $(\beta , R^2_{\mathrm  {real}})$ space.} The $R^2_{\mathrm  {preserve}} = 0.80$ threshold (dashed line) separates tracker assets from single stocks. In this universe, only QQQ and SPYG exceed the threshold, and both are assigned to the $R^2$-preserving branch. The remaining $421$ tickers populate the variance-preserving branch; the clipped variance-preserving branch is unused because the market loading ratio $\rho _i = \beta _i^2 \sigma _m^2 / \sigma _{\mathrm  {gen},i}^2$ stays below $0.90$ for every ticker.}}{13}{}\protected@file@percent }
 \newlabel{fig:branch_map}{{S6}{13}{}{figure.6}{}}
-\@writefile{toc}{\contentsline {section}{\numberline {S7}Cross-asset generalization}{13}{}\protected@file@percent }
-\newlabel{sec:supp-cross-asset}{{S7}{13}{}{section.7}{}}
-\@writefile{toc}{\contentsline {section}{\numberline {S8}SIM composition derivations and properties verification}{13}{}\protected@file@percent }
-\newlabel{sec:supp-sim-derivations}{{S8}{13}{}{section.8}{}}
-\@writefile{lot}{\contentsline {table}{\numberline {S5}{\ignorespaces \textbf  {Aggregate metrics by $\beta $ quartile, across composition methods.} Quartile cutoffs are computed from the calibrated $\beta $ distribution across the $423$-ticker universe. The hybrid KS pass rate declines from $87.6\%$ in Q1 to $65.9\%$ in Q4 as the market loading ratio $\rho _i$ grows; the naive KS pass rate falls from $24.6\%$ to $1.3\%$ over the same range.}}{14}{}\protected@file@percent }
-\newlabel{tab:beta_bucket}{{S5}{14}{}{table.5}{}}
+\@writefile{lot}{\contentsline {table}{\numberline {S5}{\ignorespaces \textbf  {Aggregate metrics by $\beta $ quartile, across composition methods.} Quartile cutoffs are computed from the calibrated $\beta $ distribution across the $423$-ticker universe. The hybrid KS pass rate declines from $87.6\%$ in Q1 to $65.9\%$ in Q4 as the market loading ratio $\rho _i$ grows; the naive KS pass rate falls from $24.6\%$ to $1.3\%$ over the same range.}}{13}{}\protected@file@percent }
+\newlabel{tab:beta_bucket}{{S5}{13}{}{table.5}{}}
 \@writefile{lot}{\contentsline {table}{\numberline {S6}{\ignorespaces \textbf  {Clipping-branch stress test under market-volatility scaling.} The market growth-rate path was rescaled by $\gamma \in \{1, 2, 3\}$ with the calibrated marginals held fixed, and the full hybrid composition method re-evaluated on the $423$-ticker universe. As $\gamma $ rises, the share of clipped tickers grows.}}{14}{}\protected@file@percent }
 \newlabel{tab:stress}{{S6}{14}{}{table.6}{}}
 \@writefile{lot}{\contentsline {table}{\numberline {S7}{\ignorespaces \textbf  {Cross-asset generalization of HMM-WJ across three single-stock tickers spanning sector and volatility regimes.} Per-ticker tune outputs $(\epsilon ^{*}, \lambda ^{*})$ at $n_{\mathrm  {paths}} = 200$ and $\mathrm  {seed} = 1234$, and the corresponding HMM-WJ pass rates on $1{,}000$ simulated paths at $\alpha = 0.05$ against each ticker's in-sample $(2014$--$2024)$ and out-of-sample $(2025)$ growth-rate history. Standard errors in parentheses (binomial SE for pass rates). The $(\epsilon ^{*}, \lambda ^{*})$ values are reported as the parameter values used for the IS / OoS metrics rather than as canonical per-ticker optima.}}{14}{}\protected@file@percent }
 \newlabel{tab:cross_asset}{{S7}{14}{}{table.7}{}}
+\@writefile{toc}{\contentsline {section}{\numberline {S7}Cross-asset generalization}{14}{}\protected@file@percent }
+\newlabel{sec:supp-cross-asset}{{S7}{14}{}{section.7}{}}
+\@writefile{toc}{\contentsline {section}{\numberline {S8}SIM composition derivations and properties verification}{14}{}\protected@file@percent }
+\newlabel{sec:supp-sim-derivations}{{S8}{14}{}{section.8}{}}
 \bibstyle{elsarticle-harv}
 \bibdata{References_v1}
 \bibcite{andersonDarling1952}{{1}{1952}{{Anderson and Darling}}{{}}}
 \bibcite{boothFama1992}{{2}{1992}{{Booth and Fama}}{{}}}
 \bibcite{boucheyNemtchinovWong2015}{{3}{2015}{{Bouchey et~al.}}{{Bouchey, Nemtchinov and Wong}}}
 \bibcite{bullaBulla2006}{{4}{2006}{{Bulla and Bulla}}{{}}}
-\bibcite{cont2001}{{5}{2001}{{Cont}}{{}}}
-\bibcite{damodaranERP}{{6}{2025}{{Damodaran}}{{}}}
-\bibcite{ibbotsonSBBI}{{7}{2024}{{Ibbotson and {Duff and Phelps}}}{{}}}
-\bibcite{kolmogorov1933}{{8}{1933}{{Kolmogorov}}{{}}}
-\bibcite{markowitz1976longRun}{{9}{1976}{{Markowitz}}{{}}}
-\bibcite{politisRomano1994}{{10}{1994}{{Politis and Romano}}{{}}}
-\bibcite{smirnov1948}{{11}{1948}{{Smirnov}}{{}}}
+\bibcite{damodaranERP}{{5}{2025}{{Damodaran}}{{}}}
+\bibcite{ibbotsonSBBI}{{6}{2024}{{Ibbotson and {Duff and Phelps}}}{{}}}
+\bibcite{kolmogorov1933}{{7}{1933}{{Kolmogorov}}{{}}}
+\bibcite{markowitz1976longRun}{{8}{1976}{{Markowitz}}{{}}}
+\bibcite{politisRomano1994}{{9}{1994}{{Politis and Romano}}{{}}}
+\bibcite{smirnov1948}{{10}{1948}{{Smirnov}}{{}}}
 \gdef \@abspage@last{16}

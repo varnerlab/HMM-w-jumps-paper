@@ -2,5 +2,5 @@ Highlights
 
 - A jump-duration HMM reproduces heavy tails and volatility clustering.
 - Variance correction preserves each asset's calibrated variance.
-- A hybrid composer retains dependence across 423 non-market equities.
+- A hybrid method combines heavy-tailed marginals with shared market dependence.
 - Holdout tests assess distributional fit and Value-at-Risk coverage.

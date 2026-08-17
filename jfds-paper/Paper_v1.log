@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.27 (TeX Live 2025) (preloaded format=pdflatex 2025.3.8)  11 AUG 2026 14:57
+This is pdfTeX, Version 3.141592653-2.6-1.40.27 (TeX Live 2025) (preloaded format=pdflatex 2025.3.8)  17 AUG 2026 13:03
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -778,83 +778,87 @@ t line 34.
 
 [11]
 
-[12]) (./sections/results.tex (./sections/tables/table2_model_comparison.tex)
+[12]) (./sections/results.tex
 
-[13]
+[13] (./sections/tables/table2_model_comparison.tex)
 
 [14]
 <figs/main/Fig03-Model-Comparison.pdf, id=87, 1806.75pt x 562.1pt>
 File: figs/main/Fig03-Model-Comparison.pdf Graphic file (type pdf)
 <use figs/main/Fig03-Model-Comparison.pdf>
 Package pdftex.def Info: figs/main/Fig03-Model-Comparison.pdf  used on input li
-ne 139.
+ne 93.
 (pdftex.def)             Requested size: 345.0pt x 107.33188pt.
-<figs/main/Fig04-Jump-Mix-Frontier.pdf, id=88, 1204.5pt x 562.1pt>
+
+
+[15 <./figs/main/Fig03-Model-Comparison.pdf>]
+<figs/main/Fig04-Jump-Mix-Frontier.pdf, id=92, 1204.5pt x 562.1pt>
 File: figs/main/Fig04-Jump-Mix-Frontier.pdf Graphic file (type pdf)
 <use figs/main/Fig04-Jump-Mix-Frontier.pdf>
 Package pdftex.def Info: figs/main/Fig04-Jump-Mix-Frontier.pdf  used on input l
-ine 182.
+ine 136.
 (pdftex.def)             Requested size: 345.0pt x 160.99782pt.
- (./sections/tables/table1_aggregate.tex)
 
-[15 <./figs/main/Fig03-Model-Comparison.pdf>]
+(./sections/tables/table1_aggregate.tex)
 
 [16 <./figs/main/Fig04-Jump-Mix-Frontier.pdf>]
-(./sections/tables/table6_oos_scorecard.tex)
 
-[17]
+[17] (./sections/tables/table6_oos_scorecard.tex)
 <figs/main/Fig05-OoS-Composition.pdf, id=100, 1204.5pt x 451.6875pt>
 File: figs/main/Fig05-OoS-Composition.pdf Graphic file (type pdf)
 <use figs/main/Fig05-OoS-Composition.pdf>
 Package pdftex.def Info: figs/main/Fig05-OoS-Composition.pdf  used on input lin
-e 303.
+e 265.
 (pdftex.def)             Requested size: 345.0pt x 129.37325pt.
- (./sections/tables/table5_var_backtest_oos.tex)
+
 
 [18 <./figs/main/Fig05-OoS-Composition.pdf>]
+(./sections/tables/table5_var_backtest_oos.tex)
 <figs/main/Fig06-Variance-Preservation.pdf, id=105, 1204.5pt x 451.6875pt>
 File: figs/main/Fig06-Variance-Preservation.pdf Graphic file (type pdf)
 <use figs/main/Fig06-Variance-Preservation.pdf>
 Package pdftex.def Info: figs/main/Fig06-Variance-Preservation.pdf  used on inp
-ut line 355.
+ut line 317.
 (pdftex.def)             Requested size: 345.0pt x 129.37325pt.
 
 
-[19 <./figs/main/Fig06-Variance-Preservation.pdf>]) (./sections/discussion.tex
+[19]) (./sections/discussion.tex
 
-[20]
+[20 <./figs/main/Fig06-Variance-Preservation.pdf>]
 
-[21]) (./sections/conclusion.tex
+[21])
 
-[22]) (./Paper_v1.bbl
+[22] (./sections/conclusion.tex)
+
+[23] (./Paper_v1.bbl
 Package microtype Info: Loading generic protrusion settings for font family
 (microtype)             `cmtt' (encoding: T1).
 (microtype)             For optimal results, create family-specific settings.
 (microtype)             See the microtype manual for details.
 
 
-[23]
-
 [24]
 
 [25]
 
-[26])
+[26]
 
-[27] (./Paper_v1.aux)
+[27])
+
+[28] (./Paper_v1.aux)
  ***********
 LaTeX2e <2024-11-01> patch level 2
 L3 programming layer <2025-01-18>
  ***********
  ) 
 Here is how much of TeX's memory you used:
- 19821 strings out of 473190
- 388791 string characters out of 5715801
- 804638 words of memory out of 5000000
+ 19829 strings out of 473190
+ 388853 string characters out of 5715801
+ 802846 words of memory out of 5000000
  42347 multiletter control sequences out of 15000+600000
- 592191 words of font info for 259 fonts, out of 8000000 for 9000
+ 592489 words of font info for 263 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
- 89i,17n,90p,1064b,960s stack positions out of 10000i,1000n,20000p,200000b,200000s
+ 89i,17n,90p,1088b,960s stack positions out of 10000i,1000n,20000p,200000b,200000s
 </usr/local/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx10.pfb
 ></usr/local/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx6.pfb><
 /usr/local/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx8.pfb></u
@@ -891,10 +895,10 @@ lic/cm-super/sfti0800.pfb></usr/local/texlive/2025/texmf-dist/fonts/type1/publi
 c/cm-super/sfti0900.pfb></usr/local/texlive/2025/texmf-dist/fonts/type1/public/
 cm-super/sfti1000.pfb></usr/local/texlive/2025/texmf-dist/fonts/type1/public/cm
 -super/sftt1000.pfb>
-Output written on Paper_v1.pdf (27 pages, 1224870 bytes).
+Output written on Paper_v1.pdf (28 pages, 1229217 bytes).
 PDF statistics:
- 286 PDF objects out of 1000 (max. 8388607)
- 178 compressed objects within 2 object streams
+ 289 PDF objects out of 1000 (max. 8388607)
+ 180 compressed objects within 2 object streams
  0 named destinations out of 1000 (max. 500000)
  53798 words of extra memory for PDF output out of 61914 (max. 10000000)
 

@@ -38,9 +38,9 @@ returns should remain correlated over time.
     peak and tails while the Gaussian fit does not. Panel~(b) shows
     departure from the diagonal in a normal quantile-quantile plot
     at both extremes. Panel~(c) shows the
-    autocorrelation function of raw excess growth rates, which stays
-    near zero across all lags and is consistent with the efficient
-    markets hypothesis. Panel~(d) shows the autocorrelation function
+    autocorrelation function of raw excess growth rates. Individual
+    correlations are small, although the Ljung--Box test detects joint
+    serial dependence. Panel~(d) shows the autocorrelation function
     of absolute excess growth rates, which decays slowly across the
     reported lags.}
     \label{fig:empirical_motivation}
@@ -52,7 +52,8 @@ conditional heteroskedasticity (GARCH) family~\cite{engle1982,
 bollerslev1986} captures volatility clustering but requires
 fat-tailed innovations to reproduce heavy tails. Stochastic-volatility
 and jump-diffusion models~\cite{heston1993, merton1976, kou2002}
-produce heavy tails, but jump effects do not persist. Deep generative
+produce heavy tails, but the jump component itself does not create
+persistent volatility. Deep generative
 models~\cite{takahashiEtAl2019, yoonEtAl2019timegan, kwonLee2024}
 can learn complex marginals but often miss the absolute-return
 autocorrelation associated with volatility clustering. Standard
@@ -70,9 +71,9 @@ Laplace-quantile states, used Student-$t$ draws within each state, and
 estimated transitions by direct counting. Its jump-duration variant
 (HMM-WJ) added temporary episodes in the extreme-return states. On a
 decade of SPY data, HMM-WJ reduced the error in absolute-return
-autocorrelation from $0.059$ to $0.052$ relative to the no-jump model
-while retaining a $97.6\%$ in-sample Kolmogorov--Smirnov pass rate.
-GARCH achieved a lower autocorrelation error of $0.031$ but did not
+autocorrelation from $0.059$ to $0.053$ relative to the no-jump model
+while retaining a $98.3\%$ in-sample Kolmogorov--Smirnov pass rate.
+The GARCH model achieved a lower autocorrelation error of $0.031$ but did not
 match the return distribution. We therefore used HMM-WJ as a practical
 per-asset generator, not as a uniformly superior model.
 

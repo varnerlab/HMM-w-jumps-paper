@@ -6,6 +6,10 @@
 \usepackage[utf8]{inputenc}
 \usepackage[T1]{fontenc}
 \usepackage[colorlinks=true,linkcolor=blue!70!black,citecolor=blue!70!black,urlcolor=blue!70!black]{hyperref}
+\hypersetup{
+  pdftitle={Variance-Corrected Multi-Asset Equity Simulation with Hybrid Hidden Markov Marginals},
+  pdfauthor={Abdulrahman Alswaidan and Jeffrey D. Varner}
+}
 \usepackage{url}
 \usepackage{booktabs}
 \usepackage{amsfonts}
@@ -96,28 +100,29 @@
 \section{Methods}\label{sec:method}
 
 We fitted a marginal generator for each asset and then combined the
-generated paths with a variance-corrected single-index model. 
-The dataset contained $424$ United States-listed equities and
+generated paths with a variance-corrected single-index model. The
+dataset contained $424$ United States-listed equities and
 exchange-traded funds observed from $2014$ through $2024$. The
-single-asset analysis focused on the SPDR S\&P 500 ETF (SPY). We used
-$2{,}766$ observations from January 3, $2014$, through December 31,
-$2024$, for fitting and the next $249$ trading days of $2025$ for
-out-of-sample testing. Of the $423$ non-market assets in the training
-universe, $416$ had complete $2025$ histories and entered the
-multi-asset holdout evaluation. The data included daily open, high, low, and
-close prices and volume-weighted average prices. We computed the
-excess growth rate $G_{i,j}$ for ticker $i$ between
-trading days $j-1$ and $j$ from the equity price series
-$P_{i,j}$ with the following expression:
+single-asset analysis focused on the SPDR S\&P 500 ETF (SPY). It used
+$2{,}767$ daily volume-weighted average prices for fitting, which
+yielded $2{,}766$ growth rates, and the next $250$ prices from $2025$,
+which yielded $249$ holdout growth rates. The multi-asset analysis
+used daily closing prices. Of the $423$ non-market assets in the
+training universe, $416$ had complete $2025$ histories and entered the
+multi-asset holdout evaluation. We computed the excess growth rate
+$G_{i,j}$ for ticker $i$ between trading days $j-1$ and $j$ from price
+$P_{i,j}$ as follows:
 \begin{equation}
     G_{i,j} \;\equiv\; \left(\frac{1}{\Delta t}\right)\,
-    \ln\!\left( \frac{P_{i,j}}{P_{i,j-1}} \right) \;-\; r_f,
+    \ln\!\left( \frac{P_{i,j}}{P_{i,j-1}} \right) \;-\; r_f.
     \label{eq:growth_rate}
 \end{equation}
 where $\Delta t = 1/252$ is the fraction of a trading year spanned by
 one trading day, and $r_f$ is a constant continuously compounded
-risk-free rate derived from Treasury STRIPS (Separate Trading of
-Registered Interest and Principal of Securities) bond yields. The excess growth rate
+risk-free rate. We used $r_f=0.043$ for the SPY training period and
+$r_f=0.0421$ for its $2025$ holdout, based on Treasury STRIPS
+(Separate Trading of Registered Interest and Principal of Securities)
+bond yields. The excess growth rate
 has units of $\mathrm{year}^{-1}$ and is time-additive under
 continuous compounding.
 
@@ -145,7 +150,7 @@ single laptop; no shared-resource allocation was required.
 
 \paragraph{Author contributions.}
 A.A.\ designed the hybrid hidden Markov marginal generator, performed the
-single-asset experiments and validation framework, and contributed to the
+single-asset experiments and validation analyses, and contributed to the
 manuscript. J.D.V.\ designed the variance-corrected single-index
 composition, performed the multi-asset experiments and downstream
 Value-at-Risk validation, developed the bias-correction methodology,
@@ -154,10 +159,11 @@ released the code, and contributed to the manuscript.
 \paragraph{Competing interests.}
 The authors declare no competing interests.
 
+\enlargethispage{2\baselineskip}
 \paragraph{Code and data availability.}
-The experiment scripts, evaluation harness (six-method comparison,
-Value-at-Risk coverage check, bias-correction utility), and the fitted
-per-asset marginals are released in the paper repository
+The experiment scripts, evaluation code (six-method comparison,
+Value-at-Risk coverage check, and bias correction), cached inputs and
+result summaries, and fitted per-asset marginals are released in the paper repository
 (\url{https://github.com/varnerlab/HMM-w-jumps-paper}); the
 underlying model-fitting library is released separately as
 \texttt{JumpHMM.jl}

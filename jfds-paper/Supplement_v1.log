@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.27 (TeX Live 2025) (preloaded format=pdflatex 2025.3.8)  11 AUG 2026 14:57
+This is pdfTeX, Version 3.141592653-2.6-1.40.27 (TeX Live 2025) (preloaded format=pdflatex 2025.3.8)  17 AUG 2026 13:06
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -770,13 +770,13 @@ al/texlive/2025/texmf-dist/fonts/enc/dvips/cm-super/cm-super-t1.enc}]
 File: figs/supplement/FigS02-Tail-Preservation.pdf Graphic file (type pdf)
 <use figs/supplement/FigS02-Tail-Preservation.pdf>
 Package pdftex.def Info: figs/supplement/FigS02-Tail-Preservation.pdf  used on 
-input line 439.
+input line 433.
 (pdftex.def)             Requested size: 345.0pt x 129.37325pt.
 <figs/supplement/FigS03-R2-Distribution.pdf, id=54, 762.85pt x 441.65pt>
 File: figs/supplement/FigS03-R2-Distribution.pdf Graphic file (type pdf)
 <use figs/supplement/FigS03-R2-Distribution.pdf>
 Package pdftex.def Info: figs/supplement/FigS03-R2-Distribution.pdf  used on in
-put line 494.
+put line 484.
 (pdftex.def)             Requested size: 293.2521pt x 169.77632pt.
 
 
@@ -792,35 +792,35 @@ File: figs/supplement/FigS04-Statistical-Validation.pdf Graphic file (type pdf)
 
 <use figs/supplement/FigS04-Statistical-Validation.pdf>
 Package pdftex.def Info: figs/supplement/FigS04-Statistical-Validation.pdf  use
-d on input line 589.
+d on input line 581.
 (pdftex.def)             Requested size: 345.0pt x 258.74649pt.
-
-
-[10 <./figs/supplement/FigS04-Statistical-Validation.pdf>]
-<figs/supplement/FigS05-Model-Internals.pdf, id=74, 1606.0pt x 521.95pt>
+<figs/supplement/FigS05-Model-Internals.pdf, id=70, 1606.0pt x 521.95pt>
 File: figs/supplement/FigS05-Model-Internals.pdf Graphic file (type pdf)
 <use figs/supplement/FigS05-Model-Internals.pdf>
 Package pdftex.def Info: figs/supplement/FigS05-Model-Internals.pdf  used on in
-put line 620.
+put line 612.
 (pdftex.def)             Requested size: 345.0pt x 112.12149pt.
 
+
+[10 <./figs/supplement/FigS04-Statistical-Validation.pdf>]
 (./sections/tables/table2_by_branch.tex
 Package microtype Info: Loading generic protrusion settings for font family
 (microtype)             `cmtt' (encoding: T1).
 (microtype)             For optimal results, create family-specific settings.
 (microtype)             See the microtype manual for details.
 )
+<figs/supplement/FigS06-Branch-Map.pdf, id=76, 903.375pt x 501.875pt>
+File: figs/supplement/FigS06-Branch-Map.pdf Graphic file (type pdf)
+<use figs/supplement/FigS06-Branch-Map.pdf>
+Package pdftex.def Info: figs/supplement/FigS06-Branch-Map.pdf  used on input l
+ine 726.
+(pdftex.def)             Requested size: 293.2521pt x 162.91599pt.
+
+(./sections/tables/table3_by_beta_bucket.tex)
 
 [11 <./figs/supplement/FigS05-Model-Internals.pdf>]
 
 [12]
-<figs/supplement/FigS06-Branch-Map.pdf, id=88, 903.375pt x 501.875pt>
-File: figs/supplement/FigS06-Branch-Map.pdf Graphic file (type pdf)
-<use figs/supplement/FigS06-Branch-Map.pdf>
-Package pdftex.def Info: figs/supplement/FigS06-Branch-Map.pdf  used on input l
-ine 735.
-(pdftex.def)             Requested size: 293.2521pt x 162.91599pt.
- (./sections/tables/table3_by_beta_bucket.tex)
 
 [13 <./figs/supplement/FigS06-Branch-Map.pdf>]
 
@@ -835,13 +835,13 @@ L3 programming layer <2025-01-18>
  ***********
  ) 
 Here is how much of TeX's memory you used:
- 19098 strings out of 473190
- 373643 string characters out of 5715801
- 783271 words of memory out of 5000000
- 41673 multiletter control sequences out of 15000+600000
- 589187 words of font info for 241 fonts, out of 8000000 for 9000
+ 19091 strings out of 473190
+ 373541 string characters out of 5715801
+ 786246 words of memory out of 5000000
+ 41670 multiletter control sequences out of 15000+600000
+ 589050 words of font info for 239 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
- 89i,15n,90p,1061b,359s stack positions out of 10000i,1000n,20000p,200000b,200000s
+ 89i,15n,90p,1072b,359s stack positions out of 10000i,1000n,20000p,200000b,200000s
 </usr/local/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx10.pfb
 ></usr/local/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx8.pfb><
 /usr/local/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx9.pfb></u
@@ -876,7 +876,7 @@ c/cm-super/sfti0900.pfb></usr/local/texlive/2025/texmf-dist/fonts/type1/public/
 cm-super/sfti1000.pfb></usr/local/texlive/2025/texmf-dist/fonts/type1/public/cm
 -super/sftt0900.pfb></usr/local/texlive/2025/texmf-dist/fonts/type1/public/cm-s
 uper/sftt1000.pfb>
-Output written on Supplement_v1.pdf (16 pages, 1061785 bytes).
+Output written on Supplement_v1.pdf (16 pages, 1061349 bytes).
 PDF statistics:
  245 PDF objects out of 1000 (max. 8388607)
  149 compressed objects within 2 object streams

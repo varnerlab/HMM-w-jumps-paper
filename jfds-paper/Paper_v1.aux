@@ -8,7 +8,7 @@
 \citation{takahashiEtAl2019,yoonEtAl2019timegan,kwonLee2024}
 \citation{rabinerJuang1986}
 \citation{rydenTerasvirtaAsbrink1998,bullaBulla2006}
-\@writefile{lof}{\contentsline {figure}{\numberline {1}{\ignorespaces \textbf  {Empirical stylized facts of SPY daily excess growth rates ($2014$--$2024$).} Panel~(a) shows the heavy-tailed return density; the Laplace maximum-likelihood fit tracks the empirical peak and tails while the Gaussian fit does not. Panel~(b) shows departure from the diagonal in a normal quantile-quantile plot at both extremes. Panel~(c) shows the autocorrelation function of raw excess growth rates, which stays near zero across all lags and is consistent with the efficient markets hypothesis. Panel~(d) shows the autocorrelation function of absolute excess growth rates, which decays slowly across the reported lags.}}{2}{}\protected@file@percent }
+\@writefile{lof}{\contentsline {figure}{\numberline {1}{\ignorespaces \textbf  {Empirical stylized facts of SPY daily excess growth rates ($2014$--$2024$).} Panel~(a) shows the heavy-tailed return density; the Laplace maximum-likelihood fit tracks the empirical peak and tails while the Gaussian fit does not. Panel~(b) shows departure from the diagonal in a normal quantile-quantile plot at both extremes. Panel~(c) shows the autocorrelation function of raw excess growth rates. Individual correlations are small, although the Ljung--Box test detects joint serial dependence. Panel~(d) shows the autocorrelation function of absolute excess growth rates, which decays slowly across the reported lags.}}{2}{}\protected@file@percent }
 \newlabel{fig:empirical_motivation}{{1}{2}{}{figure.1}{}}
 \citation{luxMarchesi1999,contBouchaud2000,farmerJoshi2002,lebaron2006,arthur2021,farmer2025}
 \citation{bachelier1900,osborne1959,samuelson1965,blackScholes1973}
@@ -57,7 +57,7 @@
 \citation{mandelbrot1963,cont2001,rydenTerasvirtaAsbrink1998}
 \citation{merton1976,kou2002}
 \citation{glasserman2003}
-\@writefile{lof}{\contentsline {figure}{\numberline {2}{\ignorespaces \textbf  {Architecture of the hybrid hidden Markov model with a jump-duration mechanism (HMM-WJ).} At each step the chain transitions according to the empirical transition matrix $\mathbf  {T}$ (probability $1 - \epsilon $, thin bidirectional arrows) or enters a Poisson jump episode (probability $\epsilon $, dashed upward arrow to the Poisson clock). During a jump episode each of the $K \sim \mathrm  {Poisson}(\lambda )$ forced steps independently draws the bottom tail set $\mathcal  {S}_{-}$ (red, lowest-valued states) with probability $p_{\rm  neg}$ or the top tail set $\mathcal  {S}_{+}$ (blue, highest-valued states) otherwise, before normal Markovian evolution resumes. Small bell curves above each state depict the state-conditional location-scale Student-$t$ ($\nu =5$) emission distribution. Tail sets are defined as the $N_{\rm  tail}$ lowest- and highest-quantile states under the Laplace quantile partition.}}{7}{}\protected@file@percent }
+\@writefile{lof}{\contentsline {figure}{\numberline {2}{\ignorespaces \textbf  {Architecture of the hybrid hidden Markov model with a jump-duration mechanism (HMM-WJ).} When no jump episode is active, the chain transitions according to the empirical transition matrix $\mathbf  {T}$ with probability $1 - \epsilon $ (thin bidirectional arrows) or enters a Poisson jump episode with probability $\epsilon $ (dashed upward arrow to the Poisson clock). During an episode, each of the $K \sim \mathrm  {Poisson}(\lambda )$ forced steps independently draws the bottom tail set $\mathcal  {S}_{-}$ (red, lowest-valued states) with probability $p_{\rm  neg}$ or the top tail set $\mathcal  {S}_{+}$ (blue, highest-valued states) otherwise, before normal Markovian evolution resumes. Small bell curves above each state depict the state-conditional location-scale Student-$t$ ($\nu =5$) emission distribution. Tail sets are defined as the $N_{\rm  tail}$ lowest- and highest-quantile states under the Laplace quantile partition.}}{7}{}\protected@file@percent }
 \newlabel{fig:model_architecture}{{2}{7}{}{figure.2}{}}
 \newlabel{eq:grid_search}{{3}{7}{}{equation.3}{}}
 \citation{sharpe1963}
@@ -82,41 +82,41 @@
 \@writefile{toc}{\contentsline {paragraph}{Complete composition rule.}{11}{}\protected@file@percent }
 \citation{politisRomano1994}
 \citation{bollerslev1986}
-\@writefile{lot}{\contentsline {table}{\numberline {1}{\ignorespaces \textbf  {HMM-WJ and SIM composition hyperparameters.} Values used for the main SPY analysis, with the sensitivity-sweep or grid-search span and the location of the corresponding check where one exists. The $423$-ticker SIM composition universe holds $\epsilon = 0$ instead of the SPY value; per-ticker $(\epsilon ^{*}, \lambda ^{*})$ for the NVDA, JNJ, and JPM cross-asset validation are given in Table~\ref {tab:cross_asset}.}}{12}{}\protected@file@percent }
+\@writefile{lot}{\contentsline {table}{\numberline {1}{\ignorespaces \textbf  {HMM-WJ and SIM composition hyperparameters.} Values used for the main SPY analysis, with the sensitivity-sweep or grid-search span and the location of the corresponding check where one exists. The $423$-ticker SIM composition universe holds $\epsilon = 0$ instead of the SPY value; per-ticker $(\epsilon ^{*}, \lambda ^{*})$ for the NVDA, JNJ, and JPM cross-asset validation are given in Supplementary Table~\ref {tab:cross_asset}.}}{12}{}\protected@file@percent }
 \newlabel{tab:hyperparams}{{1}{12}{}{table.1}{}}
 \@writefile{toc}{\contentsline {paragraph}{Evaluation protocol.}{12}{}\protected@file@percent }
-\citation{famaEMH1970}
-\citation{choEtAl2014gru}
-\citation{bullaBulla2006}
 \@writefile{toc}{\contentsline {section}{\numberline {4}Results}{13}{}\protected@file@percent }
 \newlabel{sec:results}{{4}{13}{}{section.4}{}}
 \@writefile{toc}{\contentsline {subsection}{\numberline {4.1}Single-asset generator validation}{13}{}\protected@file@percent }
-\@writefile{lot}{\contentsline {table}{\numberline {2}{\ignorespaces \textbf  {In-sample and out-of-sample model comparison for SPY.} Results summarize $1{,}000$ simulated paths. Values in parentheses are standard errors, and bold entries are best within each panel. Metric definitions and standard-error calculations are given in Online Appendix~\ref {sec:supp-validation}.}}{14}{}\protected@file@percent }
+\citation{choEtAl2014gru}
+\citation{bullaBulla2006}
+\@writefile{lot}{\contentsline {table}{\numberline {2}{\ignorespaces \textbf  {In-sample and out-of-sample model comparison for SPY.} Results summarize $1{,}000$ simulated paths. Values in parentheses are standard errors, and bold entries are best among the fitted generative models within each panel; the empirical bootstrap is excluded from this highlighting. Metric definitions and standard-error calculations are given in Online Appendix~\ref {sec:supp-validation}.}}{14}{}\protected@file@percent }
 \newlabel{tab:model_comparison}{{2}{14}{}{table.2}{}}
 \@writefile{lof}{\contentsline {figure}{\numberline {3}{\ignorespaces \textbf  {Head-to-head in-sample model comparison for SPY} ($N = 100$, $1{,}000$ simulated paths). \emph  {Panel (a):} marginal density of excess growth rates with in-sample KS pass rates annotated per generator. \emph  {Panel (b):} autocorrelation function of $|G_t|$ at lags $1$--$252$ (shaded bands: $10$th--$90$th percentile across paths) per generator. \emph  {Panel (c):} tail Q-Q plot at the $0.1$st--$99.9$th percentile region per generator.}}{15}{}\protected@file@percent }
 \newlabel{fig:model_comparison}{{3}{15}{}{figure.3}{}}
-\@writefile{toc}{\contentsline {subsection}{\numberline {4.2}Variance-corrected multi-asset composition}{15}{}\protected@file@percent }
 \@writefile{lof}{\contentsline {figure}{\numberline {4}{\ignorespaces \textbf  {Jump-mix enrichment frontier for SPY} (in-sample, $N = 100$, pool of $4{,}000$ simulated paths). Resampling the fitted HMM-WJ ensemble to a target jump-path fraction $f$ (the share of accepted paths containing at least one jump) traces the temporal-marginal tradeoff. Both panels share the horizontal axis: absolute-return autocorrelation error (ACF-MAE of $|G_t|$ over lags $1$--$252$); lower values indicate stronger volatility clustering. Panel (a): simulated excess kurtosis. Panel (b): Hill upper-tail index $\xi $, the raw estimator equal to the reciprocal of the tail exponent. Red dashed lines mark the observed SPY values; the star marks the $f \approx 0.25$ value used throughout. Endpoints $f = 0$ and $f = 1$ correspond to the no-jump generator and an all-jump ensemble.}}{16}{}\protected@file@percent }
 \newlabel{fig:jump_mix}{{4}{16}{}{figure.4}{}}
-\@writefile{lot}{\contentsline {table}{\numberline {3}{\ignorespaces \textbf  {Aggregate scorecard across $423$ non-market tickers and $100$ replications per ticker.} Median values per composition method. $|\hat  \alpha - \alpha |$, $|\hat  \beta - \beta |$, and $|\hat  R^2 - R^2_{\mathrm  {real}}|$: absolute deviation between OLS recovery and calibration (intercept error has units of $\mathrm  {yr}^{-1}$). KS pass and AD pass: fraction of replications whose two-sample test against the real marginal exceeds $p = 0.05$. $W_1$: Wasserstein-1 distance to the real marginal. $\kappa $: sample excess kurtosis. Hill: tail-index estimate on the upper $5\%$ of $|g|$.}}{16}{}\protected@file@percent }
-\newlabel{tab:aggregate}{{3}{16}{}{table.3}{}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {4.2}Variance-corrected multi-asset composition}{16}{}\protected@file@percent }
+\@writefile{lot}{\contentsline {table}{\numberline {3}{\ignorespaces \textbf  {Aggregate scorecard across $423$ non-market tickers and $100$ replications per ticker.} Errors, distances, and tail metrics are medians per method. Pass fractions for KS and AD are pooled across replications. $|\hat  \alpha - \alpha |$, $|\hat  \beta - \beta |$, and $|\hat  R^2 - R^2_{\mathrm  {real}}|$: absolute deviation between OLS recovery and calibration (intercept error has units of $\mathrm  {yr}^{-1}$). KS pass and AD pass: fraction of replications whose two-sample test against the real marginal exceeds $p = 0.05$. $W_1$: Wasserstein-1 distance to the real marginal. $\kappa $: sample excess kurtosis. Hill: tail-index estimate on the upper $5\%$ of $|g|$.}}{17}{}\protected@file@percent }
+\newlabel{tab:aggregate}{{3}{17}{}{table.3}{}}
 \@writefile{lof}{\contentsline {figure}{\numberline {5}{\ignorespaces \textbf  {Cross-ticker distribution of frozen-parameter out-of-sample marginal fit.} Panel~(a) shows the distribution of per-ticker $2025$ KS pass rates across $100$ replications; the dashed line marks $95\%$. Panel~(b) compares each ticker's hybrid KS pass rate against a matched-length training block with its pass rate against the $2025$ holdout. The diagonal denotes equal performance.}}{18}{}\protected@file@percent }
 \newlabel{fig:oos_composition}{{5}{18}{}{figure.5}{}}
 \@writefile{lot}{\contentsline {table}{\numberline {4}{\ignorespaces \textbf  {Frozen-parameter multi-asset evaluation on the $2025$ holdout.} Results cover $416$ non-market tickers and $100$ replications per ticker; GARCH covers $386$ tickers. Pass rates are first averaged within ticker and then across tickers. \textit  {matched IS} compares each synthetic path with a randomly selected contiguous $249$-day block from the $2014$--$2024$ training history, matching the holdout sample length. $W_1$ and the variance ratio are medians across ticker-level medians; the variance ratio is synthetic variance divided by observed $2025$ variance.}}{18}{}\protected@file@percent }
 \newlabel{tab:oos_composition}{{4}{18}{}{table.4}{}}
-\@writefile{toc}{\contentsline {subsection}{\numberline {4.3}VaR coverage}{18}{}\protected@file@percent }
-\@writefile{lof}{\contentsline {figure}{\numberline {6}{\ignorespaces \textbf  {Hybrid's variance correction and its KS-pass-rate consequence, per ticker vs calibrated $\beta $.} Each point is a per-ticker median over $100$ replications; thick lines are binned medians. \emph  {Left (consequence):} Kolmogorov--Smirnov pass rate against the real marginal at $\alpha = 0.05$ for naive composition (blue) and hybrid (orange). \emph  {Right (cause):} variance ratio $\mathrm  {Var}(g)/\sigma ^2_{\mathrm  {gen}}$ for the same two methods. The dotted curve is the theoretical naive inflation $1 + \rho $ evaluated at the universe-median $\sigma ^2_{\mathrm  {gen}}$; the dashed line marks a variance ratio of one.}}{19}{}\protected@file@percent }
-\newlabel{fig:preservation}{{6}{19}{}{figure.6}{}}
-\@writefile{lot}{\contentsline {table}{\numberline {5}{\ignorespaces \textbf  {Out-of-sample per-ticker one-day Value-at-Risk coverage across the six composition methods.} VaR thresholds at coverage level $\alpha $ were estimated from frozen-parameter synthetic paths and exceedances were counted against the real $2025$ growth-rate history. \textit  {rate}: mean of the per-ticker mean exceedance rates (nominal: $1-\alpha $). \textit  {SD}: cross-ticker standard deviation, in percentage points. \textit  {Kupiec pass}: mean within-ticker fraction of replications whose unconditional-coverage test $p$-value exceeds $0.05$.}}{19}{}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {4.3}VaR coverage}{19}{}\protected@file@percent }
+\@writefile{lot}{\contentsline {table}{\numberline {5}{\ignorespaces \textbf  {Out-of-sample per-ticker one-day left-tail Value-at-Risk coverage across the six composition methods.} VaR thresholds at coverage level $\alpha $ were estimated from frozen-parameter synthetic paths and exceedances were counted against the real $2025$ growth-rate history. \textit  {rate}: mean of the per-ticker mean exceedance rates (nominal: $1-\alpha $). \textit  {SD}: cross-ticker standard deviation, in percentage points. \textit  {Kupiec pass}: mean within-ticker fraction of replications whose unconditional-coverage test $p$-value exceeds $0.05$.}}{19}{}\protected@file@percent }
 \newlabel{tab:var}{{5}{19}{}{table.5}{}}
 \@writefile{toc}{\contentsline {subsection}{\numberline {4.4}Sensitivity analyses}{19}{}\protected@file@percent }
-\@writefile{toc}{\contentsline {section}{\numberline {5}Discussion}{20}{}\protected@file@percent }
-\newlabel{sec:discussion}{{5}{20}{}{section.5}{}}
+\@writefile{lof}{\contentsline {figure}{\numberline {6}{\ignorespaces \textbf  {Hybrid's variance correction and its KS-pass-rate consequence, per ticker vs calibrated $\beta $.} Each point is a per-ticker median over $100$ replications; thick lines are binned medians. \emph  {Left (consequence):} Kolmogorov--Smirnov pass rate against the real marginal at $\alpha = 0.05$ for naive composition (blue) and hybrid (orange). \emph  {Right (cause):} variance ratio $\mathrm  {Var}(g)/\sigma ^2_{\mathrm  {gen}}$ for the same two methods. The dotted curve is the theoretical naive inflation $1 + \rho $ evaluated at the universe-median $\sigma ^2_{\mathrm  {gen}}$; the dashed line marks a variance ratio of one.}}{20}{}\protected@file@percent }
+\newlabel{fig:preservation}{{6}{20}{}{figure.6}{}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {4.5}Daily-rebalanced portfolio check}{20}{}\protected@file@percent }
+\@writefile{toc}{\contentsline {section}{\numberline {5}Discussion}{21}{}\protected@file@percent }
+\newlabel{sec:discussion}{{5}{21}{}{section.5}{}}
 \citation{boothFama1992}
 \citation{boothFama1992,boucheyNemtchinovWong2015,markowitz1976longRun}
 \citation{damodaranERP,ibbotsonSBBI}
-\@writefile{toc}{\contentsline {section}{\numberline {6}Conclusion}{22}{}\protected@file@percent }
-\newlabel{sec:conclusion}{{6}{22}{}{section.6}{}}
+\@writefile{toc}{\contentsline {section}{\numberline {6}Conclusion}{23}{}\protected@file@percent }
+\newlabel{sec:conclusion}{{6}{23}{}{section.6}{}}
 \bibstyle{elsarticle-harv}
 \bibdata{References_v1}
 \bibcite{aasCzadoFrigessiBakken2009}{{1}{2009}{{Aas et~al.}}{{Aas, Czado, Frigessi and Bakken}}}
@@ -176,4 +176,4 @@
 \bibcite{takahashiEtAl2019}{{55}{2019}{{Takahashi et~al.}}{{Takahashi, Chen and Tanaka-Ishii}}}
 \bibcite{tothJones2019}{{56}{2019}{{Toth and Jones}}{{}}}
 \bibcite{yoonEtAl2019timegan}{{57}{2019}{{Yoon et~al.}}{{Yoon, Jarrett and van~der Schaar}}}
-\gdef \@abspage@last{27}
+\gdef \@abspage@last{28}

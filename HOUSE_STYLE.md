@@ -58,6 +58,26 @@ the text moves to a new biological or technical question.
 - When displayed equations occur in sequence, connect them with a short sentence that
   explains how the second follows from the first.
 
+## Figures and Tables
+
+- Cite every main-text figure and table in the Results at the point where its evidence is
+  first reported or interpreted. A reference in the Methods, caption, or Discussion does not
+  replace the Results citation.
+- Place the figure or table reference in the sentence that states the corresponding finding.
+  Do not use a detached “see Figure” or “see Table” sentence.
+- Use `Fig.~\ref{fig:label}` for one figure, `Figs.~\ref{fig:first}--\ref{fig:last}` for
+  multiple figures, and `Table~\ref{tab:label}` for a table. Use “Supplementary Fig.” and
+  “Supplementary Table” for supplementary items.
+- Identify the relevant panel inline when a claim depends on one panel, for example
+  `(Fig.~\ref{fig:label}A)`.
+- Build each Results passage in this order: explain the question, state what was compared or
+  calculated, report the finding with its inline figure or table reference, and interpret what
+  the finding does and does not show.
+- Before considering the manuscript complete, inventory every `fig:`, `sfig:`, `tab:`, and
+  `stab:` label and confirm that it is cited in the appropriate Results passage. Flag orphaned
+  floats, Results claims without supporting references, and figures or tables cited only in
+  Methods, captions, or Discussion.
+
 ## Project-Specific Technical Language
 
 - Stochastic attention was not fit to the cohort. Patient profiles were stored as columns of

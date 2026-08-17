@@ -3,10 +3,11 @@
 The single-asset analysis supplied the return generator used in the
 multi-asset construction. Relative to HMM-NJ, HMM-WJ reduced the
 autocorrelation error for absolute returns, although its in-sample KS
-and AD pass rates were slightly lower. GARCH achieved the lowest
+and AD pass rates were slightly lower. The GARCH model achieved the lowest
 autocorrelation error of any generator but rarely passed the
-distributional tests, and the GRU showed a similar tradeoff. The HSMM
-passed the KS test more often but produced too little kurtosis.
+distributional tests, and the GRU showed a similar tradeoff. The
+adapted HSMM-style baseline passed the KS test more often but produced too
+little kurtosis.
 Bootstrap resampling passed the distributional tests by drawing
 directly from the observed returns, but it did not reproduce
 volatility clustering. We therefore interpret HMM-WJ as a compromise
@@ -51,7 +52,7 @@ sample, while the hybrid method had the higher rate in the holdout.
 The practical difference is reuse: the hybrid construction can use a
 generator already fitted to full returns, whereas the residual method
 requires another fit for each asset. Neither approach achieved nominal
-tail coverage in the short holdout. The hybrid method's one-day $99\%$
+tail coverage in the short holdout. The hybrid method's one-day left-tail $99\%$
 VaR exceedance rate was $1.67\%$, the same rounded rate as
 JumpHMM-on-residuals and above the $1\%$ nominal rate.
 
@@ -80,7 +81,7 @@ volatility was doubled or tripled. Only two tracker assets used the
 $R^2$-preserving branch. The $249$-day holdout also had much less power
 than the $2{,}766$-day training comparison. Matched-length training
 blocks partly address that difference, but one year of test data cannot
-provide a precise ranking from either pass rates or $99\%$ VaR counts.
+provide a precise ranking from either pass rates or left-tail $99\%$ VaR counts.
 The evidence therefore supports per-asset variance correction and
 distributional evaluation, not portfolio-level dependence fidelity.
 
@@ -97,9 +98,9 @@ changed the median by $27.73$ percentage points, whereas adding the
 allocation signal changed it by only $0.13$ percentage points
 \cite{boothFama1992,boucheyNemtchinovWong2015,
 markowitz1976longRun}. The apparent allocation gain was therefore
-almost entirely a diversification-return artifact.
+almost entirely a diversification-return bias.
 
-A joint residual model is the clearest next extension. A synchronized
+A joint residual model could address this limitation. A synchronized
 multivariate block bootstrap, residual factor model, or copula could
 restore cross-asset residual covariance. Multi-factor or lagged-factor
 versions could also capture dependence omitted by the current
@@ -113,7 +114,7 @@ dependence between assets.
 
 The current location adjustment does not resolve this central
 limitation. We calibrated a constant shift in log-wealth to an external
-long-run return prior~\cite{damodaranERP,ibbotsonSBBI}, not to the
+$8\%$ annual long-run return prior~\cite{damodaranERP,ibbotsonSBBI}, not to the
 realized test-year result. The shift preserved path ranks and adjusted
 the return level, although it changed drawdown timing and depth as
 wealth accumulated. It did not restore the missing residual covariance.

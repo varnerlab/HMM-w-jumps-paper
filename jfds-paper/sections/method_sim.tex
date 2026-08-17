@@ -12,7 +12,7 @@ extension, we added one common source of movement: a market path. We used
 the single-index model (SIM) of \citet{sharpe1963}:
 \begin{equation}
   g_i(t) \;=\; \alpha_i \;+\; \beta_i\, g_m(t) \;+\; \eps_i(t),
-  \qquad t = 1,\dots,T,
+  \qquad t = 1,\dots,T.
   \label{eq:sim-composition}
 \end{equation}
 Here $\alpha_i$ is the intercept for asset $i$, $g_m$ is the market
@@ -44,14 +44,14 @@ conditional mean $\alpha_i+\E[\tg_i]+\beta_i g_m$, not
 $\alpha_i+\beta_i g_m$.
 
 All full-return constructions in our comparison first removed the
-realized path mean. We defined the centered generator path as:
+realized path mean. We defined the centered generator path as follows:
 \begin{equation}
   \overline{\tg}_i \equiv \frac{1}{T}\sum_{t=1}^{T}\tg_i(t),
   \qquad
   \tg_i^{\mathrm c}(t) \equiv \tg_i(t)-\overline{\tg}_i.
   \label{eq:center-generator}
 \end{equation}
-Thus $T^{-1}\sum_t\tg_i^{\mathrm c}(t)=0$ exactly. Subtracting a
+Therefore, $T^{-1}\sum_t\tg_i^{\mathrm c}(t)=0$ exactly. Subtracting a
 constant leaves both the sample variance and the sample covariance with
 $g_m$ unchanged. We therefore used the centered direct construction
 $g_i=\alpha_i+\beta_i g_m+\tg_i^{\mathrm c}$ as the \emph{naive}
@@ -64,7 +64,7 @@ $\sigma_{\gen,i}^2=\Var(\tg_i)=\Var(\tg_i^{\mathrm c})$ is the
 \emph{generator variance}. It already represents the asset's total
 variance. Adding the market term therefore contributes variance a
 second time. Because $\tg_i$ was sampled independently of $g_m$, the
-naive composed variance was:
+naive composed variance was as follows:
 \begin{equation}
   \Var(g_i)
   = \beta_i^2\sigma_m^2 + \sigma_{\gen,i}^2,
@@ -89,7 +89,7 @@ $s_i$ gives the correction:
   \boxed{\;s_i^2 \;=\; 1 \;-\; \frac{\beta_i^2\, \sigma_m^2}{\sigma_{\gen,i}^2}\;}
   \label{eq:scale}
 \end{equation}
-For clarity, we defined the \emph{market loading ratio} as:
+We defined the \emph{market loading ratio} as follows:
 \begin{equation}
   \rho_i \;\equiv\; \frac{\beta_i^2\, \sigma_m^2}{\sigma_{\gen,i}^2},
   \label{eq:rho}
@@ -132,14 +132,14 @@ index-tracking fund, preserving its relationship with the market was
 more important. The coefficient of determination $R^2$ measures the
 fraction of the asset's variance explained by the market. For example,
 SPY regressed on itself has $\beta=1$, $R^2=1$, and no residual
-variance. QQQ and SPYG also have high $R^2$ against SPY. Applying the
+variance. The QQQ and SPYG funds also have high $R^2$ against SPY. Applying the
 ordinary-stock rule to these trackers can preserve total variance
 while changing their market relationship. We
 therefore used a separate branch when the calibrated coefficient of
 determination, $R^2_{i,\real}$, is at least the preservation threshold
 $R^2_{\mathrm{preserve}}$. In our
 universe, $0.80$ separated the index trackers from individual stocks
-(Fig.~\ref{fig:r2_distribution}). On this branch, we computed the
+(Supplementary Fig.~\ref{fig:r2_distribution}). On this branch, we computed the
 target residual variance needed to recover the calibrated $R^2$ as
 follows:
 \begin{equation}
@@ -147,7 +147,7 @@ follows:
     \frac{1 - R^2_{i,\real}}{R^2_{i,\real}}\;}
   \label{eq:r2-target}
 \end{equation}
-We rescaled the generator draw to this target:
+We rescaled the generator draw to this target as follows:
 \begin{equation}
   \eps_i \;=\; \left(\sqrt{\frac{\sigma_{\eps,\mathrm{target}}^2}{\sigma_{\gen,i}^2}}\,\right)\tg_i^{\mathrm c}.
   \label{eq:r2-rescale}
@@ -225,7 +225,7 @@ reproduce lead--lag effects or market-driven volatility clustering.
     where one exists. The $423$-ticker SIM composition universe holds
     $\epsilon = 0$ instead of the SPY value; per-ticker
     $(\epsilon^{*}, \lambda^{*})$ for the NVDA, JNJ, and JPM
-    cross-asset validation are given in Table~\ref{tab:cross_asset}.}
+    cross-asset validation are given in Supplementary Table~\ref{tab:cross_asset}.}
 \label{tab:hyperparams}
 \small
 \resizebox{\textwidth}{!}{%
@@ -237,7 +237,7 @@ $N$            & Laplace-quantile states                      & $100$     & $\{3
 $\nu$          & Student-$t$ emission degrees of freedom      & $5$       & $\{3,\dots,30,\infty\}$ \\[4pt]
 \multicolumn{4}{l}{\textit{Jump-duration override}} \\[2pt]
 $\epsilon$     & jump probability per step                    & $10^{-4}$ & $[10^{-4}, 2.5\times10^{-2}]$, Eq.~\eqref{eq:grid_search} \\
-$\lambda$      & mean jump-episode duration (steps)           & $100$     & $[10, 160]$, Eq.~\eqref{eq:grid_search} \\
+$\lambda$      & mean jump-episode duration (steps)           & $90$      & $[10, 160]$, Eq.~\eqref{eq:grid_search} \\
 $p_{\rm neg}$  & probability a jump targets $\mathcal{S}_{-}$ & $0.52$    & fixed \\
 $N_{\rm tail}$ & quantile states per tail set                 & $5$       & fixed (at $N = 100$) \\
 $w_\kappa$     & kurtosis-penalty weight, Eq.~\eqref{eq:grid_search} & $0.20$ & fixed \\
@@ -254,8 +254,11 @@ $R^2_{\mathrm{preserve}}$  & branch-selection threshold   & $0.80$ & $\{0.70,\do
 \paragraph{Evaluation protocol.}
 
 We evaluated the method on $424$ US equities and exchange-traded
-funds from Polygon.io. Each ticker had a complete daily-close history
-from January 2014 through December 2024 ($T=2{,}767$). We used SPY as
+funds from Polygon.io. We selected tickers with a complete sequence of
+$2{,}767$ daily closing prices from January 2014 through December
+$2024$, which yielded $2{,}766$ growth rates. This complete-case
+selection conditions the analysis on assets that survived and retained
+data coverage throughout the training window. We used SPY as
 the market and treated the other $423$ tickers as assets to compose.
 For each asset, we fitted the same state and emission model used in
 the SPY analysis (Table~\ref{tab:hyperparams}; $r_f=0$). To focus the
@@ -264,9 +267,9 @@ calibration, we set the jump probability to zero. We also regressed
 each real asset series on SPY to
 estimate the intercept $\alpha_i$, market loading $\beta_i$,
 coefficient of determination $R^2_{i,\real}$, and residual variance.
-Across the universe, $\beta$ ranged from $0.01$ to $1.79$ and
+Across the universe, $\beta$ ranged from $0.03$ to $1.79$ and
 $R^2_{i,\real}$ ranged from $0.001$ to $0.933$
-(Fig.~\ref{fig:r2_distribution}).
+(Supplementary Fig.~\ref{fig:r2_distribution}).
 
 We compared six ways to construct the asset-specific term. The naive
 method used the full JumpHMM draw without correction. The Gaussian
@@ -311,7 +314,7 @@ excluded. For each replication, we generated a $249$-day SPY path
 from the training-period SPY marginal and used that common simulated
 market path in all asset compositions. Observed $2025$ SPY and asset
 returns were used only for scoring. We repeated the KS, AD,
-Wasserstein-1, variance, kurtosis, and one-day VaR evaluations with
+Wasserstein-1, variance, kurtosis, and one-day left-tail VaR evaluations with
 $100$ paths per ticker. Because goodness-of-fit tests have less power
 on $249$ observations than on $2{,}766$, we also compared each
 synthetic path with a randomly selected contiguous $249$-day block

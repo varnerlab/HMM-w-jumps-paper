@@ -13,7 +13,7 @@ it recovered the calibrated factor loading to a low median absolute
 error and produced heavy-tailed marginals. On $416$ complete held-out
 asset histories from $2025$, it improved the mean cross-ticker KS
 pass rate from $83.5\%$ under centered naive composition to $87.0\%$ and held
-the median variance ratio at $0.97$. Its one-day $99\%$ Value-at-Risk
+the median variance ratio at $0.97$. Its one-day left-tail $99\%$ Value-at-Risk
 exceedance rate was $1.67\%$, the same rounded rate as
 JumpHMM-on-residuals but above the $1\%$ nominal rate. Those residual models,
 fitted directly to the OLS residual series, required a separate fit
@@ -39,10 +39,10 @@ inflated the synthetic median daily-rebalanced return well above the
 realized $2025$ outcome, almost entirely through the
 static-to-daily-rebalance diversification return rather than the
 allocation signal. A location-shift
-correction set to a documented long-run prior adjusted the return
+correction set to a documented $8\%$ annual long-run prior adjusted the return
 level without restoring the missing covariance. A full joint
 residual model is needed before using these paths for
-portfolio-level return forecasts. Thus, the variance correction is a
+portfolio-level return forecasts. The variance correction is a
 necessary compositional constraint rather than a complete dependence
-model; combining it with joint residual dynamics is the next step
-toward portfolio-level synthetic market data.
+model. Portfolio-level synthetic market data would require combining
+it with joint residual dynamics.

@@ -37,8 +37,8 @@ process to capture clustering, but estimating that process requires
 filtering or Markov chain Monte Carlo (MCMC)
 methods~\cite{kimShephardChib1998}; jump-diffusion
 models~\cite{merton1976, kou2002} inject Poisson events into the
-price path, producing heavy tails by construction, but volatility
-does not persist after the jump.
+price path, producing heavy tails by construction, but the jump
+component alone does not produce persistent volatility.
 
 Hidden Markov models embed regime and jump behavior directly in a
 latent discrete chain. This approach follows the two-state
@@ -50,12 +50,13 @@ but did not reproduce volatility clustering. \citet{bullaBulla2006}
 modeled clustering with hidden
 semi-Markov models (HSMMs) that replaced the geometric dwell-time
 distribution of every state with a parametric (negative-binomial)
-alternative. Both rely on the Baum-Welch
-expectation-maximization (EM) algorithm~\cite{baumPetrieSoulesWeiss1970},
-which is iterative and sensitive to initialization. Deep generative
-alternatives learn the marginal directly but routinely miss the
-volatility-clustering signature: \citet{takahashiEtAl2019}
-found that generative adversarial
+alternative. Likelihood-fitted HMM and HSMM formulations commonly use
+the Baum--Welch expectation-maximization (EM)
+algorithm~\cite{baumPetrieSoulesWeiss1970}, which is iterative and can
+be sensitive to initialization. Deep generative alternatives learn the
+marginal directly but can miss the
+volatility-clustering signature: \citet{takahashiEtAl2019} found that
+generative adversarial
 network (GAN) architectures failed to reproduce the absolute-return
 autocorrelation function, and \citet{kwonLee2024}
 reported the same failure for TimeGAN~\cite{yoonEtAl2019timegan}. Recent
