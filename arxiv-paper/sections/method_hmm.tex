@@ -62,40 +62,38 @@ Table~\ref{tab:emission_hsmm} of
 Sec.~\ref{sec:supp-emission-hsmm}.
 
 With the regimes and within-regime distributions fixed, we estimated
-the transition matrix $\mathbf{T}$ by counting observed transitions.
-This avoided the initialization sensitivity of iterative
-expectation-maximization~\cite{bilmes1998}. The counted matrix was
-strongly concentrated near its diagonal, so a state usually persisted
-for only $1$--$2$ days, including in the tails
+the transition matrix $\mathbf{T}$ by counting observed transitions
+rather than using iterative expectation-maximization, which avoided
+initialization sensitivity~\cite{bilmes1998}. We set the initial-state
+distribution $\bar{\pi}$ by solving
+$\bar{\pi}\mathbf{T}=\bar{\pi}$ with
+$\sum_k\bar{\pi}_k=1$~\cite{hamilton2018regime, grinsteadSnell1997}.
+Although the counted transitions were concentrated near the diagonal,
+individual states, including tail states, usually lasted only $1$--$2$
+days
 (Fig.~\ref{fig:model_internals} in Online
 Appendix~\ref{sec:supp-transitions}). As a result, the ordinary model
 left extreme-return states too quickly to reproduce the observed
-volatility clustering~\cite{bullaBulla2006}.
-
-We addressed that problem with occasional jump episodes. Whenever no
-jump episode was active, a new episode began with probability
-$\epsilon$. Its duration was
+volatility clustering~\cite{bullaBulla2006}. To produce longer clusters
+of extreme returns, we added jump episodes. When no episode was active,
+a new one began with probability $\epsilon$ and lasted
 $K\sim\mathrm{Poisson}(\lambda)$, where $\lambda$ is the mean episode
 length~\cite{glasserman2003}. Because a Poisson draw can be zero,
 $K=0$ caused no forced tail step. For $K>0$, the model temporarily
 replaced ordinary transitions with draws from one of two tail sets:
 $\mathcal{S}_{-}=\{1,\dots,N_{\rm tail}\}$ for the most negative
 states and $\mathcal{S}_{+}=\{N-N_{\rm tail}+1,\dots,N\}$ for the most
-positive states. It selected the negative set with probability
-$p_{\rm neg}$ and the positive set otherwise. The model made this
-choice independently at each forced step, allowing negative extreme
-returns to occur slightly more often than positive ones.
-Table~\ref{tab:hyperparams} gives all four jump settings.
-
-We obtained the initial-state distribution $\bar{\pi}$ by solving
-$\bar{\pi}\mathbf{T}=\bar{\pi}$ with
-$\sum_k\bar{\pi}_k=1$~\cite{hamilton2018regime, grinsteadSnell1997}. This
-distribution is exact for the ordinary transition matrix but only
-approximate for the jump-augmented process because it does not include
-the remaining jump duration. Algorithm~\ref{alg:hmmwj} gives the full
-simulation procedure. Each step either followed $\mathbf{T}$ or
-continued a jump episode and then drew a return from the selected
-state's emission distribution.
+positive states. At each forced step, it independently selected the
+negative set with probability $p_{\rm neg}$ and the positive set
+otherwise, allowing negative extreme returns to occur slightly more
+often than positive ones.
+Table~\ref{tab:hyperparams} gives all four jump settings. Each
+simulation step then either followed $\mathbf{T}$ or continued a jump
+episode before drawing a return from the selected state's emission
+distribution (Algorithm~\ref{alg:hmmwj}). The distribution
+$\bar{\pi}$ is exact for the ordinary transition matrix but only
+approximate for the jump-augmented process because it does not track
+the remaining jump duration.
 
 % --- Architecture figure ----------------------------------------------------
 \begin{figure}[tp]

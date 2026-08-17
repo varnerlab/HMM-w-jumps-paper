@@ -26,15 +26,17 @@ Jarque-Bera test rejected normality. The series also showed persistent
 volatility clustering. Individual raw-return correlations were small,
 although the Ljung--Box test detected joint serial dependence
 (Table~\ref{tab:descriptive_stats}).
-We calibrated $(\epsilon, \lambda)$ for HMM-WJ against the in-sample
-SPY series using the grid search in Eq.~\eqref{eq:grid_search}
+Using these targets, we calibrated $(\epsilon, \lambda)$ for HMM-WJ
+against the in-sample SPY series using the grid search in
+Eq.~\eqref{eq:grid_search}
 (Algorithm~\ref{alg:hmmwj}; search range in
 Table~\ref{tab:hyperparams}). The selected values were
 $(\epsilon, \lambda) = (10^{-4}, 90)$, although nearby grid points
 gave similar objective values. Under the counted transition matrix,
 ordinary state residence times were only $1$--$2$ steps, whereas the
 selected jump duration had a mean of $90$ steps
-(Fig.~\ref{fig:model_internals}). The primary analysis used $N = 100$
+(Fig.~\ref{fig:model_internals}). We then checked whether the results
+depended on the number of states. The primary analysis used $N = 100$
 states. Across $N=60$ to $200$, the KS and AD pass rates varied by
 less than one percentage point for both HMM-NJ and HMM-WJ. At
 $N = 350$, some states were never visited and their emission
@@ -58,9 +60,9 @@ unit (GRU)~\cite{choEtAl2014gru} showed the same general pattern. The
 HSMM-style baseline adapted from Bulla and Bulla~\cite{bullaBulla2006}
 reached an $82\%$
 KS pass rate but underestimated kurtosis by more than one third.
-
-Among the fitted parametric and latent-state generators, the two HMM
-variants gave the strongest overall distributional fit.
+Against these baselines, the two HMM variants gave the strongest
+overall distributional fit among the fitted parametric and
+latent-state generators.
 The HMM-NJ and HMM-WJ models had KS pass rates of $99.3\%$ and $98.3\%$,
 respectively. The slightly lower HMM-WJ pass rates were consistent with
 jump episodes sometimes placing too much probability in the tails.
@@ -73,13 +75,15 @@ reproduced the observed skewness of $-0.75$. That skewness arose from
 unequal time spent in negative and positive states rather than from an
 explicit skewness parameter.
 
-The jump episodes improved temporal fit. The HMM-WJ model reduced ACF-MAE from
-$0.059$ for HMM-NJ to $0.053$. About $24\%$ of HMM-WJ paths contained
-at least one jump and showed more persistent autocorrelation in
-absolute returns; paths without a jump were equivalent to HMM-NJ. On
-the held-out $249$ days of $2025$, HMM-NJ and HMM-WJ retained KS pass
-rates of $96.6\%$ and $95.4\%$, with kurtosis close to the observed
-value (Table~\ref{tab:model_comparison};
+The jump episodes improved temporal fit. The HMM-WJ model reduced
+ACF-MAE from $0.059$ for HMM-NJ to $0.053$. About $24\%$ of HMM-WJ
+paths contained at least one jump and showed more persistent
+autocorrelation in absolute returns; paths without a jump were
+equivalent to HMM-NJ. We then tested whether the distributional fit
+carried beyond the training period using the held-out $249$ days of
+$2025$. The HMM-NJ and HMM-WJ models retained KS pass rates of $96.6\%$
+and $95.4\%$, with kurtosis close to the observed value
+(Table~\ref{tab:model_comparison};
 Fig.~\ref{fig:statistical_validation}). Tests on NVDA, JNJ, and JPM
 showed strong in-sample fit but more variable holdout performance
 (Table~\ref{tab:cross_asset}, Online
@@ -120,15 +124,13 @@ across the whole sweep because the Student-$t$ ($\nu = 5$) emission
 sets the tail exponent independently of jump content. Increasing the
 jump share therefore traded fit to the distributional body for lower
 autocorrelation error without changing the tail index.
-
-The value
-$f \approx 0.25$ used throughout kept simulated kurtosis within
-$2\%$ of the observed value and lowered the autocorrelation error
-about a quarter of the way from the no-jump value toward the
-all-jump endpoint.
-The selected mixture therefore provided a compromise between marginal and
-temporal fit before the fitted marginals were carried into the
-multi-asset composition experiment.
+We therefore used $f \approx 0.25$. At this value, simulated kurtosis
+stayed within $2\%$ of the observed value, and the autocorrelation
+error moved about a quarter of the way from the no-jump value toward
+the all-jump endpoint. This choice balanced distributional and
+temporal fit in the SPY analysis. The multi-asset experiment that
+followed set the jump probability to zero so that it could focus on
+how the paths were combined.
 
 % --- Figure: jump-mix enrichment frontier ---
 \begin{figure}[tbp]

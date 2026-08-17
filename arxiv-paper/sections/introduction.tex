@@ -1,33 +1,33 @@
 % introduction.tex
 % Narrative structure (reframed 2026-07-14):
 % (1) synthetic data motivation, stylized facts, Fig 1;
-% (2) survey of generative approaches and their failure modes on the
-%     stylized facts, compacted into one comparison sentence;
-% (3) HMM-WJ as the interpretable marginal component;
-% (4) variance-corrected multi-asset composition as the main result.
+% (2) survey of single-asset generators and HMM-WJ;
+% (3) requirements and modeling gap for multiple assets;
+% (4) study approach, main evidence, and scope.
 
-Synthetic financial data often fail to reproduce the statistical
-properties of real returns. These paths are used to stress-test risk
+Synthetic financial data often fail to match important features of
+real returns. Researchers use synthetic paths to stress-test risk
 models against unobserved market scenarios, validate portfolio
 optimization algorithms, and evaluate allocation strategies across
-many simulated scenarios~\cite{assefaEtAl2020, jordonEtAl2022}.
-Empirical equity excess growth rates exhibit three statistical
-regularities a generative model must reproduce: a heavy-tailed
-marginal distribution, weak autocorrelation of raw growth rates, and
-persistent volatility clustering, in which large changes are
-followed by large changes and small changes by small changes~\cite{mandelbrot1963, cont2001, stengerEtAl2024}. All three patterns
-are visible in SPY daily excess growth rates from $2014$--$2024$
-(Fig.~\ref{fig:empirical_motivation}). The empirical density is sharply
-concentrated near zero but places substantially more probability in
-the tails than a Gaussian model, as shown by the density and
-quantile-quantile comparisons~(Fig.~\ref{fig:empirical_motivation}a and Fig.~\ref{fig:empirical_motivation}b). 
-Raw growth rates have little serial correlation (Fig.~\ref{fig:empirical_motivation}c), 
-whereas the positive, slowly decaying autocorrelation of their absolute values (Fig.~\ref{fig:empirical_motivation}d)
-shows that their magnitudes remain temporally dependent. These
-regularities are often called \emph{stylized facts}. They show why
-matching the distribution of individual returns is not enough: raw
-returns should remain nearly uncorrelated, while the sizes of those
-returns should remain correlated over time.
+many simulations~\cite{assefaEtAl2020, jordonEtAl2022}. We focused on
+three common patterns in daily equity excess growth rates: a
+heavy-tailed return distribution, little autocorrelation in raw
+growth rates, and persistent volatility clustering, in which large
+changes are followed by large changes and small changes by small
+changes~\cite{mandelbrot1963, cont2001, stengerEtAl2024}. All three
+patterns are visible in SPY daily excess growth rates from
+$2014$--$2024$ (Fig.~\ref{fig:empirical_motivation}). Most observed
+returns lie close to zero, but extreme returns occur much more often
+than a Gaussian model predicts
+(Fig.~\ref{fig:empirical_motivation}a and
+Fig.~\ref{fig:empirical_motivation}b). Raw growth rates show little
+correlation across days (Fig.~\ref{fig:empirical_motivation}c). In
+contrast, absolute growth rates remain positively correlated over
+longer periods (Fig.~\ref{fig:empirical_motivation}d), so large and
+small changes cluster over time. These common patterns are called
+\emph{stylized facts}. They show why matching only the return
+distribution is not enough: raw returns should remain nearly
+uncorrelated, while their sizes should remain correlated over time.
 
 \begin{figure}[tbp]
     \centering
@@ -36,8 +36,8 @@ returns should remain correlated over time.
     rates ($2014$--$2024$).} Panel~(a) shows the heavy-tailed return
     density; the Laplace maximum-likelihood fit tracks the empirical
     peak and tails while the Gaussian fit does not. Panel~(b) shows
-    departure from the diagonal in a normal quantile-quantile plot
-    at both extremes. Panel~(c) shows the
+    points moving away from the diagonal at both ends of a normal
+    quantile-quantile plot. Panel~(c) shows the
     autocorrelation function of raw excess growth rates. Individual
     correlations are small, although the Ljung--Box test detects joint
     serial dependence. Panel~(d) shows the autocorrelation function
@@ -46,50 +46,67 @@ returns should remain correlated over time.
     \label{fig:empirical_motivation}
 \end{figure}
 
-Existing generators typically reproduce some of these regularities
-but not others. The generalized autoregressive
+Different generators capture different parts of this behavior. The
+generalized autoregressive
 conditional heteroskedasticity (GARCH) family~\cite{engle1982,
-bollerslev1986} captures volatility clustering but requires
-fat-tailed innovations to reproduce heavy tails. Stochastic-volatility
-and jump-diffusion models~\cite{heston1993, merton1976, kou2002}
-produce heavy tails, but the jump component itself does not create
-persistent volatility. Deep generative
+bollerslev1986} captures volatility clustering but may need
+heavy-tailed random shocks to match extreme returns. Stochastic-volatility and
+jump-diffusion models~\cite{heston1993, merton1976, kou2002} produce
+heavy tails, but jumps alone do not create persistent volatility.
+Deep generative
 models~\cite{takahashiEtAl2019, yoonEtAl2019timegan, kwonLee2024}
-can learn complex marginals but often miss the absolute-return
-autocorrelation associated with volatility clustering. Standard
-hidden Markov models (HMMs)~\cite{rabinerJuang1986} provide a
-regime-switching structure but return to central regimes too quickly
-to dwell in tail states long enough to reproduce the empirical
-clustering profile~\cite{rydenTerasvirtaAsbrink1998, bullaBulla2006}.
-We therefore sought a model that retained distributional fit, reduced
-absolute-return autocorrelation error, and could be fitted separately
-across a large asset universe.
+can learn flexible return distributions, but some miss the
+correlation in absolute returns that marks volatility clustering.
+Standard hidden Markov models (HMMs)~\cite{rabinerJuang1986} switch
+among market regimes but return to central states too quickly to
+reproduce long periods of large
+returns~\cite{rydenTerasvirtaAsbrink1998, bullaBulla2006}. To address this
+problem, we built a separate hidden Markov generator for each asset.
+It divided returns into Laplace-quantile states, used Student-$t$
+draws within each state, and estimated state transitions by direct
+counting. Its jump-duration variant (HMM-WJ) added temporary runs in
+the extreme-return states. This model defined the single-asset part of
+the study.
 
-We addressed the problem in two stages. First, we built a per-asset
-generator based on a hidden Markov model. It divided returns into
-Laplace-quantile states, used Student-$t$ draws within each state, and
-estimated transitions by direct counting. Its jump-duration variant
-(HMM-WJ) added temporary episodes in the extreme-return states. On a
-decade of SPY data, HMM-WJ reduced the error in absolute-return
-autocorrelation from $0.059$ to $0.053$ relative to the no-jump model
-while retaining a $98.3\%$ in-sample Kolmogorov--Smirnov pass rate.
-The GARCH model achieved a lower autocorrelation error of $0.031$ but did not
-match the return distribution. We therefore used HMM-WJ as a practical
-per-asset generator, not as a uniformly superior model.
+Good single-asset paths are not enough for a multi-asset simulation.
+The assets must also respond to shared market movements and retain
+relationships that the market does not explain. Portfolio risk and
+the results of rebalancing depend on how assets move
+together~\cite{embrechtsMcNeilStraumann2002, boothFama1992}. Copulas and
+multivariate hidden-state models can model these relationships
+directly, but they require fitting the assets
+together~\cite{diasVermuntRamos2010, aasCzadoFrigessiBakken2009}. Factor models
+are easier to scale because they divide each asset's return into
+common and asset-specific
+parts~\cite{sharpe1963, rossAPT1976, famaFrench1993}. However, a factor
+model needs a path for the asset-specific part, which is called the
+residual. A generator fitted to an asset's observed returns instead
+produces a full-return path. Using the full-return path as a residual
+can shift the asset mean and add market variance a second time.
+Residuals generated independently also miss shared sector and style
+movements that the market does not explain. The challenge is to
+combine the single-asset generators with a dependence model without
+changing the behavior that either part is meant to capture.
 
-Our main contribution concerns the second stage: combining those
-per-asset paths with a shared market path. Treating a full synthetic
-return path as a single-index residual creates an unintended mean
-shift and counts market variance twice. We removed the path mean and derived a closed-form
-scale correction that preserved target variance and recovered the
-calibrated market loading across a $424$-asset universe. With all
-$2014$--$2024$ parameters held fixed, the correction increased the
-mean Kolmogorov--Smirnov pass rate from $83.5\%$ to $87.0\%$ on $416$
-complete asset histories from $2025$ and reduced the median variance
-ratio from $1.29$ to $0.97$. The method does not, however, reproduce
-residual dependence between assets. Independent residuals created too
-much cross-sectional dispersion and could overstate the return from
-daily rebalancing. A location adjustment corrected the average return
-level but could not restore the missing dependence. This distinction
-between per-asset fit, variance preservation, and cross-asset
-dependence defines both the contribution and the limit of the method.
+In this study, we developed a variance correction for combining
+generators fitted separately to each asset with a shared synthetic
+market path through a single-index model. We subtracted the mean of
+each asset-level path and rescaled the path before adding the market
+component. This prevented the full-return draw from shifting the
+fitted mean and prevented the market factor from adding variance a
+second time. The method reused the asset-level generator without
+fitting another model to each asset's regression residuals. We tested
+the method on $423$ non-market assets in a $424$-asset universe, with
+SPY as the common market path. To focus on how the paths were
+combined, we set the jump probability to zero in this experiment.
+With all $2014$--$2024$ parameters held fixed, the correction
+increased the mean share of paths that passed the
+Kolmogorov--Smirnov test of the return distribution from $83.5\%$ to
+$87.0\%$ on $416$ complete asset histories from $2025$. It also
+reduced the median ratio of synthetic to observed variance from
+$1.29$ to $0.97$. The method did not capture dependence among
+residuals, so independent residuals could overstate the return from
+daily rebalancing. Together, these results show that a realistic
+multi-asset simulation must do three things: reproduce each asset's
+behavior, preserve its response to the market, and capture dependence
+among residuals. Our method did the first two but not the third.

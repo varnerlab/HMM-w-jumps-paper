@@ -1,11 +1,10 @@
 % related.tex
-% Four paragraphs, tightened in the language-audit pass (2026-07-14;
+% Three paragraphs, tightened in the language-audit pass (2026-07-14;
 % see project_language_audit_2026-07-14 memory): (1) parametric /
 % stylized-facts generators; (2) latent-state and deep generative
-% approaches with the hybrid HMM contribution; (3) SIM composition
-% (full-return vs residual-fit) with the variance-correction
-% contribution; (4) validation including the diversification-return
-% concern. Cut ~200 words of historical survey and repeated
+% approaches with the hybrid HMM contribution; (3) multi-asset
+% dependence, SIM composition, validation, and the
+% diversification-return concern. Cut ~200 words of historical survey and repeated
 % "captures X but fails Y" phrasing; removed "Methods describes"/
 % "developed in Methods" section self-references (recast with "we").
 
@@ -69,35 +68,45 @@ matrix for the central states and added an event-driven
 override that forces the chain into the tail states for a
 Poisson-distributed duration on a subset of time steps.
 
-Building a multi-asset path requires a dependence model in addition
-to the separate single-asset generators. Mixture hidden Markov
-models~\cite{diasVermuntRamos2010} share latent state across assets
-but are costly to estimate in high dimensions. Copula
-approaches~\cite{embrechtsMcNeilStraumann2002,
+Building a multi-asset path adds a second task: modeling how assets
+move together. Separate single-asset generators set each asset's
+return distribution and behavior over time, but they do not define
+joint market moves. Mixture hidden Markov
+models~\cite{diasVermuntRamos2010} can share a hidden state across
+assets, but they become costly to estimate as the number of assets
+grows. Copula methods~\cite{embrechtsMcNeilStraumann2002,
 cherubiniLucianoVecchiato2004, aasCzadoFrigessiBakken2009} separate
-marginals from cross-asset dependence but require choosing a copula
-family and, in their standard static form, treat successive time
-slices as independent. Factor models instead reduce a firm's growth
-rate to one or more shared factors~\cite{rossAPT1976,
-famaFrench1993}. The single-index model (SIM) of
-Sharpe~\cite{sharpe1963} uses one shared factor and decomposes each
-asset's growth rate into a market term and an idiosyncratic residual.
-This structure can use a single-factor market generator directly. We
-derived a closed-form correction that preserves the generator
-variance while recovering the calibrated market loading.
-
-A statistical match does not guarantee that synthetic paths will be
-useful in a downstream financial task. We therefore combined
-goodness-of-fit tests for the return
-distribution~\cite{kolmogorov1933, smirnov1948, andersonDarling1952}
-with autocorrelation diagnostics for temporal structure~\cite{cont2001}.
-We also evaluated Value-at-Risk coverage and a daily-rebalanced
-allocation example. Booth and Fama~\cite{boothFama1992} described the
-problem that arises in the latter setting: paths whose residuals are
-drawn independently across assets can create a
-\emph{diversification return} that is muted in real markets, where
-common sector and style factors correlate residuals across assets.
-We measured Value-at-Risk performance with Kupiec's
-unconditional-coverage test and used a location adjustment to measure,
-but not solve, the return-level effect of the missing residual
-dependence.
+each asset's distribution from the relationships among assets. They
+require a choice of copula family and, in their standard static form,
+do not model dependence across successive days. Factor models offer a
+simpler approach for large asset sets by linking returns to a small
+number of shared factors~\cite{rossAPT1976, famaFrench1993}. The
+single-index model (SIM) of Sharpe~\cite{sharpe1963} uses one market
+factor and splits each asset's return into a market term and an
+asset-specific residual. This structure can use one synthetic market
+path for many assets, but it creates a mismatch when the existing
+asset-level generator was fitted to full returns rather than
+residuals. Using the full-return path as a residual adds its mean to
+the fitted intercept and adds market variance to variance already in
+the path. Fitting a new generator to every residual avoids this
+mismatch but requires a second model for every asset. We instead
+centered and rescaled each full-return path before adding the market
+factor. This correction lets the fitted asset-level generator be
+reused while keeping the market term within the asset's total variance
+budget. It does not, however, model dependence among the remaining
+residuals. This limit means that validation must cover more than the
+return distribution. We used Kolmogorov--Smirnov and
+Anderson--Darling tests to assess the
+distribution~\cite{kolmogorov1933, smirnov1948, andersonDarling1952},
+autocorrelation to assess behavior over time~\cite{cont2001}, and
+Value-at-Risk coverage to assess tail risk~\cite{manganelliEngle2001}.
+We also tested a daily-rebalanced allocation because a model can fit
+each asset separately and still fail at the portfolio level. Booth
+and Fama~\cite{boothFama1992} showed how rebalancing volatile assets
+can create a \emph{diversification return}. In synthetic data,
+independent residuals can exaggerate this effect because they remove
+shared sector and style movements. A constant shift can adjust the
+average return level, but it cannot restore the missing dependence.
+The correction therefore solves the mean and variance problem created
+when full-return generators are combined with a market factor; it is
+not a complete model of how assets move together.
