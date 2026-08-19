@@ -8,8 +8,8 @@
 % "captures X but fails Y" phrasing; removed "Methods describes"/
 % "developed in Methods" section self-references (recast with "we").
 
-Models of equity-market stylized facts follow either a bottom-up or
-top-down approach. Bottom-up agent-based models~\cite{luxMarchesi1999,
+Equity-market generators address stylized facts through either a
+bottom-up or top-down approach. Bottom-up agent-based models~\cite{luxMarchesi1999,
 contBouchaud2000, farmerJoshi2002, lebaron2006, arthur2021,
 farmer2025} derive return dynamics from simulated interactions among
 heterogeneous agents. They are demanding to calibrate and expensive
@@ -39,7 +39,8 @@ models~\cite{merton1976, kou2002} inject Poisson events into the
 price path, producing heavy tails by construction, but the jump
 component alone does not produce persistent volatility.
 
-Hidden Markov models embed regime and jump behavior directly in a
+Capturing discrete regimes and jumps requires a model of how market
+states change over time. Hidden Markov models embed this behavior in a
 latent discrete chain. This approach follows Hamilton's~\cite{hamilton1989}
 two-state regime-switching model, later applied to volatility
 forecasting~\cite{rossiGallo2006} and equity

@@ -58,25 +58,30 @@ the text moves to a new biological or technical question.
 - When displayed equations occur in sequence, connect them with a short sentence that
   explains how the second follows from the first.
 
-## Figures and Tables
+## Figures, Tables, and Algorithms
 
 - Cite every main-text figure and table in the Results at the point where its evidence is
   first reported or interpreted. A reference in the Methods, caption, or Discussion does not
   replace the Results citation.
-- Place the figure or table reference in the sentence that states the corresponding finding.
-  Do not use a detached “see Figure” or “see Table” sentence.
+- Cite each algorithm in the Methods sentence that summarizes the corresponding procedure.
+- Place figure, table, and algorithm references inline, preferably as parenthetical references
+  at the end of the sentence or clause they support. Do not make a figure, table, or algorithm
+  the subject of a sentence, as in “Figure 2 shows,” “Table 3 reports,” or “Algorithm 1 puts
+  these steps together.” Do not use a detached “see Figure,” “see Table,” or “see Algorithm”
+  sentence.
 - Use `Fig.~\ref{fig:label}` for one figure, `Figs.~\ref{fig:first}--\ref{fig:last}` for
-  multiple figures, and `Table~\ref{tab:label}` for a table. Use “Supplementary Fig.” and
+  multiple figures, `Table~\ref{tab:label}` for a table, and
+  `Algorithm~\ref{alg:label}` for an algorithm. Use “Supplementary Fig.” and
   “Supplementary Table” for supplementary items.
 - Identify the relevant panel inline when a claim depends on one panel, for example
   `(Fig.~\ref{fig:label}A)`.
 - Build each Results passage in this order: explain the question, state what was compared or
   calculated, report the finding with its inline figure or table reference, and interpret what
   the finding does and does not show.
-- Before considering the manuscript complete, inventory every `fig:`, `sfig:`, `tab:`, and
-  `stab:` label and confirm that it is cited in the appropriate Results passage. Flag orphaned
-  floats, Results claims without supporting references, and figures or tables cited only in
-  Methods, captions, or Discussion.
+- Before considering the manuscript complete, inventory every `fig:`, `sfig:`, `tab:`,
+  `stab:`, and `alg:` label and confirm that it is cited in the appropriate Results or Methods
+  passage. Flag orphaned floats, Results claims without supporting references, and figures or
+  tables cited only in Methods, captions, or Discussion.
 
 ## Project-Specific Technical Language
 
@@ -110,7 +115,30 @@ the text moves to a new biological or technical question.
 - Aim for paragraphs similar in length to the Results section, usually about 100 to 200 words.
 - Merge adjacent short paragraphs when they answer the same question.
 - Split a long paragraph when it contains more than one scientific purpose.
-- Each paragraph should have one central job and a clear opening sentence.
+- Each narrative paragraph should have one central job and should open by stating the
+  question, problem, purpose, or inference that motivates what follows. A literal question is
+  not required. The reader should understand why the paragraph exists before encountering
+  procedural detail.
+- Prefer “To test out-of-sample generalization without refitting or look-ahead bias, we froze
+  all fitted parameters...” over the chronology-only opening “We then froze all fitted
+  parameters....”
+- Avoid openings such as “We then,” “Next,” “We also,” or “With the model calibrated” when
+  they merely report sequence. Replace them with the scientific reason for the next action.
+  Captions, administrative statements, and other required boilerplate may retain their
+  functional openings.
+- Close each narrative paragraph by answering its opening question, stating the implication
+  of the evidence, or explaining why the next paragraph is needed. A paragraph should not
+  simply stop after a list of procedures, metrics, or parameter values. Definitional and
+  derivation paragraphs may instead close with the property or result they establish.
+- Make adjacent paragraphs form an argument: the conclusion of one should supply the reason
+  for the next. Use an explicit bridge when that relationship would otherwise be unclear.
+- End the Introduction with a paragraph that begins ``In this study, ...`` and gives the
+  study-level question or objective before summarizing the approach, principal evidence,
+  contribution, and scope. This final paragraph should tell the reader what the paper does
+  and establish the structure of the argument that follows.
+- Prevent widows and orphans in the compiled manuscript: do not leave the first line of a
+  paragraph alone at the bottom of a page or its final line alone at the top. Recheck the
+  complete PDF after any prose or float change because pagination can move the problem.
 - Preserve necessary detail, but move implementation detail to Methods or the Supplement
   when it interrupts the main narrative.
 - End the Discussion with its limitations paragraph. Place computational scaling and other

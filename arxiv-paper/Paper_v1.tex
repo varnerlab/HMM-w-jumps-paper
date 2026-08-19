@@ -26,6 +26,7 @@
 \usepackage{bm}
 \usepackage{multirow}
 \usepackage{lineno}
+\usepackage{needspace}
 \usepackage{tikz}
 \usetikzlibrary{arrows.meta, decorations.pathreplacing, positioning}
 
@@ -81,6 +82,9 @@
 
 \begin{document}
 \raggedbottom
+\clubpenalty=10000
+\widowpenalty=10000
+\displaywidowpenalty=10000
 
 \maketitle
 
@@ -99,8 +103,9 @@
 
 \section{Methods}\label{sec:method}
 
-We fitted a marginal generator for each asset and then combined the
-generated paths with a variance-corrected single-index model. The
+To separate per-asset behavior from cross-asset dependence, we fitted
+a marginal generator for each asset and then combined the generated
+paths with a variance-corrected single-index model. The
 dataset contained $424$ United States-listed equities and
 exchange-traded funds observed from $2014$ through $2024$. The
 single-asset analysis focused on the SPDR S\&P 500 ETF (SPY). It used

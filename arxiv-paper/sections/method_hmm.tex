@@ -3,8 +3,8 @@
 % (language-audit pass, 2026-07-14; see project_language_audit_2026-07-14
 % memory): dataset/return definition -> tuple definition -> state
 % partition -> emissions -> transition estimation + jump/tail override
-% -> hyperparameter calibration. Split the original single dense
-% tuple-plus-state-plus-emission paragraph into three, moved the
+% -> hyperparameter calibration. Separated the emission specification
+% from the model-and-state definition, moved the
 % variance/sensitivity caveats out of the model-definition flow, and
 % cut a prose walk-through of the generator that duplicated Algorithm 1.
 % The bridge to the multi-asset composition lives at the top of
@@ -12,8 +12,9 @@
 % summary twice across the subsection boundary).
 
 
-For each asset, HMM-WJ converted the continuous return series into a
-sequence of $N$ ordered return regimes. At each time step, the model
+To turn each continuous return history into a directly estimable
+regime process, HMM-WJ converted it into a sequence of $N$ ordered
+return regimes. At each time step, the model
 first selected a regime and then drew a return from that regime's
 distribution (Fig.~\ref{fig:model_architecture}). We defined the model
 as follows:
@@ -25,7 +26,6 @@ $i$ when discussing one asset. The transition matrix $\mathbf{T}$
 sets the probabilities of moving between regimes, $\mathbf{E}$ gives
 the return distribution within each regime, and $\bar{\pi}$ gives the
 initial regime probabilities.
-
 We ordered the regimes from the most negative to the most positive
 returns. Their boundaries were equally spaced quantiles of a Laplace
 distribution fitted to the asset's in-sample returns. Specifically,
@@ -33,12 +33,13 @@ $Q_k = F_L^{-1}(k/N;\, \mu_L, b_L)$, where $\mu_L$ and $b_L$ are the
 fitted location and scale. We set $Q_0=-\infty$ and $Q_N=+\infty$ and
 assigned return $G_t$ to state $k$ when $Q_{k-1}<G_t\le Q_k$. The
 Laplace distribution captured the sharp concentration of small price
-movements in Fig.~\ref{fig:empirical_motivation}a~\cite{kotzKozubowskiPodgorski2001, tothJones2019}.
+movements~\cite{kotzKozubowskiPodgorski2001, tothJones2019}
+(Fig.~\ref{fig:empirical_motivation}a).
 Its closed-form quantiles also made the same partition inexpensive to
 compute across all $424$ tickers~\cite{bilmes1998}.
 
-The within-state emission followed a location-scale Student-$t$
-distribution:
+To retain heavy tails within each return regime, we used a
+location-scale Student-$t$ emission:
 \begin{equation}
     G_t \mid S_t = k \;\sim\; \mu_k + \sigma_k \cdot t_{\nu},
     \qquad \nu = 5,
@@ -52,18 +53,20 @@ $\sigma_k$ is a scale parameter rather than the emission standard
 deviation. At $\nu=5$, that standard deviation is
 $\sigma_k\sqrt{5/3}$. We
 selected $\nu = 5$ from a sensitivity sweep
-($\nu = \infty$ recovers the Normal baseline; explored range in
-Table~\ref{tab:hyperparams}). At $\nu=5$, simulated kurtosis was $7.5$
+(Table~\ref{tab:hyperparams}); $\nu = \infty$ recovered the Normal
+baseline. At $\nu=5$, simulated kurtosis was $7.5$
 against the observed $7.7$, compared with $5.5$ under Normal
 emissions. The corresponding Student-$t$ KS and AD pass rates were
-$98.3\%$ and $94.8\%$. The full comparison against an HSMM-style
-baseline adapted from Bulla and Bulla~\cite{bullaBulla2006} is given in
-Table~\ref{tab:emission_hsmm} of
-Sec.~\ref{sec:supp-emission-hsmm}.
+$98.3\%$ and $94.8\%$. The same analysis included an HSMM-style
+baseline adapted from Bulla and Bulla~\cite{bullaBulla2006}
+(Table~\ref{tab:emission_hsmm}; Online
+Appendix~\ref{sec:supp-emission-hsmm}). These comparisons separated
+the contribution of heavy-tailed emissions from that of the duration
+mechanism introduced next.
 
-With the regimes and within-regime distributions fixed, we estimated
-the transition matrix $\mathbf{T}$ by counting observed transitions
-rather than using iterative expectation-maximization, which avoided
+To reproduce observed regime changes without iterative
+expectation-maximization, we estimated the transition matrix
+$\mathbf{T}$ by counting observed transitions, which avoided
 initialization sensitivity~\cite{bilmes1998}. We set the initial-state
 distribution $\bar{\pi}$ by solving
 $\bar{\pi}\mathbf{T}=\bar{\pi}$ with
@@ -86,8 +89,9 @@ states and $\mathcal{S}_{+}=\{N-N_{\rm tail}+1,\dots,N\}$ for the most
 positive states. At each forced step, it independently selected the
 negative set with probability $p_{\rm neg}$ and the positive set
 otherwise, allowing negative extreme returns to occur slightly more
-often than positive ones.
-Table~\ref{tab:hyperparams} gives all four jump settings. Each
+often than positive ones. The mechanism therefore had four jump
+settings: $\epsilon$, $\lambda$, $p_{\rm neg}$, and $N_{\rm tail}$
+(Table~\ref{tab:hyperparams}). Each
 simulation step then either followed $\mathbf{T}$ or continued a jump
 episode before drawing a return from the selected state's emission
 distribution (Algorithm~\ref{alg:hmmwj}). The distribution
@@ -244,19 +248,16 @@ the remaining jump duration.
 \end{algorithmic}
 \end{algorithm}
 
-We chose the jump probability $\epsilon$ and mean duration $\lambda$
-so that simulated paths matched two features of the SPY history:
-volatility clustering and kurtosis~\cite{mandelbrot1963, cont2001,
-rydenTerasvirtaAsbrink1998}. The jump mechanism follows the Poisson
-event idea used in jump-diffusion models~\cite{merton1976, kou2002},
-but here an event extends a visit to the tail states rather than adding
-an instantaneous price jump. We searched a grid of $(\epsilon,\lambda)$
-values. For each jump-active path, the first part of the objective
-measured the squared difference between the observed and simulated
-autocorrelation functions of absolute returns through lag $L$. The
-second part measured the squared difference in excess kurtosis. We
-then averaged both errors over the jump-active paths. The calibration
-objective was:
+To balance volatility clustering against marginal tail shape, we
+calibrated the jump probability $\epsilon$ and mean duration $\lambda$
+jointly to the SPY absolute-return autocorrelation and
+kurtosis~\cite{mandelbrot1963, cont2001,
+rydenTerasvirtaAsbrink1998}. As in jump-diffusion models, a Poisson
+event initiated the mechanism~\cite{merton1976, kou2002}; here it
+extended a visit to the tail states rather than adding an instantaneous
+price jump. At each $(\epsilon,\lambda)$ grid point, the objective
+combined squared ACF error through lag $L$ with weighted squared excess
+kurtosis error over the jump-active paths:
 \begin{equation}
     J(\epsilon, \lambda) =
     \frac{1}{|\mathcal{R}_J|}\sum_{r\in\mathcal{R}_J}
@@ -267,17 +268,19 @@ objective was:
     \right],
     \label{eq:grid_search}
 \end{equation}
-where $\mathcal{R}_J$ is the set of jump-active simulated paths,
+where $\mathcal{R}_J$ is the set of jump-active paths;
 $\mathrm{ACF}_{\rm obs}(\tau)$ and $\kappa_{\rm obs}$ are the empirical
-absolute-growth autocorrelation at lag $\tau$ and excess kurtosis, and
-$\mathrm{ACF}_{r}(\tau)$ and $\kappa_r$ are the corresponding values
-for path $r$. We use $\kappa$ for kurtosis to avoid collision with the
-jump-duration variable $K$.
-We simulated $200$ independent paths of $2{,}766$ trading days at
-each grid point. A path with no jump reduces to HMM-NJ and contains no
-information about $(\epsilon,\lambda)$, so the objective included only
-paths with at least one jump~\cite{glasserman2003}. The kurtosis
-weight $w_\kappa$ balanced the kurtosis and ACF terms. The search ranges,
-$w_\kappa$, $L$, and the remaining HMM-WJ and SIM hyperparameters are
-reported in Table~\ref{tab:hyperparams}. The fitted model was evaluated against
-the marginal and temporal statistics reported in Section~\ref{sec:results}.
+absolute-growth autocorrelation and excess kurtosis; and
+$\mathrm{ACF}_{r}(\tau)$ and $\kappa_r$ are their simulated counterparts
+for path $r$. We use $\kappa$ for kurtosis and $K$ for jump duration.
+Thus the objective required each candidate to match both temporal
+persistence and marginal tail shape.
+
+To estimate that joint objective at each grid point, we simulated $200$
+independent paths of $2{,}766$ trading days. Because a no-jump path
+reduces to HMM-NJ and contains no information about
+$(\epsilon,\lambda)$, we scored only jump-active paths
+~\cite{glasserman2003}. The search used the ranges, $w_\kappa$, $L$,
+and remaining hyperparameters in Table~\ref{tab:hyperparams}. This
+procedure fixed the calibration before the generator comparisons and
+holdout evaluation in Section~\ref{sec:results}.

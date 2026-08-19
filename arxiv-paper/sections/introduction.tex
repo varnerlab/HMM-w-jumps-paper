@@ -88,25 +88,24 @@ movements that the market does not explain. The challenge is to
 combine the single-asset generators with a dependence model without
 changing the behavior that either part is meant to capture.
 
-In this study, we developed a variance correction for combining
-generators fitted separately to each asset with a shared synthetic
-market path through a single-index model. We subtracted the mean of
-each asset-level path and rescaled the path before adding the market
-component. This prevented the full-return draw from shifting the
-fitted mean and prevented the market factor from adding variance a
-second time. The method reused the asset-level generator without
-fitting another model to each asset's regression residuals. We tested
-the method on $423$ non-market assets in a $424$-asset universe, with
-SPY as the common market path. To focus on how the paths were
-combined, we set the jump probability to zero in this experiment.
-With all $2014$--$2024$ parameters held fixed, the correction
-increased the mean share of paths that passed the
-Kolmogorov--Smirnov test of the return distribution from $83.5\%$ to
-$87.0\%$ on $416$ complete asset histories from $2025$. It also
-reduced the median ratio of synthetic to observed variance from
-$1.29$ to $0.97$. The method did not capture dependence among
-residuals, so independent residuals could overstate the return from
-daily rebalancing. Together, these results show that a realistic
-multi-asset simulation must do three things: reproduce each asset's
-behavior, preserve its response to the market, and capture dependence
-among residuals. Our method did the first two but not the third.
+In this study, we asked whether separately fitted asset generators
+could be combined with a shared market path without double counting
+location or variance. We addressed this question with a
+variance-corrected single-index construction that centered and rescaled
+each asset-level path before adding the market component. This prevented
+the full-return draw from shifting the fitted mean and prevented the
+market factor from adding variance a second time, while reusing the
+asset-level generator without fitting another model to each asset's
+regression residuals. We tested the method on $423$ non-market assets in
+a $424$-asset universe, with SPY as the common market path. To isolate
+the composition step, we set the jump probability to zero. With all
+$2014$--$2024$ parameters held fixed, the correction increased the mean
+share of paths that passed the Kolmogorov--Smirnov test of the return
+distribution from $83.5\%$ to $87.0\%$ on $416$ complete asset histories
+from $2025$ and reduced the median ratio of synthetic to observed
+variance from $1.29$ to $0.97$. The method did not capture dependence
+among residuals, so independent residuals could overstate the return
+from daily rebalancing. Together, these results show that a realistic
+multi-asset simulation must reproduce each asset's behavior, preserve
+its response to the market, and capture dependence among residuals. Our
+method did the first two but not the third.

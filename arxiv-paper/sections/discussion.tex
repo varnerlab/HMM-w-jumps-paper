@@ -1,7 +1,7 @@
 % discussion.tex
 
-The single-asset analysis supplied the return generator used in the
-multi-asset construction. Relative to HMM-NJ, HMM-WJ reduced the
+Single-asset model choice involved a tradeoff between marginal and
+temporal fit. Relative to HMM-NJ, HMM-WJ reduced the
 autocorrelation error for absolute returns, although its in-sample KS
 and AD pass rates were slightly lower. The GARCH model achieved the lowest
 autocorrelation error of any generator but rarely passed the
@@ -32,7 +32,8 @@ directly. The fitted skewness instead came from unequal time spent in
 negative and positive states, so assets with different asymmetry may
 need a different state partition.
 
-The main multi-asset result was the variance correction. Naive
+The central multi-asset question was whether a full-return generator
+could be reused without counting market variance twice. Naive
 composition added market variance to a draw that already represented
 the asset's total variance. The correction removed that double count
 and passed $73.6\%$ of the full-length in-sample KS comparisons. After
@@ -49,14 +50,16 @@ competitive alternative. Residual-fit methods avoid double counting
 because the market component has already been removed. The best such
 method, JumpHMM-on-residuals, had a slightly higher KS pass rate in
 sample, while the hybrid method had the higher rate in the holdout.
-The practical difference is reuse: the hybrid construction can use a
-generator already fitted to full returns, whereas the residual method
-requires another fit for each asset. Neither approach achieved nominal
-tail coverage in the short holdout. The hybrid method's one-day left-tail $99\%$
-VaR exceedance rate was $1.67\%$, the same rounded rate as
-JumpHMM-on-residuals and above the $1\%$ nominal rate.
+The practical difference is reuse: the hybrid construction uses a
+full-return generator, whereas the residual method requires another fit
+for each asset. Neither approach achieved nominal
+tail coverage in the short holdout.
 
-Several design choices narrow this comparison. In sample, we used the
+The short-holdout tail result narrowed the comparison further: the
+hybrid method's one-day left-tail $99\%$ VaR exceedance rate was
+$1.67\%$, the same rounded rate as JumpHMM-on-residuals and above the
+$1\%$ nominal rate. Several design choices also narrowed its
+interpretation. In sample, we used the
 observed SPY history as the market path. In the holdout experiment, we
 generated SPY from its frozen training-period model and reserved the
 observed $2025$ path for scoring. The naive and hybrid methods shared
@@ -111,7 +114,6 @@ the other transfer limits identified here. Separate univariate
 autoregressive or block-bootstrap models would not be enough: they can
 improve temporal behavior within each asset without creating
 dependence between assets.
-
 The current location adjustment does not resolve this central
 limitation. We calibrated a constant shift in log-wealth to an external
 $8\%$ annual long-run return prior~\cite{damodaranERP,ibbotsonSBBI}, not to the

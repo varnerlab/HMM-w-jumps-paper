@@ -4,8 +4,9 @@
 % leads and the HMM-WJ result supports the marginal component. The
 % conclusion ends on the missing cross-asset covariance limitation.
 
-In this study, we developed a variance-corrected method for composing
-per-asset generators through a single-index model. Centering first
+To reuse full-return generators in a factor model without double
+counting their location or variance, we developed a variance-corrected
+single-index composition method. Centering first
 prevented a full-return draw from shifting the calibrated intercept;
 the subsequent scale correction removed the variance inflation caused
 by adding the market factor. Across $423$ non-market assets,
@@ -19,8 +20,9 @@ JumpHMM-on-residuals but above the $1\%$ nominal rate. Those residual models,
 fitted directly to the OLS residual series, required a separate fit
 for each asset and produced a similar marginal pass rate.
 
-The per-asset component underpinning this construction was a hidden Markov marginal
-model with Laplace-quantile states, Student-$t$ emissions, and direct
+Solving the composition problem first required a per-asset generator
+that retained heavy tails and temporal structure. We used a hidden
+Markov marginal model with Laplace-quantile states, Student-$t$ emissions, and direct
 transition counting. On SPY, its jump-duration variant reduced
 absolute-return autocorrelation error relative to the no-jump variant
 while keeping high KS and AD pass rates; GARCH reached a lower
