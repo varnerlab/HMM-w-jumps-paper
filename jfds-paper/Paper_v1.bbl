@@ -1,4 +1,4 @@
-\begin{thebibliography}{57}
+\begin{thebibliography}{48}
 \expandafter\ifx\csname natexlab\endcsname\relax\def\natexlab#1{#1}\fi
 \providecommand{\url}[1]{\texttt{#1}}
 \providecommand{\href}[2]{#2}
@@ -20,21 +20,6 @@
 \newblock \bibinfo{title}{Pair-copula constructions of multiple dependence}.
 \newblock \bibinfo{journal}{Insurance: Mathematics and Economics}
   \bibinfo{volume}{44}, \bibinfo{pages}{182--198}.
-%Type = Article
-\bibitem[{Anderson and Darling(1952)}]{andersonDarling1952}
-\bibinfo{author}{Anderson, T.W.}, \bibinfo{author}{Darling, D.A.},
-  \bibinfo{year}{1952}.
-\newblock \bibinfo{title}{Asymptotic theory of certain ``goodness of fit''
-  criteria based on stochastic processes}.
-\newblock \bibinfo{journal}{The Annals of Mathematical Statistics}
-  \bibinfo{volume}{23}, \bibinfo{pages}{193--212}.
-%Type = Article
-\bibitem[{Arthur(2021)}]{arthur2021}
-\bibinfo{author}{Arthur, W.B.}, \bibinfo{year}{2021}.
-\newblock \bibinfo{title}{Foundations of complexity economics}.
-\newblock \bibinfo{journal}{Nature Reviews Physics} \bibinfo{volume}{3},
-  \bibinfo{pages}{136--145}.
-\newblock \DOIprefix\doi{10.1038/s42254-020-00273-3}.
 %Type = Inproceedings
 \bibitem[{Assefa et~al.(2020)Assefa, Dervovic, Mahfouz, Tillman, Reddy and
   Veloso}]{assefaEtAl2020}
@@ -47,22 +32,14 @@
   {ACM} International Conference on AI in Finance}, pp. \bibinfo{pages}{1--8}.
 \newblock \DOIprefix\doi{10.1145/3383455.3422554}.
 %Type = Article
-\bibitem[{Bachelier(1900)}]{bachelier1900}
-\bibinfo{author}{Bachelier, L.}, \bibinfo{year}{1900}.
-\newblock \bibinfo{title}{Th\'eorie de la sp\'eculation}.
-\newblock \bibinfo{journal}{Annales Scientifiques de l'\'Ecole Normale
-  Sup\'erieure} \bibinfo{volume}{17}, \bibinfo{pages}{21--86}.
-%Type = Article
-\bibitem[{Baum et~al.(1970)Baum, Petrie, Soules and
-  Weiss}]{baumPetrieSoulesWeiss1970}
-\bibinfo{author}{Baum, L.E.}, \bibinfo{author}{Petrie, T.},
-  \bibinfo{author}{Soules, G.}, \bibinfo{author}{Weiss, N.},
-  \bibinfo{year}{1970}.
-\newblock \bibinfo{title}{A maximization technique occurring in the statistical
-  analysis of probabilistic functions of {Markov} chains}.
-\newblock \bibinfo{journal}{The Annals of Mathematical Statistics}
-  \bibinfo{volume}{41}, \bibinfo{pages}{164--171}.
-\newblock \DOIprefix\doi{10.1214/aoms/1177697196}.
+\bibitem[{Bauwens et~al.(2006)Bauwens, Laurent and
+  Rombouts}]{bauwensLaurentRombouts2006}
+\bibinfo{author}{Bauwens, L.}, \bibinfo{author}{Laurent, S.},
+  \bibinfo{author}{Rombouts, J.V.K.}, \bibinfo{year}{2006}.
+\newblock \bibinfo{title}{Multivariate {GARCH} models: A survey}.
+\newblock \bibinfo{journal}{Journal of Applied Econometrics}
+  \bibinfo{volume}{21}, \bibinfo{pages}{79--109}.
+\newblock \DOIprefix\doi{10.1002/jae.842}.
 %Type = Techreport
 \bibitem[{Bilmes(1998)}]{bilmes1998}
 \bibinfo{author}{Bilmes, J.A.}, \bibinfo{year}{1998}.
@@ -71,14 +48,6 @@
   {Markov} Models}.
 \newblock \bibinfo{type}{Technical Report} \bibinfo{number}{TR-97-021}.
   International Computer Science Institute.
-%Type = Article
-\bibitem[{Black and Scholes(1973)}]{blackScholes1973}
-\bibinfo{author}{Black, F.}, \bibinfo{author}{Scholes, M.},
-  \bibinfo{year}{1973}.
-\newblock \bibinfo{title}{The pricing of options and corporate liabilities}.
-\newblock \bibinfo{journal}{Journal of Political Economy} \bibinfo{volume}{81},
-  \bibinfo{pages}{637--654}.
-\newblock \DOIprefix\doi{10.1086/260062}.
 %Type = Article
 \bibitem[{Bollerslev(1986)}]{bollerslev1986}
 \bibinfo{author}{Bollerslev, T.}, \bibinfo{year}{1986}.
@@ -140,15 +109,6 @@
 \newblock \bibinfo{journal}{Quantitative Finance} \bibinfo{volume}{1},
   \bibinfo{pages}{223--236}.
 \newblock \DOIprefix\doi{10.1080/713665670}.
-%Type = Article
-\bibitem[{Cont and Bouchaud(2000)}]{contBouchaud2000}
-\bibinfo{author}{Cont, R.}, \bibinfo{author}{Bouchaud, J.P.},
-  \bibinfo{year}{2000}.
-\newblock \bibinfo{title}{Herd behavior and aggregate fluctuations in financial
-  markets}.
-\newblock \bibinfo{journal}{Macroeconomic Dynamics} \bibinfo{volume}{4},
-  \bibinfo{pages}{170--196}.
-\newblock \DOIprefix\doi{10.1017/S1365100500015029}.
 %Type = Misc
 \bibitem[{Damodaran(2025)}]{damodaranERP}
 \bibinfo{author}{Damodaran, A.}, \bibinfo{year}{2025}.
@@ -176,20 +136,21 @@
   \bibinfo{pages}{176--223}.
 \newblock \DOIprefix\doi{10.1017/CBO9780511615337.008}.
 %Type = Article
+\bibitem[{Engle(2002)}]{engle2002dcc}
+\bibinfo{author}{Engle, R.}, \bibinfo{year}{2002}.
+\newblock \bibinfo{title}{Dynamic conditional correlation: A simple class of
+  multivariate generalized autoregressive conditional heteroskedasticity
+  models}.
+\newblock \bibinfo{journal}{Journal of Business \& Economic Statistics}
+  \bibinfo{volume}{20}, \bibinfo{pages}{339--350}.
+\newblock \DOIprefix\doi{10.1198/073500102288618487}.
+%Type = Article
 \bibitem[{Engle(1982)}]{engle1982}
 \bibinfo{author}{Engle, R.F.}, \bibinfo{year}{1982}.
 \newblock \bibinfo{title}{Autoregressive conditional heteroscedasticity with
   estimates of the variance of {United Kingdom} inflation}.
 \newblock \bibinfo{journal}{Econometrica} \bibinfo{volume}{50},
   \bibinfo{pages}{987--1007}.
-%Type = Article
-\bibitem[{Fama(1970)}]{famaEMH1970}
-\bibinfo{author}{Fama, E.F.}, \bibinfo{year}{1970}.
-\newblock \bibinfo{title}{Efficient capital markets: A review of theory and
-  empirical work}.
-\newblock \bibinfo{journal}{The Journal of Finance} \bibinfo{volume}{25},
-  \bibinfo{pages}{383--417}.
-\newblock \DOIprefix\doi{10.2307/2325486}.
 %Type = Article
 \bibitem[{Fama and French(1993)}]{famaFrench1993}
 \bibinfo{author}{Fama, E.F.}, \bibinfo{author}{French, K.R.},
@@ -199,22 +160,6 @@
 \newblock \bibinfo{journal}{Journal of Financial Economics}
   \bibinfo{volume}{33}, \bibinfo{pages}{3--56}.
 \newblock \DOIprefix\doi{10.1016/0304-405X(93)90023-5}.
-%Type = Article
-\bibitem[{Farmer(2025)}]{farmer2025}
-\bibinfo{author}{Farmer, J.D.}, \bibinfo{year}{2025}.
-\newblock \bibinfo{title}{Quantitative agent-based models: A promising
-  alternative for macroeconomics}.
-\newblock \bibinfo{journal}{Oxford Review of Economic Policy}
-  \bibinfo{volume}{41}, \bibinfo{pages}{571--590}.
-\newblock \DOIprefix\doi{10.1093/oxrep/graf027}.
-%Type = Article
-\bibitem[{Farmer and Joshi(2002)}]{farmerJoshi2002}
-\bibinfo{author}{Farmer, J.D.}, \bibinfo{author}{Joshi, S.},
-  \bibinfo{year}{2002}.
-\newblock \bibinfo{title}{The price dynamics of common trading strategies}.
-\newblock \bibinfo{journal}{Journal of Economic Behavior \& Organization}
-  \bibinfo{volume}{49}, \bibinfo{pages}{149--171}.
-\newblock \DOIprefix\doi{10.1016/S0167-2681(02)00065-3}.
 %Type = Book
 \bibitem[{Glasserman(2003)}]{glasserman2003}
 \bibinfo{author}{Glasserman, P.}, \bibinfo{year}{2003}.
@@ -241,6 +186,15 @@
 \newblock \bibinfo{title}{Regime switching models}.
 \newblock \bibinfo{journal}{The New Palgrave Dictionary of Economics} ,
   \bibinfo{pages}{11421--11426}\DOIprefix\doi{10.1057/978-1-349-95189-5_2459}.
+%Type = Article
+\bibitem[{Hamilton and Susmel(1994)}]{hamiltonSusmel1994}
+\bibinfo{author}{Hamilton, J.D.}, \bibinfo{author}{Susmel, R.},
+  \bibinfo{year}{1994}.
+\newblock \bibinfo{title}{Autoregressive conditional heteroskedasticity and
+  changes in regime}.
+\newblock \bibinfo{journal}{Journal of Econometrics} \bibinfo{volume}{64},
+  \bibinfo{pages}{307--333}.
+\newblock \DOIprefix\doi{10.1016/0304-4076(94)90067-1}.
 %Type = Article
 \bibitem[{Heston(1993)}]{heston1993}
 \bibinfo{author}{Heston, S.L.}, \bibinfo{year}{1993}.
@@ -276,12 +230,13 @@
 \newblock \bibinfo{journal}{The Review of Economic Studies}
   \bibinfo{volume}{65}, \bibinfo{pages}{361--393}.
 %Type = Article
-\bibitem[{Kolmogorov(1933)}]{kolmogorov1933}
-\bibinfo{author}{Kolmogorov, A.N.}, \bibinfo{year}{1933}.
-\newblock \bibinfo{title}{Sulla determinazione empirica di una legge di
-  distribuzione}.
-\newblock \bibinfo{journal}{Giornale dell'Istituto Italiano degli Attuari}
-  \bibinfo{volume}{4}, \bibinfo{pages}{83--91}.
+\bibitem[{Klaassen(2002)}]{klaassen2002}
+\bibinfo{author}{Klaassen, F.}, \bibinfo{year}{2002}.
+\newblock \bibinfo{title}{Improving {GARCH} volatility forecasts with
+  regime-switching {GARCH}}.
+\newblock \bibinfo{journal}{Empirical Economics} \bibinfo{volume}{27},
+  \bibinfo{pages}{363--394}.
+\newblock \DOIprefix\doi{10.1007/s001810100100}.
 %Type = Book
 \bibitem[{Kotz et~al.(2001)Kotz, Kozubowski and
   Podgórski}]{kotzKozubowskiPodgorski2001}
@@ -298,6 +253,14 @@
 \newblock \bibinfo{journal}{Management Science} \bibinfo{volume}{48},
   \bibinfo{pages}{1086--1101}.
 \newblock \DOIprefix\doi{10.1287/mnsc.48.8.1086.166}.
+%Type = Article
+\bibitem[{Kupiec(1995)}]{kupiec1995}
+\bibinfo{author}{Kupiec, P.H.}, \bibinfo{year}{1995}.
+\newblock \bibinfo{title}{Techniques for verifying the accuracy of risk
+  measurement models}.
+\newblock \bibinfo{journal}{The Journal of Derivatives} \bibinfo{volume}{3},
+  \bibinfo{pages}{73--84}.
+\newblock \DOIprefix\doi{10.3905/jod.1995.407942}.
 %Type = Inproceedings
 \bibitem[{Kwon and Lee(2024)}]{kwonLee2024}
 \bibinfo{author}{Kwon, S.}, \bibinfo{author}{Lee, Y.}, \bibinfo{year}{2024}.
@@ -305,24 +268,6 @@
   series?}, in: \bibinfo{booktitle}{Proceedings of the 5th {ACM} International
   Conference on AI in Finance}, pp. \bibinfo{pages}{126--133}.
 \newblock \DOIprefix\doi{10.1145/3677052.3698661}.
-%Type = Incollection
-\bibitem[{LeBaron(2006)}]{lebaron2006}
-\bibinfo{author}{LeBaron, B.}, \bibinfo{year}{2006}.
-\newblock \bibinfo{title}{Agent-based computational finance}, in:
-  \bibinfo{editor}{Tesfatsion, L.}, \bibinfo{editor}{Judd, K.L.} (Eds.),
-  \bibinfo{booktitle}{Handbook of Computational Economics}.
-  \bibinfo{publisher}{Elsevier}. volume~\bibinfo{volume}{2}, pp.
-  \bibinfo{pages}{1187--1233}.
-\newblock \DOIprefix\doi{10.1016/S1574-0021(05)02024-1}.
-%Type = Article
-\bibitem[{Lux and Marchesi(1999)}]{luxMarchesi1999}
-\bibinfo{author}{Lux, T.}, \bibinfo{author}{Marchesi, M.},
-  \bibinfo{year}{1999}.
-\newblock \bibinfo{title}{Scaling and criticality in a stochastic multi-agent
-  model of a financial market}.
-\newblock \bibinfo{journal}{Nature} \bibinfo{volume}{397},
-  \bibinfo{pages}{498--500}.
-\newblock \DOIprefix\doi{10.1038/17290}.
 %Type = Article
 \bibitem[{Mandelbrot(1963)}]{mandelbrot1963}
 \bibinfo{author}{Mandelbrot, B.}, \bibinfo{year}{1963}.
@@ -345,19 +290,25 @@
 \newblock \bibinfo{journal}{Journal of Financial Economics}
   \bibinfo{volume}{3}, \bibinfo{pages}{125--144}.
 \newblock \DOIprefix\doi{10.1016/0304-405X(76)90022-2}.
+%Type = Inproceedings
+\bibitem[{Ni et~al.(2021)Ni, Szpruch, Sabate-Vidales, Xiao, Wiese and
+  Liao}]{niEtAl2021}
+\bibinfo{author}{Ni, H.}, \bibinfo{author}{Szpruch, L.},
+  \bibinfo{author}{Sabate-Vidales, M.}, \bibinfo{author}{Xiao, B.},
+  \bibinfo{author}{Wiese, M.}, \bibinfo{author}{Liao, S.},
+  \bibinfo{year}{2021}.
+\newblock \bibinfo{title}{Sig-wasserstein {GANs} for time series generation},
+  in: \bibinfo{booktitle}{Proceedings of the Second {ACM} International
+  Conference on AI in Finance}, \bibinfo{publisher}{ACM}. pp.
+  \bibinfo{pages}{1--8}.
+\newblock \DOIprefix\doi{10.1145/3490354.3494393}.
 %Type = Article
-\bibitem[{Nguyen(2018)}]{nguyen2018}
-\bibinfo{author}{Nguyen, N.}, \bibinfo{year}{2018}.
-\newblock \bibinfo{title}{Hidden {Markov} model for stock trading}.
-\newblock \bibinfo{journal}{International Journal of Financial Studies}
-  \bibinfo{volume}{6}, \bibinfo{pages}{36}.
-\newblock \DOIprefix\doi{10.3390/ijfs6020036}.
-%Type = Article
-\bibitem[{Osborne(1959)}]{osborne1959}
-\bibinfo{author}{Osborne, M.F.M.}, \bibinfo{year}{1959}.
-\newblock \bibinfo{title}{Brownian motion in the stock market}.
-\newblock \bibinfo{journal}{Operations Research} \bibinfo{volume}{7},
-  \bibinfo{pages}{145--173}.
+\bibitem[{Patton(2006)}]{patton2006}
+\bibinfo{author}{Patton, A.J.}, \bibinfo{year}{2006}.
+\newblock \bibinfo{title}{Modelling asymmetric exchange rate dependence}.
+\newblock \bibinfo{journal}{International Economic Review}
+  \bibinfo{volume}{47}, \bibinfo{pages}{527--556}.
+\newblock \DOIprefix\doi{10.1111/j.1468-2354.2006.00387.x}.
 %Type = Article
 \bibitem[{Politis and Romano(1994)}]{politisRomano1994}
 \bibinfo{author}{Politis, D.N.}, \bibinfo{author}{Romano, J.P.},
@@ -375,20 +326,23 @@
   \bibinfo{pages}{4--16}.
 \newblock \DOIprefix\doi{10.1109/MASSP.1986.1165342}.
 %Type = Article
+\bibitem[{Rizzato et~al.(2023)Rizzato, Wallart, Geissler, Morizet and
+  Boumlaik}]{rizzatoEtAl2023}
+\bibinfo{author}{Rizzato, M.}, \bibinfo{author}{Wallart, J.},
+  \bibinfo{author}{Geissler, C.}, \bibinfo{author}{Morizet, N.},
+  \bibinfo{author}{Boumlaik, N.}, \bibinfo{year}{2023}.
+\newblock \bibinfo{title}{Generative adversarial networks applied to synthetic
+  financial scenarios generation}.
+\newblock \bibinfo{journal}{Physica A: Statistical Mechanics and its
+  Applications} \bibinfo{volume}{623}, \bibinfo{pages}{128899}.
+\newblock \DOIprefix\doi{10.1016/j.physa.2023.128899}.
+%Type = Article
 \bibitem[{Ross(1976)}]{rossAPT1976}
 \bibinfo{author}{Ross, S.A.}, \bibinfo{year}{1976}.
 \newblock \bibinfo{title}{The arbitrage theory of capital asset pricing}.
 \newblock \bibinfo{journal}{Journal of Economic Theory} \bibinfo{volume}{13},
   \bibinfo{pages}{341--360}.
 \newblock \DOIprefix\doi{10.1016/0022-0531(76)90046-6}.
-%Type = Article
-\bibitem[{Rossi and Gallo(2006)}]{rossiGallo2006}
-\bibinfo{author}{Rossi, A.}, \bibinfo{author}{Gallo, G.M.},
-  \bibinfo{year}{2006}.
-\newblock \bibinfo{title}{Volatility estimation via hidden {Markov} models}.
-\newblock \bibinfo{journal}{Journal of Empirical Finance} \bibinfo{volume}{13},
-  \bibinfo{pages}{203--230}.
-\newblock \DOIprefix\doi{10.1016/j.jempfin.2005.09.003}.
 %Type = Article
 \bibitem[{Rydén et~al.(1998)Rydén, Teräsvirta and
   Åsbrink}]{rydenTerasvirtaAsbrink1998}
@@ -401,32 +355,12 @@
 \newblock
   \DOIprefix\doi{10.1002/(SICI)1099-1255(199805/06)13:3<217::AID-JAE476>3.0.CO;2-V}.
 %Type = Article
-\bibitem[{Samuelson(1965)}]{samuelson1965}
-\bibinfo{author}{Samuelson, P.A.}, \bibinfo{year}{1965}.
-\newblock \bibinfo{title}{Rational theory of warrant pricing}.
-\newblock \bibinfo{journal}{Industrial Management Review} \bibinfo{volume}{6},
-  \bibinfo{pages}{13--32}.
-%Type = Article
-\bibitem[{Schwert(1989)}]{schwert1989}
-\bibinfo{author}{Schwert, G.W.}, \bibinfo{year}{1989}.
-\newblock \bibinfo{title}{Why does stock market volatility change over time?}
-\newblock \bibinfo{journal}{The Journal of Finance} \bibinfo{volume}{44},
-  \bibinfo{pages}{1115--1153}.
-\newblock \DOIprefix\doi{10.1111/j.1540-6261.1989.tb02647.x}.
-%Type = Article
 \bibitem[{Sharpe(1963)}]{sharpe1963}
 \bibinfo{author}{Sharpe, W.F.}, \bibinfo{year}{1963}.
 \newblock \bibinfo{title}{A simplified model for portfolio analysis}.
 \newblock \bibinfo{journal}{Management Science} \bibinfo{volume}{9},
   \bibinfo{pages}{277--293}.
 \newblock \DOIprefix\doi{10.1287/mnsc.9.2.277}.
-%Type = Article
-\bibitem[{Smirnov(1948)}]{smirnov1948}
-\bibinfo{author}{Smirnov, N.}, \bibinfo{year}{1948}.
-\newblock \bibinfo{title}{Table for estimating the goodness of fit of empirical
-  distributions}.
-\newblock \bibinfo{journal}{The Annals of Mathematical Statistics}
-  \bibinfo{volume}{19}, \bibinfo{pages}{279--281}.
 %Type = Article
 \bibitem[{Stein and Stein(1991)}]{steinStein1991}
 \bibinfo{author}{Stein, E.M.}, \bibinfo{author}{Stein, J.C.},
@@ -464,6 +398,17 @@
 \newblock \bibinfo{title}{Against the norm: Modeling daily stock returns with
   the {Laplace} distribution}.
 \newblock \bibinfo{journal}{arXiv preprint arXiv:1906.10325} .
+%Type = Article
+\bibitem[{Wiese et~al.(2020)Wiese, Knobloch, Korn and
+  Kretschmer}]{wieseEtAl2020}
+\bibinfo{author}{Wiese, M.}, \bibinfo{author}{Knobloch, R.},
+  \bibinfo{author}{Korn, R.}, \bibinfo{author}{Kretschmer, P.},
+  \bibinfo{year}{2020}.
+\newblock \bibinfo{title}{Quant {GANs}: Deep generation of financial time
+  series}.
+\newblock \bibinfo{journal}{Quantitative Finance} \bibinfo{volume}{20},
+  \bibinfo{pages}{1419--1440}.
+\newblock \DOIprefix\doi{10.1080/14697688.2020.1730426}.
 %Type = Inproceedings
 \bibitem[{Yoon et~al.(2019)Yoon, Jarrett and van~der
   Schaar}]{yoonEtAl2019timegan}

@@ -103,31 +103,31 @@
 
 \section{Methods}\label{sec:method}
 
-To separate per-asset behavior from cross-asset dependence, we fitted
-a marginal generator for each asset and then combined the generated
+We fitted a marginal generator for each asset and combined the generated
 paths with a variance-corrected single-index model. The
 dataset contained $424$ United States-listed equities and
 exchange-traded funds observed from $2014$ through $2024$. The
-single-asset analysis focused on the SPDR S\&P 500 ETF (SPY). It used
+single-asset analysis focused on the broad-market exchange-traded fund
+with ticker SPY. It used
 $2{,}767$ daily volume-weighted average prices for fitting, which
 yielded $2{,}766$ growth rates, and the next $250$ prices from $2025$,
 which yielded $249$ holdout growth rates. The multi-asset analysis
 used daily closing prices. Of the $423$ non-market assets in the
-training universe, $416$ had complete $2025$ histories and entered the
-multi-asset holdout evaluation. We computed the excess growth rate
-$G_{i,j}$ for ticker $i$ between trading days $j-1$ and $j$ from price
-$P_{i,j}$ as follows:
+training universe, $416$ had complete $2025$ histories and were included
+in the multi-asset holdout evaluation. We defined the excess growth rate
+$G_{i,j}$ for ticker $i$ between trading days $j-1$ and $j$ from prices
+$P_{i,j-1}$ and $P_{i,j}$.
 \begin{equation}
     G_{i,j} \;\equiv\; \left(\frac{1}{\Delta t}\right)\,
     \ln\!\left( \frac{P_{i,j}}{P_{i,j-1}} \right) \;-\; r_f.
     \label{eq:growth_rate}
 \end{equation}
-where $\Delta t = 1/252$ is the fraction of a trading year spanned by
+Here, $\Delta t = 1/252$ is the fraction of a trading year spanned by
 one trading day, and $r_f$ is a constant continuously compounded
 risk-free rate. We used $r_f=0.043$ for the SPY training period and
-$r_f=0.0421$ for its $2025$ holdout, based on Treasury STRIPS
-(Separate Trading of Registered Interest and Principal of Securities)
-bond yields. The excess growth rate
+$r_f=0.0421$ for its $2025$ holdout, based on Treasury Separate Trading
+of Registered Interest and Principal of Securities (STRIPS) bond yields.
+The excess growth rate
 has units of $\mathrm{year}^{-1}$ and is time-additive under
 continuous compounding.
 
@@ -147,9 +147,10 @@ continuous compounding.
 \input{sections/conclusion}
 
 \section*{Acknowledgments}
-The authors thank the eCornell AI in Finance program participants for
+The authors thank the eCornell artificial intelligence (AI) in Finance program participants for
 discussions that motivated the downstream-use bias-correction analysis,
-and Polygon.io for access to the 2014 to 2024 US equity and ETF daily
+and Polygon.io for access to the 2014 to 2024 United States equity and
+exchange-traded-fund daily
 price histories used in the experiments. Computations were run on a
 single laptop; no shared-resource allocation was required.
 

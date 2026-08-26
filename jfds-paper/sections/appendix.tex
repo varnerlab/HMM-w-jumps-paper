@@ -34,8 +34,8 @@ growth-rate history, including its market-correlated component. A
 remaining market loading in the generator draw would invalidate the
 closed-form scale. We tested the assumption by sampling $R = 100$
 generator growth-rate paths $\tg_i^{(r)}$ per ticker from each
-generator and computing the normalized cross-covariance against the
-real SPY path:
+generator and computing the normalized cross-covariance against the real
+return path for a broad-market exchange-traded fund (ticker SPY):
 \begin{equation}
   \mathrm{cov}^{\mathrm{norm}}_i
   = \frac{1}{R} \sum_{r=1}^{R}
@@ -315,8 +315,9 @@ moments, not on serial dependence. Equation~\eqref{eq:scale} sets
 $\sigma_{\gen,i}^2=\beta_i^2\sigma_m^2+\sigma_{\eps,i}^2$ to its
 empirical target. Any residual generator with the same unconditional
 second moments therefore gives the same $D$. This includes a stationary
-AR(1) residual generator $\eps_i(t) = \phi\, \eps_i(t-1) +
-\eta_i(t)$ with i.i.d.\ innovations $\eta_i$ tuned so that
+first-order autoregressive [AR(1)] residual generator
+$\eps_i(t) = \phi\, \eps_i(t-1) + \eta_i(t)$ with independent and
+identically distributed innovations $\eta_i$ tuned so that
 $\Var(\eps_i) = \sigma_{\eta,i}^2 / (1 - \phi^2) = \sigma_{\eps,i}^2$.
 The parameter $\phi$ leaves the marginal distribution at a single
 time slice unchanged. It therefore does not change $\E(g_p)$ in
@@ -368,12 +369,12 @@ absorbed and is agnostic to its decomposition.
 \toprule
 \textbf{Statistic} & \textbf{IS Observed} & \textbf{OoS Observed} & \textbf{Gaussian} & \textbf{Laplace} \\ \midrule
 Mean (annualized, \%)       & 6.31   & 11.60  & 6.31   & 14.19  \\
-Std. dev. of $G_t$ (\% yr$^{-1}$) & 214.50 & 220.62 & 214.46 & 205.93 \\
+Standard deviation of $G_t$ (\% yr$^{-1}$) & 214.50 & 220.62 & 214.46 & 205.93 \\
 Skewness                    & $-0.753$ & $-1.093$ & 0    & 0      \\
 Excess Kurtosis             & 7.715  & 6.867  & 0      & 3      \\
-JB normality test           & reject$^\ast$ ($p<0.001$) & reject$^\ast$ ($p<0.001$) & n/a   & n/a   \\
-LB test on $G_t$ (lag 20)   & reject$^\ast$ ($p<0.001$) & reject$^\ast$ ($p=0.019$) & n/a   & n/a   \\
-LB test on $|G_t|$ (lag 20) & reject$^\ast$ ($p<0.001$) & reject$^\ast$ ($p<0.001$) & n/a   & n/a   \\
+JB normality test           & reject$^\ast$ ($p<0.001$) & reject$^\ast$ ($p<0.001$) & not used & not used \\
+LB test on $G_t$ (lag 20)   & reject$^\ast$ ($p<0.001$) & reject$^\ast$ ($p=0.019$) & not used & not used \\
+LB test on $|G_t|$ (lag 20) & reject$^\ast$ ($p<0.001$) & reject$^\ast$ ($p<0.001$) & not used & not used \\
 \bottomrule
 \end{tabular}%
 }
@@ -409,7 +410,7 @@ allocator held fixed.
     buy-and-hold serves as a passive baseline; the target-weight
     allocation is reported under static (no intra-year rebalance) and
     daily-rebalanced regimes, with and without a signal on top of the
-    target weights. The static-to-daily increase of $+27.73$~pp on the
+    target weights. The static-to-daily increase of $+27.73$ percentage points on the
     same target weights isolates the diversification return of
     Eq.~\eqref{eq:dr-sim}. The same allocator deployed against the
     real $2025$ growth-rate history is shown for comparison.}
@@ -438,7 +439,8 @@ Target-weight, daily rebalanced + signal           & $29.83$ \\ \midrule
     readability. The dashed line marks the median real-data excess
     kurtosis across the universe ($\kappa_{\real} \approx 13$); the
     hybrid and naive composition methods (orange and blue) track the generator's
-    kurtosis, while Gaussian SIM collapses to $\kappa \approx 1$.
+    kurtosis, while the Gaussian single-index model (SIM) collapses to
+    $\kappa \approx 1$.
     \emph{Right:} Hill tail-index estimator on the upper $5\%$ of
     $|g|$. The hybrid and naive medians remain near $0.37$ throughout the
     $\beta$ range; Gaussian SIM drops to $\sim 0.22$. The hybrid's median
@@ -483,10 +485,12 @@ corrected ensemble.
   \centering
   \includegraphics[width=0.85\textwidth]{figs/supplement/FigS03-R2-Distribution.pdf}
   \caption{\textbf{Calibrated $R^2$ distribution across the $423$
-    non-SPY tickers.} Histogram of OLS $R^2$ against SPY over the
+    non-SPY tickers.} Histogram of ordinary least-squares (OLS) $R^2$
+    against SPY over the
     $2014$--$2024$ window. The two tickers crossing the
     $R^2_{\mathrm{preserve}} = 0.80$ threshold (dashed line) are index
-    ETFs (QQQ, SPYG); the highest-$R^2$ individual stock (BLK, $0.645$)
+    exchange-traded funds (QQQ, SPYG); the highest-$R^2$ individual
+    stock (BLK, $0.645$)
     falls $\sim 0.16$ below the threshold. The $R^2$-preserving
     branch therefore contains only QQQ and SPYG in this universe.}
   \label{fig:r2_distribution}
@@ -499,7 +503,7 @@ removes only a subset of the bias's consequences while leaving
 the underlying bias intact. Inflating per-trade transaction
 costs to absorb the diversification return would require round-trip
 costs of $\sim\!70$~basis points versus the $1$--$10$~basis-point
-range assumed for liquid US equity, shifting the misrepresentation from
+range assumed for liquid United States equity, shifting the misrepresentation from
 the synthetic generator to its cost model. Drifting the
 calibrated parameters between calibration and deployment to widen
 the predictive envelope, with drift scale varied across
@@ -539,12 +543,12 @@ cross-sectional dependence.
 \label{sec:supp-validation}
 
 The distributional and tail metrics reported in the main results
-were defined as follows. The two-sample Kolmogorov-Smirnov statistic
+were defined as follows. The two-sample Kolmogorov--Smirnov (KS) statistic
 between the empirical cumulative distribution functions (CDFs) of
 the observed and simulated growth-rate samples ($G_{\rm obs}$ of length $n$ and $G_{\rm sim}$ of length $m$)
 is $D = \sup_x |F_n(x) - F_m(x)|$ \cite{kolmogorov1933, smirnov1948};
 the test rejects when $D$ exceeds the critical value at level
-$\alpha = 0.05$. The Anderson-Darling statistic places greater weight
+$\alpha = 0.05$. The Anderson--Darling (AD) statistic places greater weight
 on the tails via the integral
 $A^2 = nm/(n+m) \int [F_n(x) - F_m(x)]^2 / [F(x)(1-F(x))] \, dF(x)$,
 where $F$ is the pooled empirical CDF \cite{andersonDarling1952}. The
@@ -575,17 +579,21 @@ H(p, q) = \frac{1}{\sqrt{2}} \, \Big\| \sqrt{p} - \sqrt{q} \Big\|_2
 with $H = 0$ for identical probability masses and $H = 1$ for
 disjoint supports.
 
+We abbreviate mean absolute error in the autocorrelation function as ACF-MAE.
+
 % --- Figure: Statistical validation of HMM-WJ ---
 \begin{figure}[tbp]
   \centering
   \includegraphics[width=\textwidth]{figs/supplement/FigS04-Statistical-Validation.pdf}
-  \caption{\textbf{Statistical validation of HMM-WJ} ($N = 100$,
+  \caption{\textbf{Statistical validation of the hidden Markov model with
+    jumps (HMM-WJ)} ($N = 100$,
     $\alpha = 0.05$). Panels (a) and (d) condition on the
     $\sim\!24\%$ of in-sample paths containing jump events. (a)~In-sample
     KS $p$-values for $239$ jump paths (pass rate $93.7\%$). (b)~Out-of-sample
     KS $p$-values for all $1{,}000$ paths (pass rate $95.4\%$). (c)~Out-of-sample
     density fan chart; the observed density falls within the simulation
-    envelope. (d)~Observed and mean simulated in-sample ACF of $|G_t|$
+    envelope. (d)~Observed and mean simulated in-sample autocorrelation
+    function (ACF) of $|G_t|$
     for jump paths.}
   \label{fig:statistical_validation}
 \end{figure}
@@ -597,8 +605,9 @@ disjoint supports.
 \section{Transition matrix internals and partition diagnostics}
 \label{sec:supp-transitions}
 
-Supplementary Fig.~\ref{fig:model_internals} shows the fitted HMM-WJ components for
-SPY with $N=100$ states. The fitted Laplace CDF and the empirical CDF
+Supplementary Fig.~\ref{fig:model_internals} shows the fitted hidden Markov
+model with jumps (HMM-WJ) for SPY with $N=100$ states. The fitted Laplace
+cumulative distribution function (CDF) and the empirical CDF
 are shown with the $99$ state boundaries $Q_k$. The transition matrix
 $\mathbf{T}$ has a near-diagonal band, with most off-diagonal mass
 within $\pm5$ states of the diagonal. Under the ordinary Markov
@@ -610,8 +619,9 @@ observation.
 \begin{figure}[tbp]
   \centering
   \includegraphics[width=\textwidth]{figs/supplement/FigS05-Model-Internals.pdf}
-  \caption{\textbf{Fitted HMM-WJ internals for SPY with $N = 100$
-    states.} Panel~(a) overlays the fitted Laplace CDF on the empirical
+  \caption{\textbf{Fitted hidden Markov model with jumps (HMM-WJ)
+    internals for SPY with $N = 100$ states.} Panel~(a) overlays the
+    fitted Laplace cumulative distribution function (CDF) on the empirical
     CDF; the $99$ vertical lines mark the equal-probability quantile
     boundaries $Q_k$ that define the hidden states. Panel~(b) displays
     the estimated transition matrix $\mathbf{T}$ in $\log_{10}$ color
@@ -632,8 +642,8 @@ observation.
 
 To compare the emission and duration specifications, we evaluated
 three variants on SPY
-(Supplementary Table~\ref{tab:emission_hsmm}): an HSMM-style baseline adapted from
-\citet{bullaBulla2006} ($K = 8$ states,
+(Supplementary Table~\ref{tab:emission_hsmm}): a hidden semi-Markov model
+(HSMM) baseline adapted from \citet{bullaBulla2006} ($K = 8$ states,
 negative-binomial dwell times with a geometric fallback, and
 Student-$t$ emissions), HMM-WJ with the original
 Gaussian emissions ($N = 100$), and HMM-WJ with Student-$t$
@@ -655,9 +665,12 @@ the distributional distances changed modestly.
     is a hidden semi-Markov-style model adapted from \citet{bullaBulla2006}
     ($K = 8$ states, negative-binomial dwell times with a geometric
     fallback, and Student-$t$ emissions); HMM-WJ:
-    hybrid hidden Markov model with jump-duration override
+    hidden Markov model with jumps
     ($N = 100$). All entries are computed from $1{,}000$ simulated
-    paths at significance level $\alpha = 0.05$.}
+    paths at significance level $\alpha = 0.05$. Kolmogorov--Smirnov
+    (KS), Anderson--Darling (AD), and mean absolute error in the
+    autocorrelation function (ACF-MAE) are defined in
+    Section~\ref{sec:supp-validation}.}
 \label{tab:emission_hsmm}
 \small
 \begin{tabular}{@{}lccc@{}}
@@ -708,7 +721,8 @@ Hellinger           & $0.239$ ($0.001$)       & $0.212$ ($0.001$)       & $\math
 
 We swept the partition resolution over
 $N \in \{30, 60, 90, 100, 150, 200, 350\}$ and re-evaluated the
-in-sample KS and AD pass rates for HMM-NJ and HMM-WJ. Pass rates varied
+in-sample KS and AD pass rates for the hidden Markov model with no jumps
+(HMM-NJ) and HMM-WJ. Pass rates varied
 little across $N \in \{60, \ldots, 200\}$.
 At $N = 30$ both models lost several percentage
 points on the AD test. At $N = 350$ several quantile
@@ -793,14 +807,16 @@ $97.7\%$, $74.0\%$, and $79.2\%$, respectively.
 % --- Table: Cross-asset generalization ---
 \begin{table}[tbp]
 \centering
-\caption{\textbf{Cross-asset generalization of HMM-WJ across three
+\caption{\textbf{Cross-asset generalization of the hidden Markov model
+    with jumps (HMM-WJ) across three
     single-stock tickers spanning sector and volatility regimes.}
     Per-ticker tune outputs $(\epsilon^{*}, \lambda^{*})$ at
     $n_{\mathrm{paths}} = 200$ and $\mathrm{seed} = 1234$, and the
-    corresponding HMM-WJ pass rates on $1{,}000$ simulated paths at
-    $\alpha = 0.05$ against each ticker's in-sample $(2014$--$2024)$
-    and out-of-sample $(2025)$ growth-rate history. Standard errors
-    in parentheses (binomial SE for pass rates). The
+    corresponding HMM-WJ Kolmogorov--Smirnov (KS) and Anderson--Darling
+    (AD) pass rates on $1{,}000$ simulated paths at $\alpha = 0.05$
+    against each ticker's in-sample (IS; $2014$--$2024$) and out-of-sample
+    (OoS; $2025$) growth-rate history. Values in parentheses are binomial
+    standard errors (SEs) for pass rates. The
     $(\epsilon^{*}, \lambda^{*})$ values are reported as the parameter
     values used for the IS / OoS metrics rather than as canonical
     per-ticker optima.}

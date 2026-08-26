@@ -15,7 +15,7 @@ Appendix~\ref{sec:supp-validation}.}
 \begin{tabular}{@{}lccccccc@{}}
 \toprule
 \textbf{Model} & \textbf{KS (\%)} & \textbf{AD (\%)} & $\boldsymbol{\kappa}$ &
-\textbf{ACF-MAE} & \textbf{Cov. (\%)} & $\boldsymbol{W_1}$ & \textbf{Hellinger} \\
+\textbf{ACF-MAE} & \textbf{Coverage (\%)} & $\boldsymbol{W_1}$ & \textbf{Hellinger} \\
 \midrule
 \multicolumn{8}{@{}l}{\textit{In sample: $2014$--$2024$ ($2{,}766$ days; observed $\kappa=7.715$)}} \\
 Bootstrap & 100.0 ($<$0.1) & 99.7 (0.2) & 7.6 (0.08) & 0.060 ($<$0.001) & 100.0 ($<$0.1) & 0.062 (0.001) & 0.042 ($<$0.001) \\
@@ -41,9 +41,14 @@ HMM-WJ    & 95.4 (0.7) & 95.3 (0.7) & \textbf{6.2} (0.15) & 0.040 ($<$0.001) & \
 \vspace{3pt}
 
 \parbox{0.98\textwidth}{\scriptsize
-KS and AD report pass rates at $\alpha=0.05$; coverage is the fraction
+Model abbreviations are generalized autoregressive conditional heteroskedasticity
+(GARCH), gated recurrent unit (GRU), hidden semi-Markov model (HSMM), hidden
+Markov model with no jumps (HMM-NJ), and hidden Markov model with jumps
+(HMM-WJ). Kolmogorov--Smirnov (KS) and Anderson--Darling (AD) report pass
+rates at $\alpha=0.05$; coverage is the fraction
 of empirical quantiles inside the synthetic $90\%$ envelope.
-$\kappa$ is simulated excess kurtosis. ACF-MAE is computed for
+$\kappa$ is simulated excess kurtosis. Mean absolute error in the autocorrelation
+function (ACF-MAE) is computed for
 $|G_t|$ through lag $252$. Larger values are preferred for KS, AD,
 and coverage; smaller values are preferred for ACF-MAE, $W_1$, and
 Hellinger distance; $\kappa$ is compared with the observed value.}

@@ -35,8 +35,20 @@ the text moves to a new biological or technical question.
 ## Sentences and Terminology
 
 - Keep sentences direct and reasonably short.
+- Do not use vague backward references such as “this behavior,” “these results,” “those
+  properties,” or “the former” when the reader must recover the meaning from an earlier
+  sentence or paragraph. Name the specific behavior, result, or property instead. A
+  demonstrative is acceptable only when it modifies a concrete noun with one clear,
+  immediately preceding antecedent. Paragraph openings should state their subject directly
+  and remain understandable if the preceding paragraph is revised or moved. Repeat a key
+  term when repetition makes the linkage more explicit and the prose less brittle.
 - Do not begin a sentence with an acronym. For example, use “Stochastic attention
   nevertheless...” rather than “SA nevertheless....”
+- Define every acronym at first use. Write the full term first, followed by the acronym in
+  parentheses. Apply this rule separately to the abstract, main manuscript, supplement, and
+  any caption or table note that must stand on its own. Do not assume that a definition in
+  one of these locations carries into another. Ticker symbols and mathematical notation are
+  not acronyms, but identify ticker symbols at first use.
 - Do not use em dashes. Use a comma, colon, parentheses, or a new sentence.
 - Use technical terms only when they add precision. Define them at first use in language a
   biomedical reader can follow.

@@ -10,7 +10,7 @@ synthetic path were a residual. Because that path already contains the
 asset's total variance, the construction adds market variance a second
 time. We derived a correction that centers and rescales each synthetic
 path before adding the market factor. We tested the method on $423$
-non-market assets in a $424$-asset US equity and exchange-traded-fund
+non-market assets in a $424$-asset United States equity and exchange-traded-fund
 universe. The correction preserved each generator's target variance,
 recovered its calibrated market loading with low error, and retained
 heavy-tailed return distributions without fitting a second model to
@@ -22,7 +22,8 @@ Value-at-Risk exceedance rate was similar to that of the best
 residual-fit method, although both exceeded the nominal rate. We
 generated the per-asset paths with a hidden Markov model whose
 jump-duration variant lengthened visits to extreme-return states. On
-a decade of daily SPY data, this variant improved the match to
+a decade of daily data for a broad-market exchange-traded fund (ticker
+SPY), this variant improved the match to
 volatility clustering relative to the no-jump model while maintaining
 strong distributional fit. We selected it as a practical compromise,
 not because it outperformed every baseline. The multi-asset method

@@ -57,7 +57,7 @@ No baseline was best on both the return distribution and volatility
 clustering. Bootstrap resampling passed every distribution test but,
 like all independent sampling methods, did not reproduce clustering.
 Gaussian sampling passed none of the distribution tests. The GARCH(1,1) model
-had the lowest mean absolute autocorrelation error (ACF-MAE) of
+had the lowest mean absolute error in the autocorrelation function (ACF-MAE) of
 $0.031$ but rarely passed the distribution tests. The gated recurrent
 unit (GRU)~\cite{choEtAl2014gru} showed the same general pattern. The
 HSMM-style baseline adapted from Bulla and Bulla~\cite{bullaBulla2006}
@@ -101,12 +101,13 @@ that compromise directly by varying the share of jump-active paths.
   \includegraphics[width=\textwidth]{figs/main/Fig03-Model-Comparison.pdf}
   \caption{\textbf{Head-to-head in-sample model comparison for SPY}
     ($N = 100$, $1{,}000$ simulated paths). \emph{Panel (a):} marginal
-    density of excess growth rates with in-sample KS pass rates
+    density of excess growth rates with in-sample Kolmogorov--Smirnov
+    (KS) pass rates
     annotated per generator. \emph{Panel
     (b):} autocorrelation function of $|G_t|$ at lags $1$--$252$
     (shaded bands: $10$th--$90$th percentile across paths) per
     generator. \emph{Panel (c):}
-    tail Q-Q plot at the $0.1$st--$99.9$th percentile region per
+    tail quantile-quantile plot at the $0.1$st--$99.9$th percentile region per
     generator.}
   \label{fig:model_comparison}
 \end{figure}
@@ -142,10 +143,12 @@ how the paths were combined.
   \includegraphics[width=\textwidth]{figs/main/Fig04-Jump-Mix-Frontier.pdf}
   \caption{\textbf{Jump-mix enrichment frontier for SPY} (in-sample,
     $N = 100$, pool of $4{,}000$ simulated paths). Resampling the fitted
-    HMM-WJ ensemble to a target jump-path fraction $f$ (the share of
+    hidden Markov model with jumps (HMM-WJ) ensemble to a target
+    jump-path fraction $f$ (the share of
     accepted paths containing at least one jump) traces the
     temporal-marginal tradeoff. Both panels share the horizontal axis:
-    absolute-return autocorrelation error (ACF-MAE of $|G_t|$ over lags
+    mean absolute error in the autocorrelation function (ACF-MAE) for
+    $|G_t|$ over lags
     $1$--$252$); lower values indicate stronger volatility clustering.
     Panel (a): simulated excess kurtosis. Panel (b): Hill upper-tail
     index $\xi$, the raw estimator equal to the reciprocal of the tail
@@ -173,16 +176,18 @@ negligible-cross-term approximation used in Eq.~\eqref{eq:scale}.
   \centering
   \caption{\textbf{Aggregate scorecard across $423$ non-market tickers and
     $100$ replications per ticker.} Errors, distances, and tail metrics
-    are medians per method. Pass fractions for KS and AD are pooled
-    across replications.
+    are medians per method. Kolmogorov--Smirnov (KS) and
+    Anderson--Darling (AD) pass fractions are pooled across replications.
     $|\hat\alpha - \alpha|$, $|\hat\beta - \beta|$, and
-    $|\hat R^2 - R^2_{\real}|$: absolute deviation between OLS recovery
+    $|\hat R^2 - R^2_{\real}|$: absolute deviation between ordinary
+    least-squares (OLS) recovery
     and calibration (intercept error has units of $\mathrm{yr}^{-1}$).
     KS pass and AD pass: fraction of
     replications whose two-sample test against the real marginal exceeds
     $p = 0.05$. $W_1$: Wasserstein-1 distance to the real marginal.
     $\kappa$: sample excess kurtosis. Hill: tail-index estimate on the
-    upper $5\%$ of $|g|$.}
+    upper $5\%$ of $|g|$. SIM denotes the single-index model, and GARCH
+    denotes generalized autoregressive conditional heteroskedasticity.}
   \label{tab:aggregate}
   \small
   \resizebox{\textwidth}{!}{\input{sections/tables/table1_aggregate}}
@@ -253,9 +258,10 @@ synthetic tails produced reliable risk thresholds.
   \centering
   \caption{\textbf{Frozen-parameter multi-asset evaluation on the
     $2025$ holdout.} Results cover $416$ non-market tickers and $100$
-    replications per ticker; GARCH covers $386$ tickers. Pass rates
+    replications per ticker; generalized autoregressive conditional
+    heteroskedasticity (GARCH) covers $386$ tickers. Pass rates
     are first averaged within ticker and then across tickers.
-    \textit{matched IS} compares each synthetic path with a randomly
+    The \textit{matched in-sample (IS)} columns compare each synthetic path with a randomly
     selected contiguous $249$-day block from the $2014$--$2024$
     training history, matching the holdout sample length. $W_1$ and
     the variance ratio are medians across ticker-level medians; the
@@ -271,7 +277,7 @@ synthetic tails produced reliable risk thresholds.
   \includegraphics[width=\textwidth]{figs/main/Fig05-OoS-Composition.pdf}
   \caption{\textbf{Cross-ticker distribution of frozen-parameter
     out-of-sample marginal fit.} Panel~(a) shows the distribution of
-    per-ticker $2025$ KS pass rates across $100$ replications; the
+    per-ticker $2025$ Kolmogorov--Smirnov (KS) pass rates across $100$ replications; the
     dashed line marks $95\%$. Panel~(b) compares each ticker's hybrid
     KS pass rate against a matched-length training block with its
     pass rate against the $2025$ holdout. The diagonal denotes equal
@@ -307,8 +313,8 @@ look at where the variance correction was most stable.
     coverage level $\alpha$ were estimated from frozen-parameter
     synthetic paths and exceedances were counted against the real
     $2025$ growth-rate history. \textit{rate}: mean of the per-ticker
-    mean exceedance rates (nominal: $1-\alpha$). \textit{SD}:
-    cross-ticker standard deviation, in percentage points.
+    mean exceedance rates (nominal: $1-\alpha$). Cross-ticker standard
+    deviation (SD) is reported in percentage points.
     \textit{Kupiec pass}: mean within-ticker fraction of replications
     whose unconditional-coverage test $p$-value exceeds $0.05$.}
   \label{tab:var}
@@ -323,13 +329,13 @@ look at where the variance correction was most stable.
 \begin{figure}[tbp]
   \centering
   \includegraphics[width=\textwidth]{figs/main/Fig06-Variance-Preservation.pdf}
-  \caption{\textbf{Hybrid's variance correction and its KS-pass-rate
-    consequence, per ticker vs calibrated $\beta$.}
+  \caption{\textbf{Effect of the hybrid variance correction on each
+    ticker's Kolmogorov--Smirnov pass rate and variance ratio.}
     Each point is a per-ticker median over $100$ replications; thick
-    lines are binned medians. \emph{Left (consequence):} Kolmogorov--Smirnov
+    lines are binned medians. \emph{Panel (a):} Kolmogorov--Smirnov
     pass rate against the real marginal at $\alpha = 0.05$ for naive
     composition (blue) and hybrid (orange).
-    \emph{Right (cause):} variance ratio
+    \emph{Panel (b):} variance ratio
     $\mathrm{Var}(g)/\sigma^2_{\mathrm{gen}}$ for the same two methods. The dotted curve is the
     theoretical naive inflation $1 + \rho$ evaluated at the universe-median
     $\sigma^2_{\mathrm{gen}}$; the dashed line marks a variance ratio of

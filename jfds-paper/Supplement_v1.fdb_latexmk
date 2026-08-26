@@ -1,13 +1,13 @@
 # Fdb version 4
-["bibtex Supplement_v1"] 1786986219.47156 "Supplement_v1.aux" "Supplement_v1.bbl" "Supplement_v1" 1786986382.96262 0
-  "./References_v1.bib" 1786397313.45435 30665 fd66bb7be3363270818b364b03e528dd ""
+["bibtex Supplement_v1"] 1787761901.46376 "Supplement_v1.aux" "Supplement_v1.bbl" "Supplement_v1" 1787762296.42619 0
+  "./References_v1.bib" 1787757121.48258 33756 56ead326606c8da6a1366c439190fd6e ""
   "/usr/local/texlive/2025/texmf-dist/bibtex/bst/elsarticle/elsarticle-harv.bst" 1736456871 30002 e0380d61aa45e0af6c9b40308561c934 ""
-  "Supplement_v1.aux" 1786986382.65605 12538 6ee346fdf1c077bec6f6120f8a08d786 "pdflatex"
+  "Supplement_v1.aux" 1787762296.1042 13006 13223966208becdf92cb4b7558ab883c "pdflatex"
   (generated)
   "Supplement_v1.bbl"
   "Supplement_v1.blg"
   (rewritten before read)
-["pdflatex"] 1786986382.1266 "Supplement_v1.tex" "Supplement_v1.pdf" "Supplement_v1" 1786986382.96275 0
+["pdflatex"] 1787762295.56818 "Supplement_v1.tex" "Supplement_v1.pdf" "Supplement_v1" 1787762296.42635 0
   "/usr/local/texlive/2025/texmf-dist/fonts/enc/dvips/cm-super/cm-super-t1.enc" 1136849721 2971 def0b6c1f0b107b3b936def894055589 ""
   "/usr/local/texlive/2025/texmf-dist/fonts/map/fontname/texfonts.map" 1577235249 3524 cb3e574dea2d1052e39280babc910dc8 ""
   "/usr/local/texlive/2025/texmf-dist/fonts/tfm/jknappen/ec/ecbx0800.tfm" 1136768653 3584 269b66e921ba58750c12f7f1c8ea3ebd ""
@@ -218,11 +218,11 @@
   "/usr/local/texlive/2025/texmf-var/fonts/map/pdftex/updmap/pdftex.map" 1747946047 5467155 19efa205003f9ecad95fbbaa6ff24da1 ""
   "/usr/local/texlive/2025/texmf-var/web2c/pdftex/pdflatex.fmt" 1741450574 3345740 46b66fdb0378f7bf5921b5eabf1762b8 ""
   "/usr/local/texlive/2025/texmf.cnf" 1741450484 577 418a7058ec8e006d8704f60ecd22c938 ""
-  "Paper_v1.aux" 1786986221.27585 17465 ece61a2ecd5c514c9a3f75dbe29596e5 ""
-  "Paper_v1.tex" 1786985797.74211 4369 bfc2372e0922d43b7be27f12810afbba ""
-  "Supplement_v1.aux" 1786986382.65605 12538 6ee346fdf1c077bec6f6120f8a08d786 "pdflatex"
-  "Supplement_v1.bbl" 1786986219.56183 4387 4ee04c3634da70761299f54be50bc952 "bibtex Supplement_v1"
-  "Supplement_v1.spl" 1786986382.65681 45 232dabbaad9bc5d8ac6adddf2e0c3ec8 "pdflatex"
+  "Paper_v1.aux" 1787762295.16459 17351 8dd62acabf024d5b2ca384583726c679 ""
+  "Paper_v1.tex" 1787761798.04435 4405 67b8ca77315c72df231e0efc0e04d158 ""
+  "Supplement_v1.aux" 1787762296.1042 13006 13223966208becdf92cb4b7558ab883c "pdflatex"
+  "Supplement_v1.bbl" 1787761901.56354 4387 4ee04c3634da70761299f54be50bc952 "bibtex Supplement_v1"
+  "Supplement_v1.spl" 1787762296.10499 45 232dabbaad9bc5d8ac6adddf2e0c3ec8 "pdflatex"
   "Supplement_v1.tex" 1786397313.28506 995 48d46a230174b4f27956f3946b66f98a ""
   "elsarticle-preamble.tex" 1786397313.10666 1456 619ba899c80cd3ab1ad263d9d77cdee8 ""
   "figs/supplement/FigS01-Cross-Covariance.pdf" 1778087166.76727 36485 8e76797536ec7343872f8c90fcef95ac ""
@@ -231,7 +231,7 @@
   "figs/supplement/FigS04-Statistical-Validation.pdf" 1778092643.70494 126304 916721a0ecadb898974ee3c17dd04dad ""
   "figs/supplement/FigS05-Model-Internals.pdf" 1779626269.1054 85513 b06298a721242115421bba234fbb8aa7 ""
   "figs/supplement/FigS06-Branch-Map.pdf" 1786393407.01687 69889 85126cf471eafdb7d15260e42c5e43a9 ""
-  "sections/appendix.tex" 1786986373.47068 44703 8561ad30ae12b145b43ffcb6a3805e1a ""
+  "sections/appendix.tex" 1787761892.70862 45576 b10a2518a944c167dec4df42eca794d2 ""
   "sections/tables/table2_by_branch.tex" 1786393284.68171 322 e992fc21a34ec6fbb40f6202a25d7c29 ""
   "sections/tables/table3_by_beta_bucket.tex" 1786985744.24034 1561 e6f3b3d793fa35fe3f3f4e63c4adc8e9 ""
   (generated)

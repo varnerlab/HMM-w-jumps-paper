@@ -1,113 +1,67 @@
 % related.tex
-% Three paragraphs, tightened in the language-audit pass (2026-07-14;
-% see project_language_audit_2026-07-14 memory): (1) parametric /
-% stylized-facts generators; (2) latent-state and deep generative
-% approaches with the hybrid HMM contribution; (3) multi-asset
-% dependence, SIM composition, validation, and the
-% diversification-return concern. Cut ~200 words of historical survey and repeated
-% "captures X but fails Y" phrasing; removed "Methods describes"/
-% "developed in Methods" section self-references (recast with "we").
+% Focused review of the closest single-asset, deep-generative, and
+% multi-asset models. Methods, validation procedures, and study results
+% are described in later sections rather than repeated here.
 
-Equity-market generators address stylized facts through either a
-bottom-up or top-down approach. Bottom-up agent-based models~\cite{luxMarchesi1999,
-contBouchaud2000, farmerJoshi2002, lebaron2006, arthur2021,
-farmer2025} derive return dynamics from simulated interactions among
-heterogeneous agents. They are demanding to calibrate and expensive
-to simulate at scale. Top-down models instead fit statistical
-structures directly to observed growth-rate series.
-Top-down generators trace to Bachelier's diffusion model, later
-formalized as geometric Brownian motion and used by
-Black-Scholes-Merton for option
-pricing~\cite{bachelier1900, osborne1959, samuelson1965,
-blackScholes1973}. These diffusion baselines are tractable but fail
-on the empirical regularities that drive risk and pricing.
-Mandelbrot~\cite{mandelbrot1963} showed that returns have heavier tails
-than a Gaussian model allows. Fama~\cite{famaEMH1970} reviewed evidence
-that raw returns have near-zero autocorrelation. Schwert~\cite{schwert1989}
-documented persistence in monthly absolute residuals, a pattern later
-described by Cont~\cite{cont2001} as volatility clustering. The autoregressive
-conditional heteroskedasticity (ARCH) and generalized ARCH (GARCH)
-models of Engle and Bollerslev~\cite{engle1982, bollerslev1986}
-reproduced clustering but required a heavy-tailed noise term to
-produce heavy-tailed marginals. Neither model includes discrete
-regimes or sudden jumps. Stochastic-volatility
-models~\cite{steinStein1991, heston1993} make volatility a latent
-process to capture clustering, but estimating that process requires
-filtering or Markov chain Monte Carlo (MCMC)
-methods~\cite{kimShephardChib1998}; jump-diffusion
-models~\cite{merton1976, kou2002} inject Poisson events into the
-price path, producing heavy tails by construction, but the jump
-component alone does not produce persistent volatility.
+Single-asset return models treat changing volatility, market regimes, and
+extreme moves in different ways. Autoregressive conditional heteroskedasticity
+(ARCH) and generalized autoregressive conditional heteroskedasticity (GARCH)
+models allow conditional
+variance to change over time~\cite{engle1982,bollerslev1986}. Even with
+Gaussian innovations, the changing variance can produce an unconditional
+return distribution with excess kurtosis. Heavy-tailed innovations can improve
+the tail fit when Gaussian GARCH understates the frequency of extreme returns.
+Stochastic-volatility models make volatility a latent
+process~\cite{steinStein1991,heston1993,
+kimShephardChib1998}. Jump-diffusion models add discontinuous price
+moves~\cite{merton1976,kou2002}, but a jump component alone does not explain
+persistent volatility. Markov-switching ARCH and GARCH models combine discrete
+regimes with changing conditional variance~\cite{hamiltonSusmel1994,
+klaassen2002}.
+Hidden-state models represent returns with a small number of market regimes.
+In a hidden Markov model (HMM), each latent state has a separate return distribution.
+Gaussian-emission HMMs can reproduce heavy tails
+and weak raw-return autocorrelation, but may still miss volatility
+clustering~\cite{hamilton1989,rydenTerasvirtaAsbrink1998}. Hidden semi-Markov
+models allow more flexible state durations and can improve volatility
+persistence~\cite{bullaBulla2006}. An HMM does not create a jump process by
+itself. Rare extreme moves must come from the state-dependent return
+distributions or from a transition rule designed for such events.
+Deep generative models learn return distributions and temporal features
+without specifying a small set of market regimes or a parametric return
+process. Generative adversarial networks (GANs) are one class of deep
+generative model. Quant GANs have
+reproduced several financial time-series features, including volatility
+clustering and leverage effects~\cite{wieseEtAl2020}.
+Sig-Wasserstein GANs use path signatures to learn features that depend on the
+order of observations~\cite{niEtAl2021}. In contrast, evaluations of GAN
+paths, including paths from the time-series generative adversarial network
+(TimeGAN), have found too little autocorrelation in absolute
+returns~\cite{takahashiEtAl2019,yoonEtAl2019timegan,kwonLee2024}. The
+conflicting results show that flexible architectures do not guarantee a
+match to financial stylized facts. Model design, training, and evaluation all
+matter~\cite{assefaEtAl2020,stengerEtAl2024}.
 
-Capturing discrete regimes and jumps requires a model of how market
-states change over time. Hidden Markov models embed this behavior in a
-latent discrete chain. This approach follows Hamilton's~\cite{hamilton1989}
-two-state regime-switching model, later applied to volatility
-forecasting~\cite{rossiGallo2006} and equity
-trading~\cite{nguyen2018}. Ryden et
-al.~\cite{rydenTerasvirtaAsbrink1998} found that Gaussian-emission
-HMMs matched heavy tails and the absence of return autocorrelation
-but did not reproduce volatility clustering. Bulla and
-Bulla~\cite{bullaBulla2006} modeled clustering with hidden
-semi-Markov models (HSMMs) that replaced the geometric dwell-time
-distribution of every state with a parametric (negative-binomial)
-alternative. Likelihood-fitted HMM and HSMM formulations commonly use
-the Baum--Welch expectation-maximization (EM)
-algorithm~\cite{baumPetrieSoulesWeiss1970}, which is iterative and can
-be sensitive to initialization. Deep generative alternatives learn the
-marginal directly but can miss the
-volatility-clustering signature: Takahashi et
-al.~\cite{takahashiEtAl2019} found that generative adversarial
-network (GAN) architectures failed to reproduce the absolute-return
-autocorrelation function, and Kwon and Lee~\cite{kwonLee2024}
-reported the same failure for TimeGAN~\cite{yoonEtAl2019timegan}. Recent
-surveys~\cite{assefaEtAl2020, jordonEtAl2022, stengerEtAl2024} agree
-that stylized-facts reproduction remains the primary quality
-criterion. Our marginal component also used a latent-state chain, but
-it differed from the HSMM. It kept the empirically counted transition
-matrix for the central states and added an event-driven
-override that forces the chain into the tail states for a
-Poisson-distributed duration on a subset of time steps.
-
-Building a multi-asset path adds a second task: modeling how assets
-move together. Separate single-asset generators set each asset's
-return distribution and behavior over time, but they do not define
-joint market moves. Mixture hidden Markov
-models~\cite{diasVermuntRamos2010} can share a hidden state across
-assets, but they become costly to estimate as the number of assets
-grows. Copula methods~\cite{embrechtsMcNeilStraumann2002,
-cherubiniLucianoVecchiato2004, aasCzadoFrigessiBakken2009} separate
-each asset's distribution from the relationships among assets. They
-require a choice of copula family and, in their standard static form,
-do not model dependence across successive days. Factor models offer a
-simpler approach for large asset sets by linking returns to a small
-number of shared factors~\cite{rossAPT1976, famaFrench1993}. The
-single-index model (SIM) of Sharpe~\cite{sharpe1963} uses one market
-factor and splits each asset's return into a market term and an
-asset-specific residual. This structure can use one synthetic market
-path for many assets, but it creates a mismatch when the existing
-asset-level generator was fitted to full returns rather than
-residuals. Using the full-return path as a residual adds its mean to
-the fitted intercept and adds market variance to variance already in
-the path. Fitting a new generator to every residual avoids this
-mismatch but requires a second model for every asset. We instead
-centered and rescaled each full-return path before adding the market
-factor. This correction lets the fitted asset-level generator be
-reused while keeping the market term within the asset's total variance
-budget. It does not, however, model dependence among the remaining
-residuals. This limit means that validation must cover more than the
-return distribution. We used Kolmogorov--Smirnov and
-Anderson--Darling tests to assess the
-distribution~\cite{kolmogorov1933, smirnov1948, andersonDarling1952},
-autocorrelation to assess behavior over time~\cite{cont2001}, and
-Value-at-Risk coverage to assess tail risk~\cite{manganelliEngle2001}.
-We also tested a daily-rebalanced allocation because a model can fit
-each asset separately and still fail at the portfolio level. Booth
-and Fama~\cite{boothFama1992} showed how rebalancing volatile assets
-can create a \emph{diversification return}. In synthetic data,
-independent residuals can exaggerate this effect because they remove
-shared sector and style movements. A constant shift can adjust the
-average return level, but it cannot restore the missing dependence.
-The correction therefore solves the mean and variance problem created
-when full-return generators are combined with a market factor; it is
-not a complete model of how assets move together.
+Multi-asset generation also requires a model of cross-asset dependence.
+Multivariate GARCH models estimate time-varying covariance matrices. The
+dynamic conditional correlation model reduces the number of parameters by
+separating individual volatility models from correlation
+dynamics~\cite{engle2002dcc,bauwensLaurentRombouts2006}. Copulas separate each
+asset's return distribution from the dependence model. Dynamic copulas allow
+cross-asset dependence to change over time, while vine copulas provide flexible
+high-dimensional constructions~\cite{patton2006,
+aasCzadoFrigessiBakken2009}. Factor models reduce dimension by linking each
+asset to a small number of shared
+factors~\cite{sharpe1963,rossAPT1976,famaFrench1993}. Shared-state HMMs and
+multivariate GANs can also generate joint market
+moves~\cite{diasVermuntRamos2010,rizzatoEtAl2023}. A standard factor model can
+resample historical residuals or fit a separate residual generator for every
+asset. This paper addresses a narrower problem. We start with single-asset
+generators already fitted to full returns and ask whether they can be reused in
+a factor model.
+The regression residuals are easy to calculate. The difficulty is that a
+full-return draw already contains the asset mean and market-related variance.
+Using that draw as a residual can shift the mean and count part of the variance
+twice. The correction developed here removes the mean shift and variance
+double count without fitting a second generator for every asset. It does not
+model dependence among the remaining residuals.
