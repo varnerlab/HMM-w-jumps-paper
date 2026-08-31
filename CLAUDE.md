@@ -9,10 +9,15 @@ Research paper repo: "Hybrid Hidden Markov Model for Modeling Equity Excess Grow
 ## Build Commands
 
 ### LaTeX Paper
-```bash
-cd paper && sh Build.sh Paper_v1
-```
-This runs pdflatex/bibtex triple-pass. Main file: `paper/Paper_v1.tex`. Sections are in `paper/sections/*.tex`, bibliography in `paper/References_v1.bib`.
+
+Two live manuscript trees that MUST stay in sync content-wise:
+
+- **`arxiv-paper/`** (NeurIPS-style preprint): `cd arxiv-paper && make`. This is the version posted to arXiv; the arXiv record is refreshed with the submitted content before journal submission.
+- **`jfds-paper/`** (elsarticle, JFDS submission): `cd jfds-paper && make pdf` (builds Paper_v1 + Supplement_v1 with cross-document refs).
+
+**Editing rule: make content changes in `arxiv-paper/` FIRST, then apply them to `jfds-paper/`** (adapting packaging only: `\cite` vs `\citet`, inline appendix vs separate Supplement with "Supplementary Fig./Table" prefixes). Never let the two trees diverge in content.
+
+`jdiq-paper/` is the retired ACM/JDIQ build; do not edit it.
 
 ### Julia Experiments
 Each experiment directory (`code/spy-experiment/`, `code/baseline-comparison/`, etc.) has its own `Project.toml` and `Manifest.toml`. Always activate the correct project:
@@ -34,7 +39,9 @@ source .venv/bin/activate
 
 ## Architecture
 
-- **`paper/`**: ACM acmsmall-formatted LaTeX. `Paper_v1.tex` is the root; it `\input{}`s files from `sections/`. Figures live in `sections/figs/` as PDFs.
+- **`arxiv-paper/`**: arXiv preprint tree (edit here first). `Paper_v1.tex` `\input{}`s files from `sections/`; appendix is inline.
+- **`jfds-paper/`**: JFDS submission tree (port content changes here second). Separate `Supplement_v1.tex` compiles `sections/appendix.tex`; cross-document refs via `\externaldocument`.
+- **`jdiq-paper/`**: retired ACM/JDIQ build; do not edit.
 - **`code/spy-experiment/`**: Core experiment directory. Contains all SPY analysis scripts (figures, tables, parameter sweeps, validation). Precomputed results stored as JLD2 files in `data/`. This is the primary data source; other experiments reference it.
 - **`code/baseline-comparison/`**: Six-model benchmark (Bootstrap, Gaussian, Laplace, GARCH, HMM-NJ, HMM-WJ) plus HSMM and GRU neural baselines. References `spy-experiment/data/` for shared data.
 - **`code/other-ticker-experiment/`**: Cross-asset evaluation (NVDA, JNJ, JPM).

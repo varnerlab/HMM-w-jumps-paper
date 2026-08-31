@@ -601,6 +601,640 @@ We abbreviate mean absolute error in the autocorrelation function as ACF-MAE.
 \end{figure}
 
 % =============================================================================
+% S4  Derivation of the single-asset generator
+% Six subsections: generative law; estimators; stationary law and moments;
+% dependence without jumps; jump-episode arithmetic; what (epsilon, lambda)
+% control. Every numerical value evaluates the stated closed form at the
+% fitted SPY model (generator script: code/spy-experiment/SI-Derivation-Checks.jl).
+% =============================================================================
+
+\section{Derivation of the single-asset generator}
+\label{sec:supp-generator}
+
+This appendix derives the probability law of the fitted single-asset
+generator and connects each fitted component to the empirical feature
+it controls. The hidden Markov model with jumps (HMM-WJ), its no-jump
+restriction (HMM-NJ), and their symbols follow the main-text
+definitions in Eq.~\eqref{eq:emission} and
+Algorithm~\ref{alg:hmmwj}. Unless noted otherwise, numerical values
+evaluate the closed-form expressions at the fitted SPY model of
+Table~\ref{tab:hyperparams}: $N = 100$ states, Student-$t$ degrees of
+freedom $\nu = 5$, jump probability $\epsilon = 10^{-4}$, mean episode
+duration $\lambda = 90$ steps, tail-selection probability
+$p_{\rm neg} = 0.52$, tail-set size $N_{\rm tail} = 5$, and the
+in-sample series of $T = 2{,}766$ daily excess growth rates.
+
+\subsection{Generative law}
+\label{sec:supp-gen-law}
+
+The no-jump model generates a hidden state path $S_0, \dots, S_T$ on
+$\{1, \dots, N\}$ and observations $G_1, \dots, G_T$ with the joint
+density:
+\begin{equation}
+  p(s_0, \dots, s_T,\, g_1, \dots, g_T)
+  \;=\; \bar\pi_{s_0} \prod_{t=1}^{T}
+  \mathbf{T}_{s_{t-1},\, s_t}\; f_{s_t}(g_t),
+  \label{eq:supp-joint-law}
+\end{equation}
+where $\bar\pi_{s_0}$ is the initial probability of state $s_0$,
+$\mathbf{T}_{s_{t-1}, s_t}$ is the probability of moving from state
+$s_{t-1}$ to state $s_t$, and $f_k$ is the emission density of state
+$k$. Under Eq.~\eqref{eq:emission}, $f_k$ is the location-scale
+Student-$t$ density:
+\begin{equation}
+  f_k(g) \;=\; \frac{1}{\sigma_k}\,
+  \psi_\nu\!\left(\frac{g - \mu_k}{\sigma_k}\right),
+  \qquad
+  \psi_\nu(x) \;=\;
+  \frac{\Gamma\!\big(\tfrac{\nu+1}{2}\big)}
+       {\sqrt{\nu \pi}\; \Gamma\!\big(\tfrac{\nu}{2}\big)}
+  \left(1 + \frac{x^2}{\nu}\right)^{\!-\frac{\nu+1}{2}},
+  \label{eq:supp-emission-density}
+\end{equation}
+where $\psi_\nu$ is the density of a standard Student-$t$ random
+variable with $\nu$ degrees of freedom, $\Gamma$ is the gamma
+function, and $(\mu_k, \sigma_k)$ are the location and scale of state
+$k$. The factorization in Eq.~\eqref{eq:supp-joint-law} states the
+structural property that drives everything that follows: given the
+state path, the observations are independent. Every form of serial
+dependence the generator can produce must therefore be carried by the
+state path~\cite{rabinerJuang1986}.
+
+The jump-augmented model enlarges the hidden state. Let
+$J_t \in \{0, 1, 2, \dots\}$ count the forced steps remaining after
+time $t$, and let $u$ be the forced-step state distribution, which
+mixes uniform draws over the two tail sets:
+\begin{equation}
+  u_k \;=\;
+  \begin{cases}
+    p_{\rm neg}/N_{\rm tail} & k \in \mathcal{S}_{-},\\[2pt]
+    (1 - p_{\rm neg})/N_{\rm tail} & k \in \mathcal{S}_{+},\\[2pt]
+    0 & \text{otherwise}.
+  \end{cases}
+  \label{eq:supp-u}
+\end{equation}
+Writing $p_K(m) = e^{-\lambda} \lambda^m / m!$ for the Poisson
+probability of episode length $m$ and $\mathbf{1}\{\cdot\}$ for the
+indicator function, the pair $(S_t, J_t)$ evolves by the transition
+kernel:
+\begin{equation}
+\begin{aligned}
+  &\Pr\big(S_t = k,\, J_t = j \mid S_{t-1} = s,\, J_{t-1} = i\big) \\
+  &\qquad=\;
+  \begin{cases}
+    u_k\, \mathbf{1}\{j = i - 1\} & i \ge 1,\\[6pt]
+    \big(1 - \epsilon + \epsilon e^{-\lambda}\big)\,
+      \mathbf{T}_{s, k}\, \mathbf{1}\{j = 0\}
+      \;+\; \epsilon\, p_K(j + 1)\, u_k & i = 0,
+  \end{cases}
+\end{aligned}
+  \label{eq:supp-kernel}
+\end{equation}
+and the emission draw depends only on the first coordinate,
+$G_t \sim f_{S_t}$. The two cases read as follows. While an episode is
+active ($i \ge 1$), the next state is an independent draw from $u$ and
+the counter decrements; the tail set and the state within it are
+re-drawn at every forced step. While no episode is active ($i = 0$),
+the chain either takes an ordinary transition (no trigger, or a
+trigger whose Poisson draw returns zero) or starts an episode of
+length $j + 1 \ge 1$ whose first forced step occurs immediately. The
+pair $(S_t, J_t)$ is therefore itself a Markov chain, and the HMM-WJ
+generator is a hidden Markov model on the enlarged state space
+$\{1, \dots, N\} \times \{0, 1, 2, \dots\}$. Algorithm~\ref{alg:hmmwj}
+implements Eq.~\eqref{eq:supp-kernel} with the episode
+counter truncated at the simulation horizon; it emits
+the stationary initial draw as the first observation and applies the
+kernel from the second step onward, which changes the law of a path
+only through the absent possibility of a trigger at the first step.
+When an episode ends,
+ordinary transitions resume from the last forced tail state, so the
+chain re-enters the body of the state space through the tail rows of
+$\mathbf{T}$.
+
+\subsection{Estimators and the one-step empirical law}
+\label{sec:supp-gen-estimators}
+
+The fitting procedure consists of four closed-form estimators, and
+each one matches a specific empirical object exactly. The Laplace
+partition comes first. For observations $G_1, \dots, G_T$, the Laplace
+log-likelihood with location $\mu_L$ and scale $b_L$ is:
+\begin{equation}
+  \ell(\mu_L, b_L) \;=\;
+  -T \ln (2 b_L) \;-\; \frac{1}{b_L} \sum_{t=1}^{T} |G_t - \mu_L|.
+  \label{eq:supp-laplace-ll}
+\end{equation}
+For any fixed $b_L > 0$, maximizing $\ell$ over $\mu_L$ minimizes
+$\sum_t |G_t - \mu_L|$, so $\hat\mu_L$ is the sample median. Setting
+the $b_L$ derivative to zero at $\hat\mu_L$ gives:
+\begin{align}
+  \frac{\partial \ell}{\partial b_L}
+   &\;=\; -\frac{T}{b_L}
+     \;+\; \frac{1}{b_L^2} \sum_{t=1}^{T} |G_t - \hat\mu_L|
+     \;=\; 0
+     && \text{(first-order condition)} \notag \\
+  \hat b_L
+   &\;=\; \frac{1}{T} \sum_{t=1}^{T} |G_t - \hat\mu_L|,
+     && \text{(solve for $b_L$)}
+  \label{eq:supp-laplace-mle}
+\end{align}
+the mean absolute deviation about the median. The state boundaries
+then invert the fitted Laplace cumulative distribution function
+(CDF)~\cite{kotzKozubowskiPodgorski2001}. The Laplace CDF is
+piecewise exponential:
+\begin{equation}
+  F_L(x) \;=\;
+  \begin{cases}
+    \tfrac{1}{2} \exp\!\big((x - \hat\mu_L)/\hat b_L\big)
+      & x \le \hat\mu_L,\\[4pt]
+    1 - \tfrac{1}{2} \exp\!\big(-(x - \hat\mu_L)/\hat b_L\big)
+      & x > \hat\mu_L,
+  \end{cases}
+  \label{eq:supp-laplace-cdf}
+\end{equation}
+and setting $F_L(Q_k) = k/N$ and solving each branch for $Q_k$ gives
+the closed-form boundaries:
+\begin{align}
+  \frac{k}{N} &\;=\; \tfrac{1}{2}\,
+    e^{(Q_k - \hat\mu_L)/\hat b_L}
+  \;\Longrightarrow\;
+  Q_k \;=\; \hat\mu_L + \hat b_L \ln\!\frac{2k}{N},
+    && \text{(lower branch)} \notag \\
+  \frac{k}{N} &\;=\; 1 - \tfrac{1}{2}\,
+    e^{-(Q_k - \hat\mu_L)/\hat b_L}
+  \;\Longrightarrow\;
+  Q_k \;=\; \hat\mu_L - \hat b_L
+    \ln\!\Big(2 - \tfrac{2k}{N}\Big).
+    && \text{(upper branch)}
+  \label{eq:supp-quantiles}
+\end{align}
+The bins are equiprobable under the fitted Laplace, not under the
+empirical distribution, so the in-sample state counts are not uniform:
+across the $100$ states, they range from $16$ to $47$ of the $2{,}766$
+observations. Every within-state mean $\mu_k$ and standard deviation
+$\sigma_k$ was therefore computed from at least $16$ observations, and
+no state required a fallback to the global moments.
+
+The transition matrix is the maximum likelihood estimator (MLE) of a
+first-order Markov chain. Conditional on the assigned state sequence
+$s_1, \dots, s_T$, let $n_{jk}$ count the transitions from state $j$
+to state $k$ and let $n_{j \cdot} = \sum_k n_{jk}$ be the row total.
+The likelihood of the transition parameters factorizes over rows into
+multinomials, and maximizing the log-likelihood subject to each row
+summing to one, with multiplier $c_j$ for row $j$, uses the
+Lagrangian:
+\begin{equation}
+  \mathcal{L} \;=\; \sum_{j, k} n_{jk} \ln \mathbf{T}_{jk}
+    \;+\; \sum_{j} c_{j} \Big(1 - \sum_{k} \mathbf{T}_{jk}\Big),
+  \label{eq:supp-lagrangian}
+\end{equation}
+whose stationarity conditions solve in three steps:
+\begin{align}
+  \frac{\partial \mathcal{L}}{\partial \mathbf{T}_{jk}}
+   &\;=\; \frac{n_{jk}}{\mathbf{T}_{jk}} - c_j \;=\; 0
+     && \text{(first-order condition)} \notag \\
+  \mathbf{T}_{jk}
+   &\;=\; \frac{n_{jk}}{c_j}
+     && \text{(solve for $\mathbf{T}_{jk}$)} \notag \\
+  c_j
+   &\;=\; \sum_{k} n_{jk} \;=\; n_{j \cdot}
+     && \text{(row constraint $\textstyle\sum_k \mathbf{T}_{jk} = 1$)} \notag \\
+  \widehat{\mathbf{T}}_{jk}
+   &\;=\; \frac{n_{jk}}{n_{j \cdot}}.
+     && \text{(counted estimator)}
+  \label{eq:supp-markov-mle}
+\end{align}
+The interior condition applies to cells with positive counts; for a
+cell with $n_{jk} = 0$ the log-likelihood is non-increasing in
+$\mathbf{T}_{jk}$, so its maximizer is the boundary value
+$\widehat{\mathbf{T}}_{jk} = 0$, which the same formula returns.
+Multiplying $\widehat{\mathbf{T}}_{jk}$ by the row frequency
+$n_{j\cdot}/(T-1)$ recovers $n_{jk}/(T-1)$, the empirical frequency of
+the state pair $(j, k)$. The counted estimator therefore reproduces
+the in-sample joint law of $(S_{t-1}, S_t)$ exactly; everything it
+asserts about longer horizons is the Chapman--Kolmogorov extension
+$\mathbf{T}^\tau$ of that one-step law~\cite{bilmes1998,
+grinsteadSnell1997}. The emission estimator completes the pair: within
+each state, $\mu_k$ and $\sigma_k$ are the sample mean and standard
+deviation of the assigned observations, and $\sigma_k$ enters
+Eq.~\eqref{eq:supp-emission-density} as the scale, so the emission
+standard deviation is $\sigma_k \sqrt{\nu/(\nu - 2)}$. The aggregate
+consequence of this scale convention is quantified in
+Eq.~\eqref{eq:supp-variance}.
+
+The initial distribution ties the pieces together. Let
+$n_k$ count the occupancy of state $k$ over the $T$ observations, and
+let $\hat\pi_k = n_k / T$ be the occupancy frequency. The row total
+satisfies $n_{j\cdot} = n_j - \mathbf{1}\{s_T = j\}$, and the column
+total satisfies
+$n_{\cdot k} = n_k - \mathbf{1}\{s_1 = k\}$, because only the last
+observation opens no transition and only the first closes none.
+Substituting both identities gives:
+\begin{align}
+  \big(\hat\pi\, \widehat{\mathbf{T}}\big)_k
+   &\;=\; \sum_j \frac{n_j}{T} \cdot \frac{n_{jk}}{n_{j \cdot}}
+     && \text{(definitions)} \notag \\
+   &\;=\; \sum_j \frac{n_{j \cdot}}{T} \cdot \frac{n_{jk}}{n_{j \cdot}}
+     \;+\; \sum_j \frac{\mathbf{1}\{s_T = j\}}{T}
+       \cdot \frac{n_{jk}}{n_{j \cdot}}
+     && \text{($n_j = n_{j\cdot} + \mathbf{1}\{s_T = j\}$)} \notag \\
+   &\;=\; \frac{n_{\cdot k}}{T}
+     \;+\; \frac{\widehat{\mathbf{T}}_{s_T, k}}{T}
+     && \text{(sum transitions into $k$)} \notag \\
+   &\;=\; \hat\pi_k
+     \;+\; \frac{\widehat{\mathbf{T}}_{s_T, k}
+       - \mathbf{1}\{s_1 = k\}}{T}.
+     && \text{($n_{\cdot k} = n_k - \mathbf{1}\{s_1 = k\}$)}
+  \label{eq:supp-fixed-point}
+\end{align}
+The occupancy frequencies therefore satisfy the stationarity equation
+$\hat\pi \widehat{\mathbf{T}} = \hat\pi$ up to a fixed-point residual
+bounded by $1/T$. For the fitted SPY model, the solved eigenvector
+$\bar\pi$ deviates from the occupancy frequencies by at most $3.7
+\times 10^{-4}$, the same order as $1/T$, against occupancy values
+between $0.0058$ and $0.017$. The
+initial distribution is consequently not an abstract spectral object:
+$\bar\pi$ is, up to a correction of the order of $1/T$, the vector of
+in-sample state frequencies.
+
+\subsection{Stationary distribution and moments}
+\label{sec:supp-gen-moments}
+
+The stationary observation law of the no-jump generator follows
+directly from Eq.~\eqref{eq:supp-joint-law}. Marginalizing the state
+at a single time gives the mixture density and CDF:
+\begin{equation}
+  p(g) \;=\; \sum_{k=1}^{N} \bar\pi_k\, f_k(g),
+  \qquad
+  F_{\rm mix}(x) \;=\; \sum_{k=1}^{N} \bar\pi_k\,
+  \Psi_\nu\!\left(\frac{x - \mu_k}{\sigma_k}\right),
+  \label{eq:supp-mixture}
+\end{equation}
+where $\Psi_\nu$ is the CDF of the standard Student-$t$ with $\nu$
+degrees of freedom. Every ingredient of Eq.~\eqref{eq:supp-mixture} is
+an empirical summary: the weights are the in-sample state
+frequencies, and the component locations and scales are the
+within-state sample moments. The generator's marginal is therefore a
+$100$-component semiparametric estimate of the in-sample
+distribution, and reproducing the empirical marginal requires no
+further tuning. The mean is matched by construction. Weighting the
+within-state means by the occupancy frequencies telescopes into the
+grand mean:
+\begin{align}
+  \sum_{k} \hat\pi_k\, \mu_k
+   &\;=\; \sum_{k} \frac{n_k}{T} \cdot \frac{1}{n_k}
+     \sum_{t \,:\, s_t = k} G_t
+     && \text{(definitions of $\hat\pi_k$, $\mu_k$)} \notag \\
+   &\;=\; \frac{1}{T} \sum_{t=1}^{T} G_t,
+     && \text{(each $t$ counted once)}
+  \label{eq:supp-mean}
+\end{align}
+and replacing $\hat\pi$ by $\bar\pi$ changes the value only through
+the $1/T$ correction of Eq.~\eqref{eq:supp-fixed-point}: the model
+mean is $0.0636~\mathrm{yr}^{-1}$ against the sample mean of
+$0.0631~\mathrm{yr}^{-1}$. The distributional match is equally direct.
+Evaluated at the fitted SPY model, the largest gap between the model
+CDF and the empirical CDF is
+$\sup_x |F_{\rm mix}(x) - \widehat F_T(x)| = 0.0045$, where
+$\widehat F_T$ is the in-sample empirical CDF. The two-sample
+Kolmogorov--Smirnov (KS) critical value at significance level
+$\alpha = 0.05$ for two samples of $2{,}766$ observations is
+$1.358 \sqrt{2/T} = 0.0365$, so the model-versus-data distance
+consumes about one eighth of the rejection threshold. Rejections of
+simulated paths are therefore driven by path-level sampling
+variation rather than by a misplaced marginal, which is consistent
+with the in-sample pass rates in
+Table~\ref{tab:emission_hsmm}.
+
+The second moment makes the role of the emission scale convention
+explicit. Conditioning on the state and applying the law of total
+variance gives:
+\begin{align}
+  \Var(G_t)
+   &\;=\; \E\big[\Var(G_t \mid S_t)\big]
+     \;+\; \Var\big(\E[G_t \mid S_t]\big)
+     && \text{(law of total variance)} \notag \\
+   &\;=\; \frac{\nu}{\nu - 2} \sum_k \bar\pi_k\, \sigma_k^2
+     \;+\; \sum_k \bar\pi_k\, (\mu_k - \bar\mu)^2,
+     && \text{(Student-$t$ variance)}
+  \label{eq:supp-variance}
+\end{align}
+where $\bar\mu = \sum_k \bar\pi_k \mu_k$ is the stationary mean.
+Define the within-state variance $V_{\rm w} = \sum_k \bar\pi_k
+\sigma_k^2$ and the between-state variance $V_{\rm b} = \sum_k
+\bar\pi_k (\mu_k - \bar\mu)^2$. The corresponding empirical
+decomposition of the sample variance is $V_{\rm b} + V_{\rm w}$, up to
+degrees-of-freedom corrections, so the model variance exceeds the
+sample variance by $2 V_{\rm w} / (\nu - 2)$. At the SPY fit,
+$V_{\rm w} = 0.17~\mathrm{yr}^{-2}$, only $3.6\%$ of the total
+variance of $4.60~\mathrm{yr}^{-2}$: the quantile partition
+concentrates almost all dispersion between states rather than within
+them. The inflation is correspondingly small, a model variance of
+$4.72$ against $4.60~\mathrm{yr}^{-2}$ ($1.3\%$ in standard
+deviation, $2.17$ against $2.14~\mathrm{yr}^{-1}$), and vanishes
+under Gaussian emissions ($4.61~\mathrm{yr}^{-2}$).
+
+The fourth moment explains the emission comparison in
+Table~\ref{tab:emission_hsmm}. Write $G_t = \mu_k +
+\sigma_k X$ within state $k$, where $X$ is a standard Student-$t$
+draw, and let $\delta_k = \mu_k - \bar\mu$. Expanding the fourth
+central moment and dropping the odd-power terms, which vanish by the
+symmetry of $\psi_\nu$, gives:
+\begin{align}
+  \E\big[(G_t - \bar\mu)^4\big]
+   &\;=\; \sum_k \bar\pi_k\,
+     \E\big[(\delta_k + \sigma_k X)^4\big]
+     && \text{(condition on the state)} \notag \\
+   &\;=\; \sum_k \bar\pi_k \left[
+     \delta_k^4
+     + 6\, \delta_k^2\, \sigma_k^2\, \E(X^2)\right. \notag \\
+   &\hspace{6em}\left.{}
+     + \sigma_k^4\, \E(X^4)
+     \right],
+  \label{eq:supp-fourth}
+\end{align}
+with the standard Student-$t$ moments, finite for $\nu > 4$:
+\begin{equation}
+  \E(X^2) \;=\; \frac{\nu}{\nu - 2},
+  \qquad
+  \E(X^4) \;=\; \frac{3 \nu^2}{(\nu - 2)(\nu - 4)}.
+  \label{eq:supp-t-moments}
+\end{equation}
+At $\nu = 5$ these values are $5/3$ and $25$: the within-state
+kurtosis is $9$, against $3$ for Gaussian emissions. The excess kurtosis of the stationary mixture is
+$\E[(G_t - \bar\mu)^4] / \Var(G_t)^2 - 3$; evaluating it at the SPY
+fit gives $8.34$ with Student-$t$ emissions and $5.82$ with Gaussian
+emissions, against an observed value of $7.72$. The emission choice enters
+Eq.~\eqref{eq:supp-fourth} through both moments in
+Eq.~\eqref{eq:supp-t-moments}; the larger change by far is
+$\E(X^4)$ rising from $3$ to $25$, which acts on the $\sigma_k^4$
+terms that the wide tail states dominate. The per-path simulated values reported in
+Table~\ref{tab:emission_hsmm} ($7.5$ and $5.5$) sit
+below these population values because the sample kurtosis of a
+heavy-tailed series of $2{,}766$ observations is biased downward, but
+the population gap of $2.5$ between the emission choices matches the
+simulated gap of $2.0$ in both direction and size.
+
+\subsection{Dependence structure without jumps}
+\label{sec:supp-gen-nojump}
+
+The results stated so far concern single time slices; the dependence
+structure is where the no-jump generator falls short of the data, and
+the failure is structural rather than a matter of estimation. Within
+state $k$, the sojourn time is geometric: the chain remains for $m$
+steps with probability
+$\mathbf{T}_{kk}^{\,m-1} (1 - \mathbf{T}_{kk})$ and therefore stays
+for $1/(1 - \mathbf{T}_{kk})$ steps on average, between one and two
+days for every fitted state
+(Fig.~\ref{fig:model_internals}c). The autocorrelation
+of absolute returns inherits this short memory. Let $a_k =
+\E\big[\,|G_t| \,\big|\, S_t = k\big]$ be the within-state mean
+absolute return and $\bar a = \sum_k \bar\pi_k a_k$ its stationary
+average. Because observations are conditionally independent given the
+states, the lag-$\tau$ product moment reduces to a state-pair sum:
+\begin{align}
+  \E\big[\,|G_t|\, |G_{t+\tau}|\,\big]
+   &\;=\; \sum_{j, k}
+     \Pr(S_t = j,\, S_{t+\tau} = k)\; a_j\, a_k
+     && \text{(conditional independence)} \notag \\
+   &\;=\; \sum_{j, k} \bar\pi_j\,
+     \big(\mathbf{T}^\tau\big)_{jk}\; a_j\, a_k,
+     && \text{(Chapman--Kolmogorov)}
+  \label{eq:supp-acf-nj}
+\end{align}
+so the autocorrelation function (ACF) of $|G_t|$ is:
+\begin{equation}
+  \mathrm{ACF}_{|G|}(\tau)
+  \;=\; \frac{\sum_{j, k} \bar\pi_j\,
+    \big(\mathbf{T}^\tau\big)_{jk}\, a_j\, a_k \;-\; \bar a^2}
+    {\Var(|G_t|)}.
+  \label{eq:supp-acf-nj-def}
+\end{equation}
+As $\tau$ grows, $\mathbf{T}^\tau$ converges
+to its rank-one limit, every row equal to $\bar\pi$, at the geometric
+rate $|\theta_2|^\tau$, where $\theta_2$ is the second-largest
+eigenvalue of $\mathbf{T}$ in modulus; the ACF is therefore bounded
+by a constant multiple of $|\theta_2|^\tau$. For the fitted SPY
+matrix, $|\theta_2| = 0.253$, and $|\theta_2|^\tau$ falls below
+$0.01$ from lag $4$ onward. Evaluating Eq.~\eqref{eq:supp-acf-nj}
+gives a model ACF of $0.26$ at lag $1$, close to the observed $0.30$
+because the counted matrix pins the one-step state-pair law, but
+$0.021$ at lag $3$ and effectively zero from lag $5$, while the
+observed ACF remains near $0.26$ at lag $5$ and $0.14$ at lag $25$.
+No first-order chain fitted by transition counting can do otherwise:
+matching the one-step law fixes $\mathbf{T}$, and the spectral gap of
+that matrix then forces geometric mixing within a week. This is the
+quantitative content of the main-text statement that the counted
+transition probabilities leave extreme-return states too quickly to
+reproduce volatility clustering, and it is the failure the jump
+mechanism corrects.
+
+\subsection{Jump-episode arithmetic}
+\label{sec:supp-gen-renewal}
+
+The jump mechanism overlays the fast-mixing chain with rare, long
+episodes, and its operating characteristics follow from renewal
+arguments. On each step with no active episode, an episode with at
+least one forced step begins with probability
+$p_e = \epsilon (1 - e^{-\lambda})$, since a trigger whose Poisson
+draw returns zero is discarded; conditional on starting, the episode
+length is the zero-truncated Poisson draw with mean
+$\E[K \mid K \ge 1] = \lambda / (1 - e^{-\lambda})$. At $\lambda =
+90$, the correction $e^{-\lambda}$ is below $10^{-39}$, so $p_e =
+\epsilon$ and $\E[K \mid K \ge 1] = \lambda$ to machine precision.
+The long-run fraction of forced steps, denoted $\pi_J$, follows from
+the renewal-reward theorem. A renewal cycle consists of the free
+steps preceding an episode and the episode itself: the number of free
+trials up to and including the trigger is geometric with mean
+$1/p_e$, the triggering trial is itself the first forced step, and
+the episode contributes $\E[K \mid K \ge 1]$ forced steps in total:
+\begin{align}
+  \pi_J
+   &\;=\; \frac{\E[K \mid K \ge 1]}
+     {\dfrac{1 - p_e}{p_e} + \E[K \mid K \ge 1]}
+     && \text{(forced steps over cycle length)} \notag \\
+   &\;=\; \frac{p_e\, \E[K \mid K \ge 1]}
+     {1 - p_e + p_e\, \E[K \mid K \ge 1]}
+     && \text{(multiply through by $p_e$)} \notag \\
+   &\;=\; \frac{\epsilon \lambda}
+     {1 - \epsilon + \epsilon e^{-\lambda} + \epsilon \lambda}
+     && \text{($p_e\, \E[K \mid K \ge 1] = \epsilon \lambda$)} \notag \\
+   &\;\approx\; \frac{\epsilon \lambda}{1 + \epsilon \lambda}
+     \;=\; 0.0089.
+     && \text{(drop $\epsilon e^{-\lambda}$, then $\epsilon$)}
+  \label{eq:supp-rho}
+\end{align}
+Fewer than one step in a hundred is forced at the fitted values; the
+measured fraction across $400$ simulated in-sample-length paths is
+$0.0088$. The product $\epsilon \lambda$ is the quantity that sets
+this fraction, a point that matters for identification in
+Section~\ref{sec:supp-gen-tuning}.
+
+At the path level, the same arithmetic determines how episodes are
+distributed across the ensemble. A simulated path contains no episode
+only if every one of its $T - 1$ transition steps fails to trigger
+one, so the jump-path probability at $T = 2{,}766$ is
+$1 - (1 - p_e)^{T-1} = 24.2\%$; the simulated ensemble
+gives $24.8\%$ ($99$ of $400$ paths), matching the $\sim\!24\%$
+jump-path fraction conditioned on in
+Fig.~\ref{fig:statistical_validation}. Episodes begin
+at the long-run rate of one per expected renewal cycle, so a path
+carries about $0.274$ episodes in expectation. The expected gap
+between episodes is $1/\epsilon = 10^4$ trading days, about $40$
+trading years, so the ensemble is a two-population mixture: roughly
+three quarters of the paths never trigger an episode and follow the
+HMM-NJ law exactly, while the remaining quarter carry a single
+episode (about one jump path in eight carries a second). Within a
+jump path, the forced fraction is $\lambda / T = 3.3\%$ for a single
+episode; the simulated mean is $3.6\%$, slightly higher through the
+multi-episode paths. Forced steps differ sharply from free ones. Under
+the forced-step distribution $u$ of Eq.~\eqref{eq:supp-u}, the
+conditional standard deviation is $5.38~\mathrm{yr}^{-1}$ against the
+free-step $2.17~\mathrm{yr}^{-1}$, a variance ratio of $6.1$, and the
+mean absolute return is $\bar a_J = \sum_k u_k a_k =
+4.96~\mathrm{yr}^{-1}$ against $\bar a = 1.47~\mathrm{yr}^{-1}$. The
+stationary state marginal of the augmented chain is the mixture
+$(1 - \pi_J)$ times the free-phase distribution plus $\pi_J$ times
+$u$; the free phase relaxes from the post-episode tail state back to
+$\bar\pi$ at the rate $|\theta_2|$ within a few steps. Using
+$\bar\pi$ as the initial law therefore misallocates $O(\pi_J) \approx
+1\%$ of probability mass, which quantifies the main-text remark that
+$\bar\pi$ is exact for the ordinary transition matrix but approximate
+for the jump-augmented process.
+
+\subsection{Autocorrelation and kurtosis under jumps}
+\label{sec:supp-gen-tuning}
+
+The tuning objective of Eq.~\eqref{eq:grid_search} scores the
+absolute-return ACF and the excess kurtosis, and both statistics
+admit closed-form approximations that show what $(\epsilon, \lambda)$
+control. The ACF contribution rests on one more renewal quantity: the
+probability $h(\tau)$ that, given a step is forced, the step $\tau$
+later belongs to the same episode. A uniformly chosen forced step
+lands in an episode with the length-biased law, an episode of length
+$m$ covering $m$ forced steps, and its position within that episode
+is uniform. Combining the two gives:
+\begin{align}
+  h(\tau)
+   &\;=\; \sum_{m \ge 1}
+     \frac{m\, \Pr(K = m \mid K \ge 1)}{\E[K \mid K \ge 1]}
+     \cdot \frac{(m - \tau)_+}{m}
+     \notag \\
+   &\;=\; \frac{\E\big[(K - \tau)_+ \,\big|\, K \ge 1\big]}
+     {\E[K \mid K \ge 1]}
+     && \text{(sum over $m$)} \notag \\
+   &\;\approx\; \Big(1 - \frac{\tau}{\lambda}\Big)_{\!+},
+     && \text{($K$ concentrated near $\lambda$)}
+  \label{eq:supp-h}
+\end{align}
+where $(x)_+ = \max(x, 0)$ and the approximation holds because the
+Poisson length concentrates within a few multiples of
+$\sqrt{\lambda} \approx 9.5$ around $\lambda$. The same-episode
+probability therefore decays almost linearly from one to zero over
+the horizon $\lambda$. The ACF follows by conditioning on the
+forced-step indicator $Z_t = \mathbf{1}\{\text{step $t$ is forced}\}$.
+Given the indicator path, every forced step's state is an independent
+draw from $u$, so two forced observations are conditionally
+independent; the dependence linking a forced observation to a later
+free one runs only through the episode's final state and, like the
+free-phase covariance itself, decays at the
+$|\theta_2|^\tau$ rate of Section~\ref{sec:supp-gen-nojump}. For lags
+beyond that scale, only the conditional means covary. Write
+$A_t = |G_t|$ for the absolute return. The conditional mean is
+$\E[A_t \mid Z_t] = \bar a + Z_t\, (\bar a_J - \bar a)$,
+and for rare episodes the joint forced probability is
+$\Pr(Z_t = 1, Z_{t+\tau} = 1) \approx \pi_J\, h(\tau)$, so:
+\begin{align}
+  \Cov\big(A_t, A_{t+\tau}\big)
+   &\;\approx\;
+     \Cov\big(\E[A_t \mid Z_t],\;
+              \E[A_{t+\tau} \mid Z_{t+\tau}]\big)
+     && \text{(independence given $Z$)} \notag \\
+   &\;=\; (\bar a_J - \bar a)^2\,
+     \Cov\big(Z_t,\, Z_{t+\tau}\big)
+     && \text{(conditional mean in $Z$)} \notag \\
+   &\;\approx\; (\bar a_J - \bar a)^2\, \pi_J\, h(\tau),
+     && \text{(episodes rare)}
+  \label{eq:supp-acf-wj}
+\end{align}
+so the jump mechanism adds an ACF component of height $\pi_J (\bar a_J
+- \bar a)^2 / \Var(A_t)$ that decays almost linearly to zero at lag
+$\lambda$, precisely the slow component the counted chain cannot
+produce. For a jump path carrying a single episode, the relevant
+forced fraction is $\lambda / T$ rather than $\pi_J$, and evaluating
+the resulting expression at the fitted values, with $\Var(A_t) =
+3.01$ under the same conditioning, gives a predicted plateau of
+$0.13$. Table~\ref{tab:supp-acf-prediction} compares
+this prediction with the mean simulated jump-path ACF: the two differ
+by $0.013$ at lag $5$ and by less than $0.01$ from lag $10$ onward. At lags $1$ to $3$ the
+simulated values exceed the episode component ($0.35$ against $0.13$
+at lag $1$) because the free-phase geometric component of
+Section~\ref{sec:supp-gen-nojump} adds on top before it dies out.
+
+% --- Table: predicted vs simulated jump-path ACF ---
+\begin{table}[tbp]
+\centering
+\caption{\textbf{Episode-overlap prediction of the jump-path
+    absolute-return autocorrelation function (ACF) against
+    simulation.} The prediction evaluates
+    Eq.~\eqref{eq:supp-acf-wj} at the fitted SPY values with the
+    single-episode forced fraction $\lambda/T$ in place of $\pi_J$
+    and the same-episode probability $h(\tau)$ of
+    Eq.~\eqref{eq:supp-h}. The simulated column is the mean ACF of
+    $|G_t|$ over the $99$ jump-active paths among $400$ simulated
+    in-sample-length paths. The free-phase component of
+    Eq.~\eqref{eq:supp-acf-nj} is excluded from the prediction and
+    has decayed below $0.01$ at the lags shown.}
+\label{tab:supp-acf-prediction}
+\small
+\begin{tabular}{@{}rccc@{}}
+\toprule
+\textbf{Lag $\tau$} & \textbf{$h(\tau)$} & \textbf{Predicted ACF}
+  & \textbf{Simulated ACF} \\ \midrule
+$5$  & $0.944$ & $0.124$ & $0.137$ \\
+$10$ & $0.889$ & $0.117$ & $0.123$ \\
+$15$ & $0.833$ & $0.110$ & $0.115$ \\
+$20$ & $0.778$ & $0.102$ & $0.105$ \\
+$25$ & $0.722$ & $0.095$ & $0.099$ \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+The kurtosis contribution pulls in the opposite direction. Treating a
+jump path as a two-regime mixture with weights $(1 - \lambda/T,\,
+\lambda/T)$ and evaluating the fourth-moment expression of
+Eq.~\eqref{eq:supp-fourth} with the forced-step distribution $u$ in
+place of $\bar\pi$ for the episode regime gives a population excess
+kurtosis of $7.20$ for a single-episode jump path, against $8.34$
+with no jumps. Forced steps inflate the variance, by about $17\%$ at
+the fitted values, faster than they inflate the fourth moment,
+because $u$ draws uniformly within each tail set
+rather than extending the extreme tail. Adding jump content therefore
+lowers kurtosis toward and past the observed value while it raises
+the slow ACF component; the jump-share sweep reported in the main
+text traces the same tradeoff empirically, with the Hill tail index
+flat across the sweep because the tail exponent is set by $\nu$, not
+by the jump content. The objective of
+Eq.~\eqref{eq:grid_search} balances these two effects.
+
+The same expressions show how the two jump parameters are identified,
+and where they are not. Within a single-episode jump path, the ACF
+component of Eq.~\eqref{eq:supp-acf-wj} has height proportional to
+$\lambda / T$ and horizon $\lambda$, and the kurtosis shift depends
+on the same forced fraction: every statistic entering
+Eq.~\eqref{eq:grid_search} for such a path is controlled by
+$\lambda$. The parameter $\epsilon$ moves the objective only through
+the incidence of jump paths, which the jump-active conditioning
+removes, and through the small fraction of multi-episode paths. This
+weak dependence is consistent with the tuned $\epsilon = 10^{-4}$
+lying at the lower edge of the explored range for SPY and for all
+three cross-asset tickers, and with the Monte Carlo sensitivity of
+the tuned optima noted in
+Section~\ref{sec:supp-cross-asset}. The objects entering every
+expression in this appendix, the fitted boundaries, transition
+matrix, and residence times, are plotted in
+Fig.~\ref{fig:model_internals}.
+
+% =============================================================================
 % S5 Transition matrix internals
 % =============================================================================
 
@@ -909,3 +1543,109 @@ $\Var(\eps_i)\geq f\,\sigma_{\gen,i}^2$; it does not guarantee that
 adding the market term preserves the generator's tail distribution.
 The KS pass rate fell from $87.6\%$ in the lowest-beta quartile to
 $65.9\%$ in the highest-beta quartile (Table~\ref{tab:beta_bucket}).
+
+\subsection{Role of the centered full-return draw as the residual}
+\label{sec:supp-residual-choice}
+
+The hybrid composition places $\eps_i = s_i \tg_i^{\mathrm c}$, a
+centered and rescaled draw of asset $i$'s full return, in the residual
+slot of Eq.~\eqref{eq:sim-composition}. On its face this is a category
+mismatch: the residual of a single-index decomposition is the
+idiosyncratic component of the return, orthogonal to the market, while
+$\tg_i^{\mathrm c}$ is distributed like the centered total return,
+market-driven component included. This appendix states what the
+substitution preserves exactly, what it preserves approximately, and
+how the approximation degrades as the market loading grows.
+
+The residual slot must supply three things: a zero mean, so that the
+intercept and market term alone set the conditional mean; the variance
+$\sigma_{\gen,i}^2 - \beta_i^2 \sigma_m^2$ not already contributed by
+the market term; and the asset-specific distributional shape, the
+heavy tails and volatility clustering that motivated the single-asset
+generator. Centering meets the first requirement exactly
+(Eq.~\eqref{eq:center-generator}), the scale of Eq.~\eqref{eq:scale}
+meets the second exactly, and the large-$T$ limits
+$\hat\alpha_i \to \alpha_i$ and $\hat\beta_i \to \beta_i^{\eff}$ hold
+because the draw is generated independently of the simulated market
+path (Sec.~\ref{sec:supp-cov}), so the recovered factor structure is
+exact as well. Any zero-mean, correctly scaled, market-independent
+draw satisfies the first two requirements; the full-return draw is
+chosen for the third, because it carries the per-asset marginal that
+the single-asset validation certified. Only the shape requirement is
+met approximately, and two exact statements bracket the
+approximation.
+
+At $\rho_i = 0$ the substitution is not an approximation:
+Eq.~\eqref{eq:scale} gives $s_i = 1$, the market term contributes no
+variance, and the composed series is the generator draw itself, so the
+composed distribution equals the validated single-asset marginal. For
+$\rho_i > 0$ the composed return is the sum of two independent
+centered draws, and the survival of the generator's shape follows in
+closed form. In population, conditional on the fitted parameters,
+write the deviation of the composed return from its mean as
+$X_m + X_i$, where $X_m = \beta_i\, g_m^{\mathrm c}$ is the market
+contribution, $g_m^{\mathrm c}$ is the market path centered at its
+mean, and $X_i = s_i\, \tg_i^{\mathrm c}$ is the scaled asset draw;
+their variances are $v_m = \rho_i\, \sigma_{\gen,i}^2$ and
+$v_i = (1 - \rho_i)\, \sigma_{\gen,i}^2$. Independence factors every
+cross term in the fourth moment:
+\begin{align}
+  \E\big[(X_m + X_i)^4\big]
+   &\;=\; \E(X_m^4) + 4\,\E(X_m^3)\,\E(X_i)
+     \notag \\
+   &\qquad + 6\,\E(X_m^2)\,\E(X_i^2)
+     + 4\,\E(X_m)\,\E(X_i^3)
+     \notag \\
+   &\qquad + \E(X_i^4)
+     && \text{(independence)} \notag \\
+   &\;=\; \E(X_m^4) + 6\, v_m\, v_i + \E(X_i^4).
+     && \text{($\E X_m = \E X_i = 0$)}
+  \label{eq:supp-comp-fourth}
+\end{align}
+Writing $\kappa_m$ and $\kappa_{\gen}$ for the excess kurtosis of the
+market path and of the generator draw, the component fourth moments
+are $\E(X_m^4) = (\kappa_m + 3)\, v_m^2$ and
+$\E(X_i^4) = (\kappa_{\gen} + 3)\, v_i^2$, where rescaling by $s_i$
+leaves excess kurtosis unchanged. The excess kurtosis of the composed
+return follows by dividing Eq.~\eqref{eq:supp-comp-fourth} by the
+squared total variance:
+\begin{align}
+  \kappa(X_m + X_i)
+   &\;=\; \frac{(\kappa_m + 3)\, v_m^2 + 6\, v_m\, v_i
+     + (\kappa_{\gen} + 3)\, v_i^2}{(v_m + v_i)^2} \;-\; 3
+     \notag \\
+   &\;=\; \frac{\kappa_m\, v_m^2 + \kappa_{\gen}\, v_i^2
+     + 3\, (v_m + v_i)^2}{(v_m + v_i)^2} \;-\; 3
+     && \text{(collect terms)} \notag \\
+   &\;=\; \kappa_m\, \rho_i^2 \;+\; \kappa_{\gen}\, (1 - \rho_i)^2.
+     && \text{($v_m + v_i = \sigma_{\gen,i}^2$)}
+  \label{eq:supp-kurt-comp}
+\end{align}
+The generator's excess kurtosis survives composition with weight
+$(1 - \rho_i)^2$ and the market path's enters with weight $\rho_i^2$;
+a simulation check with independent generator draws matched
+Eq.~\eqref{eq:supp-kurt-comp} to within $0.03$ in mean excess
+kurtosis at $\rho_i \in \{0.1, 0.3, 0.5\}$. For a low-loading asset
+the composed tails are essentially the generator's: at
+$\rho_i = 0.10$ the generator's kurtosis retains weight $0.81$. As
+$\rho_i$ grows the composed shape moves away from the asset's own
+marginal, which is the pattern in the documented diagnostics: the
+hybrid tracks the generator's kurtosis across the $\beta$ range while
+the Gaussian SIM does not (Fig.~\ref{fig:tails}), and the hybrid KS
+pass rate declines from the lowest to the highest $\beta$ quartile
+(Table~\ref{tab:beta_bucket}).
+
+The residual-fit methods provide the exact-orthogonal alternative:
+they fit a generator to each asset's OLS residual series, contain no
+market component to double count, and are compared with the hybrid
+in Table~\ref{tab:aggregate}; fitting JumpHMM to residuals requires
+converting each residual series to a synthetic price path by
+cumulative compounding and a second fit per asset. In summary,
+$\tg_i^{\mathrm c}$ is not a residual in the orthogonal-decomposition
+sense; it is a carrier of the validated marginal shape. The
+substitution fixes the mean, the variance, and the recovered factor
+loadings exactly, reproduces the asset's marginal exactly in the
+$\rho_i \to 0$ limit, and dilutes the generator's shape with weight
+$(1 - \rho_i)^2$ as the market share grows; the clipped and
+$R^2$-preserving branches of Algorithm~\ref{alg:hybrid} handle the
+region where the dilution is largest.

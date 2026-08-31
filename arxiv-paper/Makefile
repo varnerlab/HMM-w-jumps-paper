@@ -20,7 +20,6 @@ TABLES := sections/tables/table1_aggregate.tex \
 	sections/tables/table6_oos_scorecard.tex
 FIGS := figs/main/Fig01-Empirical-Motivation.pdf \
 	figs/main/Fig03-Model-Comparison.pdf \
-	figs/main/Fig04-Jump-Mix-Frontier.pdf \
 	figs/main/Fig05-OoS-Composition.pdf \
 	figs/main/Fig06-Variance-Preservation.pdf \
 	figs/supplement/FigS01-Cross-Covariance.pdf \

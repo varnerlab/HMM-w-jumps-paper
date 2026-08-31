@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.27 (TeX Live 2025) (preloaded format=pdflatex 2025.3.8)  26 AUG 2026 12:38
+This is pdfTeX, Version 3.141592653-2.6-1.40.27 (TeX Live 2025) (preloaded format=pdflatex 2025.3.8)  31 AUG 2026 12:32
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -797,51 +797,72 @@ d on input line 587.
 
 
 [10 <./figs/supplement/FigS04-Statistical-Validation.pdf>]
-<figs/supplement/FigS05-Model-Internals.pdf, id=74, 1606.0pt x 521.95pt>
+
+[11]
+
+[12]
+
+[13]
+
+[14]
+
+[15]
+
+[16]
+
+[17]
+
+[18]
+
+[19]
+<figs/supplement/FigS05-Model-Internals.pdf, id=105, 1606.0pt x 521.95pt>
 File: figs/supplement/FigS05-Model-Internals.pdf Graphic file (type pdf)
 <use figs/supplement/FigS05-Model-Internals.pdf>
 Package pdftex.def Info: figs/supplement/FigS05-Model-Internals.pdf  used on in
-put line 621.
+put line 1255.
 (pdftex.def)             Requested size: 345.0pt x 112.12149pt.
-
-(./sections/tables/table2_by_branch.tex
+ (./sections/tables/table2_by_branch.tex
 Package microtype Info: Loading generic protrusion settings for font family
 (microtype)             `cmtt' (encoding: T1).
 (microtype)             For optimal results, create family-specific settings.
 (microtype)             See the microtype manual for details.
 )
 
-[11 <./figs/supplement/FigS05-Model-Internals.pdf>]
+[20 <./figs/supplement/FigS05-Model-Internals.pdf>]
 
-[12]
-<figs/supplement/FigS06-Branch-Map.pdf, id=88, 903.375pt x 501.875pt>
+[21]
+<figs/supplement/FigS06-Branch-Map.pdf, id=118, 903.375pt x 501.875pt>
 File: figs/supplement/FigS06-Branch-Map.pdf Graphic file (type pdf)
 <use figs/supplement/FigS06-Branch-Map.pdf>
 Package pdftex.def Info: figs/supplement/FigS06-Branch-Map.pdf  used on input l
-ine 740.
+ine 1374.
 (pdftex.def)             Requested size: 293.2521pt x 162.91599pt.
  (./sections/tables/table3_by_beta_bucket.tex)
 
-[13 <./figs/supplement/FigS06-Branch-Map.pdf>]
+[22 <./figs/supplement/FigS06-Branch-Map.pdf>]
 
-[14])
+[23]
 
-[15] (./Supplement_v1.bbl)
+[24]
 
-[16] (./Supplement_v1.aux)
+[25]) (./Supplement_v1.bbl
+
+[26])
+
+[27] (./Supplement_v1.aux)
  ***********
 LaTeX2e <2024-11-01> patch level 2
 L3 programming layer <2025-01-18>
  ***********
  ) 
 Here is how much of TeX's memory you used:
- 19083 strings out of 473190
- 373453 string characters out of 5715801
- 782249 words of memory out of 5000000
- 41670 multiletter control sequences out of 15000+600000
- 588730 words of font info for 235 fonts, out of 8000000 for 9000
+ 19168 strings out of 473190
+ 374768 string characters out of 5715801
+ 783341 words of memory out of 5000000
+ 41717 multiletter control sequences out of 15000+600000
+ 589764 words of font info for 254 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
- 89i,15n,90p,1086b,359s stack positions out of 10000i,1000n,20000p,200000b,200000s
+ 89i,17n,90p,1086b,359s stack positions out of 10000i,1000n,20000p,200000b,200000s
 </usr/local/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx10.pfb
 ></usr/local/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx8.pfb><
 /usr/local/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx9.pfb></u
@@ -859,27 +880,28 @@ ve/2025/texmf-dist/fonts/type1/public/amsfonts/cm/cmr5.pfb></usr/local/texlive/
 exmf-dist/fonts/type1/public/amsfonts/cm/cmr8.pfb></usr/local/texlive/2025/texm
 f-dist/fonts/type1/public/amsfonts/cm/cmr9.pfb></usr/local/texlive/2025/texmf-d
 ist/fonts/type1/public/amsfonts/cm/cmsy10.pfb></usr/local/texlive/2025/texmf-di
-st/fonts/type1/public/amsfonts/cm/cmsy6.pfb></usr/local/texlive/2025/texmf-dist
-/fonts/type1/public/amsfonts/cm/cmsy7.pfb></usr/local/texlive/2025/texmf-dist/f
-onts/type1/public/amsfonts/cm/cmsy8.pfb></usr/local/texlive/2025/texmf-dist/fon
-ts/type1/public/amsfonts/cm/cmsy9.pfb></usr/local/texlive/2025/texmf-dist/fonts
-/type1/public/amsfonts/symbols/msbm10.pfb></usr/local/texlive/2025/texmf-dist/f
-onts/type1/public/cm-super/sfbx0800.pfb></usr/local/texlive/2025/texmf-dist/fon
-ts/type1/public/cm-super/sfbx0900.pfb></usr/local/texlive/2025/texmf-dist/fonts
-/type1/public/cm-super/sfbx1000.pfb></usr/local/texlive/2025/texmf-dist/fonts/t
-ype1/public/cm-super/sfrm0800.pfb></usr/local/texlive/2025/texmf-dist/fonts/typ
-e1/public/cm-super/sfrm0900.pfb></usr/local/texlive/2025/texmf-dist/fonts/type1
-/public/cm-super/sfrm1000.pfb></usr/local/texlive/2025/texmf-dist/fonts/type1/p
-ublic/cm-super/sfrm1440.pfb></usr/local/texlive/2025/texmf-dist/fonts/type1/pub
-lic/cm-super/sfti0800.pfb></usr/local/texlive/2025/texmf-dist/fonts/type1/publi
-c/cm-super/sfti0900.pfb></usr/local/texlive/2025/texmf-dist/fonts/type1/public/
-cm-super/sfti1000.pfb></usr/local/texlive/2025/texmf-dist/fonts/type1/public/cm
--super/sftt0900.pfb></usr/local/texlive/2025/texmf-dist/fonts/type1/public/cm-s
-uper/sftt1000.pfb>
-Output written on Supplement_v1.pdf (16 pages, 1062915 bytes).
+st/fonts/type1/public/amsfonts/cm/cmsy5.pfb></usr/local/texlive/2025/texmf-dist
+/fonts/type1/public/amsfonts/cm/cmsy6.pfb></usr/local/texlive/2025/texmf-dist/f
+onts/type1/public/amsfonts/cm/cmsy7.pfb></usr/local/texlive/2025/texmf-dist/fon
+ts/type1/public/amsfonts/cm/cmsy8.pfb></usr/local/texlive/2025/texmf-dist/fonts
+/type1/public/amsfonts/cm/cmsy9.pfb></usr/local/texlive/2025/texmf-dist/fonts/t
+ype1/public/amsfonts/symbols/msbm10.pfb></usr/local/texlive/2025/texmf-dist/fon
+ts/type1/public/cm-super/sfbx0800.pfb></usr/local/texlive/2025/texmf-dist/fonts
+/type1/public/cm-super/sfbx0900.pfb></usr/local/texlive/2025/texmf-dist/fonts/t
+ype1/public/cm-super/sfbx1000.pfb></usr/local/texlive/2025/texmf-dist/fonts/typ
+e1/public/cm-super/sfrm0800.pfb></usr/local/texlive/2025/texmf-dist/fonts/type1
+/public/cm-super/sfrm0900.pfb></usr/local/texlive/2025/texmf-dist/fonts/type1/p
+ublic/cm-super/sfrm1000.pfb></usr/local/texlive/2025/texmf-dist/fonts/type1/pub
+lic/cm-super/sfrm1440.pfb></usr/local/texlive/2025/texmf-dist/fonts/type1/publi
+c/cm-super/sfti0800.pfb></usr/local/texlive/2025/texmf-dist/fonts/type1/public/
+cm-super/sfti0900.pfb></usr/local/texlive/2025/texmf-dist/fonts/type1/public/cm
+-super/sfti1000.pfb></usr/local/texlive/2025/texmf-dist/fonts/type1/public/cm-s
+uper/sftt0900.pfb></usr/local/texlive/2025/texmf-dist/fonts/type1/public/cm-sup
+er/sftt1000.pfb>
+Output written on Supplement_v1.pdf (27 pages, 1147450 bytes).
 PDF statistics:
- 245 PDF objects out of 1000 (max. 8388607)
- 149 compressed objects within 2 object streams
+ 285 PDF objects out of 1000 (max. 8388607)
+ 176 compressed objects within 2 object streams
  0 named destinations out of 1000 (max. 500000)
  50219 words of extra memory for PDF output out of 51595 (max. 10000000)
 

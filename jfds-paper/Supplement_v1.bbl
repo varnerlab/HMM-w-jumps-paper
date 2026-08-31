@@ -1,4 +1,4 @@
-\begin{thebibliography}{10}
+\begin{thebibliography}{14}
 \expandafter\ifx\csname natexlab\endcsname\relax\def\natexlab#1{#1}\fi
 \providecommand{\url}[1]{\texttt{#1}}
 \providecommand{\href}[2]{#2}
@@ -19,6 +19,14 @@
   criteria based on stochastic processes}.
 \newblock \bibinfo{journal}{The Annals of Mathematical Statistics}
   \bibinfo{volume}{23}, \bibinfo{pages}{193--212}.
+%Type = Techreport
+\bibitem[{Bilmes(1998)}]{bilmes1998}
+\bibinfo{author}{Bilmes, J.A.}, \bibinfo{year}{1998}.
+\newblock \bibinfo{title}{A Gentle Tutorial of the {EM} Algorithm and Its
+  Application to Parameter Estimation for {Gaussian} Mixture and Hidden
+  {Markov} Models}.
+\newblock \bibinfo{type}{Technical Report} \bibinfo{number}{TR-97-021}.
+  International Computer Science Institute.
 %Type = Article
 \bibitem[{Booth and Fama(1992)}]{boothFama1992}
 \bibinfo{author}{Booth, D.G.}, \bibinfo{author}{Fama, E.F.},
@@ -53,6 +61,12 @@
   updated annually}.
 \newblock \bibinfo{note}{\url{https://pages.stern.nyu.edu/~adamodar/}}.
 %Type = Book
+\bibitem[{Grinstead and Snell(1997)}]{grinsteadSnell1997}
+\bibinfo{author}{Grinstead, C.M.}, \bibinfo{author}{Snell, J.L.},
+  \bibinfo{year}{1997}.
+\newblock \bibinfo{title}{Introduction to Probability}.
+\newblock \bibinfo{publisher}{American Mathematical Society}.
+%Type = Book
 \bibitem[{Ibbotson and {Duff and Phelps}(2024)}]{ibbotsonSBBI}
 \bibinfo{author}{Ibbotson, R.G.}, \bibinfo{author}{{Duff and Phelps}},
   \bibinfo{year}{2024}.
@@ -67,6 +81,15 @@
   distribuzione}.
 \newblock \bibinfo{journal}{Giornale dell'Istituto Italiano degli Attuari}
   \bibinfo{volume}{4}, \bibinfo{pages}{83--91}.
+%Type = Book
+\bibitem[{Kotz et~al.(2001)Kotz, Kozubowski and
+  Podgórski}]{kotzKozubowskiPodgorski2001}
+\bibinfo{author}{Kotz, S.}, \bibinfo{author}{Kozubowski, T.J.},
+  \bibinfo{author}{Podgórski, K.}, \bibinfo{year}{2001}.
+\newblock \bibinfo{title}{The {Laplace} Distribution and Generalizations: A
+  Revisit with Applications to Communications, Economics, Engineering, and
+  Finance}.
+\newblock \bibinfo{publisher}{Birkhauser}.
 %Type = Article
 \bibitem[{Markowitz(1976)}]{markowitz1976longRun}
 \bibinfo{author}{Markowitz, H.M.}, \bibinfo{year}{1976}.
@@ -83,6 +106,14 @@
 \newblock \bibinfo{journal}{Journal of the American Statistical Association}
   \bibinfo{volume}{89}, \bibinfo{pages}{1303--1313}.
 \newblock \DOIprefix\doi{10.1080/01621459.1994.10476870}.
+%Type = Article
+\bibitem[{Rabiner and Juang(1986)}]{rabinerJuang1986}
+\bibinfo{author}{Rabiner, L.}, \bibinfo{author}{Juang, B.},
+  \bibinfo{year}{1986}.
+\newblock \bibinfo{title}{An introduction to hidden {Markov} models}.
+\newblock \bibinfo{journal}{IEEE ASSP Magazine} \bibinfo{volume}{3},
+  \bibinfo{pages}{4--16}.
+\newblock \DOIprefix\doi{10.1109/MASSP.1986.1165342}.
 %Type = Article
 \bibitem[{Smirnov(1948)}]{smirnov1948}
 \bibinfo{author}{Smirnov, N.}, \bibinfo{year}{1948}.

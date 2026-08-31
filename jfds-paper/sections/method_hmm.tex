@@ -63,7 +63,13 @@ states, usually lasted only $1$--$2$ days
 Appendix~\ref{sec:supp-transitions}). The counted transition
 probabilities caused the model to leave extreme-return states too
 quickly to reproduce the observed
-volatility clustering~\cite{bullaBulla2006}.
+volatility clustering~\cite{bullaBulla2006}: a chain fitted by
+counting reproduces the one-step state-pair frequencies exactly, and
+its absolute-return autocorrelation therefore decays geometrically at
+a rate set by the counted matrix. Online
+Appendix~\ref{sec:supp-generator} derives the fitted generator's
+stationary law and autocorrelation structure and quantifies both this
+rapid mixing and the correction added by the jump mechanism.
 
 We added jump episodes to extend visits to extreme-return states. When
 no jump episode was active, a new episode began with probability
@@ -79,11 +85,22 @@ set with probability $p_{\rm neg}$ and the positive set otherwise. It
 made the tail-set choice independently at each step, so negative extreme
 returns occurred slightly more often than positive ones.
 Table~\ref{tab:hyperparams} lists $\epsilon$, $\lambda$, $p_{\rm neg}$,
-and $N_{\rm tail}$. We obtained the initial-state distribution
+and $N_{\rm tail}$. Two closed-form quantities summarize the
+mechanism's operating point: forced steps occupy a long-run fraction
+of approximately $\epsilon\lambda/(1+\epsilon\lambda)$ of all steps,
+and a path of $T$ steps contains at least one episode with
+probability approximately $1 - e^{-\epsilon T}$, so $\epsilon$ sets
+how many paths jump while $\lambda$ sets how long an episode lasts
+(Online Appendix~\ref{sec:supp-generator}). We obtained the
+initial-state distribution
 $\bar{\pi}$ by solving
 $\bar{\pi}\mathbf{T}=\bar{\pi}$ with
-$\sum_k\bar{\pi}_k=1$~\cite{hamilton2018regime, grinsteadSnell1997}. This
-distribution is exact for the ordinary transition matrix but only
+$\sum_k\bar{\pi}_k=1$~\cite{hamilton2018regime, grinsteadSnell1997}.
+Because $\mathbf{T}$ was estimated by counting, $\bar{\pi}$ equals
+the vector of in-sample state frequencies up to end effects, so the
+model's stationary growth-rate distribution is the
+frequency-weighted mixture of the state emission distributions. The
+solved $\bar{\pi}$ is exact for the ordinary transition matrix but only
 approximate for the jump-augmented process because it does not include
 the remaining jump duration. The full simulation procedure appears in
 Algorithm~\ref{alg:hmmwj}. Each step followed $\mathbf{T}$ or
@@ -208,11 +225,13 @@ state's emission distribution.
     p_{\rm neg}, N_{\rm tail})$; horizon $T$;
     tail sets $\mathcal{S}_{-} = \{1, \dots, N_{\rm tail}\}$ and
     $\mathcal{S}_{+} = \{N - N_{\rm tail} + 1, \dots, N\}$.
-  \ENSURE State sequence $\{S_t\}_{t=0}^{T}$ and growth-rate path
+  \ENSURE State sequence $\{S_t\}_{t=1}^{T}$ and growth-rate path
     $\{G_t\}_{t=1}^{T}$.
-  \STATE Draw $S_0 \sim \bar{\pi}$;\quad $k \gets 0$
-    \hfill \COMMENT{$k$: remaining forced-step counter}
-  \FOR{$t = 1, \dots, T$}
+  \STATE Draw $S_1 \sim \bar{\pi}$;\quad
+    draw $G_1 \sim \mu_{S_1} + \sigma_{S_1}\, t_{5}$;\quad
+    $k \gets 0$
+    \hfill \COMMENT{stationary start; $k$: remaining forced-step counter}
+  \FOR{$t = 2, \dots, T$}
     \IF{$k > 0$}
       \STATE $\mathcal{J} \gets \mathcal{S}_{-}$ w.p.\ $p_{\rm neg}$, else $\mathcal{S}_{+}$;\quad
         $S_t \sim \mathrm{Uniform}(\mathcal{J})$;\quad $k \gets k - 1$
@@ -268,7 +287,12 @@ We simulated $200$ independent paths of $2{,}766$ trading days at
 each grid point. A path with no jump reduces to the hidden Markov model
 with no jumps (HMM-NJ) and contains no
 information about $(\epsilon,\lambda)$, so the objective included only
-paths with at least one jump~\cite{glasserman2003}. The value of
+paths with at least one jump~\cite{glasserman2003}. Within those
+paths, $\lambda$ controls both the height and the horizon of the slow
+autocorrelation component while the kurtosis penalty limits the total
+forced-step mass; $\epsilon$ acts mainly through the share of paths
+that contain an episode
+(Online Appendix~\ref{sec:supp-generator}). The value of
 $w_\kappa$ set the relative weight of the kurtosis error. The search ranges,
 $w_\kappa$, $L$, and the remaining HMM-WJ and SIM hyperparameters are
 reported in Table~\ref{tab:hyperparams}. We fixed the selected
