@@ -82,7 +82,7 @@ unequal time spent in negative and positive states rather than from an
 explicit skewness parameter.
 
 The jump episodes were intended to improve temporal fit without
-sacrificing marginal fit. HMM-WJ reduced ACF-MAE from
+sacrificing marginal fit. The HMM-WJ model reduced ACF-MAE from
 $0.059$ for HMM-NJ to $0.053$. About $24\%$ of HMM-WJ
 paths contained at least one jump and showed more persistent
 autocorrelation in absolute returns; paths without a jump were
@@ -184,26 +184,23 @@ variation in the residual mean over each finite path. Their larger
 intercept errors therefore do not, by themselves, imply a worse fit
 to the return distribution.
 
-The larger differences appeared in variance recovery and tail
-behavior. Gaussian SIM had the lowest median $R^2$ error because it
-targets $R^2$ directly. However, it almost never passed the
+The larger differences appeared in variance recovery and tail behavior
+(Fig.~\ref{fig:tails}). Gaussian SIM had the lowest median $R^2$ error
+because it targets $R^2$ directly. However, it almost never passed the
 distributional tests, and its median excess kurtosis was an order of
-magnitude below the observed value (Fig.~\ref{fig:tails}). Centered
-naive composition retained the shape of the full-return draw, but
-adding the market factor inflated its variance by
-$\beta_i^2\sigma_m^2$. The hybrid method removed that extra variance.
-It passed $73.6\%$ of KS comparisons and retained heavy tails, with
-median excess kurtosis of $7.2$ and a Hill index of $0.36$. Its median
-$R^2$ error fell between those of the naive and Gaussian methods
-because this branch preserves the generator variance rather than
-targeting the observed $R^2$ directly.
-
-To determine whether comparable performance required fitting separate
-residual generators, we compared the hybrid method with three
-residual-fit alternatives. These methods avoided double counting
-because the empirical OLS residuals already excluded the market
-component. Their KS pass rates ranged
-from $67.4\%$ for GARCH(1,1)-$t$ to $75.8\%$ for
+magnitude below the observed value. Centered naive composition
+retained the shape of the full-return draw, but adding the market
+factor inflated its variance by $\beta_i^2\sigma_m^2$. The hybrid
+method removed that extra variance. It passed $73.6\%$ of KS
+comparisons and retained heavy tails, with median excess kurtosis of
+$7.2$ and a Hill index of $0.36$. Its median $R^2$ error fell between
+those of the naive and Gaussian methods because this branch preserves
+the generator variance rather than targeting the observed $R^2$
+directly. The hybrid method reached that position without a separate
+residual generator, so we compared it with three residual-fit
+alternatives, which avoided double counting because the empirical OLS
+residuals already excluded the market component. Their KS pass rates
+ranged from $67.4\%$ for GARCH(1,1)-$t$ to $75.8\%$ for
 JumpHMM-on-residuals. The hybrid rate was two percentage points below
 JumpHMM-on-residuals and slightly above block bootstrap.
 JumpHMM-on-residuals and block bootstrap had slightly lower

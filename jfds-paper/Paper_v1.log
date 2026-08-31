@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.27 (TeX Live 2025) (preloaded format=pdflatex 2025.3.8)  31 AUG 2026 12:32
+This is pdfTeX, Version 3.141592653-2.6-1.40.27 (TeX Live 2025) (preloaded format=pdflatex 2025.3.8)  31 AUG 2026 13:30
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -793,7 +793,7 @@ t line 36.
 File: figs/main/Fig03-Model-Comparison.pdf Graphic file (type pdf)
 <use figs/main/Fig03-Model-Comparison.pdf>
 Package pdftex.def Info: figs/main/Fig03-Model-Comparison.pdf  used on input li
-ne 101.
+ne 108.
 (pdftex.def)             Requested size: 345.0pt x 107.33188pt.
  (./sections/tables/table1_aggregate.tex)
 
@@ -804,7 +804,7 @@ ne 101.
 File: figs/main/Fig05-OoS-Composition.pdf Graphic file (type pdf)
 <use figs/main/Fig05-OoS-Composition.pdf>
 Package pdftex.def Info: figs/main/Fig05-OoS-Composition.pdf  used on input lin
-e 252.
+e 256.
 (pdftex.def)             Requested size: 345.0pt x 129.37325pt.
 
 
@@ -813,7 +813,7 @@ e 252.
 File: figs/main/Fig06-Variance-Preservation.pdf Graphic file (type pdf)
 <use figs/main/Fig06-Variance-Preservation.pdf>
 Package pdftex.def Info: figs/main/Fig06-Variance-Preservation.pdf  used on inp
-ut line 304.
+ut line 309.
 (pdftex.def)             Requested size: 345.0pt x 129.37325pt.
 
 
@@ -821,9 +821,9 @@ ut line 304.
 
 [21 <./figs/main/Fig06-Variance-Preservation.pdf>]) (./sections/discussion.tex
 
-[22]
+[22])
 
-[23]) (./sections/conclusion.tex
+[23] (./sections/conclusion.tex
 
 [24]) (./Paper_v1.bbl
 Package microtype Info: Loading generic protrusion settings for font family
@@ -847,11 +847,11 @@ L3 programming layer <2025-01-18>
  ***********
  ) 
 Here is how much of TeX's memory you used:
- 19831 strings out of 473190
- 388589 string characters out of 5715801
+ 19833 strings out of 473190
+ 388603 string characters out of 5715801
  804852 words of memory out of 5000000
  42343 multiletter control sequences out of 15000+600000
- 592630 words of font info for 266 fonts, out of 8000000 for 9000
+ 592681 words of font info for 267 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
  89i,17n,90p,1060b,960s stack positions out of 10000i,1000n,20000p,200000b,200000s
 </usr/local/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx10.pfb
@@ -890,7 +890,7 @@ lic/cm-super/sfti0800.pfb></usr/local/texlive/2025/texmf-dist/fonts/type1/publi
 c/cm-super/sfti0900.pfb></usr/local/texlive/2025/texmf-dist/fonts/type1/public/
 cm-super/sfti1000.pfb></usr/local/texlive/2025/texmf-dist/fonts/type1/public/cm
 -super/sftt1000.pfb>
-Output written on Paper_v1.pdf (29 pages, 1193145 bytes).
+Output written on Paper_v1.pdf (29 pages, 1193955 bytes).
 PDF statistics:
  290 PDF objects out of 1000 (max. 8388607)
  181 compressed objects within 2 object streams

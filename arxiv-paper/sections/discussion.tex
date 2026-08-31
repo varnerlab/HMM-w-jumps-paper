@@ -12,11 +12,10 @@ Bootstrap resampling passed the distributional tests by drawing
 directly from the observed returns, but it did not reproduce
 volatility clustering. We therefore interpret HMM-WJ as a compromise
 between distributional and temporal fit, not as a uniformly better
-single-asset model.
-
-The distributional pass rates also need cautious interpretation. The
-two-sample KS and AD tests assume independent observations, whereas
-the HMM, HSMM, GARCH, and block-bootstrap paths contain dependence.
+single-asset model. Reading that compromise from the pass rates
+requires care, because the two-sample KS and AD tests assume
+independent observations, whereas the HMM, HSMM, GARCH, and
+block-bootstrap paths contain dependence.
 For that reason, we considered the tests alongside Wasserstein and
 Hellinger distances and the Hill tail index. Model resolution creates
 a second qualification. A sensitivity sweep over
@@ -43,16 +42,15 @@ holdout and kept the median variance ratio at $0.97$. The improvement
 was broad but not uniform: every method retained a lower tail of
 tickers with weak fits, and some hybrid fits deteriorated relative to
 matched-length training blocks. A high average pass rate is therefore
-not a guarantee for every asset.
-
-Fitting the return generator directly to OLS residuals is a
-competitive alternative. Residual-fit methods avoid double counting
-because the market component has already been removed. The best such
-method, JumpHMM-on-residuals, had a slightly higher KS pass rate in
-sample, while the hybrid method had the higher rate in the holdout.
-The practical difference is reuse: the hybrid construction uses a
-full-return generator, whereas the residual method requires another fit
-for each asset. Neither approach achieved nominal
+not a guarantee for every asset. Fitting the return generator directly
+to the OLS residuals is a competitive alternative on the same
+comparison, because residual-fit methods avoid double counting once
+the market component has been removed.
+The best such method, JumpHMM-on-residuals, had a slightly higher KS
+pass rate in sample, while the hybrid method had the higher rate in
+the holdout. The practical difference is reuse: the hybrid
+construction uses a full-return generator, whereas the residual method
+requires another fit for each asset. Neither approach achieved nominal
 tail coverage in the short holdout.
 
 The short-holdout tail result narrowed the comparison further: the
@@ -72,9 +70,9 @@ because the asset and market paths were generated independently. A
 generator sampled from joint market history would require a covariance
 adjustment. In addition, the present construction adds only
 contemporaneous market dependence; it does not reproduce lead-lag
-effects or market-driven volatility clustering.
-
-The sensitivity results mark the boundary of the observed evidence.
+effects or market-driven volatility clustering. The sensitivity
+analyses mark the same boundary from the other direction, by showing
+where the correction weakens inside the observed universe.
 Hybrid KS pass rates declined from $87.6\%$ in the lowest $\beta$
 quartile to $65.9\%$ in the highest because the market path determined
 more of the composed distribution as $\beta$ increased. The clipping
@@ -101,19 +99,18 @@ changed the median by $27.73$ percentage points, whereas adding the
 allocation signal changed it by only $0.13$ percentage points
 \cite{boothFama1992,boucheyNemtchinovWong2015,
 markowitz1976longRun}. The apparent allocation gain was therefore
-almost entirely a diversification-return bias.
-
-A joint residual model could address this limitation. A synchronized
-multivariate block bootstrap, residual factor model, or copula could
-restore cross-asset residual covariance. Multi-factor or lagged-factor
-versions could also capture dependence omitted by the current
-single-factor construction, with the variance correction retained as
-a compositional constraint. Per-asset jump calibration and stress
-tests involving highly volatile markets or leveraged assets would test
-the other transfer limits identified here. Separate univariate
-autoregressive or block-bootstrap models would not be enough: they can
-improve temporal behavior within each asset without creating
-dependence between assets.
+almost entirely a diversification-return bias. Removing that bias
+requires a joint residual model.
+A synchronized multivariate block bootstrap, residual factor model, or
+copula could restore cross-asset residual covariance. Multi-factor or
+lagged-factor versions could also capture dependence omitted by the
+current single-factor construction, with the variance correction
+retained as a compositional constraint. Per-asset jump calibration and
+stress tests involving highly volatile markets or leveraged assets
+would test the other transfer limits identified here. Separate
+univariate autoregressive or block-bootstrap models would not be
+enough: they can improve temporal behavior within each asset without
+creating dependence between assets.
 The current location adjustment does not resolve this central
 limitation. We calibrated a constant shift in log-wealth to an external
 $8\%$ annual long-run return prior~\cite{damodaranERP,ibbotsonSBBI}, not to the
