@@ -148,7 +148,7 @@ continuous compounding.
 
 \section*{Acknowledgments}
 The authors thank the eCornell artificial intelligence (AI) in Finance program participants for
-discussions that motivated the downstream-use bias-correction analysis,
+discussions that motivated the portfolio-level use of these paths,
 and Polygon.io for access to the 2014 to 2024 United States equity and
 exchange-traded-fund daily
 price histories used in the experiments. Computations were run on a
@@ -159,16 +159,16 @@ A.A.\ designed the hybrid hidden Markov marginal generator, performed the
 single-asset experiments and validation analyses, and contributed to the
 manuscript. J.D.V.\ designed the variance-corrected single-index
 composition, performed the multi-asset experiments and downstream
-Value-at-Risk validation, developed the bias-correction methodology,
-released the code, and contributed to the manuscript.
+Value-at-Risk validation, released the code, and contributed to the
+manuscript.
 
 \paragraph{Competing interests.}
 The authors declare no competing interests.
 
 \enlargethispage{2\baselineskip}
 \paragraph{Code and data availability.}
-The experiment scripts, evaluation code (six-method comparison,
-Value-at-Risk coverage check, and bias correction), cached inputs and
+The experiment scripts, evaluation code (six-method comparison and
+Value-at-Risk coverage check), cached inputs and
 result summaries, and fitted per-asset marginals are released in the paper repository
 (\url{https://github.com/varnerlab/HMM-w-jumps-paper}); the
 underlying model-fitting library is released separately as

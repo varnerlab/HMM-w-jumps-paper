@@ -16,10 +16,11 @@ by adding the market factor. Across $423$ non-market assets,
 it recovered the calibrated factor loading to a low median absolute
 error and produced heavy-tailed marginals. On $416$ complete held-out
 asset histories from $2025$, it improved the mean cross-ticker KS
-pass rate from $83.5\%$ under centered naive composition to $87.0\%$ and held
-the median variance ratio at $0.97$. Its one-day left-tail $99\%$ Value-at-Risk
-exceedance rate was $1.67\%$, the same rounded rate as
-JumpHMM-on-residuals but above the $1\%$ nominal rate. Those residual models,
+pass rate over centered naive composition and held the median
+variance ratio near one, while naive composition remained inflated.
+Its one-day left-tail $99\%$ Value-at-Risk exceedance rate matched
+that of JumpHMM-on-residuals to the reported precision but stayed
+above the nominal rate. Those residual models,
 fitted directly to the OLS residual series, required a separate fit
 for each asset and produced a similar marginal pass rate.
 Solving the composition problem first required a per-asset generator
@@ -38,14 +39,10 @@ whereas the variance correction prevents the common market factor from
 double counting the generator's total variance.
 
 The current multi-asset implementation does not model cross-asset
-residual covariance. In a $20$-asset allocator, independent residuals
-inflated the synthetic median daily-rebalanced return well above the
-realized $2025$ outcome, almost entirely through the
-static-to-daily-rebalance diversification return rather than the
-allocation signal. A location-shift
-correction set to a documented $8\%$ annual long-run prior adjusted the return
-level without restoring the missing covariance. A full joint
-residual model is needed before using these paths for
+residual covariance. Independent residuals omit the sector and style
+dependence that links real assets, and a rebalanced portfolio built on
+them earns a diversification return that a real portfolio would not.
+A full joint residual model is needed before using these paths for
 portfolio-level return forecasts. The variance correction is a
 necessary compositional constraint rather than a complete dependence
 model. Portfolio-level synthetic market data would require combining

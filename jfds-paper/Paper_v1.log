@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.27 (TeX Live 2025) (preloaded format=pdflatex 2025.3.8)  31 AUG 2026 13:30
+This is pdfTeX, Version 3.141592653-2.6-1.40.27 (TeX Live 2025) (preloaded format=pdflatex 2025.3.8)  31 AUG 2026 17:00
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -750,7 +750,7 @@ File: mt-msb.cfg 2005/06/01 v1.0 microtype config. file: AMS symbols (b) (RS)
 
 {/usr/local/texlive/2025/texmf-var/fonts/map/pdftex/updmap/pdftex.map}{/usr/loc
 al/texlive/2025/texmf-dist/fonts/enc/dvips/cm-super/cm-super-t1.enc}]
-<figs/main/Fig01-Empirical-Motivation.pdf, id=15, 1204.5pt x 903.375pt>
+<figs/main/Fig01-Empirical-Motivation.pdf, id=14, 1204.5pt x 903.375pt>
 File: figs/main/Fig01-Empirical-Motivation.pdf Graphic file (type pdf)
 <use figs/main/Fig01-Empirical-Motivation.pdf>
 Package pdftex.def Info: figs/main/Fig01-Empirical-Motivation.pdf  used on inpu
@@ -773,127 +773,131 @@ t line 36.
 [8]
 
 [9]
+Overfull \hbox (11.18748pt too wide) detected at line 116
+[]\OML/cmm/m/it/10 ^^L[]  \OT1/cmr/m/n/10 =  []  \OML/cmm/m/it/10 s[]  \OT1/cmr
+/m/n/10 =  []
+ []
+
+
 
 [10]
 
 [11]
 
-[12]
+[12])
 
-[13])
-
-[14
+[13
 
 ] (./sections/results.tex (./sections/tables/table2_model_comparison.tex)
 
-[15]
+[14]
 
-[16]
-<figs/main/Fig03-Model-Comparison.pdf, id=93, 1806.75pt x 562.1pt>
+[15]
+<figs/main/Fig03-Model-Comparison.pdf, id=92, 1806.75pt x 562.1pt>
 File: figs/main/Fig03-Model-Comparison.pdf Graphic file (type pdf)
 <use figs/main/Fig03-Model-Comparison.pdf>
 Package pdftex.def Info: figs/main/Fig03-Model-Comparison.pdf  used on input li
-ne 108.
+ne 112.
 (pdftex.def)             Requested size: 345.0pt x 107.33188pt.
  (./sections/tables/table1_aggregate.tex)
 
-[17 <./figs/main/Fig03-Model-Comparison.pdf>]
+[16 <./figs/main/Fig03-Model-Comparison.pdf>]
 
-[18] (./sections/tables/table6_oos_scorecard.tex)
-<figs/main/Fig05-OoS-Composition.pdf, id=101, 1204.5pt x 451.6875pt>
+[17] (./sections/tables/table6_oos_scorecard.tex)
+<figs/main/Fig05-OoS-Composition.pdf, id=100, 1204.5pt x 451.6875pt>
 File: figs/main/Fig05-OoS-Composition.pdf Graphic file (type pdf)
 <use figs/main/Fig05-OoS-Composition.pdf>
 Package pdftex.def Info: figs/main/Fig05-OoS-Composition.pdf  used on input lin
-e 256.
+e 261.
 (pdftex.def)             Requested size: 345.0pt x 129.37325pt.
 
 
-[19] (./sections/tables/table5_var_backtest_oos.tex)
-<figs/main/Fig06-Variance-Preservation.pdf, id=106, 1204.5pt x 451.6875pt>
+[18] (./sections/tables/table5_var_backtest_oos.tex)
+<figs/main/Fig06-Variance-Preservation.pdf, id=104, 1204.5pt x 451.6875pt>
 File: figs/main/Fig06-Variance-Preservation.pdf Graphic file (type pdf)
 <use figs/main/Fig06-Variance-Preservation.pdf>
 Package pdftex.def Info: figs/main/Fig06-Variance-Preservation.pdf  used on inp
-ut line 309.
+ut line 314.
 (pdftex.def)             Requested size: 345.0pt x 129.37325pt.
 
 
-[20 <./figs/main/Fig05-OoS-Composition.pdf>]
+[19 <./figs/main/Fig05-OoS-Composition.pdf>])
 
-[21 <./figs/main/Fig06-Variance-Preservation.pdf>]) (./sections/discussion.tex
+[20 <./figs/main/Fig06-Variance-Preservation.pdf>] (./sections/discussion.tex
 
-[22])
+[21])
 
-[23] (./sections/conclusion.tex
+[22] (./sections/conclusion.tex)
 
-[24]) (./Paper_v1.bbl
+[23] (./Paper_v1.bbl
 Package microtype Info: Loading generic protrusion settings for font family
 (microtype)             `cmtt' (encoding: T1).
 (microtype)             For optimal results, create family-specific settings.
 (microtype)             See the microtype manual for details.
 
 
+[24]
+
 [25]
 
-[26]
+[26])
 
-[27]
-
-[28])
-
-[29] (./Paper_v1.aux)
+[27] (./Paper_v1.aux)
  ***********
 LaTeX2e <2024-11-01> patch level 2
 L3 programming layer <2025-01-18>
  ***********
  ) 
 Here is how much of TeX's memory you used:
- 19833 strings out of 473190
- 388603 string characters out of 5715801
- 804852 words of memory out of 5000000
- 42343 multiletter control sequences out of 15000+600000
- 592681 words of font info for 267 fonts, out of 8000000 for 9000
+ 19847 strings out of 473190
+ 388687 string characters out of 5715801
+ 804768 words of memory out of 5000000
+ 42341 multiletter control sequences out of 15000+600000
+ 595897 words of font info for 277 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
- 89i,17n,90p,1060b,960s stack positions out of 10000i,1000n,20000p,200000b,200000s
+ 89i,13n,90p,1061b,960s stack positions out of 10000i,1000n,20000p,200000b,200000s
 </usr/local/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx10.pfb
 ></usr/local/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx6.pfb><
 /usr/local/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx8.pfb></u
 sr/local/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/cm/cmex10.pfb></us
-r/local/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi10.pfb></usr
-/local/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi5.pfb></usr/l
-ocal/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi6.pfb></usr/loc
-al/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi7.pfb></usr/local
-/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi8.pfb></usr/local/t
-exlive/2025/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi9.pfb></usr/local/tex
-live/2025/texmf-dist/fonts/type1/public/amsfonts/cmextra/cmmib8.pfb></usr/local
-/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/cm/cmr10.pfb></usr/local/t
-exlive/2025/texmf-dist/fonts/type1/public/amsfonts/cm/cmr5.pfb></usr/local/texl
-ive/2025/texmf-dist/fonts/type1/public/amsfonts/cm/cmr6.pfb></usr/local/texlive
-/2025/texmf-dist/fonts/type1/public/amsfonts/cm/cmr7.pfb></usr/local/texlive/20
-25/texmf-dist/fonts/type1/public/amsfonts/cm/cmr8.pfb></usr/local/texlive/2025/
-texmf-dist/fonts/type1/public/amsfonts/cm/cmr9.pfb></usr/local/texlive/2025/tex
-mf-dist/fonts/type1/public/amsfonts/cm/cmsy10.pfb></usr/local/texlive/2025/texm
-f-dist/fonts/type1/public/amsfonts/cm/cmsy5.pfb></usr/local/texlive/2025/texmf-
-dist/fonts/type1/public/amsfonts/cm/cmsy6.pfb></usr/local/texlive/2025/texmf-di
-st/fonts/type1/public/amsfonts/cm/cmsy7.pfb></usr/local/texlive/2025/texmf-dist
-/fonts/type1/public/amsfonts/cm/cmsy8.pfb></usr/local/texlive/2025/texmf-dist/f
-onts/type1/public/amsfonts/cm/cmsy9.pfb></usr/local/texlive/2025/texmf-dist/fon
-ts/type1/public/amsfonts/symbols/msbm10.pfb></usr/local/texlive/2025/texmf-dist
-/fonts/type1/public/cm-super/sfbx0800.pfb></usr/local/texlive/2025/texmf-dist/f
-onts/type1/public/cm-super/sfbx0900.pfb></usr/local/texlive/2025/texmf-dist/fon
-ts/type1/public/cm-super/sfbx1000.pfb></usr/local/texlive/2025/texmf-dist/fonts
-/type1/public/cm-super/sfrm0700.pfb></usr/local/texlive/2025/texmf-dist/fonts/t
-ype1/public/cm-super/sfrm0800.pfb></usr/local/texlive/2025/texmf-dist/fonts/typ
-e1/public/cm-super/sfrm0900.pfb></usr/local/texlive/2025/texmf-dist/fonts/type1
-/public/cm-super/sfrm1000.pfb></usr/local/texlive/2025/texmf-dist/fonts/type1/p
-ublic/cm-super/sfrm1440.pfb></usr/local/texlive/2025/texmf-dist/fonts/type1/pub
-lic/cm-super/sfti0800.pfb></usr/local/texlive/2025/texmf-dist/fonts/type1/publi
-c/cm-super/sfti0900.pfb></usr/local/texlive/2025/texmf-dist/fonts/type1/public/
-cm-super/sfti1000.pfb></usr/local/texlive/2025/texmf-dist/fonts/type1/public/cm
--super/sftt1000.pfb>
-Output written on Paper_v1.pdf (29 pages, 1193955 bytes).
+r/local/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/cmextra/cmex9.pfb><
+/usr/local/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi10.pfb></
+usr/local/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi5.pfb></us
+r/local/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi6.pfb></usr/
+local/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi7.pfb></usr/lo
+cal/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi8.pfb></usr/loca
+l/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi9.pfb></usr/local/
+texlive/2025/texmf-dist/fonts/type1/public/amsfonts/cmextra/cmmib8.pfb></usr/lo
+cal/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/cm/cmr10.pfb></usr/loca
+l/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/cm/cmr5.pfb></usr/local/t
+exlive/2025/texmf-dist/fonts/type1/public/amsfonts/cm/cmr6.pfb></usr/local/texl
+ive/2025/texmf-dist/fonts/type1/public/amsfonts/cm/cmr7.pfb></usr/local/texlive
+/2025/texmf-dist/fonts/type1/public/amsfonts/cm/cmr8.pfb></usr/local/texlive/20
+25/texmf-dist/fonts/type1/public/amsfonts/cm/cmr9.pfb></usr/local/texlive/2025/
+texmf-dist/fonts/type1/public/amsfonts/cm/cmsy10.pfb></usr/local/texlive/2025/t
+exmf-dist/fonts/type1/public/amsfonts/cm/cmsy5.pfb></usr/local/texlive/2025/tex
+mf-dist/fonts/type1/public/amsfonts/cm/cmsy6.pfb></usr/local/texlive/2025/texmf
+-dist/fonts/type1/public/amsfonts/cm/cmsy7.pfb></usr/local/texlive/2025/texmf-d
+ist/fonts/type1/public/amsfonts/cm/cmsy8.pfb></usr/local/texlive/2025/texmf-dis
+t/fonts/type1/public/amsfonts/cm/cmsy9.pfb></usr/local/texlive/2025/texmf-dist/
+fonts/type1/public/amsfonts/symbols/msbm10.pfb></usr/local/texlive/2025/texmf-d
+ist/fonts/type1/public/cm-super/sfbx0800.pfb></usr/local/texlive/2025/texmf-dis
+t/fonts/type1/public/cm-super/sfbx0900.pfb></usr/local/texlive/2025/texmf-dist/
+fonts/type1/public/cm-super/sfbx1000.pfb></usr/local/texlive/2025/texmf-dist/fo
+nts/type1/public/cm-super/sfcc0900.pfb></usr/local/texlive/2025/texmf-dist/font
+s/type1/public/cm-super/sfrm0700.pfb></usr/local/texlive/2025/texmf-dist/fonts/
+type1/public/cm-super/sfrm0800.pfb></usr/local/texlive/2025/texmf-dist/fonts/ty
+pe1/public/cm-super/sfrm0900.pfb></usr/local/texlive/2025/texmf-dist/fonts/type
+1/public/cm-super/sfrm1000.pfb></usr/local/texlive/2025/texmf-dist/fonts/type1/
+public/cm-super/sfrm1440.pfb></usr/local/texlive/2025/texmf-dist/fonts/type1/pu
+blic/cm-super/sfti0800.pfb></usr/local/texlive/2025/texmf-dist/fonts/type1/publ
+ic/cm-super/sfti0900.pfb></usr/local/texlive/2025/texmf-dist/fonts/type1/public
+/cm-super/sfti1000.pfb></usr/local/texlive/2025/texmf-dist/fonts/type1/public/c
+m-super/sftt1000.pfb>
+Output written on Paper_v1.pdf (27 pages, 1217365 bytes).
 PDF statistics:
- 290 PDF objects out of 1000 (max. 8388607)
- 181 compressed objects within 2 object streams
+ 294 PDF objects out of 1000 (max. 8388607)
+ 183 compressed objects within 2 object streams
  0 named destinations out of 1000 (max. 500000)
- 53793 words of extra memory for PDF output out of 61914 (max. 10000000)
+ 61985 words of extra memory for PDF output out of 74296 (max. 10000000)
 

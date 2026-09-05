@@ -106,10 +106,10 @@ hidden Markov model (HMM) for each asset, with Laplace-quantile states,
 Student-$t$ emissions, and counted transitions. Temporary episodes in the
 extreme states distinguished the hidden Markov model with jumps
 (\mbox{HMM-WJ}) from the hidden Markov model with no jumps (\mbox{HMM-NJ}). On a decade
-of SPY data, HMM-WJ reduced absolute-return autocorrelation error from $0.059$
-to $0.053$ relative to HMM-NJ while retaining a $98.3\%$ in-sample
-Kolmogorov--Smirnov pass rate. GARCH achieved a lower autocorrelation error of
-$0.031$ but did not match the return distribution, so HMM-WJ served as a
+of SPY data, HMM-WJ reduced absolute-return autocorrelation error
+relative to HMM-NJ while retaining a high in-sample
+Kolmogorov--Smirnov pass rate. GARCH achieved a lower autocorrelation
+error but did not match the return distribution, so HMM-WJ served as a
 practical per-asset generator rather than a uniformly superior model. For
 multi-asset composition, we centered and rescaled each asset-level path before
 adding a shared SPY path. The correction removed the mean shift and prevented
@@ -118,7 +118,7 @@ another model to each asset's regression residuals. We tested the correction
 on $423$ non-market assets in a $424$-asset universe and set the jump
 probability to zero to isolate the composition rule. With all $2014$--$2024$
 parameters held fixed, the correction increased the mean Kolmogorov--Smirnov
-pass rate from $83.5\%$ to $87.0\%$ across $416$ complete asset histories from
-$2025$ and reduced the median ratio of synthetic to observed variance from
-$1.29$ to $0.97$. Independent residual generation did not reproduce residual
+pass rate across $416$ complete asset histories from
+$2025$ and brought the median ratio of synthetic to observed variance
+from inflated under naive composition to near one. Independent residual generation did not reproduce residual
 dependence and could overstate returns from daily rebalancing.

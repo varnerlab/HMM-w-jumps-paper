@@ -40,7 +40,6 @@ of asset $i$, while the full-return draw generally has
 $\E[\tg_i]\ne 0$. Equation~\eqref{eq:naive-composition} therefore has
 conditional mean $\alpha_i+\E[\tg_i]+\beta_i g_m$, not
 $\alpha_i+\beta_i g_m$.
-
 We centered every full-return path before composition to remove the
 duplicate mean. Centering subtracted the realized path mean.
 \begin{equation}
@@ -53,9 +52,9 @@ Therefore, $T^{-1}\sum_t\tg_i^{\mathrm c}(t)=0$ exactly. Subtracting a
 constant leaves both the sample variance and the sample covariance with
 $g_m$ unchanged. We used the centered construction
 $g_i=\alpha_i+\beta_i g_m+\tg_i^{\mathrm c}$ as the \emph{naive}
-benchmark. Centering corrected the mean but not the variance.
+benchmark.
 
-The path variance
+Centering corrected the mean but not the variance. The path variance
 $\sigma_{\gen,i}^2=\Var(\tg_i)=\Var(\tg_i^{\mathrm c})$ is the
 \emph{generator variance}. It already represents the asset's total
 variance. Adding the market term therefore adds variance a
@@ -102,19 +101,17 @@ of the target variance. We set $\rho_i^{\max}=1-f$ and reduced the
 effective loading $\beta_i^{\eff}$ when $\rho_i>\rho_i^{\max}$. We
 applied the piecewise correction in Eq.~\eqref{eq:clip}.
 \begin{equation}
-  \begin{aligned}
-  \beta_i^{\eff} \;&=\;
-    \begin{cases}
-      \beta_i & \text{if } \rho_i \le \rho_i^{\max}, \\[4pt]
-      \sign(\beta_i)\,\sqrt{(1 - f)\,\dfrac{\sigma_{\gen,i}^2}{\sigma_m^2}}
-        & \text{if } \rho_i > \rho_i^{\max},
-    \end{cases} \\[6pt]
-  s_i^2 \;&=\;
-    \begin{cases}
-      1 - \rho_i & \text{if } \rho_i \le \rho_i^{\max}, \\[4pt]
-      f          & \text{if } \rho_i > \rho_i^{\max}.
-    \end{cases}
-  \end{aligned}
+  \beta_i^{\eff} \;=\;
+  \begin{cases}
+    \beta_i & \text{if } \rho_i \le \rho_i^{\max} \\[4pt]
+    \sign(\beta_i)\,\sqrt{(1 - f)\,\dfrac{\sigma_{\gen,i}^2}{\sigma_m^2}} & \text{if } \rho_i > \rho_i^{\max}
+  \end{cases}
+  \qquad
+  s_i^2 \;=\;
+  \begin{cases}
+    1 - \rho_i & \text{if } \rho_i \le \rho_i^{\max} \\[4pt]
+    f          & \text{if } \rho_i > \rho_i^{\max}
+  \end{cases}
   \label{eq:clip}
 \end{equation}
 The correction retained the sign of the calibrated loading $\beta_i$.
@@ -138,10 +135,9 @@ non-tracker branch can change the fitted $R^2$ even when it preserves
 total variance. We therefore used a separate tracker branch
 when $R^2_{i,\real}$ was at least $R^2_{\mathrm{preserve}}$. We set
 $R^2_{\mathrm{preserve}}=0.80$, which separated the index trackers from
-individual stocks in our universe
-(Supplementary Fig.~\ref{fig:r2_distribution}). For the tracker branch,
-we computed the residual variance required to recover the calibrated
-$R^2$ under the zero-covariance assumption.
+individual stocks in our universe (Supplementary Fig.~\ref{fig:r2_distribution}).
+For the tracker branch, we computed the residual variance required to
+recover the calibrated $R^2$ under the zero-covariance assumption.
 \begin{equation}
   \boxed{\;\sigma_{\eps,\mathrm{target}}^2 \;=\; \beta_i^2\, \sigma_m^2 \cdot
     \frac{1 - R^2_{i,\real}}{R^2_{i,\real}}\;}
@@ -179,36 +175,37 @@ reproduce lead--lag effects or market-driven volatility clustering.
 \begin{algorithm}[t]
 \caption{Hybrid single-index model (SIM) composition with variance correction.}
 \label{alg:hybrid}
+\small
 \begin{algorithmic}[1]
-  \REQUIRE Market growth-rate path $g_m \in \R^T$ with sample variance
-    $\sigma_m^2$; per-asset generator growth-rate paths $\tg_i \in
-    \R^T$ for $i = 1,\dots,N$;
-    calibrated SIM parameters $(\alpha_i, \beta_i, R^2_{i,\real})$;
-    idiosyncratic variance floor $f \in (0,1)$; $R^2$-preservation
-    threshold $R^2_{\mathrm{preserve}} \in (0,1)$.
-  \ENSURE Composed paths $g_i \in \R^T$ and per-asset construction flags.
+  \REQUIRE Nonconstant $g_m,\tg_i\in\R^T$, $i=1,\dots,N$; each
+    $\tg_i$ is independent of $g_m$.
+  \REQUIRE Parameters $(\alpha_i,\beta_i,R^2_{i,\real})$; floor
+    $f\in(0,1)$; threshold $R^2_{\mathrm{preserve}}\in(0,1]$.
+  \ENSURE Composed paths $g_i\in\R^T$ and branch flags $b_i$.
+  \STATE $\sigma_m^2 \gets \Var(g_m)$.
   \FOR{each asset $i = 1,\dots,N$}
-    \STATE Compute generator variance $\sigma_{\gen,i}^2 \gets \Var(\tg_i)$.
-    \STATE Center the full-return draw:
-      $\tg_i^{\mathrm c} \gets \tg_i - T^{-1}\sum_{t=1}^{T}\tg_i(t)$.
+    \STATE $\sigma_{\gen,i}^2 \gets \Var(\tg_i)$;
+      $\tg_i^{\mathrm c} \gets \tg_i-\overline{\tg}_i$.
     \IF{$R^2_{i,\real} \ge R^2_{\mathrm{preserve}}$}
-      \STATE $\sigma_{\eps,\mathrm{target}}^2 \gets \beta_i^2 \sigma_m^2 (1 - R^2_{i,\real})/R^2_{i,\real}$
-        \hfill \COMMENT{Eq.~\eqref{eq:r2-target}}
-      \STATE $\eps_i \gets \left(\sqrt{\sigma_{\eps,\mathrm{target}}^2 / \sigma_{\gen,i}^2}\,\right)\tg_i^{\mathrm c}$
-      \STATE $\beta_i^{\eff} \gets \beta_i$;\quad branch $\gets$ $R^2$-preserving
+      \STATE $v_i \gets \beta_i^2\sigma_m^2(1-R^2_{i,\real})/R^2_{i,\real}$.
+      \STATE $s_i \gets \sqrt{v_i/\sigma_{\gen,i}^2}$;
+        $\beta_i^{\eff} \gets \beta_i$; $b_i\gets\textsc{r2-preserve}$.
     \ELSE
       \STATE $\rho_i \gets \beta_i^2 \sigma_m^2 / \sigma_{\gen,i}^2$
-        \hfill \COMMENT{Eq.~\eqref{eq:rho}}
       \IF{$\rho_i \le 1 - f$}
-        \STATE $s_i^2 \gets 1 - \rho_i$;\quad $\beta_i^{\eff} \gets \beta_i$;\quad branch $\gets$ variance-preserving
+        \STATE $s_i \gets \sqrt{1-\rho_i}$;
+          $\beta_i^{\eff}\gets\beta_i$; $b_i\gets\textsc{variance}$.
       \ELSE
-        \STATE $s_i^2 \gets f$;\quad
-          $\beta_i^{\eff} \gets \sign(\beta_i)\sqrt{(1-f)\,\sigma_{\gen,i}^2/\sigma_m^2}$;\quad
-          branch $\gets$ clipped variance-preserving
+        \STATE $s_i\gets\sqrt{f}$;
+          $\beta_i^{\eff}\gets\sign(\beta_i)
+          \sqrt{(1-f)\sigma_{\gen,i}^2/\sigma_m^2}$.
+        \STATE $b_i\gets\textsc{clipped}$.
       \ENDIF
-      \STATE $\eps_i \gets s_i\,\tg_i^{\mathrm c}$
     \ENDIF
-    \STATE \textit{(Optional)} apply cross-sectional rank reorder to $\eps_i$.
+    \STATE $\eps_i \gets s_i\tg_i^{\mathrm c}$.
+  \ENDFOR
+  \STATE \textit{Optional:} jointly rank-reorder $\{\eps_i\}_{i=1}^{N}$.
+  \FOR{each asset $i = 1,\dots,N$}
     \STATE $g_i \gets \alpha_i + \beta_i^{\eff}\, g_m + \eps_i$
       \hfill \COMMENT{Eq.~\eqref{eq:sim-composition}}
   \ENDFOR
@@ -224,8 +221,7 @@ reproduce lead--lag effects or market-driven volatility clustering.
     sensitivity checks. For the $423$-ticker SIM composition, we set
     $\epsilon = 0$ instead of the SPY value. The cross-asset
     validation used per-ticker $(\epsilon^{*}, \lambda^{*})$ values
-    for NVDA, JNJ, and JPM
-    (Supplementary Table~\ref{tab:cross_asset}).}
+    for NVDA, JNJ, and JPM (Supplementary Table~\ref{tab:cross_asset}).}
 \label{tab:hyperparams}
 \small
 \resizebox{\textwidth}{!}{%

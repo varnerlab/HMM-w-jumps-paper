@@ -165,3 +165,17 @@ for rho_test in [0.1, 0.3, 0.5]
     end
     @info "rho=$(rho_test): mean predicted kappa = $(round(mean(kap_pred), digits=3)) vs measured = $(round(mean(kap_meas), digits=3))"
 end
+
+# ── 9. Stationary-mixture skewness against the observed value ────────────────
+# Backs the supplement's claim that the occupancy-weighted mixture carries the
+# observed asymmetry without an explicit skewness parameter. HMM-NJ is the
+# fitted model with the jump probability set to zero.
+model_nj = JumpHMM.fit(JumpHiddenMarkovModel,
+                       MyTrainingMarketDataSet()["dataset"]["SPY"][!, :volume_weighted_average_price];
+                       rf = 0.043, N = N, ν = nu, dt = 1.0 / 252.0)
+println("observed in-sample skewness = ", round(skewness(g), digits = 4))
+for (name, m) in (("HMM-NJ", model_nj), ("HMM-WJ", model))
+    r  = simulate(m, Tn; n_paths = 1_000, seed = 1234)
+    sk = [skewness(p.observations) for p in r.paths]
+    @info "$name mean simulated skewness = $(round(mean(sk), digits = 4)) (SE $(round(std(sk)/sqrt(1_000), digits = 4)))"
+end

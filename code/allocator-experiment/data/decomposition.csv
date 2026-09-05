@@ -1,0 +1,10 @@
+# Rows of Table "Diversification-return decomposition on a 20-asset
+# target-weight allocator" (label tab:allocator_decomp) in sections/appendix.tex.
+# gbar_p: median path-mean annualized growth rate across the synthetic ensemble.
+# delta_pp: change from the previous row, computed before rounding.
+allocation_rule,gbar_p_pct_per_yr,delta_pp
+Equal-weight buy-and-hold,7.68,
+"Target-weight, static (no rebalance)",1.97,-5.71
+"Target-weight, daily rebalanced",29.69,27.73
+"Target-weight, daily rebalanced + signal",29.83,0.13
+"Real 2025 history, same allocator",11.50,

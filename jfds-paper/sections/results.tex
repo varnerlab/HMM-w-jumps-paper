@@ -41,13 +41,15 @@ selected jump duration had a mean of $90$ steps
 (Supplementary Fig.~\ref{fig:model_internals}; Online
 Appendix~\ref{sec:supp-generator}). We then checked whether the results
 depended on the number of states. The primary analysis used $N = 100$
-states. Across $N=60$ to $200$, the KS and AD pass rates varied by
-less than one percentage point for both HMM-NJ and HMM-WJ. At
-$N = 350$, some states were never visited and their emission
-parameters could not be estimated
-(Online Appendix~\ref{sec:supp-sensitivity}). The results were stable
-across a broad range of state resolutions, so we kept $N=100$ for the
-generator comparisons that followed.
+states. HMM-NJ pass rates moved by less than one percentage point
+across $N = 30$ to $200$, whereas HMM-WJ traded its two metrics against
+each other as the partition changed, gaining autocorrelation accuracy
+and losing AD pass rate as the states grew narrower
+(Supplementary Table~\ref{tab:sensitivity_n}). At $N = 350$, some states were never
+visited and their emission parameters could not be estimated
+(Online Appendix~\ref{sec:supp-sensitivity}). We kept $N=100$ as a
+midpoint of that tradeoff for the generator comparisons that
+followed.
 
 \input{sections/tables/table2_model_comparison}
 
@@ -76,8 +78,10 @@ close to the observed $7.7$, whereas
 Normal emissions underestimated it by about $29\%$
 (Supplementary Table~\ref{tab:emission_hsmm}; Online
 Appendix~\ref{sec:supp-emission-hsmm}). Both HMM variants also
-reproduced the observed skewness of $-0.75$. That skewness arose from
-unequal time spent in negative and positive states rather than from an
+reproduced the observed skewness of $-0.75$
+(Supplementary Table~\ref{tab:descriptive_stats}; Online
+Appendix~\ref{sec:supp-generator}). That skewness arose from unequal
+time spent in negative and positive states rather than from an
 explicit skewness parameter.
 
 The jump episodes were intended to improve temporal fit without
@@ -184,7 +188,8 @@ intercept errors therefore do not, by themselves, imply a worse fit
 to the return distribution.
 
 The larger differences appeared in variance recovery and tail behavior
-(Supplementary Fig.~\ref{fig:tails}). Gaussian SIM had the lowest median $R^2$ error
+(Table~\ref{tab:aggregate}; Supplementary Fig.~\ref{fig:tails}). Gaussian SIM had the
+lowest median $R^2$ error
 because it targets $R^2$ directly. However, it almost never passed the
 distributional tests, and its median excess kurtosis was an order of
 magnitude below the observed value. Centered naive composition
@@ -345,7 +350,8 @@ Because the $R^2$-preserving branch contained only two tickers, we
 tested it on a synthetic-tracker grid spanning
 $(\beta_{\mathrm{true}}, R^2_{\mathrm{true}}) \in \{0.8, 1.0, 1.2\}
 \times \{0.80, 0.85, 0.90, 0.95, 0.99\}$. Each cell had a $100\%$ KS
-pass rate across replications.
+pass rate across replications and recovered its target loading and
+$R^2$ (Supplementary Table~\ref{tab:tracker_grid}).
 The correction removed the observed beta-related variance
 inflation. We then tested the clipping branch under conditions that
 would force it to activate.
@@ -366,19 +372,3 @@ artificially increased. At the observed market variance, the floor
 $f$ did not affect any branch assignment; varying
 $R^2_{\mathrm{preserve}}$ changed only the two tracker assignments
 identified above.
-
-\subsection{Daily-rebalanced portfolio check}
-
-To test a use that depends on joint cross-asset behavior, we applied a
-$20$-asset target-weight allocator to the hybrid-composed $2025$
-paths. Switching the same target weights from static allocation to
-daily rebalancing increased the median annualized growth rate from
-$1.97\%$ to $29.69\%$. Adding the allocation signal increased it by
-only another $0.13$ percentage points, to $29.83\%$. The same allocator
-on the real $2025$ history returned $11.50\%$
-(Supplementary Table~\ref{tab:allocator_decomp}). This comparison was consistent
-with omitted residual covariance creating a diversification-return
-bias, but it did not isolate how much of the gap that omission caused.
-A constant log-wealth shift set the synthetic ensemble median to the
-prespecified $8\%$ annual return prior, but it did not restore the
-missing covariance.

@@ -45,17 +45,18 @@ $\sigma_k$ is a scale parameter rather than the emission standard
 deviation. At $\nu=5$, the emission standard deviation is
 $\sigma_k\sqrt{5/3}$. We selected $\nu = 5$ from a sensitivity sweep.
 We used $\nu = \infty$ for the Normal baseline; Table~\ref{tab:hyperparams}
-gives the explored range. At $\nu=5$, simulated kurtosis was $7.5$
-against the observed $7.7$, compared with $5.5$ under Normal
-emissions. The corresponding Student-$t$ Kolmogorov--Smirnov (KS) and
-Anderson--Darling (AD) pass rates were $98.3\%$ and $94.8\%$. We also
+gives the explored range. Holding the rest of the model fixed, the
+Student-$t$ emission raised simulated kurtosis toward the observed
+value and raised the Kolmogorov--Smirnov (KS) and Anderson--Darling
+(AD) pass rates relative to the Normal emission. We also
 compared HMM-WJ with a hidden semi-Markov model (HSMM) baseline
 adapted from \citet{bullaBulla2006}
-(Supplementary Table~\ref{tab:emission_hsmm};
-Sec.~\ref{sec:supp-emission-hsmm}). The emission and HSMM comparisons
-separated the effects of heavy-tailed emissions and the jump-duration
-mechanism. We estimated the transition matrix $\mathbf{T}$ by counting
-observed transitions, which avoided the initialization sensitivity of iterative
+(Supplementary Table~\ref{tab:emission_hsmm}; Online
+Appendix~\ref{sec:supp-emission-hsmm}). The emission and HSMM
+comparisons separated the effects of heavy-tailed emissions and the
+jump-duration mechanism. We estimated the transition matrix $\mathbf{T}$
+by counting observed transitions, which avoided the initialization
+sensitivity of iterative
 expectation-maximization~\cite{bilmes1998}. The counted matrix was
 concentrated near its diagonal, but individual states, including tail
 states, usually lasted only $1$--$2$ days
@@ -103,9 +104,9 @@ frequency-weighted mixture of the state emission distributions. The
 solved $\bar{\pi}$ is exact for the ordinary transition matrix but only
 approximate for the jump-augmented process because it does not include
 the remaining jump duration. The full simulation procedure appears in
-Algorithm~\ref{alg:hmmwj}. Each step followed $\mathbf{T}$ or
-continued a jump episode and then drew a return from the selected
-state's emission distribution.
+Algorithm~\ref{alg:hmmwj}. Each step followed $\mathbf{T}$ or continued
+a jump episode and then drew a return from the selected state's emission
+distribution.
 
 % --- Architecture figure ----------------------------------------------------
 \begin{figure}[tp]
@@ -296,5 +297,5 @@ that contain an episode
 $w_\kappa$ set the relative weight of the kurtosis error. The search ranges,
 $w_\kappa$, $L$, and the remaining HMM-WJ and SIM hyperparameters are
 reported in Table~\ref{tab:hyperparams}. We fixed the selected
-hyperparameters before the generator comparisons and holdout evaluation in
-Section~\ref{sec:results}.
+hyperparameters before running the generator comparisons and the
+holdout evaluation.

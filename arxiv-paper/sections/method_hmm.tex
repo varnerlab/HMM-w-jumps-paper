@@ -45,10 +45,10 @@ $\sigma_k$ is a scale parameter rather than the emission standard
 deviation. At $\nu=5$, the emission standard deviation is
 $\sigma_k\sqrt{5/3}$. We selected $\nu = 5$ from a sensitivity sweep.
 We used $\nu = \infty$ for the Normal baseline; Table~\ref{tab:hyperparams}
-gives the explored range. At $\nu=5$, simulated kurtosis was $7.5$
-against the observed $7.7$, compared with $5.5$ under Normal
-emissions. The corresponding Student-$t$ Kolmogorov--Smirnov (KS) and
-Anderson--Darling (AD) pass rates were $98.3\%$ and $94.8\%$. We also
+gives the explored range. Holding the rest of the model fixed, the
+Student-$t$ emission raised simulated kurtosis toward the observed
+value and raised the Kolmogorov--Smirnov (KS) and Anderson--Darling
+(AD) pass rates relative to the Normal emission. We also
 compared HMM-WJ with a hidden semi-Markov model (HSMM) baseline
 adapted from Bulla and Bulla~\cite{bullaBulla2006}
 (Table~\ref{tab:emission_hsmm}; Online
@@ -297,5 +297,5 @@ that contain an episode
 $w_\kappa$ set the relative weight of the kurtosis error. The search ranges,
 $w_\kappa$, $L$, and the remaining HMM-WJ and SIM hyperparameters are
 reported in Table~\ref{tab:hyperparams}. We fixed the selected
-hyperparameters before the generator comparisons and holdout evaluation in
-Section~\ref{sec:results}.
+hyperparameters before running the generator comparisons and the
+holdout evaluation.

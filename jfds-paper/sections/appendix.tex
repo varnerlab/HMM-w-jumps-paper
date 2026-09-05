@@ -43,8 +43,8 @@ return path for a broad-market exchange-traded fund (ticker SPY):
 \end{equation}
 Centering does not change covariance, so these values are numerically
 identical to those obtained from the raw draws.
-Per-ticker values were plotted as histograms in
-Supplementary Fig.~\ref{fig:cov_diag}. Across the $423$ tickers, the full-return
+We plotted the per-ticker values as histograms
+(Supplementary Fig.~\ref{fig:cov_diag}). Across the $423$ tickers, the full-return
 JumpHMM generator (used by the hybrid and naive composition
 methods), the residual-fit JumpHMM generator (used by the
 JumpHMM-on-residuals composition method), and the Gaussian baseline
@@ -53,7 +53,7 @@ $6.58\times10^{-5}$, and $2.26\times10^{-4}$, respectively. Their
 per-ticker values ranged from $-0.0061$ to $0.0061$. These values
 quantify the cross-term omitted in Eq.~\eqref{eq:scale}.
 
-\begin{figure}[t]
+\begin{figure}[tbp]
   \centering
   \includegraphics[width=0.85\textwidth]{figs/supplement/FigS01-Cross-Covariance.pdf}
   \caption{\textbf{Empirical normalized cross-covariance
@@ -75,22 +75,19 @@ quantify the cross-term omitted in Eq.~\eqref{eq:scale}.
 %   (4) rejected alternatives
 % =============================================================================
 
-\section{Bias correction for daily-rebalanced backtests}
+\section{Rebalancing under independent residuals}
 \label{sec:supp-bias}
 
-This appendix derives the bias correction in
-Eq.~\eqref{eq:bias-correction}. Under daily rebalancing, the raw
-synthetic ensemble had a median annualized growth rate about $22$
-percentage points above the long-run prior. The variance correction
-in Eq.~\eqref{eq:scale} first sets each synthetic asset's second
-moment to its generator target. When that target matches the empirical
-second moment, the second-order formula for the diversification return
-is also matched at the asset level. The remaining difference can
-reflect omitted cross-asset residual covariance, higher-order Taylor
-terms, calibration drift, and the documented attenuation of realized
-diversification returns~\cite{boucheyNemtchinovWong2015}. The
-location-shift correction absorbs these effects as a single empirical
-drag on log-wealth.
+To determine what a portfolio-level use of these paths inherits from
+the independent-residual construction, this appendix derives the
+diversification return of a rebalanced portfolio under
+Eq.~\eqref{eq:sim-composition}. The variance correction in
+Eq.~\eqref{eq:scale} sets each synthetic asset's second moment to its
+generator target. When that target matches the empirical second
+moment, the second-order formula for the diversification return is
+matched at the asset level as well. What the construction does not
+match is the cross-asset residual covariance, and the derivation below
+isolates where that omission enters.
 
 The synthetic paths reproduce per-asset marginals and single-factor
 cross-sectional dependence. Each residual generator retains its own
@@ -108,31 +105,28 @@ process is:
   W_t \;=\; W_{t-1} \sum_{i} w_i \exp\!\big(g_i(t)\,\Delta t\big),
   \label{eq:wealth-recursion}
 \end{equation}
-so the per-step log return on the portfolio is:
-\begin{equation*}
-  \log\!\left(\frac{W_t}{W_{t-1}}\right)
-  = \log\!\left[\sum_i w_i \exp\!\big(g_i(t)\,\Delta t\big)\right].
-\end{equation*}
-We suppress the time argument, writing $g_i$ for $g_i(t)$. A
-second-order Taylor expansion of the exponential about zero gives:
-\begin{equation*}
-  \exp(g_i\,\Delta t)
-  = 1 + g_i\,\Delta t + \tfrac{1}{2}(g_i\,\Delta t)^2
-  + O\!\left((g\,\Delta t)^3\right).
-\end{equation*}
-Substituting this expansion into each summand gives:
+so the per-step log return on the portfolio is
+$\log(W_t/W_{t-1}) = \log\!\sum_i w_i \exp(g_i(t)\,\Delta t)$. We
+suppress the time argument, writing $g_i$ for $g_i(t)$. A
+second-order Taylor expansion of the exponential about zero is
+$\exp(g_i\,\Delta t) = 1 + g_i\,\Delta t + \tfrac{1}{2}(g_i\,\Delta t)^2
++ O((g\,\Delta t)^3)$. Substituting it into each summand of
+$\sum_i w_i \exp(g_i\,\Delta t)$ gives:
 \begin{align}
   \sum_{i} w_i \exp\!\big(g_i\,\Delta t\big)
-   &= \sum_{i} w_i \!\left[1 + g_i\,\Delta t
-        + \tfrac{1}{2}(g_i\,\Delta t)^2\right. \notag \\
-   &\hspace{7em}\left.{}+ O\!\big((g\,\Delta t)^3\big)\right] \notag \\
+   &= \sum_{i} w_i \!\left[\,1 + g_i\,\Delta t
+        + \tfrac{1}{2}(g_i\,\Delta t)^2
+        + O\!\big((g\,\Delta t)^3\big)\right]
+       && \text{(Taylor)} \notag \\
    &= \sum_{i} w_i
         + \Delta t \sum_{i} w_i\, g_i
         + \tfrac{1}{2}(\Delta t)^2 \sum_{i} w_i\, g_i^2
-        + O\!\big((g\,\Delta t)^3\big) \notag \\
+        + O\!\big((g\,\Delta t)^3\big)
+       && \text{(distribute)} \notag \\
    &= 1 + \Delta t \sum_{i} w_i\, g_i
         + \tfrac{1}{2}(\Delta t)^2 \sum_{i} w_i\, g_i^2
         + O\!\big((g\,\Delta t)^3\big).
+       && \text{(}\textstyle\sum_i w_i = 1\text{)}
   \label{eq:exp-expand}
 \end{align}
 A second-order Taylor expansion of $\log(1+x)$ about $x=0$ gives
@@ -172,8 +166,9 @@ suppressing the time argument):
   \label{eq:gp-onestep}
 \end{equation}
 
-Restoring the time argument, we now take unconditional expectations
-of Eq.~\eqref{eq:gp-onestep} under stationarity. Define the
+To obtain expected annualized portfolio growth, we restored the time
+argument and took unconditional expectations of
+Eq.~\eqref{eq:gp-onestep} under stationarity. Define the
 per-asset annualized mean and variance:
 \begin{equation}
   \mu_i \;:=\; \E\!\big(g_i(t)\big), \qquad
@@ -273,7 +268,8 @@ dispersion into compounded growth. \citet{markowitz1976longRun}
 described this as the variance bonus of the long-run mean-variance
 allocation; \citet{boothFama1992} called it the diversification return.
 
-Substituting the single-index decomposition
+To separate market and residual contributions to the diversification
+return, we substituted the single-index decomposition
 $g_i(t) = \alpha_i + \beta_i\, g_m(t) + \eps_i(t)$, with market
 variance $\sigma_m^2 := \Var(g_m(t))$, per-asset residual variance
 $\sigma_{\eps,i}^2 := \Var(\eps_i(t))$, and
@@ -326,10 +322,8 @@ sampling variance. For a stationary AR(1) residual with variance
 $\sigma_\eps^2$, the variance of its sample mean is approximately
 $T^{-1}\sigma_\eps^2(1+\phi)/(1-\phi)$. Under ergodicity, serial
 dependence changes per-path sampling noise, not the stationary mean.
-The raw median's $\sim\!22$-percentage-point
-excess over an external long-run growth prior is therefore not caused
-by i.i.d.\ sampling \emph{across time} at the level of the
-second-order formula.
+Serial dependence in the residual draw is therefore not a lever on the
+diversification return at the level of the second-order formula.
 
 The direct structural difference is contemporaneous. The derivation
 assumes residuals are orthogonal across assets at each time slice, as
@@ -339,201 +333,14 @@ independent-generator value
 $\sigma_{\eps,i}^2+\sigma_{\eps,j}^2$. Matching each marginal variance
 does not restore this covariance. The synthetic $D_\eps$ will therefore
 exceed its real-market counterpart when the omitted covariance is
-positive. Measuring that contribution requires a joint-residual
-experiment, which we did not run. The gap may also include higher-moment corrections to
-the Taylor expansion (heavy-tailed JumpHMM marginals have non-trivial
-third and fourth cumulants), the time-varying volatility and
-correlation across the $2014$--$2024$ calibration window relative to a
-long-run prior, and the documented attenuation of realized
-diversification returns on real equity portfolios at all rebalancing
-horizons \cite{boucheyNemtchinovWong2015}. The
-location-shift correction of Eq.~\eqref{eq:bias-correction} treats
-this composite shortfall as a single empirical drag $b$ to be
-absorbed and is agnostic to its decomposition.
+positive. Quantifying that contribution requires a joint-residual
+experiment with the marginals and the allocation rule held fixed,
+which we did not run. Realized diversification returns on real equity
+portfolios are also attenuated relative to the second-order formula at
+all rebalancing horizons~\cite{boucheyNemtchinovWong2015}, so the
+synthetic excess is an upper bound on what an independent-residual
+generator would contribute in a live comparison.
 
-% --- Table: SPY descriptive statistics ---
-\begin{table}[tbp]
-\centering
-\caption{\textbf{Descriptive statistics and stylized-facts tests for
-    SPY daily excess growth rates.} In-sample (IS): $2014$--$2024$
-    ($T = 2{,}766$); out-of-sample (OoS): $2025$ ($T = 249$).
-    Gaussian and Laplace columns show maximum likelihood estimation
-    (MLE) fits to the in-sample data. We used the Jarque--Bera (JB)
-    normality test and the Ljung--Box (LB) autocorrelation test at lag
-    $20$. $^{\ast}$ denotes rejection at
-    $\alpha = 0.05$.}
-\label{tab:descriptive_stats}
-\small
-\resizebox{\textwidth}{!}{%
-\begin{tabular}{@{}lcccc@{}}
-\toprule
-\textbf{Statistic} & \textbf{IS Observed} & \textbf{OoS Observed} & \textbf{Gaussian} & \textbf{Laplace} \\ \midrule
-Mean (annualized, \%)       & 6.31   & 11.60  & 6.31   & 14.19  \\
-Standard deviation of $G_t$ (\% yr$^{-1}$) & 214.50 & 220.62 & 214.46 & 205.93 \\
-Skewness                    & $-0.753$ & $-1.093$ & 0    & 0      \\
-Excess Kurtosis             & 7.715  & 6.867  & 0      & 3      \\
-JB normality test           & reject$^\ast$ ($p<0.001$) & reject$^\ast$ ($p<0.001$) & not used & not used \\
-LB test on $G_t$ (lag 20)   & reject$^\ast$ ($p<0.001$) & reject$^\ast$ ($p=0.019$) & not used & not used \\
-LB test on $|G_t|$ (lag 20) & reject$^\ast$ ($p<0.001$) & reject$^\ast$ ($p<0.001$) & not used & not used \\
-\bottomrule
-\end{tabular}%
-}
-\end{table}
-
-To measure the bias, we applied a $20$-asset, long-only target-weight
-allocator to the hybrid-composed universe. We calibrated the assets
-over $2014$--$2024$, deployed the allocator in $2025$, limited the
-universe to names with calibrated $(\alpha,\beta)$ and
-$\max\beta=1.21$, and assumed a $5$-basis-point round-trip cost. We
-then decomposed the path-mean annualized growth rate
-$\bar g_p \equiv (T\,\Delta t)^{-1}\,\log(W_{p,T}/W_{p,0})$ into
-static and rebalancing-driven components
-(Supplementary Table~\ref{tab:allocator_decomp}). The static-to-daily-rebalance
-switch increased the median by $27.73$ percentage points. Adding a
-signal after daily rebalancing changed it by another $0.13$ percentage
-points. The same
-allocator on the real $2025$ growth-rate history produced
-$11.5\%/\mathrm{yr}$, about $18$ percentage points below the
-synthetic median. The synthetic residuals were independent across
-tickers and therefore omitted the contemporaneous covariance present
-in real markets. Determining how much of the gap this omission caused
-would require a joint-residual experiment with the marginals and
-allocator held fixed.
-
-% --- Table: 20-asset allocator decomposition ---
-\begin{table}[tbp]
-\centering
-\caption{\textbf{Diversification-return decomposition on a
-    $20$-asset target-weight allocator deployed against the
-    hybrid-composed $2025$ universe.} Median path-mean annualized
-    growth rate $\bar g_p$ across the synthetic ensemble. Equal-weight
-    buy-and-hold serves as a passive baseline; the target-weight
-    allocation is reported under static (no intra-year rebalance) and
-    daily-rebalanced regimes, with and without a signal on top of the
-    target weights. The static-to-daily increase of $+27.73$ percentage points on the
-    same target weights isolates the diversification return of
-    Eq.~\eqref{eq:dr-sim}. The same allocator deployed against the
-    real $2025$ growth-rate history is shown for comparison.}
-\label{tab:allocator_decomp}
-\small
-\begin{tabular}{@{}lr@{}}
-\toprule
-\textbf{Allocation rule (synthetic 2025 universe)} & \textbf{$\bar g_p$ (\%/yr)} \\ \midrule
-Equal-weight buy-and-hold                          & $7.68$  \\
-Target-weight, static (no rebalance)               & $1.97$  \\
-Target-weight, daily rebalanced                    & $29.69$ \\
-Target-weight, daily rebalanced + signal           & $29.83$ \\ \midrule
-\textit{Real 2025 history, same allocator}         & $11.50$ \\
-\bottomrule
-\end{tabular}
-\end{table}
-
-% --- Figure: Heavy-tail preservation ---
-\begin{figure}[tbp]
-  \centering
-  \includegraphics[width=\textwidth]{figs/supplement/FigS02-Tail-Preservation.pdf}
-  \caption{\textbf{Heavy-tail preservation: excess kurtosis and Hill
-    tail index vs calibrated $\beta$.}
-    Each point is a per-ticker median over $100$ replications.
-    \emph{Left:} excess kurtosis, $y$-axis clipped to $[-2, 20]$ for
-    readability. The dashed line marks the median real-data excess
-    kurtosis across the universe ($\kappa_{\real} \approx 13$); the
-    hybrid and naive composition methods (orange and blue) track the generator's
-    kurtosis, while the Gaussian single-index model (SIM) collapses to
-    $\kappa \approx 1$.
-    \emph{Right:} Hill tail-index estimator on the upper $5\%$ of
-    $|g|$. The hybrid and naive medians remain near $0.37$ throughout the
-    $\beta$ range; Gaussian SIM drops to $\sim 0.22$. The hybrid's median
-    being below $\kappa_{\real}$ reflects the JumpHMM marginal's own
-    kurtosis rather than a composition-rule distortion: hybrid tracks
-    naive (both retain the generator's tails) while Gaussian SIM does not.}
-  \label{fig:tails}
-\end{figure}
-
-The correction subtracts a constant drift in log-wealth so that the
-ensemble median annualized growth rate matches an external prior
-$\bar g^{\mathrm{prior}}$. At each time $t$, it multiplies every path
-by the same factor and therefore preserves cross-path wealth ranks.
-It also shifts every log-return increment by the same constant, which
-leaves the variance of those increments unchanged. For path $p$, we
-applied the following correction:
-\begin{equation}
-\label{eq:bias-correction}
-  W_{p,t}^{\mathrm{corr}} \;=\; W_{p,t}\cdot
-  \exp\!\big(\!-b\,\cdot t\,\Delta t\big),
-  \qquad
-  b \;=\; \operatorname*{median}_{p}\bar g_p \;-\; \bar g^{\mathrm{prior}},
-\end{equation}
-with $\Delta t$ the integration step in years and $b$, $\bar g_p$,
-$\bar g^{\mathrm{prior}}$ all in the same per-year growth-rate units.
-The correction is a linear detrend in log-wealth and remains
-multiplicative in wealth. It changes drawdown dates and depths, so it
-adjusts the return level rather than preserving drawdowns. It does
-preserve terminal-wealth ranks and the variance of log-return
-increments. We set $\bar g^{\mathrm{prior}}=8\%/\mathrm{yr}$ before
-examining the holdout result. This value was based on external
-long-run equity-return estimates and an allowance for fees, turnover,
-and market impact~\cite{damodaranERP, ibbotsonSBBI}. We used this
-documented prior rather than the realized test year to avoid circular
-calibration. Matching the realized year would force the synthetic
-median to equal the test sample. In this deployment, the real-$2025$
-outcome of $11.5\%/\mathrm{yr}$ fell just above the median of the
-corrected ensemble.
-
-% --- Figure: R^2 distribution across the universe ---
-\begin{figure}[tbp]
-  \centering
-  \includegraphics[width=0.85\textwidth]{figs/supplement/FigS03-R2-Distribution.pdf}
-  \caption{\textbf{Calibrated $R^2$ distribution across the $423$
-    non-SPY tickers.} Histogram of ordinary least-squares (OLS) $R^2$
-    against SPY over the
-    $2014$--$2024$ window. The two tickers crossing the
-    $R^2_{\mathrm{preserve}} = 0.80$ threshold (dashed line) are index
-    exchange-traded funds (QQQ, SPYG); the highest-$R^2$ individual
-    stock (BLK, $0.645$)
-    falls $\sim 0.16$ below the threshold. The $R^2$-preserving
-    branch therefore contains only QQQ and SPYG in this universe.}
-  \label{fig:r2_distribution}
-\end{figure}
-
-Several alternative fixes were considered and rejected. A
-path-filtering rule that drops synthetic paths above a $\bar g_p$
-threshold turns the threshold itself into a tuning target and
-removes only a subset of the bias's consequences while leaving
-the underlying bias intact. Inflating per-trade transaction
-costs to absorb the diversification return would require round-trip
-costs of $\sim\!70$~basis points versus the $1$--$10$~basis-point
-range assumed for liquid United States equity, shifting the misrepresentation from
-the synthetic generator to its cost model. Drifting the
-calibrated parameters between calibration and deployment to widen
-the predictive envelope, with drift scale varied across
-$\{0, 1, 2, 3, 5\}$ multiples of the OLS standard error, left the
-median Sharpe ratio essentially unchanged across the sweep, so
-standard-error-scale parameter drift did not absorb the bias. Imposing an AR(1) on the residual
-draw would conflict with the copula reorder step because reordering
-destroys temporal structure. Preserving both structures would require
-a block-ordered copula sampler and therefore a new residual model.
-The per-ticker block bootstrap~\cite{politisRomano1994} preserves each
-ticker's temporal residual structure but not covariance across
-tickers. A joint bootstrap or residual copula would be required for
-that purpose. The block bootstrap also replaces the JumpHMM marginal
-rather than correcting it. A multiplicative haircut on the raw-versus-static
-deviation,
-$W^{\mathrm{corr}} = W_{\mathrm{static}}\cdot
-   (W_{\mathrm{raw}}/W_{\mathrm{static}})^{k}$, hits the same
-target at $k$ chosen to match the prior, but it changes the rank
-ordering of paths and inherits the static allocation's drawdown
-pattern.
-
-The location-shift correction preserves percentile ranks and the
-relative ranking of strategies evaluated on the same paths. It also
-preserves centered moments of terminal log growth, including variance,
-skewness, and kurtosis. Because it changes the drawdown distribution,
-we evaluated drawdowns on the uncorrected ensemble. The correction
-does not repair residual autocorrelation, absolute Sharpe under daily
-rebalancing, or sensitivity to rebalancing frequency. Those targets
-require a residual model that preserves both temporal and
-cross-sectional dependence.
 
 % =============================================================================
 % S3 Validation metric definitions (KS, AD, W1, Hellinger)
@@ -542,8 +349,9 @@ cross-sectional dependence.
 \section{Validation metric definitions}
 \label{sec:supp-validation}
 
-The distributional and tail metrics reported in the main results
-were defined as follows. The two-sample Kolmogorov--Smirnov (KS) statistic
+To make the validation criteria reproducible, we defined the
+distributional and tail metrics reported in the main results. The
+two-sample Kolmogorov--Smirnov (KS) statistic
 between the empirical cumulative distribution functions (CDFs) of
 the observed and simulated growth-rate samples ($G_{\rm obs}$ of length $n$ and $G_{\rm sim}$ of length $m$)
 is $D = \sup_x |F_n(x) - F_m(x)|$ \cite{kolmogorov1933, smirnov1948};
@@ -605,6 +413,35 @@ We abbreviate mean absolute error in the autocorrelation function as ACF-MAE.
 % control. Every numerical value evaluates the stated closed form at the
 % fitted SPY model (generator script: code/spy-experiment/SI-Derivation-Checks.jl).
 % =============================================================================
+
+% --- Table: SPY descriptive statistics ---
+\begin{table}[tbp]
+\centering
+\caption{\textbf{Descriptive statistics and stylized-facts tests for
+    SPY daily excess growth rates.} In-sample (IS): $2014$--$2024$
+    ($T = 2{,}766$); out-of-sample (OoS): $2025$ ($T = 249$).
+    Gaussian and Laplace columns show maximum likelihood estimation
+    (MLE) fits to the in-sample data. We used the Jarque--Bera (JB)
+    normality test and the Ljung--Box (LB) autocorrelation test at lag
+    $20$. $^{\ast}$ denotes rejection at
+    $\alpha = 0.05$.}
+\label{tab:descriptive_stats}
+\small
+\resizebox{\textwidth}{!}{%
+\begin{tabular}{@{}lcccc@{}}
+\toprule
+\textbf{Statistic} & \textbf{IS Observed} & \textbf{OoS Observed} & \textbf{Gaussian} & \textbf{Laplace} \\ \midrule
+Mean (annualized, \%)       & 6.31   & 11.60  & 6.31   & 14.19  \\
+Standard deviation of $G_t$ (\% yr$^{-1}$) & 214.50 & 220.62 & 214.46 & 205.93 \\
+Skewness                    & $-0.753$ & $-1.093$ & 0    & 0      \\
+Excess Kurtosis             & 7.715  & 6.867  & 0      & 3      \\
+JB normality test           & reject$^\ast$ ($p<0.001$) & reject$^\ast$ ($p<0.001$) & not used & not used \\
+LB test on $G_t$ (lag 20)   & reject$^\ast$ ($p<0.001$) & reject$^\ast$ ($p=0.019$) & not used & not used \\
+LB test on $|G_t|$ (lag 20) & reject$^\ast$ ($p<0.001$) & reject$^\ast$ ($p<0.001$) & not used & not used \\
+\bottomrule
+\end{tabular}%
+}
+\end{table}
 
 \section{Derivation of the single-asset generator}
 \label{sec:supp-generator}
@@ -970,7 +807,15 @@ Supplementary Table~\ref{tab:emission_hsmm} ($7.5$ and $5.5$) sit
 below these population values because the sample kurtosis of a
 heavy-tailed series of $2{,}766$ observations is biased downward, but
 the population gap of $2.5$ between the emission choices matches the
-simulated gap of $2.0$ in both direction and size.
+simulated gap of $2.0$ in both direction and size. The mixture also
+carries the asymmetry of the fitted state occupancies without an
+explicit skewness parameter: simulating $1{,}000$ in-sample-length
+paths gives a mean sample skewness of $-0.76$ for HMM-NJ and $-0.73$
+for HMM-WJ, against the observed $-0.75$
+(Supplementary Table~\ref{tab:descriptive_stats}). Because the states partition the
+Laplace quantiles of an asymmetric series, the occupancy-weighted
+mixture inherits that asymmetry through the $\mu_k$ and $\sigma_k$
+estimates.
 
 \subsection{Dependence structure without jumps}
 \label{sec:supp-gen-nojump}
@@ -1239,16 +1084,18 @@ Supplementary Fig.~\ref{fig:model_internals}.
 \section{Transition matrix internals and partition diagnostics}
 \label{sec:supp-transitions}
 
-Supplementary Fig.~\ref{fig:model_internals} shows the fitted hidden Markov
-model with jumps (HMM-WJ) for SPY with $N=100$ states. The fitted Laplace
-cumulative distribution function (CDF) and the empirical CDF
-are shown with the $99$ state boundaries $Q_k$. The transition matrix
+To determine why the ordinary state process required a duration
+override, we inspected the fitted hidden Markov model with jumps
+(HMM-WJ) components for SPY at
+$N=100$ (Supplementary Fig.~\ref{fig:model_internals}). The fitted Laplace CDF and the
+empirical CDF are shown with the $99$ state boundaries $Q_k$. The transition matrix
 $\mathbf{T}$ has a near-diagonal band, with most off-diagonal mass
 within $\pm5$ states of the diagonal. Under the ordinary Markov
 transitions, every state has an expected residence time of only
 $1$--$2$ steps. The fitted jump duration is $\lambda=90$ steps, about two
 orders of magnitude longer. Every state had at least one in-sample
-observation.
+observation. This residence-time gap, rather than missing states,
+motivated the duration override.
 
 \begin{figure}[tbp]
   \centering
@@ -1276,8 +1123,8 @@ observation.
 
 To compare the emission and duration specifications, we evaluated
 three variants on SPY
-(Supplementary Table~\ref{tab:emission_hsmm}): a hidden semi-Markov model
-(HSMM) baseline adapted from \citet{bullaBulla2006} ($K = 8$ states,
+(Supplementary Table~\ref{tab:emission_hsmm}): a hidden semi-Markov model (HSMM)
+baseline adapted from \citet{bullaBulla2006} ($K = 8$ states,
 negative-binomial dwell times with a geometric fallback, and
 Student-$t$ emissions), HMM-WJ with the original
 Gaussian emissions ($N = 100$), and HMM-WJ with Student-$t$
@@ -1289,7 +1136,9 @@ model. Holding the rest of HMM-WJ fixed, changing the emission from
 Normal to Student-$t$ ($\nu=5$) increased simulated excess kurtosis
 from $5.5$ to $7.5$, against an observed value of $7.7$. The Student-$t$
 emission also increased the KS and AD pass rates, while ACF-MAE and
-the distributional distances changed modestly.
+the distributional distances changed modestly. The emission choice
+therefore explained the kurtosis gain in this controlled HMM-WJ
+comparison, while it changed temporal fit little.
 
 \begin{table}[tbp]
 \centering
@@ -1350,19 +1199,114 @@ Hellinger           & $0.239$ ($0.001$)       & $0.212$ ($0.001$)       & $\math
   \resizebox{\textwidth}{!}{\input{sections/tables/table2_by_branch}}
 \end{table}
 
+% --- Table: synthetic tracker grid ---
+\begin{table}[tbp]
+\centering
+\caption{\textbf{Synthetic-tracker grid for the $R^2$-preserving
+    branch.} The observed universe places only two tickers on this
+    branch, so we generated synthetic trackers at each
+    $(\beta_{\mathrm{true}}, R^2_{\mathrm{true}})$ cell, composed them
+    with Algorithm~\ref{alg:hybrid}, and recovered
+    $(\hat\beta, \hat R^2)$ by ordinary least squares. Entries are
+    medians over $100$ replications per cell with cross-replication
+    standard deviations in parentheses; the Kolmogorov--Smirnov (KS)
+    pass rate is the fraction of replications whose two-sample test
+    against the target marginal exceeds $p = 0.05$. Every cell was
+    assigned to the $R^2$-preserving branch.}
+\label{tab:tracker_grid}
+\small
+\begin{tabular}{@{}ccccc@{}}
+\toprule
+$\boldsymbol{\beta_{\mathrm{true}}}$ &
+$\boldsymbol{R^2_{\mathrm{true}}}$ &
+$\boldsymbol{\hat\beta}$ & $\boldsymbol{\hat R^2}$ &
+\textbf{KS pass (\%)} \\ \midrule
+$0.8$ & $0.80$ & $0.8006$ ($0.0072$) & $0.7998$ ($0.0044$) & $100.0$ \\
+$0.8$ & $0.85$ & $0.8006$ ($0.0059$) & $0.8497$ ($0.0041$) & $100.0$ \\
+$0.8$ & $0.90$ & $0.8004$ ($0.0048$) & $0.8999$ ($0.0028$) & $100.0$ \\
+$0.8$ & $0.95$ & $0.7995$ ($0.0033$) & $0.9500$ ($0.0013$) & $100.0$ \\
+$0.8$ & $0.99$ & $0.7999$ ($0.0016$) & $0.9901$ ($0.0003$) & $100.0$ \\ \midrule
+$1.0$ & $0.80$ & $1.0003$ ($0.0089$) & $0.8017$ ($0.0052$) & $100.0$ \\
+$1.0$ & $0.85$ & $0.9994$ ($0.0084$) & $0.8497$ ($0.0039$) & $100.0$ \\
+$1.0$ & $0.90$ & $0.9999$ ($0.0065$) & $0.8999$ ($0.0026$) & $100.0$ \\
+$1.0$ & $0.95$ & $1.0005$ ($0.0036$) & $0.9502$ ($0.0013$) & $100.0$ \\
+$1.0$ & $0.99$ & $1.0000$ ($0.0018$) & $0.9900$ ($0.0003$) & $100.0$ \\ \midrule
+$1.2$ & $0.80$ & $1.2007$ ($0.0126$) & $0.8001$ ($0.0048$) & $100.0$ \\
+$1.2$ & $0.85$ & $1.2011$ ($0.0105$) & $0.8503$ ($0.0043$) & $100.0$ \\
+$1.2$ & $0.90$ & $1.1996$ ($0.0081$) & $0.8994$ ($0.0027$) & $100.0$ \\
+$1.2$ & $0.95$ & $1.1995$ ($0.0052$) & $0.9498$ ($0.0014$) & $100.0$ \\
+$1.2$ & $0.99$ & $1.1998$ ($0.0025$) & $0.9900$ ($0.0003$) & $100.0$ \\
+\bottomrule
+\end{tabular}
+\end{table}
+
 \section{State-resolution sensitivity}
 \label{sec:supp-sensitivity}
 
-We swept the partition resolution over
-$N \in \{30, 60, 90, 100, 150, 200, 350\}$ and re-evaluated the
-in-sample KS and AD pass rates for the hidden Markov model with no jumps
-(HMM-NJ) and HMM-WJ. Pass rates varied
-little across $N \in \{60, \ldots, 200\}$.
-At $N = 30$ both models lost several percentage
-points on the AD test. At $N = 350$ several quantile
-bins were never visited in the historical record, leaving the
-corresponding emission parameters undefined. We adopted $N = 100$
-for all subsequent experiments.
+To test whether the results depended on state resolution, we swept the
+partition over $N \in \{30, 60, 90, 100, 150, 200, 350\}$ and
+re-evaluated the in-sample Kolmogorov--Smirnov (KS) and
+Anderson--Darling (AD) pass rates and the mean absolute error in the
+absolute-return autocorrelation function (ACF-MAE) for the hidden
+Markov model with no jumps (HMM-NJ) and the hidden Markov model with
+jumps (HMM-WJ), holding the tail-set size $N_{\rm tail}$ fixed
+(Supplementary Table~\ref{tab:sensitivity_n}). HMM-NJ was insensitive to the
+partition: its pass rates moved by less than one percentage point and
+its ACF-MAE was unchanged at the reported precision, as expected for a
+model with no duration override whose behavior could depend on the
+width of a tail state. HMM-WJ traded the two metrics against each other. Because
+$N_{\rm tail}$ is fixed, a finer partition makes the tail set a
+narrower quantile band, so each forced step lands further out, and
+ACF-MAE improved from $0.057$ at $N = 30$ to $0.045$ at $N = 200$. The
+same narrowing left fewer observations behind each tail state's
+emission parameters, and the AD pass rate, which weights tail
+discrepancies heavily, moved the other way, from $97.1\%$ at $N = 30$
+to $82.8\%$ at $N = 200$. The intermediate values were not monotone,
+which is consistent with re-running the $(\epsilon, \lambda)$ grid
+search on a finite path ensemble at each $N$. At $N = 350$ several
+quantile bins were never visited in the historical record, leaving the
+corresponding emission parameters undefined. We adopted $N = 100$ for
+all subsequent experiments as a midpoint that held the KS pass rate
+above $98\%$ and the AD pass rate within a few percentage points of its
+best value while capturing part of the ACF-MAE improvement.
+
+% --- Table: state-resolution sensitivity ---
+\begin{table}[tbp]
+\centering
+\caption{\textbf{Sensitivity of in-sample fit to the number of
+    states $N$.} All entries are computed from $1{,}000$ simulated
+    in-sample-length paths for SPY at significance level
+    $\alpha = 0.05$, with the tail-set size $N_{\rm tail}$ and the
+    remaining hyperparameters of Table~\ref{tab:hyperparams} held
+    fixed and the $(\epsilon, \lambda)$ grid search re-run at each
+    $N$ for the hidden Markov model with jumps (HMM-WJ). Standard
+    errors in parentheses: binomial for pass rates, bootstrap
+    ($B = 500$) for the mean absolute error in the absolute-return
+    autocorrelation function (ACF-MAE). HMM-NJ denotes the hidden
+    Markov model with no jumps. Values at $N = 100$ reproduce the
+    corresponding entries of Table~\ref{tab:model_comparison}.}
+\label{tab:sensitivity_n}
+\small
+\begin{tabular}{@{}lcccc@{}}
+\toprule
+\textbf{Model} & $\boldsymbol{N}$ & \textbf{KS pass (\%)} &
+  \textbf{AD pass (\%)} & \textbf{ACF-MAE} \\ \midrule
+HMM-NJ & $30$  & $99.3$ ($0.3$) & $97.8$ ($0.5$) & $0.059$ ($<\!0.001$) \\
+HMM-NJ & $60$  & $99.5$ ($0.2$) & $98.5$ ($0.4$) & $0.059$ ($<\!0.001$) \\
+HMM-NJ & $90$  & $99.3$ ($0.3$) & $98.6$ ($0.4$) & $0.059$ ($<\!0.001$) \\
+HMM-NJ & $100$ & $99.3$ ($0.3$) & $98.2$ ($0.4$) & $0.059$ ($<\!0.001$) \\
+HMM-NJ & $150$ & $99.1$ ($0.3$) & $98.7$ ($0.4$) & $0.059$ ($<\!0.001$) \\
+HMM-NJ & $200$ & $99.2$ ($0.3$) & $98.3$ ($0.4$) & $0.059$ ($<\!0.001$) \\ \midrule
+HMM-WJ & $30$  & $98.4$ ($0.4$) & $97.1$ ($0.5$) & $0.057$ ($<\!0.001$) \\
+HMM-WJ & $60$  & $96.7$ ($0.6$) & $91.4$ ($0.9$) & $0.053$ ($<\!0.001$) \\
+HMM-WJ & $90$  & $98.3$ ($0.4$) & $95.2$ ($0.7$) & $0.055$ ($<\!0.001$) \\
+HMM-WJ & $100$ & $98.3$ ($0.4$) & $94.8$ ($0.7$) & $0.053$ ($<\!0.001$) \\
+HMM-WJ & $150$ & $97.7$ ($0.5$) & $91.7$ ($0.9$) & $0.052$ ($<\!0.001$) \\
+HMM-WJ & $200$ & $96.0$ ($0.6$) & $82.8$ ($1.2$) & $0.045$ ($0.001$) \\
+\bottomrule
+\end{tabular}
+\end{table}
+
 
 % =============================================================================
 % S8 Cross-asset generalization (NVDA, JNJ, JPM)
@@ -1422,12 +1366,13 @@ $3$ & $95.2$ \\
 \section{Cross-asset generalization}
 \label{sec:supp-cross-asset}
 
-We repeated the fitting and evaluation procedure on three stocks:
-NVDA
+To test whether the single-asset procedure generalized beyond SPY, we
+repeated the fitting and evaluation on three stocks: NVDA
 (semiconductors, high volatility), JNJ (health care, low
 volatility), and JPM (financials, moderate volatility). Per-ticker
 tune outputs at $(n_{\mathrm{paths}} = 200, \mathrm{seed} = 1234)$
-are reported in Supplementary Table~\ref{tab:cross_asset}. The objective combines
+were reproducible with these settings (Supplementary Table~\ref{tab:cross_asset}).
+The objective combines
 ACF and kurtosis errors with fixed weights. Because kurtosis varies
 across finite samples of heavy-tailed paths, the selected grid point
 can change with the Monte Carlo sample. The reported
@@ -1436,7 +1381,9 @@ path count and seed, but they are not unique per-ticker optima. At the
 selected parameter values, in-sample HMM-WJ KS pass rates were
 $98.9\%$ for NVDA, $99.4\%$ for JNJ, and $99.1\%$ for JPM.
 Out-of-sample KS pass rates on the $249$-day $2025$ hold-out were
-$97.7\%$, $74.0\%$, and $79.2\%$, respectively.
+$97.7\%$, $74.0\%$, and $79.2\%$, respectively. Thus the strong
+in-sample fit transferred unevenly across assets, especially on the
+short holdout.
 
 % --- Table: Cross-asset generalization ---
 \begin{table}[tbp]
@@ -1470,16 +1417,54 @@ JPM (financials)         & $10^{-4}$ & $80$ & $99.1$ ($0.3$) & $95.7$ ($0.6$) & 
 }
 \end{table}
 
+% --- Figure: R^2 distribution across the universe ---
+\begin{figure}[tbp]
+  \centering
+  \includegraphics[width=0.85\textwidth]{figs/supplement/FigS03-R2-Distribution.pdf}
+  \caption{\textbf{Calibrated $R^2$ distribution across the $423$
+    non-SPY tickers.} Histogram of ordinary least-squares (OLS) $R^2$
+    against SPY over the
+    $2014$--$2024$ window. The two tickers crossing the
+    $R^2_{\mathrm{preserve}} = 0.80$ threshold (dashed line) are index
+    exchange-traded funds (QQQ, SPYG); the highest-$R^2$ individual
+    stock (BLK, $0.645$)
+    falls $\sim 0.16$ below the threshold. The $R^2$-preserving
+    branch therefore contains only QQQ and SPYG in this universe.}
+  \label{fig:r2_distribution}
+\end{figure}
+
+% --- Figure: Heavy-tail preservation ---
+\begin{figure}[tbp]
+  \centering
+  \includegraphics[width=\textwidth]{figs/supplement/FigS02-Tail-Preservation.pdf}
+  \caption{\textbf{Heavy-tail preservation: excess kurtosis and Hill
+    tail index vs calibrated $\beta$.}
+    Each point is a per-ticker median over $100$ replications.
+    \emph{Left:} excess kurtosis, $y$-axis clipped to $[-2, 20]$ for
+    readability. The dashed line marks the median real-data excess
+    kurtosis across the universe ($\kappa_{\real} \approx 13$); the
+    hybrid and naive composition methods (orange and blue) track the generator's
+    kurtosis, while the Gaussian single-index model (SIM) collapses to
+    $\kappa \approx 1$.
+    \emph{Right:} Hill tail-index estimator on the upper $5\%$ of
+    $|g|$. The hybrid and naive medians remain near $0.37$ throughout the
+    $\beta$ range; Gaussian SIM drops to $\sim 0.22$. The hybrid's median
+    being below $\kappa_{\real}$ reflects the JumpHMM marginal's own
+    kurtosis rather than a composition-rule distortion: hybrid tracks
+    naive (both retain the generator's tails) while Gaussian SIM does not.}
+  \label{fig:tails}
+\end{figure}
+
 \section{SIM composition derivations and properties verification}
 \label{sec:supp-sim-derivations}
 
-The variance-corrected single-index composition states two
-closed-form results, the variance scale of Eq.~\eqref{eq:scale} and
-the residual-variance target of Eq.~\eqref{eq:r2-target}. The
-derivation below gives the large-$T$ OLS coefficients and composed
-variance. To derive Eq.~\eqref{eq:scale}, first center the full-return
+To verify the two closed-form targets used by the variance-corrected
+single-index composition, we derived the variance scale of
+Eq.~\eqref{eq:scale}, the residual-variance target of
+Eq.~\eqref{eq:r2-target}, and the resulting large-$T$ OLS coefficients
+and composed variance. To derive Eq.~\eqref{eq:scale}, first center the full-return
 draw as in Eq.~\eqref{eq:center-generator}, then set
-$\eps_i=s_i\tg_i^{\mathrm c}$ for $s_i\in(0,1]$ and require
+$\eps_i=s_i\tg_i^{\mathrm c}$ for $s_i\in[0,1]$ and require
 that the composed series have the same variance as the generator
 path:
 \begin{equation}
@@ -1490,26 +1475,21 @@ path:
 where $\alpha_i$ drops out because it is constant. Expanding the sum
 gives:
 \begin{equation}
-\begin{aligned}
-  \Var(\beta_i\, g_m + \eps_i)
-  \;={}& \beta_i^2\, \Var(g_m)
-  + 2 \beta_i\, \Cov(g_m,\, \eps_i) \\
-  &+ \Var(\eps_i).
-\end{aligned}
+  \Var(\beta_i\, g_m + \eps_i) \;=\; \beta_i^2\, \Var(g_m)
+  \;+\; 2 \beta_i\, \Cov(g_m,\, \eps_i)
+  \;+\; \Var(\eps_i).
 \end{equation}
-Substituting $\eps_i = s_i\,\tg_i^{\mathrm c}$ gives the two moments:
-\begin{align*}
-  \Var(\eps_i) &= s_i^2\,\sigma_{\gen,i}^2, \\
-  \Cov(g_m,\, \eps_i) &= s_i\,\Cov(g_m,\, \tg_i^{\mathrm c}).
-\end{align*}
-Under the
+Substituting $\eps_i = s_i\,\tg_i^{\mathrm c}$ gives
+$\Var(\eps_i) = s_i^2\,\sigma_{\gen,i}^2$ and
+$\Cov(g_m,\, \eps_i) = s_i\,\Cov(g_m,\, \tg_i^{\mathrm c})$. Under the
 assumption $\Cov(\tg_i^{\mathrm c},\,g_m)\approx0$, the cross term vanishes and
 the variance condition becomes
 $\beta_i^2\, \sigma_m^2 + s_i^2\, \sigma_{\gen,i}^2 =
 \sigma_{\gen,i}^2$. Solving for $s_i^2$ gives Eq.~\eqref{eq:scale}.
 
-To derive Eq.~\eqref{eq:r2-target}, write the population $R^2$
-identity for Eq.~\eqref{eq:sim-composition}:
+To derive Eq.~\eqref{eq:r2-target}, use the same zero-cross-covariance
+assumption and write the population $R^2$ identity for
+Eq.~\eqref{eq:sim-composition}:
 \begin{equation}
   R^2 \;=\; \frac{\beta_i^2\, \sigma_m^2}{\beta_i^2\, \sigma_m^2 + \sigma_{\eps,i}^2}.
 \end{equation}
@@ -1536,11 +1516,11 @@ $\beta_i^{\eff}$ to give the same variance. On the $R^2$-preserving
 branch, the composed variance is
 $\beta_i^2 \sigma_m^2 / R^2_{i,\real}$, the value implied by the
 calibrated $(\beta_i, R^2_{i,\real})$ rather than by the generator
-marginal. The floor guarantees only that
+marginal. On the ordinary-stock branch, the floor guarantees only that
 $\Var(\eps_i)\geq f\,\sigma_{\gen,i}^2$; it does not guarantee that
 adding the market term preserves the generator's tail distribution.
-In Supplementary Table~\ref{tab:beta_bucket}, the KS pass rate fell from $87.6\%$ in
-the lowest-beta quartile to $65.9\%$ in the highest-beta quartile.
+The KS pass rate fell from $87.6\%$ in the lowest-beta quartile to
+$65.9\%$ in the highest-beta quartile (Supplementary Table~\ref{tab:beta_bucket}).
 
 \subsection{Role of the centered full-return draw as the residual}
 \label{sec:supp-residual-choice}
