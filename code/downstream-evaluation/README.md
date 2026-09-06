@@ -128,3 +128,48 @@ downstream step and 04b is a pure formatter.
 
 The uncited VaR plot is retained as `figs/diagnostics/VaR-Backtest.pdf` for
 historical comparison.
+
+## Jump-enabled composition experiment
+
+Scripts `11-Jump-Ablation.jl` and `11b-Jump-Ablation-Report.jl` compare jumps
+off, market jumps only, and market-plus-asset jumps. Each configuration uses
+exactly paired naive and corrected composition. The existing closing-price
+fits remain frozen, and enabled models receive the published SPY settings
+from `jump-ablation.toml` without per-ticker tuning. Unlike the older in-sample
+comparison, the market is simulated in both the training and holdout windows.
+
+From the repository root:
+
+```sh
+julia --project=code/downstream-evaluation --threads=8 code/downstream-evaluation/scripts/11-Jump-Ablation.jl
+julia --project=code/downstream-evaluation code/downstream-evaluation/scripts/11b-Jump-Ablation-Report.jl
+julia --project=code/downstream-evaluation code/downstream-evaluation/test/jump_ablation.jl
+julia --project=code/downstream-evaluation code/downstream-evaluation/test/jump_ablation_outputs.jl
+```
+
+The full run uses 1,000 paths per asset/configuration/method across four seeds.
+`--smoke` on script 11 selects three assets and 20 paths in a separate output
+folder. Outputs are isolated under `results/jump-ablation/`, including
+[the report](results/jump-ablation/REPORT.md), CSV summaries, a PNG/PDF figure,
+and local resumable seed/window checkpoints. No existing manuscript tables or
+model caches are overwritten. Settings and fingerprints protect checkpoint
+reuse; choose a new output directory when changing the experiment settings or
+source. Checkpoints and smoke outputs are excluded from Git.
+
+The primary temporal metric uses absolute-return ACF lags 1-25, with lags
+1-60 as a secondary check. Monte Carlo uncertainty keeps all tickers together
+under their shared market replication. It is conditional on the frozen fits
+and observed histories; it does not measure uncertainty across market regimes.
+Both unconditional outcomes and jump-active strata are saved. The AD scorer
+reuses its sample-size normalization while retaining the pinned dependency's
+statistic and p-value; tests compare it with the unoptimized implementation.
+
+To regenerate the main comparison table and supplementary uncertainty table
+in both manuscript trees from the saved CSVs, run:
+
+```sh
+python3 code/downstream-evaluation/scripts/11c-Jump-Ablation-Tables.py
+```
+
+The formatter updates the arXiv tree first and then the JFDS tree. Both paper
+versions discuss the experiment in Results, Methods, Discussion, and Conclusion.

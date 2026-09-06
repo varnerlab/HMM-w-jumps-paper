@@ -36,13 +36,14 @@ MAIN_SECTIONS=(
 MAIN_TABLES=(
   table1_aggregate.tex table2_model_comparison.tex
   table5_var_backtest_oos.tex table6_oos_scorecard.tex
+  table7_jump_ablation.tex
 )
 MAIN_FIGURES=(
   Fig01-Empirical-Motivation.pdf Fig03-Model-Comparison.pdf
   Fig04-Jump-Mix-Frontier.pdf Fig05-OoS-Composition.pdf
   Fig06-Variance-Preservation.pdf
 )
-SUPP_TABLES=(table2_by_branch.tex table3_by_beta_bucket.tex)
+SUPP_TABLES=(table2_by_branch.tex table3_by_beta_bucket.tex tableS_jump_ablation_uncertainty.tex tableS_jump_ablation_episodes.tex tableS_generator_quantities.tex tableS_acf_prediction.tex tableS_kurt_composition.tex)
 SUPP_FIGURES=(
   FigS01-Cross-Covariance.pdf FigS02-Tail-Preservation.pdf
   FigS03-R2-Distribution.pdf FigS04-Statistical-Validation.pdf

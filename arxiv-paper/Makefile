@@ -17,7 +17,13 @@ TABLES := sections/tables/table1_aggregate.tex \
 	sections/tables/table2_model_comparison.tex \
 	sections/tables/table3_by_beta_bucket.tex \
 	sections/tables/table5_var_backtest_oos.tex \
-	sections/tables/table6_oos_scorecard.tex
+	sections/tables/table6_oos_scorecard.tex \
+	sections/tables/table7_jump_ablation.tex \
+	sections/tables/tableS_jump_ablation_uncertainty.tex \
+	sections/tables/tableS_jump_ablation_episodes.tex \
+	sections/tables/tableS_generator_quantities.tex \
+	sections/tables/tableS_acf_prediction.tex \
+	sections/tables/tableS_kurt_composition.tex
 FIGS := figs/main/Fig01-Empirical-Motivation.pdf \
 	figs/main/Fig03-Model-Comparison.pdf \
 	figs/main/Fig05-OoS-Composition.pdf \

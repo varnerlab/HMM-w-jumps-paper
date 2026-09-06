@@ -1,8 +1,3 @@
-% related.tex
-% Focused review of the closest single-asset, deep-generative, and
-% multi-asset models. Methods, validation procedures, and study results
-% are described in later sections rather than repeated here.
-
 Single-asset return models treat changing volatility, market regimes, and
 extreme moves in different ways. Autoregressive conditional heteroskedasticity
 (ARCH) and generalized autoregressive conditional heteroskedasticity (GARCH)
@@ -59,9 +54,8 @@ resample historical residuals or fit a separate residual generator for every
 asset. This paper addresses a narrower problem. We start with single-asset
 generators already fitted to full returns and ask whether they can be reused in
 a factor model.
-The regression residuals are easy to calculate. The difficulty is that a
-full-return draw already contains the asset mean and market-related variance.
-Using that draw as a residual can shift the mean and count part of the variance
-twice. The correction developed here removes the mean shift and variance
-double count without fitting a second generator for every asset. It does not
-model dependence among the remaining residuals.
+The relevant comparison is with methods fitted directly to regression
+residuals: those methods remove the market component before fitting,
+whereas reuse adjusts an existing full-return draw during composition.
+Neither approach specifies cross-asset residual dependence unless that
+dependence is modeled separately.

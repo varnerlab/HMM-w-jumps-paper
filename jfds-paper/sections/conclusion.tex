@@ -1,49 +1,30 @@
-% conclusion.tex
-% Language-audit pass, 2026-07-14 (see project_language_audit_2026-07-14
-% memory). Reframed 2026-07-14 so the multi-asset variance correction
-% leads and the HMM-WJ result supports the marginal component. The
-% conclusion ends on the missing cross-asset covariance limitation.
-% 2026-08-31: merged to two paragraphs (contributions and results, then
-% the cross-asset covariance limitation) to match the shortened
-% Discussion and the journal's "short Conclusions section" guidance.
-
-In this study, we developed a variance-corrected single-index
-composition method that reuses full-return generators in a factor model
-without double counting their location or variance. Centering first
-prevented a full-return draw from shifting the calibrated intercept;
-the subsequent scale correction removed the variance inflation caused
-by adding the market factor. Across $423$ non-market assets,
-it recovered the calibrated factor loading to a low median absolute
-error and produced heavy-tailed marginals. On $416$ complete held-out
-asset histories from $2025$, it improved the mean cross-ticker KS
-pass rate over centered naive composition and held the median
-variance ratio near one, while naive composition remained inflated.
-Its one-day left-tail $99\%$ Value-at-Risk exceedance rate matched
-that of JumpHMM-on-residuals to the reported precision but stayed
-above the nominal rate. Those residual models,
-fitted directly to the OLS residual series, required a separate fit
-for each asset and produced a similar marginal pass rate.
-Solving the composition problem first required a per-asset generator
-that retained heavy tails and temporal structure, for which we used a
-hidden Markov marginal model with Laplace-quantile states,
-Student-$t$ emissions, and direct transition counting. On SPY, its jump-duration variant reduced
-absolute-return autocorrelation error relative to the no-jump variant
-while keeping high KS and AD pass rates; GARCH reached a lower
-autocorrelation error but failed the distributional tests. The
-single-asset result therefore showed a measured tradeoff between
-distributional fit and volatility clustering, not uniform superiority.
-Taken together, these results separate two tasks that are easily
-conflated when synthesizing multi-asset market data: the marginal
-generator governs each asset's distributional and temporal behavior,
-whereas the variance correction prevents the common market factor from
-double counting the generator's total variance.
-
-The current multi-asset implementation does not model cross-asset
-residual covariance. Independent residuals omit the sector and style
-dependence that links real assets, and a rebalanced portfolio built on
-them earns a diversification return that a real portfolio would not.
-A full joint residual model is needed before using these paths for
-portfolio-level return forecasts. The variance correction is a
-necessary compositional constraint rather than a complete dependence
-model. Portfolio-level synthetic market data would require combining
-it with joint residual dynamics.
+We developed a variance-corrected single-index method that reuses
+full-return generators without shifting the calibrated mean or
+counting market variance twice (Fig.~\ref{fig:preservation};
+Table~\ref{tab:aggregate}). Centering and rescaling allowed the
+generated asset paths to be combined with a shared market path without
+fitting a second generator to each asset's regression residuals.
+Across $423$ non-market assets, the method recovered calibrated
+market loadings with low error and retained heavy-tailed return
+distributions. On $416$ complete asset histories from $2025$, it
+improved the mean KS pass rate over centered naive composition and
+brought the median ratio of synthetic to observed variance close to
+one (Table~\ref{tab:oos_composition}). Residual-fit methods remained competitive, and neither the
+corrected method nor the best residual-fit alternative achieved
+nominal $99\%$ VaR coverage (Table~\ref{tab:var}). The results supported reuse of existing
+generators as a practical alternative to fitting separate residual
+models, with validation still needed for each intended application.
+The jump experiments established that the correction also worked when
+the generators included extended episodes in extreme-return states
+(Table~\ref{tab:jump_ablation}).
+The SPY jump settings improved multi-asset temporal fit in training
+but worsened it in the $2025$ holdout, showing that the single-asset
+benefit did not transfer automatically. Correcting variance also left
+dependence among asset-specific residuals unresolved. Independent
+residual draws omit relationships that matter for portfolio risk and
+can overstate the return from rebalancing when positive residual
+covariance is missing. The composition rule therefore provides one
+component of a multi-asset simulator: it controls how generator
+variance is combined with the market factor, while portfolio-level
+applications require a joint residual model and validation of both
+cross-asset dependence and temporal behavior.

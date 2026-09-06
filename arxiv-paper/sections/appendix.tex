@@ -235,10 +235,11 @@ Eq.~\eqref{eq:booth-fama} are the annualized variances
 ($\mathrm{yr}^{-1}$). The
 third term in Eq.~\eqref{eq:booth-fama} is the cross-sectional
 dispersion of the per-asset annualized means, of order
-$\Delta t\,\mu^2 \sim 3\!\times\!10^{-5}~\mathrm{yr}^{-1}$ at
-$\mu \sim 0.08~\mathrm{yr}^{-1}$ and negligible against the
-variance term $D \sim \Delta t\,\sigma^2 \sim 4\!\times\!10^{-2}~
-\mathrm{yr}^{-1}$; we drop it. The realized annualized compound
+$\Delta t\,\mu^2$, against the variance term $D$ of order
+$\Delta t\,\sigma^2$; because $\mu^2$ lies more than two orders of magnitude
+below $\sigma^2$ for daily growth rates
+(Table~\ref{tab:descriptive_stats}), we drop it. The realized
+annualized compound
 growth rate $\bar g_p = (T\,\Delta t)^{-1}\log(W_T/W_0) =
 T^{-1}\sum_{t} g_p(t)$ converges to $\E(g_p)$ by the ergodic
 theorem under any stationary residual process, so the long-run
@@ -294,12 +295,14 @@ where the market-beta-dispersion component $D_\mathrm{mkt}$ equals
 $\tfrac{1}{2}\,\Delta t\,\sigma_m^2 [\sum_i w_i \beta_i^2 -
 (\sum_i w_i \beta_i)^2]$, the weighted cross-sectional $\beta$
 dispersion scaled by the annualized market variance
-$\Delta t\,\sigma_m^2$. Across the $423$-ticker universe the empirical
-$\beta$ distribution spans $[0.03, 1.79]$ with interquartile range
-$[0.81, 1.18]$ and the SPY annualized variance
-$\Delta t\,\sigma_m^2 \approx 0.04~\mathrm{yr}^{-1}$. The weighted
-variance of $\beta$ is bounded by one quarter of its squared range,
-so $D_{\mathrm{mkt}}$ is at most $0.016~\mathrm{yr}^{-1}$, or $1.6$
+$\Delta t\,\sigma_m^2$. Across the $423$-ticker universe the calibrated
+$\beta$ distribution spans $[0.03, 1.79]$ (Fig.~\ref{fig:branch_map}).
+The weighted variance of $\beta$ is bounded by one quarter of its
+squared range, so $D_{\mathrm{mkt}} \le \tfrac{1}{8}\,\Delta t\,
+\sigma_m^2\,(1.79 - 0.03)^2$; at the SPY annualized variance
+$\Delta t\,\sigma_m^2 = 0.030~\mathrm{yr}^{-1}$ of the closing-price
+series used for the multi-asset universe (Fig.~\ref{fig:preservation}),
+$D_{\mathrm{mkt}}$ is at most $0.012~\mathrm{yr}^{-1}$, or $1.2$
 percentage points per year over this universe. For the idiosyncratic
 component $D_\eps$, residuals were approximately orthogonal across
 assets at the same time slice. Therefore,
@@ -457,6 +460,28 @@ freedom $\nu = 5$, jump probability $\epsilon = 10^{-4}$, mean episode
 duration $\lambda = 90$ steps, tail-selection probability
 $p_{\rm neg} = 0.52$, tail-set size $N_{\rm tail} = 5$, and the
 in-sample series of $T = 2{,}766$ daily excess growth rates.
+Table~\ref{tab:supp-generator-quantities} collects these values
+beside their sample or simulated counterparts.
+
+% --- Table: closed-form quantities at the fitted SPY generator ---
+\begin{table}[H]
+\centering
+\caption{\textbf{Closed-form quantities of the fitted SPY generator
+    against sample and simulated values.} Each closed-form entry
+    evaluates the expression named in the text at the fitted SPY
+    model of Table~\ref{tab:hyperparams}. Sample values are computed
+    from the in-sample SPY series; simulated values use $400$
+    in-sample-length paths for the jump-episode quantities and
+    $1{,}000$ paths for skewness. For comparison with the
+    sup-distance entry, the two-sample Kolmogorov--Smirnov critical
+    value at $\alpha = 0.05$ for two samples of $T = 2{,}766$
+    observations is $1.358\sqrt{2/T} = 0.0365$. Observed
+    autocorrelations are those of the in-sample series shown in
+    Fig.~\ref{fig:empirical_motivation}d.}
+\label{tab:supp-generator-quantities}
+\footnotesize
+\resizebox{\textwidth}{!}{\input{sections/tables/tableS_generator_quantities}}
+\end{table}
 
 \subsection{Generative law}
 \label{sec:supp-gen-law}
@@ -604,7 +629,7 @@ the closed-form boundaries:
 The bins are equiprobable under the fitted Laplace, not under the
 empirical distribution, so the in-sample state counts are not uniform:
 across the $100$ states, they range from $16$ to $47$ of the $2{,}766$
-observations. Every within-state mean $\mu_k$ and standard deviation
+observations (Table~\ref{tab:supp-generator-quantities}). Every within-state mean $\mu_k$ and standard deviation
 $\sigma_k$ was therefore computed from at least $16$ observations, and
 no state required a fallback to the global moments.
 
@@ -685,7 +710,7 @@ $\hat\pi \widehat{\mathbf{T}} = \hat\pi$ up to a fixed-point residual
 bounded by $1/T$. For the fitted SPY model, the solved eigenvector
 $\bar\pi$ deviates from the occupancy frequencies by at most $3.7
 \times 10^{-4}$, the same order as $1/T$, against occupancy values
-between $0.0058$ and $0.017$. The
+between $0.0058$ and $0.017$ (Table~\ref{tab:supp-generator-quantities}). The
 initial distribution is consequently not an abstract spectral object:
 $\bar\pi$ is, up to a correction of the order of $1/T$, the vector of
 in-sample state frequencies.
@@ -725,10 +750,12 @@ grand mean:
 and replacing $\hat\pi$ by $\bar\pi$ changes the value only through
 the $1/T$ correction of Eq.~\eqref{eq:supp-fixed-point}: the model
 mean is $0.0636~\mathrm{yr}^{-1}$ against the sample mean of
-$0.0631~\mathrm{yr}^{-1}$. The distributional match is equally direct.
+$0.0631~\mathrm{yr}^{-1}$ (Table~\ref{tab:supp-generator-quantities}).
+The distributional match is equally direct.
 Evaluated at the fitted SPY model, the largest gap between the model
 CDF and the empirical CDF is
-$\sup_x |F_{\rm mix}(x) - \widehat F_T(x)| = 0.0045$, where
+$\sup_x |F_{\rm mix}(x) - \widehat F_T(x)| = 0.0045$
+(Table~\ref{tab:supp-generator-quantities}), where
 $\widehat F_T$ is the in-sample empirical CDF. The two-sample
 Kolmogorov--Smirnov (KS) critical value at significance level
 $\alpha = 0.05$ for two samples of $2{,}766$ observations is
@@ -758,13 +785,14 @@ Define the within-state variance $V_{\rm w} = \sum_k \bar\pi_k
 \bar\pi_k (\mu_k - \bar\mu)^2$. The corresponding empirical
 decomposition of the sample variance is $V_{\rm b} + V_{\rm w}$, up to
 degrees-of-freedom corrections, so the model variance exceeds the
-sample variance by $2 V_{\rm w} / (\nu - 2)$. At the SPY fit,
+sample variance by $2 V_{\rm w} / (\nu - 2)$. At the SPY fit
+(Table~\ref{tab:supp-generator-quantities}),
 $V_{\rm w} = 0.17~\mathrm{yr}^{-2}$, only $3.6\%$ of the total
 variance of $4.60~\mathrm{yr}^{-2}$: the quantile partition
 concentrates almost all dispersion between states rather than within
 them. The inflation is correspondingly small, a model variance of
-$4.72$ against $4.60~\mathrm{yr}^{-2}$ ($1.3\%$ in standard
-deviation, $2.17$ against $2.14~\mathrm{yr}^{-1}$), and vanishes
+$4.72$ against $4.60~\mathrm{yr}^{-2}$ ($2.17$ against
+$2.14~\mathrm{yr}^{-1}$ in standard deviation), and vanishes
 under Gaussian emissions ($4.61~\mathrm{yr}^{-2}$).
 
 The fourth moment explains the emission comparison in
@@ -797,7 +825,8 @@ At $\nu = 5$ these values are $5/3$ and $25$: the within-state
 kurtosis is $9$, against $3$ for Gaussian emissions. The excess kurtosis of the stationary mixture is
 $\E[(G_t - \bar\mu)^4] / \Var(G_t)^2 - 3$; evaluating it at the SPY
 fit gives $8.34$ with Student-$t$ emissions and $5.82$ with Gaussian
-emissions, against an observed value of $7.72$. The emission choice enters
+emissions, against an observed value of $7.72$
+(Table~\ref{tab:supp-generator-quantities}). The emission choice enters
 Eq.~\eqref{eq:supp-fourth} through both moments in
 Eq.~\eqref{eq:supp-t-moments}; the larger change by far is
 $\E(X^4)$ rising from $3$ to $25$, which acts on the $\sigma_k^4$
@@ -811,7 +840,8 @@ carries the asymmetry of the fitted state occupancies without an
 explicit skewness parameter: simulating $1{,}000$ in-sample-length
 paths gives a mean sample skewness of $-0.76$ for HMM-NJ and $-0.73$
 for HMM-WJ, against the observed $-0.75$
-(Table~\ref{tab:descriptive_stats}). Because the states partition the
+(Tables~\ref{tab:supp-generator-quantities}
+and \ref{tab:descriptive_stats}). Because the states partition the
 Laplace quantiles of an asymmetric series, the occupancy-weighted
 mixture inherits that asymmetry through the $\mu_k$ and $\sigma_k$
 estimates.
@@ -856,13 +886,14 @@ to its rank-one limit, every row equal to $\bar\pi$, at the geometric
 rate $|\theta_2|^\tau$, where $\theta_2$ is the second-largest
 eigenvalue of $\mathbf{T}$ in modulus; the ACF is therefore bounded
 by a constant multiple of $|\theta_2|^\tau$. For the fitted SPY
-matrix, $|\theta_2| = 0.253$, and $|\theta_2|^\tau$ falls below
+matrix (Table~\ref{tab:supp-generator-quantities}), $|\theta_2| = 0.253$, and $|\theta_2|^\tau$ falls below
 $0.01$ from lag $4$ onward. Evaluating Eq.~\eqref{eq:supp-acf-nj}
 gives a model ACF of $0.26$ at lag $1$, close to the observed $0.30$
 because the counted matrix pins the one-step state-pair law, but
 $0.021$ at lag $3$ and effectively zero from lag $5$, while the
-observed ACF remains near $0.26$ at lag $5$ and $0.14$ at lag $25$.
-No first-order chain fitted by transition counting can do otherwise:
+observed ACF remains near $0.26$ at lag $5$ and $0.14$ at lag $25$
+(Table~\ref{tab:supp-generator-quantities};
+Fig.~\ref{fig:empirical_motivation}d). No first-order chain fitted by transition counting can do otherwise:
 matching the one-step law fixes $\mathbf{T}$, and the spectral gap of
 that matrix then forces geometric mixing within a week. This is the
 quantitative content of the main-text statement that the counted
@@ -907,7 +938,7 @@ the episode contributes $\E[K \mid K \ge 1]$ forced steps in total:
 \end{align}
 Fewer than one step in a hundred is forced at the fitted values; the
 measured fraction across $400$ simulated in-sample-length paths is
-$0.0088$. The product $\epsilon \lambda$ is the quantity that sets
+$0.0088$ (Table~\ref{tab:supp-generator-quantities}). The product $\epsilon \lambda$ is the quantity that sets
 this fraction, a point that matters for identification in
 Section~\ref{sec:supp-gen-tuning}.
 
@@ -916,7 +947,8 @@ distributed across the ensemble. A simulated path contains no episode
 only if every one of its $T - 1$ transition steps fails to trigger
 one, so the jump-path probability at $T = 2{,}766$ is
 $1 - (1 - p_e)^{T-1} = 24.2\%$; the simulated ensemble
-gives $24.8\%$ ($99$ of $400$ paths), matching the $\sim\!24\%$
+gives $24.8\%$ ($99$ of $400$ paths;
+Table~\ref{tab:supp-generator-quantities}), matching the $\sim\!24\%$
 jump-path fraction conditioned on in
 Fig.~\ref{fig:statistical_validation}. Episodes begin
 at the long-run rate of one per expected renewal cycle, so a path
@@ -927,13 +959,15 @@ three quarters of the paths never trigger an episode and follow the
 HMM-NJ law exactly, while the remaining quarter carry a single
 episode (about one jump path in eight carries a second). Within a
 jump path, the forced fraction is $\lambda / T = 3.3\%$ for a single
-episode; the simulated mean is $3.6\%$, slightly higher through the
+episode; the simulated mean is $3.6\%$
+(Table~\ref{tab:supp-generator-quantities}), slightly higher through the
 multi-episode paths. Forced steps differ sharply from free ones. Under
 the forced-step distribution $u$ of Eq.~\eqref{eq:supp-u}, the
 conditional standard deviation is $5.38~\mathrm{yr}^{-1}$ against the
 free-step $2.17~\mathrm{yr}^{-1}$, a variance ratio of $6.1$, and the
 mean absolute return is $\bar a_J = \sum_k u_k a_k =
-4.96~\mathrm{yr}^{-1}$ against $\bar a = 1.47~\mathrm{yr}^{-1}$. The
+4.96~\mathrm{yr}^{-1}$ against $\bar a = 1.47~\mathrm{yr}^{-1}$
+(Table~\ref{tab:supp-generator-quantities}). The
 stationary state marginal of the augmented chain is the mixture
 $(1 - \pi_J)$ times the free-phase distribution plus $\pi_J$ times
 $u$; the free phase relaxes from the post-episode tail state back to
@@ -1005,11 +1039,12 @@ produce. For a jump path carrying a single episode, the relevant
 forced fraction is $\lambda / T$ rather than $\pi_J$, and evaluating
 the resulting expression at the fitted values, with $\Var(A_t) =
 3.01$ under the same conditioning, gives a predicted plateau of
-$0.13$. Table~\ref{tab:supp-acf-prediction} compares
+$0.13$ (Table~\ref{tab:supp-generator-quantities}).
+Table~\ref{tab:supp-acf-prediction} compares
 this prediction with the mean simulated jump-path ACF: the two differ
 by $0.013$ at lag $5$ and by less than $0.01$ from lag $10$ onward. At lags $1$ to $3$ the
 simulated values exceed the episode component ($0.35$ against $0.13$
-at lag $1$) because the free-phase geometric component of
+at lag $1$; Table~\ref{tab:supp-acf-prediction}) because the free-phase geometric component of
 Section~\ref{sec:supp-gen-nojump} adds on top before it dies out.
 
 % --- Table: predicted vs simulated jump-path ACF ---
@@ -1024,21 +1059,11 @@ Section~\ref{sec:supp-gen-nojump} adds on top before it dies out.
     Eq.~\eqref{eq:supp-h}. The simulated column is the mean ACF of
     $|G_t|$ over the $99$ jump-active paths among $400$ simulated
     in-sample-length paths. The free-phase component of
-    Eq.~\eqref{eq:supp-acf-nj} is excluded from the prediction and
-    has decayed below $0.01$ at the lags shown.}
+    Eq.~\eqref{eq:supp-acf-nj} is excluded from the prediction; it
+    has decayed below $0.01$ from lag $5$ onward.}
 \label{tab:supp-acf-prediction}
 \small
-\begin{tabular}{@{}rccc@{}}
-\toprule
-\textbf{Lag $\tau$} & \textbf{$h(\tau)$} & \textbf{Predicted ACF}
-  & \textbf{Simulated ACF} \\ \midrule
-$5$  & $0.944$ & $0.124$ & $0.137$ \\
-$10$ & $0.889$ & $0.117$ & $0.123$ \\
-$15$ & $0.833$ & $0.110$ & $0.115$ \\
-$20$ & $0.778$ & $0.102$ & $0.105$ \\
-$25$ & $0.722$ & $0.095$ & $0.099$ \\
-\bottomrule
-\end{tabular}
+\input{sections/tables/tableS_acf_prediction}
 \end{table}
 
 The kurtosis contribution pulls in the opposite direction. Treating a
@@ -1047,7 +1072,7 @@ jump path as a two-regime mixture with weights $(1 - \lambda/T,\,
 Eq.~\eqref{eq:supp-fourth} with the forced-step distribution $u$ in
 place of $\bar\pi$ for the episode regime gives a population excess
 kurtosis of $7.20$ for a single-episode jump path, against $8.34$
-with no jumps. Forced steps inflate the variance, by about $17\%$ at
+with no jumps (Table~\ref{tab:supp-generator-quantities}). Forced steps inflate the variance, by about $17\%$ at
 the fitted values, faster than they inflate the fourth moment,
 because $u$ draws uniformly within each tail set
 rather than extending the extreme tail. Adding jump content therefore
@@ -1133,7 +1158,8 @@ variants use $100$ states and the HSMM uses $8$, so this comparison
 does not assign the pass-rate difference solely to the duration
 model. Holding the rest of HMM-WJ fixed, changing the emission from
 Normal to Student-$t$ ($\nu=5$) increased simulated excess kurtosis
-from $5.5$ to $7.5$, against an observed value of $7.7$. The Student-$t$
+from $5.5$ to $7.5$, against an observed value of $7.7$
+(Table~\ref{tab:descriptive_stats}). The Student-$t$
 emission also increased the KS and AD pass rates, while ACF-MAE and
 the distributional distances changed modestly. The emission choice
 therefore explained the kurtosis gain in this controlled HMM-WJ
@@ -1600,7 +1626,8 @@ The generator's excess kurtosis survives composition with weight
 $(1 - \rho_i)^2$ and the market path's enters with weight $\rho_i^2$;
 a simulation check with independent generator draws matched
 Eq.~\eqref{eq:supp-kurt-comp} to within $0.03$ in mean excess
-kurtosis at $\rho_i \in \{0.1, 0.3, 0.5\}$. For a low-loading asset
+kurtosis at $\rho_i \in \{0.1, 0.3, 0.5\}$
+(Table~\ref{tab:supp-kurt-composition}). For a low-loading asset
 the composed tails are essentially the generator's: at
 $\rho_i = 0.10$ the generator's kurtosis retains weight $0.81$. As
 $\rho_i$ grows the composed shape moves away from the asset's own
@@ -1624,3 +1651,95 @@ $\rho_i \to 0$ limit, and dilutes the generator's shape with weight
 $(1 - \rho_i)^2$ as the market share grows; the clipped and
 $R^2$-preserving branches of Algorithm~\ref{alg:hybrid} handle the
 region where the dilution is largest.
+
+% --- Table: simulation check of the kurtosis composition rule ---
+\begin{table}[H]
+\centering
+\caption{\textbf{Simulation check of the kurtosis composition rule.}
+    For each variance share $\rho_i$, $200$ pairs of independent
+    in-sample-length generator paths were standardized and combined
+    as $\sqrt{\rho_i}\, x + \sqrt{1 - \rho_i}\, y$. The predicted
+    column evaluates Eq.~\eqref{eq:supp-kurt-comp} with each pair's
+    sample excess kurtosis; the simulated column is the sample excess
+    kurtosis of the combined series. Both are averaged over the $200$
+    pairs.}
+\label{tab:supp-kurt-composition}
+\small
+\input{sections/tables/tableS_kurt_composition}
+\end{table}
+
+
+\section{Uncertainty in the multi-asset jump comparison}
+\label{sec:supp-jump-composition}
+
+The jump comparison used four seeds and $1{,}000$ market
+replications per window, with all fits frozen (Table~\ref{tab:jump_ablation}). Within each setting,
+naive and corrected composition shared the same asset and market
+draws. The no-jump and market-only settings reused the no-jump asset
+draws; the market-only and market-plus-asset settings reused the
+jump-enabled market draws. Enabled and disabled models used separate
+random-number streams, so matching replication identifiers did not
+imply identical innovations. Primary summaries included every path;
+jump-active subsets only described the mechanism.
+For each metric, we averaged across tickers within each replication
+and formed the difference between settings
+(Table~\ref{tab:jump_ablation_uncertainty}). The Monte Carlo standard
+error was the sample standard deviation of the $1{,}000$ differences
+divided by $\sqrt{1{,}000}$, and intervals used the mean difference
+plus or minus $1.96$ standard errors
+(Table~\ref{tab:jump_ablation_uncertainty}). Keeping the cross-section
+together retained dependence from the shared market draw. The
+intervals did not treat assets as independent market histories or
+include uncertainty from fitting or historical-window selection.
+Kolmogorov--Smirnov (KS) non-rejection remained descriptive because
+returns were temporally dependent.
+The temporal contrast between training and holdout remained clear
+in the replication-level uncertainty estimates
+(Table~\ref{tab:jump_ablation_uncertainty}). The episode frequencies
+matched the rare-event setting (Table~\ref{tab:jump_ablation_episodes}):
+$247$ of
+$1{,}000$ training-length SPY paths and $22$ of $1{,}000$ holdout-length
+paths contained an episode. The corresponding shares across enabled
+asset generators were $24.24\%$ and $2.46\%$. Market-only jumps
+reduced average $25$-lag autocorrelation error for $99.5\%$ of
+training assets but only $2.6\%$ of holdout assets. Enabling jumps in
+both components reduced that error for $96.9\%$ and $0.5\%$,
+respectively. These fractions described ticker-level mean changes,
+not significance tests. The temporal contrast therefore extended
+across most assets, within the limits of the short holdout and
+transferred SPY calibration.
+
+\begin{table}[H]
+  \centering
+  \caption{\textbf{Monte Carlo uncertainty in the effect of jump settings
+    under corrected composition.} Differences are relative to jumps
+    disabled, with $1{,}000$ market replications per window.
+    $\Delta$ACF$_{25}$ is the change in mean absolute error of the
+    absolute-return autocorrelation function through lag $25$;
+    negative values indicate improved temporal fit.
+    $\Delta$KS is the change in Kolmogorov--Smirnov non-rejection
+    rate in percentage points. Brackets contain approximate $95\%$
+    Monte Carlo (MC) intervals conditional on the fitted models and
+    observed histories.}
+  \label{tab:jump_ablation_uncertainty}
+  \footnotesize
+  \setlength{\tabcolsep}{4pt}
+  \input{sections/tables/tableS_jump_ablation_uncertainty}
+\end{table}
+
+\begin{table}[H]
+  \centering
+  \caption{\textbf{Episode incidence and breadth of the temporal
+    change in the multi-asset jump comparison.} SPY paths with an
+    episode are counted over the $1{,}000$ jump-enabled market
+    replications per window. Asset paths with an episode is the mean
+    jump-active share across the enabled asset generators. The last
+    two columns give the share of assets whose mean absolute-return
+    autocorrelation error through lag $25$ fell under corrected
+    composition when jumps were enabled in the market only, or in the
+    market and the assets, relative to jumps disabled.}
+  \label{tab:jump_ablation_episodes}
+  \footnotesize
+  \setlength{\tabcolsep}{4pt}
+  \resizebox{\textwidth}{!}{\input{sections/tables/tableS_jump_ablation_episodes}}
+\end{table}

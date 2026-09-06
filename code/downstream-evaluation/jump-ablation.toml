@@ -1,0 +1,10 @@
+# Frozen-fit transfer experiment. These are the published SPY jump settings,
+# applied without optimization to the closing-price models used for composition.
+epsilon = 0.0001
+lambda = 90.0
+p_neg = 0.52
+n_tail = 5
+n_paths_per_seed = 250
+seeds = [1234, 2345, 3456, 4567]
+acf_lags = [25, 60]
+output_directory = "results/jump-ablation"

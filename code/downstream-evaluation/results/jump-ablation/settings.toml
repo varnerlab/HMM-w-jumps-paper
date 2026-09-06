@@ -1,0 +1,23 @@
+output_directory = "results/jump-ablation"
+acf_lags = [25, 60]
+n_tail = 5
+epsilon = 0.0001
+seeds = [1234, 2345, 3456, 4567]
+lambda = 90.0
+n_paths_per_seed = 250
+p_neg = 0.52
+
+[provenance]
+pipeline_source_sha256 = "e2e0683b4824209b781ba162ee591311c38801b3feb7784d940d38893e8b13ba"
+metrics_source_sha256 = "0f43ef920cfe69930c4f89a52a4b7872bb0fb817222a2761c33c8c24f3b7c573"
+base_config_sha256 = "5479ca29495537e37c5adb9c3df33019387507956202b39959c590167a2a9c43"
+universe_sha256 = "abe77a84b84de946629ce04dc6f143b6a02d5559d8eb0302760ffae39a6d6a54"
+manifest_sha256 = "5cfcb3f8f915c79d100f9c9eafcf0c2a37ea6d27e7387d03828f57f370cf9bc2"
+julia_version = "1.12.7"
+calibration_sha256 = "c14dad84befb98bcc58a1afb552a55b628ac3e45eab19d60c375e7309cf79761"
+holdout_growth_sha256 = "3a05c248b69137e885f09d097d2ab958c7f2007c072b005887aff2cee94b8c30"
+simulator_sha256 = "39eb7ca0093c0256a9d822ca3b8b2e37e9941d9e228a51b0df531c3c92f9ed45"
+marginals_sha256 = "841d8d1e01a761f355f79b20d4259f6fce689ed28d56448db24705e1d12b8cd2"
+ablation_source_sha256 = "19bd361f985bec88fb24d62cbca793f114619c5527559e19b2b06096a9d672f9"
+composer_source_sha256 = "adbf453ee1b7c7e0e26587a1b771a1acb41a8e8c5245d0c7bbc5ee6999bb1044"
+holdout_tickers_sha256 = "3d0f67857c014d605b373e4c8992bae1409f0258d28a353d1d9c94eca795b282"

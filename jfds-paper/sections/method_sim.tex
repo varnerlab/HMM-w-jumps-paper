@@ -8,7 +8,7 @@
 
 The single-asset model generated each ticker separately and did not
 specify cross-asset dependence. For the multi-asset model, we added a
-simulated market path as a common factor. We used the single-index model
+shared market path as a common factor. We used the single-index model
 (SIM) of \citet{sharpe1963}.
 \begin{equation}
   g_i(t) \;=\; \alpha_i \;+\; \beta_i\, g_m(t) \;+\; \eps_i(t),
@@ -169,8 +169,10 @@ composed paths converge to the effective market loading and its
 intercept. The variance and loading properties are asymptotic. They
 do not specify exact finite-sample values or the complete return
 distribution. Online Appendix~\ref{sec:supp-sim-derivations} gives the algebra. The
-construction adds only same-day market dependence; it does not
-reproduce lead--lag effects or market-driven volatility clustering.
+construction links assets through same-day market returns. A simulated
+market episode can therefore affect several assets together, but the
+rule does not separately fit lead--lag effects or a joint volatility
+process.
 
 \begin{algorithm}[t]
 \caption{Hybrid single-index model (SIM) composition with variance correction.}
@@ -218,8 +220,9 @@ reproduce lead--lag effects or market-driven volatility clustering.
 \caption{\textbf{Hidden Markov model with jumps (HMM-WJ) and
     single-index model (SIM) composition hyperparameters.} Values
     used for the main SPY analysis, explored ranges, and locations of
-    sensitivity checks. For the $423$-ticker SIM composition, we set
-    $\epsilon = 0$ instead of the SPY value. The cross-asset
+    sensitivity checks. For the primary six-method SIM comparison, we set
+    $\epsilon = 0$ instead of the SPY value. The separate jump-enabled
+    comparison transferred the listed SPY settings to enabled models. The cross-asset
     validation used per-ticker $(\epsilon^{*}, \lambda^{*})$ values
     for NVDA, JNJ, and JPM (Supplementary Table~\ref{tab:cross_asset}).}
 \label{tab:hyperparams}
@@ -256,18 +259,19 @@ rates. This complete-case selection conditioned the analysis on assets
 that survived and retained data coverage throughout the training
 window. We used SPY as the market and composed the other $423$ assets.
 For each asset, we fitted the state and emission model used in the SPY
-analysis (Table~\ref{tab:hyperparams}; $r_f=0$). We set the jump
-probability to zero so that the experiment measured multi-asset
+analysis (Table~\ref{tab:hyperparams}; $r_f=0$). In the primary
+six-method comparison, we set the jump probability to zero to measure
 composition without per-ticker jump calibration. We regressed each
 real asset on SPY to estimate $\alpha_i$, $\beta_i$, $R^2_{i,\real}$,
 and residual variance. Across the sample, $\beta_i$ ranged from $0.03$
 to $1.79$, and $R^2_{i,\real}$ ranged from $0.001$ to $0.933$
-(Supplementary Fig.~\ref{fig:r2_distribution}).
-
-We compared six ways to construct the asset-specific term. The naive
-method used the full JumpHMM draw without correction. The Gaussian
+(Supplementary Figs.~\ref{fig:branch_map} and \ref{fig:r2_distribution}).
+We compared six ways to construct the asset-specific term
+(Table~\ref{tab:aggregate}). The naive
+method used the centered full-return draw without variance correction. The Gaussian
 SIM method used independent Gaussian residuals with variance estimated
-by OLS. The hybrid method used Algorithm~\ref{alg:hybrid}. The
+by OLS. The corrected method, labeled \emph{hybrid} in the tables and
+figures, used Algorithm~\ref{alg:hybrid}. The
 JumpHMM-on-residuals method fitted a new JumpHMM to the OLS residual
 series after converting the residuals to a synthetic price path by
 cumulative compounding. The block-bootstrap method sampled the OLS
@@ -275,10 +279,12 @@ residual series with the Politis--Romano stationary
 bootstrap~\cite{politisRomano1994} and a mean block length of
 $\sqrt{T}\approx 50$. The GARCH(1,1)-$t$ method fitted a
 conditional-variance model to each residual series~\cite{bollerslev1986}.
-We excluded thirty non-stationary GARCH fits from the GARCH results.
-For each ticker, the naive and hybrid methods received the same
+We excluded GARCH fits that violated the stationarity condition.
+For each ticker, the naive and corrected methods received the same
 JumpHMM draw, which isolated the effect of the variance correction. The
-other four methods generated their own residual draws.
+other four methods generated their own residual draws. JumpHMM names
+identify the generator implementation; its jump mechanism was disabled
+in both full-return and residual fits for this six-method comparison.
 We did not use the optional cross-sectional rank reorder because the
 experiment tested each ticker's marginal construction separately.
 
@@ -297,14 +303,13 @@ Online Appendix~\ref{sec:supp-validation} gives the metric definitions.
 We ran $100$ replications per ticker with seed $1234$, producing
 $42{,}300$ series per method. Pass rates used the significance level
 $\alpha=0.05$.
-
 For the holdout evaluation, we froze all marginal fits, residual models,
 and SIM parameters estimated from $2014$--$2024$. We evaluated the
 methods against the
 $249$ growth rates observed in $2025$. Of the $423$ non-market
 training assets, $416$ had complete holdout histories; GARCH results
 covered $386$ because its thirty non-stationary training fits remained
-excluded. For each replication, we generated a $249$-day SPY path
+excluded (Table~\ref{tab:oos_composition}). For each replication, we generated a $249$-day SPY path
 from the training-period SPY marginal and used the same simulated
 market path in all asset compositions. Observed $2025$ SPY and asset
 returns were used only for scoring. We repeated the KS, AD,
@@ -320,3 +325,33 @@ results within ticker and then summarized across tickers so each
 asset received equal weight. No $2025$ data were used for fitting. The
 $249$-day training blocks provided a comparison at the same sample
 length as the holdout period.
+
+
+\paragraph{Jump-enabled multi-asset comparison.}
+
+To test whether the temporal benefit of the single-asset jump mechanism
+survived composition, we compared three settings: jumps disabled,
+jumps enabled only in the SPY market generator, and jumps enabled in
+both SPY and every asset generator
+(Table~\ref{tab:jump_ablation}). We froze the existing closing-price
+state models and SIM calibrations. Enabled models received the SPY
+settings of Table~\ref{tab:hyperparams}, $(\epsilon,\lambda)=(10^{-4},90)$, $p_{\rm neg}=0.52$, and
+$N_{\rm tail}=5$, without per-asset tuning. The SPY calibration used volume-weighted average prices, so its
+transfer also changed the price convention. We simulated the market in both the
+$2{,}766$-day training comparison and the $249$-day holdout comparison;
+the preceding six-method training comparison instead used observed
+SPY. This comparison assessed whether the SPY settings improved the
+composed paths without recalibrating the individual asset models.
+For each jump setting, naive and corrected composition received the
+same asset and market draws (Table~\ref{tab:jump_ablation}). One market path was shared across all
+assets in each replication. We generated $250$ paths for each of four
+seeds ($1234$, $2345$, $3456$, and $4567$), giving $1{,}000$
+replications per asset, setting, and method. We measured absolute-return
+ACF-MAE over lags $1$--$25$, with lags $1$--$60$ as a secondary check,
+and repeated the marginal and variance diagnostics. These common lag
+windows differ from the single-asset comparison's $252$-lag score.
+We included all paths in the primary summaries and estimated Monte
+Carlo uncertainty from replication-level cross-ticker averages, keeping
+assets together under their shared market path. The intervals describe
+simulation uncertainty conditional on the fitted models and observed
+histories, not uncertainty across market regimes.

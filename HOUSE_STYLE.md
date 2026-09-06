@@ -72,6 +72,11 @@ the text moves to a new biological or technical question.
 
 ## Figures, Tables, and Algorithms
 
+- In a passage presenting an analysis or empirical finding, put the relevant figure or
+  table reference in the first non-connective sentence. A purely connective opening may
+  precede it, but do not defer the evidence reference to a later sentence in the paragraph.
+  The cited item must support that sentence; do not attach an unrelated figure merely to
+  satisfy placement. Retain later references where a different finding needs its own support.
 - Cite every main-text figure and table in the Results at the point where its evidence is
   first reported or interpreted. A reference in the Methods, caption, or Discussion does not
   replace the Results citation.
@@ -124,7 +129,12 @@ the text moves to a new biological or technical question.
 
 ## Paragraphs and Flow
 
-- Aim for paragraphs similar in length to the Results section, usually about 100 to 200 words.
+- Use substantial, connected narrative paragraphs that develop a complete argument. The
+  author strongly prefers long, fully developed paragraphs and explicitly rejects short,
+  choppy paragraphs, including in the Introduction. Do not use a word-count target as a
+  substitute for development, or fragment an analysis into separate setup,
+  finding, and interpretation paragraphs. Combine related passages with a meaningful
+  transition; do not add filler or join unrelated arguments just to increase length.
 - Merge adjacent short paragraphs when they answer the same question.
 - Split a long paragraph when it contains more than one scientific purpose.
 - Each narrative paragraph should have one central job and should open by stating the
