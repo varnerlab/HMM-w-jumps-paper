@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.27 (TeX Live 2025) (preloaded format=pdflatex 2025.3.8)  31 AUG 2026 17:00
+This is pdfTeX, Version 3.141592653-2.6-1.40.27 (TeX Live 2025) (preloaded format=pdflatex 2025.3.8)  6 SEP 2026 11:49
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -725,8 +725,7 @@ File: mt-cmr.cfg 2013/05/19 v2.2 microtype config. file: Computer Modern Roman
 (RS)
 )
 (./sections/abstract.tex
-LaTeX Font Info:    Trying to load font information for U+msa on input line 12.
-
+LaTeX Font Info:    Trying to load font information for U+msa on input line 7.
 
 (/usr/local/texlive/2025/texmf-dist/tex/latex/amsfonts/umsa.fd
 File: umsa.fd 2013/01/14 v3.01 AMS symbols A
@@ -734,8 +733,7 @@ File: umsa.fd 2013/01/14 v3.01 AMS symbols A
 (/usr/local/texlive/2025/texmf-dist/tex/latex/microtype/mt-msa.cfg
 File: mt-msa.cfg 2006/02/04 v1.1 microtype config. file: AMS symbols (a) (RS)
 )
-LaTeX Font Info:    Trying to load font information for U+msb on input line 12.
-
+LaTeX Font Info:    Trying to load font information for U+msb on input line 7.
 
 (/usr/local/texlive/2025/texmf-dist/tex/latex/amsfonts/umsb.fd
 File: umsb.fd 2013/01/14 v3.01 AMS symbols B
@@ -754,23 +752,23 @@ al/texlive/2025/texmf-dist/fonts/enc/dvips/cm-super/cm-super-t1.enc}]
 File: figs/main/Fig01-Empirical-Motivation.pdf Graphic file (type pdf)
 <use figs/main/Fig01-Empirical-Motivation.pdf>
 Package pdftex.def Info: figs/main/Fig01-Empirical-Motivation.pdf  used on inpu
-t line 36.
+t line 56.
 (pdftex.def)             Requested size: 345.0pt x 258.74649pt.
 
 
-[2 <./figs/main/Fig01-Empirical-Motivation.pdf>])
+[2])
 
-[3] (./sections/related.tex
+[3 <./figs/main/Fig01-Empirical-Motivation.pdf>] (./sections/related.tex)
 
-[4])
+[4] (./sections/method_hmm.tex
 
-[5] (./sections/method_hmm.tex
+[5]
 
-[6])
+[6]
 
-[7] (./sections/method_sim.tex
+[7])
 
-[8]
+[8] (./sections/method_sim.tex
 
 [9]
 Overfull \hbox (11.18748pt too wide) detected at line 116
@@ -784,78 +782,83 @@ Overfull \hbox (11.18748pt too wide) detected at line 116
 
 [11]
 
-[12])
+[12]
 
 [13
 
-] (./sections/results.tex (./sections/tables/table2_model_comparison.tex)
+])
 
-[14]
+[14] (./sections/results.tex (./sections/tables/table2_model_comparison.tex)
 
 [15]
-<figs/main/Fig03-Model-Comparison.pdf, id=92, 1806.75pt x 562.1pt>
+
+[16]
+<figs/main/Fig03-Model-Comparison.pdf, id=95, 1806.75pt x 562.1pt>
 File: figs/main/Fig03-Model-Comparison.pdf Graphic file (type pdf)
 <use figs/main/Fig03-Model-Comparison.pdf>
 Package pdftex.def Info: figs/main/Fig03-Model-Comparison.pdf  used on input li
-ne 112.
+ne 91.
 (pdftex.def)             Requested size: 345.0pt x 107.33188pt.
- (./sections/tables/table1_aggregate.tex)
-
-[16 <./figs/main/Fig03-Model-Comparison.pdf>]
-
-[17] (./sections/tables/table6_oos_scorecard.tex)
-<figs/main/Fig05-OoS-Composition.pdf, id=100, 1204.5pt x 451.6875pt>
-File: figs/main/Fig05-OoS-Composition.pdf Graphic file (type pdf)
-<use figs/main/Fig05-OoS-Composition.pdf>
-Package pdftex.def Info: figs/main/Fig05-OoS-Composition.pdf  used on input lin
-e 261.
-(pdftex.def)             Requested size: 345.0pt x 129.37325pt.
-
-
-[18] (./sections/tables/table5_var_backtest_oos.tex)
-<figs/main/Fig06-Variance-Preservation.pdf, id=104, 1204.5pt x 451.6875pt>
+<figs/main/Fig06-Variance-Preservation.pdf, id=96, 1204.5pt x 451.6875pt>
 File: figs/main/Fig06-Variance-Preservation.pdf Graphic file (type pdf)
 <use figs/main/Fig06-Variance-Preservation.pdf>
 Package pdftex.def Info: figs/main/Fig06-Variance-Preservation.pdf  used on inp
-ut line 314.
+ut line 133.
 (pdftex.def)             Requested size: 345.0pt x 129.37325pt.
+ (./sections/tables/table1_aggregate.tex)
 
+[17 <./figs/main/Fig03-Model-Comparison.pdf>]
 
-[19 <./figs/main/Fig05-OoS-Composition.pdf>])
+[18 <./figs/main/Fig06-Variance-Preservation.pdf>]
+(./sections/tables/table6_oos_scorecard.tex)
 
-[20 <./figs/main/Fig06-Variance-Preservation.pdf>] (./sections/discussion.tex
+[19]
+<figs/main/Fig05-OoS-Composition.pdf, id=109, 1204.5pt x 451.6875pt>
+File: figs/main/Fig05-OoS-Composition.pdf Graphic file (type pdf)
+<use figs/main/Fig05-OoS-Composition.pdf>
+Package pdftex.def Info: figs/main/Fig05-OoS-Composition.pdf  used on input lin
+e 260.
+(pdftex.def)             Requested size: 345.0pt x 129.37325pt.
+ (./sections/tables/table5_var_backtest_oos.tex)
+
+[20 <./figs/main/Fig05-OoS-Composition.pdf>]
+(./sections/tables/table7_jump_ablation.tex)
 
 [21])
 
-[22] (./sections/conclusion.tex)
+[22] (./sections/discussion.tex
 
-[23] (./Paper_v1.bbl
+[23]) (./sections/conclusion.tex)
+
+[24] (./Paper_v1.bbl
 Package microtype Info: Loading generic protrusion settings for font family
 (microtype)             `cmtt' (encoding: T1).
 (microtype)             For optimal results, create family-specific settings.
 (microtype)             See the microtype manual for details.
 
 
-[24]
-
 [25]
 
-[26])
+[26]
 
-[27] (./Paper_v1.aux)
+[27]
+
+[28])
+
+[29] (./Paper_v1.aux)
  ***********
 LaTeX2e <2024-11-01> patch level 2
 L3 programming layer <2025-01-18>
  ***********
  ) 
 Here is how much of TeX's memory you used:
- 19847 strings out of 473190
- 388687 string characters out of 5715801
- 804768 words of memory out of 5000000
- 42341 multiletter control sequences out of 15000+600000
- 595897 words of font info for 277 fonts, out of 8000000 for 9000
+ 19874 strings out of 473190
+ 389251 string characters out of 5715801
+ 805257 words of memory out of 5000000
+ 42351 multiletter control sequences out of 15000+600000
+ 596409 words of font info for 284 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
- 89i,13n,90p,1061b,960s stack positions out of 10000i,1000n,20000p,200000b,200000s
+ 89i,12n,90p,1061b,960s stack positions out of 10000i,1000n,20000p,200000b,200000s
 </usr/local/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx10.pfb
 ></usr/local/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx6.pfb><
 /usr/local/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx8.pfb></u
@@ -894,10 +897,10 @@ blic/cm-super/sfti0800.pfb></usr/local/texlive/2025/texmf-dist/fonts/type1/publ
 ic/cm-super/sfti0900.pfb></usr/local/texlive/2025/texmf-dist/fonts/type1/public
 /cm-super/sfti1000.pfb></usr/local/texlive/2025/texmf-dist/fonts/type1/public/c
 m-super/sftt1000.pfb>
-Output written on Paper_v1.pdf (27 pages, 1217365 bytes).
+Output written on Paper_v1.pdf (29 pages, 1222360 bytes).
 PDF statistics:
- 294 PDF objects out of 1000 (max. 8388607)
- 183 compressed objects within 2 object streams
+ 300 PDF objects out of 1000 (max. 8388607)
+ 187 compressed objects within 2 object streams
  0 named destinations out of 1000 (max. 500000)
  61985 words of extra memory for PDF output out of 74296 (max. 10000000)
 

@@ -34,7 +34,7 @@ fewer observations per state. The sensitivity checks therefore
 supported the fitted generator at the observed sample length without
 establishing one state count for every asset history.
 
-\input{sections/tables/table2_model_comparison}
+% Main table tab:model_comparison is collected after the references.
 
 We compared the calibrated HMM-WJ with seven alternative generators
 using $1{,}000$ paths of $2{,}766$ trading days
@@ -87,21 +87,7 @@ period. We used the no-jump variant for the primary composition
 comparison and evaluated the transfer of jump settings separately
 in the multi-asset jump comparison.
 
-\begin{figure}[tbp]
-  \centering
-  \includegraphics[width=\textwidth]{figs/main/Fig03-Model-Comparison.pdf}
-  \caption{\textbf{Head-to-head in-sample model comparison for SPY}
-    ($N = 100$, $1{,}000$ simulated paths). \emph{Panel (a):} marginal
-    density of excess growth rates with in-sample Kolmogorov--Smirnov
-    (KS) pass rates
-    annotated per generator. \emph{Panel
-    (b):} autocorrelation function of $|G_t|$ at lags $1$--$252$
-    (shaded bands: $10$th--$90$th percentile across paths) per
-    generator. \emph{Panel (c):}
-    tail quantile-quantile plot at the $0.1$st--$99.9$th percentile region per
-    generator.}
-  \label{fig:model_comparison}
-\end{figure}
+% Main figure fig:model_comparison is collected after the references.
 
 \subsection{Variance-corrected multi-asset composition}
 
@@ -129,44 +115,9 @@ median absolute intercept error at $0.002\,\mathrm{yr}^{-1}$ for
 the naive and corrected methods; residual-fit methods retained
 finite-path variation in their residual means.
 
-\begin{figure}[tbp]
-  \centering
-  \includegraphics[width=\textwidth]{figs/main/Fig06-Variance-Preservation.pdf}
-  \caption{\textbf{Effect of the hybrid variance correction on each
-    ticker's Kolmogorov--Smirnov pass rate and variance ratio.}
-    Each point is a per-ticker median over $100$ replications; thick
-    lines are binned medians. \emph{Panel (a):} Kolmogorov--Smirnov
-    pass rate against the real marginal at $\alpha = 0.05$ for naive
-    composition (blue) and hybrid (orange).
-    \emph{Panel (b):} variance ratio
-    $\mathrm{Var}(g)/\sigma^2_{\mathrm{gen}}$ for the same two methods. The dotted curve is the
-    theoretical naive inflation $1 + \rho$ evaluated at the universe-median
-    $\sigma^2_{\mathrm{gen}}$ and the SPY annualized variance
-    $\Delta t\,\sigma_m^2 = 0.030~\mathrm{yr}^{-1}$ of the closing-price
-    series; the dashed line marks a variance ratio of one.}
-  \label{fig:preservation}
-\end{figure}
+% Main figure fig:preservation is collected after the references.
 
-\begin{table}[H]
-  \centering
-  \caption{\textbf{Aggregate scorecard across $423$ non-market tickers and
-    $100$ replications per ticker.} Errors, distances, and tail metrics
-    are medians per method. Kolmogorov--Smirnov (KS) and
-    Anderson--Darling (AD) pass fractions are pooled across replications.
-    $|\hat\alpha - \alpha|$, $|\hat\beta - \beta|$, and
-    $|\hat R^2 - R^2_{\real}|$: absolute deviation between ordinary
-    least-squares (OLS) recovery
-    and calibration (intercept error has units of $\mathrm{yr}^{-1}$).
-    KS pass and AD pass: fraction of
-    replications whose two-sample test against the real marginal exceeds
-    $p = 0.05$. $W_1$: Wasserstein-1 distance to the real marginal.
-    $\kappa$: sample excess kurtosis. Hill: tail-index estimate on the
-    upper $5\%$ of $|g|$. SIM denotes the single-index model, and GARCH
-    denotes generalized autoregressive conditional heteroskedasticity.}
-  \label{tab:aggregate}
-  \small
-  \resizebox{\textwidth}{!}{\input{sections/tables/table1_aggregate}}
-\end{table}
+% Main table tab:aggregate is collected after the references.
 
 The methods differed more in distributional fit than in factor
 recovery (Table~\ref{tab:aggregate}; Fig.~\ref{fig:tails}).
@@ -237,53 +188,11 @@ but its tail thresholds still produced more exceedances than the
 nominal rates. The coverage results therefore limited the risk
 interpretation of the distributional improvement.
 
-\begin{table}[H]
-  \centering
-  \caption{\textbf{Frozen-parameter multi-asset evaluation on the
-    $2025$ holdout.} Results cover $416$ non-market tickers and $100$
-    replications per ticker; generalized autoregressive conditional
-    heteroskedasticity (GARCH) covers $386$ tickers. Pass rates
-    are first averaged within ticker and then across tickers.
-    The \textit{matched in-sample (IS)} columns compare each synthetic path with a randomly
-    selected contiguous $249$-day block from the $2014$--$2024$
-    training history, matching the holdout sample length. $W_1$ and
-    the variance ratio are medians across ticker-level medians; the
-    variance ratio is synthetic variance divided by observed $2025$
-    variance.}
-  \label{tab:oos_composition}
-  \small
-  \input{sections/tables/table6_oos_scorecard}
-\end{table}
+% Main table tab:oos_composition is collected after the references.
 
-\begin{figure}[H]
-  \centering
-  \includegraphics[width=\textwidth]{figs/main/Fig05-OoS-Composition.pdf}
-  \caption{\textbf{Cross-ticker distribution of frozen-parameter
-    out-of-sample marginal fit.} Panel~(a) shows the distribution of
-    per-ticker $2025$ Kolmogorov--Smirnov (KS) pass rates across $100$ replications; the
-    dashed line marks $95\%$. Panel~(b) compares each ticker's hybrid
-    KS pass rate against a matched-length training block with its
-    pass rate against the $2025$ holdout. The diagonal denotes equal
-    performance.}
-  \label{fig:oos_composition}
-\end{figure}
+% Main figure fig:oos_composition is collected after the references.
 
-\begin{table}[H]
-  \centering
-  \caption{\textbf{Out-of-sample per-ticker one-day left-tail Value-at-Risk
-    coverage across the six composition methods.} VaR thresholds at
-    coverage level $\alpha$ were estimated from frozen-parameter
-    synthetic paths and exceedances were counted against the real
-    $2025$ growth-rate history. \textit{rate}: mean of the per-ticker
-    mean exceedance rates (nominal: $1-\alpha$). Cross-ticker standard
-    deviation (SD) is reported in percentage points.
-    \textit{Kupiec pass}: mean within-ticker fraction of replications
-    whose unconditional-coverage test $p$-value exceeds $0.05$.}
-  \label{tab:var}
-  \small
-  \setlength{\tabcolsep}{5pt}
-  \input{sections/tables/table5_var_backtest_oos}
-\end{table}
+% Main table tab:var is collected after the references.
 
 \subsection{Jump-enabled multi-asset composition}
 \label{sec:results-jump-composition}
@@ -319,25 +228,7 @@ settings did not improve temporal fit in $2025$. The short holdout
 and low episode frequency limited what the comparison could establish
 about behavior in other market periods.
 
-\begin{table}[H]
-  \centering
-  \caption{\textbf{Jump settings under naive and corrected multi-asset
-    composition.} Each setting used $1{,}000$ replications per asset
-    across four seeds, with identical asset and market draws for the
-    two composition methods. SPY was simulated in both windows.
-    Entries are equal-weight cross-ticker means of per-path metrics.
-    Kolmogorov--Smirnov (KS) and Anderson--Darling (AD) report
-    non-rejection rates at $\alpha=0.05$. ACF$_{25}$ and ACF$_{60}$
-    are mean absolute errors in the absolute-return autocorrelation
-    function through lags $25$ and $60$; lower values indicate better
-    temporal fit. $V_{\gen}=\Var(g_i)/\sigma_{\gen,i}^2$ compares
-    composed variance with the active generator's variance, rather
-    than observed variance.}
-  \label{tab:jump_ablation}
-  \footnotesize
-  \setlength{\tabcolsep}{4pt}
-  \input{sections/tables/table7_jump_ablation}
-\end{table}
+% Main table tab:jump_ablation is collected after the references.
 
 \subsection{Sensitivity analyses}
 

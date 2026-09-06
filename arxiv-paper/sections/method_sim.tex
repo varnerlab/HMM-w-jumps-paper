@@ -215,37 +215,7 @@ process.
 \end{algorithm}
 
 % --- Table: Hyperparameters ---
-\begin{table}[tbp]
-\centering
-\caption{\textbf{Hidden Markov model with jumps (HMM-WJ) and
-    single-index model (SIM) composition hyperparameters.} Values
-    used for the main SPY analysis, explored ranges, and locations of
-    sensitivity checks. For the primary six-method SIM comparison, we set
-    $\epsilon = 0$ instead of the SPY value. The separate jump-enabled
-    comparison transferred the listed SPY settings to enabled models. The cross-asset
-    validation used per-ticker $(\epsilon^{*}, \lambda^{*})$ values
-    for NVDA, JNJ, and JPM (Table~\ref{tab:cross_asset}).}
-\label{tab:hyperparams}
-\small
-\begin{tabular}{@{}llll@{}}
-\toprule
-\textbf{Symbol} & \textbf{Description} & \textbf{SPY value} & \textbf{Explored range} \\ \midrule
-\multicolumn{4}{l}{\textit{State partition and emission}} \\[2pt]
-$N$            & Laplace-quantile states                      & $100$     & $\{30,\dots,350\}$, Online Appendix~\ref{sec:supp-sensitivity} \\
-$\nu$          & Student-$t$ emission degrees of freedom      & $5$       & $\{3,\dots,30,\infty\}$ \\[4pt]
-\multicolumn{4}{l}{\textit{Jump-duration override}} \\[2pt]
-$\epsilon$     & jump probability per step                    & $10^{-4}$ & $[10^{-4}, 2.5\times10^{-2}]$, Eq.~\eqref{eq:grid_search} \\
-$\lambda$      & mean jump-episode duration (steps)           & $90$      & $[10, 160]$, Eq.~\eqref{eq:grid_search} \\
-$p_{\rm neg}$  & probability a jump targets $\mathcal{S}_{-}$ & $0.52$    & fixed \\
-$N_{\rm tail}$ & quantile states per tail set                 & $5$       & fixed (at $N = 100$) \\
-$w_\kappa$     & kurtosis-penalty weight, Eq.~\eqref{eq:grid_search} & $0.20$ & fixed \\
-$L$            & autocorrelation lag window, Eq.~\eqref{eq:grid_search} & $25$ days & fixed \\[4pt]
-\multicolumn{4}{l}{\textit{SIM composition}} \\[2pt]
-$f$                        & idiosyncratic variance floor & $0.10$ & $\{0.05,\dots,0.30\}$ \\
-$R^2_{\mathrm{preserve}}$  & branch-selection threshold   & $0.80$ & $\{0.70,\dots,0.90\}$ \\
-\bottomrule
-\end{tabular}
-\end{table}
+% Main table tab:hyperparams is collected after the references.
 \FloatBarrier
 
 \paragraph{Evaluation protocol.}
@@ -301,16 +271,24 @@ Online Appendix~\ref{sec:supp-validation} gives the metric definitions.
 We ran $100$ replications per ticker with seed $1234$, producing
 $42{,}300$ series per method. Pass rates used the significance level
 $\alpha=0.05$.
-For the holdout evaluation, we froze all marginal fits, residual models,
-and SIM parameters estimated from $2014$--$2024$. We evaluated the
+For the six-method holdout evaluation, we froze all marginal fits,
+residual models, and SIM parameters estimated from $2014$--$2024$
+(Tables~\ref{tab:oos_composition} and \ref{tab:var}). We evaluated the
 methods against the
 $249$ growth rates observed in $2025$. Of the $423$ non-market
 training assets, $416$ had complete holdout histories; GARCH results
 covered $386$ because its thirty non-stationary training fits remained
 excluded (Table~\ref{tab:oos_composition}). For each replication, we generated a $249$-day SPY path
 from the training-period SPY marginal and used the same simulated
-market path in all asset compositions. Observed $2025$ SPY and asset
-returns were used only for scoring. We repeated the KS, AD,
+market path in all asset compositions. In this evaluation, the
+correction used the observed training-period market variance in place
+of the simulated path variance $\sigma_m^2$ in
+Eqs.~\eqref{eq:scale}--\eqref{eq:r2-rescale}; the generator variance
+was still computed from each asset draw. The residual scale therefore
+budgeted for the training market variance, and variation in the
+simulated market variance could move the composed variance away from
+the generator target even when the sample cross-covariance was zero.
+Observed $2025$ SPY and asset returns were used only for scoring. We repeated the KS, AD,
 Wasserstein-1, variance, kurtosis, and one-day left-tail Value-at-Risk
 (VaR) evaluations with
 $100$ paths per ticker. For each VaR threshold, we also used Kupiec's
@@ -338,7 +316,12 @@ $N_{\rm tail}=5$, without per-asset tuning. The SPY calibration used volume-weig
 transfer also changed the price convention. We simulated the market in both the
 $2{,}766$-day training comparison and the $249$-day holdout comparison;
 the preceding six-method training comparison instead used observed
-SPY. This comparison assessed whether the SPY settings improved the
+SPY. In both windows of the jump comparison, the correction used each
+simulated market path's variance and each asset draw's variance. Thus,
+the jump comparison also differed from the six-method holdout protocol,
+which kept the market variance fixed at its training value. Within
+each experiment, the variance convention was the same across all
+compared jump settings. This comparison assessed whether the SPY settings improved the
 composed paths without recalibrating the individual asset models.
 For each jump setting, naive and corrected composition received the
 same asset and market draws (Table~\ref{tab:jump_ablation}). One market path was shared across all

@@ -30,10 +30,9 @@
 \usepackage{tikz}
 \usetikzlibrary{arrows.meta, decorations.pathreplacing, positioning}
 
-% --- figure/table placement ---
-% Allow up to 2 floats at top/bottom; let large floats consume up to 85%
-% of the textheight so a wide table or panel figure can sit on the same
-% page as the surrounding prose rather than being deferred to a float page.
+% Main tables and figures are collected after the references, before the SI.
+% Algorithms stay in the body; SI floats retain their local placement.
+% Float limits below govern algorithms and the remaining SI floats.
 \setcounter{topnumber}{2}
 \setcounter{bottomnumber}{1}
 \setcounter{totalnumber}{3}
@@ -127,6 +126,8 @@ one trading day, and $r_f$ is a constant continuously compounded
 risk-free rate. We used $r_f=0.043$ for the SPY training period and
 $r_f=0.0421$ for its $2025$ holdout, based on Treasury Separate Trading
 of Registered Interest and Principal of Securities (STRIPS) bond yields.
+For the multi-asset closing-price experiments, we set $r_f=0$ in both
+windows, so their growth rates were annualized log returns.
 The excess growth rate
 has units of $\mathrm{year}^{-1}$ and is time-additive under
 continuous compounding.
@@ -148,7 +149,7 @@ continuous compounding.
 
 \section*{Acknowledgments}
 The authors thank the eCornell artificial intelligence (AI) in Finance program participants for
-discussions that motivated the portfolio-level use of these paths,
+discussions that motivated this work,
 and Polygon.io for access to the 2014 to 2024 United States equity and
 exchange-traded-fund daily
 price histories used in the experiments. Computations were run on a
@@ -165,16 +166,36 @@ manuscript.
 \paragraph{Competing interests.}
 The authors declare no competing interests.
 
-\enlargethispage{2\baselineskip}
+\needspace{12\baselineskip}
 \paragraph{Code and data availability.}
 The experiment scripts, evaluation code (six-method comparison and
 Value-at-Risk coverage check), cached inputs and
-result summaries, and fitted per-asset marginals are released in the paper repository
+result summaries, and instructions for regenerating the fitted
+per-asset models are provided in the paper repository
 (\url{https://github.com/varnerlab/HMM-w-jumps-paper}); the
 underlying model-fitting library is released separately as
 \texttt{JumpHMM.jl}
 (\url{https://github.com/varnerlab/JumpHMM.jl}), pinned as a
 dependency of the experiment code.
+
+\paragraph{Generative artificial intelligence use.}
+During the preparation of this work, the authors used OpenAI Codex to
+assist with language editing, consistency checks, LaTeX formatting,
+and the implementation and checking of experiment code. The authors
+reviewed and edited the assisted work and take full responsibility for
+the content of the publication.
+
+\clearpage
+\bibliographystyle{unsrtnat}
+\bibliography{References_v1}
+
+\clearpage
+\section*{Tables}
+\input{sections/main_tables}
+
+\clearpage
+\section*{Figures}
+\input{sections/main_figures}
 
 \clearpage
 \appendix
@@ -196,7 +217,5 @@ dependency of the experiment code.
 
 \input{sections/appendix}
 
-\bibliographystyle{unsrtnat}
-\bibliography{References_v1}
 
 \end{document}

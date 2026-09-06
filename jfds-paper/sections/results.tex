@@ -248,7 +248,8 @@ interpretation of the distributional improvement.
     training history, matching the holdout sample length. $W_1$ and
     the variance ratio are medians across ticker-level medians; the
     variance ratio is synthetic variance divided by observed $2025$
-    variance.}
+    variance. The hybrid correction used the training-period market
+    variance and each simulated asset draw's variance.}
   \label{tab:oos_composition}
   \small
   \resizebox{\textwidth}{!}{\input{sections/tables/table6_oos_scorecard}}
@@ -273,7 +274,9 @@ interpretation of the distributional improvement.
     coverage across the six composition methods.} VaR thresholds at
     coverage level $\alpha$ were estimated from frozen-parameter
     synthetic paths and exceedances were counted against the real
-    $2025$ growth-rate history. \textit{rate}: mean of the per-ticker
+    $2025$ growth-rate history. The hybrid correction used the same
+    training-period market variance convention as
+    Table~\ref{tab:oos_composition}. \textit{rate}: mean of the per-ticker
     mean exceedance rates (nominal: $1-\alpha$). Cross-ticker standard
     deviation (SD) is reported in percentage points.
     \textit{Kupiec pass}: mean within-ticker fraction of replications
@@ -322,8 +325,10 @@ about behavior in other market periods.
   \caption{\textbf{Jump settings under naive and corrected multi-asset
     composition.} Each setting used $1{,}000$ replications per asset
     across four seeds, with identical asset and market draws for the
-    two composition methods. SPY was simulated in both windows.
-    Entries are equal-weight cross-ticker means of per-path metrics.
+    two composition methods. SPY was simulated in both windows,
+    and the correction used each simulated market path's variance
+    and each asset draw's variance. Entries are equal-weight
+    cross-ticker means of per-path metrics.
     Kolmogorov--Smirnov (KS) and Anderson--Darling (AD) report
     non-rejection rates at $\alpha=0.05$. ACF$_{25}$ and ACF$_{60}$
     are mean absolute errors in the absolute-return autocorrelation

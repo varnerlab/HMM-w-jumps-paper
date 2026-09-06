@@ -1563,26 +1563,29 @@ intercept and market term alone set the conditional mean; the variance
 $\sigma_{\gen,i}^2 - \beta_i^2 \sigma_m^2$ not already contributed by
 the market term; and the asset-specific distributional shape, the
 heavy tails and volatility clustering that motivated the single-asset
-generator. Centering meets the first requirement exactly
-(Eq.~\eqref{eq:center-generator}), the scale of Eq.~\eqref{eq:scale}
-meets the second exactly, and the large-$T$ limits
-$\hat\alpha_i \to \alpha_i$ and $\hat\beta_i \to \beta_i^{\eff}$ hold
-because the draw is generated independently of the simulated market
-path (Sec.~\ref{sec:supp-cov}), so the recovered factor structure is
-exact as well. Any zero-mean, correctly scaled, market-independent
-draw satisfies the first two requirements; the full-return draw is
-chosen for the third, because it carries the per-asset marginal that
-the single-asset validation certified. Only the shape requirement is
-met approximately, and two exact statements bracket the
-approximation.
+generator. Centering gives the residual path an exactly zero sample
+mean (Eq.~\eqref{eq:center-generator}). On the unclipped non-tracker
+branch, using the market path variance in Eq.~\eqref{eq:scale} gives
+the residual exactly the remaining variance. The composed variance
+also contains the sample cross-covariance term, which need not vanish
+on a finite path. Under the independence and large-$T$ assumptions of
+Section~\ref{sec:supp-sim-derivations}, the recovered loadings and
+intercept converge to their targets. Using the frozen training market
+variance, as in the six-method holdout evaluation, adds a further
+variance difference if the simulated market variance differs from that
+training value. The full-return draw supplies the residual's shape,
+but its validation as a standalone asset generator does not establish
+that it reproduces the asset's regression-residual distribution.
 
-At $\rho_i = 0$ the substitution is not an approximation:
-Eq.~\eqref{eq:scale} gives $s_i = 1$, the market term contributes no
-variance, and the composed series is the generator draw itself, so the
-composed distribution equals the validated single-asset marginal. For
-$\rho_i > 0$ the composed return is the sum of two independent
-centered draws, and the survival of the generator's shape follows in
-closed form. In population, conditional on the fitted parameters,
+At $\rho_i = 0$, Eq.~\eqref{eq:scale} gives $s_i = 1$ and the market
+term contributes no variance. The composed path then has the same
+centered empirical distribution as the generator path, while its mean
+is set by the intercept and market term. Equality with the original
+uncentered generator distribution would additionally require those
+means to agree. For $\rho_i > 0$, the independent market contribution
+changes even the centered distribution. To describe that change, take
+the unclipped non-tracker branch with population variances and fixed
+scales. In population, conditional on the fitted parameters,
 write the deviation of the composed return from its mean as
 $X_m + X_i$, where $X_m = \beta_i\, g_m^{\mathrm c}$ is the market
 contribution, $g_m^{\mathrm c}$ is the market path centered at its
@@ -1637,20 +1640,23 @@ the Gaussian SIM does not (Fig.~\ref{fig:tails}), and the hybrid KS
 pass rate declines from the lowest to the highest $\beta$ quartile
 (Table~\ref{tab:beta_bucket}).
 
-The residual-fit methods provide the exact-orthogonal alternative:
-they fit a generator to each asset's OLS residual series, contain no
-market component to double count, and are compared with the hybrid
-in Table~\ref{tab:aggregate}; fitting JumpHMM to residuals requires
+The residual-fit methods offer a direct alternative by fitting each
+asset's OLS residual series (Table~\ref{tab:aggregate}). Those fitted
+series are orthogonal to the observed market by construction, but a
+new simulated residual path need not have exactly zero sample
+covariance with its market path. Fitting JumpHMM to residuals requires
 converting each residual series to a synthetic price path by
-cumulative compounding and a second fit per asset. In summary,
-$\tg_i^{\mathrm c}$ is not a residual in the orthogonal-decomposition
-sense; it is a carrier of the validated marginal shape. The
-substitution fixes the mean, the variance, and the recovered factor
-loadings exactly, reproduces the asset's marginal exactly in the
-$\rho_i \to 0$ limit, and dilutes the generator's shape with weight
-$(1 - \rho_i)^2$ as the market share grows; the clipped and
-$R^2$-preserving branches of Algorithm~\ref{alg:hybrid} handle the
-region where the dilution is largest.
+cumulative compounding and a second fit per asset. The corrected
+full-return construction instead reuses the generator's centered
+shape and supplies the residual variance budget without that second
+fit. It preserves the composed path mean exactly, while variance and
+factor recovery depend on the stated variance convention and
+cross-covariance assumptions. At zero market loading it preserves the
+generator path's centered empirical distribution. For positive market
+loading, Eq.~\eqref{eq:supp-kurt-comp} describes how the independent
+market contribution changes population excess kurtosis on the
+unclipped non-tracker branch. The clipped and $R^2$-preserving branches
+use the different variance allocations in Algorithm~\ref{alg:hybrid}.
 
 % --- Table: simulation check of the kurtosis composition rule ---
 \begin{table}[H]

@@ -11,6 +11,8 @@ SECTIONS := sections/abstract.tex \
 	sections/results.tex \
 	sections/discussion.tex \
 	sections/conclusion.tex \
+	sections/main_tables.tex \
+	sections/main_figures.tex \
 	sections/appendix.tex
 TABLES := sections/tables/table1_aggregate.tex \
 	sections/tables/table2_by_branch.tex \
@@ -50,8 +52,9 @@ $(PDF): $(SOURCES)
 
 source: $(ARCHIVE)
 
-$(ARCHIVE): $(SOURCES) Makefile
-	tar -czf $(ARCHIVE) $(SOURCES) Makefile
+# Build first so the release archive includes the current generated bibliography.
+$(ARCHIVE): $(PDF) $(SOURCES) Makefile
+	COPYFILE_DISABLE=1 tar -czf $(ARCHIVE) $(SOURCES) $(PAPER).bbl Makefile
 
 watch:
 	$(LATEXMK) $(LATEXMK_FLAGS) -pvc $(PAPER)

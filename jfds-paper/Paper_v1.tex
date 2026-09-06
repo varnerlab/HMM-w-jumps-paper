@@ -69,6 +69,8 @@ one trading day, and $r_f$ is a constant continuously compounded
 risk-free rate. We used $r_f=0.043$ for the SPY training period and
 $r_f=0.0421$ for its $2025$ holdout, based on Treasury Separate Trading
 of Registered Interest and Principal of Securities (STRIPS) bond yields.
+For the multi-asset closing-price experiments, we set $r_f=0$ in both
+windows, so their growth rates were annualized log returns.
 The excess growth rate
 has units of $\mathrm{year}^{-1}$ and is time-additive under
 continuous compounding.
@@ -91,8 +93,8 @@ continuous compounding.
 \section*{Code and data availability}
 The experiment scripts, evaluation code (six-method comparison and
 left-tail Value-at-Risk coverage check), cached
-inputs and result summaries, and fitted per-asset marginals are
-publicly available. The underlying model-fitting library is released
+inputs and result summaries, and instructions for regenerating the
+fitted per-asset models are publicly available. The underlying model-fitting library is released
 separately and pinned as a dependency of the experiment code.
 Identifying repository links have been withheld from this
 manuscript for double-anonymized review and are provided to the
@@ -100,9 +102,10 @@ editorial office on the separate title page.
 
 \section*{Declaration of generative artificial intelligence use in the writing process}
 During the preparation of this work, the authors used OpenAI Codex to
-assist with language editing, consistency checks, and LaTeX formatting.
-The authors reviewed and edited all output and take full responsibility
-for the content of the publication.
+assist with language editing, consistency checks, LaTeX formatting,
+and the implementation and checking of experiment code. The authors
+reviewed and edited the assisted work and take full responsibility for
+the content of the publication.
 
 \bibliographystyle{elsarticle-harv}
 \bibliography{References_v1}

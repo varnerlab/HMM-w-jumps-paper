@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.27 (TeX Live 2025) (preloaded format=pdflatex 2025.3.8)  31 AUG 2026 17:00
+This is pdfTeX, Version 3.141592653-2.6-1.40.27 (TeX Live 2025) (preloaded format=pdflatex 2025.3.8)  6 SEP 2026 11:49
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -784,13 +784,14 @@ File: figs/supplement/FigS04-Statistical-Validation.pdf Graphic file (type pdf)
 
 <use figs/supplement/FigS04-Statistical-Validation.pdf>
 Package pdftex.def Info: figs/supplement/FigS04-Statistical-Validation.pdf  use
-d on input line 395.
+d on input line 398.
 (pdftex.def)             Requested size: 345.0pt x 258.74649pt.
 
 
 [6]
 
 [7 <./figs/supplement/FigS04-Statistical-Validation.pdf>]
+(./sections/tables/tableS_generator_quantities.tex)
 
 [8]
 
@@ -806,53 +807,59 @@ d on input line 395.
 
 [14]
 
-[15]
+[15] (./sections/tables/tableS_acf_prediction.tex)
 
 [16]
-<figs/supplement/FigS05-Model-Internals.pdf, id=89, 1606.0pt x 521.95pt>
+
+[17]
+<figs/supplement/FigS05-Model-Internals.pdf, id=94, 1606.0pt x 521.95pt>
 File: figs/supplement/FigS05-Model-Internals.pdf Graphic file (type pdf)
 <use figs/supplement/FigS05-Model-Internals.pdf>
 Package pdftex.def Info: figs/supplement/FigS05-Model-Internals.pdf  used on in
-put line 1102.
+put line 1127.
 (pdftex.def)             Requested size: 345.0pt x 112.12149pt.
-
-
-[17 <./figs/supplement/FigS05-Model-Internals.pdf>]
-(./sections/tables/table2_by_branch.tex
+ (./sections/tables/table2_by_branch.tex
 Package microtype Info: Loading generic protrusion settings for font family
 (microtype)             `cmtt' (encoding: T1).
 (microtype)             For optimal results, create family-specific settings.
 (microtype)             See the microtype manual for details.
 )
 
-[18]
+[18 <./figs/supplement/FigS05-Model-Internals.pdf>]
 
 [19]
-<figs/supplement/FigS06-Branch-Map.pdf, id=109, 903.375pt x 501.875pt>
+
+[20]
+<figs/supplement/FigS06-Branch-Map.pdf, id=114, 903.375pt x 501.875pt>
 File: figs/supplement/FigS06-Branch-Map.pdf Graphic file (type pdf)
 <use figs/supplement/FigS06-Branch-Map.pdf>
 Package pdftex.def Info: figs/supplement/FigS06-Branch-Map.pdf  used on input l
-ine 1318.
+ine 1344.
 (pdftex.def)             Requested size: 293.2521pt x 162.91599pt.
  (./sections/tables/table3_by_beta_bucket.tex)
 
-[20]
+[21]
 
-[21 <./figs/supplement/FigS06-Branch-Map.pdf>]
-<figs/supplement/FigS03-R2-Distribution.pdf, id=117, 762.85pt x 441.65pt>
+[22 <./figs/supplement/FigS06-Branch-Map.pdf>]
+<figs/supplement/FigS03-R2-Distribution.pdf, id=122, 762.85pt x 441.65pt>
 File: figs/supplement/FigS03-R2-Distribution.pdf Graphic file (type pdf)
 <use figs/supplement/FigS03-R2-Distribution.pdf>
 Package pdftex.def Info: figs/supplement/FigS03-R2-Distribution.pdf  used on in
-put line 1423.
+put line 1449.
 (pdftex.def)             Requested size: 293.2521pt x 169.77632pt.
-<figs/supplement/FigS02-Tail-Preservation.pdf, id=118, 1204.5pt x 451.6875pt>
+<figs/supplement/FigS02-Tail-Preservation.pdf, id=123, 1204.5pt x 451.6875pt>
 File: figs/supplement/FigS02-Tail-Preservation.pdf Graphic file (type pdf)
 <use figs/supplement/FigS02-Tail-Preservation.pdf>
 Package pdftex.def Info: figs/supplement/FigS02-Tail-Preservation.pdf  used on 
-input line 1439.
+input line 1465.
 (pdftex.def)             Requested size: 345.0pt x 129.37325pt.
 
-Overfull \hbox (3.51581pt too wide) in paragraph at lines 1481--1489
+
+[23]
+
+[24 <./figs/supplement/FigS03-R2-Distribution.pdf> <./figs/supplement/FigS02-Ta
+il-Preservation.pdf>]
+Overfull \hbox (3.51581pt too wide) in paragraph at lines 1507--1515
 \T1/cmr/m/n/10 (-20) Substituting $\OML/cmm/m/it/10 "[] \OT1/cmr/m/n/10 (-20) =
  \OML/cmm/m/it/10 s[] []$ \T1/cmr/m/n/10 (-20) gives $[]\OT1/cmr/m/n/10 (-20) (
 \OML/cmm/m/it/10 "[]\OT1/cmr/m/n/10 (-20) ) = \OML/cmm/m/it/10 s[] ^^[[]$ \T1/c
@@ -863,27 +870,27 @@ r/m/n/10 (-20) ) = \OML/cmm/m/it/10 s[]  []\OT1/cmr/m/n/10 (-20) (\OML/cmm/m/it
 
 
 
-[22]
+[25]
 
-[23 <./figs/supplement/FigS03-R2-Distribution.pdf> <./figs/supplement/FigS02-Ta
-il-Preservation.pdf>]
+[26] (./sections/tables/tableS_kurt_composition.tex)
 
-[24]) (./Supplement_v1.bbl
+[27] (./sections/tables/tableS_jump_ablation_uncertainty.tex)
+(./sections/tables/tableS_jump_ablation_episodes.tex)) (./Supplement_v1.bbl
 
-[25])
+[28])
 
-[26] (./Supplement_v1.aux)
+[29] (./Supplement_v1.aux)
  ***********
 LaTeX2e <2024-11-01> patch level 2
 L3 programming layer <2025-01-18>
  ***********
  ) 
 Here is how much of TeX's memory you used:
- 19148 strings out of 473190
- 374361 string characters out of 5715801
- 787207 words of memory out of 5000000
- 41701 multiletter control sequences out of 15000+600000
- 589651 words of font info for 252 fonts, out of 8000000 for 9000
+ 19221 strings out of 473190
+ 376780 string characters out of 5715801
+ 788413 words of memory out of 5000000
+ 41735 multiletter control sequences out of 15000+600000
+ 590352 words of font info for 264 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
  89i,17n,90p,1087b,359s stack positions out of 10000i,1000n,20000p,200000b,200000s
 </usr/local/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx10.pfb
@@ -891,42 +898,43 @@ Here is how much of TeX's memory you used:
 /usr/local/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx8.pfb></u
 sr/local/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx9.pfb></usr
 /local/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/cm/cmex10.pfb></usr/
-local/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi10.pfb></usr/l
-ocal/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi5.pfb></usr/loc
-al/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi6.pfb></usr/local
-/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi7.pfb></usr/local/t
-exlive/2025/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi8.pfb></usr/local/tex
-live/2025/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi9.pfb></usr/local/texli
-ve/2025/texmf-dist/fonts/type1/public/amsfonts/cmextra/cmmib9.pfb></usr/local/t
-exlive/2025/texmf-dist/fonts/type1/public/amsfonts/cm/cmr10.pfb></usr/local/tex
-live/2025/texmf-dist/fonts/type1/public/amsfonts/cm/cmr5.pfb></usr/local/texliv
-e/2025/texmf-dist/fonts/type1/public/amsfonts/cm/cmr6.pfb></usr/local/texlive/2
-025/texmf-dist/fonts/type1/public/amsfonts/cm/cmr7.pfb></usr/local/texlive/2025
-/texmf-dist/fonts/type1/public/amsfonts/cm/cmr8.pfb></usr/local/texlive/2025/te
-xmf-dist/fonts/type1/public/amsfonts/cm/cmr9.pfb></usr/local/texlive/2025/texmf
--dist/fonts/type1/public/amsfonts/cm/cmsy10.pfb></usr/local/texlive/2025/texmf-
-dist/fonts/type1/public/amsfonts/cm/cmsy5.pfb></usr/local/texlive/2025/texmf-di
-st/fonts/type1/public/amsfonts/cm/cmsy6.pfb></usr/local/texlive/2025/texmf-dist
-/fonts/type1/public/amsfonts/cm/cmsy7.pfb></usr/local/texlive/2025/texmf-dist/f
-onts/type1/public/amsfonts/cm/cmsy8.pfb></usr/local/texlive/2025/texmf-dist/fon
-ts/type1/public/amsfonts/cm/cmsy9.pfb></usr/local/texlive/2025/texmf-dist/fonts
-/type1/public/amsfonts/symbols/msbm10.pfb></usr/local/texlive/2025/texmf-dist/f
-onts/type1/public/cm-super/sfbx0800.pfb></usr/local/texlive/2025/texmf-dist/fon
-ts/type1/public/cm-super/sfbx0900.pfb></usr/local/texlive/2025/texmf-dist/fonts
-/type1/public/cm-super/sfbx1000.pfb></usr/local/texlive/2025/texmf-dist/fonts/t
-ype1/public/cm-super/sfrm0800.pfb></usr/local/texlive/2025/texmf-dist/fonts/typ
-e1/public/cm-super/sfrm0900.pfb></usr/local/texlive/2025/texmf-dist/fonts/type1
-/public/cm-super/sfrm1000.pfb></usr/local/texlive/2025/texmf-dist/fonts/type1/p
-ublic/cm-super/sfrm1440.pfb></usr/local/texlive/2025/texmf-dist/fonts/type1/pub
-lic/cm-super/sfti0800.pfb></usr/local/texlive/2025/texmf-dist/fonts/type1/publi
-c/cm-super/sfti0900.pfb></usr/local/texlive/2025/texmf-dist/fonts/type1/public/
-cm-super/sfti1000.pfb></usr/local/texlive/2025/texmf-dist/fonts/type1/public/cm
--super/sftt0900.pfb></usr/local/texlive/2025/texmf-dist/fonts/type1/public/cm-s
-uper/sftt1000.pfb>
-Output written on Supplement_v1.pdf (26 pages, 1153615 bytes).
+local/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/cmextra/cmex8.pfb></u
+sr/local/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi10.pfb></us
+r/local/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi5.pfb></usr/
+local/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi6.pfb></usr/lo
+cal/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi7.pfb></usr/loca
+l/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi8.pfb></usr/local/
+texlive/2025/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi9.pfb></usr/local/te
+xlive/2025/texmf-dist/fonts/type1/public/amsfonts/cmextra/cmmib9.pfb></usr/loca
+l/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/cm/cmr10.pfb></usr/local/
+texlive/2025/texmf-dist/fonts/type1/public/amsfonts/cm/cmr5.pfb></usr/local/tex
+live/2025/texmf-dist/fonts/type1/public/amsfonts/cm/cmr6.pfb></usr/local/texliv
+e/2025/texmf-dist/fonts/type1/public/amsfonts/cm/cmr7.pfb></usr/local/texlive/2
+025/texmf-dist/fonts/type1/public/amsfonts/cm/cmr8.pfb></usr/local/texlive/2025
+/texmf-dist/fonts/type1/public/amsfonts/cm/cmr9.pfb></usr/local/texlive/2025/te
+xmf-dist/fonts/type1/public/amsfonts/cm/cmsy10.pfb></usr/local/texlive/2025/tex
+mf-dist/fonts/type1/public/amsfonts/cm/cmsy5.pfb></usr/local/texlive/2025/texmf
+-dist/fonts/type1/public/amsfonts/cm/cmsy6.pfb></usr/local/texlive/2025/texmf-d
+ist/fonts/type1/public/amsfonts/cm/cmsy7.pfb></usr/local/texlive/2025/texmf-dis
+t/fonts/type1/public/amsfonts/cm/cmsy8.pfb></usr/local/texlive/2025/texmf-dist/
+fonts/type1/public/amsfonts/cm/cmsy9.pfb></usr/local/texlive/2025/texmf-dist/fo
+nts/type1/public/amsfonts/symbols/msbm10.pfb></usr/local/texlive/2025/texmf-dis
+t/fonts/type1/public/cm-super/sfbx0800.pfb></usr/local/texlive/2025/texmf-dist/
+fonts/type1/public/cm-super/sfbx0900.pfb></usr/local/texlive/2025/texmf-dist/fo
+nts/type1/public/cm-super/sfbx1000.pfb></usr/local/texlive/2025/texmf-dist/font
+s/type1/public/cm-super/sfrm0800.pfb></usr/local/texlive/2025/texmf-dist/fonts/
+type1/public/cm-super/sfrm0900.pfb></usr/local/texlive/2025/texmf-dist/fonts/ty
+pe1/public/cm-super/sfrm1000.pfb></usr/local/texlive/2025/texmf-dist/fonts/type
+1/public/cm-super/sfrm1440.pfb></usr/local/texlive/2025/texmf-dist/fonts/type1/
+public/cm-super/sfti0800.pfb></usr/local/texlive/2025/texmf-dist/fonts/type1/pu
+blic/cm-super/sfti0900.pfb></usr/local/texlive/2025/texmf-dist/fonts/type1/publ
+ic/cm-super/sfti1000.pfb></usr/local/texlive/2025/texmf-dist/fonts/type1/public
+/cm-super/sftt0900.pfb></usr/local/texlive/2025/texmf-dist/fonts/type1/public/c
+m-super/sftt1000.pfb>
+Output written on Supplement_v1.pdf (29 pages, 1190993 bytes).
 PDF statistics:
- 292 PDF objects out of 1000 (max. 8388607)
- 180 compressed objects within 2 object streams
+ 306 PDF objects out of 1000 (max. 8388607)
+ 189 compressed objects within 2 object streams
  0 named destinations out of 1000 (max. 500000)
  50219 words of extra memory for PDF output out of 51595 (max. 10000000)
 

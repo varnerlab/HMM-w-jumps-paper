@@ -1,11 +1,21 @@
-# Hybrid Hidden Markov Model with a Jump-Duration Mechanism for Synthetic Equity Data Generation
+# Variance-Corrected Multi-Asset Equity Simulation with Hybrid Hidden Markov Marginals
 
-This repository contains the code and paper for:
+Code and manuscripts for the study by Abdulrahman Alswaidan and Jeffrey D. Varner,
+Cornell University. The paper corrects the duplicate market variance introduced
+when full-return generators are reused in a single-index model. It compares six
+composition methods, evaluates frozen models on 2025 returns, and tests the
+transfer of SPY jump settings to multi-asset paths.
 
-> **Hybrid Hidden Markov Model for Modeling Equity Excess Growth Rate Dynamics: A Discrete-State Approach with a Jump-Duration Mechanism**
-> Abdulrahman Alswaidan and Jeffrey Varner, Cornell University
+The current manuscript is in [`arxiv-paper/`](arxiv-paper/); the JFDS version is
+in [`jfds-paper/`](jfds-paper/). The existing arXiv record is
+[2603.10202](https://arxiv.org/abs/2603.10202). The repository revision may precede
+its posting as an arXiv replacement.
 
-The framework discretizes continuous excess growth rates into Laplace quantile-defined market states and augments the resulting hidden Markov process with a Poisson-driven jump-duration mechanism. This produces synthetic equity time series that simultaneously reproduce heavy-tailed distributions, negligible linear autocorrelation, and persistent volatility clustering.
+For the main composition results, follow the ordered commands in
+[`code/downstream-evaluation/README.md`](code/downstream-evaluation/README.md).
+Cached inputs and result summaries are provided as ordinary files. Fitted
+per-asset model archives are regenerated with the pinned Julia environment.
+The script inventory below also covers the original single-asset experiments.
 
 This material was inspired by [CHEME 5660: Quantitative Finance for Scientists and Engineers](https://varnerlab.github.io/CHEME-5660-Markets-Mayhem-and-Money-Fall-2024/) at Cornell University.
 
@@ -13,7 +23,7 @@ This material was inspired by [CHEME 5660: Quantitative Finance for Scientists a
 
 ```
 .
-├── paper/                          # LaTeX manuscript
+├── arxiv-paper/                    # LaTeX preprint with inline SI
 │   ├── Paper_v1.tex                # Main document
 │   ├── References_v1.bib           # Bibliography
 │   └── sections/                   # Section files (intro, methods, results, etc.)
@@ -89,7 +99,7 @@ Propagates the SPY factor path to a 424-asset universe using the Single-Index Mo
 
 1. Clone this repository:
    ```bash
-   git clone https://github.com/<your-username>/HMM-w-jumps-paper.git
+   git clone https://github.com/varnerlab/HMM-w-jumps-paper.git
    cd HMM-w-jumps-paper
    ```
 
