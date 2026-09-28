@@ -25,112 +25,140 @@
 \@writefile{toc}{\contentsline {section}{\numberline {S3}Validation metric definitions}{6}{}\protected@file@percent }
 \newlabel{sec:supp-validation}{{S3}{6}{}{section.3}{}}
 \newlabel{eq:wasserstein}{{S14}{6}{}{equation.3.14}{}}
-\newlabel{eq:hill}{{S15}{6}{}{equation.3.15}{}}
-\newlabel{eq:hellinger}{{S16}{6}{}{equation.3.16}{}}
-\@writefile{toc}{\contentsline {section}{\numberline {S4}Derivation of the single-asset generator}{6}{}\protected@file@percent }
-\newlabel{sec:supp-generator}{{S4}{6}{}{section.4}{}}
-\@writefile{lof}{\contentsline {figure}{\numberline {S2}{\ignorespaces \textbf  {Statistical validation of the hidden Markov model with jumps (HMM-WJ)} ($N = 100$, $\alpha = 0.05$). Panels (a) and (d) condition on the $\sim \!24\%$ of in-sample paths containing jump events. (a)~In-sample KS $p$-values for $239$ jump paths (pass rate $93.7\%$). (b)~Out-of-sample KS $p$-values for all $1{,}000$ paths (pass rate $95.4\%$). (c)~Out-of-sample density fan chart; the observed density falls within the simulation envelope. (d)~Observed and mean simulated in-sample autocorrelation function (ACF) of $|G_t|$ for jump paths.}}{7}{}\protected@file@percent }
-\newlabel{fig:statistical_validation}{{S2}{7}{}{figure.2}{}}
-\@writefile{lot}{\contentsline {table}{\numberline {S1}{\ignorespaces \textbf  {Descriptive statistics and stylized-facts tests for SPY daily excess growth rates.} In-sample (IS): $2014$--$2024$ ($T = 2{,}766$); out-of-sample (OoS): $2025$ ($T = 249$). Gaussian and Laplace columns show maximum likelihood estimation (MLE) fits to the in-sample data. We used the Jarque--Bera (JB) normality test and the Ljung--Box (LB) autocorrelation test at lag $20$. $^{\ast }$ denotes rejection at $\alpha = 0.05$.}}{7}{}\protected@file@percent }
-\newlabel{tab:descriptive_stats}{{S1}{7}{}{table.1}{}}
-\@writefile{lot}{\contentsline {table}{\numberline {S2}{\ignorespaces \textbf  {Closed-form quantities of the fitted SPY generator against sample and simulated values.} Each closed-form entry evaluates the expression named in the text at the fitted SPY model of Table~\ref {tab:hyperparams}. Sample values are computed from the in-sample SPY series; simulated values use $400$ in-sample-length paths for the jump-episode quantities and $1{,}000$ paths for skewness. For comparison with the sup-distance entry, the two-sample Kolmogorov--Smirnov critical value at $\alpha = 0.05$ for two samples of $T = 2{,}766$ observations is $1.358\sqrt  {2/T} = 0.0365$. Observed autocorrelations are those of the in-sample series shown in Fig.~\ref {fig:empirical_motivation}d.}}{8}{}\protected@file@percent }
-\newlabel{tab:supp-generator-quantities}{{S2}{8}{}{table.2}{}}
-\@writefile{toc}{\contentsline {subsection}{\numberline {S4.1}Generative law}{8}{}\protected@file@percent }
-\newlabel{sec:supp-gen-law}{{S4.1}{8}{}{subsection.4.1}{}}
-\newlabel{eq:supp-joint-law}{{S17}{8}{}{equation.4.17}{}}
+\newlabel{eq:hellinger}{{S15}{6}{}{equation.3.15}{}}
+\newlabel{eq:hill}{{S16}{7}{}{equation.3.16}{}}
+\newlabel{eq:quantile-envelope-coverage}{{S17}{7}{}{equation.3.17}{}}
+\newlabel{eq:sample-absolute-acf}{{S18}{7}{}{equation.3.18}{}}
+\newlabel{eq:acf-ensemble-error}{{S19}{7}{}{equation.3.19}{}}
+\newlabel{eq:acf-path-error}{{S20}{8}{}{equation.3.20}{}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {S3.1}Gated recurrent unit benchmark}{8}{}\protected@file@percent }
+\newlabel{sec:supp-gru}{{S3.1}{8}{}{subsection.3.1}{}}
+\newlabel{eq:gru-loss}{{S21}{8}{}{equation.3.21}{}}
+\@writefile{lof}{\contentsline {figure}{\numberline {S2}{\ignorespaces \textbf  {Statistical validation of the hidden Markov model with jumps (HMM-WJ)} ($N = 100$, $\alpha = 0.05$). Panels (a) and (d) condition on the $\sim \!24\%$ of in-sample paths containing jump events. (a)~In-sample KS $p$-values for $239$ jump paths (pass rate $93.7\%$). (b)~Out-of-sample KS $p$-values for all $1{,}000$ paths (pass rate $95.4\%$). (c)~Out-of-sample density fan chart; the observed density falls within the simulation envelope. (d)~Observed and mean simulated in-sample autocorrelation function (ACF) of $|G_t|$ for jump paths.}}{9}{}\protected@file@percent }
+\newlabel{fig:statistical_validation}{{S2}{9}{}{figure.2}{}}
+\@writefile{lot}{\contentsline {table}{\numberline {S1}{\ignorespaces \textbf  {Descriptive statistics and stylized-facts tests for SPY daily excess growth rates.} In-sample (IS): $2014$--$2024$ ($T = 2{,}766$); out-of-sample (OoS): $2025$ ($T = 249$). Gaussian and Laplace columns show maximum likelihood estimation (MLE) fits to the in-sample data. We used the Jarque--Bera (JB) normality test and the Ljung--Box (LB) autocorrelation test at lag $20$. $^{\ast }$ denotes rejection at $\alpha = 0.05$.}}{10}{}\protected@file@percent }
+\newlabel{tab:descriptive_stats}{{S1}{10}{}{table.1}{}}
+\@writefile{toc}{\contentsline {section}{\numberline {S4}Derivation of the single-asset generator}{10}{}\protected@file@percent }
+\newlabel{sec:supp-generator}{{S4}{10}{}{section.4}{}}
+\@writefile{lot}{\contentsline {table}{\numberline {S2}{\ignorespaces \textbf  {Closed-form quantities of the fitted SPY generator against sample and simulated values.} Each closed-form entry evaluates the expression named in the text at the fitted SPY model of Table~\ref {tab:hyperparams}. Sample values are computed from the in-sample SPY series; simulated values use $400$ in-sample-length paths for the jump-episode quantities and $1{,}000$ paths for skewness. For comparison with the sup-distance entry, the two-sample Kolmogorov--Smirnov critical value at $\alpha = 0.05$ for two samples of $T = 2{,}766$ observations is $1.358\sqrt  {2/T} = 0.0365$. Observed autocorrelations are those of the in-sample series shown in Fig.~\ref {fig:empirical_motivation}d.}}{11}{}\protected@file@percent }
+\newlabel{tab:supp-generator-quantities}{{S2}{11}{}{table.2}{}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {S4.1}Generative law}{11}{}\protected@file@percent }
+\newlabel{sec:supp-gen-law}{{S4.1}{11}{}{subsection.4.1}{}}
+\newlabel{eq:supp-joint-law}{{S22}{11}{}{equation.4.22}{}}
 \citation{rabinerJuang1986}
-\newlabel{eq:supp-emission-density}{{S18}{9}{}{equation.4.18}{}}
-\newlabel{eq:supp-u}{{S19}{9}{}{equation.4.19}{}}
-\newlabel{eq:supp-kernel}{{S20}{9}{}{equation.4.20}{}}
-\@writefile{toc}{\contentsline {subsection}{\numberline {S4.2}Estimators and the one-step empirical law}{9}{}\protected@file@percent }
-\newlabel{sec:supp-gen-estimators}{{S4.2}{9}{}{subsection.4.2}{}}
+\newlabel{eq:supp-emission-density}{{S23}{12}{}{equation.4.23}{}}
+\newlabel{eq:supp-u}{{S24}{12}{}{equation.4.24}{}}
+\newlabel{eq:supp-kernel}{{S25}{12}{}{equation.4.25}{}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {S4.2}Estimators and the one-step empirical law}{12}{}\protected@file@percent }
+\newlabel{sec:supp-gen-estimators}{{S4.2}{12}{}{subsection.4.2}{}}
 \citation{kotzKozubowskiPodgorski2001}
-\newlabel{eq:supp-laplace-ll}{{S21}{10}{}{equation.4.21}{}}
-\newlabel{eq:supp-laplace-mle}{{S22}{10}{}{equation.4.22}{}}
-\newlabel{eq:supp-laplace-cdf}{{S23}{10}{}{equation.4.23}{}}
-\newlabel{eq:supp-quantiles}{{S24}{10}{}{equation.4.24}{}}
-\newlabel{eq:supp-lagrangian}{{S25}{10}{}{equation.4.25}{}}
+\newlabel{eq:supp-laplace-ll}{{S26}{13}{}{equation.4.26}{}}
+\newlabel{eq:supp-laplace-mle}{{S27}{13}{}{equation.4.27}{}}
+\newlabel{eq:supp-laplace-cdf}{{S28}{13}{}{equation.4.28}{}}
+\newlabel{eq:supp-quantiles}{{S29}{13}{}{equation.4.29}{}}
+\newlabel{eq:supp-lagrangian}{{S30}{13}{}{equation.4.30}{}}
 \citation{bilmes1998,grinsteadSnell1997}
-\newlabel{eq:supp-markov-mle}{{S26}{11}{}{equation.4.26}{}}
-\newlabel{eq:supp-fixed-point}{{S27}{11}{}{equation.4.27}{}}
-\@writefile{toc}{\contentsline {subsection}{\numberline {S4.3}Stationary distribution and moments}{12}{}\protected@file@percent }
-\newlabel{sec:supp-gen-moments}{{S4.3}{12}{}{subsection.4.3}{}}
-\newlabel{eq:supp-mixture}{{S28}{12}{}{equation.4.28}{}}
-\newlabel{eq:supp-mean}{{S29}{12}{}{equation.4.29}{}}
-\newlabel{eq:supp-variance}{{S30}{12}{}{equation.4.30}{}}
-\newlabel{eq:supp-fourth}{{S31}{13}{}{equation.4.31}{}}
-\newlabel{eq:supp-t-moments}{{S32}{13}{}{equation.4.32}{}}
-\@writefile{toc}{\contentsline {subsection}{\numberline {S4.4}Dependence structure without jumps}{13}{}\protected@file@percent }
-\newlabel{sec:supp-gen-nojump}{{S4.4}{13}{}{subsection.4.4}{}}
-\newlabel{eq:supp-acf-nj}{{S33}{14}{}{equation.4.33}{}}
-\newlabel{eq:supp-acf-nj-def}{{S34}{14}{}{equation.4.34}{}}
-\@writefile{toc}{\contentsline {subsection}{\numberline {S4.5}Jump-episode arithmetic}{14}{}\protected@file@percent }
-\newlabel{sec:supp-gen-renewal}{{S4.5}{14}{}{subsection.4.5}{}}
-\newlabel{eq:supp-rho}{{S35}{15}{}{equation.4.35}{}}
-\@writefile{toc}{\contentsline {subsection}{\numberline {S4.6}Autocorrelation and kurtosis under jumps}{15}{}\protected@file@percent }
-\newlabel{sec:supp-gen-tuning}{{S4.6}{15}{}{subsection.4.6}{}}
-\newlabel{eq:supp-h}{{S36}{16}{}{equation.4.36}{}}
-\newlabel{eq:supp-acf-wj}{{S37}{16}{}{equation.4.37}{}}
-\@writefile{lot}{\contentsline {table}{\numberline {S3}{\ignorespaces \textbf  {Episode-overlap prediction of the jump-path absolute-return autocorrelation function (ACF) against simulation.} The prediction evaluates Eq.~\eqref  {eq:supp-acf-wj} at the fitted SPY values with the single-episode forced fraction $\lambda /T$ in place of $\pi _J$ and the same-episode probability $h(\tau )$ of Eq.~\eqref  {eq:supp-h}. The simulated column is the mean ACF of $|G_t|$ over the $99$ jump-active paths among $400$ simulated in-sample-length paths. The free-phase component of Eq.~\eqref  {eq:supp-acf-nj} is excluded from the prediction; it has decayed below $0.01$ from lag $5$ onward.}}{17}{}\protected@file@percent }
-\newlabel{tab:supp-acf-prediction}{{S3}{17}{}{table.3}{}}
-\@writefile{toc}{\contentsline {section}{\numberline {S5}Transition matrix internals and partition diagnostics}{17}{}\protected@file@percent }
-\newlabel{sec:supp-transitions}{{S5}{17}{}{section.5}{}}
+\newlabel{eq:supp-markov-mle}{{S31}{14}{}{equation.4.31}{}}
+\newlabel{eq:supp-fixed-point}{{S32}{14}{}{equation.4.32}{}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {S4.3}Stationary distribution and moments}{15}{}\protected@file@percent }
+\newlabel{sec:supp-gen-moments}{{S4.3}{15}{}{subsection.4.3}{}}
+\newlabel{eq:supp-mixture}{{S33}{15}{}{equation.4.33}{}}
+\newlabel{eq:supp-mean}{{S34}{15}{}{equation.4.34}{}}
+\newlabel{eq:supp-variance}{{S35}{16}{}{equation.4.35}{}}
+\newlabel{eq:supp-fourth}{{S36}{16}{}{equation.4.36}{}}
+\newlabel{eq:supp-t-moments}{{S37}{16}{}{equation.4.37}{}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {S4.4}Dependence structure without jumps}{17}{}\protected@file@percent }
+\newlabel{sec:supp-gen-nojump}{{S4.4}{17}{}{subsection.4.4}{}}
+\newlabel{eq:supp-acf-nj}{{S38}{17}{}{equation.4.38}{}}
+\newlabel{eq:supp-acf-nj-def}{{S39}{17}{}{equation.4.39}{}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {S4.5}Jump-episode arithmetic}{17}{}\protected@file@percent }
+\newlabel{sec:supp-gen-renewal}{{S4.5}{17}{}{subsection.4.5}{}}
+\newlabel{eq:supp-rho}{{S40}{18}{}{equation.4.40}{}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {S4.6}Autocorrelation and kurtosis under jumps}{19}{}\protected@file@percent }
+\newlabel{sec:supp-gen-tuning}{{S4.6}{19}{}{subsection.4.6}{}}
+\newlabel{eq:supp-h}{{S41}{19}{}{equation.4.41}{}}
+\newlabel{eq:supp-acf-wj}{{S42}{19}{}{equation.4.42}{}}
+\@writefile{lot}{\contentsline {table}{\numberline {S3}{\ignorespaces \textbf  {Episode-overlap prediction of the jump-path absolute-return autocorrelation function (ACF) against simulation.} The prediction evaluates Eq.~\eqref  {eq:supp-acf-wj} at the fitted SPY values with the single-episode forced fraction $\lambda /T$ in place of $\pi _J$ and the same-episode probability $h(\tau )$ of Eq.~\eqref  {eq:supp-h}. The simulated column is the mean ACF of $|G_t|$ over the $99$ jump-active paths among $400$ simulated in-sample-length paths. The free-phase component of Eq.~\eqref  {eq:supp-acf-nj} is excluded from the prediction; it has decayed below $0.01$ from lag $5$ onward.}}{20}{}\protected@file@percent }
+\newlabel{tab:supp-acf-prediction}{{S3}{20}{}{table.3}{}}
+\citation{bullaBulla2006}
+\@writefile{lof}{\contentsline {figure}{\numberline {S3}{\ignorespaces \textbf  {Fitted hidden Markov model with jumps (HMM-WJ) internals for SPY with $N = 100$ states.} Panel~(a) overlays the fitted Laplace cumulative distribution function (CDF) on the empirical CDF; the $99$ vertical lines mark the equal-probability quantile boundaries $Q_k$ that define the hidden states. Panel~(b) displays the estimated transition matrix $\mathbf  {T}$ in $\log _{10}$ color scale; the dominant near-diagonal band reflects short-range regime persistence. Panel~(c) plots the expected natural residence time $1/(1 - T_{kk})$ for each state on a $\log _{10}$ scale, with the bottom tail set $\mathcal  {S}_{-}$ (states $1$--$5$, red) and the top tail set $\mathcal  {S}_{+}$ (states $96$--$100$, teal) highlighted. The dashed horizontal line marks the fitted mean jump duration $\lambda = 90$ steps, quantifying the two-order-of-magnitude gap between natural residence times and the jump-duration override.}}{21}{}\protected@file@percent }
+\newlabel{fig:model_internals}{{S3}{21}{}{figure.3}{}}
+\@writefile{toc}{\contentsline {section}{\numberline {S5}Transition matrix internals and partition diagnostics}{21}{}\protected@file@percent }
+\newlabel{sec:supp-transitions}{{S5}{21}{}{section.5}{}}
+\@writefile{toc}{\contentsline {section}{\numberline {S6}Emission distribution and semi-Markov comparison}{21}{}\protected@file@percent }
+\newlabel{sec:supp-emission-hsmm}{{S6}{21}{}{section.6}{}}
 \citation{bullaBulla2006}
 \citation{bullaBulla2006}
-\citation{bullaBulla2006}
-\@writefile{lof}{\contentsline {figure}{\numberline {S3}{\ignorespaces \textbf  {Fitted hidden Markov model with jumps (HMM-WJ) internals for SPY with $N = 100$ states.} Panel~(a) overlays the fitted Laplace cumulative distribution function (CDF) on the empirical CDF; the $99$ vertical lines mark the equal-probability quantile boundaries $Q_k$ that define the hidden states. Panel~(b) displays the estimated transition matrix $\mathbf  {T}$ in $\log _{10}$ color scale; the dominant near-diagonal band reflects short-range regime persistence. Panel~(c) plots the expected natural residence time $1/(1 - T_{kk})$ for each state on a $\log _{10}$ scale, with the bottom tail set $\mathcal  {S}_{-}$ (states $1$--$5$, red) and the top tail set $\mathcal  {S}_{+}$ (states $96$--$100$, teal) highlighted. The dashed horizontal line marks the fitted mean jump duration $\lambda = 90$ steps, quantifying the two-order-of-magnitude gap between natural residence times and the jump-duration override.}}{18}{}\protected@file@percent }
-\newlabel{fig:model_internals}{{S3}{18}{}{figure.3}{}}
-\@writefile{toc}{\contentsline {section}{\numberline {S6}Emission distribution and semi-Markov comparison}{18}{}\protected@file@percent }
-\newlabel{sec:supp-emission-hsmm}{{S6}{18}{}{section.6}{}}
-\@writefile{lot}{\contentsline {table}{\numberline {S4}{\ignorespaces \textbf  {Three-way comparison of emission distributions and duration specifications for SPY.} Standard errors in parentheses; bold marks the best value per row. The HSMM is a hidden semi-Markov-style model adapted from \citet  {bullaBulla2006} ($K = 8$ states, negative-binomial dwell times with a geometric fallback, and Student-$t$ emissions); HMM-WJ: hidden Markov model with jumps ($N = 100$). All entries are computed from $1{,}000$ simulated paths at significance level $\alpha = 0.05$. Kolmogorov--Smirnov (KS), Anderson--Darling (AD), and mean absolute error in the autocorrelation function (ACF-MAE) are defined in Section~\ref {sec:supp-validation}.}}{19}{}\protected@file@percent }
-\newlabel{tab:emission_hsmm}{{S4}{19}{}{table.4}{}}
-\@writefile{lot}{\contentsline {table}{\numberline {S5}{\ignorespaces \textbf  {Hybrid composition method broken out by branch.} $N_{\mathrm  {tickers}}$: number of tickers assigned to each branch by the $R^2_{\mathrm  {preserve}} = 0.80$ threshold. The clipped variance-preserving branch does not trigger anywhere in the universe ($\rho _i < 0.90$ for all tickers) and is omitted. The two trackers in the $R^2$-preserving branch (QQQ and SPYG) had median absolute errors of $0.005$ for $\beta $ and $0.001$ for $R^2$, with a KS pass rate of $100\%$.}}{19}{}\protected@file@percent }
-\newlabel{tab:branch}{{S5}{19}{}{table.5}{}}
-\@writefile{lot}{\contentsline {table}{\numberline {S6}{\ignorespaces \textbf  {Synthetic-tracker grid for the $R^2$-preserving branch.} The observed universe places only two tickers on this branch, so we generated synthetic trackers at each $(\beta _{\mathrm  {true}}, R^2_{\mathrm  {true}})$ cell, composed them with Algorithm~\ref {alg:hybrid}, and recovered $(\hat  \beta , \hat  R^2)$ by ordinary least squares. Entries are medians over $100$ replications per cell with cross-replication standard deviations in parentheses; the Kolmogorov--Smirnov (KS) pass rate is the fraction of replications whose two-sample test against the target marginal exceeds $p = 0.05$. Every cell was assigned to the $R^2$-preserving branch.}}{20}{}\protected@file@percent }
-\newlabel{tab:tracker_grid}{{S6}{20}{}{table.6}{}}
-\@writefile{lot}{\contentsline {table}{\numberline {S7}{\ignorespaces \textbf  {Sensitivity of in-sample fit to the number of states $N$.} All entries are computed from $1{,}000$ simulated in-sample-length paths for SPY at significance level $\alpha = 0.05$, with the tail-set size $N_{\rm  tail}$ and the remaining hyperparameters of Table~\ref {tab:hyperparams} held fixed and the $(\epsilon , \lambda )$ grid search re-run at each $N$ for the hidden Markov model with jumps (HMM-WJ). Standard errors in parentheses: binomial for pass rates, bootstrap ($B = 500$) for the mean absolute error in the absolute-return autocorrelation function (ACF-MAE). HMM-NJ denotes the hidden Markov model with no jumps. Values at $N = 100$ reproduce the corresponding entries of Table~\ref {tab:model_comparison}.}}{21}{}\protected@file@percent }
-\newlabel{tab:sensitivity_n}{{S7}{21}{}{table.7}{}}
-\@writefile{toc}{\contentsline {section}{\numberline {S7}State-resolution sensitivity}{21}{}\protected@file@percent }
-\newlabel{sec:supp-sensitivity}{{S7}{21}{}{section.7}{}}
-\@writefile{lof}{\contentsline {figure}{\numberline {S4}{\ignorespaces \textbf  {Branch assignment in calibrated $(\beta , R^2_{\mathrm  {real}})$ space.} The $R^2_{\mathrm  {preserve}} = 0.80$ threshold (dashed line) separates tracker assets from single stocks. In this universe, only QQQ and SPYG exceed the threshold, and both are assigned to the $R^2$-preserving branch. The remaining $421$ tickers populate the variance-preserving branch; the clipped variance-preserving branch is unused because the market loading ratio $\rho _i = \beta _i^2 \sigma _m^2 / \sigma _{\mathrm  {gen},i}^2$ stays below $0.90$ for every ticker.}}{22}{}\protected@file@percent }
-\newlabel{fig:branch_map}{{S4}{22}{}{figure.4}{}}
-\@writefile{lot}{\contentsline {table}{\numberline {S8}{\ignorespaces \textbf  {Aggregate metrics by $\beta $ quartile, across composition methods.} Quartile cutoffs are computed from the calibrated $\beta $ distribution across the $423$-ticker universe. The hybrid KS pass rate declines from $87.6\%$ in Q1 to $65.9\%$ in Q4 as the market loading ratio $\rho _i$ grows; the naive KS pass rate falls from $24.6\%$ to $1.3\%$ over the same range.}}{22}{}\protected@file@percent }
-\newlabel{tab:beta_bucket}{{S8}{22}{}{table.8}{}}
-\@writefile{lot}{\contentsline {table}{\numberline {S9}{\ignorespaces \textbf  {Clipping-branch stress test under market-volatility scaling.} The market growth-rate path was rescaled by $\gamma \in \{1, 2, 3\}$ with the calibrated marginals held fixed, and the full hybrid composition method re-evaluated on the $423$-ticker universe. As $\gamma $ rises, the share of clipped tickers grows.}}{23}{}\protected@file@percent }
-\newlabel{tab:stress}{{S9}{23}{}{table.9}{}}
-\@writefile{lot}{\contentsline {table}{\numberline {S10}{\ignorespaces \textbf  {Cross-asset generalization of the hidden Markov model with jumps (HMM-WJ) across three single-stock tickers spanning sector and volatility regimes.} Per-ticker tune outputs $(\epsilon ^{*}, \lambda ^{*})$ at $n_{\mathrm  {paths}} = 200$ and $\mathrm  {seed} = 1234$, and the corresponding HMM-WJ Kolmogorov--Smirnov (KS) and Anderson--Darling (AD) pass rates on $1{,}000$ simulated paths at $\alpha = 0.05$ against each ticker's in-sample (IS; $2014$--$2024$) and out-of-sample (OoS; $2025$) growth-rate history. Values in parentheses are binomial standard errors (SEs) for pass rates. The $(\epsilon ^{*}, \lambda ^{*})$ values are reported as the parameter values used for the IS / OoS metrics rather than as canonical per-ticker optima.}}{23}{}\protected@file@percent }
-\newlabel{tab:cross_asset}{{S10}{23}{}{table.10}{}}
-\@writefile{toc}{\contentsline {section}{\numberline {S8}Cross-asset generalization}{23}{}\protected@file@percent }
-\newlabel{sec:supp-cross-asset}{{S8}{23}{}{section.8}{}}
-\@writefile{toc}{\contentsline {section}{\numberline {S9}SIM composition derivations and properties verification}{23}{}\protected@file@percent }
-\newlabel{sec:supp-sim-derivations}{{S9}{23}{}{section.9}{}}
-\@writefile{lof}{\contentsline {figure}{\numberline {S5}{\ignorespaces \textbf  {Calibrated $R^2$ distribution across the $423$ non-SPY tickers.} Histogram of ordinary least-squares (OLS) $R^2$ against SPY over the $2014$--$2024$ window. The two tickers crossing the $R^2_{\mathrm  {preserve}} = 0.80$ threshold (dashed line) are index exchange-traded funds (QQQ, SPYG); the highest-$R^2$ individual stock (BLK, $0.645$) falls $\sim 0.16$ below the threshold. The $R^2$-preserving branch therefore contains only QQQ and SPYG in this universe.}}{24}{}\protected@file@percent }
-\newlabel{fig:r2_distribution}{{S5}{24}{}{figure.5}{}}
-\@writefile{lof}{\contentsline {figure}{\numberline {S6}{\ignorespaces \textbf  {Heavy-tail preservation: excess kurtosis and Hill tail index vs calibrated $\beta $.} Each point is a per-ticker median over $100$ replications. \emph  {Left:} excess kurtosis, $y$-axis clipped to $[-2, 20]$ for readability. The dashed line marks the median real-data excess kurtosis across the universe ($\kappa _{\mathrm  {real}} \approx 13$); the hybrid and naive composition methods (orange and blue) track the generator's kurtosis, while the Gaussian single-index model (SIM) collapses to $\kappa \approx 1$. \emph  {Right:} Hill tail-index estimator on the upper $5\%$ of $|g|$. The hybrid and naive medians remain near $0.37$ throughout the $\beta $ range; Gaussian SIM drops to $\sim 0.22$. The hybrid's median being below $\kappa _{\mathrm  {real}}$ reflects the JumpHMM marginal's own kurtosis rather than a composition-rule distortion: hybrid tracks naive (both retain the generator's tails) while Gaussian SIM does not.}}{24}{}\protected@file@percent }
-\newlabel{fig:tails}{{S6}{24}{}{figure.6}{}}
-\@writefile{toc}{\contentsline {subsection}{\numberline {S9.1}Role of the centered full-return draw as the residual}{25}{}\protected@file@percent }
-\newlabel{sec:supp-residual-choice}{{S9.1}{25}{}{subsection.9.1}{}}
-\newlabel{eq:supp-comp-fourth}{{S42}{26}{}{equation.9.42}{}}
-\newlabel{eq:supp-kurt-comp}{{S43}{26}{}{equation.9.43}{}}
-\@writefile{lot}{\contentsline {table}{\numberline {S11}{\ignorespaces \textbf  {Simulation check of the kurtosis composition rule.} For each variance share $\rho _i$, $200$ pairs of independent in-sample-length generator paths were standardized and combined as $\sqrt  {\rho _i}\, x + \sqrt  {1 - \rho _i}\, y$. The predicted column evaluates Eq.~\eqref  {eq:supp-kurt-comp} with each pair's sample excess kurtosis; the simulated column is the sample excess kurtosis of the combined series. Both are averaged over the $200$ pairs.}}{27}{}\protected@file@percent }
-\newlabel{tab:supp-kurt-composition}{{S11}{27}{}{table.11}{}}
-\@writefile{toc}{\contentsline {section}{\numberline {S10}Uncertainty in the multi-asset jump comparison}{27}{}\protected@file@percent }
-\newlabel{sec:supp-jump-composition}{{S10}{27}{}{section.10}{}}
+\@writefile{lot}{\contentsline {table}{\numberline {S4}{\ignorespaces \textbf  {Three-way comparison of emission distributions and duration specifications for SPY.} Standard errors in parentheses; bold marks the best value per row. The HSMM is a hidden semi-Markov-style model adapted from \citet  {bullaBulla2006} ($K = 8$ states, negative-binomial dwell times with a geometric fallback, and Student-$t$ emissions); HMM-WJ: hidden Markov model with jumps ($N = 100$). All entries are computed from $1{,}000$ simulated paths at significance level $\alpha = 0.05$. Kolmogorov--Smirnov (KS), Anderson--Darling (AD), and mean absolute error in the autocorrelation function (ACF-MAE) are defined in Online Appendix~\ref {sec:supp-validation}. Autocorrelation error compares the observed curve with the ensemble-average curve, using lags $1$--$252$ in training and $1$--$248$ in the holdout.}}{22}{}\protected@file@percent }
+\newlabel{tab:emission_hsmm}{{S4}{22}{}{table.4}{}}
+\@writefile{lot}{\contentsline {table}{\numberline {S5}{\ignorespaces \textbf  {Hybrid composition method broken out by branch.} $N_{\mathrm  {tickers}}$: number of tickers assigned to each branch by the $R^2_{\mathrm  {preserve}} = 0.80$ threshold. The clipped variance-preserving branch does not trigger anywhere in the universe ($\rho _i < 0.90$ for all tickers) and is omitted. The two trackers in the $R^2$-preserving branch (QQQ and SPYG) had median absolute errors of $0.005$ for $\beta $ and $0.001$ for $R^2$, with a KS pass rate of $100\%$.}}{23}{}\protected@file@percent }
+\newlabel{tab:branch}{{S5}{23}{}{table.5}{}}
+\@writefile{lot}{\contentsline {table}{\numberline {S6}{\ignorespaces \textbf  {Restricted Gaussian check of the $R^2$-preserving branch.} Both series used the observed SPY path and independent Gaussian residual draws; the composer used unit residual scale and centered its draw. No full-return model was fitted. Entries are medians over $100$ replications per cell with cross-replication standard deviations in parentheses. Loading and $R^2$ were recovered by ordinary least squares. The nominal Kolmogorov--Smirnov (KS) pass rate is the percentage of comparisons with $p>0.05$; its reference calibration was not established for this design. Every cell used the $R^2$-preserving branch.}}{23}{}\protected@file@percent }
+\newlabel{tab:tracker_grid}{{S6}{23}{}{table.6}{}}
+\@writefile{toc}{\contentsline {section}{\numberline {S7}State-resolution sensitivity}{23}{}\protected@file@percent }
+\newlabel{sec:supp-sensitivity}{{S7}{23}{}{section.7}{}}
+\@writefile{lot}{\contentsline {table}{\numberline {S7}{\ignorespaces \textbf  {Sensitivity of in-sample fit to the number of states $N$.} All entries are computed from $1{,}000$ simulated in-sample-length paths for SPY at significance level $\alpha = 0.05$, with the tail-set size $N_{\rm  tail}$ and the remaining hyperparameters of Table~\ref {tab:hyperparams} held fixed and the $(\epsilon , \lambda )$ grid search re-run at each $N$ for the hidden Markov model with jumps (HMM-WJ). Standard errors in parentheses: binomial for pass rates, bootstrap ($B = 500$) for the mean absolute error of the ensemble-average absolute-return autocorrelation function (ACF-MAE), using lags $1$--$252$. HMM-NJ denotes the hidden Markov model with no jumps. Values at $N = 100$ reproduce the corresponding entries of Table~\ref {tab:model_comparison}.}}{24}{}\protected@file@percent }
+\newlabel{tab:sensitivity_n}{{S7}{24}{}{table.7}{}}
+\@writefile{toc}{\contentsline {section}{\numberline {S8}Cross-asset generalization}{24}{}\protected@file@percent }
+\newlabel{sec:supp-cross-asset}{{S8}{24}{}{section.8}{}}
+\@writefile{lof}{\contentsline {figure}{\numberline {S4}{\ignorespaces \textbf  {Branch assignment in calibrated $(\beta , R^2_{\mathrm  {real}})$ space.} The $R^2_{\mathrm  {preserve}} = 0.80$ threshold (dashed line) separates tracker assets from single stocks. In this universe, only QQQ and SPYG exceed the threshold, and both are assigned to the $R^2$-preserving branch. The remaining $421$ tickers populate the variance-preserving branch; the clipped variance-preserving branch is unused because the market loading ratio $\rho _i = \beta _i^2 \sigma _m^2 / \sigma _{\mathrm  {gen},i}^2$ stays below $0.90$ for every ticker.}}{25}{}\protected@file@percent }
+\newlabel{fig:branch_map}{{S4}{25}{}{figure.4}{}}
+\@writefile{lot}{\contentsline {table}{\numberline {S8}{\ignorespaces \textbf  {Aggregate metrics by $\beta $ quartile, across composition methods.} Quartile cutoffs are computed from the calibrated $\beta $ distribution across the $423$-ticker universe. The hybrid KS pass rate declines from $87.6\%$ in Q1 to $65.9\%$ in Q4 as the market loading ratio $\rho _i$ grows; the naive KS pass rate falls from $24.6\%$ to $1.3\%$ over the same range.}}{25}{}\protected@file@percent }
+\newlabel{tab:beta_bucket}{{S8}{25}{}{table.8}{}}
+\@writefile{lot}{\contentsline {table}{\numberline {S9}{\ignorespaces \textbf  {Clipping-branch stress test under market-volatility scaling.} We used $g_m^{(\gamma )}(t)=\overline  {g}_m+ \gamma [g_m(t)-\overline  {g}_m]$, with $\gamma \in \{1,2,3\}$ and the calibrated marginals held fixed, and re-evaluated the full hybrid composition on the $423$-ticker universe. The transformation preserved the market mean and multiplied its standard deviation by $\gamma $. The fitted intercepts were retained, so clipping could change asset means according to Eq.~\eqref  {eq:supp-clipped-mean}.}}{26}{}\protected@file@percent }
+\newlabel{tab:stress}{{S9}{26}{}{table.9}{}}
+\@writefile{lot}{\contentsline {table}{\numberline {S10}{\ignorespaces \textbf  {Cross-asset generalization of the hidden Markov model with jumps (HMM-WJ) across three single-stock tickers spanning sector and volatility regimes.} Per-ticker tune outputs $(\epsilon ^{*}, \lambda ^{*})$ at $n_{\mathrm  {paths}} = 200$ and $\mathrm  {seed} = 1234$, and the corresponding HMM-WJ Kolmogorov--Smirnov (KS) and Anderson--Darling (AD) pass rates on $1{,}000$ simulated paths at $\alpha = 0.05$ against each ticker's in-sample (IS; $2014$--$2024$) and out-of-sample (OoS; $2025$) growth-rate history. Values in parentheses are binomial standard errors (SEs) for pass rates. The $(\epsilon ^{*}, \lambda ^{*})$ values are reported as the parameter values used for the IS / OoS metrics rather than as canonical per-ticker optima.}}{26}{}\protected@file@percent }
+\newlabel{tab:cross_asset}{{S10}{26}{}{table.10}{}}
+\@writefile{toc}{\contentsline {section}{\numberline {S9}SIM composition derivations and properties verification}{26}{}\protected@file@percent }
+\newlabel{sec:supp-sim-derivations}{{S9}{26}{}{section.9}{}}
+\@writefile{lof}{\contentsline {figure}{\numberline {S5}{\ignorespaces \textbf  {Calibrated $R^2$ distribution across the $423$ non-SPY tickers.} Histogram of ordinary least-squares (OLS) $R^2$ against SPY over the $2014$--$2024$ window. The two tickers crossing the $R^2_{\mathrm  {preserve}} = 0.80$ threshold (dashed line) are index exchange-traded funds (QQQ, SPYG); the highest-$R^2$ individual stock (BLK, $0.645$) falls $\sim 0.16$ below the threshold. The $R^2$-preserving branch therefore contains only QQQ and SPYG in this universe.}}{27}{}\protected@file@percent }
+\newlabel{fig:r2_distribution}{{S5}{27}{}{figure.5}{}}
+\@writefile{lof}{\contentsline {figure}{\numberline {S6}{\ignorespaces \textbf  {Heavy-tail preservation: excess kurtosis and Hill tail index vs calibrated $\beta $.} Each point is a per-ticker median over $100$ replications. \emph  {Left:} excess kurtosis, $y$-axis clipped to $[-2, 20]$ for readability. The dashed line marks the median real-data excess kurtosis across the universe ($\kappa _{\mathrm  {real}} \approx 13$); the hybrid and naive composition methods (orange and blue) track the generator's kurtosis, while the Gaussian single-index model (SIM) collapses to $\kappa \approx 1$. \emph  {Right:} Hill tail-index estimator on the upper $5\%$ of $|g|$. The hybrid and naive medians remain near $0.37$ throughout the $\beta $ range; Gaussian SIM drops to $\sim 0.22$. The hybrid's median being below $\kappa _{\mathrm  {real}}$ reflects the JumpHMM marginal's own kurtosis rather than a composition-rule distortion: hybrid tracks naive (both retain the generator's tails) while Gaussian SIM does not.}}{27}{}\protected@file@percent }
+\newlabel{fig:tails}{{S6}{27}{}{figure.6}{}}
+\newlabel{eq:supp-clipped-mean}{{S46}{28}{}{equation.9.46}{}}
+\newlabel{eq:supp-zero-sum-terminal}{{S48}{28}{}{equation.9.48}{}}
+\newlabel{eq:supp-training-mean-shift}{{S49}{29}{}{equation.9.49}{}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {S9.1}Role of the centered full-return draw as the residual}{29}{}\protected@file@percent }
+\newlabel{sec:supp-residual-choice}{{S9.1}{29}{}{subsection.9.1}{}}
+\newlabel{eq:supp-comp-fourth}{{S50}{30}{}{equation.9.50}{}}
+\newlabel{eq:supp-kurt-comp}{{S51}{30}{}{equation.9.51}{}}
+\@writefile{lot}{\contentsline {table}{\numberline {S11}{\ignorespaces \textbf  {Simulation check of the kurtosis composition rule.} For each variance share $\rho _i$, $200$ pairs of independent in-sample-length generator paths were standardized and combined as $\sqrt  {\rho _i}\, x + \sqrt  {1 - \rho _i}\, y$. The predicted column evaluates Eq.~\eqref  {eq:supp-kurt-comp} with each pair's sample excess kurtosis; the simulated column is the sample excess kurtosis of the combined series. Both are averaged over the $200$ pairs.}}{31}{}\protected@file@percent }
+\newlabel{tab:supp-kurt-composition}{{S11}{31}{}{table.11}{}}
+\@writefile{toc}{\contentsline {section}{\numberline {S10}Uncertainty in the multi-asset jump comparison}{31}{}\protected@file@percent }
+\newlabel{sec:supp-jump-composition}{{S10}{31}{}{section.10}{}}
+\@writefile{lot}{\contentsline {table}{\numberline {S12}{\ignorespaces \textbf  {Monte Carlo uncertainty in the effect of jump settings under corrected composition.} Differences are relative to jumps disabled, with $1{,}000$ market replications per window. $\Delta $ACF$_{25}$ is the change in mean absolute error of the absolute-return autocorrelation function through lag $25$; negative values indicate improved temporal fit. $\Delta $KS is the change in Kolmogorov--Smirnov non-rejection rate in percentage points. Brackets contain approximate $95\%$ Monte Carlo (MC) intervals conditional on the fitted models and observed histories.}}{32}{}\protected@file@percent }
+\newlabel{tab:jump_ablation_uncertainty}{{S12}{32}{}{table.12}{}}
+\@writefile{lot}{\contentsline {table}{\numberline {S13}{\ignorespaces \textbf  {Episode incidence and breadth of the temporal change in the multi-asset jump comparison.} SPY paths with an episode are counted over the $1{,}000$ jump-enabled market replications per window. Asset paths with an episode is the mean jump-active share across the enabled asset generators. The last two columns give the share of assets whose mean absolute-return autocorrelation error through lag $25$ fell under corrected composition when jumps were enabled in the market only, or in the market and the assets, relative to jumps disabled.}}{32}{}\protected@file@percent }
+\newlabel{tab:jump_ablation_episodes}{{S13}{32}{}{table.13}{}}
+\@writefile{toc}{\contentsline {section}{\numberline {S11}Residual-centering control}{33}{}\protected@file@percent }
+\newlabel{sec:supp-centering-control}{{S11}{33}{}{section.11}{}}
+\newlabel{eq:supp-centering-control}{{S52}{33}{}{equation.11.52}{}}
+\@writefile{lot}{\contentsline {table}{\numberline {S14}{\ignorespaces \textbf  {Paired control for residual centering on common training assets.} Native and centered results use the same $393$ assets and $100$ paths per asset. Centered paths have zero residual mean over $2{,}766$ observations. Kolmogorov--Smirnov (KS) and Anderson--Darling (AD) columns give non-rejection percentages at $\alpha =0.05$; higher values indicate closer empirical fit. $W_1$ is median Wasserstein-1 distance, and $|\hat  \alpha -\alpha |$ is median absolute ordinary least squares (OLS) intercept error, both in $\mathrm  {yr}^{-1}$; lower values indicate closer agreement. Naive and hybrid already center each residual path. JumpHMM denotes the hidden Markov generator, with jumps disabled; SIM denotes the single-index model, and GARCH denotes generalized autoregressive conditional heteroskedasticity.}}{34}{}\protected@file@percent }
+\newlabel{tab:centering_control}{{S14}{34}{}{table.14}{}}
+\@writefile{toc}{\contentsline {section}{\numberline {S12}Pooled one-day tail thresholds}{35}{}\protected@file@percent }
+\newlabel{sec:supp-var-ensemble}{{S12}{35}{}{section.12}{}}
+\@writefile{lot}{\contentsline {table}{\numberline {S15}{\ignorespaces \textbf  {Threshold convergence and independent simulation checks.} Relative changes compare pooled thresholds from $2{,}500$ and $5{,}000$ separate $249$-day paths, divided by the absolute $5{,}000$-path threshold. Median and P95 denote the cross-asset median and $95$th percentile. Simulation rates are mean per-asset exceedance percentages on $1{,}000$ independent paths, using the $5{,}000$-path threshold. Summaries cover the $416$ holdout-eligible assets, or $386$ for generalized autoregressive conditional heteroskedasticity (GARCH). SIM denotes the single-index model; JumpHMM denotes the hidden Markov generator with jumps disabled.}}{36}{}\protected@file@percent }
+\newlabel{tab:var_convergence}{{S15}{36}{}{table.15}{}}
+\@writefile{lot}{\contentsline {table}{\numberline {S16}{\ignorespaces \textbf  {Pooled-threshold coverage on the common holdout assets.} All methods use the same $386$ assets. Each threshold pools $5{,}000$ separate $249$-day paths, as in Table~\ref {tab:var}. Rate denotes the mean per-asset exceedance percentage on observed $2025$ returns. Standard deviation (SD) describes cross-asset dispersion in percentage points. SIM denotes the single-index model; JumpHMM denotes the hidden Markov generator with jumps disabled; GARCH denotes generalized autoregressive conditional heteroskedasticity.}}{36}{}\protected@file@percent }
+\newlabel{tab:var_common}{{S16}{36}{}{table.16}{}}
+\@writefile{toc}{\contentsline {section}{\numberline {S13}Emission fallback inventory and sensitivity}{36}{}\protected@file@percent }
+\newlabel{sec:supp-fallback}{{S13}{36}{}{section.13}{}}
+\newlabel{eq:emission-fallback}{{S53}{37}{}{equation.13.53}{}}
+\@writefile{lot}{\contentsline {table}{\numberline {S17}{\ignorespaces \textbf  {Fallback emissions in the full-return training fits.} Each listed asset had one populated constant-return state containing $n_{\rm  c}$ observations. The columns $n_0$ and $n_1$ count empty and singleton states; the other $385$ full-return models required no fallback. Fallback mass is $100\DOTSB \sum@ \slimits@ _{k\in \mathcal  F}\bar  \pi _k$, where $\mathcal  F$ contains all fallback states for that ticker. For populated constant states, the fitted location remained the state mean while the scale used the asset's full training standard deviation. Empty and singleton states used both full-series moments. $\Delta V$ is the percentage change in stationary mixture variance when only the populated constant-state scales are replaced by their empirical values, with all other parameters fixed. These are changes to the uncomposed generator, not variance errors from composition. All fits used $N=100$ and $\nu =5$.}}{38}{}\protected@file@percent }
+\newlabel{tab:fallback_assets}{{S17}{38}{}{table.17}{}}
 \bibstyle{elsarticle-harv}
 \bibdata{References_v1}
 \bibcite{andersonDarling1952}{{1}{1952}{{Anderson and Darling}}{{}}}
-\@writefile{lot}{\contentsline {table}{\numberline {S12}{\ignorespaces \textbf  {Monte Carlo uncertainty in the effect of jump settings under corrected composition.} Differences are relative to jumps disabled, with $1{,}000$ market replications per window. $\Delta $ACF$_{25}$ is the change in mean absolute error of the absolute-return autocorrelation function through lag $25$; negative values indicate improved temporal fit. $\Delta $KS is the change in Kolmogorov--Smirnov non-rejection rate in percentage points. Brackets contain approximate $95\%$ Monte Carlo (MC) intervals conditional on the fitted models and observed histories.}}{28}{}\protected@file@percent }
-\newlabel{tab:jump_ablation_uncertainty}{{S12}{28}{}{table.12}{}}
-\@writefile{lot}{\contentsline {table}{\numberline {S13}{\ignorespaces \textbf  {Episode incidence and breadth of the temporal change in the multi-asset jump comparison.} SPY paths with an episode are counted over the $1{,}000$ jump-enabled market replications per window. Asset paths with an episode is the mean jump-active share across the enabled asset generators. The last two columns give the share of assets whose mean absolute-return autocorrelation error through lag $25$ fell under corrected composition when jumps were enabled in the market only, or in the market and the assets, relative to jumps disabled.}}{28}{}\protected@file@percent }
-\newlabel{tab:jump_ablation_episodes}{{S13}{28}{}{table.13}{}}
 \bibcite{bilmes1998}{{2}{1998}{{Bilmes}}{{}}}
 \bibcite{boothFama1992}{{3}{1992}{{Booth and Fama}}{{}}}
 \bibcite{boucheyNemtchinovWong2015}{{4}{2015}{{Bouchey et~al.}}{{Bouchey, Nemtchinov and Wong}}}
 \bibcite{bullaBulla2006}{{5}{2006}{{Bulla and Bulla}}{{}}}
 \bibcite{grinsteadSnell1997}{{6}{1997}{{Grinstead and Snell}}{{}}}
 \bibcite{kolmogorov1933}{{7}{1933}{{Kolmogorov}}{{}}}
+\@writefile{lot}{\contentsline {table}{\numberline {S18}{\ignorespaces \textbf  {Paired sensitivity to the scale of populated constant states.} Each treatment used $100$ paired training-length paths for each of the same $39$ affected assets. Entries are means over these fixed assets and replications. The empirical-scale treatment changes only populated near-constant states, retaining the sparse-state fallback. Kolmogorov--Smirnov (KS) and Anderson--Darling (AD) pass fractions use $p>0.05$; their changes are percentage points. $W_1$ is the Wasserstein-1 distance to observed growth rates. Variance / observed divides each path's variance by its asset's observed training variance. ACF-MAE$_{25}$ is the mean absolute difference between each path's absolute-return autocorrelation function and the observed function over lags $1$--$25$, calculated before averaging paths. Paired change subtracts the fitted value from the empirical-scale value. Standard errors (SE) use the $100$ replication-level mean paired changes over the fixed asset set and describe simulation uncertainty, not uncertainty across historical markets.}}{40}{}\protected@file@percent }
+\newlabel{tab:fallback_sensitivity}{{S18}{40}{}{table.18}{}}
 \bibcite{kotzKozubowskiPodgorski2001}{{8}{2001}{{Kotz et~al.}}{{Kotz, Kozubowski and Podgórski}}}
 \bibcite{markowitz1976longRun}{{9}{1976}{{Markowitz}}{{}}}
 \bibcite{rabinerJuang1986}{{10}{1986}{{Rabiner and Juang}}{{}}}
 \bibcite{smirnov1948}{{11}{1948}{{Smirnov}}{{}}}
-\gdef \@abspage@last{29}
+\gdef \@abspage@last{41}

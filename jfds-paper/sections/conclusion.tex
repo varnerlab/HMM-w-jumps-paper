@@ -1,6 +1,5 @@
 We developed a variance-corrected single-index method that reuses
-full-return generators without shifting the calibrated mean or
-counting market variance twice (Fig.~\ref{fig:preservation};
+full-return generators without counting market variance twice (Fig.~\ref{fig:preservation};
 Table~\ref{tab:aggregate}). Centering and rescaling allowed the
 generated asset paths to be combined with a shared market path without
 fitting a second generator to each asset's regression residuals.
@@ -9,9 +8,11 @@ market loadings with low error and retained heavy-tailed return
 distributions. On $416$ complete asset histories from $2025$, it
 improved the mean KS pass rate over centered naive composition and
 brought the median ratio of synthetic to observed variance close to
-one (Table~\ref{tab:oos_composition}). Residual-fit methods remained competitive, and neither the
-corrected method nor the best residual-fit alternative achieved
-nominal $99\%$ VaR coverage (Table~\ref{tab:var}). The results supported reuse of existing
+one (Table~\ref{tab:oos_composition}). Residual-fit methods remained competitive. With pooled thresholds,
+the corrected method and JumpHMM-on-residuals had $99\%$ VaR
+exceedance rates of $1.12\%$ and $1.16\%$, respectively, compared
+with the nominal $1\%$ rate (Table~\ref{tab:var}). The short holdout
+did not establish calibration or a precise tail-performance ranking. The results supported reuse of existing
 generators as a practical alternative to fitting separate residual
 models, with validation still needed for each intended application.
 The jump experiments established that the correction also worked when
@@ -27,4 +28,10 @@ covariance is missing. The composition rule therefore provides one
 component of a multi-asset simulator: it controls how generator
 variance is combined with the market factor, while portfolio-level
 applications require a joint residual model and validation of both
-cross-asset dependence and temporal behavior.
+cross-asset dependence and temporal behavior. Per-path centering also
+removes terminal residual uncertainty over the chosen horizon.
+Clipping retains the fitted intercept but changes the composed mean
+when the market path has a nonzero mean. The present evidence
+therefore supports the constrained construction for
+daily-fit comparisons, while cumulative-risk applications require a
+method that retains cumulative residual variation.

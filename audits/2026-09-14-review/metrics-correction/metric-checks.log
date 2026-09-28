@@ -1,0 +1,25 @@
+WARNING: Detected access to binding `BaselineR8.compute_all_metrics` in a world prior to its definition world.
+  Julia 1.12 has introduced more strict world age semantics for global bindings.
+  !!! This code may malfunction under Revise.
+  !!! This code will error in future versions of Julia.
+Hint: Add an appropriate `invokelatest` around the access to this binding.
+To make this warning an error, and hence obtain a stack trace, use `julia --depwarn=error`.
+WARNING: Detected access to binding `NeuralR8.compute_all_metrics` in a world prior to its definition world.
+  Julia 1.12 has introduced more strict world age semantics for global bindings.
+  !!! This code may malfunction under Revise.
+  !!! This code will error in future versions of Julia.
+Hint: Add an appropriate `invokelatest` around the access to this binding.
+To make this warning an error, and hence obtain a stack trace, use `julia --depwarn=error`.
+is: (ks_pass = 0.6, ks_se = 0.2442130217658346, ad_pass = 0.2, ad_se = 0.1412798640995949, kurt = 5.705519281287965, kurt_se = 0.16109577669479316, acf_mae = 0.035658339467038926, acf_se = 0.00041496706503422353, novelty = 0.9839868307233152, novelty_se = 0.00036841045406785987, diversity = 0.9841421012875752, diversity_se = 5.352090462678671e-5, coverage = 17.17171717171717, coverage_se = 0.4526352716259515, w1 = 0.42050370696472117, w1_se = 0.0025476063471103903, hellinger = 0.13355405172987675, hellinger_se = 0.0007474019804348682)
+oos: (ks_pass = 71.8, ks_se = 1.4229406171727619, ad_pass = 44.800000000000004, ad_se = 1.572564784039119, kurt = 2.8844948712230245, kurt_se = 0.09628406871169322, acf_mae = 0.03276097672415229, acf_se = 0.00027143624016999523, novelty = 0.9448709913481749, novelty_se = 0.0013647495294019302, diversity = 0.9471409179629233, diversity_se = 0.00014142298559030185, coverage = 77.77777777777779, coverage_se = 2.8961626454566765, w1 = 0.4880479799326792, w1_se = 0.005254951024700495, hellinger = 0.23962664627891742, hellinger_se = 0.0011173018159016147)
+[ Info:   Computing diversity (correlation matrix)...
+[ Info:   Computing diversity...
+┌ Info: Re-scoring archived GRU paths
+│   window = "is"
+└   size = (2766, 1000)
+[ Info:   Computing diversity...
+┌ Info: Re-scoring archived GRU paths
+│   window = "oos"
+└   size = (249, 1000)
+[ Info:   Computing diversity...
+[ Info: R8 metric checks passed

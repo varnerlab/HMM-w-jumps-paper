@@ -1,0 +1,7 @@
+[ Info: Loading results + calibration...
+┌ Info: Wrote Figure 4 in arXiv and JFDS
+│   ordinary_assets = 421
+│   trackers =
+│    2-element Vector{String}:
+│     "QQQ"
+└     "SPYG"

@@ -51,6 +51,7 @@ Random.seed!(1234)
 
 include(joinpath(_PATH_TO_SRC, "Composers.jl"))
 include(joinpath(_PATH_TO_SRC, "Metrics.jl"))
+include(joinpath(_PATH_TO_SRC, "GARCHFit.jl"))
 include(joinpath(_PATH_TO_SRC, "Pipeline.jl"))
 include(joinpath(_PATH_TO_SRC, "SyntheticMarket.jl"))
 include(joinpath(_PATH_TO_SRC, "VaRBacktest.jl"))

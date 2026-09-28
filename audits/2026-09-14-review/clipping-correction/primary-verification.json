@@ -1,0 +1,18 @@
+{
+  "canonical_training_sources_inputs_fits_scores_unchanged": true,
+  "variance_replay_sources_and_artifacts_unchanged": true,
+  "hybrid_paths": 42300,
+  "assets": 423,
+  "paths_per_asset": 100,
+  "branch_counts": {
+    "HYBRID": 42100,
+    "R2_PRESERVE": 200,
+    "HYBRID_CLIPPED": 0
+  },
+  "all_effective_loadings_equal_calibrated_loadings": true,
+  "maximum_absolute_loading_change": 0.0,
+  "embedded_table_bodies_unchanged": 13,
+  "Table2_files_unchanged_since_R8": true,
+  "primary_training_mean_shift_from_clipping": 0.0,
+  "basis": "Recorded canonical loadings and branch flags plus independently checked production-composer mean identity; no production simulation rerun."
+}

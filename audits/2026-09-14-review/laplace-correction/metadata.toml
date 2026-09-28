@@ -1,0 +1,45 @@
+blas_threads = 1
+bootstrap_seed = 20260916
+finished_utc = "2026-09-14T16:38:15.916Z"
+is_observations = 2766
+is_observed_kurtosis = 7.71507587295898
+is_seed = 20260914
+julia_version = "1.12.7"
+metrics = "Unchanged production Table 2 metrics, including existing Hellinger convention"
+mle_location = 0.14192447563031826
+mle_scale = 1.456119131053678
+n_boot = 500
+n_paths = 1000
+old_location = 0.06310026953971988
+old_scale = 1.4582431107117084
+oos_observations = 249
+oos_observed_kurtosis = 6.866679570791543
+oos_seed = 20260915
+sampler = "Matched uniforms transformed with each fitted Laplace quantile function"
+started_utc = "2026-09-14T16:37:59.952Z"
+threads = 4
+
+[checks]
+both_production_fits_checked = true
+both_production_samplers_checked = true
+metric_implementations_agree = true
+mle_improves_training_likelihood = true
+raw_data_matches_caches = true
+
+[package_versions]
+DataFrames = "1.8.1"
+Distributions = "0.25.123"
+HypothesisTests = "0.11.6"
+JLD2 = "0.5.15"
+StatsBase = "0.34.10"
+
+[source_sha256]
+"../../../.julia/packages/VLQuantitativeFinancePackage/ycjbj/src/Base.jl" = "72c473f90be431f562105dab35ce913a512b36071cc4dae32a943302fbb7c975"
+"../../../.julia/packages/VLQuantitativeFinancePackage/ycjbj/src/data/SP500-Daily-OHLC-1-2-2025-to-12-31-2025.jld2" = "5526d1cb7eb458697723b756b98fcab2655bb8bfd6686d0e5ea0c65bf9938579"
+"../../../.julia/packages/VLQuantitativeFinancePackage/ycjbj/src/data/SP500-Daily-OHLC-1-3-2014-to-12-31-2024.jld2" = "36b7ebe2c13be3ecebe829b159b6f3b2abbab0fd35b92fbb4eb11e1ea08d681d"
+"audits/2026-09-14-review/laplace-correction/compare_laplace.jl" = "55300ca940a4ca1788813b680ca72b7e04733896c0cb9eb1bd71dbb0797aa2d7"
+"code/baseline-comparison/Baseline-Comparison.jl" = "83cd416d03531f8066bc714be4f5f6f987883c4634d0070be72c8b13a7c86761"
+"code/baseline-comparison/Manifest.toml" = "0bba8663e59e4e392bd85eca5d41fa8e1032103fdd3cea2327c3068073aef777"
+"code/spy-experiment/Table2-StudentT-Emissions.jl" = "0fc42205e522820b969072a6a4ddd2c10534add5fb8b18c700018036ffcb6b6d"
+"code/spy-experiment/data/HMM-WJ-SPY-N-100-daily-aggregate.jld2" = "eced22e8e01e096dffab394632286ca42f58dc94f3816431f81baec257671335"
+"code/spy-experiment/data/OoS-Validation-SPY.jld2" = "cc9cab3c69d7c05871d3b23dcfaa164dac2be41d6c7afdb3f38070568b4b6f52"

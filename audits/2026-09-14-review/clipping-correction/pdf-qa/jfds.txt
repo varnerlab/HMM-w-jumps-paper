@@ -1,0 +1,1520 @@
+ Variance-Corrected Multi-Asset Equity Simulation with
+           Hybrid Hidden Markov Marginals
+
+
+
+Abstract
+Synthetic multi-asset equity data must reproduce each asset’s return distribution
+and its relationship with the market. Reusing a generator fitted to full asset
+returns creates a problem: adding its draws to a market factor counts market
+variance twice. We derived a correction that centers and rescales each draw
+over a fixed horizon before adding the market factor, allowing reuse without
+fitting a second generator to regression residuals. We tested the correction on
+423 non-market assets in a 424-asset United States equity and exchange-traded-
+fund universe, using hidden Markov generators with heavy-tailed emissions.
+The corrected paths retained heavy tails and recovered the calibrated market
+loadings with low error. On 416 complete asset histories held out from 2025,
+the correction improved the mean Kolmogorov–Smirnov pass rate over naive
+composition and brought the median ratio of synthetic to observed variance close
+to one. Its one-day left-tail 99% Value-at-Risk exceedance rate, using thresholds
+pooled across separate simulated paths, was 1.12%, compared with 1.16% for the
+residual-fit hidden Markov comparator and a nominal rate of 1%. We also tested
+a jump-duration mechanism that extended visits to extreme-return states and
+improved volatility clustering for the broad-market exchange-traded fund with
+ticker SPY. The multi-asset correction remained effective with jumps enabled,
+but transferring the SPY jump settings improved temporal fit in training and
+worsened it in the 2025 holdout. The method provides a way to reuse fitted asset
+generators for daily-fit comparisons. Its zero-sum residual constraint removes
+terminal residual uncertainty, and unmodeled dependence among asset-specific
+residuals can lead to overstated rebalancing returns. Code, cached inputs, result
+summaries, and instructions for fitting the per-asset models accompany the
+paper.
+Keywords: hidden Markov model, jump-duration mechanism, single-index
+model, synthetic financial data, variance correction, Value-at-Risk coverage
+check, volatility clustering, heavy-tailed marginals
+
+
+1. Introduction
+
+    Researchers and practitioners use synthetic equity paths to test risk models,
+evaluate portfolio strategies, and examine market scenarios beyond those observed
+in a historical sample (Assefa et al., 2020; Jordon et al., 2022). A multi-asset
+simulator must represent both the behavior of each asset and the relationships
+among assets. Factor models provide a simple way to link many assets through
+a shared market path (Sharpe, 1963; Ross, 1976; Fama and French, 1993), but
+using them with existing single-asset generators requires care. The single-index
+model separates each asset’s return into a market component and an asset-specific
+residual, with the market loading estimated by regression. A generator fitted to
+full asset returns already represents the asset’s total variance. Adding its draws
+to the market component as though they were residuals adds market variance
+a second time and can also shift the mean. Fitting another generator to each
+asset’s regression residuals avoids that problem, but requires a second fit across
+the asset universe. Reusing the existing generator would avoid that additional fit,
+provided its draws could be transformed to supply only the residual contribution.
+The relevant question is whether that transformation can control the mean and
+variance of the composed paths while retaining useful distributional and temporal
+behavior. Dependence among the remaining residuals is a further requirement
+that a per-asset adjustment alone cannot resolve.
+    The return features that a generator must capture are illustrated by daily
+excess growth rates for the broad-market exchange-traded fund with ticker SPY
+from 2014–2024 (Fig. 1). Most returns lie close to zero, but extreme returns
+occur much more often than a Gaussian model predicts (Fig. 1a,b), a widely
+documented feature of financial returns (Mandelbrot, 1963; Cont, 2001). Raw
+growth rates show little correlation across days, while absolute growth rates
+remain positively correlated over longer periods (Fig. 1c,d). Large and small
+changes therefore cluster over time, so matching the return distribution alone
+does not reproduce volatility dynamics. Synthetic financial data often miss these
+temporal properties even when the return histogram appears realistic (Stenger
+et al., 2024). A hidden Markov model (HMM) offers an interpretable way to
+represent both features: it draws returns from state-dependent distributions and
+uses transitions between states to represent temporal behavior (Rabiner and
+Juang, 1986; Rydén et al., 1998). Ordinary transitions can leave extreme states
+too quickly to reproduce persistent volatility, motivating an explicit duration
+mechanism (Bulla and Bulla, 2006). Such a mechanism can improve an individual
+generator, but adding a shared market path changes the distribution and temporal
+behavior of the composed returns. Preserving total variance therefore does not by
+itself establish that the single-asset improvements survive composition. Portfolio
+evaluation also requires dependence between assets, including relationships not
+explained by the market factor (Embrechts et al., 2002; Bouchey et al., 2015).
+
+
+
+
+                                        2
+Figure 1: Empirical stylized facts of SPY daily excess growth rates (2014–2024).
+Panel (a) shows the heavy-tailed return density; the Laplace maximum-likelihood fit tracks
+the empirical peak and tails while the Gaussian fit does not. Panel (b) shows departure
+from the diagonal in a normal quantile-quantile plot at both extremes. Panel (c) shows the
+autocorrelation function of raw excess growth rates. Individual correlations are small, although
+the Ljung–Box test detects joint serial dependence. Panel (d) shows the autocorrelation
+function of absolute excess growth rates, which decays slowly across the reported lags.
+
+
+    In this study, we developed a variance correction for combining independently
+fitted asset generators with a shared market path (Fig. 4; Table 3). The
+correction centered and rescaled full-return draws before adding the market
+component, avoiding a separate residual-generator fit. We used heavy-tailed
+hidden Markov generators and first assessed their distributional and temporal
+fit on SPY, including a jump-duration variant that extended visits to extreme-
+return states. We then evaluated composition on 423 non-market assets, initially
+with jumps disabled to isolate the variance correction, and compared reuse with
+methods fitted directly to regression residuals. With all 2014–2024 fits held
+fixed, the correction improved distributional fit over naive composition on 416
+complete asset histories from 2025 and brought the median ratio of synthetic
+to observed variance close to one (Table 4). Per-asset Value-at-Risk coverage
+checks tested whether that improvement also produced reliable tail thresholds
+(Table 5). A separate comparison enabled jumps in the market alone or in
+both the market and asset generators to test whether the SPY temporal benefit
+survived composition (Table 6). The correction remained effective, but the
+
+
+                                               3
+transferred jump settings improved temporal fit in training and worsened it in
+the holdout. The experiments established the value and limits of generator reuse
+while leaving cross-asset residual dependence unresolved.
+
+
+2. Related Work
+
+    Single-asset return models treat changing volatility, market regimes, and
+extreme moves in different ways. Autoregressive conditional heteroskedasticity
+(ARCH) and generalized autoregressive conditional heteroskedasticity (GARCH)
+models allow conditional variance to change over time (Engle, 1982; Bollerslev,
+1986). Even with Gaussian innovations, the changing variance can produce an
+unconditional return distribution with excess kurtosis. Heavy-tailed innovations
+can improve the tail fit when Gaussian GARCH understates the frequency of ex-
+treme returns. Stochastic-volatility models make volatility a latent process (Stein
+and Stein, 1991; Heston, 1993; Kim et al., 1998). Jump-diffusion models add dis-
+continuous price moves (Merton, 1976; Kou, 2002), but a jump component alone
+does not explain persistent volatility. Markov-switching ARCH and GARCH
+models combine discrete regimes with changing conditional variance (Hamilton
+and Susmel, 1994; Klaassen, 2002). Hidden-state models represent returns with a
+small number of market regimes. In a hidden Markov model (HMM), each latent
+state has a separate return distribution. Gaussian-emission HMMs can reproduce
+heavy tails and weak raw-return autocorrelation, but may still miss volatility
+clustering (Hamilton, 1989; Rydén et al., 1998). Hidden semi-Markov models
+allow more flexible state durations and can improve volatility persistence (Bulla
+and Bulla, 2006). An HMM does not create a jump process by itself. Rare
+extreme moves must come from the state-dependent return distributions or
+from a transition rule designed for such events. Deep generative models learn
+return distributions and temporal features without specifying a small set of
+market regimes or a parametric return process. Generative adversarial networks
+(GANs) are one class of deep generative model. Quant GANs have reproduced
+several financial time-series features, including volatility clustering and leverage
+effects (Wiese et al., 2020). Sig-Wasserstein GANs use path signatures to learn
+features that depend on the order of observations (Ni et al., 2021). In contrast,
+evaluations of GAN paths, including paths from the time-series generative ad-
+versarial network (TimeGAN), have found too little autocorrelation in absolute
+returns (Takahashi et al., 2019; Yoon et al., 2019; Kwon and Lee, 2024). The
+conflicting results show that flexible architectures do not guarantee a match to
+financial stylized facts. Model design, training, and evaluation all matter (Assefa
+et al., 2020; Stenger et al., 2024).
+    Multi-asset generation also requires a model of cross-asset dependence. Multi-
+variate GARCH models estimate time-varying covariance matrices. The dynamic
+conditional correlation model reduces the number of parameters by separating
+individual volatility models from correlation dynamics (Engle, 2002; Bauwens
+et al., 2006). Copulas separate each asset’s return distribution from the depen-
+dence model. Dynamic copulas allow cross-asset dependence to change over
+
+
+                                         4
+time, while vine copulas provide flexible high-dimensional constructions (Pat-
+ton, 2006; Aas et al., 2009). Factor models reduce dimension by linking each
+asset to a small number of shared factors (Sharpe, 1963; Ross, 1976; Fama and
+French, 1993). Shared-state HMMs and multivariate GANs can also generate
+joint market moves (Dias et al., 2010; Rizzato et al., 2023). A standard factor
+model can resample historical residuals or fit a separate residual generator for
+every asset. This paper addresses a narrower problem. We start with single-asset
+generators already fitted to full returns and ask whether they can be reused
+in a factor model. The relevant comparison is with methods fitted directly to
+regression residuals: those methods remove the market component before fitting,
+whereas reuse adjusts an existing full-return draw during composition. Neither
+approach specifies cross-asset residual dependence unless that dependence is
+modeled separately.
+
+3. Methods
+
+    We fitted a marginal generator for each asset and then combined the generated
+paths with a variance-corrected single-index model. The dataset contained 424
+United States-listed equities and exchange-traded funds observed from 2014
+through 2024. The single-asset analysis focused on the broad-market exchange-
+traded fund with ticker SPY. It used 2,767 daily volume-weighted average prices
+for fitting, which yielded 2,766 growth rates, and the next 250 prices from 2025,
+which yielded 249 holdout growth rates. The multi-asset analysis used daily
+closing prices. Of the 423 non-market assets in the training universe, 416 had
+complete 2025 histories and were included in the multi-asset holdout evaluation.
+We defined the excess growth rate Gi,j for ticker i between trading days j − 1
+and j from prices Pi,j−1 and Pi,j .
+                                                
+                                   1         Pi,j
+                        Gi,j ≡          ln            − rf .                   (1)
+                                  ∆t        Pi,j−1
+
+Here, ∆t = 1/252 is the fraction of a trading year spanned by one trading day,
+and rf is a constant continuously compounded risk-free rate. We used rf = 0.043
+for the SPY training period and rf = 0.0421 for its 2025 holdout, based on
+Treasury Separate Trading of Registered Interest and Principal of Securities
+(STRIPS) bond yields. For the multi-asset closing-price experiments, we set
+rf = 0 in both windows, so their growth rates were annualized log returns. The
+excess growth rate has units of year−1 and is time-additive under continuous
+compounding.
+
+3.1. Per-asset hidden Markov marginal generator
+    For each asset, the hidden Markov model with jumps (HMM-WJ) converted
+the continuous return series into a sequence of N ordered return regimes. At each
+time step, the model first selected a regime and then drew a return from that
+regime’s distribution (Fig. 2). We represented the model as M = (S, O, T, E, π̄)
+(Rabiner and Juang, 1986). The hidden state St ∈ S = {1, . . . , N } identifies
+
+
+                                        5
+the regime at time t, and the observed value is the excess growth rate Gt from
+Eq. (1). We omit the ticker index i when discussing one asset. The transition
+matrix T sets the probabilities of moving between regimes, E gives the return
+distribution within each regime, and π̄ gives the initial regime probabilities. We
+ordered the regimes from the most negative to the most positive returns. Their
+boundaries were equally spaced quantiles of a Laplace distribution fitted to the
+asset’s in-sample returns. Specifically, Qk = FL−1 (k/N ; µL , bL ), where µL and
+bL are the fitted location and scale. We set Q0 = −∞ and QN = +∞ and
+assigned return Gt to state k when Qk−1 ≤ Gt < Qk . The Laplace distribution
+captured the sharp concentration of small price movements in Fig. 1a (Kotz
+et al., 2001; Toth and Jones, 2019). We computed its closed-form quantiles for
+all 424 tickers (Bilmes, 1998).
+    The within-state emission followed a location-scale Student-t distribution:
+                     Gt | St = k ∼ µk + σk · tν ,      ν = 5,                  (2)
+where tν denotes a standard Student-t random variable with ν degrees of freedom.
+For observations assigned to state k, we used the sample mean for µk and the
+sample standard deviation for σk , subject to two fallback rules. A state with
+fewer than two observations used the mean and standard deviation of that asset’s
+full training series. A state with at least two observations and sample standard
+deviation below 10−12 yr−1 retained its state mean but used the full-series
+standard deviation as its scale. The same rules applied to residual-fit generators,
+using their residual training series. These exceptions kept emission parameters
+defined but could broaden states containing repeated returns (Table S17). A
+standard tν has variance ν/(ν − 2), so σk is a scale parameter rather than
+the emission
+      p        standard deviation. At ν = 5, the emission standard deviation
+is σk 5/3. We selected ν = 5 from a sensitivity sweep. We used ν = ∞
+for the Normal baseline; Table 1 gives the explored range. Holding the rest
+of the model fixed, the Student-t emission raised simulated kurtosis toward
+the observed value and raised the Kolmogorov–Smirnov (KS) and Anderson–
+Darling (AD) pass rates relative to the Normal emission. We also compared
+HMM-WJ with a hidden semi-Markov model (HSMM) baseline adapted from
+Bulla and Bulla (2006) (Supplementary Table S4; Online Appendix S6). The
+emission and HSMM comparisons separated the effects of heavy-tailed emissions
+and the jump-duration mechanism. We estimated the transition matrix T
+by counting observed transitions and normalizing each row with a positive
+count. A state with no observed outgoing transition used a uniform row, Tkj =
+1/N for every destination j. Counting avoided the initialization sensitivity of
+iterative expectation-maximization (Bilmes, 1998). The counted matrix was
+concentrated near its diagonal, but individual states, including tail states, were
+short-lived (Supplementary Fig. S3 in Online Appendix S5). The counted
+transition probabilities caused the model to leave extreme-return states too
+quickly to reproduce the observed volatility clustering (Bulla and Bulla, 2006):
+a chain fitted by counting reproduces the one-step state-pair frequencies exactly,
+and its absolute-return autocorrelation therefore decays geometrically at a rate
+set by the counted matrix. Online Appendix S4 derives the fitted generator’s
+
+
+                                        6
+stationary law and autocorrelation structure and quantifies both this rapid
+mixing and the correction added by the jump mechanism.
+     We added jump episodes to extend visits to extreme-return states. When no
+jump episode was active, a new episode began with probability ϵ. Its duration
+was K ∼ Poisson(λ), where λ is the mean episode length (Glasserman, 2003).
+Because a Poisson draw can be zero, K = 0 caused no forced tail step. For
+K > 0, the model temporarily replaced ordinary transitions with draws from two
+tail sets. The set S− = {1, . . . , Ntail } contained the most negative states, and
+S+ = {N − Ntail + 1, . . . , N } contained the most positive states. At each forced
+step, the model selected the negative set with probability pneg and the positive
+set otherwise. It made the tail-set choice independently at each step, so negative
+extreme returns occurred slightly more often than positive ones. Table 1 lists ϵ, λ,
+pneg , and Ntail . Two closed-form quantities summarize the mechanism’s operating
+point: forced steps occupy a long-run fraction of approximately ϵλ/(1 + ϵλ) of
+all steps, and a path of T steps contains at least one episode with probability
+approximately 1 − e−ϵT , so ϵ sets how many paths jump while λ sets how long an
+episode lasts (Online Appendix
+                           P       S4). We obtained the initial-state distribution π̄
+by solving π̄T = π̄ with k π̄k = 1 (Hamilton, 2018; Grinstead and Snell, 1997).
+Because T was estimated by counting, π̄ equals the vector of in-sample state
+frequencies up to end effects, so the model’s stationary growth-rate distribution
+is the frequency-weighted mixture of the state emission distributions. The solved
+π̄ is exact for the ordinary transition matrix but only approximate for the jump-
+augmented process because it does not include the remaining jump duration.
+The full simulation procedure appears in Algorithm 1. Each step followed T
+or continued a jump episode and then drew a return from the selected state’s
+emission distribution.
+     We chose the jump probability ϵ and mean duration λ to match the SPY
+absolute-return autocorrelation and kurtosis (Mandelbrot, 1963; Cont, 2001; Ry-
+dén et al., 1998). Jump-diffusion models use Poisson events to add instantaneous
+price jumps (Merton, 1976; Kou, 2002). In HMM-WJ, a jump episode extended
+a visit to the tail states. We searched a grid of (ϵ, λ) values. At each grid point,
+we averaged squared errors in the autocorrelation function (ACF) of absolute
+returns through lag L and weighted squared errors in excess kurtosis over the
+jump-active paths. We minimized the objective J(ϵ, λ).
+                          " L                                                 #
+                  1 X X                                   2                 2
+    J(ϵ, λ) =                    (ACFobs (τ ) − ACFr (τ )) + wκ (κobs − κr ) , (3)
+               |RJ |        τ =1
+                   r∈RJ
+
+where RJ is the set of jump-active simulated paths, ACFobs (τ ) and κobs are
+the empirical absolute-growth autocorrelation at lag τ and excess kurtosis, and
+ACFr (τ ) and κr are the corresponding values for path r. We used κ for kurtosis
+and K for jump duration. We simulated 200 independent paths of 2,766 trading
+days at each grid point. A path with no jump reduces to the hidden Markov
+model with no jumps (HMM-NJ) and contains no information about (ϵ, λ), so
+the objective included only paths with at least one jump (Glasserman, 2003).
+Within those paths, λ controls both the height and the horizon of the slow
+
+
+                                         7
+                                            s             Poisson clock               K
+                                       ep                                                 ∼
+                                     st                      prob. ϵ                          Po
+                                ed                                                               is(
+                               c                                                                     λ)
+                            or
+                       )f                                                                               f   or
+                 is  (λ                                                                                       ce
+                                                                                                                d
+              Po                                                                                                    st
+                                                                                                                      ep
+          ∼                                                                                                                s
+      K
+                                                state emission
+                                                   µk +σk · t5       jump triggered
+
+
+
+
+                                                                       prob. 1−ϵ
+
+     1                             2            ···              k             ···    N −1                                 N
+                                                                                                                               state index
+
+     S− (bottom tail)                                                                           S+ (top tail)
+
+
+Figure 2: Architecture of the hidden Markov model with jumps (HMM-WJ). When
+no jump episode is active, the chain transitions according to the empirical transition matrix
+T with probability 1 − ϵ (thin bidirectional arrows) or enters a Poisson jump episode with
+probability ϵ (dashed upward arrow to the Poisson clock). During an episode, each of the
+K ∼ Poisson(λ) forced steps independently draws the bottom tail set S− (red, lowest-valued
+states) with probability pneg or the top tail set S+ (blue, highest-valued states) otherwise.
+Ordinary transitions then resume. Small bell curves above each state show the state-conditional
+location-scale Student-t (ν = 5) emission distribution. Tail sets are defined as the Ntail lowest-
+and highest-quantile states under the Laplace quantile partition.
+
+
+autocorrelation component while the kurtosis penalty limits the total forced-step
+mass; ϵ acts mainly through the share of paths that contain an episode (Online
+Appendix S4). The value of wκ set the relative weight of the kurtosis error. The
+search ranges, wκ , L, and the remaining HMM-WJ and SIM hyperparameters
+are reported in Table 1. We fixed the selected hyperparameters before running
+the generator comparisons and the holdout evaluation.
+    To compare the hidden Markov generator with a neural autoregressive model,
+we included a gated recurrent unit (GRU) benchmark (Table 2). Its two recurrent
+layers used 64 hidden units each and a 50-return input window. Separate output
+heads predicted the mean and log variance of the next standardized return.
+We fitted the network on training SPY only, selected weights by training loss,
+and sampled recursively from the predicted Gaussian distributions. Online
+Appendix S3.1 specifies the optimizer, stopping rule, initialization, and recorded
+computational environment.
+
+3.2. Variance-corrected multi-asset composition
+    The single-asset model generated each ticker separately and did not specify
+cross-asset dependence. For the multi-asset model, we added a shared market
+path as a common factor. We used the single-index model (SIM) of Sharpe
+(1963).
+               gi (t) = αi + βi gm (t) + εi (t),    t = 1, . . . , T.       (4)
+Here αi is the intercept for asset i, gm is the market growth-rate path, βi is the
+asset’s market loading, and εi is its asset-specific residual path. We use εi for
+
+
+                                                                         8
+Algorithm 1 Hidden Markov model with jumps (HMM-WJ) single-asset
+marginal generator.
+Require: Fitted parameters (T, E, π̄, ϵ, λ, pneg , Ntail ); horizon T ; tail sets S− =
+    {1, . . . , Ntail } and S+ = {N − Ntail + 1, . . . , N }.
+Ensure: State sequence {St }Tt=1 and growth-rate path {Gt }Tt=1 .
+ 1: Draw S1 ∼ π̄; draw G1 ∼ µS1 + σS1 t5 ; k ← 0                   {stationary start; k:
+    remaining forced-step counter}
+ 2: for t = 2, . . . , T do
+ 3:   if k > 0 then
+ 4:       J ← S− w.p. pneg , else S+ ; St ∼ Uniform(J ); k ← k − 1 {forced
+          tail step; sign drawn per step}
+ 5:   else if Uniform(0, 1) > ϵ then
+ 6:       St ∼ TSt−1 ,·                                   {standard Markov transition}
+ 7:   else
+ 8:       K ∼ Poisson(λ)                     {trigger jump; K is the episode length}
+ 9:       if K = 0 then
+10:            St ∼ TSt−1 ,·         {K = 0: no forced steps, standard transition}
+11:       else
+12:            J ← S− w.p. pneg , else S+ ; St ∼ Uniform(J ); k ← min(K −
+               1, T − t)            {first forced step; K steps total, sign per step}
+13:       end if
+14:   end if
+15:   Draw Gt ∼ µSt + σSt t5                                                  {Eq. (2)}
+16: end for
+
+
+
+the residual path and ϵ for the jump probability in the single-asset model. We
+estimated the intercept and market loading (αi , βi ) from real data by ordinary
+least squares (OLS). The choice of εi determined the composition method. A
+standard SIM draws independent Gaussian residuals with the variance estimated
+by OLS. These Gaussian residuals preserve the fitted market relationship but
+do not retain the heavy tails and volatility regimes produced by the single-asset
+generator. We called the Gaussian-residual method Gaussian SIM.
+
+Naive full-path composition. In the naive construction, a full synthetic return
+path g̃i from the single-asset generator served as the residual.
+                                   gi = αi + βi gm + g̃i .                          (5)
+The fitted intercept and market term already set the conditional mean of asset i,
+while the full-return draw generally has E[g̃i ] ̸= 0. Equation (5) therefore has
+conditional mean αi + E[g̃i ] + βi gm , not αi + βi gm . We centered every full-return
+path before composition to remove the duplicate mean. Centering subtracted
+the realized path mean.
+                                   T
+                               1X
+                      g̃ i ≡         g̃i (t),       g̃ic (t) ≡ g̃i (t) − g̃ i .     (6)
+                               T t=1
+
+
+                                                9
+Therefore, T −1 t g̃ic (t) = 0 exactly. Subtracting a constant leaves both the
+                  P
+sample variance and the sample covariance with gm unchanged. We used the
+centered construction gi = αi + βi gm + g̃ic as the naive benchmark. This choice
+imposes a zero residual sum over the requested horizon, which is stronger than a
+zero population mean. Scaling preserves that constraint in every hybrid branch.
+For a fixed market path and effective loading, the terminal cumulative log
+return has no asset-specific residual uncertainty, although daily and intermediate
+returns still vary. A clipped loading can vary between draws and produce
+terminal variation through the market term. Because centering and scaling use
+statistics of the entire draw, the construction depends on the chosen horizon.
+We therefore evaluated it as a constrained finite-horizon construction for daily
+distributional fit and factor recovery; it does not preserve cumulative residual
+uncertainty (Online Appendix S9).
+    Centering corrected the mean but not the variance. The path variance
+  2
+σgen,i = Var(g̃i ) = Var(g̃ic ) is the generator variance. It already represents the
+asset’s total variance. Adding the market term therefore adds variance a second
+time. We sampled the residual and market paths independently. Their covariance
+is zero in population and close to zero on a long realized path. We approximated
+the naive composed variance accordingly.
+
+                 Var(gi ) ≈ βi2 σm
+                                 2    2
+                                   + σgen,i ,       Cov(g̃ic , gm ) ≈ 0,              (7)
+        2
+where σm   = Var(gm ) is the variance of the market path. The excess is βi2 σm
+                                                                             2
+                                                                               , so
+the error is largest for assets with large market loadings.
+                                    2
+Variance correction. We set σgen,i       as the target total variance for asset i. The
+                                2 2
+market term contributed βi σm , so the residual term could contribute only the
+remaining variance. We defined si as the nonnegative asset-specific residual scale,
+set εi = si g̃ic , and required Var(βi gm + si g̃ic ) = σgen,i
+                                                         2
+                                                               . Under the zero-covariance
+assumption, solving for si gives the correction.
+
+                                                βi2 σm
+                                                     2
+                                  s2i = 1 −       2                                   (8)
+                                                σgen,i
+
+The market loading ratio ρi is the market variance contribution divided by the
+target variance.
+                                       β 2 σ2
+                                 ρi ≡ i2 m ,                                (9)
+                                       σgen,i
+Under the zero-covariance assumption, ρi is the fraction of the target variance
+contributed by the market, and s2i = 1 − ρi . At ρi = 1, the unconstrained rule
+leaves no asset-specific variance; for ρi > 1, it has no real-valued solution. Values
+of ρi at or above one can arise when βi is large, the generator variance is low, or
+the synthetic market is more volatile than the calibration market. We required
+the asset-specific draw to contribute at least a fraction f of the target variance.
+
+
+
+                                           10
+We set ρmax
+          i   = 1 − f and reduced the effective loading βieff when ρi > ρmax
+                                                                           i   . We
+applied the piecewise correction in Eq. (10).
+         
+            β                         if ρi ≤ ρmax
+          i                                    i
+                                                              (
+                                                                 1 − ρi if ρi ≤ ρmax
+         
+ eff
+                    s                                    2                        i
+βi =                           2
+                              σgen,i                    si =
+         sign(βi ) (1 − f ) 2
+         
+                                     if ρi > ρimax              f       if ρi > ρmax
+                                                                                  i
+                               σm
+                                                                                (10)
+The correction retained the sign of the calibrated loading βi . We used f = 0.10,
+so the asset-specific draw contributed at least 10% of the target variance for
+non-tracker assets (Table 1). We retained the fitted intercept αi when clipping
+changed the loading. Because the scaled residual had zero sample mean, the
+composed mean was g i = αi + βieff g m , where g m is the supplied market path’s
+mean. Clipping therefore changed the mean by (βieff − βi )g m relative to the
+calibrated linear mean on that same market path. The clipped branch retained
+the intercept, generator-variance budget, and residual floor; it did not retain the
+original mean unless g m = 0. Online Appendix S9.1 examines the substitution
+of a full-return draw for the residual: it derives what the construction preserves
+exactly and how the composed shape dilutes as ρi grows.
+
+High-R2 index trackers. The non-tracker branch targeted total generator vari-
+ance. For an index-tracking fund, we instead targeted its fitted relationship with
+the market. The coefficient of determination R2 measures the fraction of the
+asset’s variance explained by the market. For example, SPY regressed on itself
+has β = 1, R2 = 1, and no residual variance. QQQ and SPYG also had high
+R2 against SPY. The non-tracker branch can change the fitted R2 even when
+it preserves total variance. We therefore used a separate tracker branch when
+  2                   2                  2
+Ri,real was at least Rpreserve . We set Rpreserve = 0.80, which separated the index
+trackers from individual stocks in our universe (Supplementary Fig. S5). For
+the tracker branch, we computed the residual variance required to recover the
+calibrated R2 under the zero-covariance assumption.
+
+                                                      2
+                          2
+                                                1 − Ri,real
+                         σε,target = βi2 σm
+                                          2
+                                            ·       2                         (11)
+                                                  Ri,real
+
+We rescaled the generator draw to the target residual variance.
+                                   s           !
+                                       2
+                                     σε,target
+                           εi =          2       g̃ic .                       (12)
+                                      σgen,i
+
+        2
+When Ri,real  = 1, the target residual variance is zero. SPY regressed on itself
+therefore has no residual term. A scale factor greater than one increases the
+variance of the generator draw and can weaken the original marginal fit.
+
+Complete composition rule. The tracker branch targeted the calibrated R2 . The
+non-tracker branch targeted the generator variance and reduced βi only when
+
+
+                                        11
+Algorithm 2 Hybrid single-index model (SIM) composition with variance
+correction.
+Require: Nonconstant gm , g̃i ∈ RT , i = 1, . . . , N ; each g̃i is independent of gm .
+                                        2                                     2
+Require: Parameters (αi , βi , Ri,real        ); floor f ∈ (0, 1); threshold Rpreserve ∈ (0, 1].
+                                          T
+Ensure: Composed paths gi ∈ R and branch flags bi .
+     2
+ 1: σm   ← Var(gm ).
+ 2: for each asset i = 1, . . . , N do
+         2
+ 3:    σgen,i  ← Var(g̃i ); g̃ic ← g̃i − g̃ i .
+             2           2
+ 4:    if Ri,real ≥ Rpreserve     then
+                    2 2          2         2
+ 5:        vi ← βi σm (1 − Ri,real     )/Ri,real .
+                 q
+                           2       eff
+ 6:        si ← vi /σgen,i ; βi ← βi ; bi ← r2-preserve.
+ 7:    else
+ 8:        ρi ← βi2 σm 2     2
+                         /σgen,i
+ 9:        if ρi ≤ 1√− f then
+10:           si ← 1 − ρi ; βieff ← βi ; bi ← variance.
+11:        else       √                       q
+12:           si ← f ; βieff ← sign(βi ) (1 − f )σgen,i   2
+                                                               /σm2 .
+
+13:           bi ← clipped.
+14:        end if
+15:    end if
+16:    εi ← si g̃ic .
+17: end for
+18: Optional: jointly rank-reorder {εi }N        i=1 .
+19: for each asset i = 1, . . . , N do
+20:    gi ← αi + βieff gm + εi                                                            {Eq. (4)}
+21: end for
+
+
+
+the market term would leave less than the required asset-specific variance. After
+selecting a branch, we added the scaled asset draw to the market term. The full
+procedure appears in Algorithm 2. If used, a residual-copula rank reorder was
+applied jointly after scaling and before composition. The reorder preserved the
+empirical variance of each residual path. Centering kept the path mean controlled
+by the intercept and market term. Under the zero-covariance assumption, OLS
+estimates from longer composed paths converge to the effective market loading
+and its intercept. The variance and loading properties are asymptotic. They do
+not specify exact finite-sample values or the complete return distribution. Online
+Appendix S9 gives the algebra. The construction links assets through same-day
+market returns. A simulated market episode can therefore affect several assets
+together, but the rule does not separately fit lead–lag effects or a joint volatility
+process.
+
+
+
+
+                                               12
+Table 1: Hidden Markov model with jumps (HMM-WJ) and single-index model
+(SIM) composition hyperparameters. Values used for the main SPY analysis, explored
+ranges, and locations of sensitivity checks. For the primary six-method SIM comparison, we set
+ϵ = 0 instead of the SPY value. The separate jump-enabled comparison transferred the listed
+SPY settings to enabled models. The cross-asset validation used per-ticker (ϵ∗ , λ∗ ) values for
+NVDA, JNJ, and JPM (Supplementary Table S10).
+Symbol     Description                               SPY value   Explored range
+  State partition and emission
+N           Laplace-quantile states                  100         {30, . . . , 200}, Online Appendix S7
+ν           Student-t emission degrees of freedom    5           {3, . . . , 30, ∞}
+  Jump-duration override
+ϵ         jump probability per step                  10−4        [10−4 , 2.5 × 10−2 ], Eq. (3)
+λ         mean jump-episode duration (steps)         90          [10, 160], Eq. (3)
+pneg      probability a jump targets S−              0.52        fixed
+Ntail     quantile states per tail set               5           fixed (at N = 100)
+wκ        kurtosis-penalty weight, Eq. (3)           0.20        fixed
+L         autocorrelation lag window, Eq. (3)        25 days     fixed
+  SIM composition
+f         idiosyncratic variance floor               0.10        {0.05, . . . , 0.30}
+  2
+Rpreserve branch-selection threshold                 0.80        {0.70, . . . , 0.90}
+
+
+
+Evaluation protocol. We evaluated the method on 424 United States equities and
+exchange-traded funds from Polygon.io. Each ticker had 2,767 daily closing prices
+from January 2014 through December 2024, which yielded 2,766 growth rates.
+This complete-case selection conditioned the analysis on assets that survived
+and retained data coverage throughout the training window. We used SPY as
+the market and composed the other 423 assets. For each asset, we fitted the
+state and emission model used in the SPY analysis (Table 1; rf = 0). In the
+primary six-method comparison, we set the jump probability to zero to measure
+composition without per-ticker jump calibration. We regressed each real asset
+                                 2
+on SPY to estimate αi , βi , Ri,real  , and residual variance. Across the sample, βi
+                                    2
+ranged from 0.03 to 1.79, and Ri,real    ranged from 0.001 to 0.933 (Supplementary
+Figs. S4 and S5). We compared six ways to construct the asset-specific term
+(Table 3). The naive method used the centered full-return draw without variance
+correction. The Gaussian SIM method used independent Gaussian residuals
+with variance estimated by OLS. The corrected method, labeled hybrid in the
+tables and figures, used Algorithm 2. The JumpHMM-on-residuals method
+fitted a new JumpHMM to the OLS residual series after converting the residuals
+to a synthetic price path by cumulative compounding. The block-bootstrap
+method sampled the OLS residual series with the Politis–Romano stationary  √
+bootstrap (Politis and Romano, 1994) and a mean block length of T ≈ 50.
+The GARCH(1,1)-t method fitted a conditional-variance model to each residual
+series (Bollerslev, 1986). We required optimizer convergence, a finite likelihood,
+finite coefficients, a positive variance intercept, nonnegative ARCH and GARCH
+coefficients whose sum was below one, and Student-t degrees of freedom above
+two. Accepted fits also required finite positive unconditional variance and a
+finite, nonconstant trial path. All 423 optimizations converged; 30 fits failed the
+
+
+                                                    13
+stationarity condition, leaving 393 eligible training assets. The cached models
+included per-ticker acceptance diagnostics, which were checked again before
+evaluation. For each ticker, the naive and corrected methods received the same
+JumpHMM draw, which isolated the effect of the variance correction. The
+other four methods generated their own residual draws. JumpHMM names
+identify the generator implementation; its jump mechanism was disabled in both
+full-return and residual fits for this six-method comparison. We did not use the
+optional cross-sectional rank reorder because the experiment tested each ticker’s
+marginal construction separately. To isolate the effect of the different mean
+constraints, we also compared each method’s native path with the same path
+after subtracting its residual mean over the full training horizon (Supplementary
+Table S14). We held the fitted models, random draws, market path, effective
+loadings, and residual scales fixed. Naive and hybrid paths already satisfied this
+constraint. The control used 100 replications per asset and the same 393 assets
+with available, simulatable cached GARCH models for all six methods. Online
+Appendix S11 gives the control definition and separates centering effects from
+model fitting.
+    We evaluated each composed series on factor recovery, distributional fit, and
+variance preservation. For factor recovery, a new OLS regression produced the
+absolute errors |β̂ − β| and |R̂2 − Rreal
+                                        2
+                                           |; lower values indicate closer recovery.
+For distributional fit, we used Kolmogorov–Smirnov (KS) and Anderson–Darling
+(AD) pass rates, Wasserstein-1 distance, excess kurtosis, and the Hill upper-tail
+index. Higher KS and AD pass rates and lower Wasserstein distance indicate a
+closer match; kurtosis and the Hill index describe tail behavior. For variance
+preservation, we used the composed-to-generator variance ratio. A ratio of one
+indicates equal variances. Online Appendix S3 gives the metric definitions. We
+ran 100 replications per ticker with seed 1234, producing 42,300 series for each
+method except GARCH, which produced 39,300 series across its 393 eligible
+assets. Pass rates used the significance level α = 0.05. We archived all 250,800
+training-path scores with the input, fitted-model, source-code, and configuration
+fingerprints. The aggregate, branch, and loading-quartile tables were generated
+from this same validated run, with matching method-level summaries distributed
+alongside the path scores. For the six-method holdout evaluation, we froze all
+marginal fits, residual models, and SIM parameters estimated from 2014–2024
+(Tables 4 and 5). We evaluated the methods against the 249 growth rates
+observed in 2025. Of the 423 non-market training assets, 416 had complete
+holdout histories; GARCH results covered 386 because its thirty non-stationary
+training fits remained excluded (Table 4). For each replication, we generated a
+249-day SPY path from the training-period SPY marginal and used the same
+simulated market path in all asset compositions. In this evaluation, the correction
+used the observed training-period market variance in place of the simulated
+                 2
+path variance σm    in Eqs. (8)–(12); the generator variance was still computed
+from each asset draw. The residual scale therefore budgeted for the training
+market variance, and variation in the simulated market variance could move
+the composed variance away from the generator target even when the sample
+cross-covariance was zero. Observed 2025 SPY and asset returns were used only
+
+
+                                        14
+for scoring. We repeated the KS, AD, Wasserstein-1, variance, and kurtosis
+evaluations with 100 paths per ticker. Because goodness-of-fit tests have less
+power on 249 observations than on 2,766, we also compared each synthetic path
+with a randomly selected contiguous 249-day block from the training history.
+We first averaged replication-level results within ticker and then summarized
+across tickers so each asset received equal weight. The 249-day training blocks
+provided a comparison at the same sample length as the holdout period.
+    To isolate the generators’ one-day tail thresholds from estimation noise in
+a single short path, we used a separate simulation ensemble for the Value-
+at-Risk (VaR) evaluation (Table 5). For each asset and method, we pooled
+the daily log returns from 5,000 separately constructed 249-day paths, giving
+1,245,000 observations for each lower-tail quantile. Centering, scaling, market
+variance, and initialization followed the same conventions as the holdout scorecard.
+We fixed one threshold per asset, method, and coverage level before counting
+exceedances on the observed 2025 returns. The ensemble size and convergence
+checkpoints were fixed before holdout scoring; 1,000 additional independent
+paths checked simulation tail probabilities. Each threshold therefore described
+a uniformly selected day of the retained 249-day construction. Pooling did not
+remove its horizon dependence or zero-sum residual constraint. We reported
+mean exceedance rates and cross-ticker standard deviations descriptively. These
+summaries did not treat simulated days, dependent holdout observations, or
+assets sharing a market as independent replications for a coverage significance
+test. No 2025 data were used for fitting or threshold calibration.
+
+Jump-enabled multi-asset comparison.. To test whether the temporal benefit
+of the single-asset jump mechanism survived composition, we compared three
+settings: jumps disabled, jumps enabled only in the SPY market generator,
+and jumps enabled in both SPY and every asset generator (Table 6). We
+froze the existing closing-price state models and SIM calibrations. Enabled
+models received the SPY settings of Table 1, (ϵ, λ) = (10−4 , 90), pneg = 0.52,
+and Ntail = 5, without per-asset tuning. The SPY calibration used volume-
+weighted average prices, so its transfer also changed the price convention. We
+simulated the market in both the 2,766-day training comparison and the 249-day
+holdout comparison; the preceding six-method training comparison instead used
+observed SPY. In both windows of the jump comparison, the correction used
+each simulated market path’s variance and each asset draw’s variance. Thus,
+the jump comparison also differed from the six-method holdout protocol, which
+kept the market variance fixed at its training value. Within each experiment,
+the variance convention was the same across all compared jump settings. This
+comparison assessed whether the SPY settings improved the composed paths
+without recalibrating the individual asset models. For each jump setting, naive
+and corrected composition received the same asset and market draws (Table 6).
+One market path was shared across all assets in each replication. We generated
+250 paths for each of four seeds (1234, 2345, 3456, and 4567), giving 1,000
+replications per asset, setting, and method. We measured absolute-return ACF-
+MAE over lags 1–25, with lags 1–60 as a secondary check, and repeated the
+
+
+                                        15
+marginal and variance diagnostics. These common lag windows used the mean of
+each path’s absolute ACF errors. The single-asset comparison instead measured
+the error after averaging the path ACFs, using 252 lags in training and 248
+in the holdout (Eqs. (S19) and (S20)). The resulting temporal scores have
+different estimands and cannot be compared directly across the two experiments.
+We included all paths in the primary summaries and estimated Monte Carlo
+uncertainty from replication-level cross-ticker averages, keeping assets together
+under their shared market path. The intervals describe simulation uncertainty
+conditional on the fitted models and observed histories, not uncertainty across
+market regimes.
+
+
+4. Results
+
+4.1. Single-asset generator validation
+     We first evaluated whether the asset generator captured the return distri-
+bution and volatility clustering that motivated its use in composition (Figs. 1
+and 2; Supplementary Table S1). The observed SPY series had heavy tails
+and persistent absolute-return autocorrelation in both the training and holdout
+windows. Individual raw-return correlations were small, although the Ljung–Box
+test detected joint serial dependence (Supplementary Table S1). Calibration
+against the 2014–2024 history selected jump probability and mean duration
+(ϵ, λ) = (10−4 , 90), with similar objective values at nearby grid points (Eq. (3);
+Table 1; Algorithm 1). Ordinary states lasted only 1–2 steps, and the counted
+transition matrix implied absolute-return autocorrelation that decayed to near
+zero within a week (Supplementary Fig. S3). The selected episodes extended
+visits to extreme states, providing a mechanism for more persistent volatility.
+To assess whether the generator comparison depended on the state partition, we
+varied the number of states (Supplementary Table S7). The primary SPY analy-
+sis used N = 100 states, while sweeps from N = 30 to 200 changed HMM-NJ
+pass rates by less than one percentage point (Supplementary Table S7). The
+HMM-WJ model showed a tradeoff as the partition changed: narrower states
+improved autocorrelation accuracy but lowered the AD pass rate. States with
+too few observations use the documented global-moment fallback instead of local
+emission estimates (Supplementary Table S17). The selected N = 100 lay within
+the range that supported well-populated states for the 2,766-day history. That
+choice did not establish an appropriate resolution for shorter histories, which
+would provide fewer observations per state. The sensitivity checks therefore
+supported the fitted generator at the observed sample length without establishing
+one state count for every asset history.
+     We compared the calibrated HMM-WJ with seven alternative generators
+using 1,000 paths of 2,766 trading days (Table 2; Fig. 3). The HMM-NJ
+and HMM-WJ models had KS pass rates of 99.3% and 98.3%, respectively,
+compared with 98.4% for the fitted Laplace baseline. Both HMM variants had
+lower Wasserstein-1 distances than Laplace, whereas Laplace had the lowest
+Hellinger distance among the fitted generators (Table 2). The ranking therefore
+
+
+                                         16
+Table 2: In-sample and out-of-sample model comparison for SPY. Results summarize
+1,000 simulated paths. Values in parentheses are Monte Carlo standard errors conditional on
+the fitted model and observed history, and bold entries are best among the fitted generative
+models within each panel; the empirical bootstrap is excluded from this highlighting. Metric
+definitions and standard-error calculations are given in Online Appendix S3.
+Model          KS (%)     AD (%)         κ         ACF-MAE         Coverage (%)       W1         Hellinger
+In sample: 2014–2024 (2,766 days; observed κ = 7.715)
+Bootstrap    100.0 (<0.1) 99.7 (0.2) 7.6 (0.08) 0.060 (<0.001)     100.0 (<0.1)   0.062 (0.001) 0.042 (<0.001)
+Gaussian      0.0 (<0.1) 0.0 (<0.1) −0.0 (<0.01) 0.060 (<0.001)     13.1 (0.1)    0.399 (0.001) 0.148 (<0.001)
+Laplace       98.4 (0.4) 96.8 (0.6) 3.0 (0.02) 0.060 (<0.001)       78.8 (1.0)    0.119 (0.001) 0.069 (<0.001)
+GARCH(1,1) 5.5 (0.7)       1.9 (0.4)   8.2 (0.37)  0.031 (0.001)    29.3 (1.4)    0.304 (0.006) 0.100 (0.001)
+GRU            0.6 (0.2)   0.2 (0.1)   5.7 (0.16) 0.036 (<0.001)    17.2 (0.5)    0.421 (0.003) 0.134 (<0.001)
+HSMM          82.0 (1.2) 42.5 (1.6) 4.8 (0.08) 0.059 (<0.001)       68.7 (1.1)    0.176 (0.001) 0.113 (<0.001)
+HMM-NJ        99.3 (0.3) 98.2 (0.4) 8.1 (0.14) 0.059 (<0.001)      100.0 (<0.1)   0.081 (0.001) 0.072 (<0.001)
+HMM-WJ        98.3 (0.4) 94.8 (0.7) 7.5 (0.09) 0.053 (<0.001)      100.0 (<0.1)   0.097 (0.001) 0.074 (<0.001)
+
+Out of sample: 2025 (249 days; observed κ = 6.867)
+Bootstrap      97.4 (0.5) 98.5 (0.4) 6.0 (0.18) 0.043 (<0.001)     100.0 (<0.1)   0.232 (0.002) 0.205 (0.001)
+Gaussian       62.2 (1.5) 46.3 (1.6) −0.0 (<0.01) 0.043 (<0.001)     36.4 (1.9)   0.452 (0.002) 0.235 (0.001)
+Laplace       96.7 (0.6) 98.1 (0.4) 2.8 (0.05) 0.043 (<0.001)        99.0 (0.4)   0.242 (0.002) 0.207 (0.001)
+GARCH(1,1) 80.3 (1.3) 72.0 (1.4) 1.6 (0.07) 0.026 (<0.001)           96.0 (1.3)   0.507 (0.018) 0.232 (0.001)
+GRU            71.8 (1.4) 44.8 (1.6) 2.9 (0.10) 0.033 (<0.001)       77.8 (2.9)   0.488 (0.005) 0.240 (0.001)
+HSMM           96.2 (0.6) 96.7 (0.6) 4.1 (0.13) 0.042 (<0.001)      100.0 (0.2)   0.287 (0.002) 0.239 (0.001)
+HMM-NJ         96.6 (0.6) 96.1 (0.6) 6.2 (0.15) 0.041 (<0.001)     100.0 (<0.1)   0.259 (0.003) 0.207 (0.001)
+HMM-WJ         95.4 (0.7) 95.3 (0.7) 6.2 (0.15) 0.040 (<0.001)     100.0 (<0.1)   0.275 (0.005) 0.210 (0.001)
+
+Model abbreviations are generalized autoregressive conditional heteroskedasticity (GARCH), gated
+recurrent unit (GRU), hidden semi-Markov model (HSMM), hidden Markov model with no jumps
+(HMM-NJ), and hidden Markov model with jumps (HMM-WJ). Kolmogorov–Smirnov (KS) and
+Anderson–Darling (AD) report pass rates at α = 0.05; coverage is the fraction of the 99 observed
+quantiles at levels 0.01, . . . , 0.99 inside their pointwise synthetic 90% envelopes. κ is simulated
+excess kurtosis. Mean absolute error in the autocorrelation function (ACF-MAE) compares the
+observed ACF of |Gt | with the mean ACF over paths, using lags 1–252 in training and 1–248 in
+the holdout. Larger values are preferred for KS, AD, and coverage; smaller values are preferred for
+ACF-MAE, W1 , and Hellinger distance; κ is compared with the observed value.
+
+
+
+depended on the metric. Bootstrap resampling had a 100% KS pass rate but
+did not reproduce volatility clustering, while Gaussian sampling passed neither
+distribution test. The GARCH(1,1) model had the lowest mean absolute error
+between the observed and ensemble-average absolute-return autocorrelation
+functions (ACF-MAE), 0.031, but rarely passed the distribution tests. The
+gated recurrent unit (GRU) (Cho et al., 2014) showed a similar tradeoff. The
+HSMM-style baseline adapted from Bulla and Bulla (2006) reached an 82% KS
+pass rate but underestimated kurtosis by more than one third. Within the HMM,
+Student-t emissions produced kurtosis of 7.5, close to the observed 7.7, whereas
+Normal emissions underestimated it by about 29% (Supplementary Table S4).
+Both HMM variants also reproduced the observed skewness of −0.75 through
+unequal occupancy of negative and positive states (Supplementary Table S1).
+The temporal comparison showed the cost of retaining that marginal fit. Jump
+episodes improved temporal fit, with a small reduction in distributional pass
+rates (Table 2; Fig. 3b). The HMM-WJ model reduced ACF-MAE from 0.059 for
+HMM-NJ to 0.053. About 24% of paths contained an episode (Supplementary
+Fig. S2); paths without an episode were equivalent to HMM-NJ. The episode
+share, the fraction of forced steps, and the jump-path autocorrelation agreed
+with the calculations in Online Appendix S4 (Supplementary Tables S2 and S3).
+
+
+                                                     17
+Figure 3: Head-to-head in-sample model comparison for SPY (N = 100, 1,000 simulated
+paths). Panel (a): marginal density of excess growth rates with in-sample Kolmogorov–Smirnov
+(KS) pass rates annotated per generator. Panel (b): mean autocorrelation function (ACF)
+of |Gt | at lags 1–252. For the hidden Markov model with jumps (HMM-WJ), the solid curve
+and its 10th–90th percentile band use jump-active paths; the dashed curve averages all paths.
+The generalized autoregressive conditional heteroskedasticity (GARCH) band  √ also gives path
+percentiles. Horizontal dotted lines are the white-noise references ±1.96/ 2,766. Panel (c):
+tail quantile-quantile plot at the 0.1st–99.9th percentile region per generator.
+
+
+To examine the tradeoff, we resampled the fitted ensemble with the fraction of
+jump-active paths ranging from zero to one. Increasing that fraction lowered
+autocorrelation error but also lowered KS and AD pass rates. Kurtosis declined
+through the observed value, while the Hill upper-tail index remained stable. The
+fitted ensemble retained approximately one quarter jump-active paths, balancing
+kurtosis and autocorrelation error. To test whether the distributional fit extended
+beyond calibration, we compared frozen-model paths with the 249 held-out SPY
+returns from 2025. The HMM-NJ and HMM-WJ models retained KS pass
+rates of 96.6% and 95.4%, with kurtosis close to the observed value (Table 2;
+Supplementary Fig. S2). The fitted Laplace baseline had a KS pass rate of 96.7%
+and a lower Wasserstein-1 distance than either HMM variant, but its excess
+kurtosis of 2.8 remained below the observed 6.9 (Table 2). Separate calibrations
+for NVDA, JNJ, and JPM also showed strong training fit but more variable
+holdout performance (Supplementary Table S10). These findings supported the
+HMM as a source of heavy-tailed asset paths, while the benefit of the jump
+mechanism depended on the metric and evaluation period. We used the no-jump
+variant for the primary composition comparison and evaluated the transfer of
+jump settings separately in the multi-asset jump comparison.
+
+4.2. Variance-corrected multi-asset composition
+    We compared six composition methods across a training universe of 423
+non-market assets, with 393 eligible for GARCH, to test whether the correction
+preserved generator variance and calibrated market loading (Table 3; Fig. 4).
+We paired each composed path with its uncomposed generator draw to measure
+the variance ratio directly. Across the 421 ordinary assets, the median of the
+per-ticker median ratios was 1.3171 for naive composition and 1.0001 for hybrid
+composition (Fig. 4b). The corresponding hybrid ticker medians ranged from
+0.9933 to 1.0072. Hybrid also retained higher marginal-test pass fractions across
+
+
+                                             18
+Figure 4: Marginal fit and generator-variance preservation under paired composition.
+We used 100 paired paths of 2,766 observations for each of 423 non-market assets, with
+the observed 2014–2024 SPY market path and jumps disabled. Blue circles denote naive
+composition; red diamonds denote hybrid composition. Outlined circles mark the tracker assets
+QQQ and SPYG in the corresponding method color. Panel (a): each point is the fraction
+of paths passing the Kolmogorov–Smirnov (KS) test against the observed asset returns at
+                                                                              2
+α = 0.05. Panel (b): each point is the median of the 100 ratios Var(gi )/σgen,i    , with the
+denominator measured from the same uncomposed generator draw. The dashed line marks the
+hybrid target of one for the 421 ordinary assets. Trackers instead target βi2 σm2 /R2
+                                                                                    real,i and
+need not lie on that line. The dotted curve summarizes the per-ticker medians of the naive
+reference 1 + ρi , where ρi = βi2 σm
+                                   2 /σ 2
+                                       gen,i is computed per draw. This reference omits the
+finite-path covariance term. Solid curves in panel (a) and the dotted curve in panel (b) are
+Gaussian-kernel weighted medians over ordinary assets, with bandwidth 0.15 in calibrated
+                                                                               2
+β. For ordinary hybrid paths, the median and 95th percentile of | Var(gi )/σgen,i   − 1| were
+1.12% and 3.41%; ticker medians therefore conceal individual-path variation. The annualized
+variance of the observed market path was ∆t σm   2 = 0.030 yr−1 .
+
+
+
+
+the calibrated β range (Fig. 4a). The two tracker assets used a different variance
+target and were identified separately. Finite-path covariance still caused variation
+around the ordinary hybrid target: the median absolute relative variance error
+was 1.12%, and its 95th percentile was 3.41% (Fig. 4b). These path-level errors
+qualified the small average cross-covariance reported in the earlier diagnostic
+(Supplementary Fig. S1): cancellation across replications did not imply exact
+variance preservation on each path. The correction improved distributional fit
+while recovering the market loading with accuracy similar to the other methods
+(Table 3). All six methods had median absolute β errors between 0.017 and
+0.022 (Table 3). Centering also kept the median absolute intercept error at
+0.002 yr−1 for the naive and corrected methods; residual-fit methods retained
+finite-path variation in their residual means. With observed training SPY and
+no loading adjustment, centered paths matched the observed asset mean exactly.
+Their small intercept errors therefore reflected the imposed mean constraint and
+finite-path loading error, rather than independent evidence of mean recovery.
+
+
+
+
+                                             19
+Table 3: Aggregate training scorecard with 100 replications per ticker. Errors,
+distances, and tail metrics are medians per method. Kolmogorov–Smirnov (KS) and Anderson–
+Darling (AD) pass fractions are pooled across replications. |α̂ − α|, |β̂ − β|, and |R̂2 − Rreal
+                                                                                            2 |:
+
+absolute deviation between ordinary least-squares (OLS) recovery and calibration (intercept
+error has units of yr−1 ). KS pass and AD pass: fraction of replications whose two-sample test
+against the real marginal exceeds p = 0.05. W1 : Wasserstein-1 distance to the real marginal. κ:
+sample excess kurtosis. Hill: tail-index estimate on the upper 5% of |g|. SIM denotes the single-
+index model, and GARCH denotes generalized autoregressive conditional heteroskedasticity.
+The GARCH method covered 393 non-market tickers; the other five methods covered 423.
+ Method                 |α̂ − α|   |β̂ − β|   |R̂2 − Rreal
+                                                      2
+                                                           |   KS pass (%)   AD pass (%)    W1        κ     Hill
+ Naive                    0.002     0.022            0.087             7.1           3.5   0.700   7.767   0.369
+ Gaussian SIM             0.048     0.017            0.008             0.6           0.5   0.682   1.427   0.217
+ Hybrid                   0.002     0.018            0.021            73.6          64.6   0.249   7.165   0.365
+ JumpHMM-on-residuals     0.049     0.018            0.015            75.8          70.7   0.232   7.262   0.365
+ Block bootstrap          0.042     0.017            0.020            73.3          66.8   0.232   6.675   0.330
+ GARCH(1,1)-t             0.047     0.017            0.036            67.4          61.4   0.267   6.069   0.317
+
+
+
+    To test whether fallback emissions influenced the composition comparison,
+we inspected the fitted states and ran a paired sensitivity check (Supplementary
+Tables S17 and S18). Fallbacks affected 50 states in 39 full-return models,
+including 39 populated states containing repeated returns; no residual-fit model
+required a fallback. Keeping the empirical spread in those populated states raised
+hybrid KS pass rates from 68.6% to 78.9% and AD pass rates from 56.2% to
+70.2% on the same 39 affected assets (Supplementary Table S18). The alternative
+retained partitions, transition matrices, state paths, and state means. Treating
+repeated returns as noise on the scale of the entire asset therefore affected the
+reported training fit. The main comparisons retain the original fallback rule; the
+control identifies sensitivity to that rule without establishing the alternative’s
+holdout behavior.
+    The methods differed more in distributional fit than in factor recovery (Table 3;
+Supplementary Fig. S6). Gaussian SIM had the lowest median R2 error, but
+almost never passed the distribution tests and had excess kurtosis an order of
+magnitude below the observed value. The corrected method passed 73.6% of KS
+comparisons and retained heavy tails, with median excess kurtosis of 7.2 and
+a Hill index of 0.37 (Supplementary Fig. S6). Its median R2 error fell between
+those of the naive and Gaussian methods because the main correction targeted
+generator variance rather than observed R2 . Preserving variance therefore
+improved the marginal fit without making every fitted property an exact target.
+Fitting directly to regression residuals provided a competitive alternative because
+those residuals already excluded the market component (Table 3). The three
+residual-fit methods had KS pass rates ranging from 67.4% for GARCH(1,1)-t
+to 75.8% for JumpHMM-on-residuals (Table 3). The corrected rate was about
+two percentage points below JumpHMM-on-residuals and slightly above block
+bootstrap. JumpHMM-on-residuals and block bootstrap had slightly lower
+Wasserstein distances, while JumpHMM-on-residuals matched the corrected
+method’s kurtosis and Hill index almost exactly. The block-bootstrap and
+GARCH residual fits produced lighter tails. These comparisons used each
+method’s native mean treatment, so their cross-method differences also included
+
+
+                                                        20
+the effect of the zero-sum constraint. Applying equivalent residual centering
+to all six methods changed the training ranking on the common 393-asset set
+(Supplementary Table S14). Hybrid retained a 74.4% KS pass rate, while
+JumpHMM-on-residuals rose from 75.8% to 78.4% and block bootstrap rose
+from 73.5% to 76.7%. Both residual-fit methods also had higher AD pass rates
+and lower Wasserstein distances than hybrid after centering. Gaussian SIM and
+GARCH remained below hybrid on both pass rates. After centering, all methods
+had median intercept errors of 0.002 yr−1 at the reported precision, while leaving
+each path’s variance, recovered loading, R2 , and excess kurtosis unchanged to
+numerical tolerance. Hybrid’s improvement over naive composition persisted
+because both already used identical centering. Reuse therefore improved on naive
+composition without a second generator fit, but did not match the strongest
+residual-fit comparators under the common mean constraint. Held-out histories
+were needed to assess whether the improvement over naive composition persisted
+beyond the fitting period.
+
+4.3. Holdout performance and VaR coverage
+    To test out-of-sample generalization without refitting or look-ahead bias, we
+froze the fitted models and SIM parameters before evaluating them against 416
+complete asset histories from 2025 (Table 4). The corrected method reached
+an 87.0% mean cross-ticker KS pass rate, against 83.5% for centered naive
+composition, and its median composed-to-observed variance ratio was 0.97,
+whereas naive composition remained inflated at 1.29. JumpHMM-on-residuals
+reached an 86.2% KS pass rate and a slightly lower median W1 than the corrected
+method. Matched-length training blocks produced lower pass rates for every
+method. The higher 2025 pass rates did not arise solely from comparing samples of
+249 rather than 2,766 observations. The average pass rates concealed substantial
+differences among tickers (Fig. 5). Most ticker-level rates were near the upper
+end of the range, but every method retained a lower tail of weak fits. For
+the corrected method, many tickers improved relative to their matched-length
+training blocks, while a subset deteriorated out of sample. The held-out marginal
+improvement was broad but did not ensure reliable extreme-loss thresholds. To
+test whether marginal fit translated into reliable tail thresholds, we estimated
+per-ticker one-day left-tail Value-at-Risk (VaR) thresholds from 5,000 separate
+249-day paths and counted exceedances on the observed 2025 histories (Table 5).
+At α = 0.95, the corrected and JumpHMM-on-residuals methods produced mean
+exceedance rates of 5.48% and 5.62%, respectively, against the 5% nominal rate.
+At α = 0.99, their rates were 1.12% and 1.16%, against the 1% nominal rate.
+Naive composition was below nominal at 0.88%, while Gaussian SIM had the
+largest rate at 1.72%. Doubling the threshold pool from 2,500 to 5,000 paths
+changed every method’s mean exceedance rate by less than 0.006 percentage
+points at either coverage level (Supplementary Table S15). The corrected method
+and naive composition lay similarly close to the 1% target on opposite sides.
+Their small difference did not establish a ranking: the holdout contained only
+about 2–3 expected 99% exceedances per asset, and all assets shared one market
+period. The corrected method’s mean rates remained above nominal at both
+
+
+                                       21
+Figure 5: Cross-ticker distribution of frozen-parameter out-of-sample marginal fit.
+Panel (a) shows the distribution of per-ticker 2025 Kolmogorov–Smirnov (KS) pass rates across
+100 replications; the dashed line marks 95%. Panel (b) compares each ticker’s hybrid KS pass
+rate against a matched-length training block with its pass rate against the 2025 holdout. The
+diagonal denotes equal performance.
+
+
+coverage levels. Cross-asset dispersion described the heterogeneity of realized
+coverage; it did not establish statistical miscalibration or validate coverage in
+other periods.
+
+
+Table 4: Frozen-parameter multi-asset evaluation on the 2025 holdout. Results cover
+416 non-market tickers and 100 replications per ticker; generalized autoregressive conditional
+heteroskedasticity (GARCH) covers 386 tickers. Pass rates are first averaged within ticker and
+then across tickers. The matched in-sample (IS) columns compare each synthetic path with a
+randomly selected contiguous 249-day block from the 2014–2024 training history, matching the
+holdout sample length. W1 and the variance ratio are medians across ticker-level medians; the
+variance ratio is synthetic variance divided by observed 2025 variance. The hybrid correction
+used the training-period market variance and each simulated asset draw’s variance.
+                             KS pass (%)            AD pass (%)
+ Method                   matched IS    2025   matched IS     2025   W1 (2025)   variance ratio
+ Naive                           69.4   83.5           54.8   71.6       0.877            1.29
+ Gaussian SIM                    57.4   73.9           44.9   64.6       0.866            0.97
+ Hybrid                          78.8   87.0           66.2   79.7       0.716            0.97
+ JumpHMM-on-residuals            77.9   86.2           65.6   80.1       0.708            0.98
+ Block bootstrap                 76.3   84.0           64.0   76.5       0.715            0.90
+ GARCH(1,1)-t                    74.5   82.6           62.6   75.0       0.733            0.91
+
+
+
+
+                                               22
+Table 5: Out-of-sample per-ticker one-day left-tail Value-at-Risk coverage across
+the six composition methods. For each asset and coverage level α, one VaR threshold
+was estimated from 1,245,000 daily log returns pooled across 5,000 separate 249-day paths
+with frozen parameters. Exceedances were counted on the observed 2025 history. The hybrid
+correction retained the training-period market variance convention of Table 4. rate: mean
+per-asset exceedance rate (nominal: 1 − α). Standard deviation (SD) describes cross-asset
+dispersion in percentage points; it is not a standard error. Coverage summaries are descriptive.
+                                                    α = 0.95                α = 0.99
+ Method                          Assets     rate (%)      SD (pp)     rate (%)     SD (pp)
+ Naive                              416            4.04        2.08        0.88         0.70
+ Gaussian SIM                       416            4.65        2.22        1.72         1.08
+ Hybrid                             416            5.48        2.45        1.12         0.81
+ JumpHMM-on-residuals               416            5.62        2.55        1.16         0.81
+ Block bootstrap                    416            5.50        2.52        1.28         0.87
+ GARCH(1,1)-t                       386            5.07        2.45        1.20         0.89
+
+
+4.4. Jump-enabled multi-asset composition
+    To test whether jump episodes improved the composed paths, we compared
+jumps disabled, market-only jumps, and market-plus-asset jumps under naive and
+corrected composition (Table 6). With corrected composition, market-only jumps
+reduced the training absolute-return ACF-MAE over lags 1–25 from 0.13569 to
+0.12844, a 5.3% reduction. The KS pass rate changed from 73.94% to 73.64%,
+with a Monte Carlo interval for the difference that included zero (Supplementary
+Table S12). Enabling jumps in both the market and asset generators reduced
+the ACF-MAE further, to 0.11581, a 14.6% reduction from the no-jump setting,
+but lowered the KS pass rate to 61.68%. Across all settings and both windows,
+the mean ratio of corrected to generator variance differed from one by less
+than 0.05%. The correction remained effective, while asset episodes reduced
+training autocorrelation error at the cost of marginal fit. The training-period
+temporal improvement did not carry into the 2025 holdout (Table 6). With
+corrected composition, market-only jumps raised the 25-lag ACF-MAE from
+0.07330 to 0.07525, a 2.7% increase, while market-plus-asset jumps raised it
+to 0.07832, a 6.9% increase (Table 6). The corresponding KS pass rates were
+85.92%, 85.88%, and 84.43%. The Monte Carlo intervals excluded zero for both
+increases in ACF error, and the 60-lag results agreed (Supplementary Table S12).
+The jump-active market paths represented only 2.2% of the simulated one-year
+ensemble (Supplementary Table S13), so the holdout comparison tested the
+fitted mixture of ordinary and jump-active paths. The correction worked with
+jumps enabled, but the transferred SPY settings did not improve temporal fit in
+2025. The short holdout and low episode frequency limited what the comparison
+could establish about behavior in other market periods.
+
+
+
+
+                                              23
+Table 6: Jump settings under naive and corrected multi-asset composition. Each
+setting used 1,000 replications per asset across four seeds, with identical asset and market draws
+for the two composition methods. SPY was simulated in both windows, and the correction used
+each simulated market path’s variance and each asset draw’s variance. Entries are equal-weight
+cross-ticker means of per-path metrics. Kolmogorov–Smirnov (KS) and Anderson–Darling (AD)
+report non-rejection rates at α = 0.05. ACF25 and ACF60 are absolute-return autocorrelation
+errors through lags 25 and 60, calculated within each path before averaging over replications
+                                                                          2
+and assets; lower values indicate better temporal fit. Vgen = Var(gi )/σgen,i   compares composed
+variance with the active generator’s variance, rather than observed variance.
+        Jump setting       Method       KS (%)    AD (%)     ACF25     ACF60        Vgen
+        Training: 2014–2024, 423 assets, 2,766 days
+        Off              Naive           6.93     3.38      0.13585   0.09492    1.33273
+        Off              Corrected     73.94     68.54      0.13569   0.09485    1.00011
+        Market only      Naive           6.28     3.18      0.13197   0.09208    1.34938
+        Market only      Corrected     73.64     67.81      0.12844   0.08969    1.00032
+        Market + assets Naive            5.25     2.56      0.11727   0.08264    1.33445
+        Market + assets Corrected      61.68     53.33      0.11581   0.08154    1.00018
+        Holdout: 2025, 416 assets, 249 days
+        Off              Naive          82.38       70.14   0.07322   0.06683    1.36081
+        Off              Corrected      85.92       78.76   0.07330   0.06687    1.00041
+        Market only      Naive          81.76       69.60   0.07347   0.06698    1.36638
+        Market only      Corrected      85.88       78.72   0.07525   0.06796    1.00045
+        Market + assets Naive           80.27       68.19   0.07672   0.06885    1.36032
+        Market + assets Corrected       84.43       77.21   0.07832   0.06973    1.00039
+
+
+4.5. Sensitivity analyses
+    We examined the tracker and clipping rules under conditions where they
+could affect the result (Supplementary Figs. S4 and S5; Supplementary Table S5).
+In the observed universe, 421 assets used the variance-preserving branch and
+two, QQQ and SPYG, used the R2 -preserving branch; none required clipping
+(Supplementary Figs. S5 and S4; Supplementary Table S5). Both trackers had
+100% KS pass rates, while the highest-R2 individual stock, BLK, fell about
+0.16 below the tracker threshold of 0.80. Because only two assets used that
+                                                              2
+branch, we tested a synthetic-tracker grid with (βtrue , Rtrue   ) ∈ {0.8, 1.0, 1.2} ×
+{0.80, 0.85, 0.90, 0.95, 0.99}. Each cell had a 100% KS pass rate and recovered its
+target loading and R2 (Supplementary Table S6). These checks supported the
+tracker rule across the tested grid, while its empirical evaluation remained limited
+to two assets. Greater market exposure made the composed distribution more
+dependent on the market path (Fig. 4a; Supplementary Table S8). Grouping
+assets by β quartile showed that corrected KS pass rates fell from 87.6% in the
+lowest quartile to 65.9% in the highest (Supplementary Table S8). To test the
+loading adjustment directly, we multiplied deviations of the market growth-rate
+path from its mean by γ ∈ {1, 2, 3} while holding the calibrated marginals fixed
+(Supplementary Table S9). This preserved the market mean and multiplied
+its standard deviation by γ. At γ = 1, every asset had ρi < 1 − f = 0.90, so
+clipping was unnecessary. At γ = 2 and 3, clipping applied to 76.4% and 95.2%
+of assets. The adjustment therefore activated when the market contribution
+would otherwise consume too much of the target variance. The clipped paths
+
+
+                                               24
+retained their fitted intercepts, so their means shifted by (βieff − βi )g m despite
+the unchanged market mean. The clipping frequencies described activation of
+the variance constraint, without establishing preservation of the original asset
+means. At observed market variance, varying the residual floor f did not change
+branch assignments, and varying the tracker threshold changed only the two
+tracker assignments (Supplementary Table S5).
+
+5. Discussion
+    The variance correction allowed fitted full-return generators to be reused in
+a single-index model without adding market variance twice (Fig. 4; Table 3). Its
+practical value was avoiding a separate generator fit for each asset’s regression
+residuals while improving on naive composition. The corrected method passed
+73.6% of the full-length training KS comparisons and retained heavy tails (Ta-
+ble 3). On the 2025 holdout, it raised the mean cross-ticker KS pass rate from
+83.5% under centered naive composition to 87.0% and held the median ratio of
+synthetic to observed variance at 0.97 (Table 4). JumpHMM-on-residuals had a
+slightly higher pass rate in training and a slightly lower rate in the holdout. The
+comparison supported reuse as a practical option when full-return generators are
+already available; fitting directly to residuals remained a competitive alternative.
+Under equivalent centering on the common training assets, JumpHMM-on-
+residuals and block bootstrap both outperformed hybrid on distribution-test
+pass rates and Wasserstein distance (Supplementary Table S14). The original
+comparison therefore partly reflected different mean constraints. Neither method
+was best for every asset, and the average improvement concealed a subset of
+corrected paths whose fit deteriorated relative to matched-length training blocks.
+The validation established closer marginal fit, but it did not establish reliable tail
+coverage (Table 4; Table 5). The corrected method and JumpHMM-on-residuals
+had pooled-threshold one-day left-tail 99% VaR exceedance rates of 1.12% and
+1.16%, respectively, against the nominal 1% rate (Table 5). The larger simulation
+ensemble reduced threshold-estimation error while retaining each 249-day path’s
+construction. The remaining differences were descriptive: the 249-day holdout
+contained too few expected extreme events per asset for a precise ranking or a
+general calibration claim. Distributional pass rates also require care because the
+two-sample KS and AD tests assume independent observations, whereas several
+evaluated generators produced serial dependence. We therefore interpreted pass
+rates alongside distributional distances, tail summaries, and autocorrelation
+errors. Matched-length training blocks reduced the difference in test power
+between the training and holdout comparisons, but the observed 2025 history
+still represented only one market period. The evidence supported improved
+variance and distributional fit across the evaluated universe, with substantial
+uncertainty about performance in other periods and for individual assets.
+    The jump comparison showed that improving the single-asset generator did
+not automatically improve the composed paths (Table 2; Table 6). On SPY,
+HMM-WJ reduced absolute-return autocorrelation error relative to HMM-NJ
+while retaining high distributional pass rates. Other generators achieved lower
+
+
+                                         25
+autocorrelation error or higher pass rates, so the single-asset result supported
+a tradeoff between temporal and marginal fit (Table 2). With multi-asset
+composition, market-only jumps improved training temporal fit with little change
+in the KS pass rate, whereas adding asset-level episodes produced a larger
+temporal improvement at a substantial marginal-fit cost. Both settings increased
+autocorrelation error in 2025, although the variance correction remained effective
+(Table 6). These tests transferred one SPY calibration from volume-weighted
+average prices to closing-price models. Separate calibrations for NVDA, JNJ,
+and JPM had strong in-sample fit, but three assets did not establish a general
+calibration rule (Supplementary Table S10). The asset episodes also came from
+full-return models and were not identified separately as idiosyncratic events.
+Per-asset tuning or distinct shared and asset-specific episode models could change
+the tradeoff, but neither was tested here.
+    The correction’s effect on the return distribution depended on the asset’s
+market exposure (Fig. 4; Supplementary Table S8). Corrected KS pass rates
+declined from 87.6% in the lowest β quartile to 65.9% in the highest because the
+market path accounted for more of the composed variance (Supplementary Ta-
+ble S8). Preserving total variance therefore did not preserve the complete shape
+of the original return distribution. The loading adjustment was unnecessary at
+observed market variance but activated for most assets when market volatility
+was doubled or tripled (Supplementary Table S9). That stress transformation
+preserved the market mean. Clipping retained the fitted intercept while reducing
+the magnitude of the loading, so it changed the asset mean by (βieff − βi )g m .
+The clipped branch therefore traded retention of the calibrated loading and
+mean for the variance budget and residual floor. Only two tracker assets used
+the separate R2 -preserving branch (Supplementary Table S5), so evidence for
+that branch relied mainly on the synthetic-tracker checks. These properties
+also depended on generating asset and market draws independently. If their
+covariance were nonzero, the variance calculation would need an additional
+cross-term. The correction thus addressed a specific composition problem, with
+explicit assumptions about the supplied paths and adjustments when the market
+term consumed too much of the target variance. Marginal-fit conclusions also
+depended on how populated constant states were represented (Supplementary
+Table S18). The paired control improved training fit when those states retained
+their empirical spread. The main results retain the original global-scale fallback,
+and the alternative requires holdout evaluation before its performance can be
+generalized. Dependence among asset-specific residuals remained outside the
+composition rule (Algorithm 2; Online Appendix S2). A shared market path
+linked same-day asset returns and could produce simultaneous large moves, but
+independent residual draws omitted the sector and style dependence present in
+real assets. Omitting positive residual covariance can overstate the diversifica-
+tion return from periodic rebalancing (Booth and Fama, 1992; Bouchey et al.,
+2015; Markowitz, 1976); Online Appendix S2 derives the contribution for this
+construction. The limitation also applies to the residual-fit baselines when their
+residuals are generated independently. Shifting paths leaves cross-asset covari-
+ance unchanged, and rescaling independent residuals cannot create the missing
+
+
+                                        26
+dependence. A synchronized multivariate block bootstrap, residual factor model,
+or copula could address that omission, while separate univariate models would
+improve only within-asset behavior. The present evaluation measured per-asset
+fit and VaR coverage, so it did not validate portfolio-level risk or rebalancing
+performance. Those uses require a joint residual model and direct evaluation of
+the resulting dependence. There is also a separate temporal limitation: per-path
+centering forces each residual sum to zero at the chosen terminal horizon (Online
+Appendix S9). Conditional on the market path and effective loading, terminal
+returns therefore contain no residual uncertainty. Cross-sectional rank reorder-
+ing preserves that sum and cannot restore cumulative residual variation. The
+reported daily-fit and one-day tail diagnostics do not validate cumulative-return
+risk. Such applications require a construction that retains cumulative residual
+uncertainty as well as validation of cross-asset dependence.
+
+
+6. Conclusion
+
+    We developed a variance-corrected single-index method that reuses full-return
+generators without counting market variance twice (Fig. 4; Table 3). Centering
+and rescaling allowed the generated asset paths to be combined with a shared
+market path without fitting a second generator to each asset’s regression residuals.
+Across 423 non-market assets, the method recovered calibrated market loadings
+with low error and retained heavy-tailed return distributions. On 416 complete
+asset histories from 2025, it improved the mean KS pass rate over centered naive
+composition and brought the median ratio of synthetic to observed variance
+close to one (Table 4). Residual-fit methods remained competitive. With pooled
+thresholds, the corrected method and JumpHMM-on-residuals had 99% VaR
+exceedance rates of 1.12% and 1.16%, respectively, compared with the nominal
+1% rate (Table 5). The short holdout did not establish calibration or a precise
+tail-performance ranking. The results supported reuse of existing generators
+as a practical alternative to fitting separate residual models, with validation
+still needed for each intended application. The jump experiments established
+that the correction also worked when the generators included extended episodes
+in extreme-return states (Table 6). The SPY jump settings improved multi-
+asset temporal fit in training but worsened it in the 2025 holdout, showing
+that the single-asset benefit did not transfer automatically. Correcting variance
+also left dependence among asset-specific residuals unresolved. Independent
+residual draws omit relationships that matter for portfolio risk and can overstate
+the return from rebalancing when positive residual covariance is missing. The
+composition rule therefore provides one component of a multi-asset simulator:
+it controls how generator variance is combined with the market factor, while
+portfolio-level applications require a joint residual model and validation of both
+cross-asset dependence and temporal behavior. Per-path centering also removes
+terminal residual uncertainty over the chosen horizon. Clipping retains the fitted
+intercept but changes the composed mean when the market path has a nonzero
+mean. The present evidence therefore supports the constrained construction for
+
+
+                                        27
+daily-fit comparisons, while cumulative-risk applications require a method that
+retains cumulative residual variation.
+
+Code and data availability
+
+    The experiment scripts, evaluation code (six-method comparison and left-
+tail Value-at-Risk coverage check), cached inputs and result summaries, and
+instructions for regenerating the fitted per-asset models are publicly available.
+The underlying model-fitting library is released separately and pinned as a
+dependency of the experiment code. Identifying repository links have been
+withheld from this manuscript for double-anonymized review and are provided
+to the editorial office on the separate title page.
+
+Declaration of generative artificial intelligence use in the writing
+process
+
+    During the preparation of this work, the authors used OpenAI Codex to
+assist with language editing, consistency checks, LaTeX formatting, and the
+implementation and checking of experiment code. The authors reviewed and
+edited the assisted work and take full responsibility for the content of the
+publication.
+
+References
+
+Aas, K., Czado, C., Frigessi, A., Bakken, H., 2009. Pair-copula constructions of
+  multiple dependence. Insurance: Mathematics and Economics 44, 182–198.
+Assefa, S.A., Dervovic, D., Mahfouz, M., Tillman, R.E., Reddy, P., Veloso, M.,
+  2020. Generating synthetic data in finance: Opportunities, challenges and
+  pitfalls, in: Proceedings of the First ACM International Conference on AI in
+  Finance, pp. 1–8. doi:10.1145/3383455.3422554.
+Bauwens, L., Laurent, S., Rombouts, J.V.K., 2006. Multivariate GARCH models:
+  A survey. Journal of Applied Econometrics 21, 79–109. doi:10.1002/jae.842.
+Bilmes, J.A., 1998. A Gentle Tutorial of the EM Algorithm and Its Application
+  to Parameter Estimation for Gaussian Mixture and Hidden Markov Models.
+  Technical Report TR-97-021. International Computer Science Institute.
+Bollerslev, T., 1986. Generalized autoregressive conditional heteroskedasticity.
+  Journal of Econometrics 31, 307–327. doi:10.1016/0304-4076(86)90063-1.
+Booth, D.G., Fama, E.F., 1992. Diversification returns and asset contributions.
+  Financial Analysts Journal 48, 26–32. doi:10.2469/faj.v48.n3.26.
+Bouchey, P., Nemtchinov, V., Wong, T.K.L., 2015. Volatility harvesting in theory
+  and practice. Journal of Wealth Management 18, 89–100. doi:10.3905/jwm.
+  2015.18.3.089.
+
+
+                                       28
+Bulla, J., Bulla, I., 2006. Stylized facts of financial time series and hidden semi-
+  Markov models. Computational Statistics & Data Analysis 51, 2192–2209.
+  doi:10.1016/j.csda.2006.07.021.
+Cho, K., van Merriënboer, B., Gulcehre, C., Bahdanau, D., Bougares, F.,
+ Schwenk, H., Bengio, Y., 2014. Learning phrase representations using RNN
+ encoder-decoder for statistical machine translation, in: Proceedings of the 2014
+ Conference on Empirical Methods in Natural Language Processing (EMNLP),
+ Association for Computational Linguistics. pp. 1724–1734. doi:10.3115/v1/
+ D14-1179.
+Cont, R., 2001. Empirical properties of asset returns: Stylized facts and statistical
+  issues. Quantitative Finance 1, 223–236. doi:10.1080/713665670.
+Dias, J.G., Vermunt, J.K., Ramos, S., 2010. Mixture hidden Markov models in
+  finance research, in: Advances in Data Analysis, Data Handling and Business
+  Intelligence, Springer. pp. 451–459. doi:10.1007/978-3-642-01044-6_41.
+Embrechts, P., McNeil, A.J., Straumann, D., 2002. Correlation and dependence
+ in risk management: Properties and pitfalls, in: Risk Management: Value at
+ Risk and Beyond. Cambridge University Press, pp. 176–223. doi:10.1017/
+ CBO9780511615337.008.
+Engle, R., 2002. Dynamic conditional correlation: A simple class of mul-
+  tivariate generalized autoregressive conditional heteroskedasticity models.
+ Journal of Business & Economic Statistics 20, 339–350. doi:10.1198/
+  073500102288618487.
+Engle, R.F., 1982. Autoregressive conditional heteroscedasticity with estimates
+  of the variance of United Kingdom inflation. Econometrica 50, 987–1007.
+Fama, E.F., French, K.R., 1993. Common risk factors in the returns on stocks and
+  bonds. Journal of Financial Economics 33, 3–56. doi:10.1016/0304-405X(93)
+  90023-5.
+Glasserman, P., 2003. Monte Carlo Methods in Financial Engineering. Springer.
+  doi:10.1007/978-0-387-21617-1.
+Grinstead, C.M., Snell, J.L., 1997. Introduction to Probability. American
+ Mathematical Society.
+Hamilton, J.D., 1989. A new approach to the economic analysis of nonstationary
+  time series and the business cycle. Econometrica 57, 357–384. doi:10.2307/
+ 1912559.
+Hamilton, J.D., 2018. Regime switching models. The New Palgrave Dictionary
+  of Economics , 11421–11426doi:10.1057/978-1-349-95189-5_2459.
+Hamilton, J.D., Susmel, R., 1994. Autoregressive conditional heteroskedasticity
+  and changes in regime. Journal of Econometrics 64, 307–333. doi:10.1016/
+  0304-4076(94)90067-1.
+
+
+                                         29
+Heston, S.L., 1993. A closed-form solution for options with stochastic volatility
+ with applications to bond and currency options. The Review of Financial
+  Studies 6, 327–343. doi:10.1093/rfs/6.2.327.
+Jordon, J., Szpruch, L., Houssiau, F., Bottarelli, M., Cherubin, G., Maple, C.,
+  Cohen, S.N., Weller, A., 2022. Synthetic data: What, why and how? arXiv
+  preprint arXiv:2205.03257 .
+Kim, S., Shephard, N., Chib, S., 1998. Stochastic volatility: Likelihood inference
+  and comparison with ARCH models. The Review of Economic Studies 65,
+  361–393.
+Klaassen, F., 2002. Improving GARCH volatility forecasts with regime-switching
+  GARCH. Empirical Economics 27, 363–394. doi:10.1007/s001810100100.
+Kotz, S., Kozubowski, T.J., Podgórski, K., 2001. The Laplace Distribution and
+  Generalizations: A Revisit with Applications to Communications, Economics,
+  Engineering, and Finance. Birkhauser.
+
+Kou, S.G., 2002. A jump-diffusion model for option pricing. Management Science
+ 48, 1086–1101. doi:10.1287/mnsc.48.8.1086.166.
+Kwon, S., Lee, Y., 2024. Can GANs learn the stylized facts of financial time
+ series?, in: Proceedings of the 5th ACM International Conference on AI in
+ Finance, pp. 126–133. doi:10.1145/3677052.3698661.
+
+Mandelbrot, B., 1963. The variation of certain speculative prices. The Journal
+ of Business 36, 394–419.
+Markowitz, H.M., 1976. Investment for the long run: New evidence for an old
+ rule. Journal of Finance 31, 1273–1286. doi:10.1111/j.1540-6261.1976.
+ tb03213.x.
+
+Merton, R.C., 1976. Option pricing when underlying stock returns are discontinu-
+ ous. Journal of Financial Economics 3, 125–144. doi:10.1016/0304-405X(76)
+ 90022-2.
+Ni, H., Szpruch, L., Sabate-Vidales, M., Xiao, B., Wiese, M., Liao, S., 2021.
+  Sig-wasserstein GANs for time series generation, in: Proceedings of the Second
+  ACM International Conference on AI in Finance, ACM. pp. 1–8. doi:10.1145/
+  3490354.3494393.
+Patton, A.J., 2006. Modelling asymmetric exchange rate dependence. Interna-
+  tional Economic Review 47, 527–556. doi:10.1111/j.1468-2354.2006.00387.
+  x.
+
+Politis, D.N., Romano, J.P., 1994. The stationary bootstrap. Journal of the
+  American Statistical Association 89, 1303–1313. doi:10.1080/01621459.1994.
+  10476870.
+
+
+
+                                       30
+Rabiner, L., Juang, B., 1986. An introduction to hidden Markov models. IEEE
+ ASSP Magazine 3, 4–16. doi:10.1109/MASSP.1986.1165342.
+Rizzato, M., Wallart, J., Geissler, C., Morizet, N., Boumlaik, N., 2023. Gen-
+  erative adversarial networks applied to synthetic financial scenarios gener-
+  ation. Physica A: Statistical Mechanics and its Applications 623, 128899.
+  doi:10.1016/j.physa.2023.128899.
+Ross, S.A., 1976. The arbitrage theory of capital asset pricing. Journal of
+ Economic Theory 13, 341–360. doi:10.1016/0022-0531(76)90046-6.
+Rydén, T., Teräsvirta, T., Åsbrink, S., 1998. Stylized facts of daily return series
+  and the hidden Markov model. Journal of Applied Econometrics 13, 217–
+ 244. doi:10.1002/(SICI)1099-1255(199805/06)13:3<217::AID-JAE476>3.
+  0.CO;2-V.
+Sharpe, W.F., 1963. A simplified model for portfolio analysis. Management
+  Science 9, 277–293. doi:10.1287/mnsc.9.2.277.
+
+Stein, E.M., Stein, J.C., 1991. Stock price distributions with stochastic volatility:
+  An analytic approach. The Review of Financial Studies 4, 727–752.
+Stenger, M., Bauer, A., Prantl, T., Leppich, R., Hudson, N., Chard, K., Foster,
+  I., Kounev, S., 2024. Thinking in categories: A survey on assessing the quality
+  for time series synthesis. Journal of Data and Information Quality 16, 1–32.
+  doi:10.1145/3666006.
+Takahashi, S., Chen, Y., Tanaka-Ishii, K., 2019. Modeling financial time-series
+  with generative adversarial networks. Physica A: Statistical Mechanics and
+  Its Applications 527, 121261. doi:10.1016/j.physa.2019.121261.
+Toth, D., Jones, B., 2019. Against the norm: Modeling daily stock returns with
+  the Laplace distribution. arXiv preprint arXiv:1906.10325 .
+Wiese, M., Knobloch, R., Korn, R., Kretschmer, P., 2020. Quant GANs: Deep
+ generation of financial time series. Quantitative Finance 20, 1419–1440. doi:10.
+ 1080/14697688.2020.1730426.
+Yoon, J., Jarrett, D., van der Schaar, M., 2019. Time-series generative adversarial
+  networks, in: Advances in Neural Information Processing Systems, pp. 5509–
+  5519.
+
+
+
+
+                                         31
+

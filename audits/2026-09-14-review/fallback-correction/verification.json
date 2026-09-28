@@ -1,0 +1,179 @@
+{
+  "completed_utc": "2026-09-15T17:29:12.295893+00:00",
+  "finding": "R7",
+  "ranked_correction": 7,
+  "status": "resolved_under_retained_fit_policy",
+  "pdf_sha256": {
+    "arxiv-paper/Paper_v1.pdf": "ea5d0ed2e5dcfafdd0c0841dd7547f1393ebc6c3e9d24db8e01c140bf5536908",
+    "jfds-paper/Paper_v1.pdf": "657e8c6e5df6cf911572e9fb5d99972cf8cf10e0df63b4a39037916da2a20c25",
+    "jfds-paper/Supplement_v1.pdf": "b05f8ebf3a8abbb6fc7f21011ae36373c864d186dee137b8b2f514bd96f84c30",
+    "jfds-paper/output/pdf/JFDS_Anonymous_Manuscript.pdf": "657e8c6e5df6cf911572e9fb5d99972cf8cf10e0df63b4a39037916da2a20c25",
+    "jfds-paper/output/pdf/JFDS_Supplementary_Material.pdf": "b05f8ebf3a8abbb6fc7f21011ae36373c864d186dee137b8b2f514bd96f84c30"
+  },
+  "source_sha256": {
+    "arxiv-paper/Makefile": "067fc04541a8b7ed3a4cd462d5395d45d012935270a1d1966091da6a33c44cf7",
+    "code/downstream-evaluation/README.md": "2e4fcf7e02a7a37ad490d9acd74922d3cdb981e3b2649017c63dab04fb3225f2",
+    "code/downstream-evaluation/src/FallbackDiagnostic.jl": "365e5a9e07442da322a8c9ca2f68467603f5ef13a9dba1b9d2d5dcbdc00c1182",
+    "code/downstream-evaluation/scripts/16-Fallback-Diagnostic.jl": "329fe9cbe60caa8a109221eb56c2c185aa8ec4f06138f7efd23da0a4b1568c86",
+    "code/downstream-evaluation/scripts/17-Fallback-Tables.py": "e2eb900a5a3843d44b0b0e930c1a8c3517316f70c9d80e24f135163d88610ae3",
+    "arxiv-paper/sections/method_hmm.tex": "dc984e367dedc55a8cf3ab12993170c6cb5144d4a1ecdb4429b45ca48b885360",
+    "arxiv-paper/sections/appendix.tex": "71104cf1f481ce4f211862ea3d59f2c49ca9fe542b43f4a30aef9ef9196af311",
+    "arxiv-paper/sections/results.tex": "82314109eb00c343c0a131860ba7fefe6bc0703f6b4df8882de173ecc53a6fef",
+    "arxiv-paper/sections/discussion.tex": "6531d203d8cdca4b8dda0fa02284084d624e982aed0c9c62d6d1ea2afaa95cc8",
+    "arxiv-paper/sections/tables/tableS_fallback_assets.tex": "d039170d906dec87da38a2940b4f01d53a9b6fe7f0d3b3621191acc1fabc00be",
+    "arxiv-paper/sections/tables/tableS_fallback_sensitivity.tex": "ba504f8da41054b848e94b46a6eac5f0738a4f74db2e54998e53a60b10c12f99",
+    "jfds-paper/sections/method_hmm.tex": "233f22f51e182a84f343a1ac6222526128623db67c7b4db1448bbb8d201b7171",
+    "jfds-paper/sections/appendix.tex": "56e78e51db51ae9a6a7affbb263b80f6070bb26267da7cfb0d25720e07f46819",
+    "jfds-paper/sections/results.tex": "86e6700b2ad5bc8cc16ea03768e8102dfa1dc97ed43ded48109ad02f48de7357",
+    "jfds-paper/sections/discussion.tex": "b10c9a9ba3641d2fb566998896afccd405e096efe4903ae2547d9fb5dfc36fd4",
+    "jfds-paper/sections/tables/tableS_fallback_assets.tex": "d039170d906dec87da38a2940b4f01d53a9b6fe7f0d3b3621191acc1fabc00be",
+    "jfds-paper/sections/tables/tableS_fallback_sensitivity.tex": "ba504f8da41054b848e94b46a6eac5f0738a4f74db2e54998e53a60b10c12f99",
+    "arxiv-paper/sections/main_tables.tex": "d99d92ce3b211ca9391d8983fee80d66c8daf053447fe5d9b515ba38887af8d8",
+    "jfds-paper/sections/method_sim.tex": "a3e1f8291811f30431dbda33f179a450e8857dfbdd808362a6b39f523a85889b"
+  },
+  "diagnostic_metadata_sha256": "eea2ed5943595492e17f250009d2d8362c9c0b5edda4bce6f29cd539cea5154d",
+  "table_metadata_sha256": "39842450ff9545aaf8d36e85042e0c04d2f4f215438766063164d4b84fb291ba",
+  "canonical_training_tables_unchanged": true,
+  "accepted_figure4_assets_unchanged": true,
+  "jfds_installed_outputs_match": true,
+  "builds_passed": [
+    "make -C arxiv-paper pdf",
+    "make -C jfds-paper all"
+  ],
+  "logs": {
+    "arxiv": {
+      "undefined_or_duplicate_references": false,
+      "overfull_boxes": [],
+      "sha256": "aac920389e7b28363e2dd4aaa89b7790b4bc7ad181876b2cda4d5bd6c389a1c6"
+    },
+    "jfds": {
+      "undefined_or_duplicate_references": false,
+      "overfull_boxes": [
+        "Overfull \\hbox (11.18748pt too wide) detected at line 127"
+      ],
+      "sha256": "f064cfbd03e1ba88075276e0b754015dabee0e4436249d03ef85b14663aad703"
+    },
+    "supplement": {
+      "undefined_or_duplicate_references": false,
+      "overfull_boxes": [
+        "Overfull \\hbox (10.26515pt too wide) in paragraph at lines 107--115",
+        "Overfull \\hbox (36.36295pt too wide) detected at line 131",
+        "Overfull \\hbox (3.51581pt too wide) in paragraph at lines 1518--1526"
+      ],
+      "sha256": "deb95d45eabeb42f4b80a4633d1409f8648d09fd470c878e6022a4d228814188"
+    }
+  },
+  "only_four_preexisting_jfds_width_warnings": true,
+  "numerical_checks": {
+    "full_return_states": 42400,
+    "residual_states": 42300,
+    "fallback_models": 39,
+    "fallback_states": 50,
+    "constant_states": 39,
+    "empty_states": 7,
+    "singleton_states": 4,
+    "canonical_paths_replayed": 7800,
+    "all_nine_metrics_and_loadings_exact": true,
+    "paired_score_rows": 23400,
+    "all_15_comparisons_and_standard_errors_match": true,
+    "maximum_summary_difference": 1.4210854715202004e-14,
+    "asset_hybrid_ks_changes": {
+      "increased": 37,
+      "unchanged": 2,
+      "decreased": 0,
+      "range_percentage_points": [
+        0.0,
+        40.0
+      ]
+    },
+    "fallback_mass_range": [
+      0.0039938194955829,
+      0.0430009881804248
+    ],
+    "sparse_mass_maximum": 0.000362300308646,
+    "mixture_variance_change_range": [
+      -0.0652006228245288,
+      -0.0065137563926987
+    ],
+    "training_sources_and_artifacts_unchanged": true,
+    "tables_match": true
+  },
+  "independent_checker_sha256": "1848dc85d9a92042124806b5bab91e25d67cbf1b08e6bd678efdad7e0d5180f9",
+  "boundary_checks_passed": 6,
+  "supplement_labels": {
+    "arxiv": {
+      "tab:fallback_assets": {
+        "number": "S17",
+        "page": 50
+      },
+      "tab:fallback_sensitivity": {
+        "number": "S18",
+        "page": 51
+      },
+      "eq:emission-fallback": {
+        "number": "S46",
+        "page": 49
+      }
+    },
+    "supplement": {
+      "tab:fallback_assets": {
+        "number": "S17",
+        "page": 35
+      },
+      "tab:fallback_sensitivity": {
+        "number": "S18",
+        "page": 37
+      },
+      "eq:emission-fallback": {
+        "number": "S46",
+        "page": 34
+      }
+    }
+  },
+  "visual_checks": {
+    "overview": "Inspected contact sheets covering every page in all three PDFs; no new clipping, overlap, detached captions, or isolated one-line paragraph fragments observed.",
+    "render_long_edge_pixels": 900,
+    "contact_sheet_page_long_edge_pixels": 450,
+    "detail_dpi": 120,
+    "detail_pages": {
+      "arxiv": [
+        4,
+        49,
+        50,
+        51
+      ],
+      "jfds": [
+        6
+      ],
+      "supplement": [
+        34,
+        35,
+        37
+      ]
+    },
+    "detail_result": "Methods, piecewise fallback equation, 39-asset inventory, and paired sensitivity table are readable and fit their pages in both formats.",
+    "page_counts": {
+      "arxiv": 51,
+      "jfds": 30,
+      "supplement": 38
+    },
+    "render_sha256": {
+      "pdf-qa/arxiv-detail-04.png": "a19359153c7c0527074431eeebb7c4ece66db9695030f843c101f95ab7a0bb48",
+      "pdf-qa/arxiv-detail-49.png": "2aa6ba57570003ad22d6eff0560af8b0581557b0865845bd74ed082a0074cb0a",
+      "pdf-qa/arxiv-detail-50.png": "23a651f4d0471ad199ca931797ba4d81fa2e359b6c7678279569b9dee1fc1e9c",
+      "pdf-qa/arxiv-detail-51.png": "97fd5156057e87b27335d3bf26641ade06ffbc16b0b71b84bb0bb3a5b94e6879",
+      "pdf-qa/jfds-detail-06.png": "4854fe15906922b9539679df5a001f4731343da47911111d8203c05e6fb81d16",
+      "pdf-qa/supplement-detail-34.png": "45f9aefce6fa03af7c2c22b84f7117813d7737f53a965db311e8540b75a20e29",
+      "pdf-qa/supplement-detail-35.png": "923855890f80c2473565ed1e9339648ef07d476ca894de38464e7c368f935e93",
+      "pdf-qa/supplement-detail-37.png": "72fec0458a5c8f4ae3fddf8ab37e933d238d235755ef19def827dc3cbe397331"
+    }
+  },
+  "release_archives_regenerated": false,
+  "changes_committed": false,
+  "scope_limits": [
+    "Sensitivity covers the fixed 39 affected assets and the original training window only.",
+    "Sparse-state policy and fitted production caches are retained.",
+    "The control does not establish a preferred policy or holdout performance.",
+    "R8 through R11 and additional audit follow-ups remain open."
+  ]
+}

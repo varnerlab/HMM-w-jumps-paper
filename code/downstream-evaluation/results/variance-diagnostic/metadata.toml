@@ -1,0 +1,25 @@
+annualized_market_variance = 0.02981607235532779
+assets = 423
+completed_utc = "2026-09-15T16:45:05.215Z"
+julia_version = "1.12.7"
+market_variance = 7.513650233542543
+maximum_canonical_variance_difference = 0.0
+maximum_relative_variance_identity_error = 7.217311372284112e-16
+observations = 2766
+paths = 84600
+protocol = "Replay original full-return draws; observed training SPY; paired naive/hybrid; per-path generator denominators; tracker targets identified separately"
+replications = 100
+schema_version = 1
+seed = 1234
+smoothing_bandwidth = 0.15
+smoothing_grid_points = 80
+training_cache_sha256 = "2e31fb509d121790903a77884687f648daf0821d7644ffade36dbf23d782c337"
+training_signature = "1ccbdfad4c493d42af6fbe1a4dda3891d8db97d827b92fff8fd30ab865702f84"
+
+[artifact_sha256]
+"paired-paths.csv" = "d6a758e21a41f8b9966a304001ed131cefdfec03fbceeb9ec4f2f7ddddc03ce1"
+"ticker-summary.csv" = "a827adcf742affd3d57b14039bd17f68c3fe5cef6a761f22befa82d3dacce425"
+
+[source_sha256]
+"scripts/15-Variance-Diagnostic.jl" = "97ff5dca91a106ddc190c6884b1604969aaa757744e13ef95c95ac974ad34181"
+"src/VarianceDiagnostic.jl" = "5b9791740edccf015f9e8b1b9a38ebbce80df275491d7323526953fc4e8e8bca"

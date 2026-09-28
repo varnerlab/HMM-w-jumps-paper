@@ -1,3 +1,4 @@
 # Binary caches are reproducible from the committed settings, inputs, and seeds.
 jump-ablation/block-*.jld2
 jump-ablation-smoke/
+training-canonical/

@@ -1,0 +1,4 @@
+Verified 24 mean cases, the exact floor boundary, three stress factors, and the original audit example.
+Original audit mean shift: -0.18198511247090104
+Test Summary:                              | Pass  Total  Time
+R9 mean identities with retained intercept |  192    192  1.3s

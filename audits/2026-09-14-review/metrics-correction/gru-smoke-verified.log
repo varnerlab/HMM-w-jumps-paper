@@ -1,0 +1,7 @@
+Epoch   1: loss=0.48457215, best=0.48457215, lr=1.0e-03
+Recorded training loop matches original weights exactly after one epoch.
+Parity check: 3/3 paths, 0.6 s
+Checkpoint reload and parallel/serial paths agree exactly.
+is: 3/3 paths, 0.1 s
+oos: 3/3 paths, 0.0 s
+{"mode": "smoke", "epochs_completed": 1, "best_epoch": 1, "parameters": 37954}

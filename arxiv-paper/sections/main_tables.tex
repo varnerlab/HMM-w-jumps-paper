@@ -17,7 +17,7 @@
 \toprule
 \textbf{Symbol} & \textbf{Description} & \textbf{SPY value} & \textbf{Explored range} \\ \midrule
 \multicolumn{4}{l}{\textit{State partition and emission}} \\[2pt]
-$N$            & Laplace-quantile states                      & $100$     & $\{30,\dots,350\}$, Online Appendix~\ref{sec:supp-sensitivity} \\
+$N$            & Laplace-quantile states                      & $100$     & $\{30,\dots,200\}$, Online Appendix~\ref{sec:supp-sensitivity} \\
 $\nu$          & Student-$t$ emission degrees of freedom      & $5$       & $\{3,\dots,30,\infty\}$ \\[4pt]
 \multicolumn{4}{l}{\textit{Jump-duration override}} \\[2pt]
 $\epsilon$     & jump probability per step                    & $10^{-4}$ & $[10^{-4}, 2.5\times10^{-2}]$, Eq.~\eqref{eq:grid_search} \\
@@ -37,7 +37,7 @@ $R^2_{\mathrm{preserve}}$  & branch-selection threshold   & $0.80$ & $\{0.70,\do
 
 \begin{table}[H]
   \centering
-  \caption{\textbf{Aggregate scorecard across $423$ non-market tickers and
+  \caption{\textbf{Aggregate training scorecard with
     $100$ replications per ticker.} Errors, distances, and tail metrics
     are medians per method. Kolmogorov--Smirnov (KS) and
     Anderson--Darling (AD) pass fractions are pooled across replications.
@@ -50,7 +50,9 @@ $R^2_{\mathrm{preserve}}$  & branch-selection threshold   & $0.80$ & $\{0.70,\do
     $p = 0.05$. $W_1$: Wasserstein-1 distance to the real marginal.
     $\kappa$: sample excess kurtosis. Hill: tail-index estimate on the
     upper $5\%$ of $|g|$. SIM denotes the single-index model, and GARCH
-    denotes generalized autoregressive conditional heteroskedasticity.}
+    denotes generalized autoregressive conditional heteroskedasticity.
+    The GARCH method covered $393$ non-market tickers; the other five
+    methods covered $423$.}
   \label{tab:aggregate}
   \small
   \resizebox{\textwidth}{!}{\input{sections/tables/table1_aggregate}}
@@ -78,16 +80,16 @@ $R^2_{\mathrm{preserve}}$  & branch-selection threshold   & $0.80$ & $\{0.70,\do
 \begin{table}[H]
   \centering
   \caption{\textbf{Out-of-sample per-ticker one-day left-tail Value-at-Risk
-    coverage across the six composition methods.} VaR thresholds at
-    coverage level $\alpha$ were estimated from frozen-parameter
-    synthetic paths and exceedances were counted against the real
-    $2025$ growth-rate history. The hybrid correction used the same
-    training-period market variance convention as
-    Table~\ref{tab:oos_composition}. \textit{rate}: mean of the per-ticker
-    mean exceedance rates (nominal: $1-\alpha$). Cross-ticker standard
-    deviation (SD) is reported in percentage points.
-    \textit{Kupiec pass}: mean within-ticker fraction of replications
-    whose unconditional-coverage test $p$-value exceeds $0.05$.}
+    coverage across the six composition methods.} For each asset and
+    coverage level $\alpha$, one VaR threshold was estimated from
+    $1{,}245{,}000$ daily log returns pooled across $5{,}000$ separate
+    $249$-day paths with frozen parameters. Exceedances were counted
+    on the observed $2025$ history. The hybrid correction retained
+    the training-period market variance convention of
+    Table~\ref{tab:oos_composition}. \textit{rate}: mean per-asset
+    exceedance rate (nominal: $1-\alpha$). Standard deviation (SD)
+    describes cross-asset dispersion in percentage points; it is not
+    a standard error. Coverage summaries are descriptive.}
   \label{tab:var}
   \small
   \setlength{\tabcolsep}{5pt}
@@ -105,8 +107,9 @@ $R^2_{\mathrm{preserve}}$  & branch-selection threshold   & $0.80$ & $\{0.70,\do
     cross-ticker means of per-path metrics.
     Kolmogorov--Smirnov (KS) and Anderson--Darling (AD) report
     non-rejection rates at $\alpha=0.05$. ACF$_{25}$ and ACF$_{60}$
-    are mean absolute errors in the absolute-return autocorrelation
-    function through lags $25$ and $60$; lower values indicate better
+    are absolute-return autocorrelation errors through lags $25$
+    and $60$, calculated within each path before averaging over
+    replications and assets; lower values indicate better
     temporal fit. $V_{\gen}=\Var(g_i)/\sigma_{\gen,i}^2$ compares
     composed variance with the active generator's variance, rather
     than observed variance.}

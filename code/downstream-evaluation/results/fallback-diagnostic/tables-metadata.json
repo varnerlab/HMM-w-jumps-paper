@@ -1,0 +1,10 @@
+{
+  "formatter_sha256": "e2eb900a5a3843d44b0b0e930c1a8c3517316f70c9d80e24f135163d88610ae3",
+  "diagnostic_metadata_sha256": "eea2ed5943595492e17f250009d2d8362c9c0b5edda4bce6f29cd539cea5154d",
+  "table_sha256": {
+    "arxiv-paper/sections/tables/tableS_fallback_assets.tex": "d039170d906dec87da38a2940b4f01d53a9b6fe7f0d3b3621191acc1fabc00be",
+    "jfds-paper/sections/tables/tableS_fallback_assets.tex": "d039170d906dec87da38a2940b4f01d53a9b6fe7f0d3b3621191acc1fabc00be",
+    "arxiv-paper/sections/tables/tableS_fallback_sensitivity.tex": "ba504f8da41054b848e94b46a6eac5f0738a4f74db2e54998e53a60b10c12f99",
+    "jfds-paper/sections/tables/tableS_fallback_sensitivity.tex": "ba504f8da41054b848e94b46a6eac5f0738a4f74db2e54998e53a60b10c12f99"
+  }
+}

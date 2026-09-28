@@ -1,0 +1,143 @@
+{
+  "arxiv": {
+    "pdf": "arxiv-paper/Paper_v1.pdf",
+    "page_count": 51,
+    "term_pages": {
+      "4": [
+        "fallback",
+        "within-state",
+        "no observed outgoing"
+      ],
+      "10": [
+        "fallback"
+      ],
+      "11": [
+        "fallback",
+        "Paired sensitivity",
+        "Fallback emissions in"
+      ],
+      "14": [
+        "fallback"
+      ],
+      "30": [
+        "within-state"
+      ],
+      "32": [
+        "fallback",
+        "within-state"
+      ],
+      "33": [
+        "fallback",
+        "within-state",
+        "empirical state means"
+      ],
+      "34": [
+        "within-state"
+      ],
+      "37": [
+        "fallback"
+      ],
+      "38": [
+        "fallback"
+      ],
+      "39": [
+        "fallback"
+      ],
+      "49": [
+        "fallback",
+        "within-state",
+        "no observed outgoing",
+        "Emission fallback inventory"
+      ],
+      "50": [
+        "fallback",
+        "Fallback emissions in"
+      ],
+      "51": [
+        "fallback",
+        "Paired sensitivity"
+      ]
+    }
+  },
+  "jfds": {
+    "pdf": "jfds-paper/Paper_v1.pdf",
+    "page_count": 30,
+    "term_pages": {
+      "6": [
+        "fallback",
+        "within-state",
+        "no observed outgoing"
+      ],
+      "16": [
+        "fallback"
+      ],
+      "19": [
+        "fallback",
+        "Paired sensitivity",
+        "Fallback emissions in"
+      ],
+      "20": [
+        "fallback"
+      ],
+      "25": [
+        "fallback"
+      ]
+    }
+  },
+  "supplement": {
+    "pdf": "jfds-paper/Supplement_v1.pdf",
+    "page_count": 38,
+    "term_pages": {
+      "8": [
+        "within-state"
+      ],
+      "10": [
+        "fallback",
+        "within-state"
+      ],
+      "11": [
+        "fallback"
+      ],
+      "12": [
+        "fallback",
+        "within-state",
+        "empirical state means"
+      ],
+      "13": [
+        "within-state"
+      ],
+      "14": [
+        "within-state"
+      ],
+      "18": [
+        "fallback"
+      ],
+      "19": [
+        "fallback"
+      ],
+      "21": [
+        "fallback"
+      ],
+      "33": [
+        "fallback",
+        "within-state",
+        "Emission fallback inventory"
+      ],
+      "34": [
+        "fallback",
+        "no observed outgoing"
+      ],
+      "35": [
+        "fallback",
+        "Fallback emissions in"
+      ],
+      "36": [
+        "fallback"
+      ],
+      "37": [
+        "fallback",
+        "Paired sensitivity"
+      ]
+    }
+  }
+}

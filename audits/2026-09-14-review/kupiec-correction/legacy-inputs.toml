@@ -1,0 +1,7 @@
+observations = 249
+policy = "Historical files preserved; corrected p-values derived from verified integer breach counts"
+
+[input_sha256]
+"results-oos-centered.csv" = "55504472d77a400cf4a0f23fbfa39659ffe7d8e29edf0d2cb9958e293b2cb3b2"
+"results-oos-centered-components.csv" = "938e2992f3b009529e8bf417f31f50decd4e21b29d778472644622eeaabc8535"
+"results-oos.csv" = "71770d0c4c6f60593804beb6ab6e3cdad63a55861a640fca3e3542d9e006fe55"

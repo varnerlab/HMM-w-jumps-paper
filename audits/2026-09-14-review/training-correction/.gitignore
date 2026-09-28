@@ -1,0 +1,4 @@
+# Original large caches are retained locally. Their hashes and Git history are
+# recorded in before-manifest.json; the source/table snapshots remain reviewable.
+before/code/downstream-evaluation/data/
+comparison-*.csv

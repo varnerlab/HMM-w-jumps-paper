@@ -1,0 +1,54 @@
+Julia 1.12.7; Distributions 0.25.123
+Training: 2766; holdout: 249
+Both cached observation vectors exactly match raw VWAP-derived observations.
+Old fit: Laplace{Float64}(μ=0.06310026953971988, θ=1.4582431107117084); corrected MLE: Laplace{Float64}(μ=0.14192447563031826, θ=1.456119131053678)
+Training log-likelihood gain: 4.031707994337012
+Both production fit/sampling expressions and metric implementations passed checks.
+Paired uniforms; 1000 paths per fit/window; 500 bootstrap replicates.
+Scoring IS old at 2026-09-14T12:38:04.757
+  KS pass (%)        42.100000000 (SE 1.561278322)
+  AD pass (%)        44.300000000 (SE 1.570830990)
+  Excess kurtosis    2.980887312 (SE 0.020068772)
+  ACF-MAE            0.059882326 (SE 0.000035055)
+  Coverage (%)       35.353535354 (SE 1.125745756)
+  Wasserstein-1      0.136318260 (SE 0.000638193)
+  Hellinger          0.071695262 (SE 0.000187631)
+  Novelty            0.985496475 (SE 0.000351033)
+  Diversity          0.984834756 (SE 0.000054585)
+Scoring IS mle at 2026-09-14T12:38:09.109
+  KS pass (%)        98.400000000 (SE 0.396787097)
+  AD pass (%)        96.800000000 (SE 0.556560868)
+  Excess kurtosis    2.980887312 (SE 0.020068772)
+  ACF-MAE            0.059886243 (SE 0.000034981)
+  Coverage (%)       78.787878788 (SE 0.998846227)
+  Wasserstein-1      0.119291622 (SE 0.000670294)
+  Hellinger          0.068921383 (SE 0.000184445)
+  Novelty            0.985496475 (SE 0.000351033)
+  Diversity          0.984834756 (SE 0.000054585)
+Scoring OoS old at 2026-09-14T12:38:13.359
+  KS pass (%)        87.900000000 (SE 1.031304999)
+  AD pass (%)        92.500000000 (SE 0.832916562)
+  Excess kurtosis    2.758924438 (SE 0.054936029)
+  ACF-MAE            0.042603771 (SE 0.000081889)
+  Coverage (%)       75.757575758 (SE 2.519867135)
+  Wasserstein-1      0.267658248 (SE 0.001962814)
+  Hellinger          0.210853115 (SE 0.000643525)
+  Novelty            0.947911047 (SE 0.001242759)
+  Diversity          0.949406358 (SE 0.000105014)
+Scoring OoS mle at 2026-09-14T12:38:14.618
+  KS pass (%)        96.700000000 (SE 0.564898221)
+  AD pass (%)        98.100000000 (SE 0.431729082)
+  Excess kurtosis    2.758924438 (SE 0.054936029)
+  ACF-MAE            0.042600669 (SE 0.000081132)
+  Coverage (%)       98.989898990 (SE 0.448897569)
+  Wasserstein-1      0.242311005 (SE 0.001746932)
+  Hellinger          0.207425981 (SE 0.000648289)
+  Novelty            0.947911047 (SE 0.001242759)
+  Diversity          0.949406358 (SE 0.000105014)
+[ Info:   Computing diversity (correlation matrix)...
+[ Info:   Computing diversity...
+[ Info:   Computing diversity (correlation matrix)...
+[ Info:   Computing diversity (correlation matrix)...
+[ Info:   Computing diversity (correlation matrix)...
+[ Info:   Computing diversity (correlation matrix)...
+Saved paired results, all metrics, and provenance under /Users/jdv27/Desktop/julia_work/HMM-w-jumps-paper/audits/2026-09-14-review/laplace-correction

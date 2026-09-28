@@ -1,0 +1,139 @@
+{
+  "completed_utc": "2026-09-15T17:01:52.113508+00:00",
+  "finding": "R4",
+  "ranked_correction": 6,
+  "status": "resolved",
+  "pdf_sha256": {
+    "arxiv-paper/Paper_v1.pdf": "e7fbf6797c61c48e43f4224af1797c26f87ccd34676ba590b8a6bcc38fcd3cf5",
+    "jfds-paper/Paper_v1.pdf": "2a68a6a1e11e2b6f3aeea2d37e127b06835f6263e5dd9a68ce5ff93d0836ffaf",
+    "jfds-paper/Supplement_v1.pdf": "5cba24fee197e9c405a2108a7720ce6c7526f86eb4421b8deea52863e429fa6a",
+    "jfds-paper/output/pdf/JFDS_Anonymous_Manuscript.pdf": "2a68a6a1e11e2b6f3aeea2d37e127b06835f6263e5dd9a68ce5ff93d0836ffaf",
+    "jfds-paper/output/pdf/JFDS_Supplementary_Material.pdf": "5cba24fee197e9c405a2108a7720ce6c7526f86eb4421b8deea52863e429fa6a",
+    "arxiv-paper/figs/main/Fig06-Variance-Preservation.pdf": "c87dcf1da8a2646483853916f4cda8dbcf21b2d71acdd2cce9a7eb02a56f3032",
+    "jfds-paper/figs/main/Fig06-Variance-Preservation.pdf": "c87dcf1da8a2646483853916f4cda8dbcf21b2d71acdd2cce9a7eb02a56f3032"
+  },
+  "caption_sources_identical": true,
+  "figure_pdfs_identical": true,
+  "jfds_installed_outputs_match": true,
+  "builds_passed": [
+    "make -C arxiv-paper pdf",
+    "make -C jfds-paper all"
+  ],
+  "logs": {
+    "arxiv": {
+      "undefined_or_duplicate_references": false,
+      "overfull_boxes": []
+    },
+    "jfds": {
+      "undefined_or_duplicate_references": false,
+      "overfull_boxes": [
+        "Overfull \\hbox (11.18748pt too wide) detected at line 127"
+      ]
+    },
+    "supplement": {
+      "undefined_or_duplicate_references": false,
+      "overfull_boxes": [
+        "Overfull \\hbox (10.26515pt too wide) in paragraph at lines 107--115",
+        "Overfull \\hbox (36.36295pt too wide) detected at line 131",
+        "Overfull \\hbox (3.51581pt too wide) in paragraph at lines 1507--1515"
+      ]
+    }
+  },
+  "only_four_preexisting_jfds_width_warnings": true,
+  "numerical_checks": {
+    "paired_composed_paths": 84600,
+    "ordinary_assets": 421,
+    "tracker_assets": [
+      "QQQ",
+      "SPYG"
+    ],
+    "all_canonical_variances_ks_values_loadings_and_branches_match": true,
+    "all_denominators_targets_and_covariance_identities_match": true,
+    "all_846_ticker_method_summaries_match": true,
+    "all_240_curve_points_match": true,
+    "maximum_curve_difference": 0.0,
+    "ordinary_naive_median_ticker_ratio": 1.3170597410692615,
+    "ordinary_hybrid_median_ticker_ratio": 1.000103418321404,
+    "ordinary_hybrid_ticker_ratio_range": [
+      0.9933385571790568,
+      1.0071707485330033
+    ],
+    "ordinary_hybrid_path_absolute_target_error_quantiles": [
+      0.011158567839504474,
+      0.03407998739587614,
+      0.08243626939394877
+    ],
+    "annualized_market_variance": 0.02981607235532779,
+    "training_sources_and_artifacts_unchanged": true,
+    "figure_sha256": "c87dcf1da8a2646483853916f4cda8dbcf21b2d71acdd2cce9a7eb02a56f3032"
+  },
+  "page_comparison": {
+    "arxiv": {
+      "total_pages": 49,
+      "changed_pages": [
+        11,
+        12,
+        13,
+        14,
+        15,
+        24
+      ],
+      "pixel_identical_pages": 43,
+      "render_long_edge_pixels": 850
+    },
+    "jfds": {
+      "total_pages": 30,
+      "changed_pages": [
+        17,
+        18,
+        19,
+        20,
+        21,
+        22,
+        23,
+        24,
+        25,
+        26,
+        27,
+        28,
+        29,
+        30
+      ],
+      "pixel_identical_pages": 16,
+      "render_long_edge_pixels": 850
+    }
+  },
+  "visual_checks": {
+    "figure_and_captions": "Latest figure uses outlined circles. Inspected marker-update/arxiv-page-24.png and marker-update/jfds-page-19.png; no clipping or overlaps.",
+    "changed_text_and_reflow": "Inspected changed Results passages and contact sheets covering all changed pages; unchanged main-manuscript pages verified pixel-identical at 850-pixel long edge.",
+    "page_counts": {
+      "arxiv": 49,
+      "jfds": 30,
+      "supplement": 34
+    }
+  },
+  "release_archives_regenerated": false,
+  "changes_committed": false,
+  "marker_update": {
+    "request": "Never use star markers; use circles.",
+    "tracker_marker": "outlined circle",
+    "house_style_recorded": true,
+    "checks": {
+      "arxiv": {
+        "pages": 49,
+        "changed_text_pages": [
+          24
+        ]
+      },
+      "jfds": {
+        "pages": 30,
+        "changed_text_pages": [
+          19
+        ]
+      },
+      "curves_and_diagnostic_unchanged": true
+    },
+    "visual_review": "Final figure and pages 24 (arXiv) and 19 (JFDS) inspected; no clipping or overlaps.",
+    "build_logs": "marker-update/"
+  }
+}

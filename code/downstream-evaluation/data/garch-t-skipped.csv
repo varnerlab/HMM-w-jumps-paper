@@ -1,31 +1,31 @@
 ticker,reason
-ALB,Model is nonstationary.
-ALL,Model is nonstationary.
-AMAT,Model is nonstationary.
-BIO,Model is nonstationary.
-CCI,Model is nonstationary.
-CCL,Model is nonstationary.
-CF,Model is nonstationary.
-CRL,Model is nonstationary.
-CVS,Model is nonstationary.
-DHR,Model is nonstationary.
-DVA,Model is nonstationary.
-EMN,Model is nonstationary.
-EXPD,Model is nonstationary.
-F,Model is nonstationary.
-GE,Model is nonstationary.
-GM,Model is nonstationary.
-INTC,Model is nonstationary.
-MMM,Model is nonstationary.
-MOS,Model is nonstationary.
-NWL,Model is nonstationary.
-OXY,Model is nonstationary.
-PSX,Model is nonstationary.
-SNPS,Model is nonstationary.
-SWK,Model is nonstationary.
-TER,Model is nonstationary.
-UPS,Model is nonstationary.
-VFC,Model is nonstationary.
-WDC,Model is nonstationary.
-WFC,Model is nonstationary.
-WHR,Model is nonstationary.
+ALB,nonstationary: ARCH plus GARCH persistence must be below one
+ALL,nonstationary: ARCH plus GARCH persistence must be below one
+AMAT,nonstationary: ARCH plus GARCH persistence must be below one
+BIO,inadmissible variance coefficients
+CCI,nonstationary: ARCH plus GARCH persistence must be below one
+CCL,nonstationary: ARCH plus GARCH persistence must be below one
+CF,inadmissible variance coefficients
+CRL,nonstationary: ARCH plus GARCH persistence must be below one
+CVS,nonstationary: ARCH plus GARCH persistence must be below one
+DHR,inadmissible variance coefficients
+DVA,nonstationary: ARCH plus GARCH persistence must be below one
+EMN,inadmissible variance coefficients
+EXPD,inadmissible variance coefficients
+F,nonstationary: ARCH plus GARCH persistence must be below one
+GE,nonstationary: ARCH plus GARCH persistence must be below one
+GM,nonstationary: ARCH plus GARCH persistence must be below one
+INTC,nonstationary: ARCH plus GARCH persistence must be below one
+MMM,nonstationary: ARCH plus GARCH persistence must be below one
+MOS,nonstationary: ARCH plus GARCH persistence must be below one
+NWL,nonstationary: ARCH plus GARCH persistence must be below one
+OXY,inadmissible variance coefficients
+PSX,inadmissible variance coefficients
+SNPS,nonstationary: ARCH plus GARCH persistence must be below one
+SWK,nonstationary: ARCH plus GARCH persistence must be below one
+TER,inadmissible variance coefficients
+UPS,inadmissible variance coefficients
+VFC,nonstationary: ARCH plus GARCH persistence must be below one
+WDC,inadmissible variance coefficients
+WFC,nonstationary: ARCH plus GARCH persistence must be below one
+WHR,inadmissible variance coefficients

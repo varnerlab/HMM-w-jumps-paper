@@ -1,0 +1,52 @@
+All 393 model coefficients, training inputs, and paired draws at both horizons matched exactly.
+┌ Info: run_composer_experiment
+│   seed = 1234
+│   f = 0.1
+│   R²_threshold = 0.8
+│   gm_factor = 1.0
+│   composers = 1-element Vector{String}: …
+└   suffix = ""
+[ Info: Composer ticker 1 / 423: A
+[ Info: Composer ticker 25 / 423: ALLE
+[ Info: Composer ticker 50 / 423: BBY
+[ Info: Composer ticker 75 / 423: CF
+[ Info: Composer ticker 100 / 423: CSX
+[ Info: Composer ticker 125 / 423: EBAY
+[ Info: Composer ticker 150 / 423: FE
+[ Info: Composer ticker 175 / 423: HBAN
+[ Info: Composer ticker 200 / 423: IP
+[ Info: Composer ticker 225 / 423: LDOS
+[ Info: Composer ticker 250 / 423: MET
+[ Info: Composer ticker 275 / 423: NFLX
+[ Info: Composer ticker 300 / 423: PEG
+[ Info: Composer ticker 325 / 423: QQQ
+[ Info: Composer ticker 350 / 423: SPYG
+[ Info: Composer ticker 375 / 423: TSCO
+[ Info: Composer ticker 400 / 423: VTR
+┌ Info: Test universe loaded
+│   n_assets = 473
+└   n_obs = 250
+┌ Info: OoS composer evaluation
+│   n_tickers = 416
+│   T_oos = 249
+│   n_paths = 2
+│   composers = 1-element Vector{String}: …
+└   suffix = ""
+[ Info: OoS ticker 1 / 416: A
+[ Info: OoS ticker 25 / 416: ALLE
+[ Info: OoS ticker 50 / 416: BDX
+[ Info: OoS ticker 75 / 416: CHD
+[ Info: OoS ticker 100 / 416: CTAS
+[ Info: OoS ticker 125 / 416: ED
+[ Info: OoS ticker 150 / 416: FIS
+[ Info: OoS ticker 175 / 416: HD
+[ Info: OoS ticker 200 / 416: ISRG
+[ Info: OoS ticker 225 / 416: LNC
+[ Info: OoS ticker 250 / 416: MMM
+[ Info: OoS ticker 275 / 416: NTAP
+[ Info: OoS ticker 300 / 416: PH
+[ Info: OoS ticker 325 / 416: RMD
+[ Info: OoS ticker 350 / 416: SWKS
+[ Info: OoS ticker 375 / 416: UA
+[ Info: OoS ticker 400 / 416: WHR
+Training and holdout GARCH evaluators completed: 786 and 772 paths, respectively.

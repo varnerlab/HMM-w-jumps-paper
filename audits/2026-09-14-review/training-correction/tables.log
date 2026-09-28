@@ -1,0 +1,69 @@
+[ Info: Loading results + calibration...
+┌ Info: Composers in results
+│   all =
+│    6-element Vector{String}:
+│     "naive"
+│     "gaussian"
+│     ⋮
+│     "garch_t"
+│   present =
+│    6-element Vector{String}:
+│     "naive"
+│     "gaussian"
+│     ⋮
+└     "garch_t"
+[ Info: Wrote paper/sections/tables/table1_aggregate.tex
+[ Info: Wrote paper/sections/tables/table2_by_branch.tex
+[ Info: Wrote paper/sections/tables/table3_by_beta_bucket.tex
+[ Info: Per-seed files not found — skipping Table 4.
+[ Info: Tables written to arXiv and JFDS; provenance saved
+
+=== Table 1: Aggregate scorecard by composer ===
+6×9 DataFrame
+ Row │ composer          dα          dβ         dR²        ks_pct    ad_pct     w1        kurt     hill
+     │ String            Float64     Float64    Float64    Float64   Float64    Float64   Float64  Float64
+─────┼──────────────────────────────────────────────────────────────────────────────────────────────────────
+   1 │ naive             0.0023507   0.022155   0.0872989   7.14184   3.4539    0.700205  7.76667  0.369398
+   2 │ gaussian          0.0476038   0.0174118  0.0083603   0.56974   0.498818  0.681507  1.42671  0.217331
+   3 │ hybrid            0.00191085  0.0180095  0.0209364  73.6454   64.6217    0.249241  7.16527  0.364903
+   4 │ residual_jumphmm  0.0486342   0.017783   0.0148563  75.8061   70.7376    0.231802  7.26239  0.365086
+   5 │ block_bootstrap   0.041624    0.0170692  0.0200447  73.3144   66.7991    0.231951  6.67513  0.329615
+   6 │ garch_t           0.0469378   0.0167262  0.0362429  67.4173   61.3944    0.266577  6.06944  0.317499
+
+=== Table 2: Hybrid composer, by construction flag ===
+2×7 DataFrame
+ Row │ flag         n_tickers  dβ          dR²          ks_pct    w1         kurt
+     │ String       Int64      Float64     Float64      Float64   Float64    Float64
+─────┼────────────────────────────────────────────────────────────────────────────────
+   1 │ HYBRID             421  0.0181031   0.021053      73.5202  0.250014    7.14213
+   2 │ R2_PRESERVE          2  0.00462787  0.000664197  100.0     0.0990902  11.5246
+
+=== Table 3: By β-quartile × composer ===
+24×7 DataFrame
+ Row │ beta_bucket         composer          dβ         ks_pct     w1        kurt      var
+     │ String              String            Float64    Float64    Float64   Float64   Float64
+─────┼─────────────────────────────────────────────────────────────────────────────────────────
+   1 │ Q1 (low $\\beta$)   naive             0.0179951  24.6415    0.40265   8.97141   18.0819
+   2 │ Q1 (low $\\beta$)   gaussian          0.0153928   0.0       0.619729  0.621566  13.953
+   3 │ Q1 (low $\\beta$)   hybrid            0.0159709  87.6038    0.176755  8.36859   14.5949
+   4 │ Q1 (low $\\beta$)   residual_jumphmm  0.0154173  73.217     0.204258  7.05916   14.3024
+   5 │ Q1 (low $\\beta$)   block_bootstrap   0.0151787  71.3208    0.207595  6.28554   13.9191
+   6 │ Q1 (low $\\beta$)   garch_t           0.0152065  57.8431    0.253467  5.25542   13.3817
+   7 │ Q2                  naive             0.0205843   1.85849   0.621328  7.51014   25.0882
+   8 │ Q2                  gaussian          0.0160979   0.216981  0.652589  1.50871   18.033
+   9 │ Q2                  hybrid            0.0167896  74.9057    0.231494  6.88902   18.973
+  10 │ Q2                  residual_jumphmm  0.0166205  82.6509    0.19964   7.79863   18.6871
+  11 │ Q2                  block_bootstrap   0.0158965  79.7547    0.197207  7.21257   17.9771
+  12 │ Q2                  garch_t           0.0153555  76.4059    0.226959  6.46984   17.8296
+  13 │ Q3                  naive             0.0233183   0.666667  0.792049  7.38991   33.3199
+  14 │ Q3                  gaussian          0.017392    1.44762   0.688462  1.94737   23.3848
+  15 │ Q3                  hybrid            0.0181258  66.1238    0.278639  6.90352   24.3625
+  16 │ Q3                  residual_jumphmm  0.0179316  78.2571    0.241569  7.45363   24.0241
+  17 │ Q3                  block_bootstrap   0.0170781  74.9619    0.235741  6.88754   22.8008
+  18 │ Q3                  garch_t           0.0164726  70.9583    0.263108  6.26464   21.8832
+  19 │ Q4 (high $\\beta$)  naive             0.028605    1.33962   0.964652  7.23267   51.1921
+  20 │ Q4 (high $\\beta$)  gaussian          0.0218745   0.622642  0.825045  2.05353   36.2975
+  21 │ Q4 (high $\\beta$)  hybrid            0.0221382  65.8774    0.339011  6.73873   37.1316
+  22 │ Q4 (high $\\beta$)  residual_jumphmm  0.022072   69.1226    0.313183  6.84168   37.0068
+  23 │ Q4 (high $\\beta$)  block_bootstrap   0.0210127  67.2358    0.310864  6.33422   35.3304
+  24 │ Q4 (high $\\beta$)  garch_t           0.0205414  64.5319    0.36147   6.06371   34.6872

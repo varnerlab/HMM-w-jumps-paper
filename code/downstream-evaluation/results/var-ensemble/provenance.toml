@@ -1,0 +1,53 @@
+julia_version = "1.12.7"
+threads = 4
+signature = "cd245fe4e019cdec38ee1463c40cadc428ea297a97d83d234f8ada4959c4208b"
+
+[settings]
+checkpoints = [100, 500, 1000, 2500, 5000]
+horizon = 249
+batch_size = 100
+seed = 9142026
+calibration_paths = 5000
+validation_paths = 1000
+
+[hashes]
+"../../../../../.julia/packages/ARCHModels/7C444/src/multivariatearchmodel.jl" = "5820040cf37afa10b4156dd7615190e5428c06e7237f349613bac816da61d7c8"
+"data/universe.jld2" = "abe77a84b84de946629ce04dc6f143b6a02d5559d8eb0302760ffae39a6d6a54"
+"../../../../../.julia/packages/ARCHModels/7C444/src/TGARCH.jl" = "105b9073da5bae7a32f68be5a0782e9661d7ac4f56fc7255933d9f8c91e809c7"
+"../../../../../.julia/packages/JumpHMM/VWkoC/src/Finance.jl" = "19db25f6df476a830ab49b82b0a4b269773c37bf82c962caef3d2d2c89e7863f"
+"../../../../../.julia/packages/JumpHMM/VWkoC/src/Simulate.jl" = "39eb7ca0093c0256a9d822ca3b8b2e37e9941d9e228a51b0df531c3c92f9ed45"
+"../../../../../.julia/packages/ARCHModels/7C444/src/utils.jl" = "dd8e25669f6cf8af2808c4a8e4a2593ad5caf97b4863ad4f043b3a09dfccbee1"
+"src/VaREnsemble.jl" = "73048f73a548bbd714b1ca108a75e06aeaed9f8115a9acb130c8507ca6072be6"
+"src/GARCHFit.jl" = "65f44dd5b2ef6c1f24434e6f947c431135dad2301f8943c8ce4da48b3b545e72"
+"src/Composers.jl" = "d5f31b82bff97c67b6f61c7bd759bde342df5b5a0a0e9737a2659feae2fd4260"
+"../../../../../.julia/packages/JumpHMM/VWkoC/src/Copula.jl" = "d25ffc566fd537c5e713af4d695fef8d023cb41c52c5f12e5436d8b47c3339c3"
+"../../../../../.julia/packages/JumpHMM/VWkoC/src/Vine.jl" = "a327ae672fb2cffdf10c0835f2a571199f8fd0c5bc2f39c4ac0b1075da5af3f7"
+"data/marginals.jld2" = "841d8d1e01a761f355f79b20d4259f6fce689ed28d56448db24705e1d12b8cd2"
+"../../../../../.julia/packages/ARCHModels/7C444/src/univariatestandardizeddistributions.jl" = "f08f28795524514bc954f55caaedb95d11f31cd51d6166e4b7b41a16497623c8"
+"scripts/13-VaR-Ensemble.jl" = "5a34d70cb84faee9036a74ea3c0b770c0487dd99724a1a925d22872503ceb7c2"
+"data/sim-calibration.jld2" = "c14dad84befb98bcc58a1afb552a55b628ac3e45eab19d60c375e7309cf79761"
+"src/Pipeline.jl" = "650c877e1c991ca4ae8c7f1213cfc28f36c17d24e338d150b31b59cefeae0398"
+"data/garch-t-models.jld2" = "83fd422a0ec727111d221f47ca85dc1506b181d59fcda1e975524414cd23aad0"
+"../../../../../.julia/packages/JumpHMM/VWkoC/src/Validate.jl" = "f6a5c73b72b5ec7455b81a2563d4837bb35176d4f7540cb7b8a344d433dc956a"
+"../../../../../.julia/packages/JumpHMM/VWkoC/src/Decode.jl" = "8dcc892646e755a029b96bfa5f69812d2b53a5cb9154cd390f17f8a933c279f7"
+"../../../../../.julia/packages/ARCHModels/7C444/src/ARCHModels.jl" = "9b82f6cf2c9650a031d4e2eea5f6e59d26c1bc7843e0da8798940ec6f0db997e"
+"../../../../../.julia/packages/JumpHMM/VWkoC/src/JumpHMM.jl" = "45f39f30d2f747bde34942f44b56b3ec8b09c9da109c7bb680661bf744d61b35"
+"../../../../../.julia/packages/JumpHMM/VWkoC/src/Portfolio.jl" = "374eba87c105479eca53dc862c2be1fa3ef43853ca9f0b838a182e3a95b854a3"
+"../../../../../.julia/packages/JumpHMM/VWkoC/src/Partition.jl" = "9e78bf59be29384ea12f1270785368768cf1b69bbb7a3853b2e84bae9d435541"
+"Manifest.toml" = "5cfcb3f8f915c79d100f9c9eafcf0c2a37ea6d27e7387d03828f57f370cf9bc2"
+"../../../../../.julia/packages/JumpHMM/VWkoC/src/Types.jl" = "0078d1abb222704ba83bbca49ce43e492328efc76f3521e4310b3c728b9eb8a7"
+"../../../../../.julia/packages/ARCHModels/7C444/src/DCC.jl" = "d3ac0b033b0f95752ae80ecf8dbe0b916ce20b54a8130daf10502e9315c94f03"
+"../../../../../.julia/packages/ARCHModels/7C444/src/EGARCH.jl" = "df03ae3c11478c1367bf35b4fd8d07b8705e01f160b669409163544ff1b5da2d"
+"../../../../../.julia/packages/JumpHMM/VWkoC/src/Transition.jl" = "1e910bbd02f2c9565b5ebead3f74edc9c9d09242c3892be39c892a95751e03d0"
+"../../../../../.julia/packages/ARCHModels/7C444/src/general.jl" = "58c35b625bf7168cfcd3199bd74a4e7883961d7a4e500c40893461f70cd3d72e"
+"../../../../../.julia/packages/ARCHModels/7C444/src/multivariatestandardizeddistributions.jl" = "3a332542ec4218ecd4d2b9c7e12843680548669c2f9440ead7865934f2b213fc"
+"../../../../../.julia/packages/ARCHModels/7C444/src/univariatearchmodel.jl" = "998add99174568aaf0cffb6eebdb6fefa42ada3ea0049e0a78339860179aff8d"
+"src/VaRBacktest.jl" = "ac78800680ebec42899b6ec51d7f0406fccf78885ed17f8aaeb450c19d9f19c4"
+"../../../../../.julia/packages/JumpHMM/VWkoC/src/Emission.jl" = "40d5299f5803a05e5f0a9a7e1dec600c08ac6dcd395476abe18aeb3b290b1ad8"
+"../../../../../.julia/packages/ARCHModels/7C444/src/tests.jl" = "65152c8fc94dd9e39c4dd024b546d4be9c00989112364fdbf14cf9cb48fe798b"
+"../../../../../.julia/packages/JumpHMM/VWkoC/src/Tune.jl" = "d8257dc92d19f295a6f591be323f963e7c40d547d1832759893f24f985dc4d53"
+"data/marginals-residuals.jld2" = "99881abd3bfa285978b22b1a826fc5b496d86b4f781d9b55f41bf29ea02001d6"
+"config.toml" = "5479ca29495537e37c5adb9c3df33019387507956202b39959c590167a2a9c43"
+"var-ensemble.toml" = "fe5dcba41bde3d35f656ec80ed35be41332ede2b6c5370ad8ae2b56949d8a44c"
+"../../../../../.julia/packages/JumpHMM/VWkoC/src/SIM.jl" = "7a4b1799b38043ec61d69680d6c8b193bcbb5a1dd8abc31aeb4aac09d8f04ca7"
+"../../../../../.julia/packages/ARCHModels/7C444/src/meanspecs.jl" = "5d322f6a0d5a11d26a527375baf2e06a2ef8136dc234b8d58cd20a89ba193360"

@@ -1,0 +1,6 @@
+┌ Info: Reused validated GARCH cache
+└   assets = 393
+┌ Info: GARCH cache ready
+│   accepted = 393
+│   excluded = 30
+└   output = "/Users/jdv27/Desktop/julia_work/HMM-w-jumps-paper/code/downstream-evaluation/data"

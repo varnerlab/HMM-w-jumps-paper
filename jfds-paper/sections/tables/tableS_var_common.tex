@@ -1,0 +1,14 @@
+\begin{tabular}{lrrrr}
+\toprule
+ & \multicolumn{2}{c}{$\alpha = 0.95$} & \multicolumn{2}{c}{$\alpha = 0.99$} \\
+\cmidrule(lr){2-3} \cmidrule(lr){4-5}
+Method & rate (\%) & SD (pp) & rate (\%) & SD (pp) \\
+\midrule
+Naive & 3.95 & 2.06 & 0.85 & 0.69 \\
+Gaussian SIM & 4.54 & 2.19 & 1.66 & 1.06 \\
+Hybrid & 5.37 & 2.43 & 1.08 & 0.79 \\
+JumpHMM-on-residuals & 5.50 & 2.51 & 1.14 & 0.80 \\
+Block bootstrap & 5.38 & 2.48 & 1.25 & 0.86 \\
+GARCH(1,1)-$t$ & 5.07 & 2.45 & 1.20 & 0.89 \\
+\bottomrule
+\end{tabular}

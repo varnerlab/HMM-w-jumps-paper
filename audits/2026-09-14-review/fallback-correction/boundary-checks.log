@@ -1,0 +1,1 @@
+Six boundary checks passed: lower-closed assignment, constant/singleton/empty emissions, observed rows, and zero-outgoing rows (including final-only states).

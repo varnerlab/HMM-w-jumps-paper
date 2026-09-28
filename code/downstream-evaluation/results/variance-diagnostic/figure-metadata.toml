@@ -1,0 +1,9 @@
+curve_sha256 = "e91b51e76dd1f6d21c05a7d9aeec542fcf55823fbd2cc76e947bc4078b389122"
+diagnostic_metadata_sha256 = "2a36952b5d166e9b2752e959dbb02067168ac624db0da724e0329aad6b3fcb6c"
+figure_sha256 = "c87dcf1da8a2646483853916f4cda8dbcf21b2d71acdd2cce9a7eb02a56f3032"
+ordinary_assets = 421
+tracker_assets = ["QQQ", "SPYG"]
+
+[source_sha256]
+"scripts/05-Figures.jl" = "914394d7b159ddc781f590b5dca0971faf3772f1ae094bf9c5a37ef00844a0d5"
+"src/PreservationFigure.jl" = "530c5f65cf773dbb6f3449cf66196f1ba294e1c9326550d378454a254ce1de79"

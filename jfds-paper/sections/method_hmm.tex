@@ -24,14 +24,14 @@ returns. Their boundaries were equally spaced quantiles of a Laplace
 distribution fitted to the asset's in-sample returns. Specifically,
 $Q_k = F_L^{-1}(k/N;\, \mu_L, b_L)$, where $\mu_L$ and $b_L$ are the
 fitted location and scale. We set $Q_0=-\infty$ and $Q_N=+\infty$ and
-assigned return $G_t$ to state $k$ when $Q_{k-1}<G_t\le Q_k$. The
+assigned return $G_t$ to state $k$ when $Q_{k-1}\le G_t<Q_k$. The
 Laplace distribution captured the sharp concentration of small price
 movements in Fig.~\ref{fig:empirical_motivation}a
 ~\cite{kotzKozubowskiPodgorski2001, tothJones2019}. We computed its
 closed-form quantiles for all $424$ tickers~\cite{bilmes1998}.
 
 The within-state emission followed a location-scale Student-$t$
-distribution.
+distribution:
 \begin{equation}
     G_t \mid S_t = k \;\sim\; \mu_k + \sigma_k \cdot t_{\nu},
     \qquad \nu = 5,
@@ -39,8 +39,17 @@ distribution.
 \end{equation}
 where $t_\nu$ denotes a standard Student-$t$ random variable with
 $\nu$ degrees of freedom. For observations assigned to state $k$,
-$\mu_k$ is the sample mean and $\sigma_k$ is the sample standard
-deviation. A standard $t_\nu$ has variance $\nu/(\nu-2)$, so
+we used the sample mean for $\mu_k$ and the sample standard
+deviation for $\sigma_k$, subject to two fallback rules. A state
+with fewer than two observations used the mean and standard
+deviation of that asset's full training series. A state with at
+least two observations and sample standard deviation below $10^{-12}\,\mathrm{yr}^{-1}$
+retained its state mean but used the full-series standard deviation
+as its scale. The same rules applied to residual-fit generators,
+using their residual training series. These exceptions kept emission
+parameters defined but could broaden states containing repeated
+returns (Table~\ref{tab:fallback_assets}). A standard $t_\nu$ has
+variance $\nu/(\nu-2)$, so
 $\sigma_k$ is a scale parameter rather than the emission standard
 deviation. At $\nu=5$, the emission standard deviation is
 $\sigma_k\sqrt{5/3}$. We selected $\nu = 5$ from a sensitivity sweep.
@@ -55,8 +64,10 @@ adapted from \citet{bullaBulla2006}
 Appendix~\ref{sec:supp-emission-hsmm}). The emission and HSMM
 comparisons separated the effects of heavy-tailed emissions and the
 jump-duration mechanism. We estimated the transition matrix $\mathbf{T}$
-by counting observed transitions, which avoided the initialization
-sensitivity of iterative
+by counting observed transitions and normalizing each row with a
+positive count. A state with no observed outgoing transition used
+a uniform row, $\mathbf{T}_{kj}=1/N$ for every destination $j$.
+Counting avoided the initialization sensitivity of iterative
 expectation-maximization~\cite{bilmes1998}. The counted matrix was
 concentrated near its diagonal, but individual states, including tail
 states, were short-lived
@@ -299,3 +310,14 @@ $w_\kappa$, $L$, and the remaining HMM-WJ and SIM hyperparameters are
 reported in Table~\ref{tab:hyperparams}. We fixed the selected
 hyperparameters before running the generator comparisons and the
 holdout evaluation.
+
+To compare the hidden Markov generator with a neural autoregressive
+model, we included a gated recurrent unit (GRU) benchmark
+(Table~\ref{tab:model_comparison}). Its two recurrent layers used
+$64$ hidden units each and a $50$-return input window. Separate
+output heads predicted the mean and log variance of the next
+standardized return. We fitted the network on training SPY only,
+selected weights by training loss, and sampled recursively from
+the predicted Gaussian distributions. Online
+Appendix~\ref{sec:supp-gru} specifies the optimizer, stopping rule,
+initialization, and recorded computational environment.

@@ -1,0 +1,128 @@
+completed_utc = "2026-09-14T20:30:16.908Z"
+garch_eligible = ["A", "AAL", "AAP", "AAPL", "ABBV", "ABT", "ACN", "ADBE", "ADI", "ADM", "ADP", "ADSK", "AEE", "AEP", "AES", "AFL", "AIG", "AIZ", "AJG", "AKAM", "ALGN", "ALK", "ALLE", "AMD", "AME", "AMGN", "AMP", "AMT", "AMZN", "ANSS", "AON", "AOS", "APA", "APD", "APH", "ARE", "ATO", "AVB", "AVGO", "AVY", "AWK", "AXP", "AZO", "BA", "BAC", "BAX", "BBY", "BDX", "BEN", "BF.B", "BK", "BLK", "BMY", "BR", "BRK.B", "BRO", "BSX", "BWA", "BXP", "C", "CAG", "CAH", "CAT", "CB", "CBOE", "CDNS", "CDW", "CE", "CHD", "CHRW", "CHTR", "CI", "CINF", "CL", "CLX", "CMA", "CMCSA", "CME", "CMG", "CMI", "CMS", "CNC", "CNP", "COF", "COO", "COP", "COST", "CPB", "CPRT", "CRM", "CSCO", "CSX", "CTAS", "CTSH", "CVX", "CZR", "D", "DAL", "DE", "DFS", "DG", "DGX", "DHI", "DIS", "DLR", "DLTR", "DOV", "DPZ", "DRI", "DTE", "DUK", "DVN", "EA", "EBAY", "ECL", "ED", "EFX", "EIX", "EL", "EMR", "ENPH", "EOG", "EQIX", "EQR", "ESS", "ETN", "ETR", "EW", "EXC", "EXPE", "EXR", "FANG", "FAST", "FCX", "FDX", "FE", "FFIV", "FIS", "FITB", "FMC", "FOX", "FOXA", "FRT", "FTNT", "GD", "GILD", "GIS", "GLD", "GLW", "GNRC", "GOOG", "GPC", "GPN", "GRMN", "GS", "GWW", "HAL", "HAS", "HBAN", "HBI", "HCA", "HD", "HES", "HIG", "HII", "HLT", "HOLX", "HON", "HPQ", "HRL", "HSIC", "HST", "HSY", "HUM", "IBM", "ICE", "IDXX", "IEX", "IFF", "ILMN", "INCY", "INTU", "IP", "IPG", "IPGP", "IR", "IRM", "ISRG", "IT", "ITW", "IVZ", "JBHT", "JCI", "JKHY", "JNJ", "JNPR", "JPM", "K", "KEY", "KIM", "KLAC", "KMB", "KMI", "KMX", "KO", "KR", "L", "LDOS", "LEG", "LEN", "LH", "LKQ", "LLY", "LMT", "LNC", "LNT", "LOW", "LRCX", "LUV", "LVS", "LYB", "LYV", "MA", "MAA", "MAR", "MAS", "MCD", "MCHP", "MCK", "MCO", "MDLZ", "MDT", "MET", "MGM", "MHK", "MKC", "MKTX", "MLM", "MMC", "MNST", "MO", "MPC", "MPWR", "MRK", "MS", "MSCI", "MSFT", "MSI", "MTB", "MTD", "MU", "NCLH", "NDAQ", "NEE", "NEM", "NFLX", "NI", "NKE", "NOC", "NOW", "NRG", "NSC", "NTAP", "NTRS", "NUE", "NVDA", "NVR", "NWS", "NWSA", "NXPI", "O", "ODFL", "OKE", "OMC", "ORCL", "ORLY", "PAYX", "PCAR", "PEG", "PENN", "PEP", "PFE", "PFG", "PG", "PGR", "PH", "PHM", "PKG", "PLD", "PM", "PNC", "PNR", "PNW", "POOL", "PPG", "PPL", "PRU", "PSA", "PTC", "PVH", "PWR", "QCOM", "QQQ", "RCL", "REG", "RF", "RHI", "RJF", "RL", "RMD", "ROK", "ROL", "ROP", "ROST", "RSG", "SBAC", "SBUX", "SCHW", "SEE", "SHW", "SJM", "SLB", "SLV", "SNA", "SO", "SPG", "SPYG", "SRE", "STE", "STT", "STX", "STZ", "SWKS", "SYK", "SYY", "T", "TAP", "TDG", "TDY", "TECH", "TEL", "TFX", "TGT", "TJX", "TMO", "TMUS", "TRMB", "TROW", "TRV", "TSCO", "TSLA", "TSN", "TTWO", "TXN", "TXT", "TYL", "UA", "UAL", "UDR", "UHS", "ULTA", "UNG", "UNH", "UNP", "URI", "USB", "V", "VLO", "VMC", "VNO", "VRSK", "VRSN", "VTR", "VZ", "WAB", "WAT", "WEC", "WM", "WMB", "WMT", "WRB", "WST", "WU", "WY", "WYNN", "XEL", "XOM", "XRAY", "XYL", "YUM", "ZBRA", "ZION", "ZTS"]
+julia_version = "1.12.7"
+protocol = "Observed training SPY; native residual means; six methods; stationary no-jump HMMs; production seed schedule"
+rows = 250800
+schema_version = 1
+signature = "1ccbdfad4c493d42af6fbe1a4dda3891d8db97d827b92fff8fd30ab865702f84"
+threads = 4
+training_observations = 2766
+
+[artifact_sha256]
+"results-summary.csv" = "cb419256d979529ce08d73b44631340673e8927fba605995ddcd53875fa9ab58"
+"results.csv" = "105657956d828040d03fa6cf6fe49e50014becfb92c0884ba4f7201ebac0969b"
+"results.jld2" = "2e31fb509d121790903a77884687f648daf0821d7644ffade36dbf23d782c337"
+
+[config.bootstrap]
+mean_block_length = 50
+
+[config.hmm]
+N = 100
+dt = 0.003968253968254
+nu = 5.0
+risk_free_rate = 0.0
+
+[config.hybrid]
+idiosyncratic_floor = 0.1
+r2_preserve_threshold = 0.8
+
+[config.paths]
+jdiq_root = "../../julia_work/HMM-w-jumps-paper/code"
+
+[config.simulation]
+n_paths = 100
+seed = 1234
+seed_list = [1234, 2345, 3456, 4567, 5678, 6789, 7890, 8910]
+
+[config.stress]
+factors = [1.0, 2.0, 3.0]
+
+[config.universe]
+market_ticker = "SPY"
+min_obs_required = 2766
+
+[config.window]
+in_sample_end = "2024-12-31"
+in_sample_start = "2014-01-03"
+out_of_sample_end = "2025-12-31"
+out_of_sample_start = "2025-01-02"
+
+[fitted_cache_sha256]
+"garch-t-models.jld2" = "83fd422a0ec727111d221f47ca85dc1506b181d59fcda1e975524414cd23aad0"
+"marginals-residuals.jld2" = "99881abd3bfa285978b22b1a826fc5b496d86b4f781d9b55f41bf29ea02001d6"
+"marginals.jld2" = "841d8d1e01a761f355f79b20d4259f6fce689ed28d56448db24705e1d12b8cd2"
+
+[package_source_sha256.ARCHModels]
+"ARCHModels.jl" = "9b82f6cf2c9650a031d4e2eea5f6e59d26c1bc7843e0da8798940ec6f0db997e"
+"DCC.jl" = "d3ac0b033b0f95752ae80ecf8dbe0b916ce20b54a8130daf10502e9315c94f03"
+"EGARCH.jl" = "df03ae3c11478c1367bf35b4fd8d07b8705e01f160b669409163544ff1b5da2d"
+"TGARCH.jl" = "105b9073da5bae7a32f68be5a0782e9661d7ac4f56fc7255933d9f8c91e809c7"
+"general.jl" = "58c35b625bf7168cfcd3199bd74a4e7883961d7a4e500c40893461f70cd3d72e"
+"meanspecs.jl" = "5d322f6a0d5a11d26a527375baf2e06a2ef8136dc234b8d58cd20a89ba193360"
+"multivariatearchmodel.jl" = "5820040cf37afa10b4156dd7615190e5428c06e7237f349613bac816da61d7c8"
+"multivariatestandardizeddistributions.jl" = "3a332542ec4218ecd4d2b9c7e12843680548669c2f9440ead7865934f2b213fc"
+"tests.jl" = "65152c8fc94dd9e39c4dd024b546d4be9c00989112364fdbf14cf9cb48fe798b"
+"univariatearchmodel.jl" = "998add99174568aaf0cffb6eebdb6fefa42ada3ea0049e0a78339860179aff8d"
+"univariatestandardizeddistributions.jl" = "f08f28795524514bc954f55caaedb95d11f31cd51d6166e4b7b41a16497623c8"
+"utils.jl" = "dd8e25669f6cf8af2808c4a8e4a2593ad5caf97b4863ad4f043b3a09dfccbee1"
+
+[package_source_sha256.HypothesisTests]
+"HypothesisTests.jl" = "7d0c063f772594ab6c27aa61ebd97a797319e7824511c92b63c5b9fd778b6c7e"
+"anderson_darling.jl" = "83d67bafadfee85cd0431e9425ce9ac4b7fb7d29d6033ee38bef871917a61983"
+"augmented_dickey_fuller.jl" = "d6b226699cafd4279502e94efe822d85d21cc26c8f9a62de5cb6a3e7b6d8cd39"
+"bartlett.jl" = "ae6098f3f85274e5f84d1c9806510b5097f5c5abacdd67227b0c3b7dedd85a72"
+"binomial.jl" = "5ac0384c21b63ecef07543d00f2532c308d66304ff87841682fee0f8de37970f"
+"box_test.jl" = "85c4a96fab07ec7e0e2893027ea555d5dd2c1ecad38c13a2712d0cb02067873c"
+"breusch_godfrey.jl" = "1ffee179e7b4e6e33d89c35f1737a18868e79026b3688093a40f4ced3022adaa"
+"circular.jl" = "462fdc3f08c8e81a1e0afa54188f2d1b9cd1d75c7d379a5123057a3cca5fbd8c"
+"clark_west.jl" = "371d4c6c417c6b8397f870e56b2b2a956adb7c6191feb94630fccc12565126ab"
+"common.jl" = "a64aaf0516babb2efe3ff4b2b4ad3cb8cf5ba4e654b7b66f91835637b08a6cd5"
+"correlation.jl" = "d4b693050f381e31572e1fd4755680a24632709a09163c08f76d899aafbd53c7"
+"diebold_mariano.jl" = "137f8e10f00bcf38b3192b00037e98ebf30a57f202fc3d625a97d68b225466b1"
+"durbin_watson.jl" = "9431656afb0e79ce3acf60df22deea7131ad2f525f1be3c36bb5d271e33d98ff"
+"f.jl" = "30e9658ae37ebae628f4f72f17c2885564e749ea48c9d514b6cb61fa7959ab20"
+"fisher.jl" = "2f085231cd0bd41b0cccf59f6dfef41d59582c6022e180e977aa1b7c4690908f"
+"hotelling.jl" = "a75fa6cc2565d81d936a5738d3e0809339cb4b1edfab915a16c8ef844071a236"
+"jarque_bera.jl" = "42d5e4eb21b083b05ddb4a438ba7ff11f8e7fc44933a5d39221e572972c3cee5"
+"kolmogorov_smirnov.jl" = "ab851173cfbe9967d8aee6e1f3f743cb095f775630c530830ff87bb280050abb"
+"kruskal_wallis.jl" = "c2d7b891f6374013d8a370485e1d3630451eb09272ce6ae1225bff776e4d1b23"
+"mann_whitney.jl" = "7a6c8d65759489d3746740cb022608fe8285f3e8b7e6fa0cce094261349276cc"
+"permutation.jl" = "de5870d2c330160019f9373f77b670282c02ee8889ff852899bd8625440c93b7"
+"power_divergence.jl" = "df09b07056047e071e9f94bfa743d81c53145767e8d374ec5dcd551f7e4fb1c6"
+"shapiro_wilk.jl" = "e582578d566f5b425ae6988e72558d7ce8c0fd8e6118c3529259d2f897b537fb"
+"t.jl" = "b9e9e3dee2a0318ea7e4b7bbfc6b0714d52b6636de7b9236ee4c935a8bbc7ee1"
+"var_equality.jl" = "03dcd09e30dedbf726cdb6022fe17bb13e6a5e374f4fd4e96069fe029f373046"
+"wald_wolfowitz.jl" = "0bba1c30b0901bb3ceda76363bb3096c509a86c6e6b70778a60777324f0e0550"
+"white.jl" = "ac7b2b0ace77b37c9396d9d0308c1e9f596023c85d6ca83af0d694d8f71e10a8"
+"wilcoxon.jl" = "1c38c42c068027ee386cbbf3d1de67594911a24fc2a5f2455a32d6c66c1f8139"
+"z.jl" = "77813f8023767cb5304a22d464b543702242e40cace4b3722fdcfd1aecf4c083"
+
+[package_source_sha256.JumpHMM]
+"Copula.jl" = "d25ffc566fd537c5e713af4d695fef8d023cb41c52c5f12e5436d8b47c3339c3"
+"Decode.jl" = "8dcc892646e755a029b96bfa5f69812d2b53a5cb9154cd390f17f8a933c279f7"
+"Emission.jl" = "40d5299f5803a05e5f0a9a7e1dec600c08ac6dcd395476abe18aeb3b290b1ad8"
+"Finance.jl" = "19db25f6df476a830ab49b82b0a4b269773c37bf82c962caef3d2d2c89e7863f"
+"JumpHMM.jl" = "45f39f30d2f747bde34942f44b56b3ec8b09c9da109c7bb680661bf744d61b35"
+"Partition.jl" = "9e78bf59be29384ea12f1270785368768cf1b69bbb7a3853b2e84bae9d435541"
+"Portfolio.jl" = "374eba87c105479eca53dc862c2be1fa3ef43853ca9f0b838a182e3a95b854a3"
+"SIM.jl" = "7a4b1799b38043ec61d69680d6c8b193bcbb5a1dd8abc31aeb4aac09d8f04ca7"
+"Simulate.jl" = "39eb7ca0093c0256a9d822ca3b8b2e37e9941d9e228a51b0df531c3c92f9ed45"
+"Transition.jl" = "1e910bbd02f2c9565b5ebead3f74edc9c9d09242c3892be39c892a95751e03d0"
+"Tune.jl" = "d8257dc92d19f295a6f591be323f963e7c40d547d1832759893f24f985dc4d53"
+"Types.jl" = "0078d1abb222704ba83bbca49ce43e492328efc76f3521e4310b3c728b9eb8a7"
+"Validate.jl" = "f6a5c73b72b5ec7455b81a2563d4837bb35176d4f7540cb7b8a344d433dc956a"
+"Vine.jl" = "a327ae672fb2cffdf10c0835f2a571199f8fd0c5bc2f39c4ac0b1075da5af3f7"
+
+[source_input_sha256]
+"Manifest.toml" = "5cfcb3f8f915c79d100f9c9eafcf0c2a37ea6d27e7387d03828f57f370cf9bc2"
+"Project.toml" = "6b67e26e10cca711297310bace8c0dad68b0242392b382620eaaf11ad383bdea"
+"config.toml" = "5479ca29495537e37c5adb9c3df33019387507956202b39959c590167a2a9c43"
+"data/sim-calibration.jld2" = "c14dad84befb98bcc58a1afb552a55b628ac3e45eab19d60c375e7309cf79761"
+"data/universe.jld2" = "abe77a84b84de946629ce04dc6f143b6a02d5559d8eb0302760ffae39a6d6a54"
+"scripts/03-Compose-And-Evaluate.jl" = "7e4763b1009f557ba52733b4d375b9de1f89e6f552dc876a7ac98c3344af3ccd"
+"src/Composers.jl" = "d5f31b82bff97c67b6f61c7bd759bde342df5b5a0a0e9737a2659feae2fd4260"
+"src/GARCHFit.jl" = "65f44dd5b2ef6c1f24434e6f947c431135dad2301f8943c8ce4da48b3b545e72"
+"src/Metrics.jl" = "0f43ef920cfe69930c4f89a52a4b7872bb0fb817222a2761c33c8c24f3b7c573"
+"src/Pipeline.jl" = "650c877e1c991ca4ae8c7f1213cfc28f36c17d24e338d150b31b59cefeae0398"
+"src/TrainingResults.jl" = "3ff7fe7a1c99a196484ecf1880c61e3bdcd35d269ec5731d057b8368d12da0b7"
+"src/TrainingSetup.jl" = "12a834a897ffff9d0dd9f902f327e0241266e0ef1285fb26d8c5e9b6ebc27644"

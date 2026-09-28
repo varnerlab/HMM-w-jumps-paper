@@ -1,0 +1,209 @@
+{
+  "completed_utc": "2026-09-15T18:29:13.356310+00:00",
+  "finding": "R9",
+  "ranked_correction": 9,
+  "status": "resolved_by_qualifying_retained_intercept_construction",
+  "pdf_sha256": {
+    "arxiv-paper/Paper_v1.pdf": "f3971e719ac23c7ff75b100e9f708a86ac7ef4f5af4eb885c2790b9b91be888c",
+    "jfds-paper/Paper_v1.pdf": "2c30d234ed1da6a2a9b4eb1bcc203b7c45c5c1793151413401fdd1ba160180c0",
+    "jfds-paper/Supplement_v1.pdf": "20bdff51fb687bbde52f4400f1ae108d954a909901494edb6b318ca1113ba8d2",
+    "jfds-paper/output/pdf/JFDS_Anonymous_Manuscript.pdf": "2c30d234ed1da6a2a9b4eb1bcc203b7c45c5c1793151413401fdd1ba160180c0",
+    "jfds-paper/output/pdf/JFDS_Supplementary_Material.pdf": "20bdff51fb687bbde52f4400f1ae108d954a909901494edb6b318ca1113ba8d2"
+  },
+  "source_sha256": {
+    "arxiv-paper/sections/method_sim.tex": "6c584d626d28a93e1ee41e481bfcb0bb86c819c3eef67793e962153b08678b07",
+    "arxiv-paper/sections/appendix.tex": "d0b28f7d0c819a68bf943ed4ca4bb9e154fd9b50cecc44e85d9507efb806fd40",
+    "arxiv-paper/sections/results.tex": "c11739f9790958d7d132513951ebcf81973b344ec5488408ffb691d601e6f0a9",
+    "arxiv-paper/sections/discussion.tex": "e4b56af61f2b80bf9fb1d6348363ce3a07559a7c2c636fcab0452599a08d34eb",
+    "arxiv-paper/sections/conclusion.tex": "35c18d186f1fec68aff5b111c4079c7881b2ef6bfa984c8a2d02a621880370e1",
+    "jfds-paper/sections/method_sim.tex": "a5dbc1587f323c344a97991cbcb8a80fefa2e14aedce18b05bc53e9250a0a6ed",
+    "jfds-paper/sections/appendix.tex": "48d2bd5b85395a390affa16073f4cf86c776250e08b07234f8ffbb2b278bebd5",
+    "jfds-paper/sections/results.tex": "8b1bd46af8341a9883adf86b89b6767ba8f34da98909bdb9bd52c29d4984278d",
+    "jfds-paper/sections/discussion.tex": "7bcc6659e6069b530af69cb41ca904ae04da2dbe0d9893fe6c5efecb6b1a4c6b",
+    "jfds-paper/sections/conclusion.tex": "35c18d186f1fec68aff5b111c4079c7881b2ef6bfa984c8a2d02a621880370e1",
+    "audits/2026-09-14-review/STATUS.md": "77a003466e48917f78171f08d94169d466ecb433e4662b160d18e71774e65756",
+    "audits/2026-09-14-review/claude-verification/SUMMARY.md": "4ce0f1b95631a7052a16ac94ab785f8953f73a10870b0d678bb950e9a6dbddc0",
+    "audits/2026-09-14-review/clipping-correction/README.md": "d8ce29116a15f1ec52a983de91495cccc3051fc3475984138d4d46b35ae475a1",
+    "audits/2026-09-14-review/clipping-correction/verify_mean.jl": "fa54453c6a2e8fd642b49eade90c9bce220701ddb6479ec1232eee6a2d8bb5c9"
+  },
+  "frozen_source_and_metadata_sha256": {
+    "code/downstream-evaluation/src/Composers.jl": "d5f31b82bff97c67b6f61c7bd759bde342df5b5a0a0e9737a2659feae2fd4260",
+    "code/downstream-evaluation/src/SyntheticMarket.jl": "c67d8330a9be7521bf6f80d258365c2ef17b841d818c19729d360ef68746e674",
+    "code/downstream-evaluation/scripts/03b-Stress-Eval.jl": "fb798f39e6aaeef6808bce243e562f7fc676166ec2f80db70b7ab8373cd11c16",
+    "code/downstream-evaluation/data/results-metadata.toml": "2f7768c0a8c55ff831448233bb122aabec86de24684b054d1f98ff1462389149",
+    "code/downstream-evaluation/results/variance-diagnostic/metadata.toml": "2a36952b5d166e9b2752e959dbb02067168ac624db0da724e0329aad6b3fcb6c"
+  },
+  "artifact_sha256": {
+    "mean-checks.toml": "62f97d5c6396795a3981c8358d81997872ea2c97b4beb3ac8547097472f9c33e",
+    "mean-checks.log": "c503af4dd8b8ae63f9ade4caa1cae0fbc7b08f39a68ff561f9adb8c373759802",
+    "primary-verification.json": "3cac2b83652406bc82e5b7033949a6d1800e875c58f17d3fbcc5db795b4abb12",
+    "arxiv-build.log": "30136e56d0716bda44079ddfc33b1f0a63b87fa1b3ef830f035dcccedad889ec",
+    "jfds-build.log": "b7e9ac37ef6a6a228f2e1d3765d2924cddfc6e31b576b305781f05a09f1db618"
+  },
+  "primary_checks": {
+    "canonical_training_sources_inputs_fits_scores_unchanged": true,
+    "variance_replay_sources_and_artifacts_unchanged": true,
+    "hybrid_paths": 42300,
+    "assets": 423,
+    "paths_per_asset": 100,
+    "branch_counts": {
+      "HYBRID": 42100,
+      "R2_PRESERVE": 200,
+      "HYBRID_CLIPPED": 0
+    },
+    "all_effective_loadings_equal_calibrated_loadings": true,
+    "maximum_absolute_loading_change": 0.0,
+    "embedded_table_bodies_unchanged": 13,
+    "Table2_files_unchanged_since_R8": true,
+    "primary_training_mean_shift_from_clipping": 0.0,
+    "basis": "Recorded canonical loadings and branch flags plus independently checked production-composer mean identity; no production simulation rerun."
+  },
+  "mean_checks": {
+    "assertions_passed": 192,
+    "cases_checked": 24,
+    "clipped_cases": 6,
+    "stress_factors_checked": 3,
+    "exact_floor_boundary_retains_loading": true,
+    "maximum_mean_identity_error": 4.440892098500626e-16,
+    "maximum_training_mean_identity_error": 4.440892098500626e-16,
+    "original_audit_example": {
+      "effective_beta": 1.8546983526894383,
+      "market_mean": 0.15889710182312675,
+      "mean_shift": -0.18198511247090104,
+      "predicted_shift": -0.18198511247090113
+    }
+  },
+  "builds_passed": [
+    "make -C arxiv-paper pdf",
+    "make -C jfds-paper all"
+  ],
+  "logs": {
+    "arxiv": {
+      "sha256": "4d6044fb0981529abd7ab275274f3951d96ec67eb5d5538625096018500c4547",
+      "undefined_or_duplicate_references": false,
+      "overfull_boxes": []
+    },
+    "jfds": {
+      "sha256": "33d8ef06ffe5a850b1e566a918a2d12cb96dce4da92c980aeb8c0c9d8cb6f79d",
+      "undefined_or_duplicate_references": false,
+      "overfull_boxes": [
+        "Overfull \\hbox (11.18748pt too wide) detected at line 127"
+      ]
+    },
+    "supplement": {
+      "sha256": "f81878ae89c6c263eb937b4412b0f199f396b8bd19b4d8e272de502e51e1990b",
+      "undefined_or_duplicate_references": false,
+      "overfull_boxes": [
+        "Overfull \\hbox (10.26515pt too wide) in paragraph at lines 107--115",
+        "Overfull \\hbox (36.36295pt too wide) detected at line 131",
+        "Overfull \\hbox (3.51581pt too wide) in paragraph at lines 1693--1701"
+      ]
+    }
+  },
+  "only_four_preexisting_jfds_width_warnings": true,
+  "jfds_installed_outputs_match": true,
+  "accepted_figure4_assets_unchanged": true,
+  "figure_sha256": {
+    "arxiv-paper/figs/main/Fig06-Variance-Preservation.pdf": "c87dcf1da8a2646483853916f4cda8dbcf21b2d71acdd2cce9a7eb02a56f3032",
+    "arxiv-paper/figs/main/Fig03-Model-Comparison.pdf": "545a1ec8e194e88027e9c902e2e0766270512d725182cf31317e65154528d421",
+    "jfds-paper/figs/main/Fig06-Variance-Preservation.pdf": "c87dcf1da8a2646483853916f4cda8dbcf21b2d71acdd2cce9a7eb02a56f3032",
+    "jfds-paper/figs/main/Fig03-Model-Comparison.pdf": "545a1ec8e194e88027e9c902e2e0766270512d725182cf31317e65154528d421"
+  },
+  "supplement_labels": {
+    "arxiv": {
+      "eq:supp-clipped-mean": {
+        "number": "S46",
+        "page": 45
+      },
+      "eq:supp-training-mean-shift": {
+        "number": "S49",
+        "page": 46
+      },
+      "tab:stress": {
+        "number": "S9",
+        "page": 43
+      },
+      "tab:fallback_assets": {
+        "number": "S17",
+        "page": 52
+      },
+      "tab:fallback_sensitivity": {
+        "number": "S18",
+        "page": 53
+      }
+    },
+    "supplement": {
+      "eq:supp-clipped-mean": {
+        "number": "S46",
+        "page": 28
+      },
+      "eq:supp-training-mean-shift": {
+        "number": "S49",
+        "page": 29
+      },
+      "tab:stress": {
+        "number": "S9",
+        "page": 26
+      },
+      "tab:fallback_assets": {
+        "number": "S17",
+        "page": 38
+      },
+      "tab:fallback_sensitivity": {
+        "number": "S18",
+        "page": 40
+      }
+    }
+  },
+  "visual_checks": {
+    "overview": "Inspected 12 contact sheets covering all 125 pages across the three PDFs; no new clipping, overlap, detached captions, or isolated single-line paragraph fragments observed.",
+    "render_long_edge_pixels": 900,
+    "contact_sheet_page_long_edge_pixels": 450,
+    "detail_dpi": 120,
+    "detail_pages": {
+      "arxiv": [
+        7,
+        43,
+        45,
+        46
+      ],
+      "jfds": [
+        11,
+        25
+      ],
+      "supplement": [
+        26,
+        28,
+        29
+      ]
+    },
+    "detail_result": "Mean-shift equations, clipping explanation, stress caption, and revised stress interpretation are readable and fit their pages.",
+    "page_counts": {
+      "arxiv": 53,
+      "jfds": 31,
+      "supplement": 41
+    },
+    "render_sha256": {
+      "pdf-qa/arxiv-detail-07.png": "f302150622a15189f5581981fe7b004b7e038d6d371017a7543a271b1da48794",
+      "pdf-qa/arxiv-detail-43.png": "590ad36357a1065f5e9fe8a68f9ff2315507c2aaeec6e73ca0f7efd9b232f5bc",
+      "pdf-qa/arxiv-detail-45.png": "e191619c171d6a3e4f91020381dc4398c5d55c7aef41b08952ad061413eb0065",
+      "pdf-qa/arxiv-detail-46.png": "fcb6c2fb639ced98dc72e04a920980fc1776e3efdf036eeab58ae6523c769257",
+      "pdf-qa/jfds-detail-11.png": "c4fea10f0b615f55fc2754cb781f1f69aeb0f97d28233222f1f5444fb65485e5",
+      "pdf-qa/jfds-detail-25.png": "c3b7e08c0b6c15a9e68cd6c1eb29e2b40d4a1b6d2cb91aa6a309d77dec747e8f",
+      "pdf-qa/supplement-detail-26.png": "79f9368a34a9e14b602be295da5f9e5e629c020fd6a789b315373e5393f23a49",
+      "pdf-qa/supplement-detail-28.png": "78fbd1d9e9828707bd8d771cc9c7ed99586f0699b20307844f7b3f859adad044",
+      "pdf-qa/supplement-detail-29.png": "774ca6a06fe59d04d05eec5f46cceac6cee9f0f056c463e66fd2332c15c12b82"
+    }
+  },
+  "release_archives_regenerated": false,
+  "changes_committed": false,
+  "scope_limits": [
+    "The retained-intercept production construction is unchanged.",
+    "Historical stress clipping percentages were retained, not rerun in this correction.",
+    "Primary training evidence uses verified canonical loadings and the separately checked composer mean identity, without regenerating production paths.",
+    "R10, R11, and additional audit follow-ups remain open."
+  ],
+  "git_diff_check_passed": true,
+  "documentation_links_checked": 14,
+  "arxiv_pdf_opened_in_preview": true
+}

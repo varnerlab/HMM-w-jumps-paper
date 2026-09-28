@@ -1,13 +1,13 @@
 # Fdb version 4
-["bibtex Supplement_v1"] 1788709561.80989 "Supplement_v1.aux" "Supplement_v1.bbl" "Supplement_v1" 1788709790.21707 0
+["bibtex Supplement_v1"] 1789503419.31876 "Supplement_v1.aux" "Supplement_v1.bbl" "Supplement_v1" 1789503420.40326 0
   "./References_v1.bib" 1787757121.48258 33756 56ead326606c8da6a1366c439190fd6e ""
   "/usr/local/texlive/2025/texmf-dist/bibtex/bst/elsarticle/elsarticle-harv.bst" 1736456871 30002 e0380d61aa45e0af6c9b40308561c934 ""
-  "Supplement_v1.aux" 1788709789.8927 20658 b14b0e48f2dfc206d4da303d393fd5ca "pdflatex"
+  "Supplement_v1.aux" 1789503420.09289 27165 2cd921cc3b72e1d52424be571dd0a59b "pdflatex"
   (generated)
   "Supplement_v1.bbl"
   "Supplement_v1.blg"
   (rewritten before read)
-["pdflatex"] 1788709789.25876 "Supplement_v1.tex" "Supplement_v1.pdf" "Supplement_v1" 1788709790.21722 0
+["pdflatex"] 1789503419.42128 "Supplement_v1.tex" "Supplement_v1.pdf" "Supplement_v1" 1789503420.40343 0
   "/usr/local/texlive/2025/texmf-dist/fonts/enc/dvips/cm-super/cm-super-t1.enc" 1136849721 2971 def0b6c1f0b107b3b936def894055589 ""
   "/usr/local/texlive/2025/texmf-dist/fonts/map/fontname/texfonts.map" 1577235249 3524 cb3e574dea2d1052e39280babc910dc8 ""
   "/usr/local/texlive/2025/texmf-dist/fonts/tfm/jknappen/ec/ecbx0800.tfm" 1136768653 3584 269b66e921ba58750c12f7f1c8ea3ebd ""
@@ -222,11 +222,11 @@
   "/usr/local/texlive/2025/texmf-var/fonts/map/pdftex/updmap/pdftex.map" 1747946047 5467155 19efa205003f9ecad95fbbaa6ff24da1 ""
   "/usr/local/texlive/2025/texmf-var/web2c/pdftex/pdflatex.fmt" 1741450574 3345740 46b66fdb0378f7bf5921b5eabf1762b8 ""
   "/usr/local/texlive/2025/texmf.cnf" 1741450484 577 418a7058ec8e006d8704f60ecd22c938 ""
-  "Paper_v1.aux" 1788709788.82993 17417 922e6b45630703049b07c0d0d605e7cf ""
+  "Paper_v1.aux" 1789503417.89231 18730 49aa06cd4adcb7fb0dfbd662adce2f73 ""
   "Paper_v1.tex" 1788709461.15468 4740 d49057baad69e693ae006a8faa61390a ""
-  "Supplement_v1.aux" 1788709789.8927 20658 b14b0e48f2dfc206d4da303d393fd5ca "pdflatex"
-  "Supplement_v1.bbl" 1788709561.90773 4745 3690dff0df83fcb583c126a4ba3cf031 "bibtex Supplement_v1"
-  "Supplement_v1.spl" 1788709789.89381 45 232dabbaad9bc5d8ac6adddf2e0c3ec8 "pdflatex"
+  "Supplement_v1.aux" 1789503420.09289 27165 2cd921cc3b72e1d52424be571dd0a59b "pdflatex"
+  "Supplement_v1.bbl" 1789503419.41791 4745 3690dff0df83fcb583c126a4ba3cf031 "bibtex Supplement_v1"
+  "Supplement_v1.spl" 1789503420.09422 45 232dabbaad9bc5d8ac6adddf2e0c3ec8 "pdflatex"
   "Supplement_v1.tex" 1786397313.28506 995 48d46a230174b4f27956f3946b66f98a ""
   "elsarticle-preamble.tex" 1786397313.10666 1456 619ba899c80cd3ab1ad263d9d77cdee8 ""
   "figs/supplement/FigS01-Cross-Covariance.pdf" 1778087166.76727 36485 8e76797536ec7343872f8c90fcef95ac ""
@@ -235,14 +235,19 @@
   "figs/supplement/FigS04-Statistical-Validation.pdf" 1778092643.70494 126304 916721a0ecadb898974ee3c17dd04dad ""
   "figs/supplement/FigS05-Model-Internals.pdf" 1779626269.1054 85513 b06298a721242115421bba234fbb8aa7 ""
   "figs/supplement/FigS06-Branch-Map.pdf" 1786393407.01687 69889 85126cf471eafdb7d15260e42c5e43a9 ""
-  "sections/appendix.tex" 1788709461.15243 88622 cb250e36f70a2acbdead348dabe4bdda ""
-  "sections/tables/table2_by_branch.tex" 1786393284.68171 322 e992fc21a34ec6fbb40f6202a25d7c29 ""
-  "sections/tables/table3_by_beta_bucket.tex" 1786985744.24034 1561 e6f3b3d793fa35fe3f3f4e63c4adc8e9 ""
+  "sections/appendix.tex" 1789503414.45593 118386 366d8a097af33517747d0b490b0bc7f2 ""
+  "sections/tables/table2_by_branch.tex" 1789417933.97804 322 e992fc21a34ec6fbb40f6202a25d7c29 ""
+  "sections/tables/table3_by_beta_bucket.tex" 1789417934.63888 1561 e6f3b3d793fa35fe3f3f4e63c4adc8e9 ""
   "sections/tables/tableS_acf_prediction.tex" 1788702567.68908 556 81767759f0ae25c4e622ce8c59f61c3e ""
+  "sections/tables/tableS_centering_control.tex" 1789408494.91663 905 51afdb6c8c3fb98daa54beef3664c51d ""
+  "sections/tables/tableS_fallback_assets.tex" 1789492353.06636 1586 c8249ac290d0af6788d917c173e131fb ""
+  "sections/tables/tableS_fallback_sensitivity.tex" 1789492353.06669 1067 876bc20d4f5a051da621c28ca0dde78b ""
   "sections/tables/tableS_generator_quantities.tex" 1788702567.68902 2364 38e1af410455c4bf9803a5ef993981c8 ""
   "sections/tables/tableS_jump_ablation_episodes.tex" 1788701589.77499 403 6b8ef841f29898d772858ab0c89e601b ""
   "sections/tables/tableS_jump_ablation_uncertainty.tex" 1788701589.77488 734 e3af4d35b200ad8b84ee3ba73d92ee42 ""
   "sections/tables/tableS_kurt_composition.tex" 1788702567.68914 314 4b91cf420575196bab278724e9a35d37 ""
+  "sections/tables/tableS_var_common.tex" 1789416290.78201 503 6c56dbd4979ab21476820bcc3622329e ""
+  "sections/tables/tableS_var_convergence.tex" 1789416290.78169 627 60acb9858e4a6410bc9b56ef0d876817 ""
   (generated)
   "Supplement_v1.aux"
   "Supplement_v1.log"

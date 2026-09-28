@@ -1,15 +1,20 @@
 # =============================================================================
 # 05-Figures.jl
 #
-# Produces the paper figures from data/results.jld2.
+# Produces the paper figures from verified canonical training results.
+# Figure 4 also requires scripts/15-Variance-Diagnostic.jl. Use
+# --preservation-only to rebuild Figure 4 without regenerating SI figures.
 #
 # Outputs:
-#   jfds-paper/figs/main/Fig06-Variance-Preservation.pdf
+#   {arxiv-paper,jfds-paper}/figs/main/Fig06-Variance-Preservation.pdf
 #   jfds-paper/figs/supplement/FigS02-Tail-Preservation.pdf
 #   jfds-paper/figs/supplement/FigS06-Branch-Map.pdf
 # =============================================================================
 
-include(joinpath(@__DIR__, "..", "Include.jl"))
+include(joinpath(@__DIR__, "..", "src", "TrainingSetup.jl"))
+using Plots, Colors
+include(joinpath(_PATH_TO_SRC,"VarianceDiagnostic.jl"))
+all(==("--preservation-only"),ARGS) || error("Usage: 05-Figures.jl [--preservation-only]")
 
 const _PAPER_ROOT    = abspath(joinpath(_ROOT, "..", "..", "jfds-paper"))
 const _PATH_TO_MAIN_FIGS = joinpath(_PAPER_ROOT, "figs", "main")
@@ -34,8 +39,9 @@ default(
 # ── 1. Load artifacts ───────────────────────────────────────────────────────
 @info "Loading results + calibration..."
 results_filename = get(ENV, "HMM_PAPER_RESULTS_FILE", "results.jld2")
-r   = load(resolve_data_artifact(results_filename))["results"]
-cal = load(resolve_data_artifact("sim-calibration.jld2"))["calibration"]
+results_filename=="results.jld2" || error("Paper figures require verified canonical results.jld2")
+r, cal, training_metadata = load_canonical_training()
+variance_paths, variance_summary, variance_metadata = load_variance_diagnostic(training_metadata)
 uni = load(resolve_data_artifact("universe.jld2"))
 
 G    = uni["growth_rates"]
@@ -146,56 +152,10 @@ function binned_median_line!(plt, df::DataFrame, ycol::Symbol;
     return plt
 end
 
-# ── 3. Figure 1: KS pass rate + variance ratio ──────────────────────────────
-@info "Building Figure 1: preservation headline..."
-
-# Match Fig01-Empirical-Motivation rather than the generic defaults used by
-# the supplementary diagnostics.
-const FIG_BG   = colorant"#f2f2f2"
-const FIG_RED  = colorant"#e63946"
-const FIG_NAVY = colorant"#1d3557"
-const FIG1_COLORS = Dict("naive" => FIG_NAVY, "hybrid" => FIG_RED)
-
-p1a = plot(title = "(a) KS Pass Rate per Ticker",
-           xlabel = "Calibrated \$\\beta\$",
-           ylabel = "KS Pass Rate (\$\\alpha = 0.05\$)",
-           ylims = (-0.02, 1.05),
-           legend = :topright,
-           bg = FIG_BG, background_color_outside = :white,
-           framestyle = :box, fontfamily = "sans-serif",
-           titlefontsize = 13, guidefontsize = 14, tickfontsize = 10,
-           foreground_color_legend = :transparent)
-const _FIG1_COMPOSERS = ("naive", "hybrid")
-scatter_composers!(p1a, summary, :ks_pass; markersize = 3.5, alpha = 0.45,
-                   composers = _FIG1_COMPOSERS, colors = FIG1_COLORS)
-kernel_smooth_line!(p1a, summary, :ks_pass; composers = _FIG1_COMPOSERS,
-                    colors = FIG1_COLORS, bandwidth = 0.15)
-
-p1b = plot(title = "(b) Variance Preservation",
-           xlabel = "Calibrated \$\\beta\$",
-           ylabel = "\$\\mathrm{Var}(g)\\,/\\,\\sigma^2_{\\mathrm{gen}}\$",
-           legend = false,
-           bg = FIG_BG, background_color_outside = :white,
-           framestyle = :box, fontfamily = "sans-serif",
-           titlefontsize = 13, guidefontsize = 14, tickfontsize = 10)
-scatter_composers!(p1b, summary, :var_rel; markersize = 3.5, alpha = 0.45, labels = false,
-                   composers = _FIG1_COMPOSERS, colors = FIG1_COLORS)
-βs_dense = range(0.0, maximum(summary.beta_cal) * 1.02; length = 200)
-σ²_gen_med = median(values(σ²_real))
-naive_ref = 1.0 .+ βs_dense.^2 .* σ²_m / σ²_gen_med
-plot!(p1b, βs_dense, naive_ref;
-      label = nothing, color = FIG_NAVY, ls = :dot, lw = 2)
-hline!(p1b, [1.0]; label = nothing, color = FIG_RED, ls = :dash, lw = 2)
-annotate!(p1b, βs_dense[end-10], naive_ref[end-10] * 1.02,
-          text("naive theory \$1+\\rho\$", FIG_NAVY, 9, :right))
-annotate!(p1b, 0.05, 1.03, text("hybrid target", FIG_RED, 9, :left))
-
-fig1 = plot(p1a, p1b;
-            layout = (1, 2), size = (1200, 450),
-            left_margin = 12Plots.mm, right_margin = 3Plots.mm,
-            bottom_margin = 12Plots.mm, top_margin = 3Plots.mm)
-savefig(fig1, joinpath(_PATH_TO_MAIN_FIGS, "Fig06-Variance-Preservation.pdf"))
-@info "Wrote main/Fig06-Variance-Preservation.pdf"
+# ── 3. Figure 4: paired marginal fit and generator-variance ratios ──────────
+include(joinpath(_PATH_TO_SRC,"PreservationFigure.jl"))
+write_preservation_figure(variance_summary,variance_metadata)
+"--preservation-only" in ARGS && exit()
 
 # ── 4. Figure 2: kurtosis (clipped) and Hill index ──────────────────────────
 #

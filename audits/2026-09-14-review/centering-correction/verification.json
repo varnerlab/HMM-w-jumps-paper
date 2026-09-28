@@ -1,0 +1,81 @@
+{
+  "status": "complete under retained finite-horizon scope",
+  "paired_paths": 250800,
+  "paths_per_method": {
+    "naive": 42300,
+    "gaussian": 42300,
+    "hybrid": 42300,
+    "residual_jumphmm": 42300,
+    "block_bootstrap": 42300,
+    "garch_t": 39300
+  },
+  "maximum_absolute_centered_residual_mean": 9.864367698187942e-16,
+  "runtime_checks": {
+    "all_control_residual_means_zero": true,
+    "fast_ad_matches_reference": true,
+    "native_full_return_methods_unchanged": true,
+    "variance_beta_r2_kurtosis_unchanged": true
+  },
+  "manuscript_additions_synchronized": true,
+  "production_change_docstring_only": true,
+  "pdf_checks": {
+    "arxiv-paper/Paper_v1.pdf": {
+      "sha256": "75ffeb8def6a99bd44fcb7cb38ef7a1919684ea9e9ef795a912aa62f8bbd23f0",
+      "pages": 46,
+      "undefined_references": false,
+      "new_overfull_boxes": false,
+      "preexisting_overfull_widths_pt": []
+    },
+    "jfds-paper/Paper_v1.pdf": {
+      "sha256": "6f3b68289f4220e9cb34b432d17f89c408ad4e3cfc17617935625238394c96ba",
+      "pages": 29,
+      "undefined_references": false,
+      "new_overfull_boxes": false,
+      "preexisting_overfull_widths_pt": [
+        "11.18748"
+      ]
+    },
+    "jfds-paper/Supplement_v1.pdf": {
+      "sha256": "8901aa1baeb887e1da529dd9688130811dcde9f93879f13973f49292b67d6d78",
+      "pages": 32,
+      "undefined_references": false,
+      "new_overfull_boxes": false,
+      "preexisting_overfull_widths_pt": [
+        "10.26515",
+        "36.36295",
+        "3.51581"
+      ]
+    }
+  },
+  "jfds_output_copies_match": true,
+  "git_diff_check": true,
+  "visual_review": "Changed passages, equations, table S14, and adjacent layout inspected; no new defects. Existing equation-width warnings remain.",
+  "visually_reviewed_pages": {
+    "arxiv": [
+      1,
+      6,
+      8,
+      11,
+      13,
+      14,
+      43,
+      46
+    ],
+    "jfds": [
+      1,
+      9,
+      13,
+      18,
+      19,
+      23,
+      25,
+      26
+    ],
+    "supplement": [
+      25,
+      26,
+      30,
+      31
+    ]
+  }
+}

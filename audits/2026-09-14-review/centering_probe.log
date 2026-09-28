@@ -1,0 +1,24 @@
+AAPL naive T=249: terminal residual log-return SD 9.88065e-17 -> 0.272269; clipped 0/1000
+AAPL hybrid T=249: terminal residual log-return SD 9.28992e-17 -> 0.238827; clipped 0/1000
+AAPL naive T=2766: terminal residual log-return SD 6.55585e-16 -> 0.872631; clipped 0/1000
+AAPL hybrid T=2766: terminal residual log-return SD 4.47462e-16 -> 0.599073; clipped 0/1000
+JNJ naive T=249: terminal residual log-return SD 6.35862e-17 -> 0.163771; clipped 0/1000
+JNJ hybrid T=249: terminal residual log-return SD 5.77333e-17 -> 0.153557; clipped 0/1000
+JNJ naive T=2766: terminal residual log-return SD 3.98066e-16 -> 0.568488; clipped 0/1000
+JNJ hybrid T=2766: terminal residual log-return SD 3.51168e-16 -> 0.483525; clipped 0/1000
+QQQ naive T=249: terminal residual log-return SD 8.14902e-17 -> 0.200379; clipped 0/1000
+QQQ hybrid T=249: terminal residual log-return SD 2.09046e-17 -> 0.048464; clipped 0/1000
+QQQ naive T=2766: terminal residual log-return SD 5.02856e-16 -> 0.689272; clipped 0/1000
+QQQ hybrid T=2766: terminal residual log-return SD 1.90367e-16 -> 0.253801; clipped 0/1000
+
+Training comparison (three illustrative assets, not a universe-wide ranking):
+6×8 DataFrame
+ Row │ ticker  method  centered_ks_pass  fixed_mean_ks_pass  centered_median_w1  fixed_mean_median_w1  centered_median_mean_error  fixed_mean_median_mean_error
+     │ String  String  Float64           Float64             Float64             Float64               Float64                     Float64
+─────┼──────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────
+   1 │ AAPL    naive                0.0                 0.0            0.889865              0.889827                 5.55112e-17                     0.0539592
+   2 │ AAPL    hybrid              89.5                82.8            0.193371              0.198361                 2.77556e-17                     0.0369675
+   3 │ JNJ     naive                0.9                 0.7            0.352478              0.352837                 2.77556e-17                     0.034532
+   4 │ JNJ     hybrid              92.9                85.7            0.130229              0.133425                 2.77556e-17                     0.0294198
+   5 │ QQQ     naive                0.0                 0.0            1.00624               1.00679                  2.77556e-17                     0.0404184
+   6 │ QQQ     hybrid             100.0                99.9            0.116841              0.118111                 0.0                             0.0146836

@@ -1,0 +1,44 @@
+{
+  "requested_model": "claude-fable-5-1[1m]",
+  "started_utc": "2026-09-14T16:13:59.011467+00:00",
+  "prompt_sha256": "cb859a1a7e5bb458daa733a26834fdab4232ab23b66fb4a47e1c18fbe4c5a9a0",
+  "tools": [],
+  "scope": "Corrections to the prior report; no additional repository source supplied.",
+  "exit_code": 0,
+  "finished_utc": "2026-09-14T16:15:01.744859+00:00",
+  "result": {
+    "is_error": false,
+    "modelUsage": {
+      "claude-haiku-4-5-20251001": {
+        "inputTokens": 5326,
+        "outputTokens": 19,
+        "cacheReadInputTokens": 0,
+        "cacheCreationInputTokens": 0,
+        "webSearchRequests": 0,
+        "costUSD": 0.005421,
+        "contextWindow": 200000,
+        "maxOutputTokens": 32000,
+        "thinkingTokens": 0,
+        "canonicalModel": "claude-haiku-4-5",
+        "provider": "firstParty",
+        "costBasis": "list"
+      },
+      "claude-fable-5-1": {
+        "inputTokens": 2,
+        "outputTokens": 4548,
+        "cacheReadInputTokens": 0,
+        "cacheCreationInputTokens": 9951,
+        "webSearchRequests": 0,
+        "costUSD": 0.42644,
+        "contextWindow": 1000000,
+        "maxOutputTokens": 64000,
+        "thinkingTokens": 2492,
+        "canonicalModel": "claude-fable-5-1",
+        "provider": "firstParty",
+        "costBasis": "list"
+      }
+    },
+    "duration_ms": 62296,
+    "terminal_reason": "completed"
+  }
+}

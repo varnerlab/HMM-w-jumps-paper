@@ -1,0 +1,6 @@
+Test Summary:              | Pass  Total  Time
+Kupiec boundary likelihood |  238    238  0.2s
+Test Summary:                        | Pass  Total  Time
+Kupiec interior and input validation |  509    509  0.0s
+Test Summary:                                  | Pass  Total  Time
+Backtest propagates corrected boundary results |    8      8  0.1s

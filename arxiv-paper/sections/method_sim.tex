@@ -52,7 +52,18 @@ Therefore, $T^{-1}\sum_t\tg_i^{\mathrm c}(t)=0$ exactly. Subtracting a
 constant leaves both the sample variance and the sample covariance with
 $g_m$ unchanged. We used the centered construction
 $g_i=\alpha_i+\beta_i g_m+\tg_i^{\mathrm c}$ as the \emph{naive}
-benchmark.
+benchmark. This choice imposes a zero residual sum over the requested
+horizon, which is stronger than a zero population mean. Scaling
+preserves that constraint in every hybrid branch. For a fixed market
+path and effective loading, the terminal cumulative log return has no
+asset-specific residual uncertainty, although daily and intermediate
+returns still vary. A clipped loading can vary between draws and
+produce terminal variation through the market term. Because centering
+and scaling use statistics of the entire draw, the construction depends
+on the chosen horizon. We therefore evaluated it as a constrained
+finite-horizon construction for daily distributional fit and factor
+recovery; it does not preserve cumulative residual uncertainty
+(Online Appendix~\ref{sec:supp-sim-derivations}).
 
 Centering corrected the mean but not the variance. The path variance
 $\sigma_{\gen,i}^2=\Var(\tg_i)=\Var(\tg_i^{\mathrm c})$ is the
@@ -117,7 +128,16 @@ applied the piecewise correction in Eq.~\eqref{eq:clip}.
 The correction retained the sign of the calibrated loading $\beta_i$.
 We used $f=0.10$, so the asset-specific draw contributed at least
 $10\%$ of the target variance for non-tracker assets
-(Table~\ref{tab:hyperparams}). Online
+(Table~\ref{tab:hyperparams}). We retained the fitted intercept
+$\alpha_i$ when clipping changed the loading. Because the scaled
+residual had zero sample mean, the composed mean was
+$\overline{g}_i=\alpha_i+\beta_i^{\eff}\overline{g}_m$, where
+$\overline{g}_m$ is the supplied market path's mean. Clipping therefore
+changed the mean by $(\beta_i^{\eff}-\beta_i)\overline{g}_m$ relative
+to the calibrated linear mean on that same market path. The clipped
+branch retained the intercept, generator-variance budget, and residual
+floor; it did not retain the original mean unless
+$\overline{g}_m=0$. Online
 Appendix~\ref{sec:supp-residual-choice} examines the substitution of
 a full-return draw for the residual: it derives what the construction
 preserves exactly and how the composed shape dilutes as $\rho_i$
@@ -247,7 +267,15 @@ residual series with the Politis--Romano stationary
 bootstrap~\cite{politisRomano1994} and a mean block length of
 $\sqrt{T}\approx 50$. The GARCH(1,1)-$t$ method fitted a
 conditional-variance model to each residual series~\cite{bollerslev1986}.
-We excluded GARCH fits that violated the stationarity condition.
+We required optimizer convergence, a finite likelihood, finite
+coefficients, a positive variance intercept, nonnegative ARCH and
+GARCH coefficients whose sum was below one, and Student-$t$ degrees
+of freedom above two. Accepted fits also required finite positive
+unconditional variance and a finite, nonconstant trial path. All $423$
+optimizations converged; $30$ fits failed the stationarity condition,
+leaving $393$ eligible training assets. The cached models included
+per-ticker acceptance diagnostics, which were checked again before
+evaluation.
 For each ticker, the naive and corrected methods received the same
 JumpHMM draw, which isolated the effect of the variance correction. The
 other four methods generated their own residual draws. JumpHMM names
@@ -255,6 +283,16 @@ identify the generator implementation; its jump mechanism was disabled
 in both full-return and residual fits for this six-method comparison.
 We did not use the optional cross-sectional rank reorder because the
 experiment tested each ticker's marginal construction separately.
+To isolate the effect of the different mean constraints, we also
+compared each method's native path with the same path after subtracting
+its residual mean over the full training horizon
+(Table~\ref{tab:centering_control}). We held the fitted models,
+random draws, market path, effective loadings, and residual scales
+fixed. Naive and hybrid paths already satisfied this constraint.
+The control used $100$ replications per asset and the same $393$
+assets with available, simulatable cached GARCH models for all six
+methods. Online Appendix~\ref{sec:supp-centering-control} gives the
+control definition and separates centering effects from model fitting.
 
 We evaluated each composed series on factor recovery, distributional
 fit, and variance preservation. For factor recovery, a new OLS
@@ -269,8 +307,14 @@ For variance preservation, we used the composed-to-generator variance
 ratio. A ratio of one indicates equal variances.
 Online Appendix~\ref{sec:supp-validation} gives the metric definitions.
 We ran $100$ replications per ticker with seed $1234$, producing
-$42{,}300$ series per method. Pass rates used the significance level
+$42{,}300$ series for each method except GARCH, which produced
+$39{,}300$ series across its $393$ eligible assets. Pass rates used the significance level
 $\alpha=0.05$.
+We archived all $250{,}800$ training-path scores with the input,
+fitted-model, source-code, and configuration fingerprints. The aggregate,
+branch, and loading-quartile tables were generated from this same
+validated run, with matching method-level summaries distributed
+alongside the path scores.
 For the six-method holdout evaluation, we froze all marginal fits,
 residual models, and SIM parameters estimated from $2014$--$2024$
 (Tables~\ref{tab:oos_composition} and \ref{tab:var}). We evaluated the
@@ -289,18 +333,34 @@ budgeted for the training market variance, and variation in the
 simulated market variance could move the composed variance away from
 the generator target even when the sample cross-covariance was zero.
 Observed $2025$ SPY and asset returns were used only for scoring. We repeated the KS, AD,
-Wasserstein-1, variance, kurtosis, and one-day left-tail Value-at-Risk
-(VaR) evaluations with
-$100$ paths per ticker. For each VaR threshold, we also used Kupiec's
-unconditional-coverage test to compare the observed number of exceedances
-with the nominal rate~\cite{kupiec1995}. Because goodness-of-fit tests
-have less power on $249$ observations than on $2{,}766$, we also compared each
-synthetic path with a randomly selected contiguous $249$-day block
-from the training history. We first averaged replication-level
-results within ticker and then summarized across tickers so each
-asset received equal weight. No $2025$ data were used for fitting. The
-$249$-day training blocks provided a comparison at the same sample
-length as the holdout period.
+Wasserstein-1, variance, and kurtosis evaluations with $100$ paths per
+ticker. Because goodness-of-fit tests have less power on $249$
+observations than on $2{,}766$, we also compared each synthetic path
+with a randomly selected contiguous $249$-day block from the training
+history. We first averaged replication-level results within ticker
+and then summarized across tickers so each asset received equal
+weight. The $249$-day training blocks provided a comparison at the
+same sample length as the holdout period.
+
+To isolate the generators' one-day tail thresholds from estimation
+noise in a single short path, we used a separate simulation ensemble
+for the Value-at-Risk (VaR) evaluation (Table~\ref{tab:var}). For each
+asset and method, we pooled the daily log returns from $5{,}000$
+separately constructed $249$-day paths, giving $1{,}245{,}000$
+observations for each lower-tail quantile. Centering, scaling, market
+variance, and initialization followed the same conventions as the
+holdout scorecard. We fixed one threshold per asset, method, and
+coverage level before counting exceedances on the observed $2025$
+returns. The ensemble size and convergence checkpoints were fixed
+before holdout scoring; $1{,}000$ additional independent paths checked
+simulation tail probabilities. Each threshold therefore described a
+uniformly selected day of the retained $249$-day construction. Pooling
+did not remove its horizon dependence or zero-sum residual constraint.
+We reported mean exceedance rates and cross-ticker standard deviations
+descriptively. These summaries did not treat simulated days, dependent
+holdout observations, or assets sharing a market as independent
+replications for a coverage significance test. No $2025$ data were
+used for fitting or threshold calibration.
 
 
 \paragraph{Jump-enabled multi-asset comparison.}
@@ -330,7 +390,12 @@ seeds ($1234$, $2345$, $3456$, and $4567$), giving $1{,}000$
 replications per asset, setting, and method. We measured absolute-return
 ACF-MAE over lags $1$--$25$, with lags $1$--$60$ as a secondary check,
 and repeated the marginal and variance diagnostics. These common lag
-windows differ from the single-asset comparison's $252$-lag score.
+windows used the mean of each path's absolute ACF errors. The
+single-asset comparison instead measured the error after averaging
+the path ACFs, using $252$ lags in training and $248$ in the
+holdout (Eqs.~\eqref{eq:acf-ensemble-error} and~\eqref{eq:acf-path-error}).
+The resulting temporal scores have different estimands and cannot
+be compared directly across the two experiments.
 We included all paths in the primary summaries and estimated Monte
 Carlo uncertainty from replication-level cross-ticker averages, keeping
 assets together under their shared market path. The intervals describe

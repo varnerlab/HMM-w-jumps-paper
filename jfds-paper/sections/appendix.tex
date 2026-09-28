@@ -352,45 +352,157 @@ generator would contribute in a live comparison.
 \section{Validation metric definitions}
 \label{sec:supp-validation}
 
-To make the validation criteria reproducible, we defined the
-distributional and tail metrics reported in the main results. The
-two-sample Kolmogorov--Smirnov (KS) statistic
-between the empirical cumulative distribution functions (CDFs) of
-the observed and simulated growth-rate samples ($G_{\rm obs}$ of length $n$ and $G_{\rm sim}$ of length $m$)
-is $D = \sup_x |F_n(x) - F_m(x)|$ \cite{kolmogorov1933, smirnov1948};
-the test rejects when $D$ exceeds the critical value at level
-$\alpha = 0.05$. The Anderson--Darling (AD) statistic places greater weight
-on the tails via the integral
-$A^2 = nm/(n+m) \int [F_n(x) - F_m(x)]^2 / [F(x)(1-F(x))] \, dF(x)$,
-where $F$ is the pooled empirical CDF \cite{andersonDarling1952}. The
-Wasserstein-$1$ distance between two empirical distributions of equal
-length is the average of sorted-quantile differences:
-\begin{equation}
-W_1 = \frac{1}{n} \sum_{i=1}^{n} \big| G_{\rm obs}^{(i)} - G_{\rm sim}^{(i)} \big|,
-\label{eq:wasserstein}
-\end{equation}
-with $G^{(i)}$ the $i$th order statistic. The Hill upper-tail index is the classical
-order-statistic estimator:
-\begin{equation}
-\hat\xi = \frac{1}{k-1} \sum_{i=1}^{k-1}
-  \log\!\left( \frac{X_{(i)}}{X_{(k)}} \right),
-\label{eq:hill}
-\end{equation}
-with $X_{(1)} \ge X_{(2)} \ge \dots$ the ordered upper-tail
-absolute returns; $k$ is set to the upper $5\%$ of the
-sample. For a Pareto-tailed distribution with shape $\alpha$,
-$\hat\xi \approx 1/\alpha$. For the Hellinger calculation, we binned
-both samples on a common grid and normalized the bin counts to
-probability masses $p$ and $q$. Their distance is:
-\begin{equation}
-H(p, q) = \frac{1}{\sqrt{2}} \, \Big\| \sqrt{p} - \sqrt{q} \Big\|_2
-\;\in\; [0, 1],
-\label{eq:hellinger}
-\end{equation}
-with $H = 0$ for identical probability masses and $H = 1$ for
-disjoint supports.
+To distinguish marginal agreement from temporal agreement, we used
+separate distributional, tail, and autocorrelation summaries
+(Tables~\ref{tab:model_comparison} and~\ref{tab:jump_ablation}).
+For one observed series $x=(x_1,\ldots,x_n)$ and $R$ synthetic
+paths $y^{(r)}$ of the same length, each distributional comparison
+used one complete synthetic path and the fixed observed history.
+The two-sample Kolmogorov--Smirnov (KS) statistic is the largest
+absolute difference between their empirical cumulative distribution
+functions, $D=\sup_z|F_x(z)-F_{y^{(r)}}(z)|$
+\cite{kolmogorov1933,smirnov1948}. The Anderson--Darling (AD)
+comparison gives greater weight to differences near the tails
+\cite{andersonDarling1952}. We used the approximate two-sample KS
+test and the modified, tie-aware two-sample AD calculation in
+\texttt{HypothesisTests.jl}, with asymptotic $p$-values. A path
+passed when $p>0.05$, and the pass percentage was $100$ times the
+fraction of passing paths. Dependence within returns, shared observed
+data, and parameter fitting prevent these percentages from being
+interpreted as calibrated significance levels or evidence of model
+equivalence. They describe agreement with the supplied history.
 
-We abbreviate mean absolute error in the autocorrelation function as ACF-MAE.
+To quantify marginal discrepancies without a pass threshold, we
+computed Wasserstein-1 and histogram Hellinger scores for each path
+(Table~\ref{tab:model_comparison}). Let $x_{(j)}$ and $y^{(r)}_{(j)}$
+denote the $j$th order statistics in increasing order. For equal
+sample lengths, the Wasserstein-1 distance is:
+\begin{equation}
+ W_1(x,y^{(r)})=\frac{1}{n}\sum_{j=1}^{n}
+       |x_{(j)}-y^{(r)}_{(j)}|.
+ \label{eq:wasserstein}
+\end{equation}
+It has the growth-rate units $\mathrm{yr}^{-1}$. For each Hellinger
+comparison, we formed $50$ equally spaced bins between the minimum
+and maximum of the pooled pair of samples. Let $p_b$ and $q_b$ be
+the observed and simulated bin counts divided by their original
+sample lengths. The implemented histogram score is:
+\begin{equation}
+ H(x,y^{(r)})=\left[\frac{1}{2}\sum_{b=1}^{50}
+          (\sqrt{p_b}-\sqrt{q_b})^2\right]^{1/2}.
+ \label{eq:hellinger}
+\end{equation}
+The stored implementation used lower-inclusive, upper-exclusive
+bins, including the final bin, so observations equal to the pooled
+maximum were excluded. The resulting bin weights can sum to less
+than one. The reported score retains that endpoint convention and
+depends on the pair-specific bin edges; it is a histogram
+approximation. Smaller Wasserstein and Hellinger scores indicate
+closer marginal agreement.
+
+To describe tail shape, we computed excess kurtosis for each
+synthetic path and compared its mean with the observed value
+(Table~\ref{tab:model_comparison}). With
+$m_p(x)=n^{-1}\sum_{t=1}^{n}(x_t-\bar x)^p$, the estimator was
+$\kappa(x)=m_4(x)/m_2(x)^2-3$, without a finite-sample bias
+correction. The composition scorecard also used the Hill index of
+absolute returns (Table~\ref{tab:aggregate}). Let
+$X_{(1)}\ge\cdots\ge X_{(n)}$ be decreasingly ordered absolute
+returns and $k=\max\{2,\lfloor0.05n\rfloor\}$. The implemented
+upper-tail estimator is:
+\begin{equation}
+ \hat\xi=\frac{1}{k-1}\sum_{j=1}^{k-1}
+             \log\!\left(\frac{X_{(j)}}{X_{(k)}}\right).
+ \label{eq:hill}
+\end{equation}
+The threshold $X_{(k)}$ must be positive. Larger values indicate a
+heavier estimated absolute-return tail. These shape summaries do
+not measure tail-threshold coverage.
+
+To assess whether the simulated distributions bracketed the observed
+one, we measured agreement at $99$ quantile levels
+(Table~\ref{tab:model_comparison}). For $u_j=j/100$, $j=1,\ldots,99$,
+let $Q_x(u_j)$ be the observed sample quantile and
+$Q_r(u_j)$ the corresponding quantile of path $r$. Let
+$L_j$ and $U_j$ be the $5$th and $95$th percentiles of
+$\{Q_r(u_j):r=1,\ldots,R\}$. All quantiles used the default linear
+interpolation between order statistics (type~7). The reported
+quantile-envelope coverage is:
+\begin{equation}
+ C=\frac{100}{99}\sum_{j=1}^{99}
+       \mathbf{1}\{L_j\le Q_x(u_j)\le U_j\}.
+ \label{eq:quantile-envelope-coverage}
+\end{equation}
+Larger values mean that more observed quantiles fall inside the
+pointwise simulation envelopes. This statistic assesses marginal
+quantile agreement; it does not estimate daily Value-at-Risk
+exceedance coverage or simultaneous confidence coverage.
+
+To quantify persistence in return magnitude, we used the sample
+autocorrelation function (ACF) of absolute returns. Each series was
+centered by its own full-series absolute-return mean,
+$\bar a_x=n^{-1}\sum_t|x_t|$. At lag $\ell$, the calculation was:
+\begin{equation}
+ a_\ell(x)=
+ \frac{\sum_{t=1}^{n-\ell}(|x_t|-\bar a_x)(|x_{t+\ell}|-\bar a_x)}
+      {\sum_{t=1}^{n}(|x_t|-\bar a_x)^2}.
+ \label{eq:sample-absolute-acf}
+\end{equation}
+The denominator used all $n$ observations, with no lag-dependent
+rescaling. Lag zero was excluded from the error scores.
+The single-asset comparison measured the error of the ensemble-average
+ACF (Table~\ref{tab:model_comparison}). For a lag limit $L$, that
+mean absolute error is:
+\begin{equation}
+ E^{\rm ensemble}_L=\frac{1}{L}\sum_{\ell=1}^{L}
+ \left|a_\ell(x)-\frac{1}{R}\sum_{r=1}^{R}a_\ell(y^{(r)})\right|.
+ \label{eq:acf-ensemble-error}
+\end{equation}
+We used $R=1{,}000$ and $L=\min(252,n-1)$: lags $1$--$252$
+for the $2{,}766$-observation training series and $1$--$248$ for the
+$249$-observation holdout. The state-resolution and emission
+comparisons used the same ensemble convention.
+
+The multi-asset jump comparison instead measured error within each
+path before averaging (Table~\ref{tab:jump_ablation}). For one
+asset, its mean path error is:
+\begin{equation}
+ E^{\rm path}_L=\frac{1}{R}\sum_{r=1}^{R}
+       \left[\frac{1}{L}\sum_{\ell=1}^{L}
+       |a_\ell(x)-a_\ell(y^{(r)})|\right].
+ \label{eq:acf-path-error}
+\end{equation}
+We used $L=25$ and $60$ in both windows and averaged these scores
+over assets. The fallback control also used the path convention
+with $L=25$ (Table~\ref{tab:fallback_sensitivity}). At a common lag
+limit and on the same paths, the triangle inequality gives
+$E^{\rm ensemble}_L\le E^{\rm path}_L$: averaging the curves can
+cancel errors of opposite sign. The two scores therefore answer
+different questions about temporal agreement. Their magnitudes
+cannot be compared directly across the single-asset and composition
+experiments, which also differ in lag limits, histories, and assets.
+
+To describe simulation uncertainty in the single-asset comparison,
+we used the sampling unit appropriate to each statistic
+(Table~\ref{tab:model_comparison}). For a pass fraction $\hat p$,
+the reported binomial standard error was
+$100\sqrt{\hat p(1-\hat p)/R}$ percentage points. This estimate is
+zero when every path passes or fails; it does not establish that the
+underlying pass probability is exactly zero or one. For kurtosis,
+Wasserstein distance, and Hellinger score, the standard error was
+the sample standard deviation of the $R$ path scores divided by
+$\sqrt R$. For ensemble ACF error and quantile-envelope coverage,
+we used $500$ bootstrap resamples of the $R$ path indices, each of
+size $R$ with replacement. Each resample retained entire paths and
+recomputed the statistic across all lags or quantile levels. The
+standard error was the sample standard deviation of those $500$
+recomputed values, without a further division by $\sqrt{500}$.
+All these errors condition on one observed history and a fixed fitted
+model; they omit uncertainty in fitting, model selection, and market
+regimes. The multi-asset jump contrasts instead used the
+$1{,}000$ replication-level means over the asset set, preserving the
+shared market draw when calculating paired standard errors
+(Table~\ref{tab:jump_ablation_uncertainty}).
 
 % --- Figure: Statistical validation of HMM-WJ ---
 \begin{figure}[tbp]
@@ -408,6 +520,62 @@ We abbreviate mean absolute error in the autocorrelation function as ACF-MAE.
     for jump paths.}
   \label{fig:statistical_validation}
 \end{figure}
+
+
+\subsection{Gated recurrent unit benchmark}
+\label{sec:supp-gru}
+
+To provide an autoregressive neural benchmark, we used a gated
+recurrent unit (GRU) network to predict the distribution of the next
+SPY growth rate from the preceding $50$ values
+(Table~\ref{tab:model_comparison}). We standardized the training
+series using its mean and population standard deviation, both fixed
+for evaluation. The network had two GRU layers with $64$ hidden
+units per layer, dropout probability $0.1$ between layers during
+training, and separate linear heads for a conditional mean and
+log variance. The last hidden output of each input window supplied
+both heads, giving $37{,}954$ trainable parameters. For a standardized
+target $z_t$ and head outputs $m_t$ and $v_t$, the training loss was
+the Gaussian negative log-likelihood with its constant term omitted:
+\begin{equation}
+ \mathcal L=\frac{1}{2B}\sum_{t\in\mathcal B}
+       \left[v_t+(z_t-m_t)^2\exp(-v_t)\right],
+ \label{eq:gru-loss}
+\end{equation}
+where $\mathcal B$ is a training batch containing $B=256$ windows.
+The $2{,}766$ training observations supplied $2{,}716$ overlapping
+input-target pairs. Each epoch shuffled these pairs and used ten
+complete batches; the final incomplete batch was dropped. Adam
+used an initial learning rate of $10^{-3}$, default moment decay
+rates $(0.9,0.999)$, and no weight decay. We clipped the gradient
+norm at one and halved the learning rate after the scheduler's
+$15$-epoch plateau tolerance, with a floor of $10^{-5}$. Training
+ran for at most $200$ epochs. We retained weights whenever mean
+training loss improved by more than $10^{-4}$ and stopped after
+$40$ epochs without such improvement. The recorded fit completed
+$200$ epochs and retained epoch $199$. Model selection used training
+loss, with no separate validation split; the holdout supplied only
+the evaluation horizon.
+
+To generate paths, we disabled dropout and selected an initial
+window uniformly from the $2{,}716$ training input windows. At each
+step, we passed the current $50$ values through the network with a
+fresh zero hidden state, sampled a Gaussian value with mean $m_t$
+and standard deviation $\max\{\exp(v_t/2),10^{-6}\}$, and replaced
+the oldest window value with that draw. Every generated value was
+retained, with no burn-in, and the fixed training normalization was
+inverted afterward. The same fitted network generated $1{,}000$
+training-length and then $1{,}000$ holdout-length paths, in that
+order, using seed $1234$ for NumPy and PyTorch. The recorded rerun
+used Python 3.14.2, PyTorch 2.10.0, NumPy 2.4.3, and SciPy
+1.17.1 on a central processing unit (CPU). The repository includes pinned dependencies,
+trained weights, an epoch log, and input and output fingerprints.
+Parallel generation assigned each worker the random-number state
+for its position in the original serial rollout; a direct check
+confirmed identical paths. The rerun reproduced both archived path
+files exactly. The benchmark is one fitted network:
+its reported simulation errors do not measure variation across
+training seeds or neural architectures.
 
 % =============================================================================
 % S4  Derivation of the single-asset generator
@@ -663,10 +831,14 @@ whose stationarity conditions solve in three steps:
      && \text{(counted estimator)}
   \label{eq:supp-markov-mle}
 \end{align}
-The interior condition applies to cells with positive counts; for a
-cell with $n_{jk} = 0$ the log-likelihood is non-increasing in
+For a row with $n_{j\cdot}>0$, the interior condition applies to
+cells with positive counts; for a cell with $n_{jk}=0$, the
+log-likelihood is non-increasing in
 $\mathbf{T}_{jk}$, so its maximizer is the boundary value
-$\widehat{\mathbf{T}}_{jk} = 0$, which the same formula returns.
+$\widehat{\mathbf{T}}_{jk}=0$, which the same formula returns.
+When $n_{j\cdot}=0$, the observations do not identify that row.
+The implementation sets every entry to $1/N$; this is a fallback
+choice, not an estimate of an observed transition frequency.
 Multiplying $\widehat{\mathbf{T}}_{jk}$ by the row frequency
 $n_{j\cdot}/(T-1)$ recovers $n_{jk}/(T-1)$, the empirical frequency of
 the state pair $(j, k)$. The counted estimator therefore reproduces
@@ -674,8 +846,11 @@ the in-sample joint law of $(S_{t-1}, S_t)$ exactly; everything it
 asserts about longer horizons is the Chapman--Kolmogorov extension
 $\mathbf{T}^\tau$ of that one-step law~\cite{bilmes1998,
 grinsteadSnell1997}. The emission estimator completes the pair: within
-each state, $\mu_k$ and $\sigma_k$ are the sample mean and standard
-deviation of the assigned observations, and $\sigma_k$ enters
+each state with at least two observations and sample standard
+deviation at least $10^{-12}\,\mathrm{yr}^{-1}$, $\mu_k$ and
+$\sigma_k$ are the sample mean and standard deviation of the assigned
+observations. Otherwise, the implementation uses the fallback rules
+in Eq.~\eqref{eq:emission-fallback}. In either case, $\sigma_k$ enters
 Eq.~\eqref{eq:supp-emission-density} as the scale, so the emission
 standard deviation is $\sigma_k \sqrt{\nu/(\nu - 2)}$. The aggregate
 consequence of this scale convention is quantified in
@@ -731,17 +906,19 @@ at a single time gives the mixture density and CDF:
 \end{equation}
 where $\Psi_\nu$ is the CDF of the standard Student-$t$ with $\nu$
 degrees of freedom. Every ingredient of Eq.~\eqref{eq:supp-mixture} is
-an empirical summary: the weights are the in-sample state
-frequencies, and the component locations and scales are the
-within-state sample moments. The generator's marginal is therefore a
-$100$-component semiparametric estimate of the in-sample
-distribution, and reproducing the empirical marginal requires no
-further tuning. The mean is matched by construction. Weighting the
-within-state means by the occupancy frequencies telescopes into the
-grand mean:
+a summary of the fitted SPY model. Its component locations and
+scales are within-state sample moments because no fallback was
+needed; its stationary weights differ from occupancy frequencies
+through the end effects described above. For other assets, fallback
+locations or scales need not be within-state estimates
+(Table~\ref{tab:fallback_assets}). Mean matching therefore requires
+a qualification: weighting empirical state means by the occupancy
+frequencies telescopes into the grand mean, whereas replacing a
+populated state's mean with a global fallback need not preserve that
+identity. With empirical state means, the calculation is:
 \begin{align}
-  \sum_{k} \hat\pi_k\, \mu_k
-   &\;=\; \sum_{k} \frac{n_k}{T} \cdot \frac{1}{n_k}
+  \sum_{k:n_k>0} \hat\pi_k\, \mu_k
+   &\;=\; \sum_{k:n_k>0} \frac{n_k}{T} \cdot \frac{1}{n_k}
      \sum_{t \,:\, s_t = k} G_t
      && \text{(definitions of $\hat\pi_k$, $\mu_k$)} \notag \\
    &\;=\; \frac{1}{T} \sum_{t=1}^{T} G_t,
@@ -1179,7 +1356,9 @@ comparison, while it changed temporal fit little.
     paths at significance level $\alpha = 0.05$. Kolmogorov--Smirnov
     (KS), Anderson--Darling (AD), and mean absolute error in the
     autocorrelation function (ACF-MAE) are defined in
-    Section~\ref{sec:supp-validation}.}
+    Online Appendix~\ref{sec:supp-validation}. Autocorrelation error
+    compares the observed curve with the ensemble-average curve,
+    using lags $1$--$252$ in training and $1$--$248$ in the holdout.}
 \label{tab:emission_hsmm}
 \small
 \begin{tabular}{@{}lccc@{}}
@@ -1225,20 +1404,38 @@ Hellinger           & $0.239$ ($0.001$)       & $0.212$ ($0.001$)       & $\math
   \resizebox{\textwidth}{!}{\input{sections/tables/table2_by_branch}}
 \end{table}
 
-% --- Table: synthetic tracker grid ---
-\begin{table}[tbp]
+% --- Table: restricted Gaussian tracker check ---
+The synthetic grid checked the tracker branch with supplied Gaussian
+residuals (Table~\ref{tab:tracker_grid}). For each target loading and
+$R^2$, the reference return series combined the observed $2{,}766$-day
+SPY path with an independent Gaussian residual of variance
+$\sigma_{\eps,\mathrm{target}}^2$ from Eq.~\eqref{eq:r2-target} and
+intercept zero. A second Gaussian residual draw was passed directly to
+Algorithm~\ref{alg:hybrid}, with
+$\sigma_{\gen}^2=\sigma_{\eps,\mathrm{target}}^2$, so the scale in
+Eq.~\eqref{eq:r2-rescale} was one. Only the composed residual was
+centered over the full path; the reference residual retained its random
+sample mean. Consequently, the two finite-path constructions were not
+identical, and realized loading and $R^2$ estimates could differ from
+their targets. No full-return hidden Markov model was fitted, and no
+new market path was simulated. This grid therefore checked branch
+selection and Gaussian parameter recovery without evaluating full-return
+reuse or temporal fit. The nominal Kolmogorov--Smirnov pass rates were
+descriptive because the test's reference calibration was not established
+for this shared-market, centered-path comparison.
+
+\begin{table}[H]
 \centering
-\caption{\textbf{Synthetic-tracker grid for the $R^2$-preserving
-    branch.} The observed universe places only two tickers on this
-    branch, so we generated synthetic trackers at each
-    $(\beta_{\mathrm{true}}, R^2_{\mathrm{true}})$ cell, composed them
-    with Algorithm~\ref{alg:hybrid}, and recovered
-    $(\hat\beta, \hat R^2)$ by ordinary least squares. Entries are
+\caption{\textbf{Restricted Gaussian check of the $R^2$-preserving
+    branch.} Both series used the observed SPY path and independent
+    Gaussian residual draws; the composer used unit residual scale and
+    centered its draw. No full-return model was fitted. Entries are
     medians over $100$ replications per cell with cross-replication
-    standard deviations in parentheses; the Kolmogorov--Smirnov (KS)
-    pass rate is the fraction of replications whose two-sample test
-    against the target marginal exceeds $p = 0.05$. Every cell was
-    assigned to the $R^2$-preserving branch.}
+    standard deviations in parentheses. Loading and $R^2$ were recovered
+    by ordinary least squares. The nominal Kolmogorov--Smirnov (KS) pass
+    rate is the percentage of comparisons with $p>0.05$; its reference
+    calibration was not established for this design. Every cell used
+    the $R^2$-preserving branch.}
 \label{tab:tracker_grid}
 \small
 \begin{tabular}{@{}ccccc@{}}
@@ -1246,7 +1443,7 @@ Hellinger           & $0.239$ ($0.001$)       & $0.212$ ($0.001$)       & $\math
 $\boldsymbol{\beta_{\mathrm{true}}}$ &
 $\boldsymbol{R^2_{\mathrm{true}}}$ &
 $\boldsymbol{\hat\beta}$ & $\boldsymbol{\hat R^2}$ &
-\textbf{KS pass (\%)} \\ \midrule
+\textbf{Nominal KS pass (\%)} \\ \midrule
 $0.8$ & $0.80$ & $0.8006$ ($0.0072$) & $0.7998$ ($0.0044$) & $100.0$ \\
 $0.8$ & $0.85$ & $0.8006$ ($0.0059$) & $0.8497$ ($0.0041$) & $100.0$ \\
 $0.8$ & $0.90$ & $0.8004$ ($0.0048$) & $0.8999$ ($0.0028$) & $100.0$ \\
@@ -1270,7 +1467,7 @@ $1.2$ & $0.99$ & $1.1998$ ($0.0025$) & $0.9900$ ($0.0003$) & $100.0$ \\
 \label{sec:supp-sensitivity}
 
 To test whether the results depended on state resolution, we swept the
-partition over $N \in \{30, 60, 90, 100, 150, 200, 350\}$ and
+partition over $N \in \{30, 60, 90, 100, 150, 200\}$ and
 re-evaluated the in-sample Kolmogorov--Smirnov (KS) and
 Anderson--Darling (AD) pass rates and the mean absolute error in the
 absolute-return autocorrelation function (ACF-MAE) for the hidden
@@ -1289,9 +1486,11 @@ emission parameters, and the AD pass rate, which weights tail
 discrepancies heavily, moved the other way, from $97.1\%$ at $N = 30$
 to $82.8\%$ at $N = 200$. The intermediate values were not monotone,
 which is consistent with re-running the $(\epsilon, \lambda)$ grid
-search on a finite path ensemble at each $N$. At $N = 350$ several
-quantile bins were never visited in the historical record, leaving the
-corresponding emission parameters undefined. We adopted $N = 100$ for
+search on a finite path ensemble at each $N$. Finer partitions can
+produce states with too few observations to estimate their emissions
+locally. The implemented fallback rules keep those emissions defined
+(Table~\ref{tab:fallback_assets}); missing state-level information
+does not make the fitted parameters undefined. We adopted $N = 100$ for
 all subsequent experiments as a midpoint that held the KS pass rate
 above $98\%$ and the AD pass rate within a few percentage points of its
 best value while capturing part of the ACF-MAE improvement.
@@ -1307,8 +1506,8 @@ best value while capturing part of the ACF-MAE improvement.
     fixed and the $(\epsilon, \lambda)$ grid search re-run at each
     $N$ for the hidden Markov model with jumps (HMM-WJ). Standard
     errors in parentheses: binomial for pass rates, bootstrap
-    ($B = 500$) for the mean absolute error in the absolute-return
-    autocorrelation function (ACF-MAE). HMM-NJ denotes the hidden
+    ($B = 500$) for the mean absolute error of the ensemble-average
+    absolute-return autocorrelation function (ACF-MAE), using lags $1$--$252$. HMM-NJ denotes the hidden
     Markov model with no jumps. Values at $N = 100$ reproduce the
     corresponding entries of Table~\ref{tab:model_comparison}.}
 \label{tab:sensitivity_n}
@@ -1373,10 +1572,15 @@ HMM-WJ & $200$ & $96.0$ ($0.6$) & $82.8$ ($1.2$) & $0.045$ ($0.001$) \\
 \begin{table}[tbp]
 \centering
 \caption{\textbf{Clipping-branch stress test under market-volatility
-    scaling.} The market growth-rate path was rescaled by
-    $\gamma \in \{1, 2, 3\}$ with the calibrated marginals held fixed,
-    and the full hybrid composition method re-evaluated on the $423$-ticker
-    universe. As $\gamma$ rises, the share of clipped tickers grows.}
+    scaling.} We used
+    $g_m^{(\gamma)}(t)=\overline{g}_m+
+    \gamma[g_m(t)-\overline{g}_m]$, with
+    $\gamma\in\{1,2,3\}$ and the calibrated marginals held fixed,
+    and re-evaluated the full hybrid composition on the $423$-ticker
+    universe. The transformation preserved the market mean and
+    multiplied its standard deviation by $\gamma$. The fitted
+    intercepts were retained, so clipping could change asset means
+    according to Eq.~\eqref{eq:supp-clipped-mean}.}
 \label{tab:stress}
 \small
 \begin{tabular}{@{}rr@{}}
@@ -1521,10 +1725,27 @@ Eq.~\eqref{eq:sim-composition}:
 \end{equation}
 Solving this identity for the residual variance gives
 Eq.~\eqref{eq:r2-target}.
-Because $\overline{\eps}_i=0$ after centering and scaling, the sample
-mean of a composed path obeys
-$\overline{g}_i=\alpha_i+\beta_i^{\eff}\overline{g}_m$. Hence, the
-finite-sample OLS intercept was:
+To distinguish intercept retention from mean preservation, let
+$\overline{g}_m$ be the sample mean of the supplied market path.
+Centering and scaling give $\overline{\eps}_i=0$ exactly, and the
+implementation retains the fitted intercept $\alpha_i$ in every
+branch. The resulting mean and its change from the calibrated linear
+mean on the same market path are:
+\begin{align}
+  \overline{g}_i
+    &= \alpha_i+\beta_i^{\eff}\overline{g}_m, \notag\\
+  \overline{g}_i-(\alpha_i+\beta_i\overline{g}_m)
+    &= (\beta_i^{\eff}-\beta_i)\overline{g}_m.
+  \label{eq:supp-clipped-mean}
+\end{align}
+Thus, retaining the intercept preserves this linear mean when the
+loading is unchanged. A clipped path has a different mean whenever
+$\overline{g}_m\ne0$. The sign of the shift depends on the loading
+and market mean; it is not always a downward shift. The variance
+budget and residual floor determine the clipped loading, with no
+intercept adjustment to offset this mean change. Retaining
+$\alpha_i$ also does not imply exact recovery of its OLS estimate
+from a finite composed path. The finite-sample OLS intercept was:
 \begin{equation}
   \hat\alpha_i
   = \overline{g}_i-\hat\beta_i\overline{g}_m
@@ -1547,6 +1768,43 @@ $\Var(\eps_i)\geq f\,\sigma_{\gen,i}^2$; it does not guarantee that
 adding the market term preserves the generator's tail distribution.
 The KS pass rate fell from $87.6\%$ in the lowest-beta quartile to
 $65.9\%$ in the highest-beta quartile (Supplementary Table~\ref{tab:beta_bucket}).
+
+The zero-sum constraint also fixes the residual contribution to the
+terminal cumulative log return. With time step $\Delta t$, summing the
+composed growth rates gives the exact identity:
+\begin{equation}
+  \Delta t\sum_{t=1}^{T} g_i(t)
+  = T\Delta t\,\alpha_i
+    + \beta_i^{\eff}\Delta t\sum_{t=1}^{T}g_m(t),
+  \qquad \sum_{t=1}^{T}\eps_i(t)=0.
+  \label{eq:supp-zero-sum-terminal}
+\end{equation}
+For a fixed market path and effective loading, the residual contributes
+no terminal uncertainty. Partial sums before $T$ can still vary. If
+clipping changes the loading between draws, terminal returns can vary
+through $\beta_i^{\eff}$, but the residual sum remains zero. Centering
+uses the full horizon and is not equivalent to subtracting a fitted
+population mean. Changing the requested horizon can change both the
+center and the scale applied to an otherwise identical prefix. These
+paths are therefore constrained over a specified horizon and do not
+represent unconstrained cumulative residual returns. In the training
+comparison, the OLS calibration further implies
+$\alpha_i=\overline{g}_{i,\real}-\beta_i\overline{g}_{m,\real}$,
+where the bars with subscript $\real$ denote observed training means.
+The difference from the observed asset mean separates into a change
+in market mean and a change in loading:
+\begin{equation}
+  \overline{g}_i-\overline{g}_{i,\real}
+  = \beta_i(\overline{g}_m-\overline{g}_{m,\real})
+    +(\beta_i^{\eff}-\beta_i)\overline{g}_m.
+  \label{eq:supp-training-mean-shift}
+\end{equation}
+Using observed training SPY and $\beta_i^{\eff}=\beta_i$ therefore
+matches the observed asset mean exactly. The stress transformation
+preserved the market mean, so only the clipping term could change
+that mean target. For a supplied market path with a different mean,
+the original asset mean need not be retained even without clipping.
+Intercept recovery must be interpreted with these constraints in mind.
 
 \subsection{Role of the centered full-return draw as the residual}
 \label{sec:supp-residual-choice}
@@ -1652,9 +1910,12 @@ converting each residual series to a synthetic price path by
 cumulative compounding and a second fit per asset. The corrected
 full-return construction instead reuses the generator's centered
 shape and supplies the residual variance budget without that second
-fit. It preserves the composed path mean exactly, while variance and
-factor recovery depend on the stated variance convention and
-cross-covariance assumptions. At zero market loading it preserves the
+fit. Its path mean equals
+$\alpha_i+\beta_i^{\eff}\overline{g}_m$ exactly; matching the observed
+training mean additionally requires the conditions in
+Eq.~\eqref{eq:supp-training-mean-shift}. Variance and factor recovery
+depend on the stated variance convention and cross-covariance
+assumptions. At zero market loading it preserves the
 generator path's centered empirical distribution. For positive market
 loading, Eq.~\eqref{eq:supp-kurt-comp} describes how the independent
 market contribution changes population excess kurtosis on the
@@ -1751,4 +2012,297 @@ transferred SPY calibration.
   \footnotesize
   \setlength{\tabcolsep}{4pt}
   \resizebox{\textwidth}{!}{\input{sections/tables/tableS_jump_ablation_episodes}}
+\end{table}
+
+
+\clearpage
+\section{Residual-centering control}
+\label{sec:supp-centering-control}
+
+To separate the variance correction from the different residual mean
+constraints, we paired each native training path with an equivalently
+centered version (Table~\ref{tab:centering_control}). The experiment
+reused the frozen full-return and residual models, ordinary least
+squares (OLS) calibrations, observed training SPY, seed $1234$, and
+$100$ draws per asset of length $2{,}766$. The Gaussian single-index
+model (SIM), JumpHMM-on-residuals, stationary block bootstrap, and
+generalized autoregressive conditional heteroskedasticity (GARCH)
+model retained their native variance scales. With $g_i$ denoting a
+native composed draw, the control removed only its residual mean:
+\begin{equation}
+  g_i^{\mathrm{ctrl}}(t)
+  = g_i(t)-\frac{1}{T}\sum_{u=1}^{T}
+    \left[g_i(u)-\alpha_i-\beta_i^{\eff}g_m(u)\right].
+  \label{eq:supp-centering-control}
+\end{equation}
+The effective loading equaled the fitted loading except when the
+hybrid rule changed it. Naive and hybrid paths already satisfied the
+constraint and were reused without modification. No fits, random
+draws, loadings, or scales changed between a native path and its
+control. This paired translation left sample variance, recovered
+loading, $R^2$, and excess kurtosis unchanged to numerical tolerance
+for every evaluated path. The control assessed mean treatment; it did
+not restore cumulative residual uncertainty or estimate parameter
+uncertainty.
+
+For a comparison on the same assets, the six-method summaries used
+the $393$ assets whose GARCH fits passed the acceptance checks
+(Table~\ref{tab:centering_control}). Refitting all $423$ residual
+series with explicit convergence and admissibility checks reproduced
+the accepted models' coefficients exactly. All optimizations converged;
+the same $30$ fits were excluded because their ARCH and GARCH
+coefficients summed to at least one. Acceptance records, coefficient
+fingerprints, and exclusion reasons accompany the fitted-model cache.
+The control therefore retained the same models and eligible asset set. There were $39{,}300$
+paired paths per method on the common set. The accompanying results
+also retain each method's full available population: $423$ assets
+for the other five methods and $393$ for GARCH. All available-path
+summaries reproduced the corresponding native values in
+Table~\ref{tab:aggregate} at its reported precision for the metrics
+included here. Pass rates pooled the same number of draws per asset;
+Wasserstein distances and intercept errors were medians across paths.
+Pass rates remained descriptive under serial dependence and the
+fixed-sum constraint. Equivalent centering favored the residual-fit
+comparators while preserving the improvement from naive to hybrid
+composition, so the control narrowed the interpretation of the
+cross-method comparison without changing the variance correction.
+
+\begin{table}[H]
+  \centering
+  \caption{\textbf{Paired control for residual centering on common
+    training assets.} Native and centered results use the same
+    $393$ assets and $100$ paths per asset. Centered paths have zero
+    residual mean over $2{,}766$ observations. Kolmogorov--Smirnov (KS)
+    and Anderson--Darling (AD) columns give non-rejection percentages
+    at $\alpha=0.05$; higher values indicate closer empirical fit.
+    $W_1$ is median Wasserstein-1 distance, and $|\hat\alpha-\alpha|$
+    is median absolute ordinary least squares (OLS) intercept error, both in
+    $\mathrm{yr}^{-1}$; lower values indicate closer agreement.
+    Naive and hybrid already center each residual path.
+    JumpHMM denotes the hidden Markov generator, with jumps disabled;
+    SIM denotes the single-index model, and GARCH denotes generalized
+    autoregressive conditional heteroskedasticity.}
+  \label{tab:centering_control}
+  \footnotesize
+  \setlength{\tabcolsep}{3pt}
+  \resizebox{\linewidth}{!}{\input{sections/tables/tableS_centering_control}}
+\end{table}
+
+
+\clearpage
+\section{Pooled one-day tail thresholds}
+\label{sec:supp-var-ensemble}
+
+To estimate each generator's one-day tail without relying on the few
+extreme observations in a single $249$-day path, we pooled returns
+only after constructing separate paths
+(Supplementary Table~\ref{tab:var_convergence}). For every frozen training
+asset and composition method, we generated $B=5{,}000$ paths of
+length $249$ and calculated linearly interpolated empirical quantiles
+from all $249B$ daily log returns. A market path was shared across
+assets and methods within each replication. Each asset draw retained
+its own centering and variance correction, with the observed training
+market variance used in the hybrid rule. The hidden Markov models
+started from their fitted stationary state distributions, jumps
+remained disabled, and the generalized autoregressive conditional
+heteroskedasticity (GARCH) simulator retained its $100$-step warmup.
+We calibrated thresholds for all $423$ training assets, including
+$393$ with accepted GARCH fits, before reading the holdout histories.
+The resulting quantile estimated the return distribution of a
+uniformly selected day within this finite-horizon construction.
+It did not estimate a horizon-independent path law or restore
+cumulative residual uncertainty.
+
+To distinguish numerical stability from holdout performance, we fixed
+pool sizes of $100$, $500$, $1{,}000$, $2{,}500$, and $5{,}000$ paths
+before scoring the observed returns
+(Supplementary Table~\ref{tab:var_convergence}). An independent ensemble of
+$1{,}000$ paths per asset and method checked the simulated probability
+of falling below each threshold. Disjoint random streams separated
+calibration and validation, while preserving the shared market within
+each ensemble. Doubling the pool from $2{,}500$ to $5{,}000$ changed
+the median asset's $99\%$ threshold by $0.12$--$0.30\%$, depending
+on method. The corresponding $95$th percentiles of absolute relative
+change were $0.37$--$1.03\%$. Individual thresholds were less stable
+than aggregate rates: the largest $99\%$ change was $3.95\%$, for a
+GARCH asset. Every method's mean observed exceedance rate changed by
+less than $0.006$ percentage points at both coverage levels. Mean
+exceedance rates on independent simulated paths were
+$5.03$--$5.04\%$ and $1.01$--$1.02\%$, close to the respective
+$5\%$ and $1\%$ targets. These checks assessed Monte Carlo stability
+under the fitted generators; they did not establish coverage on real
+returns. The reported cross-asset standard deviations were not
+standard errors, and no coverage significance test treated shared
+market histories or dependent days as independent observations.
+
+\begin{table}[H]
+  \centering
+  \caption{\textbf{Threshold convergence and independent simulation
+    checks.} Relative changes compare pooled thresholds from
+    $2{,}500$ and $5{,}000$ separate $249$-day paths, divided by the
+    absolute $5{,}000$-path threshold. Median and P95 denote the
+    cross-asset median and $95$th percentile. Simulation rates are
+    mean per-asset exceedance percentages on $1{,}000$ independent
+    paths, using the $5{,}000$-path threshold. Summaries cover the
+    $416$ holdout-eligible assets, or $386$ for generalized
+    autoregressive conditional heteroskedasticity (GARCH).
+    SIM denotes the single-index model; JumpHMM denotes the hidden
+    Markov generator with jumps disabled.}
+  \label{tab:var_convergence}
+  \footnotesize
+  \setlength{\tabcolsep}{3pt}
+  \input{sections/tables/tableS_var_convergence}
+\end{table}
+
+To check whether differences in asset eligibility affected the
+comparison, we restricted all six methods to the same $386$ assets
+with accepted GARCH fits and complete holdout histories
+(Supplementary Table~\ref{tab:var_common}). The corrected method's $99\%$
+exceedance rate was $1.08\%$, compared with $1.14\%$ for
+JumpHMM-on-residuals and $0.85\%$ for naive composition. Gaussian
+single-index composition remained farther above the nominal rate at
+$1.66\%$. The common-asset comparison therefore retained the finding
+that the corrected and residual-fit hidden Markov methods were close
+to nominal on average. Neither the common-asset nor the full-asset
+summary established equivalence, precise method rankings, or
+calibration beyond the single observed market period.
+
+\begin{table}[H]
+  \centering
+  \caption{\textbf{Pooled-threshold coverage on the common holdout
+    assets.} All methods use the same $386$ assets. Each threshold
+    pools $5{,}000$ separate $249$-day paths, as in
+    Table~\ref{tab:var}. Rate denotes the mean per-asset exceedance
+    percentage on observed $2025$ returns. Standard deviation (SD)
+    describes cross-asset dispersion in percentage points.
+    SIM denotes the single-index model; JumpHMM denotes the hidden
+    Markov generator with jumps disabled; GARCH denotes generalized
+    autoregressive conditional heteroskedasticity.}
+  \label{tab:var_common}
+  \footnotesize
+  \setlength{\tabcolsep}{4pt}
+  \input{sections/tables/tableS_var_common}
+\end{table}
+
+
+\section{Emission fallback inventory and sensitivity}
+\label{sec:supp-fallback}
+
+To identify where the fitted emissions differed from within-state
+estimates, we reconstructed all state assignments, emission
+parameters, and counted transition rows from the training inputs
+(Table~\ref{tab:fallback_assets}). For one asset, let $n_k$ be the
+number of observations in state $k$, let $\bar G_k$ and $s_k$ be
+its sample mean and standard deviation when defined, and let
+$\bar G$ and $s_G$ be the corresponding full-series quantities.
+The implemented emission rule was:
+\begin{equation}
+ (\mu_k,\sigma_k)=
+ \begin{cases}
+   (\bar G,s_G), & n_k<2,\\
+   (\bar G_k,s_G), & n_k\ge2,\ s_k<\tau,\\
+   (\bar G_k,s_k), & n_k\ge2,\ s_k\ge\tau,
+ \end{cases}
+ \qquad \tau=10^{-12}\,\mathrm{yr}^{-1}.
+ \label{eq:emission-fallback}
+\end{equation}
+The scale $\sigma_k$ multiplies a standard Student-$t$ draw; it is
+not the emission standard deviation. State intervals included their
+lower boundary and excluded their upper boundary. A transition row
+with no observed outgoing transition was set to $1/N$ in every
+column. Such a row was unconstrained by the observed transition
+counts. Reconstruction matched every saved emission parameter and
+transition probability exactly, including the corresponding fits to
+regression residuals. Among the $424$ full-return models, $39$ had
+at least one fallback emission, affecting $50$ states. Of these,
+$39$ states contained $11$--$119$ identical observations each,
+seven were empty, and four contained one observation. The seven
+empty states also supplied the seven uniform transition rows.
+Fallback states carried $0.399$--$4.300\%$ of stationary probability
+per affected asset. Sparse-state probability was at most $0.0363\%$
+per asset; most fallback mass belonged to populated states with
+repeated returns. SPY required no fallback, and neither did any of
+the $423$ residual-fit models.
+
+\begin{table}[H]
+ \centering
+ \caption{\textbf{Fallback emissions in the full-return training fits.}
+ Each listed asset had one populated constant-return state containing
+ $n_{\rm c}$ observations. The columns $n_0$ and $n_1$ count empty
+ and singleton states; the other $385$ full-return models required
+ no fallback. Fallback mass is $100\sum_{k\in\mathcal F}\bar\pi_k$,
+ where $\mathcal F$ contains all fallback states for that ticker.
+ For populated constant states, the fitted location remained the
+ state mean while the scale used the asset's full training standard
+ deviation. Empty and singleton states used both full-series
+ moments. $\Delta V$ is the percentage change in stationary mixture
+ variance when only the populated constant-state scales are replaced
+ by their empirical values, with all other parameters fixed.
+ These are changes to the uncomposed generator, not variance errors
+ from composition. All fits used $N=100$ and $\nu=5$.}
+ \label{tab:fallback_assets}
+ \footnotesize
+ \setlength{\tabcolsep}{5pt}
+ \input{sections/tables/tableS_fallback_assets}
+\end{table}
+
+To isolate the consequence of broadening populated constant states,
+we compared the fitted generators with an empirical-scale alternative
+on all $39$ affected non-market assets
+(Table~\ref{tab:fallback_sensitivity}). The alternative replaced
+$s_G$ by $s_k$ only where $n_k\ge2$ and $s_k<\tau$; locations,
+partitions, transitions, initial probabilities, and sparse-state
+fallbacks were unchanged. A zero empirical scale gives a point mass
+at the state mean. The alternative was a diagnostic of how repeated
+returns were represented, not a fitted or selected replacement model.
+We replayed the original $100$ paths of $2{,}766$ observations per
+asset, paired by state sequence and random draws, with jumps disabled
+and the observed training SPY path shared by both treatments. Returns
+from unmodified states were identical between treatments. We scored
+the uncomposed generator and the naive and hybrid compositions;
+each composition used its treatment's generator variance. All nine
+original path metrics for the $7{,}800$ fitted naive and hybrid paths
+matched the canonical cache exactly. Comparisons with the historical
+returns used the original scoring functions, so pass fractions remain
+descriptive summaries rather than calibrated significance claims for
+dependent series containing ties.
+
+The empirical-scale alternative improved marginal-fit scores on this
+training subset (Table~\ref{tab:fallback_sensitivity}). For hybrid
+composition, Kolmogorov--Smirnov (KS) pass rates increased from
+$68.64\%$ to $78.92\%$, and Anderson--Darling (AD) pass rates
+increased from $56.15\%$ to $70.23\%$. The paired changes were
+$10.28$ and $14.08$ percentage points, with Monte Carlo standard
+errors of $0.49$ and $0.60$ points. Mean Wasserstein distance fell
+from $0.2782$ to $0.2474\,\mathrm{yr}^{-1}$. For the uncomposed
+generators, the change in stationary mixture variance ranged from
+$-0.651\%$ to $-6.520\%$ (Table~\ref{tab:fallback_assets}). The
+fallback scale therefore affected both the generator's variance and
+the composed marginal fit. All main comparisons retain the original
+fallback rule. This paired training check did not test changes to
+sparse-state estimates or validate the alternative on held-out
+histories, and it did not establish a preferred production policy.
+
+\begin{table}[H]
+ \centering
+ \caption{\textbf{Paired sensitivity to the scale of populated constant states.}
+ Each treatment used $100$ paired training-length paths for each of
+ the same $39$ affected assets. Entries are means over these fixed
+ assets and replications. The empirical-scale treatment changes only
+ populated near-constant states, retaining the sparse-state fallback.
+ Kolmogorov--Smirnov (KS) and Anderson--Darling (AD) pass fractions
+ use $p>0.05$; their changes are percentage points. $W_1$ is the
+ Wasserstein-1 distance to observed growth rates. Variance / observed
+ divides each path's variance by its asset's observed training
+ variance. ACF-MAE$_{25}$ is the mean absolute difference between
+ each path's absolute-return autocorrelation function and the observed
+ function over lags $1$--$25$, calculated before averaging paths.
+ Paired change subtracts the fitted value from the empirical-scale
+ value. Standard errors (SE) use the $100$ replication-level mean
+ paired changes over the fixed asset set and describe simulation
+ uncertainty, not uncertainty across historical markets.}
+ \label{tab:fallback_sensitivity}
+ \footnotesize
+ \setlength{\tabcolsep}{4pt}
+ \input{sections/tables/tableS_fallback_sensitivity}
 \end{table}

@@ -26,7 +26,7 @@ one_day_returns(g::AbstractVector{<:Real}, Δt::Real) = g .* Δt
     var_threshold(r_synth, α) → VaR_α
 
 Historical-simulation VaR at level α from the synthetic one-day return
-sample. Returns a non-negative number; a breach occurs when
+sample. Returns the negative lower-tail quantile; a breach occurs when
 `r_real < -VaR_α`. Uses the (1 − α)-quantile of `r_synth`.
 """
 function var_threshold(r_synth::AbstractVector{<:Real}, α::Real)
@@ -48,25 +48,29 @@ end
 """
     kupiec_pvalue(n_breach, T, α) → p
 
-Kupiec unconditional coverage test. Under the null of correct coverage
-(expected breach probability = 1 − α), the log-likelihood ratio statistic
+Kupiec unconditional coverage test. For `T > 0`, `0 ≤ n_breach ≤ T`, and
+finite `0 < α < 1`, the expected breach probability is `1 − α`. The
+likelihood-ratio statistic is:
 
-    LR_uc = -2 log [ (1-α)^{T-n} α^n / ((1-n/T)^{T-n} (n/T)^n) ]
+    LR_uc = -2 log [ α^{T-n} (1-α)^n / ((1-n/T)^{T-n} (n/T)^n) ]
 
-is asymptotically χ²(1). Returns the two-sided p-value under the χ²(1) tail.
+Use the continuous limit `0 log(0) = 0` at zero or all breaches. Returns
+the upper-tail probability under the asymptotic χ²(1) reference distribution;
+the test detects coverage deviations in either direction. This is not an
+exact finite-sample test and does not test independence of breaches.
 """
 function kupiec_pvalue(n_breach::Integer, T::Integer, α::Real)
-    p_expected = 1 - α
+    T > 0 || throw(ArgumentError("sample size T must be positive"))
+    0 ≤ n_breach ≤ T || throw(ArgumentError("breach count must lie in [0, T]"))
+    isfinite(α) && 0 < α < 1 ||
+        throw(ArgumentError("coverage level α must be finite and lie in (0, 1)"))
     n = n_breach
-    @assert 0 ≤ n ≤ T "breach count must lie in [0, T]"
-    if n == 0 || n == T
-        # degenerate corners: return p=0 if expected count is far from n
-        return n == round(Int, p_expected * T) ? 1.0 : 0.0
-    end
-    p_hat = n / T
-    ll_null = n * log(p_expected) + (T - n) * log(1 - p_expected)
-    ll_alt  = n * log(p_hat) + (T - n) * log(1 - p_hat)
-    LR = -2 * (ll_null - ll_alt)
+    m = T - n
+    ll_null = n * log1p(-α) + m * log(α)
+    ll_alt = (n == 0 ? 0.0 : n * log(n / T)) +
+             (m == 0 ? 0.0 : m * log(m / T))
+    # Roundoff can make a zero likelihood ratio slightly negative.
+    LR = max(0.0, 2 * (ll_alt - ll_null))
     return ccdf(Chisq(1), LR)
 end
 

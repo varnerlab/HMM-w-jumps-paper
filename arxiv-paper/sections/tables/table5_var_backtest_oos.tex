@@ -1,14 +1,14 @@
-\begin{tabular}{lrrrrrr}
+\begin{tabular}{lrrrrr}
 \toprule
- & \multicolumn{3}{c}{$\alpha = 0.95$} & \multicolumn{3}{c}{$\alpha = 0.99$} \\
-\cmidrule(lr){2-4} \cmidrule(lr){5-7}
-Method & rate (\%) & SD (pp) & Kupiec pass (\%) & rate (\%) & SD (pp) & Kupiec pass (\%) \\
+ & & \multicolumn{2}{c}{$\alpha = 0.95$} & \multicolumn{2}{c}{$\alpha = 0.99$} \\
+\cmidrule(lr){3-4} \cmidrule(lr){5-6}
+Method & Assets & rate (\%) & SD (pp) & rate (\%) & SD (pp) \\
 \midrule
-Naive & 4.37 & 2.15 & 65.8 & 1.21 & 0.76 & 78.9 \\
-Gaussian SIM & 4.95 & 2.26 & 70.0 & 2.03 & 1.17 & 72.1 \\
-Hybrid & 5.97 & 2.43 & 66.3 & 1.67 & 0.93 & 73.4 \\
-JumpHMM-on-residuals & 6.07 & 2.59 & 67.0 & 1.67 & 0.95 & 74.5 \\
-Block bootstrap & 6.13 & 2.56 & 63.7 & 1.84 & 1.01 & 73.4 \\
-GARCH(1,1)-$t$ & 5.79 & 2.47 & 62.4 & 1.80 & 1.02 & 72.0 \\
+Naive & 416 & 4.04 & 2.08 & 0.88 & 0.70 \\
+Gaussian SIM & 416 & 4.65 & 2.22 & 1.72 & 1.08 \\
+Hybrid & 416 & 5.48 & 2.45 & 1.12 & 0.81 \\
+JumpHMM-on-residuals & 416 & 5.62 & 2.55 & 1.16 & 0.81 \\
+Block bootstrap & 416 & 5.50 & 2.52 & 1.28 & 0.87 \\
+GARCH(1,1)-$t$ & 386 & 5.07 & 2.45 & 1.20 & 0.89 \\
 \bottomrule
 \end{tabular}

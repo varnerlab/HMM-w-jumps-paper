@@ -1,0 +1,37 @@
+affected_full_return_assets = 39
+affected_residual_assets = 0
+canonical_composed_paths_replayed = 7800
+canonical_metrics_exact = true
+completed_utc = "2026-09-15T17:10:11.649Z"
+empty_states = 7
+full_return_assets = 424
+full_return_fallback_states = 50
+julia_version = "1.12.7"
+near_constant_states = 39
+observations = 2766
+paired_score_rows = 23400
+protocol = "Original training draws and observed SPY; keep sparse fallback, state paths, locations, and transitions; replace only populated near-constant global scales with empirical scales; no production changes"
+replications = 100
+residual_assets = 423
+schema_version = 1
+seed = 1234
+sensitivity_assets = ["ADM", "AEE", "AES", "BMY", "CAG", "CNP", "CSCO", "EXC", "F", "FE", "FITB", "GLW", "HBAN", "HRL", "HST", "IPG", "JCI", "JNPR", "K", "KEY", "KIM", "KMI", "KO", "MO", "NI", "NWS", "NWSA", "O", "PPL", "RF", "ROL", "SLV", "T", "UDR", "USB", "VZ", "WU", "WY", "XEL"]
+singleton_states = 4
+state_and_unchanged_emission_paths_identical = true
+training_cache_sha256 = "2e31fb509d121790903a77884687f648daf0821d7644ffade36dbf23d782c337"
+training_signature = "1ccbdfad4c493d42af6fbe1a4dda3891d8db97d827b92fff8fd30ab865702f84"
+uncertainty = "Paired Monte Carlo SE from 100 replication-level averages over the fixed affected asset set"
+uniform_transition_rows = 7
+
+[artifact_sha256]
+"affected-assets.csv" = "f367a54e4f06d53a1ffb03dd978fd1c18c65a8fe1d9adf204971b882f3e73908"
+"asset-summary.csv" = "08cab6ab6f69fe97fee04ad3bbcb8aa9c751ee256ebcf670fe6970475b8941cd"
+"paired-paths.csv" = "96f9527461553e5d822fb4b0c03937841cb9c5e3b13abd2dd6a4694d7fc1aee2"
+"residual-asset-summary.csv" = "98e8ce0f641cfd599b17723f985a0a54c4778e7521ca2e84a229fcccad9c60da"
+"residual-state-inventory.csv" = "ee07aec7e6467c358af82e957700f1cf8a73790939eb268fd74aac9423f95b9c"
+"sensitivity-summary.csv" = "83eb981dc87564f35308710f1037c3f670fbd4cbc95d5d95c299a60a695247d2"
+"state-inventory.csv" = "08c934d3128c308e53dd4624aa6d1c10f4adb3f5240eeaa8f49c72917165c45e"
+
+[source_sha256]
+"scripts/16-Fallback-Diagnostic.jl" = "329fe9cbe60caa8a109221eb56c2c185aa8ec4f06138f7efd23da0a4b1568c86"
+"src/FallbackDiagnostic.jl" = "365e5a9e07442da322a8c9ca2f68467603f5ef13a9dba1b9d2d5dcbdc00c1182"

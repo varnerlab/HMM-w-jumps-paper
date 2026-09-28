@@ -1,0 +1,28 @@
+{
+  "arxiv": {
+    "pdf": "arxiv-paper/Paper_v1.pdf",
+    "pages": 53,
+    "detail_pages": [
+      13,
+      14,
+      40,
+      41
+    ]
+  },
+  "jfds": {
+    "pdf": "jfds-paper/Paper_v1.pdf",
+    "pages": 32,
+    "detail_pages": [
+      24,
+      26
+    ]
+  },
+  "supplement": {
+    "pdf": "jfds-paper/Supplement_v1.pdf",
+    "pages": 41,
+    "detail_pages": [
+      22,
+      23
+    ]
+  }
+}

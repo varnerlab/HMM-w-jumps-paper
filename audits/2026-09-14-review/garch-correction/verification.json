@@ -1,0 +1,61 @@
+{
+  "status": "issue 3 complete",
+  "garch_regression_tests_passed": 23,
+  "existing_composer_tests_passed": 24,
+  "fit_metadata_matches_current_inputs_and_sources": true,
+  "original_cache_matches_centering_experiment_fingerprint": true,
+  "cache_reuse_validated": true,
+  "pipeline_checks": {
+    "accepted_coefficients_identical": true,
+    "accepted_training_inputs_identical": true,
+    "all_423_optimizers_converged": true,
+    "eligible_holdout_assets": 386,
+    "eligible_training_assets": 393,
+    "excluded_assets": 30,
+    "holdout_smoke_paths": 772,
+    "paired_draws_identical_at_both_horizons": true,
+    "smoke_scores_finite": true,
+    "training_smoke_paths": 786
+  },
+  "performance_table_values_unchanged": true,
+  "pdf_checks": {
+    "arxiv-paper/Paper_v1.pdf": {
+      "sha256": "b9a66be7e7a8c5c98fb089ccdd89a2641e0e302b3dae417f53ce723b750358de",
+      "pages": 46,
+      "undefined_references": false,
+      "new_overfull_boxes": false
+    },
+    "jfds-paper/Paper_v1.pdf": {
+      "sha256": "b86f4ac7f2153f91033c2e61d9c71c5ba7b270e2a92c9350451f567e406c2a02",
+      "pages": 30,
+      "undefined_references": false,
+      "new_overfull_boxes": false
+    },
+    "jfds-paper/Supplement_v1.pdf": {
+      "sha256": "38cb27fc6c1f6485e923560cdbdef42f3ce2671766985ec3427355d612818489",
+      "pages": 32,
+      "undefined_references": false,
+      "new_overfull_boxes": false
+    }
+  },
+  "visual_review_pages": {
+    "arxiv": [
+      8,
+      9,
+      11,
+      19,
+      46
+    ],
+    "jfds": [
+      13,
+      14,
+      17,
+      19
+    ],
+    "supplement": [
+      30,
+      31
+    ]
+  },
+  "visual_result": "No new layout defects on changed pages; pre-existing JFDS equation width warnings remain."
+}

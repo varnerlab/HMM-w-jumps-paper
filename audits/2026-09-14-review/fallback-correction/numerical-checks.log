@@ -1,0 +1,34 @@
+{
+  "full_return_states": 42400,
+  "residual_states": 42300,
+  "fallback_models": 39,
+  "fallback_states": 50,
+  "constant_states": 39,
+  "empty_states": 7,
+  "singleton_states": 4,
+  "canonical_paths_replayed": 7800,
+  "all_nine_metrics_and_loadings_exact": true,
+  "paired_score_rows": 23400,
+  "all_15_comparisons_and_standard_errors_match": true,
+  "maximum_summary_difference": 1.4210854715202004e-14,
+  "asset_hybrid_ks_changes": {
+    "increased": 37,
+    "unchanged": 2,
+    "decreased": 0,
+    "range_percentage_points": [
+      0.0,
+      40.0
+    ]
+  },
+  "fallback_mass_range": [
+    0.0039938194955829,
+    0.0430009881804248
+  ],
+  "sparse_mass_maximum": 0.000362300308646,
+  "mixture_variance_change_range": [
+    -0.0652006228245288,
+    -0.0065137563926987
+  ],
+  "training_sources_and_artifacts_unchanged": true,
+  "tables_match": true
+}

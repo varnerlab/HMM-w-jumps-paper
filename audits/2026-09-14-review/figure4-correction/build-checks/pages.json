@@ -1,0 +1,31 @@
+{
+  "arxiv": {
+    "pages": 49,
+    "detailed_pages": [
+      10,
+      11,
+      12,
+      13,
+      14,
+      23,
+      24,
+      25
+    ]
+  },
+  "jfds": {
+    "pages": 30,
+    "detailed_pages": [
+      17,
+      18,
+      19,
+      20,
+      23,
+      24,
+      25
+    ]
+  },
+  "supplement": {
+    "pages": 34,
+    "detailed_pages": []
+  }
+}

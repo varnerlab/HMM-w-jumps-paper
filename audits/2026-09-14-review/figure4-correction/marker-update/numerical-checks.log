@@ -1,0 +1,27 @@
+{
+  "paired_composed_paths": 84600,
+  "ordinary_assets": 421,
+  "tracker_assets": [
+    "QQQ",
+    "SPYG"
+  ],
+  "all_canonical_variances_ks_values_loadings_and_branches_match": true,
+  "all_denominators_targets_and_covariance_identities_match": true,
+  "all_846_ticker_method_summaries_match": true,
+  "all_240_curve_points_match": true,
+  "maximum_curve_difference": 0.0,
+  "ordinary_naive_median_ticker_ratio": 1.3170597410692615,
+  "ordinary_hybrid_median_ticker_ratio": 1.000103418321404,
+  "ordinary_hybrid_ticker_ratio_range": [
+    0.9933385571790568,
+    1.0071707485330033
+  ],
+  "ordinary_hybrid_path_absolute_target_error_quantiles": [
+    0.011158567839504474,
+    0.03407998739587614,
+    0.08243626939394877
+  ],
+  "annualized_market_variance": 0.02981607235532779,
+  "training_sources_and_artifacts_unchanged": true,
+  "figure_sha256": "c87dcf1da8a2646483853916f4cda8dbcf21b2d71acdd2cce9a7eb02a56f3032"
+}

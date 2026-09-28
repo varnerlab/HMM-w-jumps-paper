@@ -1,0 +1,3 @@
+All 250800 regenerated paths agree with the historical centered cache.
+Every native metric available from the centering control agrees.
+Old canonical Gaussian, residual JumpHMM, bootstrap, and GARCH rows agree; naive/hybrid differ.

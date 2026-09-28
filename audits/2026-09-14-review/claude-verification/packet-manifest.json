@@ -1,0 +1,543 @@
+{
+  "status": "Complete. Initial Fable 5.1 review and correction follow-up succeeded. See SUMMARY.md for reconciliation and recovery-checks.json for integrity checks.",
+  "requested_model": "claude-fable-5-1[1m]",
+  "planned_tools": [],
+  "packet_sha256": "73419bba6f4f63d58f84a641e811f144909f561243576a705e8a7c591c47ddda",
+  "packet_bytes": 451674,
+  "files": [
+    {
+      "path": "audits/2026-09-14-review/REVIEW.md",
+      "source_sha256": "16722ef04c53959b23bcb4e9334665e189578380888f5494d50abe5cd947c7c2",
+      "included_line_ranges": [
+        [
+          1,
+          224
+        ]
+      ],
+      "source_bytes": 32777
+    },
+    {
+      "path": "audits/2026-09-14-review/reproduce_findings.jl",
+      "source_sha256": "6f017145094dd45f6611796e6c2e56c3ea932ac1ca63dfd0ce0c96e1e5d2ff68",
+      "included_line_ranges": [
+        [
+          1,
+          121
+        ]
+      ],
+      "source_bytes": 5609
+    },
+    {
+      "path": "audits/2026-09-14-review/reproduce_findings.log",
+      "source_sha256": "38e4349bdb76119545bd0764ab0681f232b69b34265277f697f421d399b3aa81",
+      "included_line_ranges": [
+        [
+          1,
+          57
+        ]
+      ],
+      "source_bytes": 3425
+    },
+    {
+      "path": "audits/2026-09-14-review/garch_probe.jl",
+      "source_sha256": "d02f860d2bf35d2f177e0bc802e277a40ab9aa98100c09edfb098128efac9b43",
+      "included_line_ranges": [
+        [
+          1,
+          22
+        ]
+      ],
+      "source_bytes": 891
+    },
+    {
+      "path": "audits/2026-09-14-review/garch_probe.log",
+      "source_sha256": "0219e2ab59ebf7ea79d4f319b69d805ed2c1d300ad064d0b77c8ffe1451df8e7",
+      "included_line_ranges": [
+        [
+          1,
+          6
+        ]
+      ],
+      "source_bytes": 519
+    },
+    {
+      "path": "audits/2026-09-14-review/laplace_probe.jl",
+      "source_sha256": "05a1e0fca4e33c49e97037cff1d7f99d18aa7cbefdfef336482d3381c6d32ad1",
+      "included_line_ranges": [
+        [
+          1,
+          16
+        ]
+      ],
+      "source_bytes": 773
+    },
+    {
+      "path": "audits/2026-09-14-review/laplace_probe.log",
+      "source_sha256": "1db9bc89a9faff33d074086da78c2002337b873402b445068c8f2953af3bcf0b",
+      "included_line_ranges": [
+        [
+          1,
+          2
+        ]
+      ],
+      "source_bytes": 229
+    },
+    {
+      "path": "audits/2026-09-14-review/data_probe.jl",
+      "source_sha256": "a4463ea1297a1aa013d298569e5c8a967ced4a0677f9da14cbd19ce6e8f83ceb",
+      "included_line_ranges": [
+        [
+          1,
+          19
+        ]
+      ],
+      "source_bytes": 1174
+    },
+    {
+      "path": "audits/2026-09-14-review/data_probe.log",
+      "source_sha256": "9a3cd0e1b0eadb2580cb1e92d3e79ddd506c59c1c2f46c04d238212c4e7bb23a",
+      "included_line_ranges": [
+        [
+          1,
+          47
+        ]
+      ],
+      "source_bytes": 3515
+    },
+    {
+      "path": "audits/2026-09-14-review/jump_tests_fresh.jl",
+      "source_sha256": "7f2d6a76f77d5512bb29144fcf4d577290de8e3402a9bf0bbc7c29c3ecd1eda5",
+      "included_line_ranges": [
+        [
+          1,
+          76
+        ]
+      ],
+      "source_bytes": 3338
+    },
+    {
+      "path": "audits/2026-09-14-review/jump_tests_fresh.log",
+      "source_sha256": "b908557d7d35c48bcf2dc8293adbd9525a4ea2174c210da09a41be993d52b0ca",
+      "included_line_ranges": [
+        [
+          1,
+          8
+        ]
+      ],
+      "source_bytes": 512
+    },
+    {
+      "path": "audits/2026-09-14-review/verify_artifacts.py",
+      "source_sha256": "fb6fd013dd42a82badf0d2ea77b302d1c03b2705967788f15aa3c1dcc75706af",
+      "included_line_ranges": [
+        [
+          1,
+          71
+        ]
+      ],
+      "source_bytes": 3279
+    },
+    {
+      "path": "audits/2026-09-14-review/verify_artifacts.log",
+      "source_sha256": "7e056c2f54c4967934aee45215089d12a02b78a8cd149e152f8a9a93868b4552",
+      "included_line_ranges": [
+        [
+          1,
+          43
+        ]
+      ],
+      "source_bytes": 2572
+    },
+    {
+      "path": "audits/2026-09-14-review/existing_tests.log",
+      "source_sha256": "6e45de7890bad3e23a0463201d26642e7c886db4ab188ec7b7eac1f4a12a04eb",
+      "included_line_ranges": [
+        [
+          1,
+          8
+        ]
+      ],
+      "source_bytes": 528
+    },
+    {
+      "path": "audits/2026-09-14-review/snapshot.json",
+      "source_sha256": "083e0b28ffaaeced67a58eee05a822b41cb7d9e2cb6200b72e8fe5636d2ba852",
+      "included_line_ranges": [
+        [
+          1,
+          11
+        ]
+      ],
+      "source_bytes": 692
+    },
+    {
+      "path": "arxiv-paper/Paper_v1.tex",
+      "source_sha256": "ff29c4716a20ed5586ad5ee747fd61b461825c790c83fb1db726cf36f1a4a3b3",
+      "included_line_ranges": [
+        [
+          1,
+          221
+        ]
+      ],
+      "source_bytes": 7978
+    },
+    {
+      "path": "arxiv-paper/sections/abstract.tex",
+      "source_sha256": "6fb6f85f189f8c4e2cb667225f21ba767d1e88f005ae39f3d3f76cf0a165bfb6",
+      "included_line_ranges": [
+        [
+          1,
+          26
+        ]
+      ],
+      "source_bytes": 1724
+    },
+    {
+      "path": "arxiv-paper/sections/introduction.tex",
+      "source_sha256": "5035626ef65cde41a088ab04e86de1569ce27185ae1a217f9e7c65f19a559dbc",
+      "included_line_ranges": [
+        [
+          1,
+          80
+        ]
+      ],
+      "source_bytes": 4882
+    },
+    {
+      "path": "arxiv-paper/sections/method_hmm.tex",
+      "source_sha256": "a75767cfe2e446a23fc13804107c641316b11de52290672882d52e98aa76d873",
+      "included_line_ranges": [
+        [
+          1,
+          195
+        ]
+      ],
+      "source_bytes": 10442
+    },
+    {
+      "path": "arxiv-paper/sections/method_sim.tex",
+      "source_sha256": "cf116b036e8c3a1e4d61fbc06e1cd1ae545b631313b4f6d0a87aea1303ef4354",
+      "included_line_ranges": [
+        [
+          1,
+          338
+        ]
+      ],
+      "source_bytes": 17836
+    },
+    {
+      "path": "arxiv-paper/sections/results.tex",
+      "source_sha256": "7d6bbe55de009a2f8e22ba4c1a4d188cd2b2b921d3184cc0b344dfd2c59988d5",
+      "included_line_ranges": [
+        [
+          1,
+          266
+        ]
+      ],
+      "source_bytes": 15489
+    },
+    {
+      "path": "arxiv-paper/sections/discussion.tex",
+      "source_sha256": "5caeec4b94e308cc47db0909f77322ea2e3ddd03154af6d1dd7cccffcb7b047a",
+      "included_line_ranges": [
+        [
+          1,
+          96
+        ]
+      ],
+      "source_bytes": 6047
+    },
+    {
+      "path": "arxiv-paper/sections/conclusion.tex",
+      "source_sha256": "e77b1f3ac47414635ca87e6680bcf2dc8c4010f9248682f29956b31a7b5302ca",
+      "included_line_ranges": [
+        [
+          1,
+          30
+        ]
+      ],
+      "source_bytes": 1994
+    },
+    {
+      "path": "arxiv-paper/sections/main_tables.tex",
+      "source_sha256": "466e67f67c9f608e3967211659a28a9fedde40bd028df73a79c8824c32b41d17",
+      "included_line_ranges": [
+        [
+          1,
+          117
+        ]
+      ],
+      "source_bytes": 6109
+    },
+    {
+      "path": "arxiv-paper/sections/main_figures.tex",
+      "source_sha256": "b2134f797924660724d16ca1305c0c330c705df1d03e1a3475fe2ffc7d2cc499",
+      "included_line_ranges": [
+        [
+          1,
+          174
+        ]
+      ],
+      "source_bytes": 7958
+    },
+    {
+      "path": "arxiv-paper/sections/appendix.tex",
+      "source_sha256": "c953b5292cd2a3ebc199f3b6143e511f34ede1a49b20fba5e1546fb83d509787",
+      "included_line_ranges": [
+        [
+          1,
+          1751
+        ]
+      ],
+      "source_bytes": 88013
+    },
+    {
+      "path": "arxiv-paper/sections/tables/table1_aggregate.tex",
+      "source_sha256": "46e580ebaa7fa6099d13df4a633141b2501daa7070908a5d812c8074dc429f01",
+      "included_line_ranges": [
+        [
+          1,
+          12
+        ]
+      ],
+      "source_bytes": 676
+    },
+    {
+      "path": "arxiv-paper/sections/tables/table2_model_comparison.tex",
+      "source_sha256": "2519e118b7044e92b785f462ad30ea5c1258fcc6292f7629df43c3a1c5bc2dd0",
+      "included_line_ranges": [
+        [
+          1,
+          55
+        ]
+      ],
+      "source_bytes": 3919
+    },
+    {
+      "path": "arxiv-paper/sections/tables/table5_var_backtest_oos.tex",
+      "source_sha256": "e82758186aba5f776d2b4878a2a7140f73de5586c6fc580fb0a97a521307dc55",
+      "included_line_ranges": [
+        [
+          1,
+          14
+        ]
+      ],
+      "source_bytes": 627
+    },
+    {
+      "path": "arxiv-paper/sections/tables/table6_oos_scorecard.tex",
+      "source_sha256": "a8474366b359f97c66cf22eefc2d6427ea991c2dd42d8d95d521def182b88e5c",
+      "included_line_ranges": [
+        [
+          1,
+          14
+        ]
+      ],
+      "source_bytes": 621
+    },
+    {
+      "path": "arxiv-paper/sections/tables/table7_jump_ablation.tex",
+      "source_sha256": "843c828f322285627580e69392630862158d100040defa4d3f22da7214da61a1",
+      "included_line_ranges": [
+        [
+          1,
+          22
+        ]
+      ],
+      "source_bytes": 1249
+    },
+    {
+      "path": "code/downstream-evaluation/README.md",
+      "source_sha256": "c3374ea86dbdb7f3c0384de3f44f597f46797927c1eddb46362427c3a00b18ae",
+      "included_line_ranges": [
+        [
+          1,
+          201
+        ]
+      ],
+      "source_bytes": 11366
+    },
+    {
+      "path": "code/downstream-evaluation/config.toml",
+      "source_sha256": "5479ca29495537e37c5adb9c3df33019387507956202b39959c590167a2a9c43",
+      "included_line_ranges": [
+        [
+          1,
+          45
+        ]
+      ],
+      "source_bytes": 1596
+    },
+    {
+      "path": "code/downstream-evaluation/src/Composers.jl",
+      "source_sha256": "adbf453ee1b7c7e0e26587a1b771a1acb41a8e8c5245d0c7bbc5ee6999bb1044",
+      "included_line_ranges": [
+        [
+          1,
+          211
+        ]
+      ],
+      "source_bytes": 9124
+    },
+    {
+      "path": "code/downstream-evaluation/src/Pipeline.jl",
+      "source_sha256": "e2e0683b4824209b781ba162ee591311c38801b3feb7784d940d38893e8b13ba",
+      "included_line_ranges": [
+        [
+          1,
+          514
+        ]
+      ],
+      "source_bytes": 22170
+    },
+    {
+      "path": "code/downstream-evaluation/src/VaRBacktest.jl",
+      "source_sha256": "586b1c53324d1855497fa2017c92f8c4b4eba1cd799d2f547043a16a6ca0f761",
+      "included_line_ranges": [
+        [
+          1,
+          88
+        ]
+      ],
+      "source_bytes": 3385
+    },
+    {
+      "path": "code/downstream-evaluation/src/Metrics.jl",
+      "source_sha256": "0f43ef920cfe69930c4f89a52a4b7872bb0fb817222a2761c33c8c24f3b7c573",
+      "included_line_ranges": [
+        [
+          1,
+          141
+        ]
+      ],
+      "source_bytes": 4795
+    },
+    {
+      "path": "code/downstream-evaluation/scripts/01c-Fit-GARCH.jl",
+      "source_sha256": "9f99289174ba4b5ac35b142aa1123e00070b9e05c07f5a4dbd6371553194ae33",
+      "included_line_ranges": [
+        [
+          1,
+          104
+        ]
+      ],
+      "source_bytes": 4184
+    },
+    {
+      "path": "code/downstream-evaluation/scripts/04-Tables.jl",
+      "source_sha256": "0c20502a5f3bc38a492271dfc01d8d1fc7c7b3e856c1bc483b7a1e749adf2e39",
+      "included_line_ranges": [
+        [
+          1,
+          250
+        ]
+      ],
+      "source_bytes": 11459
+    },
+    {
+      "path": "code/downstream-evaluation/scripts/05-Figures.jl",
+      "source_sha256": "58cd1df30577c490db9a8991c6b03057d37082b8d50155cd3fd5b1cbf2c6dd20",
+      "included_line_ranges": [
+        [
+          1,
+          287
+        ]
+      ],
+      "source_bytes": 12838
+    },
+    {
+      "path": "code/downstream-evaluation/scripts/08-Synthetic-Tracker-Eval.jl",
+      "source_sha256": "bf3ec60da92d1f137089b3a91339c4f7d06a06c5a1429d600ee444f9968dff73",
+      "included_line_ranges": [
+        [
+          1,
+          108
+        ]
+      ],
+      "source_bytes": 4846
+    },
+    {
+      "path": "code/baseline-comparison/Baseline-Comparison.jl",
+      "source_sha256": "c68a238c52e86e6fb41610c52f8fdd5b9364a21cdadefca7298c8c045f998e7d",
+      "included_line_ranges": [
+        [
+          1,
+          444
+        ]
+      ],
+      "source_bytes": 18300
+    },
+    {
+      "path": "code/spy-experiment/Table2-StudentT-Emissions.jl",
+      "source_sha256": "26fdeb93c11bf1e60359741b4e085ad020003a963af7eac4a9d3efc948143a4a",
+      "included_line_ranges": [
+        [
+          1,
+          354
+        ]
+      ],
+      "source_bytes": 14107
+    },
+    {
+      "path": "code/spy-experiment/Table2-SEs.jl",
+      "source_sha256": "830783e37c1dc7ec22aeb7fecbd5416f19e96e1dd5f496111b8eaf21487e8dbc",
+      "included_line_ranges": [
+        [
+          1,
+          261
+        ]
+      ],
+      "source_bytes": 10256
+    },
+    {
+      "path": "code/downstream-evaluation/src/JumpAblation.jl",
+      "source_sha256": "19bd361f985bec88fb24d62cbca793f114619c5527559e19b2b06096a9d672f9",
+      "included_line_ranges": [
+        [
+          1,
+          100
+        ]
+      ],
+      "source_bytes": 14624
+    },
+    {
+      "path": "pinned-package/JumpHMM/VWkoC/src/Emission.jl",
+      "source_sha256": "40d5299f5803a05e5f0a9a7e1dec600c08ac6dcd395476abe18aeb3b290b1ad8",
+      "included_line_ranges": [
+        [
+          1,
+          41
+        ]
+      ],
+      "source_bytes": 1313
+    },
+    {
+      "path": "pinned-package/ARCHModels/7C444/src/univariatearchmodel.jl",
+      "source_sha256": "998add99174568aaf0cffb6eebdb6fefa42ada3ea0049e0a78339860179aff8d",
+      "included_line_ranges": [
+        [
+          130,
+          200
+        ],
+        [
+          390,
+          500
+        ]
+      ],
+      "source_bytes": 26948
+    },
+    {
+      "path": "pinned-package/ARCHModels/7C444/src/general.jl",
+      "source_sha256": "58c35b625bf7168cfcd3199bd74a4e7883961d7a4e500c40893461f70cd3d72e",
+      "included_line_ranges": [
+        [
+          90,
+          125
+        ]
+      ],
+      "source_bytes": 3648
+    }
+  ],
+  "reconciled_summary": "SUMMARY.md",
+  "recovered_utc": "2026-09-14T16:22:54.584257+00:00"
+}

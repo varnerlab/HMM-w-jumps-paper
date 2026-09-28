@@ -1,0 +1,38 @@
+Training observations=2766; paths per asset=100; all assets=423; common assets=393
+Paired residual centering; frozen fits; observed training SPY; seed=1234
+1/423 assets, 600 paired paths, 0.0 elapsed minutes
+25/423 assets, 14800 paired paths, 0.1 elapsed minutes
+50/423 assets, 29700 paired paths, 0.3 elapsed minutes
+75/423 assets, 44300 paired paths, 0.4 elapsed minutes
+100/423 assets, 59200 paired paths, 0.5 elapsed minutes
+125/423 assets, 73900 paired paths, 0.6 elapsed minutes
+150/423 assets, 88600 paired paths, 0.8 elapsed minutes
+175/423 assets, 103400 paired paths, 0.9 elapsed minutes
+200/423 assets, 118300 paired paths, 1.0 elapsed minutes
+225/423 assets, 133300 paired paths, 1.2 elapsed minutes
+250/423 assets, 148300 paired paths, 1.3 elapsed minutes
+275/423 assets, 163100 paired paths, 1.5 elapsed minutes
+300/423 assets, 177900 paired paths, 1.6 elapsed minutes
+325/423 assets, 192800 paired paths, 1.8 elapsed minutes
+350/423 assets, 207700 paired paths, 1.9 elapsed minutes
+375/423 assets, 222500 paired paths, 2.1 elapsed minutes
+400/423 assets, 237300 paired paths, 2.3 elapsed minutes
+423/423 assets, 250800 paired paths, 2.4 elapsed minutes
+
+Common-asset comparison:
+12×12 DataFrame
+ Row │ population  method            treatment  assets  paths  ks_pass    ad_pass    w1        alpha_error  beta_error  r2_error    kurtosis
+     │ String      String            String     Int64   Int64  Float64    Float64    Float64   Float64      Float64     Float64     Float64
+─────┼───────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────
+   1 │ common      naive             native        393  39300   7.49364    3.67176   0.694619   0.00232346   0.0218983  0.0872459    7.87942
+   2 │ common      naive             centered      393  39300   7.49364    3.67176   0.694619   0.00232346   0.0218983  0.0872459    7.87942
+   3 │ common      gaussian          native        393  39300   0.613232   0.536896  0.675031   0.047191     0.0172724  0.00834335   1.42111
+   4 │ common      gaussian          centered      393  39300   0.852417   0.56743   0.673121   0.00183264   0.0172724  0.00834335   1.42111
+   5 │ common      hybrid            native        393  39300  74.3944    65.0865    0.246068   0.00188992   0.0178123  0.0210126    7.25499
+   6 │ common      hybrid            centered      393  39300  74.3944    65.0865    0.246068   0.00188992   0.0178123  0.0210126    7.25499
+   7 │ common      residual_jumphmm  native        393  39300  75.7939    70.3588    0.230127   0.0480646    0.017663   0.0148773    7.30286
+   8 │ common      residual_jumphmm  centered      393  39300  78.402     71.3995    0.225546   0.00187409   0.017663   0.0148773    7.30286
+   9 │ common      block_bootstrap   native        393  39300  73.4784    66.6616    0.230159   0.0411346    0.0169278  0.0200662    6.70333
+  10 │ common      block_bootstrap   centered      393  39300  76.7023    68.0305    0.226675   0.00179607   0.0169278  0.0200662    6.70333
+  11 │ common      garch_t           native        393  39300  67.4173    61.3944    0.266577   0.0469378    0.0167262  0.0362429    6.06944
+  12 │ common      garch_t           centered      393  39300  70.0076    62.9567    0.262262   0.00177469   0.0167262  0.0362429    6.06944

@@ -1,0 +1,91 @@
+{
+  "arxiv": {
+    "pdf": "arxiv-paper/Paper_v1.pdf",
+    "page_count": 53,
+    "term_pages": {
+      "7": [
+        "retained the fitted intercept"
+      ],
+      "13": [
+        "clipped paths retained"
+      ],
+      "14": [
+        "retained the fitted intercept",
+        "That stress"
+      ],
+      "15": [
+        "Clipping retains"
+      ],
+      "19": [
+        "Table 2:"
+      ],
+      "24": [
+        "Figure 4:"
+      ],
+      "31": [
+        "Gated recurrent unit benchmark"
+      ],
+      "43": [
+        "Table S9:"
+      ],
+      "45": [
+        "To distinguish intercept retention"
+      ],
+      "46": [
+        "difference from the observed asset mean"
+      ],
+      "52": [
+        "Table S17:"
+      ],
+      "53": [
+        "Table S18:"
+      ]
+    }
+  },
+  "jfds": {
+    "pdf": "jfds-paper/Paper_v1.pdf",
+    "page_count": 31,
+    "term_pages": {
+      "11": [
+        "retained the fitted intercept"
+      ],
+      "17": [
+        "Table 2:"
+      ],
+      "19": [
+        "Figure 4:"
+      ],
+      "26": [
+        "retained the fitted intercept",
+        "That stress"
+      ],
+      "27": [
+        "Clipping retains"
+      ]
+    }
+  },
+  "supplement": {
+    "pdf": "jfds-paper/Supplement_v1.pdf",
+    "page_count": 41,
+    "term_pages": {
+      "8": [
+        "Gated recurrent unit benchmark"
+      ],
+      "26": [
+        "Table S9:"
+      ],
+      "28": [
+        "To distinguish intercept retention"
+      ],
+      "29": [
+        "difference from the observed asset mean"
+      ],
+      "38": [
+        "Table S17:"
+      ],
+      "40": [
+        "Table S18:"
+      ]
+    }
+  }
+}

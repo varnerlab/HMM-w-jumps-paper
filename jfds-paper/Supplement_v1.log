@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.27 (TeX Live 2025) (preloaded format=pdflatex 2025.3.8)  6 SEP 2026 11:49
+This is pdfTeX, Version 3.141592653-2.6-1.40.27 (TeX Live 2025) (preloaded format=pdflatex 2025.3.8)  15 SEP 2026 16:16
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -778,26 +778,30 @@ Overfull \hbox (36.36295pt too wide) detected at line 131
 [4]
 
 [5]
-<figs/supplement/FigS04-Statistical-Validation.pdf, id=44, 1204.5pt x 903.375pt
+Package microtype Info: Loading generic protrusion settings for font family
+(microtype)             `cmtt' (encoding: T1).
+(microtype)             For optimal results, create family-specific settings.
+(microtype)             See the microtype manual for details.
+
+
+[6]
+
+[7]
+<figs/supplement/FigS04-Statistical-Validation.pdf, id=53, 1204.5pt x 903.375pt
 >
 File: figs/supplement/FigS04-Statistical-Validation.pdf Graphic file (type pdf)
 
 <use figs/supplement/FigS04-Statistical-Validation.pdf>
 Package pdftex.def Info: figs/supplement/FigS04-Statistical-Validation.pdf  use
-d on input line 398.
+d on input line 510.
 (pdftex.def)             Requested size: 345.0pt x 258.74649pt.
 
 
-[6]
-
-[7 <./figs/supplement/FigS04-Statistical-Validation.pdf>]
-(./sections/tables/tableS_generator_quantities.tex)
-
 [8]
 
-[9]
+[9 <./figs/supplement/FigS04-Statistical-Validation.pdf>]
 
-[10]
+[10] (./sections/tables/tableS_generator_quantities.tex)
 
 [11]
 
@@ -807,59 +811,56 @@ d on input line 398.
 
 [14]
 
-[15] (./sections/tables/tableS_acf_prediction.tex)
+[15]
 
 [16]
 
 [17]
-<figs/supplement/FigS05-Model-Internals.pdf, id=94, 1606.0pt x 521.95pt>
+
+[18]
+
+[19] (./sections/tables/tableS_acf_prediction.tex)
+
+[20]
+<figs/supplement/FigS05-Model-Internals.pdf, id=105, 1606.0pt x 521.95pt>
 File: figs/supplement/FigS05-Model-Internals.pdf Graphic file (type pdf)
 <use figs/supplement/FigS05-Model-Internals.pdf>
 Package pdftex.def Info: figs/supplement/FigS05-Model-Internals.pdf  used on in
-put line 1127.
+put line 1304.
 (pdftex.def)             Requested size: 345.0pt x 112.12149pt.
- (./sections/tables/table2_by_branch.tex
-Package microtype Info: Loading generic protrusion settings for font family
-(microtype)             `cmtt' (encoding: T1).
-(microtype)             For optimal results, create family-specific settings.
-(microtype)             See the microtype manual for details.
-)
 
-[18 <./figs/supplement/FigS05-Model-Internals.pdf>]
 
-[19]
+[21 <./figs/supplement/FigS05-Model-Internals.pdf>]
+(./sections/tables/table2_by_branch.tex)
 
-[20]
-<figs/supplement/FigS06-Branch-Map.pdf, id=114, 903.375pt x 501.875pt>
+[22]
+
+[23]
+<figs/supplement/FigS06-Branch-Map.pdf, id=124, 903.375pt x 501.875pt>
 File: figs/supplement/FigS06-Branch-Map.pdf Graphic file (type pdf)
 <use figs/supplement/FigS06-Branch-Map.pdf>
 Package pdftex.def Info: figs/supplement/FigS06-Branch-Map.pdf  used on input l
-ine 1344.
+ine 1543.
 (pdftex.def)             Requested size: 293.2521pt x 162.91599pt.
  (./sections/tables/table3_by_beta_bucket.tex)
 
-[21]
+[24]
 
-[22 <./figs/supplement/FigS06-Branch-Map.pdf>]
-<figs/supplement/FigS03-R2-Distribution.pdf, id=122, 762.85pt x 441.65pt>
+[25 <./figs/supplement/FigS06-Branch-Map.pdf>]
+<figs/supplement/FigS03-R2-Distribution.pdf, id=133, 762.85pt x 441.65pt>
 File: figs/supplement/FigS03-R2-Distribution.pdf Graphic file (type pdf)
 <use figs/supplement/FigS03-R2-Distribution.pdf>
 Package pdftex.def Info: figs/supplement/FigS03-R2-Distribution.pdf  used on in
-put line 1449.
+put line 1653.
 (pdftex.def)             Requested size: 293.2521pt x 169.77632pt.
-<figs/supplement/FigS02-Tail-Preservation.pdf, id=123, 1204.5pt x 451.6875pt>
+<figs/supplement/FigS02-Tail-Preservation.pdf, id=134, 1204.5pt x 451.6875pt>
 File: figs/supplement/FigS02-Tail-Preservation.pdf Graphic file (type pdf)
 <use figs/supplement/FigS02-Tail-Preservation.pdf>
 Package pdftex.def Info: figs/supplement/FigS02-Tail-Preservation.pdf  used on 
-input line 1465.
+input line 1669.
 (pdftex.def)             Requested size: 345.0pt x 129.37325pt.
 
-
-[23]
-
-[24 <./figs/supplement/FigS03-R2-Distribution.pdf> <./figs/supplement/FigS02-Ta
-il-Preservation.pdf>]
-Overfull \hbox (3.51581pt too wide) in paragraph at lines 1507--1515
+Overfull \hbox (3.51581pt too wide) in paragraph at lines 1711--1719
 \T1/cmr/m/n/10 (-20) Substituting $\OML/cmm/m/it/10 "[] \OT1/cmr/m/n/10 (-20) =
  \OML/cmm/m/it/10 s[] []$ \T1/cmr/m/n/10 (-20) gives $[]\OT1/cmr/m/n/10 (-20) (
 \OML/cmm/m/it/10 "[]\OT1/cmr/m/n/10 (-20) ) = \OML/cmm/m/it/10 s[] ^^[[]$ \T1/c
@@ -870,29 +871,56 @@ r/m/n/10 (-20) ) = \OML/cmm/m/it/10 s[]  []\OT1/cmr/m/n/10 (-20) (\OML/cmm/m/it
 
 
 
-[25]
+[26]
 
-[26] (./sections/tables/tableS_kurt_composition.tex)
+[27 <./figs/supplement/FigS03-R2-Distribution.pdf> <./figs/supplement/FigS02-Ta
+il-Preservation.pdf>]
 
-[27] (./sections/tables/tableS_jump_ablation_uncertainty.tex)
-(./sections/tables/tableS_jump_ablation_episodes.tex)) (./Supplement_v1.bbl
+[28]
 
-[28])
+[29]
 
-[29] (./Supplement_v1.aux)
+[30] (./sections/tables/tableS_kurt_composition.tex)
+
+[31] (./sections/tables/tableS_jump_ablation_uncertainty.tex)
+(./sections/tables/tableS_jump_ablation_episodes.tex)
+
+[32] (./sections/tables/tableS_centering_control.tex)
+
+[33
+
+]
+
+[34] (./sections/tables/tableS_var_convergence.tex)
+
+[35
+
+] (./sections/tables/tableS_var_common.tex)
+
+[36] (./sections/tables/tableS_fallback_assets.tex)
+
+[37]
+
+[38] (./sections/tables/tableS_fallback_sensitivity.tex))
+
+[39] (./Supplement_v1.bbl
+
+[40])
+
+[41] (./Supplement_v1.aux)
  ***********
 LaTeX2e <2024-11-01> patch level 2
 L3 programming layer <2025-01-18>
  ***********
  ) 
 Here is how much of TeX's memory you used:
- 19221 strings out of 473190
- 376780 string characters out of 5715801
- 788413 words of memory out of 5000000
- 41735 multiletter control sequences out of 15000+600000
- 590352 words of font info for 264 fonts, out of 8000000 for 9000
+ 19308 strings out of 473190
+ 379294 string characters out of 5715801
+ 787957 words of memory out of 5000000
+ 41779 multiletter control sequences out of 15000+600000
+ 591200 words of font info for 278 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
- 89i,17n,90p,1087b,359s stack positions out of 10000i,1000n,20000p,200000b,200000s
+ 89i,17n,90p,1776b,359s stack positions out of 10000i,1000n,20000p,200000b,200000s
 </usr/local/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx10.pfb
 ></usr/local/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx6.pfb><
 /usr/local/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx8.pfb></u
@@ -931,10 +959,10 @@ blic/cm-super/sfti0900.pfb></usr/local/texlive/2025/texmf-dist/fonts/type1/publ
 ic/cm-super/sfti1000.pfb></usr/local/texlive/2025/texmf-dist/fonts/type1/public
 /cm-super/sftt0900.pfb></usr/local/texlive/2025/texmf-dist/fonts/type1/public/c
 m-super/sftt1000.pfb>
-Output written on Supplement_v1.pdf (29 pages, 1190993 bytes).
+Output written on Supplement_v1.pdf (41 pages, 1239533 bytes).
 PDF statistics:
- 306 PDF objects out of 1000 (max. 8388607)
- 189 compressed objects within 2 object streams
+ 347 PDF objects out of 1000 (max. 8388607)
+ 217 compressed objects within 3 object streams
  0 named destinations out of 1000 (max. 500000)
  50219 words of extra memory for PDF output out of 51595 (max. 10000000)
 

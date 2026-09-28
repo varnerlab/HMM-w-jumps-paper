@@ -1,0 +1,389 @@
+% method_sim.tex
+% Method: variance-corrected SIM composition.
+% Simplified 2026-07-14 around a direct variance explanation. The
+% section now proceeds from the composition goal, to naive double
+% counting, to the variance correction, the high-R^2 exception, and
+% finally the evaluation protocol. Detailed verification remains in
+% the Online Appendix.
+
+The single-asset model generated each ticker separately and did not
+specify cross-asset dependence. For the multi-asset model, we added a
+shared market path as a common factor. We used the single-index model
+(SIM) of Sharpe~\cite{sharpe1963}.
+\begin{equation}
+  g_i(t) \;=\; \alpha_i \;+\; \beta_i\, g_m(t) \;+\; \eps_i(t),
+  \qquad t = 1,\dots,T.
+  \label{eq:sim-composition}
+\end{equation}
+Here $\alpha_i$ is the intercept for asset $i$, $g_m$ is the market
+growth-rate path, $\beta_i$ is the asset's market loading, and
+$\eps_i$ is its asset-specific residual path. We use $\eps_i$ for the
+residual path and $\epsilon$ for the jump probability in the
+single-asset model. We estimated the intercept and market loading
+$(\alpha_i,\beta_i)$ from real data by
+ordinary least squares (OLS). The choice of $\eps_i$ determined the
+composition method. A standard SIM draws independent Gaussian residuals
+with the variance estimated by OLS. These Gaussian residuals preserve
+the fitted market relationship but do not retain the heavy tails and
+volatility regimes produced by the single-asset generator. We called
+the Gaussian-residual method \emph{Gaussian SIM}.
+
+\paragraph{Naive full-path composition.}
+
+In the naive construction, a full synthetic return path $\tg_i$ from
+the single-asset generator served as the residual.
+\begin{equation}\label{eq:naive-composition}
+g_i = \alpha_i + \beta_i\, g_m + \tg_i.
+\end{equation}
+The fitted intercept and market term already set the conditional mean
+of asset $i$, while the full-return draw generally has
+$\E[\tg_i]\ne 0$. Equation~\eqref{eq:naive-composition} therefore has
+conditional mean $\alpha_i+\E[\tg_i]+\beta_i g_m$, not
+$\alpha_i+\beta_i g_m$.
+We centered every full-return path before composition to remove the
+duplicate mean. Centering subtracted the realized path mean.
+\begin{equation}
+  \overline{\tg}_i \equiv \frac{1}{T}\sum_{t=1}^{T}\tg_i(t),
+  \qquad
+  \tg_i^{\mathrm c}(t) \equiv \tg_i(t)-\overline{\tg}_i.
+  \label{eq:center-generator}
+\end{equation}
+Therefore, $T^{-1}\sum_t\tg_i^{\mathrm c}(t)=0$ exactly. Subtracting a
+constant leaves both the sample variance and the sample covariance with
+$g_m$ unchanged. We used the centered construction
+$g_i=\alpha_i+\beta_i g_m+\tg_i^{\mathrm c}$ as the \emph{naive}
+benchmark. This choice imposes a zero residual sum over the requested
+horizon, which is stronger than a zero population mean. Scaling
+preserves that constraint in every hybrid branch. For a fixed market
+path and effective loading, the terminal cumulative log return has no
+asset-specific residual uncertainty, although daily and intermediate
+returns still vary. A clipped loading can vary between draws and
+produce terminal variation through the market term. Because centering
+and scaling use statistics of the entire draw, the construction depends
+on the chosen horizon. We therefore evaluated it as a constrained
+finite-horizon construction for daily distributional fit and factor
+recovery; it does not preserve cumulative residual uncertainty
+(Online Appendix~\ref{sec:supp-sim-derivations}).
+
+Centering corrected the mean but not the variance. The path variance
+$\sigma_{\gen,i}^2=\Var(\tg_i)=\Var(\tg_i^{\mathrm c})$ is the
+\emph{generator variance}. It already represents the asset's total
+variance. Adding the market term therefore adds variance a
+second time. We sampled the residual and market paths independently.
+Their covariance is zero in population and close to zero on a long
+realized path. We approximated the naive composed variance accordingly.
+\begin{equation}
+  \Var(g_i)
+  \;\approx\; \beta_i^2\sigma_m^2 + \sigma_{\gen,i}^2,
+  \qquad \Cov(\tg_i^{\mathrm c},g_m)\approx 0,
+  \label{eq:naive-inflation}
+\end{equation}
+where $\sigma_m^2=\Var(g_m)$ is the variance of the market path. The
+excess is $\beta_i^2\sigma_m^2$, so the error is largest for
+assets with large market loadings.
+
+\paragraph{Variance correction.}
+
+We set $\sigma_{\gen,i}^2$ as the target total variance for asset $i$.
+The market term contributed $\beta_i^2\sigma_m^2$, so the residual term
+could contribute only the remaining variance. We defined $s_i$ as the
+nonnegative asset-specific residual scale, set
+$\eps_i=s_i\tg_i^{\mathrm c}$, and required
+$\Var(\beta_i g_m+s_i\tg_i^{\mathrm c})=\sigma_{\gen,i}^2$. Under the
+zero-covariance assumption, solving for $s_i$ gives the correction.
+\begin{equation}
+  \boxed{\;s_i^2 \;=\; 1 \;-\; \frac{\beta_i^2\, \sigma_m^2}{\sigma_{\gen,i}^2}\;}
+  \label{eq:scale}
+\end{equation}
+The \emph{market loading ratio} $\rho_i$ is the market variance
+contribution divided by the target variance.
+\begin{equation}
+  \rho_i \;\equiv\; \frac{\beta_i^2\, \sigma_m^2}{\sigma_{\gen,i}^2},
+  \label{eq:rho}
+\end{equation}
+Under the zero-covariance assumption, $\rho_i$ is the fraction of the
+target variance contributed by the market, and $s_i^2=1-\rho_i$. At
+$\rho_i=1$, the unconstrained rule leaves no asset-specific variance;
+for $\rho_i>1$, it has no real-valued solution. Values of $\rho_i$ at or
+above one can arise when $\beta_i$ is large, the generator variance is low, or the
+synthetic market is more volatile than the calibration market. We
+required the asset-specific draw to contribute at least a fraction $f$
+of the target variance. We set $\rho_i^{\max}=1-f$ and reduced the
+effective loading $\beta_i^{\eff}$ when $\rho_i>\rho_i^{\max}$. We
+applied the piecewise correction in Eq.~\eqref{eq:clip}.
+\begin{equation}
+  \beta_i^{\eff} \;=\;
+  \begin{cases}
+    \beta_i & \text{if } \rho_i \le \rho_i^{\max} \\[4pt]
+    \sign(\beta_i)\,\sqrt{(1 - f)\,\dfrac{\sigma_{\gen,i}^2}{\sigma_m^2}} & \text{if } \rho_i > \rho_i^{\max}
+  \end{cases}
+  \qquad
+  s_i^2 \;=\;
+  \begin{cases}
+    1 - \rho_i & \text{if } \rho_i \le \rho_i^{\max} \\[4pt]
+    f          & \text{if } \rho_i > \rho_i^{\max}
+  \end{cases}
+  \label{eq:clip}
+\end{equation}
+The correction retained the sign of the calibrated loading $\beta_i$.
+We used $f=0.10$, so the asset-specific draw contributed at least
+$10\%$ of the target variance for non-tracker assets
+(Table~\ref{tab:hyperparams}). Online
+Appendix~\ref{sec:supp-residual-choice} examines the substitution of
+a full-return draw for the residual: it derives what the construction
+preserves exactly and how the composed shape dilutes as $\rho_i$
+grows.
+
+\paragraph{High-$R^2$ index trackers.}
+
+The non-tracker branch targeted total generator variance. For an
+index-tracking fund, we instead targeted its fitted relationship with
+the market. The coefficient of determination $R^2$ measures the
+fraction of the asset's variance explained by the market. For example,
+SPY regressed on itself has $\beta=1$, $R^2=1$, and no residual
+variance. QQQ and SPYG also had high $R^2$ against SPY. The
+non-tracker branch can change the fitted $R^2$ even when it preserves
+total variance. We therefore used a separate tracker branch
+when $R^2_{i,\real}$ was at least $R^2_{\mathrm{preserve}}$. We set
+$R^2_{\mathrm{preserve}}=0.80$, which separated the index trackers from
+individual stocks in our universe (Fig.~\ref{fig:r2_distribution}).
+For the tracker branch, we computed the residual variance required to
+recover the calibrated $R^2$ under the zero-covariance assumption.
+\begin{equation}
+  \boxed{\;\sigma_{\eps,\mathrm{target}}^2 \;=\; \beta_i^2\, \sigma_m^2 \cdot
+    \frac{1 - R^2_{i,\real}}{R^2_{i,\real}}\;}
+  \label{eq:r2-target}
+\end{equation}
+We rescaled the generator draw to the target residual variance.
+\begin{equation}
+  \eps_i \;=\; \left(\sqrt{\frac{\sigma_{\eps,\mathrm{target}}^2}{\sigma_{\gen,i}^2}}\,\right)\tg_i^{\mathrm c}.
+  \label{eq:r2-rescale}
+\end{equation}
+When $R^2_{i,\real}=1$, the target residual variance is zero. SPY
+regressed on itself therefore has no residual term. A scale factor
+greater than one increases the variance of the generator draw and can
+weaken the original marginal fit.
+
+\paragraph{Complete composition rule.}
+
+The tracker branch targeted the calibrated $R^2$. The non-tracker
+branch targeted the generator variance and reduced $\beta_i$ only when
+the market term would leave less than the required asset-specific
+variance. After selecting a branch, we added the scaled asset draw to
+the market term. The full procedure appears in
+Algorithm~\ref{alg:hybrid}. If used, a residual-copula rank reorder was
+applied jointly after scaling and before composition. The reorder
+preserved the empirical variance of each residual path.
+Centering kept the path mean controlled by the intercept and market
+term. Under the zero-covariance assumption, OLS estimates from longer
+composed paths converge to the effective market loading and its
+intercept. The variance and loading properties are asymptotic. They
+do not specify exact finite-sample values or the complete return
+distribution. Online Appendix~\ref{sec:supp-sim-derivations} gives the algebra. The
+construction links assets through same-day market returns. A simulated
+market episode can therefore affect several assets together, but the
+rule does not separately fit lead--lag effects or a joint volatility
+process.
+
+\begin{algorithm}[t]
+\caption{Hybrid single-index model (SIM) composition with variance correction.}
+\label{alg:hybrid}
+\small
+\begin{algorithmic}[1]
+  \REQUIRE Nonconstant $g_m,\tg_i\in\R^T$, $i=1,\dots,N$; each
+    $\tg_i$ is independent of $g_m$.
+  \REQUIRE Parameters $(\alpha_i,\beta_i,R^2_{i,\real})$; floor
+    $f\in(0,1)$; threshold $R^2_{\mathrm{preserve}}\in(0,1]$.
+  \ENSURE Composed paths $g_i\in\R^T$ and branch flags $b_i$.
+  \STATE $\sigma_m^2 \gets \Var(g_m)$.
+  \FOR{each asset $i = 1,\dots,N$}
+    \STATE $\sigma_{\gen,i}^2 \gets \Var(\tg_i)$;
+      $\tg_i^{\mathrm c} \gets \tg_i-\overline{\tg}_i$.
+    \IF{$R^2_{i,\real} \ge R^2_{\mathrm{preserve}}$}
+      \STATE $v_i \gets \beta_i^2\sigma_m^2(1-R^2_{i,\real})/R^2_{i,\real}$.
+      \STATE $s_i \gets \sqrt{v_i/\sigma_{\gen,i}^2}$;
+        $\beta_i^{\eff} \gets \beta_i$; $b_i\gets\textsc{r2-preserve}$.
+    \ELSE
+      \STATE $\rho_i \gets \beta_i^2 \sigma_m^2 / \sigma_{\gen,i}^2$
+      \IF{$\rho_i \le 1 - f$}
+        \STATE $s_i \gets \sqrt{1-\rho_i}$;
+          $\beta_i^{\eff}\gets\beta_i$; $b_i\gets\textsc{variance}$.
+      \ELSE
+        \STATE $s_i\gets\sqrt{f}$;
+          $\beta_i^{\eff}\gets\sign(\beta_i)
+          \sqrt{(1-f)\sigma_{\gen,i}^2/\sigma_m^2}$.
+        \STATE $b_i\gets\textsc{clipped}$.
+      \ENDIF
+    \ENDIF
+    \STATE $\eps_i \gets s_i\tg_i^{\mathrm c}$.
+  \ENDFOR
+  \STATE \textit{Optional:} jointly rank-reorder $\{\eps_i\}_{i=1}^{N}$.
+  \FOR{each asset $i = 1,\dots,N$}
+    \STATE $g_i \gets \alpha_i + \beta_i^{\eff}\, g_m + \eps_i$
+      \hfill \COMMENT{Eq.~\eqref{eq:sim-composition}}
+  \ENDFOR
+\end{algorithmic}
+\end{algorithm}
+
+% --- Table: Hyperparameters ---
+% Main table tab:hyperparams is collected after the references.
+\FloatBarrier
+
+\paragraph{Evaluation protocol.}
+
+We evaluated the method on $424$ United States equities and exchange-traded funds
+from Polygon.io. Each ticker had $2{,}767$ daily closing prices from
+January 2014 through December $2024$, which yielded $2{,}766$ growth
+rates. This complete-case selection conditioned the analysis on assets
+that survived and retained data coverage throughout the training
+window. We used SPY as the market and composed the other $423$ assets.
+For each asset, we fitted the state and emission model used in the SPY
+analysis (Table~\ref{tab:hyperparams}; $r_f=0$). In the primary
+six-method comparison, we set the jump probability to zero to measure
+composition without per-ticker jump calibration. We regressed each
+real asset on SPY to estimate $\alpha_i$, $\beta_i$, $R^2_{i,\real}$,
+and residual variance. Across the sample, $\beta_i$ ranged from $0.03$
+to $1.79$, and $R^2_{i,\real}$ ranged from $0.001$ to $0.933$
+(Figs.~\ref{fig:branch_map} and \ref{fig:r2_distribution}).
+We compared six ways to construct the asset-specific term
+(Table~\ref{tab:aggregate}). The naive
+method used the centered full-return draw without variance correction. The Gaussian
+SIM method used independent Gaussian residuals with variance estimated
+by OLS. The corrected method, labeled \emph{hybrid} in the tables and
+figures, used Algorithm~\ref{alg:hybrid}. The
+JumpHMM-on-residuals method fitted a new JumpHMM to the OLS residual
+series after converting the residuals to a synthetic price path by
+cumulative compounding. The block-bootstrap method sampled the OLS
+residual series with the Politis--Romano stationary
+bootstrap~\cite{politisRomano1994} and a mean block length of
+$\sqrt{T}\approx 50$. The GARCH(1,1)-$t$ method fitted a
+conditional-variance model to each residual series~\cite{bollerslev1986}.
+We required optimizer convergence, a finite likelihood, finite
+coefficients, a positive variance intercept, nonnegative ARCH and
+GARCH coefficients whose sum was below one, and Student-$t$ degrees
+of freedom above two. Accepted fits also required finite positive
+unconditional variance and a finite, nonconstant trial path. All $423$
+optimizations converged; $30$ fits failed the stationarity condition,
+leaving $393$ eligible training assets. The cached models included
+per-ticker acceptance diagnostics, which were checked again before
+evaluation.
+For each ticker, the naive and corrected methods received the same
+JumpHMM draw, which isolated the effect of the variance correction. The
+other four methods generated their own residual draws. JumpHMM names
+identify the generator implementation; its jump mechanism was disabled
+in both full-return and residual fits for this six-method comparison.
+We did not use the optional cross-sectional rank reorder because the
+experiment tested each ticker's marginal construction separately.
+To isolate the effect of the different mean constraints, we also
+compared each method's native path with the same path after subtracting
+its residual mean over the full training horizon
+(Table~\ref{tab:centering_control}). We held the fitted models,
+random draws, market path, effective loadings, and residual scales
+fixed. Naive and hybrid paths already satisfied this constraint.
+The control used $100$ replications per asset and the same $393$
+assets with available, simulatable cached GARCH models for all six
+methods. Online Appendix~\ref{sec:supp-centering-control} gives the
+control definition and separates centering effects from model fitting.
+
+We evaluated each composed series on factor recovery, distributional
+fit, and variance preservation. For factor recovery, a new OLS
+regression produced the absolute errors $|\hat\beta-\beta|$ and
+$|\hat R^2-R^2_{\real}|$; lower values indicate closer recovery. For
+distributional fit, we used
+Kolmogorov--Smirnov (KS) and Anderson--Darling (AD) pass rates,
+Wasserstein-1 distance, excess kurtosis, and the Hill upper-tail index.
+Higher KS and AD pass rates and lower Wasserstein distance indicate a
+closer match; kurtosis and the Hill index describe tail behavior.
+For variance preservation, we used the composed-to-generator variance
+ratio. A ratio of one indicates equal variances.
+Online Appendix~\ref{sec:supp-validation} gives the metric definitions.
+We ran $100$ replications per ticker with seed $1234$, producing
+$42{,}300$ series for each method except GARCH, which produced
+$39{,}300$ series across its $393$ eligible assets. Pass rates used the significance level
+$\alpha=0.05$.
+We archived all $250{,}800$ training-path scores with the input,
+fitted-model, source-code, and configuration fingerprints. The aggregate,
+branch, and loading-quartile tables were generated from this same
+validated run, with matching method-level summaries distributed
+alongside the path scores.
+For the six-method holdout evaluation, we froze all marginal fits,
+residual models, and SIM parameters estimated from $2014$--$2024$
+(Tables~\ref{tab:oos_composition} and \ref{tab:var}). We evaluated the
+methods against the
+$249$ growth rates observed in $2025$. Of the $423$ non-market
+training assets, $416$ had complete holdout histories; GARCH results
+covered $386$ because its thirty non-stationary training fits remained
+excluded (Table~\ref{tab:oos_composition}). For each replication, we generated a $249$-day SPY path
+from the training-period SPY marginal and used the same simulated
+market path in all asset compositions. In this evaluation, the
+correction used the observed training-period market variance in place
+of the simulated path variance $\sigma_m^2$ in
+Eqs.~\eqref{eq:scale}--\eqref{eq:r2-rescale}; the generator variance
+was still computed from each asset draw. The residual scale therefore
+budgeted for the training market variance, and variation in the
+simulated market variance could move the composed variance away from
+the generator target even when the sample cross-covariance was zero.
+Observed $2025$ SPY and asset returns were used only for scoring. We repeated the KS, AD,
+Wasserstein-1, variance, and kurtosis evaluations with $100$ paths per
+ticker. Because goodness-of-fit tests have less power on $249$
+observations than on $2{,}766$, we also compared each synthetic path
+with a randomly selected contiguous $249$-day block from the training
+history. We first averaged replication-level results within ticker
+and then summarized across tickers so each asset received equal
+weight. The $249$-day training blocks provided a comparison at the
+same sample length as the holdout period.
+
+To isolate the generators' one-day tail thresholds from estimation
+noise in a single short path, we used a separate simulation ensemble
+for the Value-at-Risk (VaR) evaluation (Table~\ref{tab:var}). For each
+asset and method, we pooled the daily log returns from $5{,}000$
+separately constructed $249$-day paths, giving $1{,}245{,}000$
+observations for each lower-tail quantile. Centering, scaling, market
+variance, and initialization followed the same conventions as the
+holdout scorecard. We fixed one threshold per asset, method, and
+coverage level before counting exceedances on the observed $2025$
+returns. The ensemble size and convergence checkpoints were fixed
+before holdout scoring; $1{,}000$ additional independent paths checked
+simulation tail probabilities. Each threshold therefore described a
+uniformly selected day of the retained $249$-day construction. Pooling
+did not remove its horizon dependence or zero-sum residual constraint.
+We reported mean exceedance rates and cross-ticker standard deviations
+descriptively. These summaries did not treat simulated days, dependent
+holdout observations, or assets sharing a market as independent
+replications for a coverage significance test. No $2025$ data were
+used for fitting or threshold calibration.
+
+
+\paragraph{Jump-enabled multi-asset comparison.}
+
+To test whether the temporal benefit of the single-asset jump mechanism
+survived composition, we compared three settings: jumps disabled,
+jumps enabled only in the SPY market generator, and jumps enabled in
+both SPY and every asset generator
+(Table~\ref{tab:jump_ablation}). We froze the existing closing-price
+state models and SIM calibrations. Enabled models received the SPY
+settings of Table~\ref{tab:hyperparams}, $(\epsilon,\lambda)=(10^{-4},90)$, $p_{\rm neg}=0.52$, and
+$N_{\rm tail}=5$, without per-asset tuning. The SPY calibration used volume-weighted average prices, so its
+transfer also changed the price convention. We simulated the market in both the
+$2{,}766$-day training comparison and the $249$-day holdout comparison;
+the preceding six-method training comparison instead used observed
+SPY. In both windows of the jump comparison, the correction used each
+simulated market path's variance and each asset draw's variance. Thus,
+the jump comparison also differed from the six-method holdout protocol,
+which kept the market variance fixed at its training value. Within
+each experiment, the variance convention was the same across all
+compared jump settings. This comparison assessed whether the SPY settings improved the
+composed paths without recalibrating the individual asset models.
+For each jump setting, naive and corrected composition received the
+same asset and market draws (Table~\ref{tab:jump_ablation}). One market path was shared across all
+assets in each replication. We generated $250$ paths for each of four
+seeds ($1234$, $2345$, $3456$, and $4567$), giving $1{,}000$
+replications per asset, setting, and method. We measured absolute-return
+ACF-MAE over lags $1$--$25$, with lags $1$--$60$ as a secondary check,
+and repeated the marginal and variance diagnostics. These common lag
+windows differ from the single-asset comparison's $252$-lag score.
+We included all paths in the primary summaries and estimated Monte
+Carlo uncertainty from replication-level cross-ticker averages, keeping
+assets together under their shared market path. The intervals describe
+simulation uncertainty conditional on the fitted models and observed
+histories, not uncertainty across market regimes.

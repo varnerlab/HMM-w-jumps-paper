@@ -1,0 +1,60 @@
+Full-return fallback models=39/424; states=50; near-constant=39; empty=7; singleton=4
+Residual fallback models=0/423
+Sensitivity 1/39: ADM; canonical metrics match
+Sensitivity 2/39: AEE; canonical metrics match
+Sensitivity 3/39: AES; canonical metrics match
+Sensitivity 4/39: BMY; canonical metrics match
+Sensitivity 5/39: CAG; canonical metrics match
+Sensitivity 6/39: CNP; canonical metrics match
+Sensitivity 7/39: CSCO; canonical metrics match
+Sensitivity 8/39: EXC; canonical metrics match
+Sensitivity 9/39: F; canonical metrics match
+Sensitivity 10/39: FE; canonical metrics match
+Sensitivity 11/39: FITB; canonical metrics match
+Sensitivity 12/39: GLW; canonical metrics match
+Sensitivity 13/39: HBAN; canonical metrics match
+Sensitivity 14/39: HRL; canonical metrics match
+Sensitivity 15/39: HST; canonical metrics match
+Sensitivity 16/39: IPG; canonical metrics match
+Sensitivity 17/39: JCI; canonical metrics match
+Sensitivity 18/39: JNPR; canonical metrics match
+Sensitivity 19/39: K; canonical metrics match
+Sensitivity 20/39: KEY; canonical metrics match
+Sensitivity 21/39: KIM; canonical metrics match
+Sensitivity 22/39: KMI; canonical metrics match
+Sensitivity 23/39: KO; canonical metrics match
+Sensitivity 24/39: MO; canonical metrics match
+Sensitivity 25/39: NI; canonical metrics match
+Sensitivity 26/39: NWS; canonical metrics match
+Sensitivity 27/39: NWSA; canonical metrics match
+Sensitivity 28/39: O; canonical metrics match
+Sensitivity 29/39: PPL; canonical metrics match
+Sensitivity 30/39: RF; canonical metrics match
+Sensitivity 31/39: ROL; canonical metrics match
+Sensitivity 32/39: SLV; canonical metrics match
+Sensitivity 33/39: T; canonical metrics match
+Sensitivity 34/39: UDR; canonical metrics match
+Sensitivity 35/39: USB; canonical metrics match
+Sensitivity 36/39: VZ; canonical metrics match
+Sensitivity 37/39: WU; canonical metrics match
+Sensitivity 38/39: WY; canonical metrics match
+Sensitivity 39/39: XEL; canonical metrics match
+15×8 DataFrame
+ Row │ method      metric                   assets  paths  as_fitted  empirical_scale  paired_difference  paired_mc_se
+     │ String      String                   Int64   Int64  Float64    Float64          Float64            Float64
+─────┼─────────────────────────────────────────────────────────────────────────────────────────────────────────────────
+   1 │ uncomposed  ks_pass                      39   3900  98.641           99.8205          1.17949       0.164688
+   2 │ uncomposed  ad_pass                      39   3900  98.8974          99.7179          0.820513      0.135777
+   3 │ uncomposed  w1                           39   3900   0.179967         0.169581       -0.0103858     0.00036256
+   4 │ uncomposed  variance_ratio_observed      39   3900   1.07725          1.05529        -0.021962      0.000145547
+   5 │ uncomposed  acf_mae25                    39   3900   0.14207          0.141831       -0.000239656   1.79806e-5
+   6 │ naive       ks_pass                      39   3900  12.1282          14.641           2.51282       0.221624
+   7 │ naive       ad_pass                      39   3900   6.92308          9.4359          2.51282       0.233302
+   8 │ naive       w1                           39   3900   0.623404         0.584033       -0.0393715     0.000173161
+   9 │ naive       variance_ratio_observed      39   3900   1.36498          1.34309        -0.0218985     0.000146602
+  10 │ naive       acf_mae25                    39   3900   0.116626         0.115764       -0.000862259   2.01059e-5
+  11 │ hybrid      ks_pass                      39   3900  68.641           78.9231         10.2821        0.485541
+  12 │ hybrid      ad_pass                      39   3900  56.1538          70.2308         14.0769        0.596061
+  13 │ hybrid      w1                           39   3900   0.278229         0.247392       -0.0308375     0.000199619
+  14 │ hybrid      variance_ratio_observed      39   3900   1.07752          1.05561        -0.0219136     0.000144906
+  15 │ hybrid      acf_mae25                    39   3900   0.102892         0.101449       -0.00144355    2.25315e-5

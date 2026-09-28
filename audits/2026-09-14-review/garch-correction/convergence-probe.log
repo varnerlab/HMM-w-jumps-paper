@@ -1,0 +1,41 @@
+1/423 fits; converged=1
+25/423 fits; converged=25
+50/423 fits; converged=50
+75/423 fits; converged=75
+100/423 fits; converged=100
+125/423 fits; converged=125
+150/423 fits; converged=150
+175/423 fits; converged=175
+200/423 fits; converged=200
+225/423 fits; converged=225
+250/423 fits; converged=250
+275/423 fits; converged=275
+300/423 fits; converged=300
+325/423 fits; converged=325
+350/423 fits; converged=350
+375/423 fits; converged=375
+400/423 fits; converged=400
+423/423 fits; converged=423
+Complete
+┌ Warning: Failed to achieve finite new evaluation point, using alpha=0
+└ @ LineSearches ~/.julia/packages/LineSearches/2BCHN/src/hagerzhang.jl:156
+┌ Warning: Failed to achieve finite new evaluation point, using alpha=0
+└ @ LineSearches ~/.julia/packages/LineSearches/2BCHN/src/hagerzhang.jl:156
+┌ Warning: Failed to achieve finite new evaluation point, using alpha=0
+└ @ LineSearches ~/.julia/packages/LineSearches/2BCHN/src/hagerzhang.jl:156
+┌ Warning: Failed to achieve finite new evaluation point, using alpha=0
+└ @ LineSearches ~/.julia/packages/LineSearches/2BCHN/src/hagerzhang.jl:156
+┌ Warning: Failed to achieve finite new evaluation point, using alpha=0
+└ @ LineSearches ~/.julia/packages/LineSearches/2BCHN/src/hagerzhang.jl:156
+┌ Warning: Failed to achieve finite new evaluation point, using alpha=0
+└ @ LineSearches ~/.julia/packages/LineSearches/2BCHN/src/hagerzhang.jl:156
+┌ Warning: Failed to achieve finite new evaluation point, using alpha=0
+└ @ LineSearches ~/.julia/packages/LineSearches/2BCHN/src/hagerzhang.jl:156
+┌ Warning: Failed to achieve finite new evaluation point, using alpha=0
+└ @ LineSearches ~/.julia/packages/LineSearches/2BCHN/src/hagerzhang.jl:156
+┌ Warning: Failed to achieve finite new evaluation point, using alpha=0
+└ @ LineSearches ~/.julia/packages/LineSearches/2BCHN/src/hagerzhang.jl:156
+┌ Warning: Failed to achieve finite new evaluation point, using alpha=0
+└ @ LineSearches ~/.julia/packages/LineSearches/2BCHN/src/hagerzhang.jl:156
+┌ Warning: Failed to achieve finite new evaluation point, using alpha=0
+└ @ LineSearches ~/.julia/packages/LineSearches/2BCHN/src/hagerzhang.jl:156

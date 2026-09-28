@@ -1,0 +1,57 @@
+Julia: 1.12.7
+JumpHMM: /Users/jdv27/.julia/packages/JumpHMM/VWkoC/src/JumpHMM.jl
+
+Kupiec boundary checks (implementation versus likelihood limit):
+n=0 T=100 alpha=0.99 actual=0.000000000 reference=0.156258400
+n=0 T=249 alpha=0.99 actual=0.000000000 reference=0.025273222
+n=0 T=249 alpha=0.95 actual=0.000000000 reference=0.000000432
+n=1 T=249 alpha=0.99 actual=0.280550214 reference=0.280550214
+
+Perfect-generator null: 249 training draws, exact population breach probability.
+This measures threshold error without noisy test samples or model misspecification.
+Uniform{Float64}(a=-1.0, b=1.0) alpha=0.95 mean_rate=0.053548 mc_se=0.000063 nominal=0.0500
+Uniform{Float64}(a=-1.0, b=1.0) alpha=0.99 mean_rate=0.013948 mc_se=0.000032 nominal=0.0100
+Normal{Float64}(μ=0.0, σ=1.0) alpha=0.95 mean_rate=0.053588 mc_se=0.000063 nominal=0.0500
+Normal{Float64}(μ=0.0, σ=1.0) alpha=0.99 mean_rate=0.013728 mc_se=0.000032 nominal=0.0100
+TDist{Float64}(ν=5.0) alpha=0.95 mean_rate=0.053630 mc_se=0.000063 nominal=0.0500
+TDist{Float64}(ν=5.0) alpha=0.99 mean_rate=0.013622 mc_se=0.000032 nominal=0.0100
+Exact uniform 99% result = (1 + 248*0.01)/250 = 0.01392
+
+Terminal idiosyncratic log-return SD, fixed market, 1,000 paths:
+naive 6.6076762775e-17
+hybrid 6.33430263808e-17
+gaussian 0.121648224595
+Clipped mean shift from calibrated alpha+beta*market: -0.181985112; identity -0.181985112
+
+Published training cache:
+keys=["f", "config", "seed", "results", "R²_threshold", "gm_factor"] rows=250800 columns=["ticker", "composer", "rep", "beta_eff", "flag", "seed", "f", "r2_threshold", "gm_factor", "α_hat", "β_hat", "R²_hat", "ks_p", "ad_p", "w1", "hill_up", "kurt", "var_g"]
+6×5 DataFrame
+ Row │ composer          rows   assets  KS        W1
+     │ String            Int64  Int64   Float64   Float64
+─────┼─────────────────────────────────────────────────────
+   1 │ naive             42300     423   4.46809  0.710085
+   2 │ gaussian          42300     423   0.56974  0.681507
+   3 │ hybrid            42300     423  50.3735   0.271855
+   4 │ residual_jumphmm  42300     423  75.8061   0.231802
+   5 │ block_bootstrap   42300     423  73.3144   0.231951
+   6 │ garch_t           39300     393  67.4173   0.266577
+6×2 DataFrame
+ Row │ composer          median_alpha_error
+     │ String            Float64
+─────┼──────────────────────────────────────
+   1 │ naive                      0.102134
+   2 │ gaussian                   0.0476038
+   3 │ hybrid                     0.0830511
+   4 │ residual_jumphmm           0.0486342
+   5 │ block_bootstrap            0.041624
+   6 │ garch_t                    0.0469378
+
+Fresh full-return fits, all 424 tickers:
+fitted=424
+models with fallback emissions=39
+AAPL naive fresh KS=0.0 cached KS=0.0 fresh alpha error=0.002231 cached=0.214044
+AAPL hybrid fresh KS=87.0 cached KS=12.0 fresh alpha error=0.001507 cached=0.146237
+JNJ naive fresh KS=2.0 cached KS=0.0 fresh alpha error=0.001507 cached=0.055424
+JNJ hybrid fresh KS=93.0 cached KS=80.0 fresh alpha error=0.001297 cached=0.047289
+QQQ naive fresh KS=0.0 cached KS=0.0 fresh alpha error=0.001708 cached=0.158388
+QQQ hybrid fresh KS=100.0 cached KS=98.0 fresh alpha error=0.000628 cached=0.057244

@@ -1,0 +1,38 @@
+{
+  "completed_utc": "2026-09-15T17:43:51.210316+00:00",
+  "mode": "smoke",
+  "device": "cpu",
+  "python": "3.14.2 (main, Dec  5 2025, 16:49:16) [Clang 17.0.0 (clang-1700.6.3.2)]",
+  "platform": "macOS-27.0-arm64-arm-64bit-Mach-O",
+  "packages": {
+    "torch": "2.10.0",
+    "numpy": "2.4.3",
+    "scipy": "1.17.1"
+  },
+  "training_threads": 24,
+  "generation_workers": 2,
+  "generation_threads_per_worker": 1,
+  "seed": 1234,
+  "parameters": 37954,
+  "epochs_completed": 1,
+  "best_epoch": 1,
+  "best_training_nll": 0.48457214534282683,
+  "training_windows": 2716,
+  "normalization_mean": 0.06310026953971985,
+  "normalization_std_ddof0": 2.144589121614264,
+  "source_input_sha256": {
+    "train_gru.py": "94772785a11ce2c6b2e59424c5a268e9ff9f3e1692b137880f09edf05c650077",
+    "reproduce_gru.py": "e37a5da00152790e3f617961d60be0c462e60f29fcf3724dac7bbde628e40c50",
+    "spy_is.csv": "9c0bae131b3270238a4fbcb49694715d8f923d05d9ddda3e7d53e4bae84c801f",
+    "spy_oos.csv": "c0b35695ab36e017cb61de21dc74748fac90afd200b57c4cbb3df831427ef02b"
+  },
+  "checkpoint_and_serial_parallel_parity": true,
+  "original_loop_smoke_parity": true,
+  "artifact_sha256": {
+    "checkpoint.pt": "08db99db64081a3e7e9ad928bdbf48ae2ce46308311589ddaaa46b6c5c4f5ec4",
+    "best-weights.pt": "1907dd4fb03b8d9ced50daa9d3ffd2f0dd9b17c0d8eb3903ddff8b0dfbf34bc8",
+    "epochs.jsonl": "fdd8b152e91cd19b91714608f3c369d0a651122e1a478d7bb6f4cb27b9fd014e",
+    "gru_paths_is.csv": "91c7c5c8f8e07412090c7061276eab0cbe5072d8bc50a93b2cd1cf9f4a13b7cf",
+    "gru_paths_oos.csv": "61b3a422e9970cfe941c895a1d31d4d60b8d17d3a0a0ef19c4a9dadb2a5ac0eb"
+  }
+}

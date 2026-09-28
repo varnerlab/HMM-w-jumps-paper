@@ -1,0 +1,98 @@
+{
+  "arxiv": {
+    "pdf": "arxiv-paper/Paper_v1.pdf",
+    "page_count": 53,
+    "term_pages": {
+      "10": [
+        "ensemble-average"
+      ],
+      "11": [
+        "Fallback emissions in"
+      ],
+      "19": [
+        "Table 2:"
+      ],
+      "23": [
+        "Figure 3:"
+      ],
+      "28": [
+        "Validation metric definitions"
+      ],
+      "29": [
+        "quantile-envelope coverage",
+        "ensemble-average"
+      ],
+      "30": [
+        "quantile-envelope coverage"
+      ],
+      "31": [
+        "Gated recurrent unit benchmark",
+        "Gaussian negative",
+        "trained weights",
+        "recorded fit"
+      ],
+      "40": [
+        "ensemble-average"
+      ],
+      "42": [
+        "ensemble-average"
+      ],
+      "52": [
+        "Fallback emissions in"
+      ],
+      "53": [
+        "Paired sensitivity to"
+      ]
+    }
+  },
+  "jfds": {
+    "pdf": "jfds-paper/Paper_v1.pdf",
+    "page_count": 31,
+    "term_pages": {
+      "17": [
+        "ensemble-average",
+        "Table 2:"
+      ],
+      "18": [
+        "Figure 3:"
+      ],
+      "20": [
+        "Fallback emissions in"
+      ]
+    }
+  },
+  "supplement": {
+    "pdf": "jfds-paper/Supplement_v1.pdf",
+    "page_count": 41,
+    "term_pages": {
+      "6": [
+        "Validation metric definitions"
+      ],
+      "7": [
+        "quantile-envelope coverage",
+        "ensemble-average"
+      ],
+      "8": [
+        "quantile-envelope coverage",
+        "Gated recurrent unit benchmark",
+        "Gaussian negative"
+      ],
+      "10": [
+        "trained weights",
+        "recorded fit"
+      ],
+      "22": [
+        "ensemble-average"
+      ],
+      "24": [
+        "ensemble-average"
+      ],
+      "38": [
+        "Fallback emissions in"
+      ],
+      "40": [
+        "Paired sensitivity to"
+      ]
+    }
+  }
+}

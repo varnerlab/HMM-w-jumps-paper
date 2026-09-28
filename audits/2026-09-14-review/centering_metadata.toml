@@ -1,0 +1,14 @@
+julia_version = "1.12.7"
+n_paths = 1000
+production_changed = false
+scope = "Three assets; jumps disabled; fixed observed training market; only centering differs"
+
+[source_sha256]
+"../../../.julia/packages/JumpHMM/VWkoC/src/JumpHMM.jl" = "45f39f30d2f747bde34942f44b56b3ec8b09c9da109c7bb680661bf744d61b35"
+"audits/2026-09-14-review/centering_probe.jl" = "9cc7d23e2da515ab75a5172c48d79d65d5853e28a8c330c5748b49fbabd585bb"
+"code/downstream-evaluation/Manifest.toml" = "5cfcb3f8f915c79d100f9c9eafcf0c2a37ea6d27e7387d03828f57f370cf9bc2"
+"code/downstream-evaluation/config.toml" = "5479ca29495537e37c5adb9c3df33019387507956202b39959c590167a2a9c43"
+"code/downstream-evaluation/data/sim-calibration.jld2" = "c14dad84befb98bcc58a1afb552a55b628ac3e45eab19d60c375e7309cf79761"
+"code/downstream-evaluation/data/universe.jld2" = "abe77a84b84de946629ce04dc6f143b6a02d5559d8eb0302760ffae39a6d6a54"
+"code/downstream-evaluation/src/Composers.jl" = "adbf453ee1b7c7e0e26587a1b771a1acb41a8e8c5245d0c7bbc5ee6999bb1044"
+"code/downstream-evaluation/src/Metrics.jl" = "0f43ef920cfe69930c4f89a52a4b7872bb0fb817222a2761c33c8c24f3b7c573"

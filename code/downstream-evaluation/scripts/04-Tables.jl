@@ -13,17 +13,30 @@
 # tables render cleanly regardless of PrettyTables version.
 # =============================================================================
 
-include(joinpath(@__DIR__, "..", "Include.jl"))
+include(joinpath(@__DIR__, "..", "src", "TrainingSetup.jl"))
 
-const _PAPER_ROOT      = abspath(joinpath(_ROOT, "..", "..", "jfds-paper"))
-const _PATH_TO_TABLES  = joinpath(_PAPER_ROOT, "sections", "tables")
-isdir(_PATH_TO_TABLES) || mkpath(_PATH_TO_TABLES)
+const _TABLE_ROOTS = [abspath(joinpath(_ROOT, "..", "..", paper, "sections", "tables"))
+                      for paper in ("arxiv-paper", "jfds-paper")]
+const _CHECK_ONLY = "--check" in ARGS
+all(==("--check"), ARGS) || error("Usage: 04-Tables.jl [--check]")
+get(ENV,"HMM_PAPER_RESULTS_FILE","results.jld2") == "results.jld2" ||
+    error("Paper tables require the verified canonical results.jld2; run script 03")
 
 # ── 1. Load artifacts ───────────────────────────────────────────────────────
 @info "Loading results + calibration..."
-results_filename = get(ENV, "HMM_PAPER_RESULTS_FILE", "results.jld2")
-r   = load(resolve_data_artifact(results_filename))["results"]
-cal = load(resolve_data_artifact("sim-calibration.jld2"))["calibration"]
+r, cal, training_metadata = load_canonical_training()
+compact = CSV.read(joinpath(_PATH_TO_DATA,"results-summary.csv"),DataFrame)
+expected_summary = training_summary(r,cal)
+names(compact)==names(expected_summary) && size(compact)==size(expected_summary) ||
+    error("Training summary schema mismatch")
+for name in names(compact)
+    if name == "composer"
+        compact[!,name] == expected_summary[!,name] || error("Training summary method mismatch")
+    else
+        all(isapprox.(compact[!,name],expected_summary[!,name];atol=1e-12,rtol=1e-12)) ||
+            error("Training summary disagrees with path cache: $name")
+    end
+end
 
 cmap = Dict(zip(cal.ticker, zip(cal.alpha, cal.beta, cal.r2_real)))
 r.alpha_cal = [cmap[t][1] for t in r.ticker]
@@ -65,6 +78,23 @@ function latex_table(io::IO, header::Vector{String}, rows::Vector{Vector{String}
     println(io, "\\end{tabular}")
 end
 
+const table_outputs = Dict{String,String}()
+function publish_table(name,header,rows;kwargs...)
+    io = IOBuffer()
+    latex_table(io,header,rows;kwargs...)
+    content = String(take!(io))
+    table_outputs[name] = bytes2hex(sha256(content))
+    for directory in _TABLE_ROOTS
+        path = joinpath(directory,name)
+        if _CHECK_ONLY
+            isfile(path) && read(path,String)==content || error("Paper table differs from canonical results: $path")
+        else
+            mkpath(directory)
+            write(path,content)
+        end
+    end
+end
+
 # ── 2. Table 1: aggregate scorecard ─────────────────────────────────────────
 tbl1 = combine(groupby(r, :composer),
     :dα      => median => :dα,
@@ -90,9 +120,8 @@ rows1 = [
      fmt3(tbl1.w1[i]), fmt3(tbl1.kurt[i]), fmt3(tbl1.hill[i])]
     for i in 1:nrow(tbl1)
 ]
-open(joinpath(_PATH_TO_TABLES, "table1_aggregate.tex"), "w") do io
-    latex_table(io, header1, rows1)
-end
+header1[1] = "Method"
+publish_table("table1_aggregate.tex", header1, rows1)
 @info "Wrote paper/sections/tables/table1_aggregate.tex"
 
 # ── 3. Table 2: hybrid per construction flag ────────────────────────────────
@@ -122,9 +151,7 @@ rows2 = [
      fmt3(tbl2.w1[i]), fmt3(tbl2.kurt[i])]
     for i in 1:nrow(tbl2)
 ]
-open(joinpath(_PATH_TO_TABLES, "table2_by_branch.tex"), "w") do io
-    latex_table(io, header2, rows2)
-end
+publish_table("table2_by_branch.tex", header2, rows2)
 @info "Wrote paper/sections/tables/table2_by_branch.tex"
 
 # ── 4. Table 3: by-β-quartile breakdown ─────────────────────────────────────
@@ -170,9 +197,8 @@ rows3 = let rs = Vector{Vector{String}}(), prev_bucket = ""
     end
     rs
 end
-open(joinpath(_PATH_TO_TABLES, "table3_by_beta_bucket.tex"), "w") do io
-    latex_table(io, header3, rows3; colspec = "llrrrrr")
-end
+header3[2] = "Method"
+publish_table("table3_by_beta_bucket.tex", header3, rows3; colspec = "llrrrrr")
 @info "Wrote paper/sections/tables/table3_by_beta_bucket.tex"
 
 # ── 5. Table 4: seed-uncertainty summary (only if per-seed files exist) ─────
@@ -239,12 +265,17 @@ if length(seed_files) ≥ 2
          "\$" * pm3(seed_summary.hill_mean[i], seed_summary.hill_sd[i]) * "\$"]
         for i in 1:nrow(seed_summary)
     ]
-    open(joinpath(_PATH_TO_TABLES, "table4_seed_uncertainty.tex"), "w") do io
-        latex_table(io, header4, rows4)
-    end
+    publish_table("table4_seed_uncertainty.tex", header4, rows4)
     @info "Wrote paper/sections/tables/table4_seed_uncertainty.tex"
 else
     @info "Per-seed files not found — skipping Table 4."
 end
 
-@info "All tables written to $_PATH_TO_TABLES"
+if !_CHECK_ONLY
+    open(joinpath(_PATH_TO_DATA,"results-tables.toml"),"w") do io
+        TOML.print(io,Dict("training_signature"=>training_metadata["signature"],
+            "formatter_sha256"=>training_hash(@__FILE__),"table_sha256"=>table_outputs);sorted=true)
+    end
+end
+@info (_CHECK_ONLY ? "All tables agree with canonical results in both manuscript trees" :
+                     "Tables written to arXiv and JFDS; provenance saved")

@@ -1,0 +1,16 @@
+12×8 DataFrame
+ Row │ composer          alpha_level  calibration_paths  n_tickers  mean_rate   sd_rate     validation_rate  population
+     │ String31          Float64      Int64              Int64      Float64     Float64     Float64          String15
+─────┼──────────────────────────────────────────────────────────────────────────────────────────────────────────────────
+   1 │ naive                    0.95               5000        416  0.0403537   0.0208084         0.050273   available
+   2 │ naive                    0.99               5000        416  0.00875618  0.00700191        0.0100814  available
+   3 │ gaussian                 0.95               5000        416  0.0465323   0.0222401         0.0503727  available
+   4 │ gaussian                 0.99               5000        416  0.0171745   0.0107892         0.010206   available
+   5 │ hybrid                   0.95               5000        416  0.0548154   0.0245302         0.0503227  available
+   6 │ hybrid                   0.99               5000        416  0.01116     0.00810355        0.0101197  available
+   7 │ residual_jumphmm         0.95               5000        416  0.0562152   0.0255349         0.0503309  available
+   8 │ residual_jumphmm         0.99               5000        416  0.0116234   0.00805471        0.0101351  available
+   9 │ block_bootstrap          0.95               5000        416  0.0549602   0.0252169         0.0503261  available
+  10 │ block_bootstrap          0.99               5000        416  0.0128109   0.00871888        0.0101487  available
+  11 │ garch_t                  0.95               5000        386  0.0506586   0.0244891         0.0503087  available
+  12 │ garch_t                  0.99               5000        386  0.0120378   0.00887224        0.0101453  available

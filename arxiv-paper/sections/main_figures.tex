@@ -134,9 +134,13 @@
     density of excess growth rates with in-sample Kolmogorov--Smirnov
     (KS) pass rates
     annotated per generator. \emph{Panel
-    (b):} autocorrelation function of $|G_t|$ at lags $1$--$252$
-    (shaded bands: $10$th--$90$th percentile across paths) per
-    generator. \emph{Panel (c):}
+    (b):} mean autocorrelation function (ACF) of $|G_t|$ at lags
+    $1$--$252$. For the hidden Markov model with jumps (HMM-WJ),
+    the solid curve and its $10$th--$90$th percentile band use
+    jump-active paths; the dashed curve averages all paths. The
+    generalized autoregressive conditional heteroskedasticity (GARCH)
+    band also gives path percentiles. Horizontal dotted lines are the white-noise
+    references $\pm1.96/\sqrt{2{,}766}$. \emph{Panel (c):}
     tail quantile-quantile plot at the $0.1$st--$99.9$th percentile region per
     generator.}
   \label{fig:model_comparison}
@@ -145,18 +149,33 @@
 \begin{figure}[H]
   \centering
   \includegraphics[width=\textwidth]{figs/main/Fig06-Variance-Preservation.pdf}
-  \caption{\textbf{Effect of the hybrid variance correction on each
-    ticker's Kolmogorov--Smirnov pass rate and variance ratio.}
-    Each point is a per-ticker median over $100$ replications; thick
-    lines are binned medians. \emph{Panel (a):} Kolmogorov--Smirnov
-    pass rate against the real marginal at $\alpha = 0.05$ for naive
-    composition (blue) and hybrid (orange).
-    \emph{Panel (b):} variance ratio
-    $\mathrm{Var}(g)/\sigma^2_{\mathrm{gen}}$ for the same two methods. The dotted curve is the
-    theoretical naive inflation $1 + \rho$ evaluated at the universe-median
-    $\sigma^2_{\mathrm{gen}}$ and the SPY annualized variance
-    $\Delta t\,\sigma_m^2 = 0.030~\mathrm{yr}^{-1}$ of the closing-price
-    series; the dashed line marks a variance ratio of one.}
+  \caption{\textbf{Marginal fit and generator-variance preservation under paired composition.}
+    We used $100$ paired paths of $2{,}766$ observations for each of
+    $423$ non-market assets, with the observed $2014$--$2024$ SPY
+    market path and jumps disabled. Blue circles denote naive
+    composition; red diamonds denote hybrid composition. Outlined
+    circles mark the tracker assets QQQ and SPYG in the corresponding
+    method color. \emph{Panel (a):} each point is the fraction of paths
+    passing the Kolmogorov--Smirnov (KS) test against the observed
+    asset returns at $\alpha=0.05$.
+    \emph{Panel (b):} each point is the median of the $100$ ratios
+    $\Var(g_i)/\sigma^2_{\mathrm{gen},i}$, with the denominator
+    measured from the same uncomposed generator draw. The dashed
+    line marks the hybrid target of one for the $421$ ordinary
+    assets. Trackers instead target
+    $\beta_i^2\sigma_m^2/R^2_{\mathrm{real},i}$ and need not lie on
+    that line. The dotted curve summarizes the per-ticker medians of
+    the naive reference $1+\rho_i$, where
+    $\rho_i=\beta_i^2\sigma_m^2/\sigma^2_{\mathrm{gen},i}$ is computed
+    per draw. This reference omits the finite-path covariance term.
+    Solid curves in panel (a) and the dotted curve in panel (b) are
+    Gaussian-kernel weighted medians over ordinary assets, with
+    bandwidth $0.15$ in calibrated $\beta$.
+    For ordinary hybrid paths, the median and $95$th percentile of
+    $|\Var(g_i)/\sigma^2_{\mathrm{gen},i}-1|$ were $1.12\%$ and
+    $3.41\%$; ticker medians therefore conceal individual-path
+    variation. The annualized variance of the observed market path
+    was $\Delta t\,\sigma_m^2=0.030~\mathrm{yr}^{-1}$.}
   \label{fig:preservation}
 \end{figure}
 

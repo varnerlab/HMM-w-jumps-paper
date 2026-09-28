@@ -1,0 +1,45 @@
+{
+  "rows": 250800,
+  "method_counts": {
+    "block_bootstrap": 42300,
+    "garch_t": 39300,
+    "gaussian": 42300,
+    "hybrid": 42300,
+    "naive": 42300,
+    "residual_jumphmm": 42300
+  },
+  "summary_maximum_absolute_difference": 1.4210854715202004e-14,
+  "all_replication_keys_and_eligibility_valid": true,
+  "table_checks": {
+    "arxiv-paper/table1_aggregate.tex": {
+      "independent_aggregation_matches": true,
+      "body_unchanged_from_manuscript": true,
+      "sha256": "46e580ebaa7fa6099d13df4a633141b2501daa7070908a5d812c8074dc429f01"
+    },
+    "jfds-paper/table1_aggregate.tex": {
+      "independent_aggregation_matches": true,
+      "body_unchanged_from_manuscript": true,
+      "sha256": "46e580ebaa7fa6099d13df4a633141b2501daa7070908a5d812c8074dc429f01"
+    },
+    "arxiv-paper/table2_by_branch.tex": {
+      "independent_aggregation_matches": true,
+      "body_unchanged_from_manuscript": true,
+      "sha256": "65fe4dd24ae8113d49f286013b9fbd8f1402879b345b61b5864d1745abdf638e"
+    },
+    "jfds-paper/table2_by_branch.tex": {
+      "independent_aggregation_matches": true,
+      "body_unchanged_from_manuscript": true,
+      "sha256": "65fe4dd24ae8113d49f286013b9fbd8f1402879b345b61b5864d1745abdf638e"
+    },
+    "arxiv-paper/table3_by_beta_bucket.tex": {
+      "independent_aggregation_matches": true,
+      "body_unchanged_from_manuscript": true,
+      "sha256": "3cd5ed5278e141b2a53429369f61855a80ec2a9404d882d7f69c7e6c76c5be09"
+    },
+    "jfds-paper/table3_by_beta_bucket.tex": {
+      "independent_aggregation_matches": true,
+      "body_unchanged_from_manuscript": true,
+      "sha256": "3cd5ed5278e141b2a53429369f61855a80ec2a9404d882d7f69c7e6c76c5be09"
+    }
+  }
+}

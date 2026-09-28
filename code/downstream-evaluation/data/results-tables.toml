@@ -1,0 +1,7 @@
+formatter_sha256 = "fe0086a24dd1f0d251e8ffa6068f49a282f0834ba22f13bf0c78cfab5afbf941"
+training_signature = "1ccbdfad4c493d42af6fbe1a4dda3891d8db97d827b92fff8fd30ab865702f84"
+
+[table_sha256]
+"table1_aggregate.tex" = "46e580ebaa7fa6099d13df4a633141b2501daa7070908a5d812c8074dc429f01"
+"table2_by_branch.tex" = "65fe4dd24ae8113d49f286013b9fbd8f1402879b345b61b5864d1745abdf638e"
+"table3_by_beta_bucket.tex" = "3cd5ed5278e141b2a53429369f61855a80ec2a9404d882d7f69c7e6c76c5be09"

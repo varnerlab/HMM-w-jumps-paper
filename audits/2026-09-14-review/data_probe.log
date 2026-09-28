@@ -1,0 +1,47 @@
+SP500-Daily-OHLC-1-3-2014-to-12-31-2024.jld2 cols=["volume", "volume_weighted_average_price", "open", "close", "high", "low", "timestamp", "number_of_transactions"]
+complete=424 date_mismatch=String[]
+first=2014-01-03T05:00:00 last=2024-12-31T05:00:00 sorted=true unique=true
+nonpositive/nonfinite closes=0
+SP500-Daily-OHLC-1-2-2025-to-12-31-2025.jld2 cols=["volume", "volume_weighted_average_price", "open", "close", "high", "low", "timestamp", "number_of_transactions"]
+complete=473 date_mismatch=String[]
+first=2025-01-02T05:00:00 last=2025-12-31T05:00:00 sorted=true unique=true
+nonpositive/nonfinite closes=0
+ADM fallback_states=[47] n_obs=[20] stationary_mass=0.007233238123386733
+AEE fallback_states=[47] n_obs=[24] stationary_mass=0.008702328779090964
+AES fallback_states=[47, 48] n_obs=[1, 49] stationary_mass=0.018068199295050585
+BMY fallback_states=[49] n_obs=[19] stationary_mass=0.006872219031712085
+CAG fallback_states=[49] n_obs=[34] stationary_mass=0.012310949497388203
+CNP fallback_states=[46, 47] n_obs=[0, 35] stationary_mass=0.012668774900328894
+CSCO fallback_states=[48] n_obs=[30] stationary_mass=0.010868108935292414
+EXC fallback_states=[46] n_obs=[32] stationary_mass=0.011590951595927315
+F fallback_states=[50, 51] n_obs=[0, 65] stationary_mass=0.023489232408027316
+FE fallback_states=[47] n_obs=[23] stationary_mass=0.008281338935434805
+FITB fallback_states=[48] n_obs=[18] stationary_mass=0.0065086332068492484
+GLW fallback_states=[47] n_obs=[28] stationary_mass=0.010126608577194317
+HBAN fallback_states=[48, 49] n_obs=[55, 1] stationary_mass=0.02025363826003492
+HRL fallback_states=[47] n_obs=[34] stationary_mass=0.01231063615730714
+HST fallback_states=[48, 49] n_obs=[0, 43] stationary_mass=0.015528687524514966
+IPG fallback_states=[48] n_obs=[33] stationary_mass=0.0119357776967359
+JCI fallback_states=[48] n_obs=[11] stationary_mass=0.003993819495582995
+JNPR fallback_states=[48] n_obs=[34] stationary_mass=0.012297892634701258
+K fallback_states=[48] n_obs=[15] stationary_mass=0.00542425902157553
+KEY fallback_states=[49] n_obs=[45] stationary_mass=0.016273252874275983
+KIM fallback_states=[47, 48] n_obs=[40, 1] stationary_mass=0.01482743992829825
+KMI fallback_states=[51] n_obs=[36] stationary_mass=0.012997828490361053
+KO fallback_states=[47] n_obs=[28] stationary_mass=0.010138348579743895
+MO fallback_states=[47] n_obs=[30] stationary_mass=0.010836699748173575
+NI fallback_states=[46] n_obs=[36] stationary_mass=0.013050714883716749
+NWS fallback_states=[50, 51] n_obs=[0, 119] stationary_mass=0.043000988180424825
+NWSA fallback_states=[49, 50] n_obs=[59, 1] stationary_mass=0.02169829232423651
+O fallback_states=[46] n_obs=[26] stationary_mass=0.00940182363347685
+PPL fallback_states=[47] n_obs=[44] stationary_mass=0.01591380865130314
+RF fallback_states=[48, 49] n_obs=[49, 0] stationary_mass=0.01773844060574886
+ROL fallback_states=[47] n_obs=[38] stationary_mass=0.01371104254433899
+SLV fallback_states=[49, 50] n_obs=[0, 56] stationary_mass=0.01987728001723039
+T fallback_states=[48] n_obs=[36] stationary_mass=0.013016217209968997
+UDR fallback_states=[46] n_obs=[24] stationary_mass=0.008689475977152982
+USB fallback_states=[49] n_obs=[28] stationary_mass=0.01012570803963702
+VZ fallback_states=[49] n_obs=[28] stationary_mass=0.01012456009969615
+WU fallback_states=[48, 49] n_obs=[56, 0] stationary_mass=0.020258433296875336
+WY fallback_states=[48] n_obs=[28] stationary_mass=0.010116247322860103
+XEL fallback_states=[47] n_obs=[27] stationary_mass=0.009764814119336442

@@ -1,0 +1,192 @@
+canonical_signature = "1ccbdfad4c493d42af6fbe1a4dda3891d8db97d827b92fff8fd30ab865702f84"
+rows = 250800
+
+[centering_control_checks]
+ad_pass = true
+ks_pass = true
+native_alpha_error = true
+native_beta_error = true
+native_kurtosis = true
+native_r2_error = true
+native_variance = true
+native_w1 = true
+
+[comparisons.historical_centered.block_bootstrap]
+all_metrics_agree = true
+paths = 42300
+
+    [comparisons.historical_centered.block_bootstrap.maximum_absolute_difference]
+    "R²_hat" = 0.0
+    ad_p = 0.0
+    hill_up = 0.0
+    ks_p = 0.0
+    kurt = 0.0
+    var_g = 0.0
+    w1 = 0.0
+    "α_hat" = 0.0
+    "β_hat" = 0.0
+
+[comparisons.historical_centered.garch_t]
+all_metrics_agree = true
+paths = 39300
+
+    [comparisons.historical_centered.garch_t.maximum_absolute_difference]
+    "R²_hat" = 0.0
+    ad_p = 0.0
+    hill_up = 0.0
+    ks_p = 0.0
+    kurt = 0.0
+    var_g = 0.0
+    w1 = 0.0
+    "α_hat" = 0.0
+    "β_hat" = 0.0
+
+[comparisons.historical_centered.gaussian]
+all_metrics_agree = true
+paths = 42300
+
+    [comparisons.historical_centered.gaussian.maximum_absolute_difference]
+    "R²_hat" = 0.0
+    ad_p = 0.0
+    hill_up = 0.0
+    ks_p = 0.0
+    kurt = 0.0
+    var_g = 0.0
+    w1 = 0.0
+    "α_hat" = 0.0
+    "β_hat" = 0.0
+
+[comparisons.historical_centered.hybrid]
+all_metrics_agree = true
+paths = 42300
+
+    [comparisons.historical_centered.hybrid.maximum_absolute_difference]
+    "R²_hat" = 0.0
+    ad_p = 0.0
+    hill_up = 0.0
+    ks_p = 0.0
+    kurt = 0.0
+    var_g = 0.0
+    w1 = 0.0
+    "α_hat" = 0.0
+    "β_hat" = 0.0
+
+[comparisons.historical_centered.naive]
+all_metrics_agree = true
+paths = 42300
+
+    [comparisons.historical_centered.naive.maximum_absolute_difference]
+    "R²_hat" = 0.0
+    ad_p = 0.0
+    hill_up = 0.0
+    ks_p = 0.0
+    kurt = 0.0
+    var_g = 0.0
+    w1 = 0.0
+    "α_hat" = 0.0
+    "β_hat" = 0.0
+
+[comparisons.historical_centered.residual_jumphmm]
+all_metrics_agree = true
+paths = 42300
+
+    [comparisons.historical_centered.residual_jumphmm.maximum_absolute_difference]
+    "R²_hat" = 0.0
+    ad_p = 0.0
+    hill_up = 0.0
+    ks_p = 0.0
+    kurt = 0.0
+    var_g = 0.0
+    w1 = 0.0
+    "α_hat" = 0.0
+    "β_hat" = 0.0
+
+[comparisons.old_canonical.block_bootstrap]
+all_metrics_agree = true
+paths = 42300
+
+    [comparisons.old_canonical.block_bootstrap.maximum_absolute_difference]
+    "R²_hat" = 0.0
+    ad_p = 0.0
+    hill_up = 0.0
+    ks_p = 0.0
+    kurt = 0.0
+    var_g = 0.0
+    w1 = 0.0
+    "α_hat" = 0.0
+    "β_hat" = 0.0
+
+[comparisons.old_canonical.garch_t]
+all_metrics_agree = true
+paths = 39300
+
+    [comparisons.old_canonical.garch_t.maximum_absolute_difference]
+    "R²_hat" = 0.0
+    ad_p = 0.0
+    hill_up = 0.0
+    ks_p = 0.0
+    kurt = 0.0
+    var_g = 0.0
+    w1 = 0.0
+    "α_hat" = 0.0
+    "β_hat" = 0.0
+
+[comparisons.old_canonical.gaussian]
+all_metrics_agree = true
+paths = 42300
+
+    [comparisons.old_canonical.gaussian.maximum_absolute_difference]
+    "R²_hat" = 0.0
+    ad_p = 0.0
+    hill_up = 0.0
+    ks_p = 0.0
+    kurt = 0.0
+    var_g = 0.0
+    w1 = 0.0
+    "α_hat" = 0.0
+    "β_hat" = 0.0
+
+[comparisons.old_canonical.hybrid]
+all_metrics_agree = false
+paths = 42300
+
+    [comparisons.old_canonical.hybrid.maximum_absolute_difference]
+    "R²_hat" = 5.551115123125783e-16
+    ad_p = 0.9914269467329546
+    hill_up = 0.028198783926919935
+    ks_p = 0.9888719930710841
+    kurt = 6.821210263296962e-13
+    var_g = 2.2737367544323206e-13
+    w1 = 0.5572783746240146
+    "α_hat" = 1.4511371772879762
+    "β_hat" = 8.881784197001252e-16
+
+[comparisons.old_canonical.naive]
+all_metrics_agree = false
+paths = 42300
+
+    [comparisons.old_canonical.naive.maximum_absolute_difference]
+    "R²_hat" = 5.551115123125783e-16
+    ad_p = 0.9874737769423462
+    hill_up = 0.026822890027633328
+    ks_p = 0.9728902981178272
+    kurt = 4.547473508864641e-13
+    var_g = 2.2737367544323206e-13
+    w1 = 0.5648993377014968
+    "α_hat" = 1.4572637756135967
+    "β_hat" = 8.881784197001252e-16
+
+[comparisons.old_canonical.residual_jumphmm]
+all_metrics_agree = true
+paths = 42300
+
+    [comparisons.old_canonical.residual_jumphmm.maximum_absolute_difference]
+    "R²_hat" = 0.0
+    ad_p = 0.0
+    hill_up = 0.0
+    ks_p = 0.0
+    kurt = 0.0
+    var_g = 0.0
+    w1 = 0.0
+    "α_hat" = 0.0
+    "β_hat" = 0.0

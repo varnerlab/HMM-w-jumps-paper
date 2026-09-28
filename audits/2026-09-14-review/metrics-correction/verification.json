@@ -1,0 +1,268 @@
+{
+  "completed_utc": "2026-09-15T18:07:58.728585+00:00",
+  "finding": "R8",
+  "ranked_correction": 8,
+  "status": "complete",
+  "pdf_sha256": {
+    "arxiv-paper/Paper_v1.pdf": "60b2725c5124e188fe360c374b844941215385f14fe137a10b03a51c7a8d6562",
+    "jfds-paper/Paper_v1.pdf": "0e53fcc91b2b3498cb19a825e4ac9636ae682493a260a540dc46cf13756b2c53",
+    "jfds-paper/Supplement_v1.pdf": "75178871fed879f8055d60e7cef238d337e87343f9d763f63c2ea9ebf5aff19a",
+    "jfds-paper/output/pdf/JFDS_Anonymous_Manuscript.pdf": "0e53fcc91b2b3498cb19a825e4ac9636ae682493a260a540dc46cf13756b2c53",
+    "jfds-paper/output/pdf/JFDS_Supplementary_Material.pdf": "75178871fed879f8055d60e7cef238d337e87343f9d763f63c2ea9ebf5aff19a"
+  },
+  "source_sha256": {
+    "code/baseline-comparison/neural-baseline/train_gru.py": "94772785a11ce2c6b2e59424c5a268e9ff9f3e1692b137880f09edf05c650077",
+    "code/baseline-comparison/neural-baseline/reproduce_gru.py": "e37a5da00152790e3f617961d60be0c462e60f29fcf3724dac7bbde628e40c50",
+    "code/baseline-comparison/neural-baseline/requirements.txt": "925caba7a1ae3659d3b58e4ade110d640b9e80bf761180e2a6f11d7ca677575e",
+    "code/baseline-comparison/neural-baseline/requirements-macos-arm64.lock": "fdadf71f7187d6b8b5b76c492e399903f52fe0051e79bc634eb42483f5070713",
+    "code/baseline-comparison/neural-baseline/.python-version": "ca2e220d1fb92b2610d4b4dd20bde54d8d258f3e5ce89b8365612ffd415171ee",
+    "code/baseline-comparison/neural-baseline/README.md": "8f66b59bd4b7e178d25ff18850d7ad8b2778583d0f3ed750db148ed5d1bbee38",
+    "arxiv-paper/sections/appendix.tex": "b5f44d8ab80e55a6701ef63e17636af3411bba7247fc9db4bad6b973e1bae7e2",
+    "arxiv-paper/sections/method_hmm.tex": "cf00d43cf6e3f24a977dfaee7a928d02cc9d6979f1f436a380e31e6775aae943",
+    "arxiv-paper/sections/method_sim.tex": "b8c3b74be342bd7191b5d49f6fd44039295c1e816f7cd7f65673fa6ae819878e",
+    "arxiv-paper/sections/results.tex": "b56096a2737415499df7268955d5f94a1b7e1986a1549ee142f637f329c1a043",
+    "arxiv-paper/sections/tables/table2_model_comparison.tex": "c9f391df2a385918266e3cc5d19260495fcc449e308ee20176ed5d157cf25139",
+    "jfds-paper/sections/appendix.tex": "30cd80d7c7863f575d893c4620a8c72a3e931a450ab2ed8eebde6b676eeb2e0a",
+    "jfds-paper/sections/method_hmm.tex": "d23fb9b222d81b9e354a9a385846ab544d1c5204a0facc5da3f4109d0b6cdfd0",
+    "jfds-paper/sections/method_sim.tex": "20e7714c1fb226f55fb93c7b4d57b83d3bf54368005470ab13ee72c5acf19971",
+    "jfds-paper/sections/results.tex": "ec5da7d37f4576e8b063516515611e10a341fe74e3eccc12de60328bbba81dc7",
+    "jfds-paper/sections/tables/table2_model_comparison.tex": "b5e711276a15fd2756527239d4839bb3305cdcb20c2dfc88956f9707c49960b7",
+    "arxiv-paper/sections/main_figures.tex": "fb19ecb34ae4acd7d18928b6a0b040487e450543b93b249e7226b667b48f8451",
+    "arxiv-paper/sections/main_tables.tex": "c8d1f62ee55c956d450f3848beb7b73bfe778ef449d33054cbd4515fd6a03962",
+    "audits/2026-09-14-review/metrics-correction/verify_metrics.jl": "45c1436215f539f0da8e8a4e4d8d9142264d11f6b9ab392bc5b035cdaa3ca7bc",
+    "audits/2026-09-14-review/metrics-correction/verify_gru_checkpoint.py": "c2cfcae853bf832240768859bb2963b4b314e6e3571a124d753cdbce78f7ba1c",
+    "audits/2026-09-14-review/metrics-correction/verify_tables.py": "e1bf4cba462381e50647da4a6cea6420c807e4b2be26e22831a1a3b03cdee2d2",
+    "audits/2026-09-14-review/metrics-correction/README.md": "827a7876be3d23496c13dd18e84a2bbf416d4552029e01ab4d7dc7397d0a0414",
+    "audits/2026-09-14-review/STATUS.md": "9448199b6dde4b72c96ff86e540603bdea7bb6406c7850a50ab5fa3ab1591e08",
+    "audits/2026-09-14-review/claude-verification/SUMMARY.md": "f0f285ef75a0ee93d903f6e6d19ed41c59eea3db7d81a0ab3238af0803cf0f61"
+  },
+  "artifact_sha256": {
+    "code/baseline-comparison/neural-baseline/saved-runs/r8-20260915/epochs.jsonl": "ca178595c71a972c212f1cad244a66001fd646d49fee2e5153c8a38113a3afdf",
+    "code/baseline-comparison/neural-baseline/saved-runs/r8-20260915/best-weights.pt": "a02b63403c7209f8d1a36c5fa1d13cbfa9e894bbb8e80b0d815e3a2447978fdc",
+    "code/baseline-comparison/neural-baseline/saved-runs/r8-20260915/metadata.json": "54cea7172d66f0c8ab5e51bcd875519968dc0623690e3d2f41688d582194d204",
+    "code/baseline-comparison/neural-baseline/saved-runs/r8-20260915/gru_paths_is.csv": "6f8bfe64cd9d4ef464d9e7f017d5002804ccd73a54b282dc394dda6fa8fbaa1d",
+    "code/baseline-comparison/neural-baseline/saved-runs/r8-20260915/checkpoint.pt": "f2ca301bd8f3d36968ff6b376ad016b8e6ede4a706074f03130357f4eef31c68",
+    "code/baseline-comparison/neural-baseline/saved-runs/r8-20260915/gru_paths_oos.csv": "8376e14cd1edd0d5928036f05e4a8343c4fd3830ba03010d39541b08fc0d26df",
+    "audits/2026-09-14-review/metrics-correction/gru-checkpoint-verification.json": "e1ab1d9296e45511ae930326b4c0c1723dc20bc4c49d54476ee75ca5285fad78",
+    "audits/2026-09-14-review/metrics-correction/gru-path-comparison.json": "78e47249a6a722626fbb89e6ea05cb106b65b56c591a8360314f70dbbdbf716f",
+    "audits/2026-09-14-review/metrics-correction/table-verification.json": "d0f2f3938f645494edc1737898e57fc42578633f7ea2826c7e433b4e51caefea",
+    "audits/2026-09-14-review/metrics-correction/gru-training.log": "56f389192da72aa48709e0051ebde7fd65b0f1d70f6a1f0ac82366430c06d715",
+    "audits/2026-09-14-review/metrics-correction/gru-rerun-metrics.log": "cff1c6743bf525e522fdf0f5786ba91d2148d870d494a7da200557eff44a68ba",
+    "audits/2026-09-14-review/metrics-correction/gru-rerun-metrics/metric-metadata.toml": "27b496c41a3ceaaa7c1ecee20541648b87da0815eeb1e7599c590d87316bc108",
+    "audits/2026-09-14-review/metrics-correction/gru-rerun-metrics/gru-metrics.csv": "a255a9a2c576e503d0a20f221a075a49a94d6c763674b264fb919cdba3dae475",
+    "audits/2026-09-14-review/metrics-correction/gru-rerun-metrics/acf-estimands.csv": "c26ce58aea3a3b35149fdcbccaed48712b1321a6bc7c0560500fadea0f8e6888",
+    "audits/2026-09-14-review/metrics-correction/gru-smoke-verified/metadata.json": "9209f0b6152c516a963e35372d498e9f25ce573f2859d1e2073752daa49b74f8",
+    "audits/2026-09-14-review/metrics-correction/arxiv-build.log": "f462de106446cb1ceb55eda6335ec489f624a1079c4229cfed83e6a197fb65ca",
+    "audits/2026-09-14-review/metrics-correction/jfds-build.log": "e8b08a85cc02eea2579b5a1bcd965c9894776869fc670577925b98e873e83301"
+  },
+  "figure_sha256": {
+    "arxiv-paper/figs/main/Fig06-Variance-Preservation.pdf": "c87dcf1da8a2646483853916f4cda8dbcf21b2d71acdd2cce9a7eb02a56f3032",
+    "arxiv-paper/figs/main/Fig03-Model-Comparison.pdf": "545a1ec8e194e88027e9c902e2e0766270512d725182cf31317e65154528d421",
+    "jfds-paper/figs/main/Fig06-Variance-Preservation.pdf": "c87dcf1da8a2646483853916f4cda8dbcf21b2d71acdd2cce9a7eb02a56f3032",
+    "jfds-paper/figs/main/Fig03-Model-Comparison.pdf": "545a1ec8e194e88027e9c902e2e0766270512d725182cf31317e65154528d421"
+  },
+  "accepted_figure4_and_figure3_assets_unchanged": true,
+  "builds_passed": [
+    "make -C arxiv-paper pdf",
+    "make -C jfds-paper all"
+  ],
+  "jfds_installed_outputs_match": true,
+  "logs": {
+    "arxiv": {
+      "undefined_or_duplicate_references": false,
+      "overfull_boxes": [],
+      "sha256": "9752c1316f966c52486b1cfcc8d1c52610c86384d2606373394586e54e22a31a"
+    },
+    "jfds": {
+      "undefined_or_duplicate_references": false,
+      "overfull_boxes": [
+        "Overfull \\hbox (11.18748pt too wide) detected at line 127"
+      ],
+      "sha256": "33626c5d5737af3617897b6d73799998d01d5870fdccae98ac97ef73c6da950e"
+    },
+    "supplement": {
+      "undefined_or_duplicate_references": false,
+      "overfull_boxes": [
+        "Overfull \\hbox (10.26515pt too wide) in paragraph at lines 107--115",
+        "Overfull \\hbox (36.36295pt too wide) detected at line 131",
+        "Overfull \\hbox (3.51581pt too wide) in paragraph at lines 1688--1696"
+      ],
+      "sha256": "49eadccc5caedd378f899970e8e87716f5f5135f6ad54dc1a4825f5ebac86e33"
+    }
+  },
+  "only_four_preexisting_jfds_width_warnings": true,
+  "metric_checks": {
+    "acf_definition_matches_package": true,
+    "baseline_and_neural_scorers_agree": true,
+    "ensemble_vs_pathwise_inequality": true,
+    "exported_observations_match_cached_vwap_series": true,
+    "kurtosis_wasserstein_pass_se_and_coverage_recomputed": true,
+    "maximum_histogram_endpoint_excluded": true
+  },
+  "table_checks": {
+    "printed_GRU_fields_verified": 56,
+    "all_16_Table2_numeric_rows_unchanged_in_both_papers": true,
+    "original_scoring_and_training_sources_unchanged": true,
+    "canonical_multiasset_inputs_sources_scores_and_fits_unchanged": true,
+    "metric_metadata_sha256": "27b496c41a3ceaaa7c1ecee20541648b87da0815eeb1e7599c590d87316bc108"
+  },
+  "checkpoint_checks": {
+    "environment_matches": true,
+    "source_input_and_output_hashes_match": true,
+    "checkpoint_reload_passed": true,
+    "epochs": 200,
+    "selected_epoch": 199,
+    "all_3015000_generated_values_match_archive": true,
+    "windows": {
+      "is": {
+        "all_1000_paths_byte_identical_to_archive": true,
+        "three_full_length_serial_paths_match_checkpoint": true,
+        "shape": [
+          2766,
+          1000
+        ],
+        "sha256": "6f8bfe64cd9d4ef464d9e7f017d5002804ccd73a54b282dc394dda6fa8fbaa1d"
+      },
+      "oos": {
+        "all_1000_paths_byte_identical_to_archive": true,
+        "three_full_length_serial_paths_match_checkpoint": true,
+        "shape": [
+          249,
+          1000
+        ],
+        "sha256": "8376e14cd1edd0d5928036f05e4a8343c4fd3830ba03010d39541b08fc0d26df"
+      }
+    }
+  },
+  "full_run_epochs": 200,
+  "selected_epoch": 199,
+  "best_training_nll": -0.06385544408112764,
+  "separate_original_loop_smoke_parity_passed": true,
+  "supplement_labels": {
+    "arxiv": {
+      "sec:supp-gru": {
+        "number": "S3.1",
+        "page": 31
+      },
+      "eq:quantile-envelope-coverage": {
+        "number": "S17",
+        "page": 29
+      },
+      "eq:sample-absolute-acf": {
+        "number": "S18",
+        "page": 29
+      },
+      "eq:acf-ensemble-error": {
+        "number": "S19",
+        "page": 29
+      },
+      "eq:acf-path-error": {
+        "number": "S20",
+        "page": 29
+      },
+      "eq:gru-loss": {
+        "number": "S21",
+        "page": 31
+      },
+      "tab:fallback_assets": {
+        "number": "S17",
+        "page": 52
+      },
+      "tab:fallback_sensitivity": {
+        "number": "S18",
+        "page": 53
+      }
+    },
+    "supplement": {
+      "sec:supp-gru": {
+        "number": "S3.1",
+        "page": 8
+      },
+      "eq:quantile-envelope-coverage": {
+        "number": "S17",
+        "page": 7
+      },
+      "eq:sample-absolute-acf": {
+        "number": "S18",
+        "page": 7
+      },
+      "eq:acf-ensemble-error": {
+        "number": "S19",
+        "page": 7
+      },
+      "eq:acf-path-error": {
+        "number": "S20",
+        "page": 8
+      },
+      "eq:gru-loss": {
+        "number": "S21",
+        "page": 8
+      },
+      "tab:fallback_assets": {
+        "number": "S17",
+        "page": 38
+      },
+      "tab:fallback_sensitivity": {
+        "number": "S18",
+        "page": 40
+      }
+    }
+  },
+  "visual_checks": {
+    "overview": "Inspected 12 contact sheets covering all pages in the three PDFs; no new clipping, overlap, detached captions, or isolated one-line paragraph fragments observed.",
+    "render_long_edge_pixels": 900,
+    "contact_sheet_page_long_edge_pixels": 450,
+    "detail_dpi": 120,
+    "detail_pages": {
+      "arxiv": [
+        19,
+        23,
+        28,
+        29,
+        30,
+        31
+      ],
+      "jfds": [
+        17,
+        18
+      ],
+      "supplement": [
+        6,
+        7,
+        8,
+        10
+      ]
+    },
+    "detail_result": "Revised metric equations, GRU loss and methods, Table 2 notes, and Figure 3 caption fit and are readable in both formats.",
+    "page_counts": {
+      "arxiv": 53,
+      "jfds": 31,
+      "supplement": 41
+    },
+    "render_sha256": {
+      "pdf-qa/arxiv-detail-19.png": "84752b95b48faf387f5953de6de70462b0e2a20d2e24ab5737541122c14ce121",
+      "pdf-qa/arxiv-detail-23.png": "81eaaec6b552168ff0745006466367feb820d40402ce01850f2abb086e02a3fe",
+      "pdf-qa/arxiv-detail-28.png": "edd47d0a7700b3afe2d909465ba3d75fcaea9397e211d478b95eaa0289cc2a0c",
+      "pdf-qa/arxiv-detail-29.png": "bfd13fb515ba8914885957ec6cda070fd2987bebdce7445c7d51dfcaa472cb24",
+      "pdf-qa/arxiv-detail-30.png": "a3eec5c0361c2277c9831625dcf4ef110520610b828649e74897857b26445b9c",
+      "pdf-qa/arxiv-detail-31.png": "6426bafba227eb4106e4253014c909bc42631234b77ecc5ce780897a9b6d23a7",
+      "pdf-qa/jfds-detail-17.png": "bd82a3f71fa64f38e6418ed6723473f3b9098816172e64242d6750f37d52651f",
+      "pdf-qa/jfds-detail-18.png": "07060c24b6673454ef845e18d8f28504b660a3cb1d82268901291dfbc246166b",
+      "pdf-qa/supplement-detail-06.png": "1cc631c1ad57af437922a1d786918c5c43161d2cf6b0de61e6ec9d8cb24ca15d",
+      "pdf-qa/supplement-detail-07.png": "bec7abc1ef78cf73f9192cb1478f71c2ea461f5a7a048a9bcca3c6c339952226",
+      "pdf-qa/supplement-detail-08.png": "65d70ec3948d1c25b8da7fc9e885819cb4b83874e4b89061d0bd56a324b96c8a",
+      "pdf-qa/supplement-detail-10.png": "595a45bda4ad2ebfc1f5326fc5049d4a749d9c5d37691ac82da65e3733a01f92"
+    }
+  },
+  "release_archives_regenerated": false,
+  "changes_committed": false,
+  "scope_limits": [
+    "Simulation errors condition on one fitted model and observed history.",
+    "GRU reproduction uses one seed and the recorded CPU environment, without establishing training-seed robustness.",
+    "The original histogram endpoint convention is retained and disclosed.",
+    "R9 through R11 and additional audit follow-ups remain open."
+  ],
+  "git_diff_check_passed": true,
+  "documentation_links_checked": 30,
+  "arxiv_pdf_opened_in_preview": true
+}

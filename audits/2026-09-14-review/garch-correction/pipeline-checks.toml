@@ -1,0 +1,10 @@
+accepted_coefficients_identical = true
+accepted_training_inputs_identical = true
+all_423_optimizers_converged = true
+eligible_holdout_assets = 386
+eligible_training_assets = 393
+excluded_assets = 30
+holdout_smoke_paths = 772
+paired_draws_identical_at_both_horizons = true
+smoke_scores_finite = true
+training_smoke_paths = 786

@@ -1,0 +1,28 @@
+{
+  "environment_matches": true,
+  "source_input_and_output_hashes_match": true,
+  "checkpoint_reload_passed": true,
+  "epochs": 200,
+  "selected_epoch": 199,
+  "all_3015000_generated_values_match_archive": true,
+  "windows": {
+    "is": {
+      "all_1000_paths_byte_identical_to_archive": true,
+      "three_full_length_serial_paths_match_checkpoint": true,
+      "shape": [
+        2766,
+        1000
+      ],
+      "sha256": "6f8bfe64cd9d4ef464d9e7f017d5002804ccd73a54b282dc394dda6fa8fbaa1d"
+    },
+    "oos": {
+      "all_1000_paths_byte_identical_to_archive": true,
+      "three_full_length_serial_paths_match_checkpoint": true,
+      "shape": [
+        249,
+        1000
+      ],
+      "sha256": "8376e14cd1edd0d5928036f05e4a8343c4fd3830ba03010d39541b08fc0d26df"
+    }
+  }
+}

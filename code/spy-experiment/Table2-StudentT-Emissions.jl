@@ -238,13 +238,15 @@ wj_oos = hcat([p.observations for p in wj_result_oos.paths]...)
 
 μ_is  = mean(insample_obs)
 σ_is  = std(insample_obs)
-lap_b = mean(abs.(insample_obs .- μ_is))
+# The Laplace MLE uses the sample median for location and the mean absolute
+# deviation about that median for scale. The Gaussian keeps its sample mean.
+laplace_fit = fit_mle(Laplace, insample_obs)
 
 gen_paths(gen, T, n) = hcat([gen(T) for _ in 1:n]...)
 
 bootstrap_gen(T) = insample_obs[rand(1:length(insample_obs), T)]
 gaussian_gen(T)  = rand(Normal(μ_is, σ_is), T)
-laplace_gen(T)   = rand(Laplace(μ_is, lap_b), T)
+laplace_gen(T)   = rand(laplace_fit, T)
 
 @info "Generating baseline IS paths..."
 boot_is   = gen_paths(bootstrap_gen, T_is, _N_PATHS)

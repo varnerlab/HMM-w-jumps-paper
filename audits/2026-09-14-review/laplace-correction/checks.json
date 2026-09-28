@@ -1,0 +1,33 @@
+{
+  "production_fit_scripts": [
+    "code/baseline-comparison/Baseline-Comparison.jl",
+    "code/spy-experiment/Table2-StudentT-Emissions.jl"
+  ],
+  "original_table_sha256": "2519e118b7044e92b785f462ad30ea5c1258fcc6292f7629df43c3a1c5bc2dd0",
+  "arxiv_and_jfds_table_sources_match": false,
+  "old_and_corrected_fit_used_same_uniforms": true,
+  "metric_rows": 18,
+  "manuscript_table_updated": true,
+  "candidate_table": "table2_laplace_mle.tex",
+  "manuscript_claim_updated": true,
+  "integration_date": "2026-09-14",
+  "table_content_matches_except_float_placement": true,
+  "pdf_builds_passed": true,
+  "existing_jfds_overfull_equation_warning": "11.18748pt at method_sim.tex line 116; unchanged from HEAD",
+  "pdf_sha256": {
+    "arxiv-paper": "d4a763e948148a1427c9fb6a5f44f846fea7fb35f5cb9c3954f6a4062f5a4788",
+    "jfds-paper": "3c588e2f3d6191780b5251371c5d092d1ee6341742893a73431ffc9f53ba1152"
+  },
+  "visual_qa": {
+    "arxiv_pages": [
+      10,
+      18
+    ],
+    "jfds_pages": [
+      15,
+      16,
+      17
+    ],
+    "result": "Revised paragraphs and tables inspected; no clipping, overlap, or broken references on these pages."
+  }
+}

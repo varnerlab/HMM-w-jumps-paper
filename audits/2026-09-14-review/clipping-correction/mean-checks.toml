@@ -1,0 +1,329 @@
+cases_checked = 24
+clipped_cases = 6
+completed_utc = "2026-09-15T18:23:49.572Z"
+exact_floor_boundary_retains_loading = true
+julia_version = "1.12.7"
+maximum_mean_identity_error = 4.440892098500626e-16
+maximum_training_mean_identity_error = 4.440892098500626e-16
+
+[[cases]]
+beta = -3.0
+branch = "HYBRID_CLIPPED"
+calibrated_linear_mean = 0.6999999999999998
+composed_mean = 0.4794733192202054
+effective_beta = -1.8973665961010275
+identity_error = 0.0
+market_mean = -0.19999999999999996
+mean_shift = -0.22052668077979443
+predicted_shift = -0.22052668077979445
+r2 = 0.2
+training_mean_identity_error = 0.0
+[[cases]]
+beta = -3.0
+branch = "R2_PRESERVE"
+calibrated_linear_mean = 0.6999999999999998
+composed_mean = 0.6999999999999996
+effective_beta = -3.0
+identity_error = 2.220446049250313e-16
+market_mean = -0.19999999999999996
+mean_shift = -2.220446049250313e-16
+predicted_shift = -0.0
+r2 = 0.9
+training_mean_identity_error = 2.220446049250313e-16
+[[cases]]
+beta = -3.0
+branch = "HYBRID_CLIPPED"
+calibrated_linear_mean = 0.1
+composed_mean = 0.10000000000000009
+effective_beta = -1.8973665961010275
+identity_error = 8.326672684688674e-17
+market_mean = 0.0
+mean_shift = 8.326672684688674e-17
+predicted_shift = 0.0
+r2 = 0.2
+training_mean_identity_error = 1.1102230246251565e-16
+[[cases]]
+beta = -3.0
+branch = "R2_PRESERVE"
+calibrated_linear_mean = 0.1
+composed_mean = 0.09999999999999998
+effective_beta = -3.0
+identity_error = 2.7755575615628914e-17
+market_mean = 0.0
+mean_shift = -2.7755575615628914e-17
+predicted_shift = 0.0
+r2 = 0.9
+training_mean_identity_error = 0.0
+[[cases]]
+beta = -3.0
+branch = "HYBRID_CLIPPED"
+calibrated_linear_mean = -0.4999999999999999
+composed_mean = -0.27947331922020524
+effective_beta = -1.8973665961010275
+identity_error = 2.220446049250313e-16
+market_mean = 0.19999999999999996
+mean_shift = 0.22052668077979465
+predicted_shift = 0.22052668077979445
+r2 = 0.2
+training_mean_identity_error = 1.6653345369377348e-16
+[[cases]]
+beta = -3.0
+branch = "R2_PRESERVE"
+calibrated_linear_mean = -0.4999999999999999
+composed_mean = -0.49999999999999944
+effective_beta = -3.0
+identity_error = 4.440892098500626e-16
+market_mean = 0.19999999999999996
+mean_shift = 4.440892098500626e-16
+predicted_shift = 0.0
+r2 = 0.9
+training_mean_identity_error = 4.163336342344337e-16
+[[cases]]
+beta = 0.0
+branch = "HYBRID"
+calibrated_linear_mean = 0.1
+composed_mean = 0.10000000000000009
+effective_beta = 0.0
+identity_error = 8.326672684688674e-17
+market_mean = -0.19999999999999996
+mean_shift = 8.326672684688674e-17
+predicted_shift = -0.0
+r2 = 0.2
+training_mean_identity_error = 8.326672684688674e-17
+[[cases]]
+beta = 0.0
+branch = "R2_PRESERVE"
+calibrated_linear_mean = 0.1
+composed_mean = 0.1
+effective_beta = 0.0
+identity_error = 0.0
+market_mean = -0.19999999999999996
+mean_shift = 0.0
+predicted_shift = -0.0
+r2 = 0.9
+training_mean_identity_error = 0.0
+[[cases]]
+beta = 0.0
+branch = "HYBRID"
+calibrated_linear_mean = 0.1
+composed_mean = 0.10000000000000009
+effective_beta = 0.0
+identity_error = 8.326672684688674e-17
+market_mean = 0.0
+mean_shift = 8.326672684688674e-17
+predicted_shift = 0.0
+r2 = 0.2
+training_mean_identity_error = 8.326672684688674e-17
+[[cases]]
+beta = 0.0
+branch = "R2_PRESERVE"
+calibrated_linear_mean = 0.1
+composed_mean = 0.1
+effective_beta = 0.0
+identity_error = 0.0
+market_mean = 0.0
+mean_shift = 0.0
+predicted_shift = 0.0
+r2 = 0.9
+training_mean_identity_error = 0.0
+[[cases]]
+beta = 0.0
+branch = "HYBRID"
+calibrated_linear_mean = 0.1
+composed_mean = 0.10000000000000009
+effective_beta = 0.0
+identity_error = 8.326672684688674e-17
+market_mean = 0.19999999999999996
+mean_shift = 8.326672684688674e-17
+predicted_shift = 0.0
+r2 = 0.2
+training_mean_identity_error = 8.326672684688674e-17
+[[cases]]
+beta = 0.0
+branch = "R2_PRESERVE"
+calibrated_linear_mean = 0.1
+composed_mean = 0.1
+effective_beta = 0.0
+identity_error = 0.0
+market_mean = 0.19999999999999996
+mean_shift = 0.0
+predicted_shift = 0.0
+r2 = 0.9
+training_mean_identity_error = 0.0
+[[cases]]
+beta = 1.0
+branch = "HYBRID"
+calibrated_linear_mean = -0.09999999999999995
+composed_mean = -0.10000000000000006
+effective_beta = 1.0
+identity_error = 1.1102230246251565e-16
+market_mean = -0.19999999999999996
+mean_shift = -1.1102230246251565e-16
+predicted_shift = -0.0
+r2 = 0.2
+training_mean_identity_error = 1.1102230246251565e-16
+[[cases]]
+beta = 1.0
+branch = "R2_PRESERVE"
+calibrated_linear_mean = -0.09999999999999995
+composed_mean = -0.09999999999999992
+effective_beta = 1.0
+identity_error = 2.7755575615628914e-17
+market_mean = -0.19999999999999996
+mean_shift = 2.7755575615628914e-17
+predicted_shift = -0.0
+r2 = 0.9
+training_mean_identity_error = 5.551115123125783e-17
+[[cases]]
+beta = 1.0
+branch = "HYBRID"
+calibrated_linear_mean = 0.1
+composed_mean = 0.10000000000000009
+effective_beta = 1.0
+identity_error = 8.326672684688674e-17
+market_mean = 0.0
+mean_shift = 8.326672684688674e-17
+predicted_shift = 0.0
+r2 = 0.2
+training_mean_identity_error = 8.326672684688674e-17
+[[cases]]
+beta = 1.0
+branch = "R2_PRESERVE"
+calibrated_linear_mean = 0.1
+composed_mean = 0.10000000000000003
+effective_beta = 1.0
+identity_error = 2.7755575615628914e-17
+market_mean = 0.0
+mean_shift = 2.7755575615628914e-17
+predicted_shift = 0.0
+r2 = 0.9
+training_mean_identity_error = 2.7755575615628914e-17
+[[cases]]
+beta = 1.0
+branch = "HYBRID"
+calibrated_linear_mean = 0.29999999999999993
+composed_mean = 0.3000000000000001
+effective_beta = 1.0
+identity_error = 1.6653345369377348e-16
+market_mean = 0.19999999999999996
+mean_shift = 1.6653345369377348e-16
+predicted_shift = 0.0
+r2 = 0.2
+training_mean_identity_error = 1.3877787807814457e-16
+[[cases]]
+beta = 1.0
+branch = "R2_PRESERVE"
+calibrated_linear_mean = 0.29999999999999993
+composed_mean = 0.3
+effective_beta = 1.0
+identity_error = 5.551115123125783e-17
+market_mean = 0.19999999999999996
+mean_shift = 5.551115123125783e-17
+predicted_shift = 0.0
+r2 = 0.9
+training_mean_identity_error = 2.7755575615628914e-17
+[[cases]]
+beta = 3.0
+branch = "HYBRID_CLIPPED"
+calibrated_linear_mean = -0.4999999999999999
+composed_mean = -0.27947331922020524
+effective_beta = 1.8973665961010275
+identity_error = 2.220446049250313e-16
+market_mean = -0.19999999999999996
+mean_shift = 0.22052668077979465
+predicted_shift = 0.22052668077979445
+r2 = 0.2
+training_mean_identity_error = 2.220446049250313e-16
+[[cases]]
+beta = 3.0
+branch = "R2_PRESERVE"
+calibrated_linear_mean = -0.4999999999999999
+composed_mean = -0.49999999999999944
+effective_beta = 3.0
+identity_error = 4.440892098500626e-16
+market_mean = -0.19999999999999996
+mean_shift = 4.440892098500626e-16
+predicted_shift = -0.0
+r2 = 0.9
+training_mean_identity_error = 4.440892098500626e-16
+[[cases]]
+beta = 3.0
+branch = "HYBRID_CLIPPED"
+calibrated_linear_mean = 0.1
+composed_mean = 0.10000000000000009
+effective_beta = 1.8973665961010275
+identity_error = 8.326672684688674e-17
+market_mean = 0.0
+mean_shift = 8.326672684688674e-17
+predicted_shift = -0.0
+r2 = 0.2
+training_mean_identity_error = 1.1102230246251565e-16
+[[cases]]
+beta = 3.0
+branch = "R2_PRESERVE"
+calibrated_linear_mean = 0.1
+composed_mean = 0.09999999999999998
+effective_beta = 3.0
+identity_error = 2.7755575615628914e-17
+market_mean = 0.0
+mean_shift = -2.7755575615628914e-17
+predicted_shift = 0.0
+r2 = 0.9
+training_mean_identity_error = 0.0
+[[cases]]
+beta = 3.0
+branch = "HYBRID_CLIPPED"
+calibrated_linear_mean = 0.6999999999999998
+composed_mean = 0.4794733192202054
+effective_beta = 1.8973665961010275
+identity_error = 0.0
+market_mean = 0.19999999999999996
+mean_shift = -0.22052668077979443
+predicted_shift = -0.22052668077979445
+r2 = 0.2
+training_mean_identity_error = 5.551115123125783e-17
+[[cases]]
+beta = 3.0
+branch = "R2_PRESERVE"
+calibrated_linear_mean = 0.6999999999999998
+composed_mean = 0.6999999999999996
+effective_beta = 3.0
+identity_error = 2.220446049250313e-16
+market_mean = 0.19999999999999996
+mean_shift = -2.220446049250313e-16
+predicted_shift = 0.0
+r2 = 0.9
+training_mean_identity_error = 1.942890293094024e-16
+
+[original_audit_example]
+effective_beta = 1.8546983526894383
+market_mean = 0.15889710182312675
+mean_shift = -0.18198511247090104
+predicted_shift = -0.18198511247090113
+
+[source_sha256]
+"audits/2026-09-14-review/clipping-correction/verify_mean.jl" = "fa54453c6a2e8fd642b49eade90c9bce220701ddb6479ec1232eee6a2d8bb5c9"
+"code/downstream-evaluation/src/Composers.jl" = "d5f31b82bff97c67b6f61c7bd759bde342df5b5a0a0e9737a2659feae2fd4260"
+"code/downstream-evaluation/src/SyntheticMarket.jl" = "c67d8330a9be7521bf6f80d258365c2ef17b841d818c19729d360ef68746e674"
+
+[[stress_cases]]
+branch = "HYBRID"
+effective_beta = 1.0
+gamma = 1.0
+market_mean = 0.19999999999999996
+market_variance_ratio = 1.0
+mean_shift = 1.6653345369377348e-16
+[[stress_cases]]
+branch = "HYBRID_CLIPPED"
+effective_beta = 0.9486832980505138
+gamma = 2.0
+market_mean = 0.20000000000000007
+market_variance_ratio = 4.0
+mean_shift = -0.010263340389897069
+[[stress_cases]]
+branch = "HYBRID_CLIPPED"
+effective_beta = 0.6324555320336759
+gamma = 3.0
+market_mean = 0.20000000000000018
+market_variance_ratio = 9.0
+mean_shift = -0.07350889359326451

@@ -1,0 +1,2 @@
+implemented fit=Laplace{Float64}(μ=0.06310026953971988, θ=1.4582431107117084) MLE=Laplace{Float64}(μ=0.14192447563031826, θ=1.456119131053678)
+Matched-uniform comparison (new review seed): mean-centered KS=42.6% MLE KS=98.6%

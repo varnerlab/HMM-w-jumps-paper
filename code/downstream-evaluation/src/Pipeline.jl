@@ -248,7 +248,7 @@ function run_composer_experiment(cfg::Dict;
 
     garch_cache = find_data_artifact("garch-t-models.jld2")
     garch_models = ("garch_t" in include_composers && garch_cache !== nothing) ?
-        load(garch_cache)["models"] : nothing
+        load_validated_garch_models(garch_cache; trial_length=T_eff, seed) : nothing
 
     @info "run_composer_experiment" seed=seed f=f R²_threshold=R²_threshold gm_factor=gm_factor composers=collect(include_composers) suffix=output_suffix
 
@@ -318,7 +318,7 @@ function run_composer_experiment(cfg::Dict;
             end
             if "garch_t" in include_composers && garch_models !== nothing &&
                     haskey(garch_models, ticker)
-                ε̃_g = Float64.(ARCHModels.simulate(garch_models[ticker], T_eff).data)
+                ε̃_g = simulate_garch_residual(garch_models[ticker], T_eff)
                 g = compose_garch_t(α, β, G_m, ε̃_g)
                 record!(ticker, "garch_t", r, β, string(GARCH_T),
                         score_asset(g, G_real, G_m))
@@ -395,7 +395,7 @@ function run_oos_composer_experiment(cfg::Dict;
     marginals_resid = ("residual_jumphmm" in include_composers && residual_path !== nothing) ?
         load(residual_path)["marginals"] : nothing
     garch_models = ("garch_t" in include_composers && garch_path !== nothing) ?
-        load(garch_path)["models"] : nothing
+        load_validated_garch_models(garch_path; trial_length=T_oos, seed) : nothing
 
     market_sim = simulate(marginals[market_ticker], T_oos;
                           n_paths = n_paths, seed = seed + 9_000_000)
@@ -493,7 +493,7 @@ function run_oos_composer_experiment(cfg::Dict;
 
             if "garch_t" in include_composers && garch_models !== nothing && haskey(garch_models, ticker)
                 Random.seed!(seed + i * 4_000_000 + rep * 4_000 + 1)
-                ε̃_g = Float64.(ARCHModels.simulate(garch_models[ticker], T_oos).data)
+                ε̃_g = simulate_garch_residual(garch_models[ticker], T_oos)
                 g = compose_garch_t(α, β, G_m_sim, ε̃_g)
                 record_oos!(ticker, "garch_t", rep, β, string(GARCH_T), g,
                              G_real, G_train_block, G_m_sim, β_oos, R²_oos)

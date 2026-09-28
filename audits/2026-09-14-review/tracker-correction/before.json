@@ -1,0 +1,22 @@
+{
+  "code/downstream-evaluation/scripts/08-Synthetic-Tracker-Eval.jl": "bf3ec60da92d1f137089b3a91339c4f7d06a06c5a1429d600ee444f9968dff73",
+  "code/downstream-evaluation/src/Composers.jl": "d5f31b82bff97c67b6f61c7bd759bde342df5b5a0a0e9737a2659feae2fd4260",
+  "code/downstream-evaluation/src/Metrics.jl": "0f43ef920cfe69930c4f89a52a4b7872bb0fb817222a2761c33c8c24f3b7c573",
+  "code/downstream-evaluation/data/universe.jld2": "abe77a84b84de946629ce04dc6f143b6a02d5559d8eb0302760ffae39a6d6a54",
+  "code/downstream-evaluation/data/synth-tracker.csv": "21b304da5968a6ffa77a3e9b2f0beef67240e03c5dd6b23167f5df03cdeb6795",
+  "code/downstream-evaluation/data/synth-tracker-summary.csv": "daa61945146fe350242dea6722b42b1655095d958a317399ee887bbcc2061785",
+  "code/downstream-evaluation/data/synth-tracker.jld2": "fff33feeaca69e4a8db915647dfd9e7d8c938fde2c8c40fbc0cc0d21cbdad330",
+  "code/downstream-evaluation/config.toml": "5479ca29495537e37c5adb9c3df33019387507956202b39959c590167a2a9c43",
+  "code/downstream-evaluation/Manifest.toml": "5cfcb3f8f915c79d100f9c9eafcf0c2a37ea6d27e7387d03828f57f370cf9bc2",
+  "arxiv-paper/Paper_v1.pdf": "f3971e719ac23c7ff75b100e9f708a86ac7ef4f5af4eb885c2790b9b91be888c",
+  "arxiv-paper/figs/main/Fig06-Variance-Preservation.pdf": "c87dcf1da8a2646483853916f4cda8dbcf21b2d71acdd2cce9a7eb02a56f3032",
+  "arxiv-paper/sections/results.tex": "c11739f9790958d7d132513951ebcf81973b344ec5488408ffb691d601e6f0a9",
+  "arxiv-paper/sections/discussion.tex": "e4b56af61f2b80bf9fb1d6348363ce3a07559a7c2c636fcab0452599a08d34eb",
+  "arxiv-paper/sections/appendix.tex": "d0b28f7d0c819a68bf943ed4ca4bb9e154fd9b50cecc44e85d9507efb806fd40",
+  "jfds-paper/Paper_v1.pdf": "2c30d234ed1da6a2a9b4eb1bcc203b7c45c5c1793151413401fdd1ba160180c0",
+  "jfds-paper/figs/main/Fig06-Variance-Preservation.pdf": "c87dcf1da8a2646483853916f4cda8dbcf21b2d71acdd2cce9a7eb02a56f3032",
+  "jfds-paper/sections/results.tex": "8b1bd46af8341a9883adf86b89b6767ba8f34da98909bdb9bd52c29d4984278d",
+  "jfds-paper/sections/discussion.tex": "7bcc6659e6069b530af69cb41ca904ae04da2dbe0d9893fe6c5efecb6b1a4c6b",
+  "jfds-paper/sections/appendix.tex": "48d2bd5b85395a390affa16073f4cf86c776250e08b07234f8ffbb2b278bebd5",
+  "jfds-paper/Supplement_v1.pdf": "20bdff51fb687bbde52f4400f1ae108d954a909901494edb6b318ca1113ba8d2"
+}

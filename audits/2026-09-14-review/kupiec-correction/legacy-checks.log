@@ -1,0 +1,12 @@
+Test Summary:                  | Pass  Total  Time
+Saved legacy diagnostic impact |   27     27  4.4s
+6×6 DataFrame
+ Row │ file                               alpha_level  records_sum  zero_breaches_sum  all_breaches_sum  changed_5pct_decisions_sum
+     │ String                             Float64      Int64        Int64              Int64             Int64
+─────┼──────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────
+   1 │ results-oos.csv                           0.95       246600                546                 0                           0
+   2 │ results-oos.csv                           0.99       246600              15697                 0                           0
+   3 │ results-oos-centered.csv                  0.95       246600                554                 0                           0
+   4 │ results-oos-centered.csv                  0.99       246600              15758                 0                           0
+   5 │ results-oos-centered-components.…         0.95        83200                128                 0                           0
+   6 │ results-oos-centered-components.…         0.99        83200               7967                 0                           0

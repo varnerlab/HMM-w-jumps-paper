@@ -1,0 +1,8 @@
+Test Summary:                   | Pass  Total  Time
+full-return generator centering |    4      4  0.3s
+Test Summary:                                              | Pass  Total  Time
+naive composition does not double count generator location |    3      3  0.1s
+Test Summary:                           | Pass  Total  Time
+hybrid branches use a centered residual |   15     15  0.1s
+Test Summary:                                        | Pass  Total  Time
+intercept recovery under the composition assumptions |    2      2  0.1s

@@ -14,7 +14,12 @@ SECTIONS := sections/abstract.tex \
 	sections/main_tables.tex \
 	sections/main_figures.tex \
 	sections/appendix.tex
-TABLES := sections/tables/table1_aggregate.tex \
+TABLES := sections/tables/tableS_fallback_assets.tex \
+	sections/tables/tableS_fallback_sensitivity.tex \
+	sections/tables/tableS_centering_control.tex \
+	sections/tables/tableS_var_convergence.tex \
+	sections/tables/tableS_var_common.tex \
+	sections/tables/table1_aggregate.tex \
 	sections/tables/table2_by_branch.tex \
 	sections/tables/table2_model_comparison.tex \
 	sections/tables/table3_by_beta_bucket.tex \

@@ -1,0 +1,43 @@
+Fingerprint src/JumpAblation.jl True
+Fingerprint src/Composers.jl True
+Fingerprint src/Metrics.jl True
+Fingerprint src/Pipeline.jl True
+Fingerprint Manifest.toml True
+Fingerprint config.toml True
+Fingerprint data/universe.jld2 True
+Fingerprint data/sim-calibration.jld2 True
+Jump data shapes (12000, 24) (20136, 26) (12, 21) (252, 10)
+Replication aggregation maximum error 3.552713678800501e-14
+Ticker aggregation maximum error 3.552713678800501e-14
+Paired contrast and SE maximum error 4.440892098500626e-16
+
+Training CSV rows and methods 126900 ['gaussian', 'hybrid', 'naive']
+          assets  paths         KS        W1
+composer                                    
+gaussian     423  42300   0.631206  0.681031
+hybrid       423  42300  50.373522  0.271855
+naive        423  42300   4.468085  0.710085
+
+Published holdout summary
+        composer  n_tickers  ks_is_matched    ks_oos  ad_is_matched    ad_oos   w1_oos  var_ratio_oos  kurt_error_oos
+           naive        416      69.423077 83.519231      54.795673 71.555288 0.876682       1.286340        3.946752
+        gaussian        416      57.350962 73.879808      44.901442 64.557692 0.865639       0.974147        5.586076
+          hybrid        416      78.783654 86.978365      66.225962 79.716346 0.715864       0.969606        3.753212
+residual_jumphmm        416      77.947115 86.237981      65.644231 80.093750 0.708224       0.977736        3.684443
+ block_bootstrap        416      76.329327 84.038462      64.000000 76.487981 0.715382       0.898312        3.971174
+         garch_t        386      74.507772 82.569948      62.619171 75.044041 0.732614       0.905185        3.832010
+
+Published holdout VaR summary
+        composer  alpha_level  mean_rate  sd_rate  kupiec_pass_rate
+ block_bootstrap         0.95   0.061277 0.025604          0.636538
+         garch_t         0.95   0.057870 0.024713          0.624482
+        gaussian         0.95   0.049476 0.022611          0.699832
+          hybrid         0.95   0.059668 0.024316          0.662668
+           naive         0.95   0.043681 0.021495          0.657620
+residual_jumphmm         0.95   0.060660 0.025938          0.669687
+ block_bootstrap         0.99   0.018401 0.010077          0.734351
+         garch_t         0.99   0.018024 0.010179          0.719767
+        gaussian         0.99   0.020312 0.011696          0.720553
+          hybrid         0.99   0.016689 0.009299          0.733726
+           naive         0.99   0.012075 0.007614          0.789255
+residual_jumphmm         0.99   0.016710 0.009510          0.745240

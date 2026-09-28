@@ -1,0 +1,10 @@
+script_executable_code_unchanged = true
+cells = 15
+all_scales_equal_one = true
+max_abs_composed_residual_mean = 7.192768113262041e-17
+rows = 1500
+horizon = 2766
+realized_to_nominal_residual_variance_range = [0.9089338958421309, 1.090299305040425]
+all_ks_pass = true
+reference_residual_mean_sd = 0.018712293141077876
+all_saved_values_reproduced_exactly = true

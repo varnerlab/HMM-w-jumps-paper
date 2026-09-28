@@ -1,0 +1,98 @@
+┌ Info: GARCH fitting
+│   completed = 1
+│   total = 423
+└   accepted = 1
+┌ Info: GARCH fitting
+│   completed = 25
+│   total = 423
+└   accepted = 23
+┌ Info: GARCH fitting
+│   completed = 50
+│   total = 423
+└   accepted = 47
+┌ Warning: Failed to achieve finite new evaluation point, using alpha=0
+└ @ LineSearches ~/.julia/packages/LineSearches/2BCHN/src/hagerzhang.jl:156
+┌ Warning: Failed to achieve finite new evaluation point, using alpha=0
+└ @ LineSearches ~/.julia/packages/LineSearches/2BCHN/src/hagerzhang.jl:156
+┌ Info: GARCH fitting
+│   completed = 75
+│   total = 423
+└   accepted = 68
+┌ Info: GARCH fitting
+│   completed = 100
+│   total = 423
+└   accepted = 92
+┌ Warning: Failed to achieve finite new evaluation point, using alpha=0
+└ @ LineSearches ~/.julia/packages/LineSearches/2BCHN/src/hagerzhang.jl:156
+┌ Info: GARCH fitting
+│   completed = 125
+│   total = 423
+└   accepted = 114
+┌ Warning: Failed to achieve finite new evaluation point, using alpha=0
+└ @ LineSearches ~/.julia/packages/LineSearches/2BCHN/src/hagerzhang.jl:156
+┌ Warning: Failed to achieve finite new evaluation point, using alpha=0
+└ @ LineSearches ~/.julia/packages/LineSearches/2BCHN/src/hagerzhang.jl:156
+┌ Info: GARCH fitting
+│   completed = 150
+│   total = 423
+└   accepted = 136
+┌ Info: GARCH fitting
+│   completed = 175
+│   total = 423
+└   accepted = 159
+┌ Info: GARCH fitting
+│   completed = 200
+│   total = 423
+└   accepted = 183
+┌ Info: GARCH fitting
+│   completed = 225
+│   total = 423
+└   accepted = 208
+┌ Info: GARCH fitting
+│   completed = 250
+│   total = 423
+└   accepted = 233
+┌ Info: GARCH fitting
+│   completed = 275
+│   total = 423
+└   accepted = 256
+┌ Warning: Failed to achieve finite new evaluation point, using alpha=0
+└ @ LineSearches ~/.julia/packages/LineSearches/2BCHN/src/hagerzhang.jl:156
+┌ Info: GARCH fitting
+│   completed = 300
+│   total = 423
+└   accepted = 279
+┌ Warning: Failed to achieve finite new evaluation point, using alpha=0
+└ @ LineSearches ~/.julia/packages/LineSearches/2BCHN/src/hagerzhang.jl:156
+┌ Info: GARCH fitting
+│   completed = 325
+│   total = 423
+└   accepted = 303
+┌ Info: GARCH fitting
+│   completed = 350
+│   total = 423
+└   accepted = 327
+┌ Warning: Failed to achieve finite new evaluation point, using alpha=0
+└ @ LineSearches ~/.julia/packages/LineSearches/2BCHN/src/hagerzhang.jl:156
+┌ Info: GARCH fitting
+│   completed = 375
+│   total = 423
+└   accepted = 350
+┌ Warning: Failed to achieve finite new evaluation point, using alpha=0
+└ @ LineSearches ~/.julia/packages/LineSearches/2BCHN/src/hagerzhang.jl:156
+┌ Info: GARCH fitting
+│   completed = 400
+│   total = 423
+└   accepted = 373
+┌ Warning: Failed to achieve finite new evaluation point, using alpha=0
+└ @ LineSearches ~/.julia/packages/LineSearches/2BCHN/src/hagerzhang.jl:156
+┌ Warning: Failed to achieve finite new evaluation point, using alpha=0
+└ @ LineSearches ~/.julia/packages/LineSearches/2BCHN/src/hagerzhang.jl:156
+┌ Info: GARCH fitting
+│   completed = 423
+│   total = 423
+└   accepted = 393
+┌ Info: GARCH cache ready
+│   accepted = 393
+│   excluded = 30
+└   output = "/Users/jdv27/Desktop/julia_work/HMM-w-jumps-paper/code/downstream-evaluation/data"

@@ -1,0 +1,11 @@
+{
+  "reviewed_commit": "2d9c8e5d2c323cfef7e251a8ad698c1b6b7c8742",
+  "date": "2026-09-14",
+  "sha256": {
+    "arxiv-paper/Paper_v1.pdf": "44f4dfe7fe6e28469ab9e6823ff6ec5596da7f5ac17b4eb2e9d23176c4d11e96",
+    "arxiv-paper/HMM-w-jumps-arxiv-source.tar.gz": "692445281c23d5d18836e932d9e5408fcc2dc522f63a6b998e0512c0a81861d7",
+    "code/downstream-evaluation/data/results.jld2": "409867856b8decf4af1680c9be93d0885106fd3dbfbb956b9d51a140c439d28b",
+    "code/downstream-evaluation/data/results-summary.csv": "8d8f977e265a916ef3ebba0df5b3fd618dc80991e983aac2fbd2e3ec66d1a589",
+    "code/downstream-evaluation/Manifest.toml": "5cfcb3f8f915c79d100f9c9eafcf0c2a37ea6d27e7387d03828f57f370cf9bc2"
+  }
+}

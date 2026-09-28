@@ -1,0 +1,6 @@
+ALB fit succeeded coefficients=[0.16068103923159296, 0.9398694466469578, 0.06755425823824016] persistence=1.007423704885198
+ALB simulation FAILED: Model is nonstationary.
+ALL fit succeeded coefficients=[0.016002876090514154, 0.9730096036354838, 0.027201173513796476] persistence=1.0002107771492803
+ALL simulation FAILED: Model is nonstationary.
+AMAT fit succeeded coefficients=[0.010086710353431635, 0.9899569904820974, 0.01074076831422159] persistence=1.000697758796319
+AMAT simulation FAILED: Model is nonstationary.

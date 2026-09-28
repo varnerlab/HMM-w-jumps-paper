@@ -1,0 +1,16 @@
+{
+  "arxiv-paper/Makefile": "ffc44519e80d855e54ddfd145189884001203ddabcad6d9dd5bf624210368ec7",
+  "code/downstream-evaluation/README.md": "f2c02f171c32f28142fa30fa161242571fcc4d22fd2fbf76e733ad4079431076",
+  "audits/2026-09-14-review/STATUS.md": "637096b6dbca08d4a8d4f130eaedd85d2bab190381065a0078d48476273160af",
+  "arxiv-paper/sections/method_hmm.tex": "a75767cfe2e446a23fc13804107c641316b11de52290672882d52e98aa76d873",
+  "arxiv-paper/sections/appendix.tex": "63a20b21b2cce474542bb54f239df8a0db92c788ad6aa5ffeaeaf8ffea4a0d2d",
+  "arxiv-paper/sections/results.tex": "b30c2c4d363b7782e754b73707d526c3c064b3e801e5b4c7788972df2a01b57c",
+  "arxiv-paper/sections/discussion.tex": "72ffa3ac9b49e54309f52d807897deba2552755fd293be3faad097544762c675",
+  "arxiv-paper/Paper_v1.pdf": "e7fbf6797c61c48e43f4224af1797c26f87ccd34676ba590b8a6bcc38fcd3cf5",
+  "jfds-paper/sections/method_hmm.tex": "882396e823e30058f9956f3914a6e924abb3739e2c2ad8394d0eeb2078502686",
+  "jfds-paper/sections/appendix.tex": "6fc2243676c7f1657fcda9af98829801028d42e68db6f141a7c8d232ccd1e017",
+  "jfds-paper/sections/results.tex": "b70cd8a1b3753f2edb070e29218154fa12b5969800a7c88fae81ea854b6c29eb",
+  "jfds-paper/sections/discussion.tex": "39075b465632c7d64f6121c04327a7a6b89452667590b6db96c6a8aff204cd14",
+  "jfds-paper/Paper_v1.pdf": "2a68a6a1e11e2b6f3aeea2d37e127b06835f6263e5dd9a68ce5ff93d0836ffaf",
+  "jfds-paper/Supplement_v1.pdf": "5cba24fee197e9c405a2108a7720ce6c7526f86eb4421b8deea52863e429fa6a"
+}

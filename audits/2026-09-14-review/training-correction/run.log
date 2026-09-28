@@ -1,0 +1,22 @@
+Training 1/423 assets; 0.0 minutes
+Training 25/423 assets; 0.1 minutes
+Training 50/423 assets; 0.2 minutes
+Training 75/423 assets; 0.3 minutes
+Training 100/423 assets; 0.4 minutes
+Training 125/423 assets; 0.5 minutes
+Training 150/423 assets; 0.6 minutes
+Training 175/423 assets; 0.6 minutes
+Training 200/423 assets; 0.7 minutes
+Training 225/423 assets; 0.8 minutes
+Training 250/423 assets; 0.9 minutes
+Training 275/423 assets; 1.0 minutes
+Training 300/423 assets; 1.1 minutes
+Training 325/423 assets; 1.2 minutes
+Training 350/423 assets; 1.2 minutes
+Training 375/423 assets; 1.3 minutes
+Training 400/423 assets; 1.4 minutes
+Training 423/423 assets; 1.5 minutes
+┌ Info: Canonical training results complete
+│   rows = 250800
+│   assets = 423
+└   garch_assets = 393

@@ -1,0 +1,10 @@
+┌ Info: run_composer_experiment
+│   seed = 1234
+│   f = 0.1
+│   R²_threshold = 0.8
+│   gm_factor = 1.0
+│   composers = 6-element Vector{String}: …
+└   suffix = ""
+[ Info: Composer ticker 1 / 6: AAPL
+Test Summary:                      | Pass  Total  Time
+Direct production-loop equivalence |   20     20  9.9s

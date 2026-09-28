@@ -1,0 +1,21 @@
+{
+  "code/downstream-evaluation/src/VaRBacktest.jl": "ac78800680ebec42899b6ec51d7f0406fccf78885ed17f8aaeb450c19d9f19c4",
+  "code/downstream-evaluation/scripts/14-VaR-Table.jl": "0a530a176d225895dad8a521494d412698fb80d79bf7e81343118ef5ecf15eda",
+  "code/downstream-evaluation/results/var-ensemble/provenance.toml": "065ebec597a7f41fccd9756fc93fd6ad1e9bc74a3fab3c4757b9b6b3d9941cbb",
+  "code/downstream-evaluation/results/var-ensemble/scoring.toml": "2e1c25f54735192d271a1c092ea18354d068f6389a9294101018959302e570f1",
+  "code/downstream-evaluation/results/var-ensemble/thresholds.csv": "24bdcb3ee232dfc8850e972b1e622461c765c8489560592e6dfef0a010f1069d",
+  "code/downstream-evaluation/results/var-ensemble/scores.csv": "a25ab0f9d8b2bf704117f9480baa1bf29351d4e8e8e2cbee3d8385a5cb545ad5",
+  "code/downstream-evaluation/results/var-ensemble/summary.csv": "c83d78740400deda58e8caef37a9ccf9c71bfb5210c112d6c416cf93cec6940a",
+  "code/downstream-evaluation/data/var-backtest-oos-summary.csv": "55c5935fa99a8ef04446cce9f42ffded258946dbae4d9d86b29db8b6dc60558f",
+  "code/downstream-evaluation/data/results-oos.csv": "71770d0c4c6f60593804beb6ab6e3cdad63a55861a640fca3e3542d9e006fe55",
+  "code/downstream-evaluation/data/results-oos-centered.csv": "55504472d77a400cf4a0f23fbfa39659ffe7d8e29edf0d2cb9958e293b2cb3b2",
+  "code/downstream-evaluation/data/results-oos-centered-components.csv": "938e2992f3b009529e8bf417f31f50decd4e21b29d778472644622eeaabc8535",
+  "code/downstream-evaluation/data/var-backtest-summary.csv": "95dde855c4890ccfe5bed44ebc0ae53690708c92099bddb2fd3ce7d4db93b578",
+  "arxiv-paper/Paper_v1.pdf": "f3971e719ac23c7ff75b100e9f708a86ac7ef4f5af4eb885c2790b9b91be888c",
+  "arxiv-paper/sections/tables/table5_var_backtest_oos.tex": "53685c905b24b99ccc31b2e7915703dad6a944240447c2b5536e09934c899a3e",
+  "arxiv-paper/figs/main/Fig06-Variance-Preservation.pdf": "c87dcf1da8a2646483853916f4cda8dbcf21b2d71acdd2cce9a7eb02a56f3032",
+  "jfds-paper/Paper_v1.pdf": "2c30d234ed1da6a2a9b4eb1bcc203b7c45c5c1793151413401fdd1ba160180c0",
+  "jfds-paper/sections/tables/table5_var_backtest_oos.tex": "53685c905b24b99ccc31b2e7915703dad6a944240447c2b5536e09934c899a3e",
+  "jfds-paper/figs/main/Fig06-Variance-Preservation.pdf": "c87dcf1da8a2646483853916f4cda8dbcf21b2d71acdd2cce9a7eb02a56f3032",
+  "jfds-paper/Supplement_v1.pdf": "20bdff51fb687bbde52f4400f1ae108d954a909901494edb6b318ca1113ba8d2"
+}

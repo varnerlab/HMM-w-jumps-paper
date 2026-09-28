@@ -1,0 +1,8 @@
+# Fixed before inspecting 2025 exceedances. Every path retains its own
+# centering, scaling, state initialization, and GARCH warmup.
+horizon = 249
+batch_size = 100
+calibration_paths = 5000
+validation_paths = 1000
+checkpoints = [100, 500, 1000, 2500, 5000]
+seed = 9142026

@@ -1,0 +1,245 @@
+{
+  "recovered_utc": "2026-09-14T16:22:54.584257+00:00",
+  "reviewed_commit_matches": true,
+  "tracked_working_tree_clean": true,
+  "packet_sha256_matches": true,
+  "source_checks": [
+    {
+      "path": "audits/2026-09-14-review/REVIEW.md",
+      "matches": true
+    },
+    {
+      "path": "audits/2026-09-14-review/reproduce_findings.jl",
+      "matches": true
+    },
+    {
+      "path": "audits/2026-09-14-review/reproduce_findings.log",
+      "matches": true
+    },
+    {
+      "path": "audits/2026-09-14-review/garch_probe.jl",
+      "matches": true
+    },
+    {
+      "path": "audits/2026-09-14-review/garch_probe.log",
+      "matches": true
+    },
+    {
+      "path": "audits/2026-09-14-review/laplace_probe.jl",
+      "matches": true
+    },
+    {
+      "path": "audits/2026-09-14-review/laplace_probe.log",
+      "matches": true
+    },
+    {
+      "path": "audits/2026-09-14-review/data_probe.jl",
+      "matches": true
+    },
+    {
+      "path": "audits/2026-09-14-review/data_probe.log",
+      "matches": true
+    },
+    {
+      "path": "audits/2026-09-14-review/jump_tests_fresh.jl",
+      "matches": true
+    },
+    {
+      "path": "audits/2026-09-14-review/jump_tests_fresh.log",
+      "matches": true
+    },
+    {
+      "path": "audits/2026-09-14-review/verify_artifacts.py",
+      "matches": true
+    },
+    {
+      "path": "audits/2026-09-14-review/verify_artifacts.log",
+      "matches": true
+    },
+    {
+      "path": "audits/2026-09-14-review/existing_tests.log",
+      "matches": true
+    },
+    {
+      "path": "audits/2026-09-14-review/snapshot.json",
+      "matches": true
+    },
+    {
+      "path": "arxiv-paper/Paper_v1.tex",
+      "matches": true
+    },
+    {
+      "path": "arxiv-paper/sections/abstract.tex",
+      "matches": true
+    },
+    {
+      "path": "arxiv-paper/sections/introduction.tex",
+      "matches": true
+    },
+    {
+      "path": "arxiv-paper/sections/method_hmm.tex",
+      "matches": true
+    },
+    {
+      "path": "arxiv-paper/sections/method_sim.tex",
+      "matches": true
+    },
+    {
+      "path": "arxiv-paper/sections/results.tex",
+      "matches": true
+    },
+    {
+      "path": "arxiv-paper/sections/discussion.tex",
+      "matches": true
+    },
+    {
+      "path": "arxiv-paper/sections/conclusion.tex",
+      "matches": true
+    },
+    {
+      "path": "arxiv-paper/sections/main_tables.tex",
+      "matches": true
+    },
+    {
+      "path": "arxiv-paper/sections/main_figures.tex",
+      "matches": true
+    },
+    {
+      "path": "arxiv-paper/sections/appendix.tex",
+      "matches": true
+    },
+    {
+      "path": "arxiv-paper/sections/tables/table1_aggregate.tex",
+      "matches": true
+    },
+    {
+      "path": "arxiv-paper/sections/tables/table2_model_comparison.tex",
+      "matches": true
+    },
+    {
+      "path": "arxiv-paper/sections/tables/table5_var_backtest_oos.tex",
+      "matches": true
+    },
+    {
+      "path": "arxiv-paper/sections/tables/table6_oos_scorecard.tex",
+      "matches": true
+    },
+    {
+      "path": "arxiv-paper/sections/tables/table7_jump_ablation.tex",
+      "matches": true
+    },
+    {
+      "path": "code/downstream-evaluation/README.md",
+      "matches": true
+    },
+    {
+      "path": "code/downstream-evaluation/config.toml",
+      "matches": true
+    },
+    {
+      "path": "code/downstream-evaluation/src/Composers.jl",
+      "matches": true
+    },
+    {
+      "path": "code/downstream-evaluation/src/Pipeline.jl",
+      "matches": true
+    },
+    {
+      "path": "code/downstream-evaluation/src/VaRBacktest.jl",
+      "matches": true
+    },
+    {
+      "path": "code/downstream-evaluation/src/Metrics.jl",
+      "matches": true
+    },
+    {
+      "path": "code/downstream-evaluation/scripts/01c-Fit-GARCH.jl",
+      "matches": true
+    },
+    {
+      "path": "code/downstream-evaluation/scripts/04-Tables.jl",
+      "matches": true
+    },
+    {
+      "path": "code/downstream-evaluation/scripts/05-Figures.jl",
+      "matches": true
+    },
+    {
+      "path": "code/downstream-evaluation/scripts/08-Synthetic-Tracker-Eval.jl",
+      "matches": true
+    },
+    {
+      "path": "code/baseline-comparison/Baseline-Comparison.jl",
+      "matches": true
+    },
+    {
+      "path": "code/spy-experiment/Table2-StudentT-Emissions.jl",
+      "matches": true
+    },
+    {
+      "path": "code/spy-experiment/Table2-SEs.jl",
+      "matches": true
+    },
+    {
+      "path": "code/downstream-evaluation/src/JumpAblation.jl",
+      "matches": true
+    },
+    {
+      "path": "pinned-package/JumpHMM/VWkoC/src/Emission.jl",
+      "matches": true
+    },
+    {
+      "path": "pinned-package/ARCHModels/7C444/src/univariatearchmodel.jl",
+      "matches": true
+    },
+    {
+      "path": "pinned-package/ARCHModels/7C444/src/general.jl",
+      "matches": true
+    }
+  ],
+  "snapshot_checks": [
+    {
+      "path": "arxiv-paper/Paper_v1.pdf",
+      "matches": true
+    },
+    {
+      "path": "arxiv-paper/HMM-w-jumps-arxiv-source.tar.gz",
+      "matches": true
+    },
+    {
+      "path": "code/downstream-evaluation/data/results.jld2",
+      "matches": true
+    },
+    {
+      "path": "code/downstream-evaluation/data/results-summary.csv",
+      "matches": true
+    },
+    {
+      "path": "code/downstream-evaluation/Manifest.toml",
+      "matches": true
+    }
+  ],
+  "response_checks": [
+    {
+      "raw_response": "claude-response.jsonl",
+      "report": "CLAUDE_VERIFICATION.md",
+      "report_sha256": "7722661179e5be6234a680e2c2bb66b3bf06851b7afc64984e5a2b171dc00206",
+      "raw_response_sha256": "e78565e5fd785dfc632e3182ef167515bfd8a5fad6dc96192fb9753b38c98603",
+      "success": true,
+      "report_matches_response": true,
+      "finished_utc": "2026-09-14T16:12:01.680627+00:00"
+    },
+    {
+      "raw_response": "claude-followup-response.json",
+      "report": "CLAUDE_CORRECTIONS.md",
+      "report_sha256": "b7495392d80a0fa64783c264078e72b83f53895dc1d9345e4350634823cb748b",
+      "raw_response_sha256": "dbdc1381f0b7cccdedcab64d88354c75c8444ca0d92ce32e455c141f5e4bae0a",
+      "success": true,
+      "report_matches_response": true,
+      "finished_utc": "2026-09-14T16:15:01.744859+00:00"
+    }
+  ],
+  "new_model_requests": 0,
+  "experiment_reruns": 0,
+  "summary": "SUMMARY.md"
+}

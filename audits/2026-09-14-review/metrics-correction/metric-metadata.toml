@@ -1,0 +1,72 @@
+bootstrap_replications = 500
+completed_utc = "2026-09-15T17:35:21.678Z"
+julia_version = "1.12.7"
+paths_per_window = 1000
+protocol = "Rescore archived GRU paths; original metric definitions, seed 1234 and IS/OoS call order; no retraining"
+
+[checks]
+acf_definition_matches_package = true
+baseline_and_neural_scorers_agree = true
+ensemble_vs_pathwise_inequality = true
+exported_observations_match_cached_vwap_series = true
+kurtosis_wasserstein_pass_se_and_coverage_recomputed = true
+maximum_histogram_endpoint_excluded = true
+
+[package_versions]
+Distributions = "0.25.123"
+HypothesisTests = "0.11.6"
+JLD2 = "0.5.15"
+StatsBase = "0.34.10"
+
+[results.is]
+acf_mae = 0.035658339467038926
+acf_se = 0.00041496706503422353
+ad_pass = 0.2
+ad_se = 0.1412798640995949
+coverage = 17.17171717171717
+coverage_se = 0.4526352716259515
+covered_quantile_levels = 17.0
+diversity = 0.9841421012875752
+diversity_se = 5.352090462678671e-5
+hellinger = 0.13355405172987675
+hellinger_se = 0.0007474019804348682
+ks_pass = 0.6
+ks_se = 0.2442130217658346
+kurt = 5.705519281287965
+kurt_se = 0.16109577669479316
+novelty = 0.9839868307233152
+novelty_se = 0.00036841045406785987
+w1 = 0.42050370696472117
+w1_se = 0.0025476063471103903
+
+[results.oos]
+acf_mae = 0.03276097672415229
+acf_se = 0.00027143624016999523
+ad_pass = 44.800000000000004
+ad_se = 1.572564784039119
+coverage = 77.77777777777779
+coverage_se = 2.8961626454566765
+covered_quantile_levels = 77.0
+diversity = 0.9471409179629233
+diversity_se = 0.00014142298559030185
+hellinger = 0.23962664627891742
+hellinger_se = 0.0011173018159016147
+ks_pass = 71.8
+ks_se = 1.4229406171727619
+kurt = 2.8844948712230245
+kurt_se = 0.09628406871169322
+novelty = 0.9448709913481749
+novelty_se = 0.0013647495294019302
+w1 = 0.4880479799326792
+w1_se = 0.005254951024700495
+
+[source_input_sha256]
+"audits/2026-09-14-review/metrics-correction/verify_metrics.jl" = "7ce8b1f9330c5cc3afefb3a3477b1b5dff116b2059666f918643eb38a2641f13"
+"code/baseline-comparison/Baseline-Comparison.jl" = "83cd416d03531f8066bc714be4f5f6f987883c4634d0070be72c8b13a7c86761"
+"code/baseline-comparison/Manifest.toml" = "0bba8663e59e4e392bd85eca5d41fa8e1032103fdd3cea2327c3068073aef777"
+"code/baseline-comparison/Neural-Baseline-Evaluation.jl" = "2f5e08a9d46eddc4635c4cb060a801d40228032aac48ce2cbd02608596c60668"
+"code/baseline-comparison/neural-baseline/gru_paths_is.csv" = "6f8bfe64cd9d4ef464d9e7f017d5002804ccd73a54b282dc394dda6fa8fbaa1d"
+"code/baseline-comparison/neural-baseline/gru_paths_oos.csv" = "8376e14cd1edd0d5928036f05e4a8343c4fd3830ba03010d39541b08fc0d26df"
+"code/baseline-comparison/neural-baseline/spy_is.csv" = "9c0bae131b3270238a4fbcb49694715d8f923d05d9ddda3e7d53e4bae84c801f"
+"code/baseline-comparison/neural-baseline/spy_oos.csv" = "c0b35695ab36e017cb61de21dc74748fac90afd200b57c4cbb3df831427ef02b"
+"code/baseline-comparison/neural-baseline/train_gru.py" = "94772785a11ce2c6b2e59424c5a268e9ff9f3e1692b137880f09edf05c650077"

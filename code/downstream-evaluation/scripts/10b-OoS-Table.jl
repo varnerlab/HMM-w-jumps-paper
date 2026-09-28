@@ -86,51 +86,10 @@ open(scorecard_path, "w") do io
     println(io, "\\end{tabular}")
 end
 
-# VaR: aggregate replications within ticker first, then summarize across
-# tickers. This makes the reported SD genuinely cross-ticker.
-var_long = vcat(
-    select(r, :composer, :ticker, :rep,
-           :var95_rate => :rate, :var95_kupiec_p => :kupiec_p,
-           :var95_rate => ByRow(_ -> 0.95) => :alpha_level),
-    select(r, :composer, :ticker, :rep,
-           :var99_rate => :rate, :var99_kupiec_p => :kupiec_p,
-           :var99_rate => ByRow(_ -> 0.99) => :alpha_level),
-)
-var_ticker = combine(groupby(var_long, [:composer, :alpha_level, :ticker]),
-    :rate => mean => :rate,
-    :kupiec_p => (p -> mean(p .> 0.05)) => :kupiec_pass,
-)
-var_summary = combine(groupby(var_ticker, [:composer, :alpha_level]),
-    :rate => mean => :mean_rate,
-    :rate => std => :sd_rate,
-    :kupiec_pass => mean => :kupiec_pass_rate,
-)
-CSV.write(joinpath(_PATH_TO_DATA, "var-backtest-oos-summary.csv"), var_summary)
-
-function var_row(composer)
-    r95 = only(eachrow(var_summary[(var_summary.composer .== composer) .&
-                                   (var_summary.alpha_level .== 0.95), :]))
-    r99 = only(eachrow(var_summary[(var_summary.composer .== composer) .&
-                                   (var_summary.alpha_level .== 0.99), :]))
-    return [COMPOSER_DISPLAY[composer],
-            fmt2(100r95.mean_rate), fmt2(100r95.sd_rate), fmt1(100r95.kupiec_pass_rate),
-            fmt2(100r99.mean_rate), fmt2(100r99.sd_rate), fmt1(100r99.kupiec_pass_rate)]
-end
-
+# Table 5 uses separately calibrated pooled thresholds. Fail clearly if they
+# have not been generated; never substitute the legacy per-path VaR columns.
+include(joinpath(@__DIR__, "14-VaR-Table.jl"))
 var_table_path = joinpath(_TABLE_DIR, "table5_var_backtest_oos.tex")
-open(var_table_path, "w") do io
-    println(io, "\\begin{tabular}{lrrrrrr}")
-    println(io, "\\toprule")
-    println(io, " & \\multicolumn{3}{c}{\$\\alpha = 0.95\$} & \\multicolumn{3}{c}{\$\\alpha = 0.99\$} \\\\")
-    println(io, "\\cmidrule(lr){2-4} \\cmidrule(lr){5-7}")
-    println(io, "Composer & rate (\\%) & SD (pp) & Kupiec pass (\\%) & rate (\\%) & SD (pp) & Kupiec pass (\\%) \\\\")
-    println(io, "\\midrule")
-    for composer in order
-        println(io, join(var_row(composer), " & "), " \\\\")
-    end
-    println(io, "\\bottomrule")
-    println(io, "\\end{tabular}")
-end
 
 # Figure: cross-ticker OoS pass-rate distributions and the matched-length
 # comparison for the proposed hybrid method.
@@ -173,5 +132,3 @@ savefig(fig, fig_path)
 @info "OoS artifacts written" scorecard=scorecard_path var_table=var_table_path figure=fig_path
 println("\nOoS scorecard:")
 show(summary, allcols=true, allrows=true); println()
-println("\nOoS VaR summary:")
-show(var_summary, allcols=true, allrows=true); println()

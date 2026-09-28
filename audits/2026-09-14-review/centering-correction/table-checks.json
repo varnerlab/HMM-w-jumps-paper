@@ -1,0 +1,8 @@
+{
+  "native_values_match_existing_table_at_reported_precision": true,
+  "common_population_is_393_for_all_six_methods": true,
+  "naive_and_hybrid_control_metrics_identical": true,
+  "rendered_tables_identical": true,
+  "summary_sha256": "d957ad662067cac30e5d9782b1b51ada72fce4478184087305ccf2ad967b53dd",
+  "table_sha256": "9ae1f22ebcac85d202ce053e255887c4ca94d9c796b5dabfe6a0fd85c0481051"
+}

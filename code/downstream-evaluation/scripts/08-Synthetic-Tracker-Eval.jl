@@ -1,22 +1,27 @@
 # =============================================================================
 # 08-Synthetic-Tracker-Eval.jl
 #
-# R²-preserve branch correctness check on synthetic tracker assets.
+# Restricted R²-preserve branch check with Gaussian residual inputs.
 #
 # Motivation: in the 423-ticker S&P 500 universe only QQQ (R²=0.861) and SPYG
 # (R²=0.933) exceed the R²_preserve = 0.80 threshold; the highest individual
 # stock (BLK) sits at R²=0.645. The empirical gap between single stocks and
 # index trackers is structural, so the r2-preserve branch has n=2 empirical
-# support. To validate the branch under controlled conditions, we construct
+# support. To check the branch under controlled conditions, we construct
 # synthetic tracker assets with a calibrated R² and β, run them through
-# compose_hybrid, and check that β̂ and R² recover to their target values
-# across the full intended R² range.
+# compose_hybrid, and summarize estimated β̂ and R² around their target values.
 #
 # Construction: for a target (β_true, R²_true),
 #   σ_ε_target² = β_true² · σ_m² · (1 - R²_true) / R²_true
 #   g_i(t)      = α_true + β_true · g_m(t) + σ_ε_target · ξ(t),  ξ ~ N(0, 1)
-# This matches Eq. (9) of the paper exactly; the JumpHMM fit on this series
-# should recover the same relationship.
+# Both samples reuse the observed SPY path. No full-return HMM is fitted:
+# a fresh Gaussian residual is supplied directly with σ²_gen = σ²_ε_target,
+# so the composer's residual scale is one. The reference residual remains
+# uncentered, while compose_hybrid centers its input. Finite-path β̂ and R²
+# need not equal the targets. Nominal KS pass rates are descriptive; their
+# reference calibration is not established for this shared-market design.
+# This check does not validate full-return fitting, non-unit scaling, or
+# temporal fit of the complete reuse pipeline.
 #
 # Outputs:
 #   data/synth-tracker.csv
@@ -63,7 +68,7 @@ for β_true in β_grid, R²_true in R²_grid
     @info "Synthetic tracker" β_true=β_true R²_true=R²_true σ_ε_target=round(σ_ε_target, digits=3)
 
     for rep in 1:n_paths
-        # build a synthetic tracker path with the exact target R²
+        # Build a reference path with the nominal target residual variance.
         ξ = randn(rng, T)
         g_real = α_true .+ β_true .* G_m .+ σ_ε_target .* ξ
 

@@ -1,0 +1,22 @@
+{
+  "review_model": "claude-fable-5-1",
+  "original_packet_review_complete": true,
+  "all_11_findings_adjudicated": true,
+  "code_execution_by_claude": false,
+  "followup_corrections_pending": false,
+  "independent_arithmetic_check": {
+    "illustrative_uniform_null_percent": 1.392,
+    "naive_absolute_gap_percentage_points": 0.182,
+    "hybrid_absolute_gap_percentage_points": 0.278,
+    "claim_of_ranking_reversal_supported": false
+  },
+  "followup_corrections_complete": true,
+  "reconciliation_complete": true,
+  "reconciled_summary": "SUMMARY.md",
+  "recovery_checks": "recovery-checks.json",
+  "recovered_utc": "2026-09-14T16:22:54.584257+00:00",
+  "remaining_addendum_qualifications": [
+    "The exact 3.48/250 expectation is specific to the uniform type-7 example, not all iid continuous distributions.",
+    "Tracker reference residuals are uncentered while composed residuals are centered; unit scaling does not establish identical finite-path distributions."
+  ]
+}

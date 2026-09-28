@@ -11,3 +11,6 @@ synth-tracker.jld2
 marginals.jld2
 marginals-residuals.jld2
 garch-t-models.jld2
+
+# Full training rows are distributed in results.jld2; CSV is a convenience export.
+results.csv
