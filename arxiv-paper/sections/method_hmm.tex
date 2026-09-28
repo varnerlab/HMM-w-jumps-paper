@@ -5,30 +5,37 @@
 % multi-asset composition lives at the top of method_sim.tex.
 
 
-For each asset, the hidden Markov model with jumps (HMM-WJ) converted
-the continuous return series into a
-sequence of $N$ ordered return regimes. At each time step, the model
-first selected a regime and then drew a return from that regime's
-distribution (Fig.~\ref{fig:model_architecture}). We represented the model as
+For each asset, the hidden Markov generator divided the range of growth rates, which we also call returns, into $N=100$ ordered intervals and treated the interval that contained a day's
+return as that day's state (Table~\ref{tab:hyperparams}). We write
+$t$ for the day index $j$ and omit the ticker index $i$ when
+discussing one asset. At each simulated time step, the model
+first selected a state and then drew a return from that state's
+distribution (Fig.~\ref{fig:model_architecture}). We represented the
+model as
 $\mathcal{M} = (\mathcal{S}, \mathcal{O}, \mathbf{T}, \mathbf{E}, \bar{\pi})$
 ~\cite{rabinerJuang1986}.
 The hidden state $S_t \in \mathcal{S} = \{1,\dots,N\}$ identifies the
-regime at time $t$, and the observed value is the excess growth rate
-$G_t$ from Eq.~\eqref{eq:growth_rate}. We omit the ticker index
-$i$ when discussing one asset. The transition matrix $\mathbf{T}$
-sets the probabilities of moving between regimes, $\mathbf{E}$ gives
-the return distribution within each regime, and $\bar{\pi}$ gives the
-initial regime probabilities. We ordered the regimes from the most
-negative to the most positive
-returns. Their boundaries were equally spaced quantiles of a Laplace
-distribution fitted to the asset's in-sample returns. Specifically,
-$Q_k = F_L^{-1}(k/N;\, \mu_L, b_L)$, where $\mu_L$ and $b_L$ are the
-fitted location and scale. We set $Q_0=-\infty$ and $Q_N=+\infty$ and
-assigned return $G_t$ to state $k$ when $Q_{k-1}\le G_t<Q_k$. The
-Laplace distribution captured the sharp concentration of small price
-movements in Fig.~\ref{fig:empirical_motivation}a
-~\cite{kotzKozubowskiPodgorski2001, tothJones2019}. We computed its
-closed-form quantiles for all $424$ tickers~\cite{bilmes1998}.
+interval on trading day $t$, and the observation space
+$\mathcal{O}\subset\mathbb{R}$ contains the excess growth rates $G_t$
+of Eq.~\eqref{eq:growth_rate}. The transition
+matrix $\mathbf{T}$ sets the probabilities of moving between states,
+$\mathbf{E}$ gives the return distribution within each state, and
+$\bar{\pi}$ gives the initial state probabilities. We ordered the
+states from the most negative to the most positive returns and placed their boundaries at the quantiles of a Laplace distribution,
+fitted to the asset's in-sample returns, at the equally spaced
+probability levels $k/N$. We used the Laplace
+distribution because its sharp peak matches the concentration of
+small price movements in Fig.~\ref{fig:empirical_motivation}a
+~\cite{kotzKozubowskiPodgorski2001, tothJones2019}. Its quantile
+function also has a closed form, so the boundaries for all $424$
+tickers required no iterative fitting~\cite{bilmes1998}. Specifically,
+$Q_k = F_L^{-1}(k/N;\, \mu_L, b_L)$, where $F_L^{-1}$ is the Laplace
+quantile function and $\mu_L$ and $b_L$ are the fitted location and
+scale. We set $Q_0=-\infty$ and $Q_N=+\infty$ and assigned return
+$G_t$ to state $k$ when $Q_{k-1}\le G_t<Q_k$. Because each training
+return determines its state, the fitted state sequence is known; the
+states are hidden only in simulated paths, where the model generates
+the state sequence and reports only the returns.
 
 The within-state emission followed a location-scale Student-$t$
 distribution:
@@ -45,79 +52,94 @@ with fewer than two observations used the mean and standard
 deviation of that asset's full training series. A state with at
 least two observations and sample standard deviation below $10^{-12}\,\mathrm{yr}^{-1}$
 retained its state mean but used the full-series standard deviation
-as its scale. The same rules applied to residual-fit generators,
-using their residual training series. These exceptions kept emission
-parameters defined but could broaden states containing repeated
-returns (Table~\ref{tab:fallback_assets}). A standard $t_\nu$ has
-variance $\nu/(\nu-2)$, so
+as its scale. These exceptions kept emission parameters defined but could broaden
+states containing repeated returns (Online Appendix~\ref{sec:supp-fallback});
+neither applied to SPY, whose states all held many observations. The same rules applied to the
+generators that the multi-asset comparison fitted to regression
+residuals. A standard $t_\nu$ has variance $\nu/(\nu-2)$, so
 $\sigma_k$ is a scale parameter rather than the emission standard
-deviation. At $\nu=5$, the emission standard deviation is
-$\sigma_k\sqrt{5/3}$. We selected $\nu = 5$ from a sensitivity sweep.
-We used $\nu = \infty$ for the Normal baseline; Table~\ref{tab:hyperparams}
-gives the explored range. Holding the rest of the model fixed, the
-Student-$t$ emission raised simulated kurtosis toward the observed
-value and raised the Kolmogorov--Smirnov (KS) and Anderson--Darling
-(AD) pass rates relative to the Normal emission. We also
-compared HMM-WJ with a hidden semi-Markov model (HSMM) baseline
-adapted from Bulla and Bulla~\cite{bullaBulla2006}
-(Table~\ref{tab:emission_hsmm}; Online
-Appendix~\ref{sec:supp-emission-hsmm}). The emission and HSMM
-comparisons separated the effects of heavy-tailed emissions and the
-jump-duration mechanism. We estimated the transition matrix $\mathbf{T}$
-by counting observed transitions and normalizing each row with a
-positive count. A state with no observed outgoing transition used
-a uniform row, $\mathbf{T}_{kj}=1/N$ for every destination $j$.
-Counting avoided the initialization sensitivity of iterative
-expectation-maximization~\cite{bilmes1998}. The counted matrix was
-concentrated near its diagonal, but individual states, including tail
-states, were short-lived
-(Fig.~\ref{fig:model_internals} in Online
-Appendix~\ref{sec:supp-transitions}). The counted transition
-probabilities caused the model to leave extreme-return states too
-quickly to reproduce the observed
-volatility clustering~\cite{bullaBulla2006}: a chain fitted by
-counting reproduces the one-step state-pair frequencies exactly, and
-its absolute-return autocorrelation therefore decays geometrically at
-a rate set by the counted matrix. Online
-Appendix~\ref{sec:supp-generator} derives the fitted generator's
-stationary law and autocorrelation structure and quantifies both this
-rapid mixing and the correction added by the jump mechanism.
+deviation. At $\nu=5$, each state's emission standard deviation is
+$\sigma_k\sqrt{5/3}$, larger than the sample standard deviation of
+the returns assigned to that state. The emission is not truncated to
+the state's interval, so a simulated return can fall outside it. We
+selected $\nu = 5$ from a
+sensitivity sweep and used $\nu = \infty$, which gives Normal
+emissions, as a baseline; Table~\ref{tab:hyperparams} gives the
+explored range. For SPY, holding the rest of the model fixed, the
+Student-$t$ emission raised simulated kurtosis toward the observed value and
+raised the Kolmogorov--Smirnov (KS) and Anderson--Darling (AD) pass
+rates relative to the Normal emission (Table~\ref{tab:emission_hsmm}).
+A pass rate is the percentage of simulated paths whose two-sample
+test against the observed returns gave $p>0.05$.
 
-We added jump episodes to extend visits to extreme-return states. When
-no jump episode was active, a new episode began with probability
-$\epsilon$. Its duration was
-$K\sim\mathrm{Poisson}(\lambda)$, where $\lambda$ is the mean episode
-length~\cite{glasserman2003}. Because a Poisson draw can be zero,
-$K=0$ caused no forced tail step. For $K>0$, the model temporarily
-replaced ordinary transitions with draws from two tail sets. The set
-$\mathcal{S}_{-}=\{1,\dots,N_{\rm tail}\}$ contained the most negative
-states, and $\mathcal{S}_{+}=\{N-N_{\rm tail}+1,\dots,N\}$ contained the
-most positive states. At each forced step, the model selected the negative
-set with probability $p_{\rm neg}$ and the positive set otherwise. It
-made the tail-set choice independently at each step, so negative extreme
-returns occurred slightly more often than positive ones.
-Table~\ref{tab:hyperparams} lists $\epsilon$, $\lambda$, $p_{\rm neg}$,
-and $N_{\rm tail}$. Two closed-form quantities summarize the
-mechanism's operating point: forced steps occupy a long-run fraction
-of approximately $\epsilon\lambda/(1+\epsilon\lambda)$ of all steps,
-and a path of $T$ steps contains at least one episode with
-probability approximately $1 - e^{-\epsilon T}$, so $\epsilon$ sets
-how many paths jump while $\lambda$ sets how long an episode lasts
-(Online Appendix~\ref{sec:supp-generator}). We obtained the
-initial-state distribution
-$\bar{\pi}$ by solving
+We estimated the transition matrix $\mathbf{T}$ by counting observed
+transitions between consecutive states and dividing each row by its
+total count. A state with no observed outgoing transition used a
+uniform row, $\mathbf{T}_{kj}=1/N$ for every destination state $j$.
+Because the training state sequence is known, these row frequencies
+are the maximum-likelihood estimates, and counting avoided the
+initialization sensitivity of iterative
+expectation-maximization~\cite{bilmes1998}. We obtained the
+initial-state distribution $\bar{\pi}$ by solving
 $\bar{\pi}\mathbf{T}=\bar{\pi}$ with
 $\sum_k\bar{\pi}_k=1$~\cite{hamilton2018regime, grinsteadSnell1997}.
 Because $\mathbf{T}$ was estimated by counting, $\bar{\pi}$ equals
 the vector of in-sample state frequencies up to end effects, so the
 model's stationary growth-rate distribution is the
-frequency-weighted mixture of the state emission distributions. The
-solved $\bar{\pi}$ is exact for the ordinary transition matrix but only
-approximate for the jump-augmented process because it does not include
-the remaining jump duration. The full simulation procedure appears in
-Algorithm~\ref{alg:hmmwj}. Each step followed $\mathbf{T}$ or continued
-a jump episode and then drew a return from the selected state's emission
-distribution.
+frequency-weighted mixture of the state emission distributions. The counted probability of remaining in the same state was low
+(Online Appendix~\ref{sec:supp-gen-nojump}), but volatility clustering
+requires the chain to stay in the tail region, not in one state. Counting reproduces the observed
+frequencies of consecutive state pairs. At longer lags, however, the
+chain's absolute-return autocorrelation decays geometrically at a rate
+set by the counted matrix, much faster than the slow decay in
+Fig.~\ref{fig:empirical_motivation}d. The counted chain therefore
+forgets within a few steps whether it was in the tails and cannot
+reproduce the observed volatility clustering~\cite{bullaBulla2006}. Online
+Appendix~\ref{sec:supp-generator} derives the fitted generator's
+stationary law and autocorrelation structure and quantifies both this
+rapid mixing and the autocorrelation added by the jump mechanism.
+
+We added jump episodes to extend visits to extreme-return states and
+call the resulting generator the hidden Markov model with jumps
+(HMM-WJ).
+When no jump episode was active, a jump was triggered with
+probability $\epsilon$ at each step, and its duration was drawn as
+$K\sim\mathrm{Poisson}(\lambda)$, where $\lambda$ is the mean episode
+length~\cite{glasserman2003}. A draw of $K=0$ produced no episode,
+and the chain made an ordinary transition. For $K>0$, the episode
+consisted of $K$ \emph{forced tail steps}, beginning with the step
+that triggered it. At each forced step, the model replaced the
+ordinary transition by first choosing one of two tail sets and then
+drawing a state uniformly from that set. The set
+$\mathcal{S}_{-}=\{1,\dots,N_{\rm tail}\}$ contained the most negative
+states, and $\mathcal{S}_{+}=\{N-N_{\rm tail}+1,\dots,N\}$ contained the
+most positive states. The model chose the negative set with
+probability $p_{\rm neg}$ and the positive set otherwise. Because
+$p_{\rm neg}$ is slightly above one half, negative extreme returns
+occurred slightly more often than positive ones. The choice was
+repeated at each forced step, so one episode can contain
+returns of both signs. Table~\ref{tab:hyperparams} lists $\epsilon$, $\lambda$,
+$p_{\rm neg}$, and $N_{\rm tail}$; we tuned $\epsilon$ and $\lambda$
+and fixed $p_{\rm neg}$ and $N_{\rm tail}$. Jump-diffusion models
+use Poisson arrivals to add instantaneous price
+jumps~\cite{merton1976, kou2002}. Our model instead uses the Poisson distribution for the episode
+length, and an episode is a
+sustained visit to the tail states rather than a single price move.
+Setting $\epsilon=0$ removes the mechanism; we call this variant the
+hidden Markov model with no jumps (HMM-NJ). Two closed-form approximations describe how much of a path, and how
+many paths, the mechanism affects (Online
+Appendix~\ref{sec:supp-generator}). Forced steps occupy a long-run
+fraction of approximately $\epsilon\lambda/(1+\epsilon\lambda)$ of all
+steps. A path of $T$ steps contains at least one episode with
+probability approximately $1 - e^{-\epsilon T}$, so $\epsilon$ sets
+how many paths contain an episode, while $\lambda$ sets how long an
+episode lasts. The jump-augmented process is Markov only in the pair
+formed by the state and the number of remaining forced steps. The solved $\bar{\pi}$ is therefore the exact stationary distribution
+of the ordinary chain but only an approximate stationary start for
+the jump-augmented process. The full simulation
+procedure appears in Algorithm~\ref{alg:hmmwj}. Each step followed
+$\mathbf{T}$ or continued a jump episode and then drew a return from
+the selected state's emission distribution.
 
 % --- Architecture figure ----------------------------------------------------
 % Main figure fig:model_architecture is collected after the references.
@@ -164,16 +186,21 @@ distribution.
 \end{algorithmic}
 \end{algorithm}
 
-We chose the jump probability $\epsilon$ and mean duration $\lambda$
-to match the SPY absolute-return autocorrelation and
-kurtosis~\cite{mandelbrot1963, cont2001,
-rydenTerasvirtaAsbrink1998}. Jump-diffusion models use Poisson events to
-add instantaneous price jumps~\cite{merton1976, kou2002}. In HMM-WJ, a
-jump episode extended a visit to the tail states. We searched a grid of
-$(\epsilon,\lambda)$ values. At each grid point, we averaged squared
-errors in the autocorrelation function (ACF) of absolute returns through lag $L$ and
-weighted squared errors in excess kurtosis over the jump-active paths.
-We minimized the objective $J(\epsilon,\lambda)$.
+We tuned the jump probability $\epsilon$ and mean duration $\lambda$
+on the volume-weighted SPY training series to match its absolute-return autocorrelation and excess
+kurtosis~\cite{mandelbrot1963, cont2001, rydenTerasvirtaAsbrink1998};
+the multi-asset comparisons either disabled jumps or transferred the
+SPY values to the closing-price generators
+(Table~\ref{tab:hyperparams}). A path with no episode follows HMM-NJ, so its autocorrelation and
+kurtosis errors do not depend on $(\epsilon,\lambda)$. We scored only \emph{jump-active} paths, those containing at least one
+episode~\cite{glasserman2003}, so the objective measures how well an
+episode reproduces the observed statistics, not how often episodes
+occur. At each point of a grid of
+$(\epsilon,\lambda)$ values, we simulated $200$ independent paths of
+$2{,}766$ trading days. We minimized an objective that averaged, over
+the jump-active paths, the squared errors in the autocorrelation
+function (ACF) of absolute returns through lag $L$ plus a weighted
+squared error in excess kurtosis:
 \begin{equation}
     J(\epsilon, \lambda) =
     \frac{1}{|\mathcal{R}_J|}\sum_{r\in\mathcal{R}_J}
@@ -186,32 +213,51 @@ We minimized the objective $J(\epsilon,\lambda)$.
 \end{equation}
 where $\mathcal{R}_J$ is the set of jump-active simulated paths,
 $\mathrm{ACF}_{\rm obs}(\tau)$ and $\kappa_{\rm obs}$ are the empirical
-absolute-growth autocorrelation at lag $\tau$ and excess kurtosis, and
+absolute-growth autocorrelation at lag $\tau$ and excess kurtosis,
 $\mathrm{ACF}_{r}(\tau)$ and $\kappa_r$ are the corresponding values
-for path $r$. We used $\kappa$ for kurtosis and $K$ for jump duration.
-We simulated $200$ independent paths of $2{,}766$ trading days at
-each grid point. A path with no jump reduces to the hidden Markov model
-with no jumps (HMM-NJ) and contains no
-information about $(\epsilon,\lambda)$, so the objective included only
-paths with at least one jump~\cite{glasserman2003}. Within those
-paths, $\lambda$ controls both the height and the horizon of the slow
-autocorrelation component while the kurtosis penalty limits the total
-forced-step mass; $\epsilon$ acts mainly through the share of paths
-that contain an episode
-(Online Appendix~\ref{sec:supp-generator}). The value of
-$w_\kappa$ set the relative weight of the kurtosis error. The search ranges,
-$w_\kappa$, $L$, and the remaining HMM-WJ and SIM hyperparameters are
-reported in Table~\ref{tab:hyperparams}. We fixed the selected
+for path $r$, and $w_\kappa$ sets the relative weight of the kurtosis
+error. When $\epsilon$ is small, as at the selected value, most
+jump-active paths contain a single episode, whose forced
+steps make up a fraction of about $\lambda/T$ of the path. The episode
+adds a slowly decaying component to the absolute-return
+autocorrelation, and $\lambda$ sets both its height and the number of
+lags over which it persists. The kurtosis penalty limits $\lambda$, because forced steps make tail
+returns common within a path rather than rare; they raise the variance
+proportionally more than the fourth moment and so lower the path
+kurtosis. The parameter $\epsilon$ acts mainly through the share
+of paths that contain an episode, which the restriction to jump-active paths removes. The objective
+therefore constrains $\epsilon$ only weakly, and the selected
+$\epsilon$ lay at the lower edge of its search range
+(Table~\ref{tab:hyperparams}; Online
+Appendix~\ref{sec:supp-gen-tuning}).
+The search ranges, $w_\kappa$, $L$, and the remaining hyperparameters
+are reported in Table~\ref{tab:hyperparams}. We fixed the selected
 hyperparameters before running the generator comparisons and the
 holdout evaluation.
 
-To compare the hidden Markov generator with a neural autoregressive
-model, we included a gated recurrent unit (GRU) benchmark
-(Table~\ref{tab:model_comparison}). Its two recurrent layers used
-$64$ hidden units each and a $50$-return input window. Separate
-output heads predicted the mean and log variance of the next
-standardized return. We fitted the network on training SPY only,
+Beyond the Normal-emission variant, we compared HMM-WJ with two
+benchmarks that model persistence differently. A hidden semi-Markov
+model (HSMM) baseline adapted from Bulla and
+Bulla~\cite{bullaBulla2006} lengthens state visits through explicit
+dwell-time distributions instead of jump episodes
+(Table~\ref{tab:emission_hsmm}; Online
+Appendix~\ref{sec:supp-emission-hsmm}). The Normal-emission comparison
+isolated the effect of heavy-tailed emissions, and the HSMM
+comparison contrasted explicit dwell times with the jump-duration
+mechanism, although the HSMM also used $8$ states rather than $100$ and so
+differed in more than its duration model. To compare the hidden Markov
+generator with a neural autoregressive model, we
+included a gated recurrent unit (GRU) benchmark
+(Table~\ref{tab:model_comparison}). The network took a $50$-return input window and had two recurrent
+layers of $64$ hidden units each. We standardized the training series with its mean and standard
+deviation, and separate output heads predicted the mean and log
+variance of the next standardized return. We fitted the network on training SPY only,
 selected weights by training loss, and sampled recursively from
 the predicted Gaussian distributions. Online
 Appendix~\ref{sec:supp-gru} specifies the optimizer, stopping rule,
-initialization, and recorded computational environment.
+initialization, and recorded computational environment. We scored all single-asset generators,
+including these benchmarks, by their KS and AD pass rates and by the mean absolute error between the observed and the
+ensemble-average simulated absolute-return autocorrelation functions
+(ACF-MAE), over lags $1$--$252$ in training and $1$--$248$ in the
+$249$-day holdout (Eq.~\eqref{eq:acf-ensemble-error} in Online
+Appendix~\ref{sec:supp-validation}).

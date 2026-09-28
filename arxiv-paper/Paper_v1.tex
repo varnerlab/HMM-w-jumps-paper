@@ -102,18 +102,20 @@
 
 \section{Methods}\label{sec:method}
 
-We fitted a marginal generator for each asset and combined the generated
-paths with a variance-corrected single-index model. The
-dataset contained $424$ United States-listed equities and
-exchange-traded funds observed from $2014$ through $2024$. The
+We fitted a single-asset generator for each asset and combined the generated paths with a variance-corrected single-index model. The training data contained $424$ United States-listed equities and
+exchange-traded funds observed from $2014$ through $2024$, and data
+from $2025$ served as a holdout. The
 single-asset analysis focused on the broad-market exchange-traded fund
 with ticker SPY. It used
 $2{,}767$ daily volume-weighted average prices for fitting, which
 yielded $2{,}766$ growth rates, and the next $250$ prices from $2025$,
-which yielded $249$ holdout growth rates. The multi-asset analysis
-used daily closing prices. Of the $423$ non-market assets in the
-training universe, $416$ had complete $2025$ histories and were included
-in the multi-asset holdout evaluation. We defined the excess growth rate
+which yielded $249$ holdout growth rates. The multi-asset analysis used daily closing prices for all assets,
+with SPY as the market, so SPY had two fitted generators: one on
+volume-weighted prices for the single-asset analysis and one on
+closing prices for the market path. Of
+the other $423$ assets in the training universe, $416$ had complete
+$2025$ histories and were included in the multi-asset holdout
+evaluation. We defined the excess growth rate
 $G_{i,j}$ for ticker $i$ between trading days $j-1$ and $j$ from prices
 $P_{i,j-1}$ and $P_{i,j}$.
 \begin{equation}
@@ -123,14 +125,17 @@ $P_{i,j-1}$ and $P_{i,j}$.
 \end{equation}
 Here, $\Delta t = 1/252$ is the fraction of a trading year spanned by
 one trading day, and $r_f$ is a constant continuously compounded
-risk-free rate. We used $r_f=0.043$ for the SPY training period and
+risk-free rate. The excess growth rate has units of
+$\mathrm{year}^{-1}$; multiplied by $\Delta t$, it gives a daily log
+excess return, which is additive across days under continuous
+compounding. We used $r_f=0.043$ for the SPY training period and
 $r_f=0.0421$ for its $2025$ holdout, based on Treasury Separate Trading
 of Registered Interest and Principal of Securities (STRIPS) bond yields.
 For the multi-asset closing-price experiments, we set $r_f=0$ in both
-windows, so their growth rates were annualized log returns.
-The excess growth rate
-has units of $\mathrm{year}^{-1}$ and is time-additive under
-continuous compounding.
+windows, so their growth rates were annualized log returns rather than excess
+growth rates. Because
+$r_f$ is constant, this choice shifts each series by a constant and leaves its variance
+and the regression slopes unchanged.
 
 \subsection{Per-asset hidden Markov marginal generator}\label{sec:method-hmm}
 \input{sections/method_hmm}

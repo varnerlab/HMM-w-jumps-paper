@@ -1,37 +1,19 @@
-We developed a variance-corrected single-index method that reuses
-full-return generators without counting market variance twice (Fig.~\ref{fig:preservation};
-Table~\ref{tab:aggregate}). Centering and rescaling allowed the
-generated asset paths to be combined with a shared market path without
-fitting a second generator to each asset's regression residuals.
-Across $423$ non-market assets, the method recovered calibrated
-market loadings with low error and retained heavy-tailed return
-distributions. On $416$ complete asset histories from $2025$, it
-improved the mean KS pass rate over centered naive composition and
-brought the median ratio of synthetic to observed variance close to
-one (Table~\ref{tab:oos_composition}). Residual-fit methods remained competitive. With pooled thresholds,
-the corrected method and JumpHMM-on-residuals had $99\%$ VaR
-exceedance rates of $1.12\%$ and $1.16\%$, respectively, compared
-with the nominal $1\%$ rate (Table~\ref{tab:var}). The short holdout
-did not establish calibration or a precise tail-performance ranking. The results supported reuse of existing
-generators as a practical alternative to fitting separate residual
-models, with validation still needed for each intended application.
-The jump experiments established that the correction also worked when
-the generators included extended episodes in extreme-return states
-(Table~\ref{tab:jump_ablation}).
-The SPY jump settings improved multi-asset temporal fit in training
-but worsened it in the $2025$ holdout, showing that the single-asset
-benefit did not transfer automatically. Correcting variance also left
-dependence among asset-specific residuals unresolved. Independent
-residual draws omit relationships that matter for portfolio risk and
-can overstate the return from rebalancing when positive residual
-covariance is missing. The composition rule therefore provides one
-component of a multi-asset simulator: it controls how generator
-variance is combined with the market factor, while portfolio-level
-applications require a joint residual model and validation of both
-cross-asset dependence and temporal behavior. Per-path centering also
-removes terminal residual uncertainty over the chosen horizon.
-Clipping retains the fitted intercept but changes the composed mean
-when the market path has a nonzero mean. The present evidence
-therefore supports the constrained construction for
-daily-fit comparisons, while cumulative-risk applications require a
-method that retains cumulative residual variation.
+We developed a variance-corrected single-index method that centers and
+rescales full-return draws for reuse without counting market variance
+twice or fitting separate residual generators
+(Fig.~\ref{fig:preservation}; Table~\ref{tab:aggregate}). The method
+retained heavy tails and improved distributional fit over centered
+naive composition in training and the $2025$ holdout
+(Table~\ref{tab:oos_composition}), but did not establish an advantage
+over direct residual fitting. Transferring SPY's jump settings
+improved temporal fit in training but worsened it in the holdout
+(Table~\ref{tab:jump_ablation}), showing that single-asset temporal
+gains did not transfer reliably. These findings support reuse for
+daily-return comparisons, without establishing calibrated tail
+coverage (Table~\ref{tab:var}) or validating broader risk applications.
+Independent residual draws omitted cross-asset dependence, and
+per-path centering removed residual uncertainty from terminal
+cumulative log returns conditional on the market path and the loading
+used in composition. Portfolio and cumulative-risk applications therefore require
+a joint residual model and a construction that retains cumulative
+residual variation.
