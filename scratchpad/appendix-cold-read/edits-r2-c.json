@@ -1,0 +1,22 @@
+[
+  {
+    "before": "separates\n    tracker assets from single stocks.",
+    "after": "separates\n    the two high-$R^2$ trackers from the remaining assets."
+  },
+  {
+    "before": "If $\\eps_i$ is independent of $g_m$, the sample cross-covariance\nvanishes as $T$ grows,",
+    "after": "With independent generator and market draws, convergent sample\nmoments, and nonzero limiting market variance, the scaled sample\ncross-covariance vanishes as $T$ grows,"
+  },
+  {
+    "before": "matching the observed\ntraining mean additionally requires the observed training market path\nand an unclipped loading",
+    "after": "using the observed training market path\nand an unclipped loading also matches the observed training mean"
+  },
+  {
+    "before": "$200$ pairs of independent\n    in-sample-length generator paths were standardized and combined",
+    "after": "$200$ pairs of independent\n    training-length paths from the fitted SPY hidden Markov model\n    with jumps (HMM-WJ) were standardized and combined"
+  },
+  {
+    "before": "The composition is built to reproduce per-asset marginals and\nsingle-factor cross-sectional dependence. Each asset's residual path,",
+    "after": "Each asset's residual path,"
+  }
+]

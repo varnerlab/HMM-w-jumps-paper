@@ -1,0 +1,7 @@
+[
+  {
+    "role": "Conclude variance-corrected reuse, evidence in training/holdout, jump transfer, and limits on risk applications",
+    "first_sentence": "We developed a variance-corrected single-index method that reuses full-return generators without counting market variance twice (Fig.~\\ref{fig:preservation}; Table~\\ref{tab:aggregate})",
+    "last_sentence": "The present evidence therefore supports the constrained construction for daily-fit comparisons, while cumulative-risk applications require a method that retains cumulative residual variation."
+  }
+]

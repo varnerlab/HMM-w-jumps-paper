@@ -1,0 +1,8 @@
+introduction.P4.S10 | REFERENT | 1 | "Transferring SPY's duration settings to the composed paths" | The recipient of the duration settings is slightly unclear: the generators have states, while the composed paths include a separate market component. | Best guess: SPY's settings were applied to the per-asset generators before their paths were corrected and composed.
+
+introduction.P1: Establishes why multi-asset paths need a shared market component, explains the excess-variance problem when reusing full-return generators, and poses the preservation question.
+introduction.P2: Uses SPY to explain the heavy tails and persistent absolute returns that motivate the generator requirements.
+introduction.P3: Introduces the HMM, its temporal limitation, a duration extension, and the need to check behavior after composition.
+introduction.P4: States the correction and evaluation design, previews distributional and temporal findings, and bounds the intended use with endpoint and cross-asset residual limitations.
+
+TOTALS: severity-3 = 0; severity-2 = 0; severity-1 = 1.

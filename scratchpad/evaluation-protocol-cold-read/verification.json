@@ -1,0 +1,34 @@
+{
+  "counts": {
+    "before": {
+      "paragraph_count": 5,
+      "prose_words": 1436
+    },
+    "after": {
+      "paragraph_count": 3,
+      "prose_words": 584
+    },
+    "supp": {
+      "paragraph_count": 2,
+      "prose_words": 327
+    }
+  },
+  "source_changes": [
+    "arxiv-paper/sections/method_sim.tex",
+    "arxiv-paper/sections/appendix.tex"
+  ],
+  "scope_verification": "Only Evaluation protocol replaced in method_sim; appendix differs only by exact two-paragraph addition. All other manuscript source hashes unchanged.",
+  "citations": "All bibliography keys preserved across main and supplement.",
+  "formatting": "Existing headings and protected formatting unchanged. New supplemental subsection organizes the authorized relocation.",
+  "pdf_pages": {
+    "main": [
+      10,
+      11
+    ],
+    "supplement": [
+      35,
+      36
+    ]
+  },
+  "pdf_sha256": "f1ed284cd7d817c970d63862259b8638a3252809ca733971936dfc6e18e1ea64"
+}

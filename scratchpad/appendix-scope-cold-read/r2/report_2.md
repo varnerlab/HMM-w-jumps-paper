@@ -1,0 +1,31 @@
+Independent quantitative-finance reader assessment, P27–P51 / F5–F7. Review only; no source edits, code audit, or external research. The governing constraint is to retain every displayed equation and algebraic step, substantive inline mathematics, and the definitions and assumptions needed to interpret them.
+
+This chunk contains 17 actual prose paragraphs; P27, P30, P34, P38, P40, P44, P48, and P50 are empty section-marker artifacts. It cannot supply anything close to a halving of paragraphs while preserving readable derivations. A practical allocation is 16 paragraphs; 15 is an aggressive minimum after substantial sentence-level shortening. That saves only 1–2 of the 17 actual paragraphs. A whole-appendix target of 30 would therefore leave only 14–15 paragraphs for the other 41 actual paragraphs. I cannot endorse that global target from this chunk alone, and the unchanged displays will substantially limit page savings regardless of paragraph count.
+
+The 15-paragraph lower-bound grouping is:
+
+| New paragraph | Existing material | Treatment |
+|---|---|---|
+| 1 | P28 | Joint law, Student-t density, definitions, conditional independence. Keep both displays. |
+| 2 | P29 | Augmented kernel, counter timing, forced-state redraw, first-day exception, and return to the free chain. Keep both displays. |
+| 3 | P31 | Laplace likelihood, median/scale estimation, CDF, and both quantile branches. Keep all four displays and the inline minimization argument. |
+| 4 | P32 | Counted transition MLE, boundary/empty-row cases, empirical pair-law identity, and emission-scale convention. Keep every optimization step. |
+| 5 | P33 | Occupancy/transition endpoint identities, fixed-point derivation, and the role of rapid mixing in interpreting its residual. |
+| 6 | P35 | Mixture density/CDF, grand-mean derivation and fallback qualification, plus the inline CDF-distance and KS-threshold calculation. |
+| 7 | P36 | Total variance, within/between definitions, finite-sample qualifications, and variance-inflation formula. |
+| 8 | P37 | Fourth-moment expansion, Student-t moments, existence condition, and standardized-kurtosis formula. Cut the repeated emission-comparison narrative and optional skewness experiment. |
+| 9 | P39 | Geometric dwell law and mean, state-pair moment derivation, ACF, and spectral-decay explanation. Shorten the repeated SPY motivation. |
+| 10 | P41 | Trigger probability, truncated-Poisson mean, renewal cycle, and every line of the forced-fraction derivation. |
+| 11 | P42 + P43 | Path-incidence, episode-count, waiting-time, and single-episode-fraction arithmetic; phase means and approximate stationary mixture. Remove repeated empirical-versus-simulated confirmations. |
+| 12 | First part of P45 | Length-biased sampling, overlap probability h, every derivation line, positive-part definition, and concentration approximation. |
+| 13 | Remainder of P45 | Indicator/absolute-return definitions, conditional-mean and rare-episode assumptions, covariance derivation, ACF height, and the conditional jump-path substitution. |
+| 14 | P46 + P47 | Mixture-weight kurtosis argument and parameter identification: lambda changes conditional duration/amplitude, while conditioning removes most epsilon information. Cut the separate 4,000-path mixture experiment and repetitive score narration. |
+| 15 | P51 | Compact comparator specification, dwell-time fitting/shift convention, state-count confounding, and the principal controlled emission conclusion. |
+
+Delete P49 as a standalone diagnostic tour: its partition counts, short visits, eigenvalue, and motivation repeat P31/P39. Keep its no-empty-state qualification with P31 if needed, and retain any desired tail-set-versus-individual-state distinction in P39. The 16-paragraph recommendation simply leaves P42 and P43 separate. Splitting P45 is deliberate: its existing two derivations and conditioning discussion already form an enormous paragraph, so merging other mathematical sections merely to offset that split would be false economy. Even in the 15-paragraph version, P29/P31/P32 remain substantial derivation blocks; assess their rendered length before claiming the allocation is comfortable.
+
+Essential explanation must survive the cuts: Student-t scale is not its standard deviation; empirical occupancies are not exactly stationary; the end-effect argument needs the stated fast-mixing qualification; transitions resume from the final forced state; the first emitted day is unforced; a trigger step is already a forced step in renewal bookkeeping; the jump-path conditional fraction lambda/T differs from the unconditional pi_J; the ACF approximation neglects free-phase dependence and post-episode relaxation; and conditioning weakens identification of epsilon. For the fourth moment, retain nu > 4, symmetry of odd moments, and the normalization by variance squared. These are not optional commentary for a quant reader.
+
+Float cuts are easier than paragraph cuts. Remove F5 (the lag-by-lag prediction table) and F6 (the three-panel internals plot) first. F5's overlap formula, lambda/T substitution, and variance-normalized height already survive in P45; retain the exclusion of the rapidly decaying free component when summarizing prediction accuracy. F6's unique-looking residence-time expression 1/(1-T_kk) already appears in P39, so deleting the plot need not delete mathematics. Confirm that tail-set definitions remain in the earlier method section, and remove obsolete panel references. Keep F7 if retaining the HSMM comparison: it supplies a compact common evidence base for that discussion. F7 could be cut later, but its comparison protocol, alpha, ACF lag windows, and comparator specification must remain wherever the associated claims remain. Its removal is not needed to obtain two straightforward float cuts in this chunk.
+
+Scope-review flags: severity 3 = 0; severity 2 = 1 (P45 overload if its current paragraph is retained or enlarged); severity 1 = 2 (P49/F6 repetition and F5's expendable row-by-row empirical confirmation). This is a preservation and readability assessment, not certification of each derivation's mathematical validity. No rendered page-count reduction has been verified.

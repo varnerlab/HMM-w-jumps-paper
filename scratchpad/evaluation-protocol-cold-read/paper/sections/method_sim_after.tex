@@ -1,0 +1,44 @@
+\paragraph{Jump-enabled multi-asset comparison.}
+
+To test whether the temporal benefit of the single-asset jump
+mechanism survived composition, we compared naive and hybrid
+composition under three jump settings (Table~\ref{tab:jump_ablation}).
+Unlike the six-method comparison, which used observed SPY in
+training, this comparison simulated the SPY market path in both the
+$2{,}766$-day training window and the $249$-day holdout, so a jump
+setting could apply to the market generator. Jumps were disabled,
+enabled only in the SPY market generator, or enabled in both SPY and
+every asset generator. We froze the closing-price hidden Markov generators and SIM
+calibrations of the six-method comparison. Enabled models
+received the SPY settings of Table~\ref{tab:hyperparams},
+$(\epsilon,\lambda)=(10^{-4},90)$, $p_{\rm neg}=0.52$, and
+$N_{\rm tail}=5$, without per-asset tuning. These settings were tuned on volume-weighted SPY prices and applied
+here to generators fitted to closing prices. At these settings,
+most paths contain no episode, especially over the $249$-day holdout,
+so the jump effects are carried by a minority of paths. In both windows and for all three jump settings, the correction used
+each simulated market path's variance and each asset draw's variance.
+This differs from the six-method holdout, which fixed the market
+variance at its training value.
+
+For each jump setting, naive and hybrid composition received the same
+asset and market draws, and one market path was
+shared across all assets in each replication. We generated $250$
+paths for each of four seeds ($1234$, $2345$, $3456$, and $4567$),
+giving $1{,}000$ replications per asset, setting, and method. We used a path-level version of ACF-MAE, computed on each path and
+then averaged across paths (Eq.~\eqref{eq:acf-path-error} in Online
+Appendix~\ref{sec:supp-validation}); the single-asset ACF-MAE instead
+averages the path ACFs before measuring the error. We used
+lags $1$--$25$, the lag window of the tuning objective, with lags
+$1$--$60$ as a secondary check, and repeated the marginal and variance
+diagnostics. The temporal scores of the single-asset and jump comparisons
+therefore have different estimands and cannot be compared directly. We included all paths, not only jump-active ones, in the summaries;
+jump-active subsets only described the mechanism
+(Table~\ref{tab:jump_ablation_episodes}). For Monte Carlo uncertainty, we averaged each metric across tickers
+within each replication, which kept assets together under their
+shared market path. Jump settings were paired by replication, sharing
+the draws of any component whose jump setting did not change, and the
+approximate $95\%$ confidence intervals were the mean of the $1{,}000$
+replication-level differences plus or minus $1.96$ standard errors
+(Table~\ref{tab:jump_ablation_uncertainty}). These intervals describe simulation
+uncertainty conditional on the fitted models and observed histories,
+not uncertainty across market regimes.

@@ -1,0 +1,4 @@
+# Round 5 triage
+Raw report: 0 severity-3, 1 severity-2, 0 severity-1.
+- P4.S9–10 (2): substantive preview gap, repaired in the same final paragraph. Restored the original Introduction's finding that without duration episodes the correction left absolute-return autocorrelation error essentially unchanged from naive composition. Replaced “variance correction remained effective” with its measured outcome, composed variance close to generator variance with and without episodes. Verified against the existing jump-ablation table: off rows have nearly identical errors, all corrected variance ratios near one. Paid for the clarification by compressing test setup and removing the repeated final residual-fitting comparison (already explicit earlier in the paragraph).
+No change in paragraph roles or claim scope; this restores a previously omitted answer to the opening clustering question.

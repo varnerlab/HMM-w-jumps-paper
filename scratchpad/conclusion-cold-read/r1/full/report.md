@@ -1,0 +1,19 @@
+Paragraph purpose: State that variance correction makes existing full-return generators reusable in a single-index model, summarize the supported daily-fit benefit, and delimit use where residual dependence or cumulative residual variation matters. The present paragraph is understandable but reads like a second compressed Discussion; its principal conclusion is repeatedly interrupted and restated.
+
+conclusion.P1.S1/S3/S9 | REPETITION | severity-1 minor | "without fitting a second generator to each asset's regression residuals" | Reuse without refitting is stated in the opening, explained again in S3, and concluded again in S9. The mechanism and practical benefit can share one opening sentence. | Guess: the intended contribution is reuse through centering and rescaling, not three separate claims.
+
+conclusion.P1.S7/S8 | PLACEMENT / DISPENSABLE REPETITION | severity-2 slowed | "VaR exceedance rates of $1.12%$ and $1.16%$" | This numerical comparison repeats the immediately preceding Discussion and draws attention to a ranking that S8 says cannot be established. It interrupts the main reuse conclusion without changing it. | Guess: the essential point is that daily distributional improvement does not establish tail calibration; the numerical inventory can be removed.
+
+conclusion.P1.S9/S14/S17 | STRUCTURE / REPETITION | severity-2 slowed | "a practical alternative to fitting separate residual models" | S9 sounds like the conclusion, S14 concludes again, and S17 supplies the narrowest actual scope only after more limitations. This creates repeated endings and delays the decisive daily-fit qualification. | Guess: one ending should combine practical reuse with its daily-fit scope and the requirements for broader applications.
+
+conclusion.P1.S10 | AMBIGUOUS SCOPE | severity-2 slowed | "the correction also worked" | "Worked" can mean variance control, marginal fit, or temporal fit. The following sentence reports worse holdout temporal fit, so the broad success statement briefly appears inconsistent. | Guess: variance accounting remained effective with jumps; this can be stated precisely and joined to the temporal-transfer limitation.
+
+conclusion.P1.S12/S13/S14 | REPETITION | severity-1 minor | "dependence among asset-specific residuals unresolved" | Three consecutive sentences state missing residual dependence, its portfolio consequence, and the need to model it. The consequence is useful, but the three-step explanation repeats the Discussion and enlarges the closing paragraph. | Guess: a single concise sentence can retain the portfolio limitation and need for a joint residual model.
+
+conclusion.P1.S16 | PLACEMENT / DISPENSABLE DETAIL | severity-2 slowed | "Clipping retains the fitted intercept but changes the composed mean" | This branch-specific behavior breaks the connection between loss of terminal residual uncertainty and the cumulative-risk restriction. It reopens a technical issue already explained in the Discussion and is not needed to understand the principal conclusion. | Guess: omit this sentence from the conclusion and keep the centering limitation adjacent to its consequence.
+
+conclusion.P1.S6 | EVIDENCE EMPHASIS | severity-1 minor | "Residual-fit methods remained competitive" | Understandable, but vague relative to the preceding Discussion: matched-centering controls favored the residual-fit HMM and bootstrap. The sentence does not clearly distinguish the practical reuse contribution from a claim of better fit. | Guess: a concise statement that reuse did not establish an advantage over direct residual fitting would communicate the comparison more precisely, without new detail.
+
+No severity-3 comprehension failures. No requests for additional Methods detail; the needed revision is compression and sharper scope within one paragraph.
+
+TOTALS: severity-3 = 0; severity-2 = 4; severity-1 = 3.

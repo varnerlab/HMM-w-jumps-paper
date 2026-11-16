@@ -1,0 +1,60 @@
+--- Paragraph discussion.P1 (discussion.tex:1) ---
+[discussion.P1.S1] We developed a variance correction to reuse fitted full-return generators in a single-index model without counting market variance twice (Fig.
+[discussion.P1.S2] [fig:preservation]; Table [tab:aggregate]).
+[discussion.P1.S3] Centering and rescaling allowed generated asset paths to be combined with a shared market path without fitting a second generator to each asset's regression residuals.
+[discussion.P1.S4] We evaluated this construction using heavy-tailed hidden Markov generators, comparing corrected and naive composition with direct residual fitting in training and on the $2025$ holdout.
+[discussion.P1.S5] We also tested whether jump episodes that improved single-asset volatility clustering retained that benefit after composition.
+[discussion.P1.S6] These comparisons assessed reuse as a practical option when full-return generators were already available.
+
+--- Paragraph discussion.P2 (discussion.tex:14) ---
+[discussion.P2.S1] The correction's practical value was avoiding a separate residual fit while improving variance and distributional agreement over naive composition (Fig.
+[discussion.P2.S2] [fig:preservation]; Table [tab:aggregate]).
+[discussion.P2.S3] The corrected method passed $73.6%$ of full-length training KS comparisons and retained heavy tails.
+[discussion.P2.S4] On the $2025$ holdout, it raised the mean cross-ticker KS pass rate from $83.5%$ under centered naive composition to $87.0%$ and brought the median ratio of synthetic to observed variance to $0.97$ (Table [tab:oos_composition]).
+[discussion.P2.S5] The improvement therefore persisted beyond the fitting period.
+[discussion.P2.S6] Direct residual fitting remained competitive:
+[discussion.P2.S7] JumpHMM-on-residuals had a slightly higher pass rate in training and a slightly lower rate in the holdout.
+[discussion.P2.S8] When all methods' residual draws were centered over the same training horizon on the common asset set, JumpHMM-on-residuals and block bootstrap both outperformed the corrected method on distribution-test pass rates and Wasserstein distance (Table [tab:centering_control]).
+[discussion.P2.S9] Before centering was matched, the comparison with residual-fit methods therefore partly reflected different constraints on simulated residual means.
+[discussion.P2.S10] Some assets also had lower pass rates in the holdout than against matched-length training blocks.
+[discussion.P2.S11] Reuse thus offered a way to improve on naive composition without refitting, but did not establish a distributional advantage over fitting the residuals themselves.
+
+--- Paragraph discussion.P3 (discussion.tex:36) ---
+[discussion.P3.S1] The jump comparison showed that improving the single-asset generator did not automatically improve the composed paths (Tables [tab:model_comparison] and [tab:jump_ablation]).
+[discussion.P3.S2] On SPY, the generator with jumps reduced absolute-return autocorrelation error relative to its no-jump counterpart while retaining high distributional pass rates.
+[discussion.P3.S3] Other generators achieved lower autocorrelation error or higher pass rates, so temporal and marginal fit still required separate assessment.
+[discussion.P3.S4] With multi-asset composition, market-only jumps improved training temporal fit with little change in the KS pass rate, whereas adding asset-level episodes produced a larger temporal improvement at a substantial marginal-fit cost.
+[discussion.P3.S5] Both settings increased autocorrelation error in $2025$, despite the mean composed-to-generator variance ratio remaining near one (Table [tab:jump_ablation]).
+[discussion.P3.S6] Variance control therefore did not ensure that the transferred temporal behavior matched the data.
+[discussion.P3.S7] These tests transferred one SPY calibration from volume-weighted average prices to closing-price models.
+[discussion.P3.S8] The asset episodes also came from full-return models and were not identified separately as idiosyncratic events.
+[discussion.P3.S9] Separate calibrations for NVDA, JNJ, and JPM had strong in-sample fit, but three assets did not establish a general calibration rule (Table [tab:cross_asset]).
+[discussion.P3.S10] Per-asset tuning or distinct shared and asset-specific episode models could change the tradeoff, but neither was tested in the composition comparison.
+
+--- Paragraph discussion.P4 (discussion.tex:60) ---
+[discussion.P4.S1] Preserving total variance did not preserve the complete return distribution, and corrected fit varied with market exposure (Fig.
+[discussion.P4.S2] [fig:preservation]; Table [tab:beta_bucket]).
+[discussion.P4.S3] Corrected KS pass rates fell from $87.6%$ in the lowest $\beta$ quartile to $65.9%$ in the highest, consistent with a larger market contribution diluting the asset generator's shape.
+[discussion.P4.S4] The correction accounted for variance supplied by the market, but combining two independent return distributions still changed the shape of the composed returns.
+[discussion.P4.S5] Clipping, the reduction of the market loading to retain some residual variance, was unnecessary at observed market variance but activated for most assets when market volatility was doubled or tripled (Table [tab:stress]).
+[discussion.P4.S6] That stress transformation preserved the market mean.
+[discussion.P4.S7] Reducing the loading while retaining the fitted intercept changed the asset mean by $(\beta_i^{\eff}-\beta_i)\overline{g}_m$, where $\overline{g}_m$ is the market mean.
+[discussion.P4.S8] The clipped branch therefore targeted total variance while retaining a minimum residual contribution, at the cost of changing the calibrated loading and mean.
+[discussion.P4.S9] The stress test did not establish realistic return distributions under the scaled markets.
+[discussion.P4.S10] Variance correction therefore required separate checks of distributional shape and calibrated market exposure.
+
+--- Paragraph discussion.P5 (discussion.tex:80) ---
+[discussion.P5.S1] The correction supported daily-return comparisons, but broader simulation uses require additional modeling and validation.
+[discussion.P5.S2] The alternative correction for market trackers targeted their calibrated $R^2$, the fraction of return variance explained by the market.
+[discussion.P5.S3] Only two observed assets tested it; a Gaussian simulation checked its formula without fitting full-return generators (Tables [tab:branch] and [tab:tracker_grid]).
+[discussion.P5.S4] Allowing states whose training observations were identical to generate nearly constant returns improved training fit (Table [tab:fallback_sensitivity]).
+[discussion.P5.S5] For those states, the main comparisons retained emissions scaled by the asset's full-series spread, and the alternative still needs holdout validation.
+[discussion.P5.S6] Improved marginal fit did not establish reliable tail coverage: the corrected method and JumpHMM-on-residuals had pooled-threshold one-day left-tail $99%$ VaR exceedance rates of $1.12%$ and $1.16%$, against a nominal $1%$ (Table [tab:var]).
+[discussion.P5.S7] More simulated paths improved threshold precision without supplying more observed extreme events; the $249$-day holdout was too short for a precise ranking and covered only one shared market period.
+[discussion.P5.S8] Serial dependence also limited the interpretation of KS and AD pass rates, whose tests assume independent observations.
+[discussion.P5.S9] Variance accounting also assumed independent asset and market draws; nonzero covariance would require an additional cross-term.
+[discussion.P5.S10] For portfolio applications, a shared market path did not supply the sector and style dependence omitted by the evaluated independent residual draws (Algorithm [alg:hybrid]; Online Appendix [sec:supp-bias]).
+[discussion.P5.S11] Omitting positive residual covariance can overstate the diversification return from periodic rebalancing, including for residual-fit baselines that draw residuals independently.
+[discussion.P5.S12] A synchronized multivariate block bootstrap, residual factor model, or copula could address that omission, but the resulting dependence needs direct evaluation.
+[discussion.P5.S13] Per-path centering imposed a separate limitation: each residual sum was zero at the chosen horizon, leaving no residual uncertainty in terminal cumulative returns conditional on the market path and effective loading (Online Appendix [sec:supp-sim-derivations]).
+[discussion.P5.S14] Portfolio and cumulative-risk applications therefore require both a joint residual model and a construction that retains cumulative residual variation.

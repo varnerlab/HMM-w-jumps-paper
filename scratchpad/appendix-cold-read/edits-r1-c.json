@@ -1,0 +1,74 @@
+[
+  {
+    "before": "but they are not unique per-ticker optima.",
+    "after": "but may change with another Monte Carlo sample."
+  },
+  {
+    "before": "calibrated $R^2$ exceeds $R^2_{\\mathrm{preserve}} = 0.80$.",
+    "after": "calibrated $R^2$ is at least $R^2_{\\mathrm{preserve}} = 0.80$."
+  },
+  {
+    "before": "Its Kolmogorov--Smirnov pass rates\nare nominal only:",
+    "after": "Its Kolmogorov--Smirnov pass rates\nare descriptive:"
+  },
+  {
+    "before": "The nominal Kolmogorov--Smirnov (KS) pass\n    rate",
+    "after": "The Kolmogorov--Smirnov (KS) pass\n    rate"
+  },
+  {
+    "before": "so with a positive loading and a positive market mean the composed\nmean falls, while other sign combinations raise it.",
+    "after": "so the composed mean falls when loading and market mean have the\nsame sign and rises when their signs differ."
+  },
+  {
+    "before": "As $\\rho_i$ grows, the composed shape moves\ntoward the market's, and the documented diagnostics show this\npattern. Median hybrid kurtosis falls from the lowest to the highest",
+    "after": "As $\\rho_i$ approaches one, the market contribution dominates.\nThe empirical quartiles group assets by loading rather than variance\nshare: median hybrid kurtosis falls from the lowest to the highest"
+  },
+  {
+    "before": "from $87.6\\%$ in Q1 to $65.9\\%$ in Q4 as the market loading ratio\n    $\\rho_i$ grows;",
+    "after": "from $87.6\\%$ in Q1 to $65.9\\%$ in Q4;"
+  },
+  {
+    "before": "Because hybrid tracks naive\n    across the $\\beta$ range, the variance rescaling of the hybrid rule\n    does not cause its shortfall from $\\kappa_{\\real}$; both carry the\n    generator's tails, diluted by the market term as the market's share\n    of the variance grows (Eq.~\\eqref{eq:supp-kurt-comp}).",
+    "after": "The shortfall from $\\kappa_{\\real}$ is present with and without\n    variance correction; this similarity does not isolate the effect\n    of rescaling. Both composed distributions depend on the market\n    and generator variance shares (Eq.~\\eqref{eq:supp-kurt-comp})."
+  },
+  {
+    "before": "Each asset draw retained\nits own centering and variance correction, with the observed training\nmarket variance used in the hybrid rule.",
+    "after": "Each separate path retained its method's centering and scaling\nrules; the hybrid rule used the observed training market variance."
+  },
+  {
+    "before": "Doubling the pool from $2{,}500$ to $5{,}000$ changed\nthe median asset's $99\\%$ threshold by $0.12$--$0.30\\%$, depending\non method.",
+    "after": "Doubling the pool from $2{,}500$ to $5{,}000$ gave median absolute\nrelative changes in the $99\\%$ threshold of $0.12$--$0.30\\%$ across\nassets, depending on method."
+  },
+  {
+    "before": "JumpHMM generator used by the hybrid and naive composition methods,",
+    "after": "hidden Markov generator (JumpHMM) used by hybrid and naive composition,"
+  },
+  {
+    "before": "Gaussian residual draw of the Gaussian SIM.",
+    "after": "Gaussian residual draw of the Gaussian single-index model (SIM)."
+  },
+  {
+    "before": "growth-rate path $g_m$ of SPY, averaged over the $R$ draws:",
+    "after": "growth-rate path $g_m$ of the broad-market exchange-traded fund SPY,\naveraged over the $R$ draws:"
+  },
+  {
+    "before": "This subsection states\nwhat the substitution preserves exactly, what it preserves\napproximately, and how its kurtosis changes as the market loading\ngrows.",
+    "after": "This subsection distinguishes exact from approximate preservation\nand derives the change in kurtosis after composition."
+  },
+  {
+    "before": "On its face this is a category\nmismatch:",
+    "after": "The distributions differ:"
+  },
+  {
+    "before": "Its\nvariance and tails include the part that, in observed data, comes\nfrom co-movement with the market, although the draw itself is\nsimulated independently of the market path.",
+    "after": "Its variance and tails include observed market co-movement, although\nthe draw itself is independent of the supplied market path."
+  },
+  {
+    "before": "To test whether the single-asset procedure generalized beyond SPY, we\nrepeated the fitting and evaluation on three stocks: NVDA",
+    "after": "To test generalization beyond SPY, we repeated fitting and evaluation\non three stocks (Table~\\ref{tab:cross_asset}): NVDA"
+  },
+  {
+    "before": "Per-ticker\ntune outputs at $(n_{\\mathrm{paths}} = 200, \\mathrm{seed} = 1234)$\nwere reproducible with these settings (Table~\\ref{tab:cross_asset}).",
+    "after": "Tuning used $(n_{\\mathrm{paths}} = 200, \\mathrm{seed} = 1234)$."
+  }
+]

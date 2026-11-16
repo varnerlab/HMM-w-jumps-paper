@@ -1,0 +1,74 @@
+
+
+To test variance correction against alternative residual models, we
+compared six composition methods using a dataset of $424$ United
+States equities and exchange-traded funds from Polygon.io (Table~\ref{tab:aggregate}).
+Each ticker had $2{,}767$ daily closing prices from January $2014$
+through December $2024$, yielding $2{,}766$ growth rates; this
+complete-case selection conditioned the analysis on survival and data
+coverage. We fitted the same hidden Markov generator to each asset,
+including SPY (Table~\ref{tab:hyperparams}; $r_f=0$), and regressed
+the other $423$ assets on observed SPY to estimate $\alpha_i$,
+$\beta_i$, $R^2_{i,\real}$, and residual variance. All generators
+had jumps disabled to isolate composition from jump calibration. The
+naive and hybrid methods shared a centered full-return draw, with
+variance correction applied only by the hybrid method
+(Algorithm~\ref{alg:hybrid}). Four alternatives generated residuals
+from a Gaussian distribution, a residual-fit hidden Markov model
+(labeled JumpHMM-on-residuals), a stationary block bootstrap, or a
+GARCH(1,1)-$t$ model, and added them to $\alpha_i+\beta_i g_m$
+without centering or rescaling. Comparator fitting and eligibility
+rules are given in Online Appendix~\ref{sec:supp-composition-evaluation};
+$30$ non-stationary GARCH fits left $393$ eligible assets for that
+method. Using observed SPY as the common market path, we ran $100$
+replications per asset with seed $1234$ and pooled training scores
+across tickers. We measured factor recovery by the absolute OLS
+errors $|\hat\alpha-\alpha_i|$, $|\hat\beta-\beta_i|$, and
+$|\hat R^2-R^2_{i,\real}|$, and naive and hybrid variance preservation
+by the composed-to-generator variance ratio. Distributional scores
+were KS and AD pass rates, Wasserstein-1 distance, excess kurtosis,
+and the Hill index of absolute returns (Online
+Appendix~\ref{sec:supp-validation}). Because only naive and hybrid
+forced the residual mean to zero, a paired centering control on the
+common $393$ assets separated this constraint from model fitting
+(Table~\ref{tab:centering_control}; Online
+Appendix~\ref{sec:supp-centering-control}).
+
+To test performance without refitting, we froze all $2014$--$2024$
+fits and evaluated $100$ simulated paths per asset against the $249$
+growth rates observed in $2025$ (Table~\ref{tab:oos_composition}).
+Complete holdout histories were available for $416$ assets, including
+$386$ with accepted GARCH fits. Each replication used one simulated
+$249$-day no-jump SPY path shared across asset compositions. The
+correction used the observed training market variance in
+Eqs.~\eqref{eq:scale}--\eqref{eq:r2-rescale}, while each asset's
+generator variance remained draw-specific. Consequently, variation
+in simulated market variance could move composed variance away from
+the generator target even at zero sample cross-covariance. Observed
+$2025$ returns were used only for scoring. We repeated the KS, AD,
+Wasserstein-1, and kurtosis evaluations and measured variance for all
+six methods relative to observed $2025$ variance. Because goodness-of-fit tests have less power on short samples, we
+also compared the same simulated paths with randomly selected
+contiguous $249$-day blocks of observed training returns as a
+length-matched training reference. We averaged
+replications within ticker before summarizing across tickers, giving
+each asset equal weight.
+
+To estimate one-day Value-at-Risk (VaR) thresholds without relying on
+a single short path, we pooled daily log returns, $\Delta t$ times
+the growth rates, from $5{,}000$ separately composed $249$-day paths
+per asset and method (Table~\ref{tab:var}). Each replication shared
+one simulated SPY path across assets and methods and followed the
+holdout centering and scaling conventions. We fixed the $95\%$ and
+$99\%$ coverage thresholds before scoring observed $2025$ returns;
+no holdout data entered fitting or threshold calibration. These
+unconditional thresholds describe a uniformly selected day within the
+$249$-day construction, retain its horizon dependence, and do not
+remove the zero-sum residual constraint of naive and hybrid paths.
+We reported mean exceedance rates and cross-ticker standard deviations
+descriptively, without treating dependent days or assets sharing a
+market as independent replications. Pool-size convergence and an
+independent simulation check are reported in Online
+Appendix~\ref{sec:supp-var-ensemble}.
+
+

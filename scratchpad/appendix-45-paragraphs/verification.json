@@ -1,0 +1,82 @@
+{
+  "actual_paragraphs_before": 58,
+  "actual_paragraphs_after": 45,
+  "prose_words_before": 11963,
+  "prose_words_after": 9358,
+  "prose_reduction_percent": 21.8,
+  "display_blocks": 55,
+  "display_blocks_byte_identical": true,
+  "floats_before": 24,
+  "floats_after": 7,
+  "unresolved_references": [],
+  "other_paragraph_counts": {
+    "introduction": [
+      3,
+      3
+    ],
+    "results": [
+      12,
+      12
+    ],
+    "discussion": [
+      5,
+      5
+    ],
+    "conclusion": [
+      1,
+      1
+    ],
+    "method_hmm": [
+      6,
+      6
+    ],
+    "method_sim": [
+      18,
+      18
+    ]
+  },
+  "final_sha256": "f1089cda5a89811113619fd47fe62244fd586ea628dcaa324187042a97a87b4e",
+  "citation_keys_lost": [],
+  "citation_keys_added": [],
+  "appendix_pages_before": [
+    27,
+    59
+  ],
+  "appendix_pages_after": [
+    27,
+    49
+  ],
+  "appendix_page_count_before": 33,
+  "appendix_page_count_after": 23,
+  "latex_build": "passed",
+  "latex_warnings": [],
+  "diff_check": "passed",
+  "final_pdf_pages": 49,
+  "rendered_pages_inspected": [
+    27,
+    28,
+    29,
+    30,
+    31,
+    32,
+    33,
+    34,
+    35,
+    36,
+    37,
+    38,
+    39,
+    40,
+    41,
+    42,
+    43,
+    44,
+    45,
+    46,
+    47,
+    48,
+    49
+  ],
+  "cold_read_status": "complete; no unresolved reported issues",
+  "cold_read_rounds": 4
+}

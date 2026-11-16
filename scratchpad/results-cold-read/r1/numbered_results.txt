@@ -1,0 +1,235 @@
+
+\subsection{Single-asset generator validation}
+
+
+--- Paragraph results.P1 (results.tex:3) ---
+[results.P1.S1] We first characterized the SPY series and the HMM-WJ calibrated to its training window (Fig.
+[results.P1.S2] [fig:empirical_motivation]; Table [tab:descriptive_stats]).
+[results.P1.S3] The observed series had heavy tails and persistent absolute-return autocorrelation in both the training and holdout windows.
+[results.P1.S4] Individual raw-return correlations were small, although the Ljung--Box test detected joint serial dependence (Table [tab:descriptive_stats]).
+[results.P1.S5] Under the counted transition matrix, every state had an expected residence time of only $1$--$2$ steps, and the implied absolute-return autocorrelation decayed to near zero by lag $5$ (Fig.
+[results.P1.S6] [fig:model_internals]; Online Appendix [sec:supp-generator]).
+[results.P1.S7] Jump episodes extended visits to the tail states and so provided a mechanism for more persistent volatility (Algorithm [alg:hmmwj]).
+[results.P1.S8] Calibration against the $2014$--$2024$ history selected mean episode duration $\lambda=90$ and jump probability $\epsilon=10^{-4}$ (Eq.
+[results.P1.S9] Equation (eq:grid_search); Table [tab:hyperparams]).
+[results.P1.S10] Because $\epsilon$ mainly sets how many paths contain an episode and the objective scored only jump-active paths, the objective depended only weakly on $\epsilon$, and the search selected its smallest grid value (Online Appendix [sec:supp-gen-tuning]).
+[results.P1.S11] The duration $\lambda$ was likewise a fitted parameter of the objective, not an estimate of how long observed high-volatility periods last.
+
+--- Paragraph results.P2 (results.tex:28) ---
+[results.P2.S1] We compared the calibrated HMM-WJ with seven alternative generators on the training window, using $1,000$ paths of $2,766$ trading days (Table [tab:model_comparison]; Fig.
+[results.P2.S2] [fig:model_comparison]).
+[results.P2.S3] Three alternatives drew independent returns: bootstrap resampling of the training returns with replacement, and Gaussian and Laplace distributions fitted to them.
+[results.P2.S4] The other four were HMM-NJ, a GARCH(1,1) model with Gaussian innovations, the GRU benchmark, and the HSMM baseline adapted from Bulla and Bulla.
+[results.P2.S5] The HMM-NJ and HMM-WJ models had KS pass rates within about one percentage point of the fitted Laplace baseline but came much closer to the observed kurtosis, which Laplace underestimated at $3.0$ against $7.7$.
+[results.P2.S6] Both HMM variants had lower Wasserstein-1 distances than Laplace, whereas Laplace had the lowest Hellinger distance among the fitted generators, so the ranking depended on the metric.
+[results.P2.S7] Bootstrap resampling passed every KS test because it reused the observed returns, while Gaussian sampling passed neither distribution test.
+[results.P2.S8] The GARCH(1,1) model had the lowest mean absolute error between the observed and ensemble-average absolute-return autocorrelation functions (ACF-MAE) but rarely passed the distribution tests, and the GRU showed the same tradeoff.
+[results.P2.S9] The HSMM baseline passed only $82%$ of KS tests and underestimated kurtosis by more than one third, and its ACF-MAE equaled the HMM-NJ value despite its flexible state durations.
+[results.P2.S10] A separate ablation within HMM-WJ isolated the emission distribution:
+[results.P2.S11] Student-$t$ emissions produced kurtosis of $7.5$, close to the observed $7.7$, whereas Normal ($\nu=\infty$) emissions underestimated it by about $29%$ (Table [tab:emission_hsmm]).
+[results.P2.S12] Both HMM variants also reproduced the observed skewness of $-0.75$ without a skewness parameter, because the state means and scales estimated from the asymmetric series carried its asymmetry into the mixture (Online Appendix [sec:supp-generator]; Table [tab:supp-generator-quantities]).
+
+--- Paragraph results.P3 (results.tex:60) ---
+[results.P3.S1] Jump episodes traded a small loss of marginal fit for better temporal fit in training (Table [tab:model_comparison]; Fig.
+[results.P3.S2] [fig:model_comparison]b).
+[results.P3.S3] About $24%$ of the training-length HMM-WJ paths contained an episode, and paths without one were equivalent to HMM-NJ (Fig.
+[results.P3.S4] [fig:statistical_validation]).
+[results.P3.S5] Without episodes, the counted chain mixed so quickly that HMM-NJ had an ACF-MAE close to that of the three independent-draw generators.
+[results.P3.S6] Across all HMM-WJ paths, ACF-MAE fell from $0.059$ for HMM-NJ to $0.053$, with a small reduction in KS and AD pass rates.
+[results.P3.S7] The episode share, the fraction of forced steps, and the autocorrelation of jump-active paths agreed with the calculations in Online Appendix [sec:supp-generator] (Tables [tab:supp-generator-quantities] and [tab:supp-acf-prediction]).
+[results.P3.S8] Because the objective scored only jump-active paths, the one-quarter share was not a calibration target; it followed from $\epsilon$ and the path length.
+[results.P3.S9] To examine how that share traded marginal against temporal fit, we split $4,000$ simulated HMM-WJ paths into jump-active and no-jump groups and evaluated mixtures of the two, weighted by a jump-active fraction from zero to one (Online Appendix [sec:supp-gen-tuning]).
+[results.P3.S10] Increasing that fraction lowered autocorrelation error but also lowered KS and AD pass rates, while the Hill upper-tail index remained stable.
+[results.P3.S11] Kurtosis fell from above the observed value at a fraction of zero to below it at one.
+[results.P3.S12] Forced steps drew repeatedly from the existing tail states without extending the extreme tail, so they raised the variance more than the fourth moment (Online Appendix [sec:supp-gen-tuning]).
+[results.P3.S13] At the realized share of about one quarter, the mean path kurtosis of $7.5$ lay slightly below the observed $7.7$ (Table [tab:model_comparison]).
+
+--- Paragraph results.P4 (results.tex:88) ---
+[results.P4.S1] To test whether the HMM results depended on the state partition, we refitted both HMM variants for $N$ from $30$ to $200$ states (Table [tab:sensitivity_n]).
+[results.P4.S2] Each refit kept five states in each tail set and re-ran the $(\epsilon,\lambda)$ search.
+[results.P4.S3] The HMM-NJ pass rates changed by less than one percentage point.
+[results.P4.S4] As $N$ increased, HMM-WJ autocorrelation error fell but so did its AD pass rate.
+[results.P4.S5] The tail sets that receive forced steps then covered a narrower quantile band.
+[results.P4.S6] Each forced step therefore drew a more extreme return, which lowered autocorrelation error, while each tail state's emission estimates rested on fewer observations, which lowered the AD pass rate (Online Appendix [sec:supp-sensitivity]).
+[results.P4.S7] The primary analysis used $N=100$, which kept the HMM-WJ KS pass rate above $98%$ and its AD pass rate within a few percentage points of its best value while capturing part of the autocorrelation improvement.
+[results.P4.S8] The sweep used the $2,766$-day SPY history alone.
+[results.P4.S9] It therefore did not establish a state count for the other assets, which also used $N=100$, or for shorter histories, which would leave fewer observations per state.
+
+--- Paragraph results.P5 (results.tex:106) ---
+[results.P5.S1] To test whether the distributional fit held on data not used for fitting, we compared $249$-day paths from the frozen models with the $249$ held-out SPY returns from $2025$ (Table [tab:model_comparison]; Fig.
+[results.P5.S2] [fig:statistical_validation]).
+[results.P5.S3] On $249$ observations the tests had less power, so the pass rates of the weaker generators rose sharply and the differences among generators narrowed.
+[results.P5.S4] The HMM-NJ and HMM-WJ models retained KS pass rates of $96.6%$ and $95.4%$, with kurtosis close to the observed value.
+[results.P5.S5] At $\epsilon=10^{-4}$, few $249$-day paths contained an episode (Online Appendix [sec:supp-gen-renewal]), so this comparison mainly tested the no-jump dynamics that both variants share.
+[results.P5.S6] The fitted Laplace baseline matched or exceeded both HMM variants on the KS and AD pass rates and had equal or smaller Wasserstein-1 and Hellinger distances.
+[results.P5.S7] Its excess kurtosis of $2.8$, however, remained well below the observed $6.9$, whereas both HMM variants reached $6.2$ (Table [tab:model_comparison]).
+[results.P5.S8] To check whether the single-asset fit carried over to other stocks, we repeated the fitting and calibration of HMM-WJ for NVDA, JNJ, and JPM on the same training and holdout windows (Table [tab:cross_asset]; Online Appendix [sec:supp-cross-asset]).
+[results.P5.S9] Training KS pass rates were near $99%$ for all three, but holdout rates ranged from $74.0%$ for JNJ to $97.7%$ for NVDA.
+[results.P5.S10] These findings supported the HMM variants as sources of heavy-tailed asset paths whose holdout fit varied by asset.
+[results.P5.S11] On the SPY holdout, their advantage over the Laplace baseline lay in kurtosis rather than in pass rates or distances.
+[results.P5.S12] The jump mechanism lowered autocorrelation error mainly in training and at a small cost in pass rates.
+[results.P5.S13] The six-method composition comparison used the no-jump variant to keep per-ticker jump calibration out of the comparison, and a separate multi-asset comparison evaluated the transfer of jump settings.
+
+
+\subsection{Variance-corrected multi-asset composition}
+
+
+--- Paragraph results.P6 (results.tex:140) ---
+[results.P6.S1] We compared six composition methods on the $423$ non-market assets of the training universe to test whether hybrid composition preserved generator variance while recovering the calibrated market loading (Table [tab:aggregate]; Fig.
+[results.P6.S2] [fig:preservation]).
+[results.P6.S3] The GARCH(1,1)-$t$ method covered the $393$ assets with eligible fits.
+[results.P6.S4] With observed training SPY as the market path, the index trackers QQQ and SPYG used the $R^2$-preserving branch, and the other $421$ assets, which we call non-tracker assets, used the variance-preserving branch without clipping (Table [tab:branch]).
+[results.P6.S5] The two trackers targeted the calibrated $R^2$ rather than the generator variance, so we marked them separately (Fig.
+[results.P6.S6] [fig:preservation]).
+[results.P6.S7] We paired each composed path with its uncomposed generator draw to measure the ratio of composed to generator variance directly.
+[results.P6.S8] Across the non-tracker assets, the median of the per-ticker median ratios was $1.3171$ for naive composition and $1.0001$ for hybrid composition, and the hybrid ticker medians ranged from $0.9933$ to $1.0072$ (Fig.
+[results.P6.S9] [fig:preservation]b).
+[results.P6.S10] Individual hybrid paths still varied around the target, because the correction assumes zero covariance between the scaled asset draw and the market path, whereas a finite path has a small nonzero sample covariance.
+[results.P6.S11] Across non-tracker hybrid paths, the median absolute departure of the variance ratio from one was $1.12%$, and its $95$th percentile was $3.41%$ (Fig.
+[results.P6.S12] [fig:preservation]b).
+[results.P6.S13] The correlation between generator draws and the observed market path averaged near zero for every asset (Fig.
+[results.P6.S14] [fig:cov_diag]), which supported the zero-covariance assumption on average but not on each path.
+
+--- Paragraph results.P7 (results.tex:171) ---
+[results.P7.S1] The methods differed more in distributional fit than in factor recovery (Table [tab:aggregate]; Fig.
+[results.P7.S2] [fig:tails]).
+[results.P7.S3] All six methods had median absolute $\beta$ errors between $0.017$ and $0.022$.
+[results.P7.S4] The naive and hybrid methods had a median absolute intercept error of $0.002\,\mathrm{yr}^{-1}$, but this small error followed from centering, not from any ability of the generators to reproduce each asset's mean.
+[results.P7.S5] The OLS fit to observed data passes through the sample means, so without clipping, the centered composed paths on the observed training SPY path reproduced each observed asset mean exactly.
+[results.P7.S6] Refitting OLS to a composed path then gave an intercept error equal to the loading error times the market mean.
+[results.P7.S7] The three residual-fit methods (JumpHMM-on-residuals, block bootstrap, and GARCH(1,1)-$t$) resampled or fitted the OLS residual series.
+[results.P7.S8] These methods and Gaussian SIM did not center their draws, and their intercept errors were an order of magnitude larger.
+[results.P7.S9] Gaussian SIM had the lowest median $R^2$ error but almost never passed the distribution tests, and its median excess kurtosis was an order of magnitude below the observed median of about $13$ across the $423$ assets.
+[results.P7.S10] Hybrid composition passed $73.6%$ of KS comparisons, against $7.1%$ for naive composition, and its advantage held across the calibrated $\beta$ range.
+[results.P7.S11] Its own pass rate nonetheless fell from $87.6%$ in the lowest $\beta$ quartile to $65.9%$ in the highest (Fig.
+[results.P7.S12] [fig:preservation]a; Table [tab:beta_bucket]).
+[results.P7.S13] It retained heavy tails, with median excess kurtosis of $7.2$ and a median Hill estimate of $0.37$, reported as the reciprocal tail index so that larger values indicate heavier tails (Fig.
+[results.P7.S14] [fig:tails]).
+[results.P7.S15] Its kurtosis was similar to that of naive composition, so the variance rescaling did not cause its shortfall from the observed median.
+[results.P7.S16] Its median $R^2$ error fell between those of the naive and Gaussian methods, because the variance-preserving branch targets the generator variance rather than the observed $R^2$.
+
+--- Paragraph results.P8 (results.tex:202) ---
+[results.P8.S1] Fitting the OLS residuals directly needs no correction, because those residuals already exclude the market component, and two of the three residual-fit methods were competitive with hybrid composition (Tables [tab:aggregate] and [tab:centering_control]).
+[results.P8.S2] The six-method comparison used each method's native mean treatment: naive and hybrid paths were centered to a zero residual sum, whereas the other four methods kept each draw's realized residual mean.
+[results.P8.S3] Under native treatment, the residual-fit KS pass rates ranged from $67.4%$ for GARCH(1,1)-$t$ on its $393$ assets to $75.8%$ for JumpHMM-on-residuals.
+[results.P8.S4] The hybrid rate lay about two percentage points below JumpHMM-on-residuals and slightly above block bootstrap (Table [tab:aggregate]).
+[results.P8.S5] The JumpHMM-on-residuals and block-bootstrap methods had slightly lower Wasserstein distances than hybrid composition, and JumpHMM-on-residuals matched the hybrid kurtosis and Hill estimate almost exactly.
+[results.P8.S6] The block-bootstrap and GARCH residual fits produced lighter tails than hybrid composition and JumpHMM-on-residuals, with lower kurtosis and Hill estimates.
+[results.P8.S7] Subtracting each residual mean over the full training horizon from all six methods, on the common $393$-asset set, changed the KS ranking (Table [tab:centering_control]).
+[results.P8.S8] On that set, the hybrid KS pass rate was $74.4%$ with or without centering.
+[results.P8.S9] The JumpHMM-on-residuals rate, $75.8%$ on this set as on the full set, rose to $78.4%$, and the block-bootstrap rate rose from $73.5%$ to $76.7%$.
+[results.P8.S10] Those two methods also had higher AD pass rates and lower Wasserstein distances than hybrid composition after centering, while Gaussian SIM and GARCH remained below it on both pass rates.
+[results.P8.S11] Centering brought every method's median intercept error to $0.002\,\mathrm{yr}^{-1}$ at the reported precision and left each path's variance, recovered loading, $R^2$, and excess kurtosis unchanged to numerical tolerance.
+[results.P8.S12] The pass-rate gains therefore came from removing each draw's realized residual mean.
+[results.P8.S13] Hybrid composition kept its advantage over naive composition under this control because both were already centered.
+[results.P8.S14] The correction therefore improved on naive composition without a second generator fit, but hybrid composition trailed JumpHMM-on-residuals under both mean treatments and also trailed block bootstrap after centering.
+
+--- Paragraph results.P9 (results.tex:238) ---
+[results.P9.S1] The emission fallback rules were triggered only in full-return generators, so they could have handicapped naive and hybrid composition relative to the residual-fit methods (Tables [tab:fallback_assets] and [tab:fallback_sensitivity]).
+[results.P9.S2] Each of $39$ non-market models had one state filled by days with unchanged closing prices, whose zero growth rates gave the state a sample spread below the fallback threshold.
+[results.P9.S3] The fallback replaced that spread with the asset's full-series scale.
+[results.P9.S4] The same $39$ models held $11$ further fallback states that were empty or held one observation, and these kept the fallback throughout.
+[results.P9.S5] The SPY model and every JumpHMM-on-residuals fit needed no fallback, and the block-bootstrap and GARCH methods have no emission states.
+[results.P9.S6] To measure the effect, we gave each zero-return state its own near-zero empirical spread, which stopped that state from emitting widely spread draws around zero.
+[results.P9.S7] We then replayed the same $100$ training paths per affected asset with all other model components and random draws unchanged.
+[results.P9.S8] The change raised hybrid KS pass rates from $68.6%$ to $78.9%$ and AD pass rates from $56.2%$ to $70.2%$ on those assets (Table [tab:fallback_sensitivity]).
+[results.P9.S9] The fallback rule therefore lowered the training fit of the full-return methods on these assets without affecting the residual-fit comparators.
+[results.P9.S10] Spread over all $423$ assets, the change would have raised the aggregate hybrid KS pass rate by about one percentage point, less than its gap to JumpHMM-on-residuals.
+[results.P9.S11] The main comparisons retain the original rule, because the alternative was a post hoc training diagnostic that was not evaluated on held-out histories.
+[results.P9.S12] Both the main comparison and this check used training histories only; the holdout evaluation tested whether the advantage of hybrid over naive composition persisted beyond the fitting period.
+
+
+\subsection{Holdout performance and VaR coverage}
+
+
+--- Paragraph results.P10 (results.tex:267) ---
+[results.P10.S1] To test out-of-sample generalization without refitting or look-ahead bias, we froze the fitted models and SIM parameters before evaluating them against $416$ complete asset histories from $2025$ (Table [tab:oos_composition]).
+[results.P10.S2] Hybrid composition reached an $87.0%$ mean cross-ticker KS pass rate, against $83.5%$ for naive composition.
+[results.P10.S3] Its median ratio of synthetic to observed $2025$ variance was $0.97$, whereas naive composition inflated that ratio to $1.29$.
+[results.P10.S4] The JumpHMM-on-residuals method reached an $86.2%$ KS pass rate and a slightly lower median $W_1$ than hybrid composition.
+[results.P10.S5] As in training, these holdout comparisons used each method's native mean treatment, and no common-centering control was run on the holdout.
+[results.P10.S6] Every method passed more often in $2025$ than in the full-length training comparison, and the gap between hybrid and naive composition shrank (Tables [tab:aggregate] and [tab:oos_composition]).
+[results.P10.S7] For every method, the pass rate against matched-length $249$-day training blocks lay between its full-length training rate and its $2025$ rate.
+[results.P10.S8] The shorter sample, which lowers test power, therefore accounted for much of the shrinking gap and part of the rise, although the matched blocks were also scored with simulated rather than observed SPY.
+[results.P10.S9] The rest of the rise in $2025$ pass rates remained unexplained.
+[results.P10.S10] The average pass rates also concealed substantial differences among tickers (Fig.
+[results.P10.S11] [fig:oos_composition]).
+[results.P10.S12] Most ticker-level rates were high, but every method had a lower tail of weakly fitted tickers.
+[results.P10.S13] For hybrid composition, about three quarters of tickers passed more often in $2025$ than against their matched-length training blocks, and about one quarter passed less often (Fig.
+[results.P10.S14] [fig:oos_composition]b).
+[results.P10.S15] The rise from training blocks to $2025$ therefore did not hold for every asset.
+
+--- Paragraph results.P11 (results.tex:294) ---
+[results.P11.S1] To test whether the holdout improvement over naive composition extended to reliable tail thresholds, we estimated per-ticker one-day left-tail Value-at-Risk (VaR) thresholds from $5,000$ separate $249$-day paths and counted exceedances on the observed $2025$ histories (Table [tab:var]).
+[results.P11.S2] Doubling the threshold pool from $2,500$ to $5,000$ paths changed every method's mean exceedance rate by less than $0.006$ percentage points at either coverage level (Table [tab:var_convergence]).
+[results.P11.S3] The coverage level $\alpha=0.95$ has a nominal exceedance rate of $1-\alpha=5%$ and gave each asset about $12$ expected exceedances.
+[results.P11.S4] At that level, hybrid composition had a mean exceedance rate of $5.48%$, closer to nominal than the $4.04%$ of naive composition.
+[results.P11.S5] At $\alpha=0.99$, the hybrid rate of $1.12%$ and the naive rate of $0.88%$ lay equally close to the $1%$ nominal rate on opposite sides.
+[results.P11.S6] The JumpHMM-on-residuals method had rates of $5.62%$ and $1.16%$, close to hybrid composition, and Gaussian SIM had the largest $99%$ rate at $1.72%$.
+[results.P11.S7] The advantage of hybrid over naive composition thus appeared at the $95%$ level but not at the $99%$ level.
+[results.P11.S8] Neither comparison established a ranking, because each asset contributed few exceedances, only about $2$--$3$ expected at the $99%$ level, and all assets shared one market period, so their exceedances were not independent.
+[results.P11.S9] The hybrid mean rates exceeded nominal at both coverage levels, so its thresholds were slightly too permissive on average, and the descriptive check could not confirm their calibration.
+[results.P11.S10] The cross-asset standard deviations of the exceedance rates described how realized rates varied among assets; they did not test miscalibration or validate coverage in other periods.
+
+
+\subsection{Jump-enabled multi-asset composition}
+
+
+--- Paragraph results.P12 (results.tex:330) ---
+
+--- Paragraph results.P13 (results.tex:332) ---
+[results.P13.S1] To test whether jump episodes improved the temporal fit of the composed paths, we compared jumps disabled, market-only jumps, and market-plus-asset jumps under naive and hybrid composition (Table [tab:jump_ablation], where hybrid composition is labeled Corrected).
+[results.P13.S2] Enabled generators used the SPY jump settings without per-asset tuning.
+[results.P13.S3] This comparison simulated the market path in both windows and used each simulated path's variance in the correction, whereas the six-method comparisons used observed SPY in training and the training market variance in the holdout.
+[results.P13.S4] With these conventions and different seeds and replication counts, its no-jump pass rates differ by up to about one and a half percentage points from those of the six-method comparisons.
+[results.P13.S5] Its temporal error is the path-averaged ACF-MAE, which differs from the ensemble-average error of the single-asset comparison, so the two are not directly comparable.
+[results.P13.S6] With hybrid composition, market-only jumps reduced the training ACF-MAE over lags $1$--$25$ by $5.3%$, and the $95%$ Monte Carlo interval for that reduction excluded zero.
+[results.P13.S7] The KS pass rate fell by only $0.3$ percentage points, and the interval for that change included zero (Table [tab:jump_ablation_uncertainty]).
+[results.P13.S8] Enabling jumps in both the market and asset generators reduced the ACF-MAE by $14.6%$ from the no-jump setting but lowered the KS pass rate from $73.9%$ to $61.7%$.
+[results.P13.S9] That cost was far larger than the one jumps imposed on SPY, whose settings were tuned.
+[results.P13.S10] Across all settings and both windows, the mean ratio of composed to generator variance under hybrid composition differed from one by less than $0.05%$.
+[results.P13.S11] The correction therefore held the variance target with jumps enabled; both jump settings lowered training autocorrelation error, but only adding jumps to the asset generators materially lowered the KS pass rate.
+[results.P13.S12] The training-period temporal improvement did not carry into the $2025$ holdout (Table [tab:jump_ablation]).
+[results.P13.S13] With hybrid composition, market-only jumps raised the $25$-lag ACF-MAE by $2.7%$ and market-plus-asset jumps raised it by $6.9%$.
+[results.P13.S14] The $95%$ Monte Carlo intervals excluded zero for both increases, and the $60$-lag errors also rose (Tables [tab:jump_ablation] and [tab:jump_ablation_uncertainty]).
+[results.P13.S15] The holdout KS pass rate changed little under market-only jumps and fell by about $1.5$ percentage points under market-plus-asset jumps.
+[results.P13.S16] Only $2.2%$ of the simulated one-year market paths contained an episode (Table [tab:jump_ablation_episodes]).
+[results.P13.S17] The holdout therefore judged the transferred settings on few episode paths and a single year of observed data, and it could not establish their behavior in other market periods.
+
+
+\subsection{Sensitivity analyses}
+
+
+--- Paragraph results.P14 (results.tex:379) ---
+[results.P14.S1] We examined how the branch-selection threshold $R^2_{\mathrm{preserve}}$ assigned assets to branches in the observed universe and whether any value of the variance floor $f$ triggered clipping (Figs.
+[results.P14.S2] [fig:r2_distribution] and [fig:branch_map]; Table [tab:branch]).
+[results.P14.S3] The $R^2$-preserving branch applied only to QQQ and SPYG, whose hybrid compositions passed every KS test in training.
+[results.P14.S4] The highest-$R^2$ asset outside these trackers, the individual stock BLK, fell about $0.16$ below the $0.80$ threshold, so the assignment did not depend on a narrow margin.
+[results.P14.S5] Across the explored thresholds from $0.70$ to $0.90$ at the default floor, only the QQQ assignment changed, moving to the variance-preserving branch at $0.90$.
+[results.P14.S6] At the default threshold, no value of $f$ from $0.05$ to $0.30$ caused any asset to be clipped.
+[results.P14.S7] The empirical evaluation of the $R^2$-preserving branch was therefore limited to two assets, and the observed market variance never activated clipping.
+
+--- Paragraph results.P15 (results.tex:396) ---
+[results.P15.S1] Because only two real assets used the $R^2$-preserving branch, we also checked it on a synthetic grid with known loading and $R^2$ (Table [tab:tracker_grid]).
+[results.P15.S2] The grid covered $(\beta_{\mathrm{true}},R^2_{\mathrm{true}})\in\{0.8,1.0,1.2\} \times\{0.80,0.85,0.90,0.95,0.99\}$, with $100$ replications per cell.
+[results.P15.S3] In each replication, a synthetic tracker series equaled $\beta_{\mathrm{true}}$ times the observed training SPY path plus an independent Gaussian residual, with zero intercept and the residual variance that gives $R^2_{\mathrm{true}}$ under Eq.
+[results.P15.S4] Equation (eq:r2-target).
+[results.P15.S5] The composition algorithm received $\beta_{\mathrm{true}}$ and $R^2_{\mathrm{true}}$ as its calibrated inputs and a second, independent Gaussian draw in place of a generator draw.
+[results.P15.S6] The composer's generator variance was fixed at the target residual variance rather than recomputed from the draw, so the residual scale in Eq.
+[results.P15.S7] Equation (eq:r2-rescale) was exactly one.
+[results.P15.S8] Median loading and $R^2$ estimates from the composed series were close to their targets.
+[results.P15.S9] Every composed series also passed the KS comparison with its synthetic tracker.
+[results.P15.S10] Both series contained the same SPY path, however, so the two samples were not independent and these pass rates were descriptive rather than calibrated tests.
+[results.P15.S11] The grid therefore checked the implementation and finite-sample accuracy of the $R^2$-preserving formula under a restricted Gaussian construction; it did not exercise full-return HMM fitting, non-unit residual scaling, or simulated market paths.
+
+--- Paragraph results.P16 (results.tex:421) ---
+[results.P16.S1] The decline of hybrid fit with calibrated $\beta$ (Table [tab:beta_bucket]; Fig.
+[results.P16.S2] [fig:preservation]a) follows the market loading ratio $\rho_i$, the market's share of the target variance, which a larger loading raises for an asset of given variance.
+[results.P16.S3] The scaled draw is a full-return path that already carries the asset's whole shape, and composition adds an independent market term to it.
+[results.P16.S4] As $\rho_i$ grows, the market's shape therefore makes up more of the blend, and the composed distribution departs further from the asset's observed one; Online Appendix [sec:supp-residual-choice] derives this dilution for kurtosis.
+[results.P16.S5] A more volatile market raises $\rho_i$ in the same way and, once $\rho_i$ exceeds $1-f$, activates clipping, which the observed market variance never did.
+[results.P16.S6] To measure when clipping activates, we multiplied deviations of the observed training SPY path from its mean by $\gamma\in\{1,2,3\}$, which preserved the market mean and multiplied its standard deviation by $\gamma$.
+[results.P16.S7] We then recomposed all $423$ assets with the scaled path's variance in the correction, holding the fitted marginals, intercepts, and calibrated loadings fixed (Table [tab:stress]).
+[results.P16.S8] Clipping applied to no composed path at $\gamma=1$ and to $76.4%$ and $95.2%$ of composed paths at $\gamma=2$ and $3$.
+[results.P16.S9] Because clipped paths retained their fitted intercepts while the market mean stayed unchanged and nonzero, their means shifted by $(\beta_i^{\eff}-\beta_i)\overline{g}_m$ by construction.
+[results.P16.S10] The stress test therefore characterized when clipping activated and how it moved asset means; it did not evaluate fit under the scaled markets.

@@ -1,0 +1,3 @@
+Paragraphs: 7 -> 4; prose words: 1535 -> 740
+FAIL: Paragraph count changed
+FAIL: Paragraph/heading/caption block order changed

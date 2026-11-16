@@ -1,0 +1,35 @@
+{
+  "paragraphs_before": 7,
+  "paragraphs_after": 4,
+  "words_before": 1535,
+  "words_after": 740,
+  "paragraph_word_counts": [
+    232,
+    121,
+    127,
+    260
+  ],
+  "authorized_structure": "P1\u2192P1, P2\u2192P2, P3\u2192P3, P4\u2013P7\u2192P4; final starts In this study,",
+  "unchanged_formatting": true,
+  "unchanged_citation_style": true,
+  "unchanged_bibliography_citation_keys": true,
+  "removed_table_references": "tab:var and tab:model_comparison, with omitted optional VaR preview and standalone SPY test setup",
+  "only_changed_manuscript_source": [
+    "arxiv-paper/sections/introduction.tex"
+  ],
+  "final_source_sha256": "241d5015c784fdb66ad743ec14db45269b4022fbf70e840c5a73f6e83c5cc9b1",
+  "pdf_sha256": "bd73d18e5cb08e15e611bf94ff1e3708c6e014f6df51d7021f22bfa0aa258d16",
+  "final_reader_round": 8,
+  "final_reader_severity_3": 0,
+  "final_reader_severity_2": 0,
+  "final_reader_severity_1": 1,
+  "remaining_minor_flag": "configuration recipient detail retained in Methods",
+  "pdf_intro_start_page": 2,
+  "pdf_intro_end_page": 2,
+  "visual_check_pages": [
+    2,
+    3
+  ],
+  "build_warnings": 0,
+  "diff_check_passed": true
+}

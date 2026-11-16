@@ -1,0 +1,110 @@
+[
+  {
+    "before": "For two independent series of $2{,}766$ observations, the\nsample correlation has standard deviation near",
+    "after": "For independent series with weak serial correlation and $2{,}766$\nobservations, the sample correlation has standard deviation near"
+  },
+  {
+    "before": "On the variance-preserving branch, the variance correction in\nEq.~\\eqref{eq:scale} sets each composed variance to the generator\nvariance. When the generator variance matches the empirical variance,\nthe per-asset variance terms of the diversification return derived\nbelow are matched as well. What the construction does not match is\nthe cross-asset residual covariance, and the derivation isolates where\nthat omission enters.",
+    "after": "On the variance-preserving branch, Eq.~\\eqref{eq:scale} matches the\ngenerator variance when the market cross-covariance is zero. If the\ngenerator also matches the empirical variance, the per-asset variance\nterms below agree with the data. The derivation isolates the remaining\nomission: cross-asset residual covariance."
+  },
+  {
+    "before": "comoves perfectly ($\\Var(g_i - g_j) = 0$)",
+    "after": "has identical fluctuations ($\\Var(g_i - g_j) = 0$)"
+  },
+  {
+    "before": "(checked empirically in Online Appendix~\\ref{sec:supp-cov}). The\npairwise difference variance becomes:",
+    "after": "(the population assumption checked in Online\nAppendix~\\ref{sec:supp-cov}). Here the loadings are fixed and\nunclipped, as in the observed-market training comparison. The\npairwise difference variance is:"
+  },
+  {
+    "before": "For any long-only weights on this\nuniverse, the market component therefore contributes little, and a\nlarger diversification return must come from the idiosyncratic\ncomponent $D_\\eps$.",
+    "after": "For long-only weights on this universe, any diversification return\nabove this bound must include an idiosyncratic contribution $D_\\eps$."
+  },
+  {
+    "before": "Equation~\\eqref{eq:scale} chooses $s_i$ so that each\ncomposed variance",
+    "after": "Under the same zero-cross-covariance assumption,\nEq.~\\eqref{eq:scale} chooses $s_i$ so that the composed variance"
+  },
+  {
+    "before": "with the same same-date variances gives the same $D$.",
+    "after": "with the same contemporaneous variances and covariances gives the same $D$."
+  },
+  {
+    "before": "Serial dependence therefore\nchanges the per-path noise around the stationary mean, not the mean\nitself, and is not a lever on the diversification return at the level\nof the second-order formula.",
+    "after": "Thus, at fixed contemporaneous moments, serial dependence changes\nsampling noise but not the second-order diversification return."
+  },
+  {
+    "before": "A comparison with\nrealized portfolio returns would also contain a second effect:\nrealized diversification returns on real equity portfolios fall short\nof the second-order formula at all rebalancing\nhorizons~\\cite{boucheyNemtchinovWong2015}. A measured excess of\nsynthetic over realized diversification return would therefore bound\nthe part caused by independent residuals from above rather than\nmeasure it.",
+    "after": "A comparison with realized portfolio returns would also reflect\nfinite-horizon sampling and approximation error in the second-order\nformula~\\cite{boucheyNemtchinovWong2015}. A synthetic-minus-realized\ngap therefore would not isolate the effect of independent residuals\nor establish an upper bound without controlling those other effects."
+  },
+  {
+    "before": "These percentages are not calibrated\nsignificance levels, for three reasons: returns are serially\ndependent, whereas the tests assume independent observations; every\npath is compared with the same observed series, so the comparisons\nare not independent of one another; and in sample, the generator was\nfitted to that series.",
+    "after": "These percentages are descriptive: the tests assume independent\nobservations, whereas returns are serially dependent, and in sample\nthe generator was fitted to the comparison series. Independent\nsimulations give independent pass indicators conditional on that\nfixed history and model, but do not supply new observed histories."
+  },
+  {
+    "before": "KS $p$-values for these $239$ paths",
+    "after": "Kolmogorov--Smirnov (KS) $p$-values for these $239$ paths"
+  },
+  {
+    "before": "density fan chart; the observed density falls within the simulation\n    envelope.",
+    "after": "density fan chart with the pointwise $10$th--$90$th percentile\n    envelope of simulated densities and the observed density."
+  },
+  {
+    "before": "path obtained by cumulative compounding of the residuals.",
+    "after": "path obtained by exponentiating cumulative residuals multiplied by\nthe daily time step."
+  },
+  {
+    "before": "the model's stationary distribution\n    function",
+    "after": "the no-jump model's stationary distribution\n    function"
+  },
+  {
+    "before": "Each is a function of\na simple sample summary, and each reproduces that summary exactly or\nup to an end effect of order $1/T$. The Laplace partition comes\nfirst.",
+    "after": "Each is computed from sample summaries; using those summaries as\nparameters need not reproduce their moments under the fitted law.\nThe Laplace partition comes first."
+  },
+  {
+    "before": "so the model variance\nexceeds the sample variance by $2 V_{\\rm w} / (\\nu - 2)$.",
+    "after": "so the Student-$t$ scale convention adds\n$2 V_{\\rm w} / (\\nu - 2)$ relative to the corresponding Gaussian mixture."
+  },
+  {
+    "before": "the identification argument\nof Online Appendix~\\ref{sec:supp-gen-tuning} shows how conditioning on\npaths with an episode separates them.",
+    "after": "Online Appendix~\\ref{sec:supp-gen-tuning} explains why conditioning\non paths with an episode emphasizes duration while leaving the\ntrigger probability weakly determined."
+  },
+  {
+    "before": "Dividing the $T - 1$ transition steps of a path by\nthe mean cycle length",
+    "after": "Using the long-run episode rate, dividing the $T - 1$ transition\nsteps by the mean cycle length"
+  },
+  {
+    "before": "The expected gap between episodes\nis $1/\\epsilon = 10^4$ trading days, about $40$ trading years, far",
+    "after": "The free waiting time is approximately\n$1/\\epsilon = 10^4$ trading days, about $40$ trading years, far"
+  },
+  {
+    "before": "Within a jump path, the forced fraction is\n$\\lambda / T = 3.3\\%$ for a single episode; the simulated mean is",
+    "after": "Ignoring horizon truncation, one episode of mean duration gives a\nforced fraction near $\\lambda / T = 3.3\\%$; the simulated mean is"
+  },
+  {
+    "before": "slightly higher\nbecause of the multi-episode paths.",
+    "after": "with multi-episode paths increasing the average."
+  },
+  {
+    "before": "Beyond the few lags over which $|\\theta_2|^\\tau$ is\nnon-negligible, only the conditional means covary. Write",
+    "after": "Neglecting this short-lived dependence and the free-state relaxation\nafter an episode leaves covariance between the phase means. Write"
+  },
+  {
+    "before": "The conditional mean is\n$\\E[A_t \\mid Z_t]",
+    "after": "Under this approximation, the conditional mean is\n$\\E[A_t \\mid Z_t]"
+  },
+  {
+    "before": "using the absolute-return\nvariance of such a path, $\\Var(A_t) = 3.01$,",
+    "after": "using the absolute-return\nvariance of the fitted two-phase mixture, $\\Var(A_t) = 3.01$,"
+  },
+  {
+    "before": "decays linearly over $\\lambda$ lags, so over the\n$25$ lags of the objective both its height and its slope depend on\n$\\lambda$; the kurtosis shift depends on the same forced fraction.",
+    "after": "decays over roughly $\\lambda$ lags. Across the\n$25$ lags of the objective, its amplitude and variance normalization\ndepend on $\\lambda$; the kurtosis shift uses the same forced fraction."
+  },
+  {
+    "before": "Figure~\\ref{fig:model_internals} shows the fitted components of the\nSPY model at $N=100$ that enter the derivation of Online\nAppendix~\\ref{sec:supp-generator}. Panel~(a) shows that the fitted\nLaplace CDF closely follows the empirical CDF; the $99$ boundaries\n$Q_k$ are equiprobable under the fitted Laplace, and the empirical\nstate counts range from $16$ to $47$",
+    "after": "The fitted SPY components at $N=100$ explain the short state visits\nunderlying Online Appendix~\\ref{sec:supp-generator}\n(Fig.~\\ref{fig:model_internals}). The fitted Laplace CDF closely\nfollows the empirical CDF (panel~a); the $99$ boundaries $Q_k$ define\nequiprobable states under the fitted Laplace, while empirical state\ncounts range from $16$ to $47$"
+  },
+  {
+    "before": "quantile boundaries $Q_k$,\n    equiprobable under the fitted Laplace, that define the hidden\n    states.",
+    "after": "quantile boundaries $Q_k$,\n    which define equiprobable states under the fitted Laplace."
+  }
+]

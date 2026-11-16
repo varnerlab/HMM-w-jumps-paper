@@ -1,0 +1,75 @@
+{
+  "prose_paragraphs_before": 58,
+  "prose_paragraphs_after": 58,
+  "guard_blocks_before": 80,
+  "guard_blocks_after": 80,
+  "captions_before": 24,
+  "captions_after": 24,
+  "prose_words_before": 11992,
+  "prose_words_after": 11963,
+  "source_sha256": "25cda9a4d823c5262b21197eac5f5b057db141e302c0728e8acf008fbfef8838",
+  "pdf_sha256": "966228f71ef5760e03f5d198127ea2332dde1fbce46733f3c00ad2eae4cddbc4",
+  "appendix_pages_before": [
+    27,
+    60
+  ],
+  "appendix_pages_after": [
+    27,
+    59
+  ],
+  "final_rendered_pages_inspected": [
+    27,
+    28,
+    29,
+    30,
+    31,
+    32,
+    33,
+    34,
+    35,
+    36,
+    37,
+    38,
+    39,
+    40,
+    41,
+    42,
+    43,
+    44,
+    45,
+    46,
+    47,
+    48,
+    49,
+    50,
+    51,
+    52,
+    53,
+    54,
+    55,
+    56,
+    57,
+    58,
+    59
+  ],
+  "checks": {
+    "display_equations": {
+      "unchanged": true,
+      "count": 55
+    },
+    "table_cells": {
+      "unchanged": true,
+      "count": 6
+    },
+    "citations": {
+      "unchanged": true,
+      "count": 13
+    },
+    "labels": {
+      "unchanged": true,
+      "count": 93
+    }
+  },
+  "build": "make all passed; no LaTeX warnings or undefined references/overfull/underfull boxes",
+  "diff_check": "passed"
+}

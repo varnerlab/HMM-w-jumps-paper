@@ -1,0 +1,236 @@
+[
+  {
+    "reader_id": "F1",
+    "type": "figure",
+    "number": "S1",
+    "label": "fig:cov_diag",
+    "active_main_references": [
+      "results:116"
+    ]
+  },
+  {
+    "reader_id": "F2",
+    "type": "figure",
+    "number": "S2",
+    "label": "fig:statistical_validation",
+    "active_main_references": [
+      "results:45",
+      "results:68"
+    ]
+  },
+  {
+    "reader_id": "F3",
+    "type": "table",
+    "number": "S1",
+    "label": "tab:descriptive_stats",
+    "active_main_references": [
+      "results:7"
+    ]
+  },
+  {
+    "reader_id": "F4",
+    "type": "table",
+    "number": "S2",
+    "label": "tab:supp-generator-quantities",
+    "active_main_references": [
+      "results:49"
+    ]
+  },
+  {
+    "reader_id": "F5",
+    "type": "table",
+    "number": "S3",
+    "label": "tab:supp-acf-prediction",
+    "active_main_references": [
+      "results:50"
+    ]
+  },
+  {
+    "reader_id": "F6",
+    "type": "figure",
+    "number": "S3",
+    "label": "fig:model_internals",
+    "active_main_references": [
+      "method_hmm:90",
+      "results:40"
+    ]
+  },
+  {
+    "reader_id": "F7",
+    "type": "table",
+    "number": "S4",
+    "label": "tab:emission_hsmm",
+    "active_main_references": [
+      "method_hmm:71",
+      "method_hmm:244",
+      "results:32"
+    ]
+  },
+  {
+    "reader_id": "F8",
+    "type": "table",
+    "number": "S5",
+    "label": "tab:sensitivity_n",
+    "active_main_references": [
+      "results:58"
+    ]
+  },
+  {
+    "reader_id": "F9",
+    "type": "table",
+    "number": "S6",
+    "label": "tab:cross_asset",
+    "active_main_references": [
+      "results:81",
+      "discussion:56",
+      "main_tables:13"
+    ]
+  },
+  {
+    "reader_id": "F10",
+    "type": "figure",
+    "number": "S4",
+    "label": "fig:r2_distribution",
+    "active_main_references": [
+      "method_sim:168",
+      "results:289"
+    ]
+  },
+  {
+    "reader_id": "F11",
+    "type": "figure",
+    "number": "S5",
+    "label": "fig:branch_map",
+    "active_main_references": [
+      "results:290"
+    ]
+  },
+  {
+    "reader_id": "F12",
+    "type": "table",
+    "number": "S7",
+    "label": "tab:branch",
+    "active_main_references": [
+      "results:100",
+      "results:290",
+      "discussion:85"
+    ]
+  },
+  {
+    "reader_id": "F13",
+    "type": "table",
+    "number": "S8",
+    "label": "tab:tracker_grid",
+    "active_main_references": [
+      "results:306",
+      "discussion:86"
+    ]
+  },
+  {
+    "reader_id": "F14",
+    "type": "table",
+    "number": "S9",
+    "label": "tab:stress",
+    "active_main_references": [
+      "results:322",
+      "results:331",
+      "discussion:70"
+    ]
+  },
+  {
+    "reader_id": "F15",
+    "type": "table",
+    "number": "S10",
+    "label": "tab:beta_bucket",
+    "active_main_references": [
+      "results:140",
+      "discussion:62"
+    ]
+  },
+  {
+    "reader_id": "F16",
+    "type": "figure",
+    "number": "S6",
+    "label": "fig:tails",
+    "active_main_references": [
+      "results:124",
+      "results:145"
+    ]
+  },
+  {
+    "reader_id": "F17",
+    "type": "table",
+    "number": "S11",
+    "label": "tab:supp-kurt-composition",
+    "active_main_references": []
+  },
+  {
+    "reader_id": "F18",
+    "type": "table",
+    "number": "S12",
+    "label": "tab:jump_ablation_uncertainty",
+    "active_main_references": [
+      "method_sim:393",
+      "results:262",
+      "results:270"
+    ]
+  },
+  {
+    "reader_id": "F19",
+    "type": "table",
+    "number": "S13",
+    "label": "tab:jump_ablation_episodes",
+    "active_main_references": [
+      "method_sim:387",
+      "results:278"
+    ]
+  },
+  {
+    "reader_id": "F20",
+    "type": "table",
+    "number": "S14",
+    "label": "tab:centering_control",
+    "active_main_references": [
+      "method_sim:311",
+      "results:155",
+      "results:165",
+      "discussion:29"
+    ]
+  },
+  {
+    "reader_id": "F21",
+    "type": "table",
+    "number": "S15",
+    "label": "tab:var_convergence",
+    "active_main_references": [
+      "results:227"
+    ]
+  },
+  {
+    "reader_id": "F22",
+    "type": "table",
+    "number": "S16",
+    "label": "tab:var_common",
+    "active_main_references": []
+  },
+  {
+    "reader_id": "F23",
+    "type": "table",
+    "number": "S17",
+    "label": "tab:fallback_assets",
+    "active_main_references": [
+      "method_hmm:56",
+      "results:175"
+    ]
+  },
+  {
+    "reader_id": "F24",
+    "type": "table",
+    "number": "S18",
+    "label": "tab:fallback_sensitivity",
+    "active_main_references": [
+      "results:176",
+      "discussion:87"
+    ]
+  }
+]

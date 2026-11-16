@@ -1,0 +1,45 @@
+\subsection{Six-method composition evaluation}
+\label{sec:supp-composition-evaluation}
+
+The four residual-based comparators used the observed asset's
+ordinary least-squares (OLS) residuals to set their distributions
+(Table~\ref{tab:aggregate}). The Gaussian single-index model (SIM)
+used independent Gaussian draws with the OLS residual variance. The
+residual-fit hidden Markov model, labeled JumpHMM-on-residuals after
+the software package, fitted a no-jump generator to a synthetic price
+path obtained by cumulative compounding of the residuals. The
+Politis--Romano stationary bootstrap~\cite{politisRomano1994} used a
+mean block length of $50$ days in both training and holdout. The
+generalized autoregressive conditional heteroskedasticity model,
+GARCH(1,1)-$t$, fitted conditional variance to the residual
+series~\cite{bollerslev1986}. We accepted a fit only if optimization
+converged, the likelihood and coefficients were finite, the variance
+intercept was positive, and the nonnegative ARCH and GARCH
+coefficients summed to less than one. The Student-$t$ degrees of
+freedom had to exceed two, the unconditional variance had to be finite
+and positive, and a trial simulated path had to be finite and
+nonconstant. All $423$ optimizations converged, but $30$ failed the
+coefficient-sum condition, leaving $393$ eligible assets; stored fits
+were rechecked before evaluation. All four residual
+comparators entered composition without further centering or
+rescaling.
+
+The six-method scores measured agreement with the observed asset and
+its calibrated factor model, rather than recovery of a common target
+for every branch (Tables~\ref{tab:aggregate}, \ref{tab:branch}, and
+\ref{tab:beta_bucket}). Lower absolute OLS errors indicated closer
+recovery, but on the hybrid variance-preserving branch the composed
+$R^2$ approached the draw's $\rho_i$, capped at $1-f$, rather than
+$R^2_{i,\real}$. Its $R^2$ error therefore mainly measured this
+designed shift; loading error also included any change made by
+clipping. A composed-to-generator variance ratio of one indicated
+equal variances, which the $R^2$-preserving branch did not target.
+Higher KS and AD pass rates and lower Wasserstein-1 distance indicated
+closer distributional agreement; kurtosis and Hill indices were
+compared with the observed asset's values. We omitted cross-sectional
+rank reordering to test each ticker's marginal construction and
+scored volatility clustering separately in the jump-enabled comparison.
+The paired centering control isolated differences in residual-mean
+constraints (Online Appendix~\ref{sec:supp-centering-control}).
+
+

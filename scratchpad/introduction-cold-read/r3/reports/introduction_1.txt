@@ -1,0 +1,8 @@
+introduction.P3.S4 | UNDEFINED | 1 | "extreme-return states" | All states have heavy-tailed return distributions, so this label does not identify what distinguishes these states. | Best guess: states whose fitted distributions produce unusually large absolute returns more often.
+introduction.P4.S11 | REFERENT | 1 | "removing cumulative residual uncertainty" | The phrase does not specify whether the uncertainty disappears only at the path endpoint or throughout the path. | Best guess, supported by the abstract: only the full-path residual sum is fixed; intermediate cumulative residual returns remain uncertain.
+
+introduction.P1 ROLE: Establish why a multi-asset simulator must combine asset behavior with market dependence, explain the variance double-counting problem, and ask whether existing generators can be transformed for reuse.
+introduction.P2 ROLE: Use SPY to show the heavy tails and persistent absolute-return correlation that a useful generator should reproduce.
+introduction.P3 ROLE: Introduce heavy-tailed hidden Markov generators, motivate longer visits to extreme-return states, and explain why their benefits require another check after composition.
+introduction.P4 ROLE: State the correction, comparisons, main training and holdout findings, duration-transfer result, and limits on the method's use.
+TOTALS: severity-3 = 0; severity-2 = 0; severity-1 = 2.

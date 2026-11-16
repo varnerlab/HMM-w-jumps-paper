@@ -1,0 +1,12 @@
+{
+  "paragraphs_before": 1,
+  "paragraphs_after": 1,
+  "prose_words_before": 330,
+  "prose_words_after": 150,
+  "source_sha256": "3c8274e586388dc451351b5c8b0b923ae80b30f089651b98779b186fa77e6b06",
+  "pdf_sha256": "6fbc66984213aee49768710dd689339148e8a5d3af8931b6f4bf8965aed6c8fd",
+  "pages_checked": [
+    16,
+    17
+  ]
+}

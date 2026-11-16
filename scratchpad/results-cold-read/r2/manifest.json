@@ -1,0 +1,87 @@
+{
+ "paper": "scratchpad/results-cold-read/paper",
+ "context": "all",
+ "chunks": [
+  {
+   "target": "results",
+   "chunk": 1,
+   "file": "scratchpad/results-cold-read/r2/reader_results_1.txt",
+   "audit_range": "results.P1 to results.P5",
+   "paragraphs": 5,
+   "captions": 0,
+   "words": 7588
+  },
+  {
+   "target": "results",
+   "chunk": 2,
+   "file": "scratchpad/results-cold-read/r2/reader_results_2.txt",
+   "audit_range": "results.P6 to results.P10",
+   "paragraphs": 5,
+   "captions": 0,
+   "words": 8892
+  },
+  {
+   "target": "results",
+   "chunk": 3,
+   "file": "scratchpad/results-cold-read/r2/reader_results_3.txt",
+   "audit_range": "results.P11 to results.P13",
+   "paragraphs": 3,
+   "captions": 0,
+   "words": 9527
+  }
+ ],
+ "paragraphs": {
+  "results.P1": {
+   "file": "results.tex",
+   "line": 3
+  },
+  "results.P2": {
+   "file": "results.tex",
+   "line": 34
+  },
+  "results.P3": {
+   "file": "results.tex",
+   "line": 69
+  },
+  "results.P4": {
+   "file": "results.tex",
+   "line": 99
+  },
+  "results.P5": {
+   "file": "results.tex",
+   "line": 130
+  },
+  "results.P6": {
+   "file": "results.tex",
+   "line": 156
+  },
+  "results.P7": {
+   "file": "results.tex",
+   "line": 195
+  },
+  "results.P8": {
+   "file": "results.tex",
+   "line": 221
+  },
+  "results.P9": {
+   "file": "results.tex",
+   "line": 257
+  },
+  "results.P10": {
+   "file": "results.tex",
+   "line": 259
+  },
+  "results.P11": {
+   "file": "results.tex",
+   "line": 308
+  },
+  "results.P12": {
+   "file": "results.tex",
+   "line": 325
+  },
+  "results.P13": {
+   "file": "results.tex",
+   "line": 350
+  }
+ }
+}

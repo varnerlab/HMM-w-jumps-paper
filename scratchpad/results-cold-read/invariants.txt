@@ -1,0 +1,7 @@
+results.tex                      median 23->23  >30w 35->21  >40w 2->3  sentences 162->114
+    !! refs targets differ: -{'alg:hmmwj', 'eq:grid_search'} +{'sec:supp-fallback'}
+    !! numbers no longer present: {'2014': 1, '2024': 1, '7.5': 2, '29': 1, '0.75': 1, '4{,}000': 1, '30': 1, '200': 1, '98': 1, '11': 1, '68.6': 1, '78.9': 1, '56.2': 1, '70.2': 1, '0.8': 1, '1.0': 1, '1.2': 1, '0.85': 1}
+    !! new numbers: {'73.3': 1, '0.0011': 1, '0.0017': 1}
+appendix.tex                     median 22->22  >30w 163->159  >40w 85->82  sentences 549->553
+    !! new numbers: {'4{,}000': 1}
+    !! acronym-led sentences: ['HMM-NJ denotes the hidden Markov model with no jumps.', 'JumpHMM denotes the hidden Markov generator, with jumps disabled; SIM ', 'SIM denotes the single-index model; JumpHMM denotes the hidden Markov ', 'SIM denotes the single-index model; JumpHMM denotes the hidden Markov ', 'SPY required no fallback, and neither did any of the $423$ residual-fi', "ACF-MAE$_{25}$ is the mean absolute difference between each path's abs"]

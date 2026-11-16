@@ -1,0 +1,4 @@
+Paragraphs: 80 -> 66; prose words: 11963 -> 9358
+FAIL: Paragraph count changed
+FAIL: Paragraph/heading/caption block order changed
+FAIL: Protected formatting or explicit breaks changed

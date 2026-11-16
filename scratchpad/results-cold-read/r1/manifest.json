@@ -1,0 +1,108 @@
+{
+ "paper": "scratchpad/results-cold-read/paper",
+ "context": "all",
+ "chunks": [
+  {
+   "target": "results",
+   "chunk": 1,
+   "file": "scratchpad/results-cold-read/r1/reader_results_1.txt",
+   "audit_range": "results.P1 to results.P5",
+   "paragraphs": 5,
+   "captions": 0,
+   "words": 7542
+  },
+  {
+   "target": "results",
+   "chunk": 2,
+   "file": "scratchpad/results-cold-read/r1/reader_results_2.txt",
+   "audit_range": "results.P6 to results.P9",
+   "paragraphs": 4,
+   "captions": 0,
+   "words": 8759
+  },
+  {
+   "target": "results",
+   "chunk": 3,
+   "file": "scratchpad/results-cold-read/r1/reader_results_3.txt",
+   "audit_range": "results.P10 to results.P13",
+   "paragraphs": 4,
+   "captions": 0,
+   "words": 9739
+  },
+  {
+   "target": "results",
+   "chunk": 4,
+   "file": "scratchpad/results-cold-read/r1/reader_results_4.txt",
+   "audit_range": "results.P14 to results.P16",
+   "paragraphs": 3,
+   "captions": 0,
+   "words": 10362
+  }
+ ],
+ "paragraphs": {
+  "results.P1": {
+   "file": "results.tex",
+   "line": 3
+  },
+  "results.P2": {
+   "file": "results.tex",
+   "line": 28
+  },
+  "results.P3": {
+   "file": "results.tex",
+   "line": 60
+  },
+  "results.P4": {
+   "file": "results.tex",
+   "line": 88
+  },
+  "results.P5": {
+   "file": "results.tex",
+   "line": 106
+  },
+  "results.P6": {
+   "file": "results.tex",
+   "line": 140
+  },
+  "results.P7": {
+   "file": "results.tex",
+   "line": 171
+  },
+  "results.P8": {
+   "file": "results.tex",
+   "line": 202
+  },
+  "results.P9": {
+   "file": "results.tex",
+   "line": 238
+  },
+  "results.P10": {
+   "file": "results.tex",
+   "line": 267
+  },
+  "results.P11": {
+   "file": "results.tex",
+   "line": 294
+  },
+  "results.P12": {
+   "file": "results.tex",
+   "line": 330
+  },
+  "results.P13": {
+   "file": "results.tex",
+   "line": 332
+  },
+  "results.P14": {
+   "file": "results.tex",
+   "line": 379
+  },
+  "results.P15": {
+   "file": "results.tex",
+   "line": 396
+  },
+  "results.P16": {
+   "file": "results.tex",
+   "line": 421
+  }
+ }
+}

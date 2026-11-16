@@ -1,0 +1,8 @@
+--- Paragraph conclusion.P1 (conclusion.tex:1) ---
+[conclusion.P1.S1] We developed a variance-corrected single-index method that centers and rescales full-return draws for reuse without counting market variance twice or fitting separate residual generators (Fig.
+[conclusion.P1.S2] [fig:preservation]; Table [tab:aggregate]).
+[conclusion.P1.S3] The method retained heavy tails and improved distributional fit over centered naive composition in training and the $2025$ holdout (Table [tab:oos_composition]), but did not establish an advantage over direct residual fitting.
+[conclusion.P1.S4] Transferring SPY's jump settings improved temporal fit in training but worsened it in the holdout (Table [tab:jump_ablation]), showing that single-asset temporal gains did not transfer reliably.
+[conclusion.P1.S5] These findings support reuse for daily-return comparisons, without establishing calibrated tail coverage (Table [tab:var]) or validating broader risk applications.
+[conclusion.P1.S6] Independent residual draws omitted cross-asset dependence, and per-path centering removed residual uncertainty from terminal cumulative log returns conditional on the market path and effective loading.
+[conclusion.P1.S7] Portfolio and cumulative-risk applications therefore require a joint residual model and a construction that retains cumulative residual variation.

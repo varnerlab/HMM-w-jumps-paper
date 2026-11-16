@@ -1,0 +1,45 @@
+{
+ "paper": "scratchpad/introduction-cold-read/paper",
+ "context": "all",
+ "chunks": [
+  {
+   "target": "introduction",
+   "chunk": 1,
+   "file": "scratchpad/introduction-cold-read/r1/main/reader_introduction_1.txt",
+   "audit_range": "introduction.P1 to introduction.P7",
+   "paragraphs": 7,
+   "captions": 0,
+   "words": 1925
+  }
+ ],
+ "paragraphs": {
+  "introduction.P1": {
+   "file": "introduction.tex",
+   "line": 1
+  },
+  "introduction.P2": {
+   "file": "introduction.tex",
+   "line": 29
+  },
+  "introduction.P3": {
+   "file": "introduction.tex",
+   "line": 49
+  },
+  "introduction.P4": {
+   "file": "introduction.tex",
+   "line": 73
+  },
+  "introduction.P5": {
+   "file": "introduction.tex",
+   "line": 101
+  },
+  "introduction.P6": {
+   "file": "introduction.tex",
+   "line": 125
+  },
+  "introduction.P7": {
+   "file": "introduction.tex",
+   "line": 146
+  }
+ }
+}

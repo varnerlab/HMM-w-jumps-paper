@@ -1,0 +1,7 @@
+introduction.P4.S8 | REFERENT | 1 | "gave similar agreement with observed return distributions in both periods" | The comparator for "similar" is implicit after several methods have been introduced. | Best guess: residual-fit HMMs performed similarly to the corrected full-return HMMs in training and holdout.
+introduction.P4.S10 | UNDEFINED | 1 | "improved their temporal fit in training and worsened it in the holdout" | "Temporal fit" could mean absolute-return autocorrelation specifically or a broader collection of time-series properties. | Best guess: the transferred settings improved agreement with observed absolute-return autocorrelation in training but reduced it in the holdout.
+introduction.P1 ROLE: Explain why reusing full-return generators in a market-factor model creates excess variance and pose the question of correcting it while preserving return features.
+introduction.P2 ROLE: Show the heavy tails and volatility clustering that the asset generators need to reproduce, using SPY as the motivating example.
+introduction.P3 ROLE: Introduce heavy-tailed HMMs, motivate longer stays in extreme-return states, and explain why their behavior must be checked again after composition.
+introduction.P4 ROLE: State the correction and comparisons, preview the training and holdout findings, and delimit the method's use for daily returns and portfolios.
+TOTALS: severity-3 = 0; severity-2 = 0; severity-1 = 2.

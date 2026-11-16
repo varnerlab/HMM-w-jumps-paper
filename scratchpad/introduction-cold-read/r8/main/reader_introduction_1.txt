@@ -1,0 +1,54 @@
+=== ALREADY READ (context; do not audit) ===
+
+Synthetic multi-asset equity data must reproduce each asset's return distribution and its relationship with the market. Reusing a generator fitted to full asset returns creates a problem: adding its draws to a market factor counts market variance twice. We derived a correction that centers and rescales each draw over a fixed horizon before adding the market factor, allowing reuse without fitting a second generator to regression residuals. We tested the correction on $423$ non-market assets in a $424$-asset United States equity and exchange-traded-fund universe, using hidden Markov generators with heavy-tailed emissions. The corrected paths retained heavy tails and recovered the calibrated market loadings with low error. On $416$ complete asset histories held out from $2025$, the correction improved the mean Kolmogorov--Smirnov pass rate over naive composition and brought the median ratio of synthetic to observed variance close to one. Its one-day left-tail $99%$ Value-at-Risk exceedance rate, using thresholds pooled across separate simulated paths, was $1.12%$, compared with $1.16%$ for the residual-fit hidden Markov comparator and a nominal rate of $1%$. We also tested a jump-duration mechanism that extended visits to extreme-return states and improved volatility clustering for the broad-market exchange-traded fund with ticker SPY. The multi-asset correction remained effective with jumps enabled, but transferring the SPY jump settings improved temporal fit in training and worsened it in the $2025$ holdout. The method provides a way to reuse fitted asset generators for daily-fit comparisons. Its zero-sum residual constraint removes terminal residual uncertainty, and unmodeled dependence among asset-specific residuals can lead to overstated rebalancing returns. Code, cached inputs, result summaries, and instructions for fitting the per-asset models accompany the paper.
+
+=== AUDIT THIS PART: introduction.P1 to introduction.P4 ===
+
+--- Paragraph introduction.P1 (introduction.tex:1) ---
+[introduction.P1.S1] Researchers and practitioners use synthetic equity paths to test risk models, evaluate portfolio strategies, and examine market scenarios beyond those observed in a historical sample.
+[introduction.P1.S2] A multi-asset simulator must represent both the behavior of each asset and the relationships among assets.
+[introduction.P1.S3] Factor models link many assets through a shared market path, a time series of market returns.
+[introduction.P1.S4] The simplest of these, the single-index model, separates each asset's return into an intercept, a market component scaled by the asset's fitted loading, and a zero-mean asset-specific residual.
+[introduction.P1.S5] A synthetic asset path can then be composed by adding a simulated residual to the intercept and market component.
+[introduction.P1.S6] If single-asset generators have already been fitted to each asset's full returns, their paths might be reused as residuals.
+[introduction.P1.S7] Each generator, however, already represents its asset's total variance, including the part driven by the market.
+[introduction.P1.S8] Adding its paths to the market component therefore counts market variance a second time.
+[introduction.P1.S9] Subtracting each path's mean removes its mean shift but leaves this excess variance.
+[introduction.P1.S10] Fitting a second generator to each asset's regression residuals avoids the problem but repeats the fitting for every asset.
+[introduction.P1.S11] Reusing the existing generators would avoid that second fit, provided their paths could be transformed to supply only the residual contribution.
+[introduction.P1.S12] The question is whether such a transformation can control the mean and variance of the composed paths while retaining the generator's heavy tails and volatility clustering.
+
+--- Paragraph introduction.P2 (introduction.tex:26) ---
+[introduction.P2.S1] The transformation is useful only if each generator reproduces the behavior of its own asset.
+[introduction.P2.S2] We illustrate the features a generator must capture with the broad-market exchange-traded fund with ticker SPY, which also supplied the market path in our multi-asset experiments.
+[introduction.P2.S3] Its $2014$--$2024$ returns show heavy tails and volatility clustering (Fig.
+[introduction.P2.S4] [fig:empirical_motivation]).
+[introduction.P2.S5] Most returns lie close to zero, but extreme values occur much more often than a Gaussian model predicts (Fig.
+[introduction.P2.S6] [fig:empirical_motivation]a,b), a widely documented feature of financial returns.
+[introduction.P2.S7] Raw returns show little correlation across days, while absolute returns remain positively correlated across many lags (Fig.
+[introduction.P2.S8] [fig:empirical_motivation]c,d).
+[introduction.P2.S9] Large and small absolute returns therefore cluster in time, a property that synthetic financial data often miss even when their return histogram appears realistic.
+
+--- Paragraph introduction.P3 (introduction.tex:42) ---
+[introduction.P3.S1] A hidden Markov model (HMM) offers an interpretable way to represent both features: it draws returns from state-dependent distributions and uses transitions between states to represent temporal behavior.
+[introduction.P3.S2] Each state in the model used here has a heavy-tailed Student-$t$ return distribution.
+[introduction.P3.S3] The next state depends only on the current state, not on earlier returns.
+[introduction.P3.S4] Fitted to SPY, it leaves states with the most negative or positive mean returns quickly, and the autocorrelation of its absolute returns decays faster than in the data.
+[introduction.P3.S5] A duration mechanism that occasionally keeps drawing from extreme-return states for consecutive days can slow that decay.
+[introduction.P3.S6] Adding the market component, however, changes the distribution and temporal behavior of the composed returns.
+[introduction.P3.S7] An improvement in a single-asset generator must therefore be checked again after composition.
+
+--- Paragraph introduction.P4 (introduction.tex:60) ---
+[introduction.P4.S1] In this study, we developed a variance correction to reuse full-return generators in a single-index model without counting market variance twice.
+[introduction.P4.S2] The correction centered and rescaled each simulated path to remove the mean shift and account for the variance supplied by the market component (Fig.
+[introduction.P4.S3] [fig:preservation]).
+[introduction.P4.S4] We applied it to heavy-tailed hidden Markov generators for the $423$ non-market assets in a $424$-asset universe, using $2014$--$2024$ for fitting and $2025$ as a holdout.
+[introduction.P4.S5] We compared the correction with naive composition, which centered the paths without rescaling, with Gaussian residuals, and with generators fitted directly to regression residuals.
+[introduction.P4.S6] The correction improved agreement with observed return distributions over naive composition while retaining heavy tails in training (Table [tab:aggregate]).
+[introduction.P4.S7] With all fits held fixed, the correction also improved distributional fit over naive composition and brought the median ratio of synthetic to observed variance close to one on the $416$ assets with complete holdout histories (Table [tab:oos_composition]).
+[introduction.P4.S8] The residual-fit hidden Markov generator and the correction gave similar agreement with observed return distributions in both periods.
+[introduction.P4.S9] Without the duration mechanism, the correction left absolute-return autocorrelation error essentially unchanged from naive composition (Table [tab:jump_ablation]).
+[introduction.P4.S10] Transferring SPY's duration settings to the composed paths improved their autocorrelation agreement in training but worsened it in the holdout (Table [tab:jump_ablation]).
+[introduction.P4.S11] The correction imposed a zero residual sum over each simulated path, removing cumulative residual uncertainty at the path endpoint.
+[introduction.P4.S12] Neither reuse nor residual fitting modeled dependence among different assets' residuals, which portfolio evaluation also requires.
+[introduction.P4.S13] These results support reuse as a practical option for daily-return comparisons when full-return generators already exist.

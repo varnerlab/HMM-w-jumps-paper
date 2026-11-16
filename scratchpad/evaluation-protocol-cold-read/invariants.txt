@@ -1,0 +1,13 @@
+method_sim.tex                   median 21->22  >30w 27->20  >40w 4->4  sentences 156->114
+    !! refs targets differ: -{'fig:branch_map', 'tab:branch', 'tab:beta_bucket'} +{'sec:supp-composition-evaluation'}
+    !! cite keys differ: -{'politisRomano1994', 'bollerslev1986'} +set()
+    !! numbers no longer present: {'0.03': 1, '1.79': 1, '0.001': 1, '0.933': 1, '994': 1, '50': 1, '986': 1, '42{,}300': 1, '39{,}300': 1, '250{,}800': 1, '1{,}245{,}000': 1}
+    !! new section ref
+appendix.tex                     median 22->22  >30w 161->163  >40w 86->85  sentences 533->549
+    !! labels differ: -{} +{'sec:supp-composition-evaluation': 1}
+    !! refs targets differ: -set() +{'sec:supp-centering-control'}
+    !! cite keys differ: -set() +{'politisRomano1994', 'bollerslev1986'}
+    !! new numbers: {'994': 1}
+    !! new section ref
+    !! subsection count changed
+    !! acronym-led sentences: ['HMM-NJ was insensitive to the partition: its pass rates moved by less ', 'HMM-WJ traded the two metrics against each other.', 'HMM-NJ denotes the hidden Markov model with no jumps.', 'JumpHMM denotes the hidden Markov generator, with jumps disabled; SIM ', 'SIM denotes the single-index model; JumpHMM denotes the hidden Markov ', 'SIM denotes the single-index model; JumpHMM denotes the hidden Markov ', 'SPY required no fallback, and neither did any of the $423$ residual-fi', "ACF-MAE$_{25}$ is the mean absolute difference between each path's abs"]

@@ -1,0 +1,29 @@
+{
+ "paper": "scratchpad/evaluation-protocol-cold-read/paper",
+ "context": "all",
+ "chunks": [
+  {
+   "target": "supp_evaluation",
+   "chunk": 1,
+   "file": "scratchpad/evaluation-protocol-cold-read/r3/reader_supp_evaluation_1.txt",
+   "audit_range": "supp_evaluation.P1 to supp_evaluation.P3",
+   "paragraphs": 3,
+   "captions": 0,
+   "words": 17627
+  }
+ ],
+ "paragraphs": {
+  "supp_evaluation.P1": {
+   "file": "supp_evaluation.tex",
+   "line": 2
+  },
+  "supp_evaluation.P2": {
+   "file": "supp_evaluation.tex",
+   "line": 4
+  },
+  "supp_evaluation.P3": {
+   "file": "supp_evaluation.tex",
+   "line": 27
+  }
+ }
+}

@@ -1,0 +1,21 @@
+{
+ "paper": "scratchpad/conclusion-cold-read/paper",
+ "context": "all",
+ "chunks": [
+  {
+   "target": "conclusion",
+   "chunk": 1,
+   "file": "scratchpad/conclusion-cold-read/r3/full/reader_conclusion_1.txt",
+   "audit_range": "conclusion.P1 to conclusion.P1",
+   "paragraphs": 1,
+   "captions": 0,
+   "words": 10101
+  }
+ ],
+ "paragraphs": {
+  "conclusion.P1": {
+   "file": "conclusion.tex",
+   "line": 1
+  }
+ }
+}

@@ -1,0 +1,54 @@
+{
+ "paper": "scratchpad/evaluation-protocol-cold-read/paper",
+ "context": "all",
+ "chunks": [
+  {
+   "target": "evaluation_protocol",
+   "chunk": 1,
+   "file": "scratchpad/evaluation-protocol-cold-read/r2/reader_evaluation_protocol_1.txt",
+   "audit_range": "evaluation_protocol.P1 to evaluation_protocol.P4",
+   "paragraphs": 4,
+   "captions": 0,
+   "words": 5906
+  },
+  {
+   "target": "supp_evaluation",
+   "chunk": 1,
+   "file": "scratchpad/evaluation-protocol-cold-read/r2/reader_supp_evaluation_1.txt",
+   "audit_range": "supp_evaluation.P1 to supp_evaluation.P3",
+   "paragraphs": 3,
+   "captions": 0,
+   "words": 17631
+  }
+ ],
+ "paragraphs": {
+  "evaluation_protocol.P1": {
+   "file": "evaluation_protocol.tex",
+   "line": 1
+  },
+  "evaluation_protocol.P2": {
+   "file": "evaluation_protocol.tex",
+   "line": 3
+  },
+  "evaluation_protocol.P3": {
+   "file": "evaluation_protocol.tex",
+   "line": 37
+  },
+  "evaluation_protocol.P4": {
+   "file": "evaluation_protocol.tex",
+   "line": 57
+  },
+  "supp_evaluation.P1": {
+   "file": "supp_evaluation.tex",
+   "line": 2
+  },
+  "supp_evaluation.P2": {
+   "file": "supp_evaluation.tex",
+   "line": 4
+  },
+  "supp_evaluation.P3": {
+   "file": "supp_evaluation.tex",
+   "line": 27
+  }
+ }
+}

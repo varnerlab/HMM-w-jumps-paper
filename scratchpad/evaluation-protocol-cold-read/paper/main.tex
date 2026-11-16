@@ -1,0 +1,230 @@
+\documentclass{article}
+\PassOptionsToPackage{numbers, compress}{natbib}
+\usepackage[preprint]{neurips_2026}
+
+% --- standard packages ---
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage[colorlinks=true,linkcolor=blue!70!black,citecolor=blue!70!black,urlcolor=blue!70!black]{hyperref}
+\hypersetup{
+  pdftitle={Variance-Corrected Multi-Asset Equity Simulation with Hybrid Hidden Markov Marginals},
+  pdfauthor={Abdulrahman Alswaidan and Jeffrey D. Varner}
+}
+\usepackage{url}
+\usepackage{booktabs}
+\usepackage{amsfonts}
+\usepackage{nicefrac}
+\usepackage{microtype}
+\usepackage{xcolor}
+\usepackage{graphicx}
+\usepackage{subcaption}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{amsthm}
+\usepackage{algorithm}
+\usepackage{algorithmic}
+\usepackage{bm}
+\usepackage{multirow}
+\usepackage{lineno}
+\usepackage{needspace}
+\usepackage{tikz}
+\usetikzlibrary{arrows.meta, decorations.pathreplacing, positioning}
+
+% Main tables and figures are collected after the references, before the SI.
+% Algorithms stay in the body; SI floats retain their local placement.
+% Float limits below govern algorithms and the remaining SI floats.
+\setcounter{topnumber}{2}
+\setcounter{bottomnumber}{1}
+\setcounter{totalnumber}{3}
+\renewcommand{\topfraction}{0.85}
+\renewcommand{\bottomfraction}{0.5}
+\renewcommand{\textfraction}{0.10}
+\renewcommand{\floatpagefraction}{0.75}
+\usepackage[section]{placeins} % keep arXiv floats within their source section
+\usepackage{flafter} % never place a float before its source location
+
+% --- theorem environments ---
+\newtheorem{theorem}{Theorem}
+\newtheorem{lemma}[theorem]{Lemma}
+\newtheorem{proposition}[theorem]{Proposition}
+\newtheorem{corollary}[theorem]{Corollary}
+\theoremstyle{definition}
+\newtheorem{definition}[theorem]{Definition}
+\theoremstyle{remark}
+\newtheorem{remark}[theorem]{Remark}
+
+% --- custom commands ---
+\newcommand{\R}{\mathbb{R}}
+\newcommand{\E}{\mathbb{E}}
+\newcommand{\Var}{\operatorname{Var}}
+\newcommand{\Cov}{\operatorname{Cov}}
+\newcommand{\sign}{\operatorname{sign}}
+\newcommand{\eps}{\varepsilon}
+\newcommand{\tg}{\tilde{g}}
+\newcommand{\gen}{\mathrm{gen}}
+\newcommand{\real}{\mathrm{real}}
+\newcommand{\eff}{\mathrm{eff}}
+
+\title{Variance-Corrected Multi-Asset Equity Simulation with Hybrid Hidden Markov Marginals}
+
+\author{%
+  Abdulrahman Alswaidan \\
+  Robert Frederick Smith School of Chemical and Biomolecular Engineering \\
+  Cornell University, Ithaca, NY 14850 \\
+  \texttt{aa2725@cornell.edu} \\
+  \And
+  Jeffrey D.~Varner\thanks{Corresponding author.} \\
+  Robert Frederick Smith School of Chemical and Biomolecular Engineering \\
+  Cornell University, Ithaca, NY 14850 \\
+  \texttt{jdv27@cornell.edu} \\
+}
+
+\begin{document}
+\raggedbottom
+\clubpenalty=10000
+\widowpenalty=10000
+\displaywidowpenalty=10000
+
+\maketitle
+
+\begin{abstract}
+\input{sections/abstract}
+\end{abstract}
+
+\vspace{0.5em}
+\noindent\textbf{Keywords:} hidden Markov model; jump-duration mechanism; single-index model; synthetic financial data; variance correction; Value-at-Risk coverage check; volatility clustering; heavy-tailed marginals.
+
+\section{Introduction}\label{sec:introduction}
+\input{sections/introduction}
+
+\section{Related Work}\label{sec:related-work}
+\input{sections/related}
+
+\section{Methods}\label{sec:method}
+
+We fitted a single-asset generator for each asset and combined the generated paths with a variance-corrected single-index model. The training data contained $424$ United States-listed equities and
+exchange-traded funds observed from $2014$ through $2024$, and data
+from $2025$ served as a holdout. The
+single-asset analysis focused on the broad-market exchange-traded fund
+with ticker SPY. It used
+$2{,}767$ daily volume-weighted average prices for fitting, which
+yielded $2{,}766$ growth rates, and the next $250$ prices from $2025$,
+which yielded $249$ holdout growth rates. The multi-asset analysis used daily closing prices for all assets,
+with SPY as the market, so SPY had two fitted generators: one on
+volume-weighted prices for the single-asset analysis and one on
+closing prices for the market path. Of
+the other $423$ assets in the training universe, $416$ had complete
+$2025$ histories and were included in the multi-asset holdout
+evaluation. We defined the excess growth rate
+$G_{i,j}$ for ticker $i$ between trading days $j-1$ and $j$ from prices
+$P_{i,j-1}$ and $P_{i,j}$.
+\begin{equation}
+    G_{i,j} \;\equiv\; \left(\frac{1}{\Delta t}\right)\,
+    \ln\!\left( \frac{P_{i,j}}{P_{i,j-1}} \right) \;-\; r_f.
+    \label{eq:growth_rate}
+\end{equation}
+Here, $\Delta t = 1/252$ is the fraction of a trading year spanned by
+one trading day, and $r_f$ is a constant continuously compounded
+risk-free rate. The excess growth rate has units of
+$\mathrm{year}^{-1}$; multiplied by $\Delta t$, it gives a daily log
+excess return, which is additive across days under continuous
+compounding. We used $r_f=0.043$ for the SPY training period and
+$r_f=0.0421$ for its $2025$ holdout, based on Treasury Separate Trading
+of Registered Interest and Principal of Securities (STRIPS) bond yields.
+For the multi-asset closing-price experiments, we set $r_f=0$ in both
+windows, so their growth rates were annualized log returns rather than excess
+growth rates. Because
+$r_f$ is constant, this choice shifts each series by a constant and leaves its variance
+and the regression slopes unchanged.
+
+\subsection{Per-asset hidden Markov marginal generator}\label{sec:method-hmm}
+\input{sections/method_hmm}
+
+\subsection{Variance-corrected multi-asset composition}\label{sec:method-sim}
+\input{sections/method_sim_before}
+\input{sections/evaluation_protocol}
+\input{sections/method_sim_after}
+
+\section{Results}\label{sec:results}
+\input{sections/results}
+
+\section{Discussion}\label{sec:discussion}
+\input{sections/discussion}
+
+\section{Conclusion}\label{sec:conclusion}
+\input{sections/conclusion}
+
+\section*{Acknowledgments}
+The authors thank the eCornell artificial intelligence (AI) in Finance program participants for
+discussions that motivated this work,
+and Polygon.io for access to the 2014 to 2024 United States equity and
+exchange-traded-fund daily
+price histories used in the experiments. Computations were run on a
+single laptop; no shared-resource allocation was required.
+
+\paragraph{Author contributions.}
+A.A.\ designed the hybrid hidden Markov marginal generator, performed the
+single-asset experiments and validation analyses, and contributed to the
+manuscript. J.D.V.\ designed the variance-corrected single-index
+composition, performed the multi-asset experiments and downstream
+Value-at-Risk validation, released the code, and contributed to the
+manuscript.
+
+\paragraph{Competing interests.}
+The authors declare no competing interests.
+
+\needspace{12\baselineskip}
+\paragraph{Code and data availability.}
+The experiment scripts, evaluation code (six-method comparison and
+Value-at-Risk coverage check), cached inputs and
+result summaries, and instructions for regenerating the fitted
+per-asset models are provided in the paper repository
+(\url{https://github.com/varnerlab/HMM-w-jumps-paper}); the
+underlying model-fitting library is released separately as
+\texttt{JumpHMM.jl}
+(\url{https://github.com/varnerlab/JumpHMM.jl}), pinned as a
+dependency of the experiment code.
+
+\paragraph{Generative artificial intelligence use.}
+During the preparation of this work, the authors used OpenAI Codex to
+assist with language editing, consistency checks, LaTeX formatting,
+and the implementation and checking of experiment code. The authors
+reviewed and edited the assisted work and take full responsibility for
+the content of the publication.
+
+\clearpage
+\bibliographystyle{unsrtnat}
+\bibliography{References_v1}
+
+\clearpage
+\section*{Tables}
+\input{sections/main_tables}
+
+\clearpage
+\section*{Figures}
+\input{sections/main_figures}
+
+\clearpage
+\appendix
+\section*{Online Appendix}
+\renewcommand{\thesection}{S\arabic{section}}
+\renewcommand{\thesubsection}{S\arabic{section}.\arabic{subsection}}
+\renewcommand{\thefigure}{S\arabic{figure}}
+\renewcommand{\thetable}{S\arabic{table}}
+\renewcommand{\theequation}{S\arabic{equation}}
+\renewcommand{\theHsection}{supp.\arabic{section}}
+\renewcommand{\theHsubsection}{supp.\arabic{section}.\arabic{subsection}}
+\renewcommand{\theHfigure}{supp.\arabic{figure}}
+\renewcommand{\theHtable}{supp.\arabic{table}}
+\renewcommand{\theHequation}{supp.\arabic{equation}}
+\setcounter{section}{0}
+\setcounter{figure}{0}
+\setcounter{table}{0}
+\setcounter{equation}{0}
+
+\input{sections/appendix_before}
+\input{sections/supp_evaluation}
+\input{sections/appendix_after}
+
+
+\end{document}

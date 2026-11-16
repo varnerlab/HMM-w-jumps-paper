@@ -1,0 +1,102 @@
+[
+  {
+    "subsection": "Single-asset generator validation",
+    "paragraphs": [
+      {
+        "role": "SPY features and calibration limits",
+        "first_sentence": "We first characterized the SPY series and the HMM-WJ calibrated to its training window (Fig.~\\ref{fig:empirical_motivation}; Table~\\ref{tab:descriptive_stats})",
+        "last_sentence": "The duration $\\lambda$ was likewise a fitted parameter of the objective, not an estimate of how long observed high-volatility periods last."
+      },
+      {
+        "role": "training generator comparison",
+        "first_sentence": "We compared the calibrated HMM-WJ with seven alternative generators on the training window, using $1{,}000$ paths of $2{,}766$ trading days (Table~\\ref{tab:model_comparison}; Fig.~\\ref{fig:model_comparison})",
+        "last_sentence": "Both HMM variants also reproduced the observed skewness of $-0.75$ without a skewness parameter, because the state means and scales estimated from the asymmetric series carried its asymmetry into the mixture (Online Appendix~\\ref{sec:supp-generator}; Table~\\ref{tab:supp-generator-quantities})."
+      },
+      {
+        "role": "jump share and marginal/temporal tradeoff",
+        "first_sentence": "Jump episodes traded a small loss of marginal fit for better temporal fit in training (Table~\\ref{tab:model_comparison}; Fig.~\\ref{fig:model_comparison}b)",
+        "last_sentence": "At the realized share of about one quarter, the mean path kurtosis of $7.5$ lay slightly below the observed $7.7$ (Table~\\ref{tab:model_comparison})."
+      },
+      {
+        "role": "state resolution and scope",
+        "first_sentence": "To test whether the HMM results depended on the state partition, we refitted both HMM variants for $N$ from $30$ to $200$ states (Table~\\ref{tab:sensitivity_n})",
+        "last_sentence": "It therefore did not establish a state count for the other assets, which also used $N=100$, or for shorter histories, which would leave fewer observations per state."
+      },
+      {
+        "role": "holdout and cross-asset fit",
+        "first_sentence": "To test whether the distributional fit held on data not used for fitting, we compared $249$-day paths from the frozen models with the $249$ held-out SPY returns from $2025$ (Table~\\ref{tab:model_comparison}; Fig.~\\ref{fig:statistical_validation})",
+        "last_sentence": "The six-method composition comparison used the no-jump variant to keep per-ticker jump calibration out of the comparison, and a separate multi-asset comparison evaluated the transfer of jump settings."
+      }
+    ]
+  },
+  {
+    "subsection": "Variance-corrected multi-asset composition",
+    "paragraphs": [
+      {
+        "role": "variance preservation",
+        "first_sentence": "We compared six composition methods on the $423$ non-market assets of the training universe to test whether hybrid composition preserved generator variance while recovering the calibrated market loading (Table~\\ref{tab:aggregate}; Fig.~\\ref{fig:preservation})",
+        "last_sentence": "The correlation between generator draws and the observed market path averaged near zero for every asset (Fig.~\\ref{fig:cov_diag}), which supported the zero-covariance assumption on average but not on each path."
+      },
+      {
+        "role": "factor recovery and distributional fit",
+        "first_sentence": "The methods differed more in distributional fit than in factor recovery (Table~\\ref{tab:aggregate}; Fig.~\\ref{fig:tails})",
+        "last_sentence": "Its median $R^2$ error fell between those of the naive and Gaussian methods, because the variance-preserving branch targets the generator variance rather than the observed $R^2$."
+      },
+      {
+        "role": "residual comparators and centering control",
+        "first_sentence": "Fitting the OLS residuals directly needs no correction, because those residuals already exclude the market component, and two of the three residual-fit methods were competitive with hybrid composition (Tables~\\ref{tab:aggregate} and~\\ref{tab:centering_control})",
+        "last_sentence": "The correction therefore improved on naive composition without a second generator fit, but hybrid composition trailed JumpHMM-on-residuals under both mean treatments and also trailed block bootstrap after centering."
+      },
+      {
+        "role": "emission fallback diagnostic",
+        "first_sentence": "The emission fallback rules were triggered only in full-return generators, so they could have handicapped naive and hybrid composition relative to the residual-fit methods (Tables~\\ref{tab:fallback_assets} and~\\ref{tab:fallback_sensitivity})",
+        "last_sentence": "Both the main comparison and this check used training histories only; the holdout evaluation tested whether the advantage of hybrid over naive composition persisted beyond the fitting period."
+      }
+    ]
+  },
+  {
+    "subsection": "Holdout performance and VaR coverage",
+    "paragraphs": [
+      {
+        "role": "holdout distribution and sample-length limits",
+        "first_sentence": "To test out-of-sample generalization without refitting or look-ahead bias, we froze the fitted models and SIM parameters before evaluating them against $416$ complete asset histories from $2025$ (Table~\\ref{tab:oos_composition})",
+        "last_sentence": "The rise from training blocks to $2025$ therefore did not hold for every asset."
+      },
+      {
+        "role": "VaR exceedances and limits",
+        "first_sentence": "To test whether the holdout improvement over naive composition extended to reliable tail thresholds, we estimated per-ticker one-day left-tail Value-at-Risk (VaR) thresholds from $5{,}000$ separate $249$-day paths and counted exceedances on the observed $2025$ histories (Table~\\ref{tab:var})",
+        "last_sentence": "The cross-asset standard deviations of the exceedance rates described how realized rates varied among assets; they did not test miscalibration or validate coverage in other periods."
+      }
+    ]
+  },
+  {
+    "subsection": "Jump-enabled multi-asset composition",
+    "paragraphs": [
+      {
+        "role": "jump transfer training/holdout results and comparability",
+        "first_sentence": "To test whether jump episodes improved the temporal fit of the composed paths, we compared jumps disabled, market-only jumps, and market-plus-asset jumps under naive and hybrid composition (Table~\\ref{tab:jump_ablation}, where hybrid composition is labeled Corrected)",
+        "last_sentence": "The holdout therefore judged the transferred settings on few episode paths and a single year of observed data, and it could not establish their behavior in other market periods."
+      }
+    ]
+  },
+  {
+    "subsection": "Sensitivity analyses",
+    "paragraphs": [
+      {
+        "role": "branch assignments and clipping",
+        "first_sentence": "We examined how the branch-selection threshold $R^2_{\\mathrm{preserve}}$ assigned assets to branches in the observed universe and whether any value of the variance floor $f$ triggered clipping (Figs.~\\ref{fig:r2_distribution} and~\\ref{fig:branch_map}; Table~\\ref{tab:branch})",
+        "last_sentence": "The empirical evaluation of the $R^2$-preserving branch was therefore limited to two assets, and the observed market variance never activated clipping."
+      },
+      {
+        "role": "synthetic tracker implementation check",
+        "first_sentence": "Because only two real assets used the $R^2$-preserving branch, we also checked it on a synthetic grid with known loading and $R^2$ (Table~\\ref{tab:tracker_grid})",
+        "last_sentence": "The grid therefore checked the implementation and finite-sample accuracy of the $R^2$-preserving formula under a restricted Gaussian construction; it did not exercise full-return HMM fitting, non-unit residual scaling, or simulated market paths."
+      },
+      {
+        "role": "market-loading dilution and clipping stress",
+        "first_sentence": "The decline of hybrid fit with calibrated $\\beta$ (Table~\\ref{tab:beta_bucket}; Fig.~\\ref{fig:preservation}a) follows the market loading ratio $\\rho_i$, the market's share of the target variance, which a larger loading raises for an asset of given variance",
+        "last_sentence": "The stress test therefore characterized when clipping activated and how it moved asset means; it did not evaluate fit under the scaled markets."
+      }
+    ]
+  }
+]

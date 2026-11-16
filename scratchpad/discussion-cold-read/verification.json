@@ -1,0 +1,33 @@
+{
+  "paragraph_count_before": 3,
+  "paragraph_count_after": 5,
+  "prose_words_before": 1042,
+  "prose_words_after": 981,
+  "paragraph_roles": [
+    "Study summary",
+    "Reuse and comparison with residual fitting, including holdout evidence",
+    "Jump-transfer interpretation",
+    "Variance preservation versus distribution shape and exposure",
+    "Limitations and further modeling/validation"
+  ],
+  "source_sha256": "d3b34d418e88c8a9bab4d54657549e05b3132aab1379f69da5c6ca9039f75200",
+  "pdf_sha256": "6be2f99a01d14439253388159abf6bcede910ab3864640884026e17bb3452493",
+  "rendered_pages_checked": [
+    14,
+    15,
+    16,
+    17
+  ],
+  "final_cold_read": {
+    "full": {
+      "severity_3": 0,
+      "severity_2": 0,
+      "severity_1": 0
+    },
+    "skim": {
+      "severity_3": 0,
+      "severity_2": 0,
+      "severity_1": 0
+    }
+  }
+}

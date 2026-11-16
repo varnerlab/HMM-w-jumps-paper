@@ -1,0 +1,25 @@
+{
+  "paragraphs_before": {
+    "Single-asset generator validation": 5,
+    "Variance-corrected multi-asset composition": 4,
+    "Holdout performance and VaR coverage": 2,
+    "Jump-enabled multi-asset composition": 1,
+    "Sensitivity analyses": 3
+  },
+  "paragraphs_after": {
+    "Single-asset generator validation": 3,
+    "Variance-corrected multi-asset composition": 3,
+    "Holdout performance and VaR coverage": 2,
+    "Jump-enabled multi-asset composition": 1,
+    "Sensitivity analyses": 3
+  },
+  "tracker_max_deviations": [
+    "0.0011",
+    "0.0017"
+  ],
+  "source_sha256": {
+    "arxiv-paper/sections/results.tex": "e1152304f66e816384a055cad871ea98fe24add3e81d0874512e743f3318187e",
+    "arxiv-paper/sections/appendix.tex": "0855b72cf71804e4d8caba63501abd964bde484328b42faa7bc700a096656d0d"
+  },
+  "pdf_sha256": "2f3c301cfc28a517868e15163089bb99a12fccb9c04804f43daf27dc8f07e6b6"
+}

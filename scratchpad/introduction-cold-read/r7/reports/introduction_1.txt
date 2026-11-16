@@ -1,0 +1,8 @@
+introduction.P4.S9 | UNDEFINED | 2 | "when episodes were disabled" | “Episodes” has not been introduced, so I must infer which part of the duration mechanism was disabled. | Best guess: the extra consecutive-day visits to extreme-return states described in P3.
+
+introduction.P1 role: Establish the need for realistic multi-asset paths, explain the duplicated market variance from reusing full-return generators, and ask whether a transformation can preserve their useful features.
+introduction.P2 role: Use SPY returns to explain the heavy tails and volatility clustering that the generators should capture.
+introduction.P3 role: Introduce heavy-tailed hidden Markov generators, motivate longer visits to extreme-return states, and explain why their behavior must be checked after composition.
+introduction.P4 role: State the correction and evaluation, preview its distributional and temporal findings, and limit its use to daily-return comparisons given endpoint and residual-dependence constraints.
+
+TOTALS: severity-3 = 0; severity-2 = 1; severity-1 = 0.

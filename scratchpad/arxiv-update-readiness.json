@@ -1,0 +1,12 @@
+{
+  "clean_directory": "/Users/jdv27/Desktop/julia_work/HMM-w-jumps-paper/scratchpad/arxiv-clean-cd9veew0",
+  "archive": "/Users/jdv27/Desktop/julia_work/HMM-w-jumps-paper/arxiv-paper/HMM-w-jumps-arxiv-source.tar.gz",
+  "archive_bytes": 730145,
+  "archive_files": 30,
+  "pdflatex_passes": 3,
+  "shell_escape": false,
+  "pdf_text_matches_local": true,
+  "log_warnings": [
+    "Package epstopdf Warning: Shell escape feature is not enabled."
+  ]
+}

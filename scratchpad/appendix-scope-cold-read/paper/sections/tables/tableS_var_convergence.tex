@@ -1,0 +1,14 @@
+\begin{tabular}{lrrrr}
+\toprule
+ & \multicolumn{2}{c}{Relative threshold change (\%)} & \multicolumn{2}{c}{Simulation rate (\%)} \\
+\cmidrule(lr){2-3} \cmidrule(lr){4-5}
+Method & $95\%$: median / P95 & $99\%$: median / P95 & $95\%$ & $99\%$ \\
+\midrule
+Naive & 0.10 / 0.31 & 0.28 / 0.90 & 5.03 & 1.01 \\
+Gaussian SIM & 0.08 / 0.24 & 0.12 / 0.37 & 5.04 & 1.02 \\
+Hybrid & 0.12 / 0.39 & 0.28 / 0.93 & 5.03 & 1.01 \\
+JumpHMM-on-residuals & 0.11 / 0.31 & 0.26 / 0.80 & 5.03 & 1.01 \\
+Block bootstrap & 0.14 / 0.45 & 0.22 / 0.72 & 5.03 & 1.01 \\
+GARCH(1,1)-$t$ & 0.14 / 0.65 & 0.30 / 1.03 & 5.03 & 1.01 \\
+\bottomrule
+\end{tabular}

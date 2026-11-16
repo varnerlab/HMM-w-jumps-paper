@@ -1,0 +1,451 @@
+{
+ "paper": "scratchpad/appendix-cold-read/paper",
+ "context": "all",
+ "chunks": [
+  {
+   "target": "appendix",
+   "chunk": 1,
+   "file": "scratchpad/appendix-cold-read/r1/reader_appendix_1.txt",
+   "audit_range": "appendix.P1 to appendix.P26, with captions appendix.F1 to appendix.F4",
+   "paragraphs": 26,
+   "captions": 4,
+   "words": 17654
+  },
+  {
+   "target": "appendix",
+   "chunk": 2,
+   "file": "scratchpad/appendix-cold-read/r1/reader_appendix_2.txt",
+   "audit_range": "appendix.P27 to appendix.P51, with captions appendix.F5 to appendix.F7",
+   "paragraphs": 25,
+   "captions": 3,
+   "words": 23745
+  },
+  {
+   "target": "appendix",
+   "chunk": 3,
+   "file": "scratchpad/appendix-cold-read/r1/reader_appendix_3.txt",
+   "audit_range": "appendix.P52 to appendix.P80, with captions appendix.F8 to appendix.F24",
+   "paragraphs": 29,
+   "captions": 17,
+   "words": 32031
+  }
+ ],
+ "paragraphs": {
+  "appendix.P1": {
+   "file": "appendix.tex",
+   "line": 27
+  },
+  "appendix.P2": {
+   "file": "appendix.tex",
+   "line": 29
+  },
+  "appendix.F1": {
+   "file": "appendix.tex",
+   "line": 76
+  },
+  "appendix.P3": {
+   "file": "appendix.tex",
+   "line": 88
+  },
+  "appendix.P4": {
+   "file": "appendix.tex",
+   "line": 90
+  },
+  "appendix.P5": {
+   "file": "appendix.tex",
+   "line": 101
+  },
+  "appendix.P6": {
+   "file": "appendix.tex",
+   "line": 178
+  },
+  "appendix.P7": {
+   "file": "appendix.tex",
+   "line": 260
+  },
+  "appendix.P8": {
+   "file": "appendix.tex",
+   "line": 302
+  },
+  "appendix.P9": {
+   "file": "appendix.tex",
+   "line": 362
+  },
+  "appendix.P10": {
+   "file": "appendix.tex",
+   "line": 383
+  },
+  "appendix.P11": {
+   "file": "appendix.tex",
+   "line": 408
+  },
+  "appendix.P12": {
+   "file": "appendix.tex",
+   "line": 410
+  },
+  "appendix.P13": {
+   "file": "appendix.tex",
+   "line": 436
+  },
+  "appendix.P14": {
+   "file": "appendix.tex",
+   "line": 469
+  },
+  "appendix.P15": {
+   "file": "appendix.tex",
+   "line": 490
+  },
+  "appendix.P16": {
+   "file": "appendix.tex",
+   "line": 509
+  },
+  "appendix.P17": {
+   "file": "appendix.tex",
+   "line": 537
+  },
+  "appendix.P18": {
+   "file": "appendix.tex",
+   "line": 558
+  },
+  "appendix.F2": {
+   "file": "appendix.tex",
+   "line": 601
+  },
+  "appendix.P19": {
+   "file": "appendix.tex",
+   "line": 605
+  },
+  "appendix.P20": {
+   "file": "appendix.tex",
+   "line": 607
+  },
+  "appendix.P21": {
+   "file": "appendix.tex",
+   "line": 630
+  },
+  "appendix.P22": {
+   "file": "appendix.tex",
+   "line": 650
+  },
+  "appendix.P23": {
+   "file": "appendix.tex",
+   "line": 652
+  },
+  "appendix.P24": {
+   "file": "appendix.tex",
+   "line": 689
+  },
+  "appendix.P25": {
+   "file": "appendix.tex",
+   "line": 722
+  },
+  "appendix.P26": {
+   "file": "appendix.tex",
+   "line": 724
+  },
+  "appendix.F3": {
+   "file": "appendix.tex",
+   "line": 775
+  },
+  "appendix.F4": {
+   "file": "appendix.tex",
+   "line": 798
+  },
+  "appendix.P27": {
+   "file": "appendix.tex",
+   "line": 801
+  },
+  "appendix.P28": {
+   "file": "appendix.tex",
+   "line": 803
+  },
+  "appendix.P29": {
+   "file": "appendix.tex",
+   "line": 841
+  },
+  "appendix.P30": {
+   "file": "appendix.tex",
+   "line": 895
+  },
+  "appendix.P31": {
+   "file": "appendix.tex",
+   "line": 897
+  },
+  "appendix.P32": {
+   "file": "appendix.tex",
+   "line": 962
+  },
+  "appendix.P33": {
+   "file": "appendix.tex",
+   "line": 1019
+  },
+  "appendix.P34": {
+   "file": "appendix.tex",
+   "line": 1061
+  },
+  "appendix.P35": {
+   "file": "appendix.tex",
+   "line": 1063
+  },
+  "appendix.P36": {
+   "file": "appendix.tex",
+   "line": 1114
+  },
+  "appendix.P37": {
+   "file": "appendix.tex",
+   "line": 1146
+  },
+  "appendix.P38": {
+   "file": "appendix.tex",
+   "line": 1210
+  },
+  "appendix.P39": {
+   "file": "appendix.tex",
+   "line": 1212
+  },
+  "appendix.P40": {
+   "file": "appendix.tex",
+   "line": 1269
+  },
+  "appendix.P41": {
+   "file": "appendix.tex",
+   "line": 1271
+  },
+  "appendix.P42": {
+   "file": "appendix.tex",
+   "line": 1313
+  },
+  "appendix.P43": {
+   "file": "appendix.tex",
+   "line": 1334
+  },
+  "appendix.P44": {
+   "file": "appendix.tex",
+   "line": 1354
+  },
+  "appendix.P45": {
+   "file": "appendix.tex",
+   "line": 1356
+  },
+  "appendix.F5": {
+   "file": "appendix.tex",
+   "line": 1445
+  },
+  "appendix.P46": {
+   "file": "appendix.tex",
+   "line": 1447
+  },
+  "appendix.P47": {
+   "file": "appendix.tex",
+   "line": 1470
+  },
+  "appendix.P48": {
+   "file": "appendix.tex",
+   "line": 1492
+  },
+  "appendix.P49": {
+   "file": "appendix.tex",
+   "line": 1494
+  },
+  "appendix.F6": {
+   "file": "appendix.tex",
+   "line": 1539
+  },
+  "appendix.P50": {
+   "file": "appendix.tex",
+   "line": 1542
+  },
+  "appendix.P51": {
+   "file": "appendix.tex",
+   "line": 1544
+  },
+  "appendix.F7": {
+   "file": "appendix.tex",
+   "line": 1613
+  },
+  "appendix.P52": {
+   "file": "appendix.tex",
+   "line": 1620
+  },
+  "appendix.P53": {
+   "file": "appendix.tex",
+   "line": 1622
+  },
+  "appendix.F8": {
+   "file": "appendix.tex",
+   "line": 1681
+  },
+  "appendix.P54": {
+   "file": "appendix.tex",
+   "line": 1689
+  },
+  "appendix.P55": {
+   "file": "appendix.tex",
+   "line": 1691
+  },
+  "appendix.F9": {
+   "file": "appendix.tex",
+   "line": 1738
+  },
+  "appendix.P56": {
+   "file": "appendix.tex",
+   "line": 1741
+  },
+  "appendix.P57": {
+   "file": "appendix.tex",
+   "line": 1743
+  },
+  "appendix.P58": {
+   "file": "appendix.tex",
+   "line": 1775
+  },
+  "appendix.F10": {
+   "file": "appendix.tex",
+   "line": 1805
+  },
+  "appendix.F11": {
+   "file": "appendix.tex",
+   "line": 1822
+  },
+  "appendix.F12": {
+   "file": "appendix.tex",
+   "line": 1841
+  },
+  "appendix.P59": {
+   "file": "appendix.tex",
+   "line": 1843
+  },
+  "appendix.F13": {
+   "file": "appendix.tex",
+   "line": 1905
+  },
+  "appendix.P60": {
+   "file": "appendix.tex",
+   "line": 1907
+  },
+  "appendix.F14": {
+   "file": "appendix.tex",
+   "line": 1973
+  },
+  "appendix.P61": {
+   "file": "appendix.tex",
+   "line": 1975
+  },
+  "appendix.P62": {
+   "file": "appendix.tex",
+   "line": 2009
+  },
+  "appendix.P63": {
+   "file": "appendix.tex",
+   "line": 2031
+  },
+  "appendix.P64": {
+   "file": "appendix.tex",
+   "line": 2033
+  },
+  "appendix.P65": {
+   "file": "appendix.tex",
+   "line": 2046
+  },
+  "appendix.P66": {
+   "file": "appendix.tex",
+   "line": 2068
+  },
+  "appendix.F15": {
+   "file": "appendix.tex",
+   "line": 2146
+  },
+  "appendix.F16": {
+   "file": "appendix.tex",
+   "line": 2169
+  },
+  "appendix.P67": {
+   "file": "appendix.tex",
+   "line": 2171
+  },
+  "appendix.F17": {
+   "file": "appendix.tex",
+   "line": 2209
+  },
+  "appendix.P68": {
+   "file": "appendix.tex",
+   "line": 2213
+  },
+  "appendix.P69": {
+   "file": "appendix.tex",
+   "line": 2215
+  },
+  "appendix.F18": {
+   "file": "appendix.tex",
+   "line": 2268
+  },
+  "appendix.F19": {
+   "file": "appendix.tex",
+   "line": 2285
+  },
+  "appendix.P70": {
+   "file": "appendix.tex",
+   "line": 2290
+  },
+  "appendix.P71": {
+   "file": "appendix.tex",
+   "line": 2292
+  },
+  "appendix.P72": {
+   "file": "appendix.tex",
+   "line": 2318
+  },
+  "appendix.F20": {
+   "file": "appendix.tex",
+   "line": 2359
+  },
+  "appendix.P73": {
+   "file": "appendix.tex",
+   "line": 2364
+  },
+  "appendix.P74": {
+   "file": "appendix.tex",
+   "line": 2366
+  },
+  "appendix.P75": {
+   "file": "appendix.tex",
+   "line": 2386
+  },
+  "appendix.F21": {
+   "file": "appendix.tex",
+   "line": 2425
+  },
+  "appendix.P76": {
+   "file": "appendix.tex",
+   "line": 2427
+  },
+  "appendix.F22": {
+   "file": "appendix.tex",
+   "line": 2455
+  },
+  "appendix.P77": {
+   "file": "appendix.tex",
+   "line": 2459
+  },
+  "appendix.P78": {
+   "file": "appendix.tex",
+   "line": 2461
+  },
+  "appendix.F23": {
+   "file": "appendix.tex",
+   "line": 2517
+  },
+  "appendix.P79": {
+   "file": "appendix.tex",
+   "line": 2519
+  },
+  "appendix.P80": {
+   "file": "appendix.tex",
+   "line": 2540
+  },
+  "appendix.F24": {
+   "file": "appendix.tex",
+   "line": 2578
+  }
+ }
+}

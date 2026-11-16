@@ -1,0 +1,25 @@
+
+\subsection{Six-method composition evaluation}
+
+
+--- Paragraph supp_evaluation.P1 (supp_evaluation.tex:2) ---
+
+--- Paragraph supp_evaluation.P2 (supp_evaluation.tex:4) ---
+[supp_evaluation.P2.S1] The four residual-based comparators used the observed asset's ordinary least-squares (OLS) residuals to set their distributions (Table [tab:aggregate]).
+[supp_evaluation.P2.S2] The Gaussian single-index model (SIM) used independent Gaussian draws with the OLS residual variance.
+[supp_evaluation.P2.S3] The residual-fit hidden Markov model, labeled JumpHMM-on-residuals after the software package, fitted a no-jump generator to a synthetic price path obtained by cumulative compounding of the residuals.
+[supp_evaluation.P2.S4] The Politis--Romano stationary bootstrap used a mean block length of $50$ days in both training and holdout.
+[supp_evaluation.P2.S5] The generalized autoregressive conditional heteroskedasticity model, GARCH(1,1)-$t$, fitted conditional variance to the residual series.
+[supp_evaluation.P2.S6] We accepted a fit only if optimization converged, the likelihood and coefficients were finite, the variance intercept was positive, and the nonnegative ARCH and GARCH coefficients summed to less than one.
+[supp_evaluation.P2.S7] The Student-$t$ degrees of freedom had to exceed two, the unconditional variance had to be finite and positive, and a trial simulated path had to be finite and nonconstant.
+[supp_evaluation.P2.S8] All $423$ optimizations converged, but $30$ failed the coefficient-sum condition, leaving $393$ eligible assets; stored fits were rechecked before evaluation.
+[supp_evaluation.P2.S9] These rules kept the residual comparators at their fitted scales, without the full-return generator's centering or variance correction.
+
+--- Paragraph supp_evaluation.P3 (supp_evaluation.tex:27) ---
+[supp_evaluation.P3.S1] The six-method scores measured agreement with the observed asset and its calibrated factor model, rather than recovery of a common target for every branch (Tables [tab:aggregate], [tab:branch], and [tab:beta_bucket]).
+[supp_evaluation.P3.S2] Lower absolute OLS errors indicated closer recovery, but on the hybrid variance-preserving branch the composed $R^2$ approached the draw's $\rho_i$, capped at $1-f$, rather than $R^2_{i,\real}$.
+[supp_evaluation.P3.S3] Its $R^2$ error therefore mainly measured this designed shift; loading error also included any change made by clipping.
+[supp_evaluation.P3.S4] A composed-to-generator variance ratio of one indicated equal variances, which the $R^2$-preserving branch did not target.
+[supp_evaluation.P3.S5] Higher KS and AD pass rates and lower Wasserstein-1 distance indicated closer distributional agreement; kurtosis and Hill indices were compared with the observed asset's values.
+[supp_evaluation.P3.S6] We omitted cross-sectional rank reordering to test each ticker's marginal construction and scored volatility clustering separately in the jump-enabled comparison.
+[supp_evaluation.P3.S7] The paired centering control isolated differences in residual-mean constraints (Online Appendix [sec:supp-centering-control]).

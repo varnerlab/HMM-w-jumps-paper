@@ -1,0 +1,160 @@
+Researchers and practitioners use synthetic equity paths to test risk
+models, evaluate portfolio strategies, and examine market scenarios
+beyond those observed in a historical sample~\cite{assefaEtAl2020,
+jordonEtAl2022}. A multi-asset simulator must represent both the
+behavior of each asset and the relationships among assets. Factor
+models provide a simple way to link many assets through a shared
+market path, a time series of market returns~\cite{sharpe1963,
+rossAPT1976, famaFrench1993}. The simplest of these, the single-index
+model, regresses each asset's return on the market path. It separates
+the return into an intercept, a market component equal to the market
+path scaled by the fitted loading, and a zero-mean asset-specific
+residual. A synthetic path for the asset can then be composed by
+adding a simulated residual to the intercept and market component.
+Suppose single-asset generators, models that simulate return paths
+for one asset, have already been fitted to each asset's full returns
+rather than to its regression residuals. Their simulated paths are then
+an obvious candidate for that residual. Each such generator, however, already represents
+its asset's total variance, including the part driven by the market. Adding its paths to the market component as
+though they were residuals therefore counts market variance a second
+time. The paths also generally have a nonzero mean, unlike residuals;
+subtracting each path's mean removes that shift but leaves market
+variance counted twice. Fitting a second generator to each asset's
+regression residuals avoids the problem but repeats the model fitting for every asset. Reusing the existing generators would
+avoid that second fit, provided their paths could be transformed to
+supply only the residual contribution. The question is whether such a
+transformation can control the mean and variance of the composed paths
+while retaining the generator's heavy tails and volatility clustering.
+
+The transformation is useful only if each generator reproduces the
+behavior of its own asset. We illustrate the features a generator must
+capture with the broad-market exchange-traded fund with ticker SPY,
+which also supplied the market path in our multi-asset experiments.
+Throughout the paper, including in the generators and the
+regression, returns are excess growth rates. Each day's log price
+change is multiplied by $252$ trading days to express it as an annual
+rate, and a constant annual risk-free rate is subtracted. For SPY from $2014$--$2024$, these growth rates show heavy
+tails and volatility clustering (Fig.~\ref{fig:empirical_motivation}).
+Most growth rates lie close to zero, but extreme values occur much more
+often than a Gaussian model predicts
+(Fig.~\ref{fig:empirical_motivation}a,b), a widely documented feature
+of financial returns~\cite{mandelbrot1963, cont2001}. Raw growth rates
+show little correlation across days, while absolute growth rates remain
+positively correlated across many lags
+(Fig.~\ref{fig:empirical_motivation}c,d). Large and small absolute
+growth rates therefore cluster in time, a property that synthetic
+financial data often miss even when their return histogram appears
+realistic~\cite{stengerEtAl2024}.
+
+A hidden Markov model (HMM) offers an interpretable way to represent
+both features: it draws growth rates from state-dependent distributions
+and uses transitions between states to represent temporal
+behavior~\cite{rabinerJuang1986, rydenTerasvirtaAsbrink1998}. In the
+model used here, the states are ordered bins of growth rates, from the
+most negative to the most positive. Each observed day's state is read
+from its bin rather than inferred, and transition probabilities come
+from counting day-to-day moves between bins. Each state draws growth
+rates from a Student-$t$ distribution whose location and scale come
+from the days in its bin; because that distribution is unbounded,
+simulated values can fall outside the bin. The chain remembers only the current day's bin, not whether recent
+days were volatile. Fitted to SPY, the model leaves
+the extreme-return states at either end quickly, and the
+autocorrelation of its absolute growth rates decays geometrically with
+the lag, faster than in the data. A duration mechanism that
+occasionally holds the model in the extreme-return states for several
+consecutive days can slow that decay~\cite{bullaBulla2006}. Adding the
+market component, however, changes the distribution and temporal
+behavior of the composed returns, so an improvement from such a mechanism, whether added to SPY's
+generator or to the asset generators, must be checked again after
+composition.
+
+% Main figure fig:empirical_motivation is collected after the references.
+
+In this study, we developed a variance correction for combining
+full-return generators, each fitted to one asset, with a shared market
+path (Fig.~\ref{fig:preservation}; Table~\ref{tab:aggregate}). The
+correction first centered each simulated full-return path by
+subtracting its own mean over the simulated days. The centered path, used as the residual, therefore summed to zero over
+those days, so the intercept and market component alone set the
+composed mean. The same constraint removes asset-specific uncertainty
+from each path's cumulative return over the simulated days. The correction then multiplied
+the centered path by a factor below one. For each simulated path, the factor was chosen so that the market
+component's variance plus the scaled path's variance equaled the path's variance before scaling, which represents the
+asset's total variance. Because each asset path was simulated
+independently of the market path, their sample covariance was small, and the composed variance approximately equaled
+that total. We applied the correction to heavy-tailed hidden
+Markov generators for the other $423$ assets in the $424$-asset
+universe, first without the duration mechanism to isolate the
+correction. The market path came from SPY: observed in the
+$2014$--$2024$ training comparison, and simulated from SPY's fitted
+generator in the $2025$ holdout so that no $2025$ data entered the
+simulation. We compared the correction with naive composition, which
+only centered the paths, and with Gaussian residuals whose variance
+came from the regression. We also compared it with three methods that
+fitted a separate generator to each asset's regression residuals: a
+hidden Markov generator, a block bootstrap, and a generalized
+autoregressive conditional heteroskedasticity model. This main comparison measured distributional fit, variance, and
+Value-at-Risk thresholds. Volatility clustering of the composed paths, which the
+duration mechanism targets, was measured in a separate comparison with
+and without that mechanism.
+
+The Kolmogorov--Smirnov pass rate measured distributional fit as the
+share of simulated paths that a two-sample test at the $5\%$ level did
+not distinguish from an asset's observed growth rates. In the training period, the correction passed the Kolmogorov--Smirnov
+test far more often than naive composition and kept heavy tails,
+whereas paths with Gaussian residuals had much lower kurtosis
+(Table~\ref{tab:aggregate}).
+The residual-fit hidden Markov generator had a slightly higher training
+pass rate than the correction. With all $2014$--$2024$ fits held fixed,
+we then compared the composed paths with the $416$ of the $423$ assets
+that had complete $2025$ histories. Against naive composition, the
+correction raised the mean pass rate across assets and brought the
+median ratio of synthetic to observed variance from well above one to
+close to one (Table~\ref{tab:oos_composition}). In this holdout, the
+residual-fit hidden Markov generator had a slightly lower pass rate
+than the correction, and every other comparator had a lower pass rate
+than either. One-day Value-at-Risk checks at the $95\%$ and $99\%$
+levels counted how often each asset's observed $2025$ losses exceeded
+thresholds estimated from the simulated paths (Table~\ref{tab:var}).
+For both the correction and the residual-fit hidden Markov generator,
+exceedances were slightly more frequent than the nominal $5\%$ and
+$1\%$ rates. Because the assets shared one market and holdout days were
+not independent, we treated these rates as descriptive rather than as a
+formal test of calibration.
+
+We assessed the SPY hidden Markov generator in more detail, together
+with a jump-duration variant that implements the duration mechanism
+(Table~\ref{tab:model_comparison}). In this variant, a jump
+is not an instantaneous price change but an episode. With a small
+probability each day, the model entered an episode lasting a random
+number of consecutive days. On each episode day, the state was drawn
+from either the most negative or the most positive states, with the
+side chosen at random each day. In the SPY training period, the variant had a smaller autocorrelation
+error, the gap between simulated and observed autocorrelations of
+absolute growth rates, than the model without jumps; in the $2025$
+holdout, the two errors were similar. The main comparison excluded jumps, so the separate comparison tested
+whether this training improvement carried over to the composed paths
+(Table~\ref{tab:jump_ablation}). The main comparison used observed SPY in training, whereas this one
+simulated the market path from the SPY generator in both periods, so
+that jumps in that generator could affect the market component. It
+contrasted no jumps with two configurations: jumps in the SPY generator
+only, and jumps in that generator and every asset generator. Both
+configurations used the jump parameters calibrated on SPY's
+$2014$--$2024$ data, without recalibration for each asset, and each configuration was run
+with both naive and corrected composition.
+
+Both jump configurations reduced the autocorrelation error of the
+composed paths in training and raised it in the $2025$ holdout
+(Table~\ref{tab:jump_ablation}). Without jumps, the correction left
+the autocorrelation error essentially where naive composition left it,
+so the rescaling neither damaged nor improved clustering. With jumps,
+the composed variance still matched the generator variance to within a
+fraction of a percent on average. Across these experiments, the
+correction removed the double-counted market variance, kept heavy
+tails, and left clustering where naive composition left it. These
+results support reuse as a practical option when full-return
+generators already exist, with residual fitting as a competitive
+alternative. Neither reuse nor residual fitting, as tested
+here, modeled dependence among the residuals of different assets, which
+portfolio evaluation also requires~\cite{embrechtsMcNeilStraumann2002,
+boucheyNemtchinovWong2015}.

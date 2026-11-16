@@ -1,0 +1,6 @@
+introduction.P4.S9–S10 | PURPOSE | 2 | "while the variance correction remained effective" | The opening question asks whether correction preserves clustering, but this preview reports the effect of transferring duration settings without saying whether correction itself preserves the generator's clustering; “effective” does not resolve that distinction. | Best guess: correction still controls variance, while clustering depends on the generator and does not improve reliably in the holdout.
+introduction.P1 role: Explain why reusing full-return generators in a market-factor model needs a correction, and ask what that correction can preserve.
+introduction.P2 role: Show the heavy tails and persistent return magnitudes that a useful generator should reproduce.
+introduction.P3 role: Introduce the hidden Markov generator, motivate longer visits to extreme-return states, and explain why composition needs its own check.
+introduction.P4 role: State the correction, comparisons, main findings, and limits of reuse for daily-return and portfolio evaluation.
+TOTALS: severity-3 = 0; severity-2 = 1; severity-1 = 0

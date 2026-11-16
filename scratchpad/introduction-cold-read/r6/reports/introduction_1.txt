@@ -1,0 +1,7 @@
+introduction.P4.S9–S12 | OVERLOAD | 2 | "We separately tested the correction and duration mechanism" | Four consecutive temporal-fit and variance results make the contribution preview difficult to retain before the scope limits arrive. | Best guess: reuse preserves daily-return fit, whereas the duration mechanism has mixed evidence outside training; some supporting comparisons could be omitted within the existing paragraph.
+introduction.P4.S12 | REFERENT | 2 | "close to generator variance" | The target changes from observed variance to generator variance without specifying whether this means the original full-return generator or the transformed residual contribution. | Best guess: composed variance stays close to the original full-return generator's variance, which is the calibration target.
+introduction.P1 ROLE: Establish why composing full-return generators with a market factor duplicates variance and ask whether a transformation can preserve their useful return features.
+introduction.P2 ROLE: Use SPY to explain the heavy tails and persistent variation in return magnitude that a generator should reproduce.
+introduction.P3 ROLE: Introduce the hidden Markov generator, motivate longer visits to extreme-return states, and explain why behavior must be checked after composition.
+introduction.P4 ROLE: State the correction, study design, main distributional and temporal findings, and limits on daily-return and portfolio applications.
+TOTALS: severity-3 = 0; severity-2 = 2; severity-1 = 0

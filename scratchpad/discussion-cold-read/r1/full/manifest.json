@@ -1,0 +1,29 @@
+{
+ "paper": "scratchpad/discussion-cold-read/paper",
+ "context": "all",
+ "chunks": [
+  {
+   "target": "discussion",
+   "chunk": 1,
+   "file": "scratchpad/discussion-cold-read/r1/full/reader_discussion_1.txt",
+   "audit_range": "discussion.P1 to discussion.P3",
+   "paragraphs": 3,
+   "captions": 0,
+   "words": 10083
+  }
+ ],
+ "paragraphs": {
+  "discussion.P1": {
+   "file": "discussion.tex",
+   "line": 1
+  },
+  "discussion.P2": {
+   "file": "discussion.tex",
+   "line": 43
+  },
+  "discussion.P3": {
+   "file": "discussion.tex",
+   "line": 65
+  }
+ }
+}

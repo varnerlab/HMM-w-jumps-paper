@@ -1,0 +1,17 @@
+[
+  {
+    "role": "Reuse, holdout, comparators, pass-rate and tail-coverage interpretation",
+    "first_sentence": "The variance correction allowed fitted full-return generators to be reused in a single-index model without adding market variance twice (Fig.~\\ref{fig:preservation}; Table~\\ref{tab:aggregate})",
+    "last_sentence": "The evidence supported improved variance and distributional fit across the evaluated universe, with substantial uncertainty about performance in other periods and for individual assets."
+  },
+  {
+    "role": "Jump transfer and calibration limits",
+    "first_sentence": "The jump comparison showed that improving the single-asset generator did not automatically improve the composed paths (Table~\\ref{tab:model_comparison}; Table~\\ref{tab:jump_ablation})",
+    "last_sentence": "Per-asset tuning or distinct shared and asset-specific episode models could change the tradeoff, but neither was tested here."
+  },
+  {
+    "role": "Market exposure, clipping, implementation and dependence/terminal-risk limitations",
+    "first_sentence": "The correction's effect on the return distribution depended on the asset's market exposure (Fig.~\\ref{fig:preservation}; Table~\\ref{tab:beta_bucket})",
+    "last_sentence": "Such applications require a construction that retains cumulative residual uncertainty as well as validation of cross-asset dependence."
+  }
+]

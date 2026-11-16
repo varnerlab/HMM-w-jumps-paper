@@ -1,0 +1,18 @@
+[
+  {
+    "before": "the weighted variance of $\\beta$\nscaled by the annualized market variance",
+    "after": "half the weighted variance of $\\beta$\nscaled by the annualized market variance"
+  },
+  {
+    "before": "The benchmark was implemented in Python. The same fitted network\ngenerated $1{,}000$ training-length and then $1{,}000$ holdout-length\npaths, in that order, from one random stream seeded with $1234$ for\nNumPy and PyTorch, so the order is part of the reproduction recipe.",
+    "after": "The Python benchmark seeded NumPy and PyTorch with $1234$ before\ntraining. Generation then used the continuing NumPy stream, without\nreseeding, for $1{,}000$ training-length paths followed by $1{,}000$\nholdout-length paths from the same fitted network."
+  },
+  {
+    "before": "Each state's dwell\ntime is negative binomial, fitted by the method of moments when the\nstate has at least five visits with overdispersed lengths, and\ngeometric otherwise, and its emissions are Student-$t$ with $\\nu = 5$.",
+    "after": "For each state, we fitted a negative-binomial count distribution\nby moments of the observed visit lengths when at least five visits\nhad mean length above $1.01$ and variance above the mean, using a\ngeometric fallback otherwise. The simulator added one to each\nnonnegative count to obtain a positive dwell time; fitting used the\nunshifted visit lengths. Emissions were Student-$t$ with $\\nu = 5$."
+  },
+  {
+    "before": "The emission choice therefore explained the kurtosis gain in\nthis controlled HMM-WJ comparison, while it changed temporal fit\nlittle.",
+    "after": "Thus, the controlled emission change improved kurtosis agreement\nwith little effect on temporal fit."
+  }
+]
